@@ -1,0 +1,20 @@
+{
+  "name": "cqube-internation-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "csvtojson": "^2.0.10",
+    "express": "^4.18.1",
+    "lodash": "^4.17.21"
+  }
+}

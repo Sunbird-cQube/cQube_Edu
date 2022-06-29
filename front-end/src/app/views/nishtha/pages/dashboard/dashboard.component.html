@@ -1,0 +1,8 @@
+<div class="flex justify-center mb-8">
+    <img src="/assets/images/nishtha.jpg" alt="Nishtha Image" />
+</div>
+<div class="grid gap-4 grid-cols-3" *ngIf="nishthaMenu">
+    <ng-container *ngFor="let menuInfo of nishthaMenu">
+        <app-dashboard-card [cardInfo]="menuInfo"></app-dashboard-card>
+    </ng-container>
+</div>

@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="grid gap-2 grid-cols-4 items-center mb-8">
+        <div class="w-10/12 justify-self-start">
+            <app-metric-card name="Total Enrollments" value="13.8M"></app-metric-card>
+        </div>
+        <div class="col-span-2">
+            <img src="/assets/images/nishtha.jpg" class="mx-auto w-11/12" alt="Nishtha Image" />
+        </div>
+        <div class="w-10/12 justify-self-end">
+            <app-metric-card name="Total Certifications" value="9.3M"></app-metric-card>
+        </div>
+    </div>
+    <div class="grid gap-0 grid-cols-4" *ngIf="stateWiseEnrollmentData">
+        <div class="col-span-3">
+            <app-multi-bar-chart title="Total Enrollments and Total Certifications" [categories]="categories" [series]="series" gridLineColor="transparent" [height]="height * 0.65"></app-multi-bar-chart>
+        </div>
+    </div>
+</div>

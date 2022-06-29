@@ -1,0 +1,9 @@
+<aside class="app-side-nav">
+    <ul class="menu">
+        <li class="menu-item" *ngFor="let menuItem of menu">
+            <div [routerLink]="menuItem.path">
+                {{menuItem.label}}
+            </div>
+        </li>
+    </ul>
+</aside>
