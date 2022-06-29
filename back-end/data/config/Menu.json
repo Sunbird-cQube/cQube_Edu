@@ -1,0 +1,16 @@
+[
+    {
+      "label": "Dashboard",
+      "icon": "",
+      "path": "/dashboard",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "Nishtha",
+      "icon": "",
+      "path": "/nishtha",
+      "basepath": "nishtha",
+      "hasSub": false
+    }
+]

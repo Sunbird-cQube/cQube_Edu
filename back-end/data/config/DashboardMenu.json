@@ -1,0 +1,60 @@
+[
+    {
+        "title": "NISHTHA",
+        "navigationURL": "/nishtha",
+        "metrics": [
+            {
+                "name": "Net Enrollment",
+                "value": "29.9M"
+            },
+            {
+                "name": "Net Certifications",
+                "value": "20.7M"
+            }
+        ]
+    },
+
+    {
+        "title": "ETB & E-content",
+        "navigationURL": "",
+        "metrics": [
+            {
+                "name": "Total ETB",
+                "value": "6,217"
+            },
+            {
+                "name": "Total Contents",
+                "value": "270,361"
+            }
+        ]
+    },
+    {
+        "title": "Quizzes",
+        "navigationURL": "",
+        "metrics": [
+            {
+                "name": "Bhasha Sangam Enrollments",
+                "value": "11,960"
+            }
+        ]
+    },
+    {
+        "title": "NIPUN BHARAT",
+        "navigationURL": "",
+        "metrics": [
+            {
+                "name": "Total Contents Linked",
+                "value": "1,293"
+            },
+            {
+                "name": "Total LO",
+                "value": "484"
+            }
+        ]
+    },
+    {
+        "title": "CWSN",
+        "navigationURL": "",
+        "metrics": []
+    }
+]
