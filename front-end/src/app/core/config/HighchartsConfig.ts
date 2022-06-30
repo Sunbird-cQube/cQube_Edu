@@ -59,4 +59,3 @@ window.onresize = function() {
         HighchartsConfig.legend.fontSize = '11px';
     }
 }
-
