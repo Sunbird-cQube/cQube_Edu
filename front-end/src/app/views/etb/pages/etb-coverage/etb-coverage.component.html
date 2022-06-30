@@ -1,0 +1,46 @@
+
+<div class="center">
+    <h3 class="text-center">ETB Coverage across States </h3> <br>
+    </div>
+    <br>
+    <button class="left" (click)="exportToExcel(dataSource)">Export</button>
+    <br><br>
+    <section class="example-container mat-elevation-z8" tabindex="0">
+        <table mat-table [dataSource]="dataSource" matSort #etbTbSort="matSort" >
+          <ng-container matColumnDef="no">
+            <th mat-header-cell *matHeaderCellDef >  </th>
+            <td mat-cell *matCellDef="let element"> {{element.no}} </td>
+          </ng-container>
+          
+          <!-- Name Column -->
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
+            <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+          </ng-container>
+      
+          <!-- Weight Column -->
+          <ng-container matColumnDef="totalEnrollments">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Physical</th>
+            <td mat-cell *matCellDef="let element"> {{element.totalEnrollments}} </td>
+          </ng-container>
+      
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="totalCompletion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ETB</th>
+            <td mat-cell *matCellDef="let element"> {{element.totalCompletion}} </td>
+          </ng-container>
+    
+    
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="totalcertification">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ETB Coverage</th> 
+            <td mat-cell *matCellDef="let element"> {{element.totalcertification}} </td>
+          </ng-container>
+      
+         
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+       
+        </table>
+      </section>
+      

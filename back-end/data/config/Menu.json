@@ -12,5 +12,12 @@
       "path": "/nishtha",
       "basepath": "nishtha",
       "hasSub": false
-    }
-]
+    },
+    {
+      "label": "ETB & E-content",
+      "icon": "",
+      "path": "/etb",
+      "basepath": "etb",
+      "hasSub": false
+    }  
+] 

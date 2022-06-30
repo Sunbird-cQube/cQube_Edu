@@ -14,6 +14,7 @@ export class LayoutComponent implements OnInit {
   constructor(private readonly _configService: ConfigService) {
     this._configService.getMenu().subscribe(menuResult => {
       this.menu = menuResult.result;
+
     });
   }
 
