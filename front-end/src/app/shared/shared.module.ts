@@ -5,13 +5,15 @@ import { MultiBarChartComponent } from './components/charts/multi-bar-chart/mult
 import { DashboardCardComponent } from './components/cards/dashboard-card/dashboard-card.component';
 import { RouterModule } from '@angular/router';
 import { MetricCardComponent } from './components/cards/metric-card/metric-card.component';
+import { MaterialTableComponent } from './components/tables/material-table/material-table.component';
 
 const IMPORTS: any[] = [];
 
 const DECLARATIONS = [
   MultiBarChartComponent,
   DashboardCardComponent,
-  MetricCardComponent
+  MetricCardComponent,
+  MaterialTableComponent
 ];
 
 @NgModule({
