@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: () => import('./views/nishtha/nishtha.module').then(module => module.NishthaModule)
       },
       {
+        path: 'etb',
+        loadChildren: () => import('./views/etb/etb.module').then(module => module.EtbModule)
+      },
+      {
         path: '',
         redirectTo: '/dashboard',
         pathMatch: 'full'

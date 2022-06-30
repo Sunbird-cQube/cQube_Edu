@@ -6,6 +6,7 @@ import { DashboardCardComponent } from './components/cards/dashboard-card/dashbo
 import { RouterModule } from '@angular/router';
 import { MetricCardComponent } from './components/cards/metric-card/metric-card.component';
 import { MaterialTableComponent } from './components/tables/material-table/material-table.component';
+import { MapMyIndiaComponent } from './components/maps/map-my-india/map-my-india.component';
 
 const IMPORTS: any[] = [];
 
@@ -18,7 +19,8 @@ const DECLARATIONS = [
 
 @NgModule({
   declarations: [
-    DECLARATIONS
+    DECLARATIONS,
+    MapMyIndiaComponent
   ],
   imports: [
     CommonModule,
