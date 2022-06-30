@@ -2,23 +2,10 @@
     height: $app-nav-bar-height;
     box-shadow: 0 1px 3px #aaa;
     position: fixed;
-    width: 100vw;
+    width: 100%;
     top: 0;
     z-index: 2;
     background: #fff;
-}
-
-@media (max-width: 999px) { 
-    .app-nav-bar {
-        height: $app-nav-bar-height;
-        box-shadow: 0 1px 3px #aaa;
-        position: fixed;
-        width: 100vw;
-        font-size: 10px;
-        top: 0;
-        z-index: 2;
-        background: #fff;
-    }
 }
 
 .app-side-nav {
@@ -40,13 +27,6 @@
     }
 }
 
-
-@media (max-width:999px) { 
-    .app-side-nav {
-        display: none;
-    }
-}
-
 .app-content-wrapper {
     padding-top: $app-nav-bar-height;
     padding-left: $app-side-nav-width;
@@ -55,13 +35,17 @@
         padding: 1.5rem;
     }
 }
-@media (max-width:999px){
-    .app-content-wrapper {
-        margin: 15px;
-        margin-left: -200px;
+
+@screen max-xmd {
+    .app-side-nav {
+        display: none;
     }
+
+    .app-content-wrapper {
+        padding-left: 0;
+    }
+
     .app-content {
-        padding: 1rem;
-        font-size: 10px;
+        padding: 1rem 0.5rem !important;
     }
 }

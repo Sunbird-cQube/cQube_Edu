@@ -1,18 +1,18 @@
 <nav class="bg-white border-gray-200 py-1 dark:bg-gray-800  app-nav-bar">
-    <div class="container flex  justify-between items-center mx-auto h-full">
+    <div class="flex justify-between items-center xs:px-2 md:container md:mx-auto h-full">
         <div class="flex items-center">
             <button class="rounded-md bg-slate-200 py-3 px-3 mr-3">
                 <fa-icon [icon]="faBars"></fa-icon>
             </button>
-            <a href="https://www.education.gov.in/en"  target="_blank">
+            <a href="https://www.education.gov.in/en" class="hidden"  target="_blank">
                 <img src="assets/images/moi_logo.png" class="mr-3 h-6 sm:h-9" alt="MOI Logo" />
             </a>
         </div>
-        <div class="flex items-center md:order-2 h-full">
-            <img src="assets/images/ncert_logo.png" class="h-full" alt="NCERT Logo">
+        <div class="justify-between items-center w-full md:flex md:w-auto">
+            <h1 class="font-medium leading-tight lg:text-4xl md:text-2xl xs:text-sm sm:text-1xl mt-0">NDEAR VIDYA SAMIKSHA KENDRA</h1>
         </div>
-        <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
-            <h1 class="font-medium leading-tight lg:text-4xl md:text-2xl text-1xl mt-0">NDEAR VIDYA SAMIKSHA KENDRA</h1>
+        <div class="flex items-center h-full">
+            <img src="assets/images/ncert_logo.png" class="h-full" alt="NCERT Logo">
         </div>
     </div>
 </nav>
