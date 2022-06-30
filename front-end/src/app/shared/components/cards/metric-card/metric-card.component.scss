@@ -2,3 +2,11 @@
     box-shadow: 0 0 5px #aaa;
     background: #fff;
 }
+
+@media (max-width: 999px) { 
+    .app-metric-card{
+
+        margin-left:-45px;
+    }
+
+}

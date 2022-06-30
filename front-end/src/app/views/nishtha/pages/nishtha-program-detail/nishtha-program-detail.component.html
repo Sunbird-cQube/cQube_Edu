@@ -10,8 +10,8 @@
             <app-metric-card name="Total Certifications" value="9.3M"></app-metric-card>
         </div>
     </div>
-    <div class="grid gap-0 grid-cols-4" *ngIf="stateWiseEnrollmentData">
-        <div class="col-span-3">
+    <div class="grid gap-0 grid-cols-10" *ngIf="stateWiseEnrollmentData">
+        <div class="col-span-10 md:col-span-8 lg:col-span-7 chart">
             <app-multi-bar-chart title="Total Enrollments and Total Certifications" [categories]="categories" [series]="series" gridLineColor="transparent" [height]="height * 0.65"></app-multi-bar-chart>
         </div>
     </div>

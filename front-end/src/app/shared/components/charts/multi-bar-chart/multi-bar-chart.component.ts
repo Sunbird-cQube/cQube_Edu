@@ -14,7 +14,7 @@ HighchartsMore2(Highcharts);
 })
 export class MultiBarChartComponent implements OnInit, AfterViewInit {
   chart: Highcharts.Chart | undefined;
-  @Input() height = 450;
+  @Input() height = 50;
   @Input() title: string | undefined;
   @Input() categories: string[] | undefined;
   @Input() series: IBarChartSeries<number | string>[] | undefined;
@@ -35,7 +35,9 @@ export class MultiBarChartComponent implements OnInit, AfterViewInit {
     let ref:MultiBarChartComponent = this;
     this.chart = Highcharts.chart(this.container.nativeElement, {
       chart: {
-        type: 'bar'
+        type: 'bar',
+        height:400,
+        width:400
       },
       title: {
           text: this.title

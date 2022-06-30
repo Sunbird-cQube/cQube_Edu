@@ -8,6 +8,19 @@
     background: #fff;
 }
 
+@media (max-width: 999px) { 
+    .app-nav-bar {
+        height: $app-nav-bar-height;
+        box-shadow: 0 1px 3px #aaa;
+        position: fixed;
+        width: 100vw;
+        font-size: 10px;
+        top: 0;
+        z-index: 2;
+        background: #fff;
+    }
+}
+
 .app-side-nav {
     margin-top: $app-nav-bar-height;
     height: calc(100vh - #{$app-nav-bar-height});
@@ -27,11 +40,28 @@
     }
 }
 
+
+@media (max-width:999px) { 
+    .app-side-nav {
+        display: none;
+    }
+}
+
 .app-content-wrapper {
     padding-top: $app-nav-bar-height;
     padding-left: $app-side-nav-width;
 
     .app-content {
         padding: 1.5rem;
+    }
+}
+@media (max-width:999px){
+    .app-content-wrapper {
+        margin: 15px;
+        margin-left: -200px;
+    }
+    .app-content {
+        padding: 1rem;
+        font-size: 10px;
     }
 }
