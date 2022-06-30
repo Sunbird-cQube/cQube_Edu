@@ -1,18 +1,18 @@
-<div class="container">
+<div class="md:container">
     <div class="grid gap-2 grid-cols-4 items-center mb-8">
-        <div class="w-10/12 justify-self-start">
+        <div class="xs:w-full xs:col-span-2 xs:order-2 md:w-10/12 md:col-span-1 md:order-1 justify-self-start">
             <app-metric-card name="Total Enrollments" value="13.8M"></app-metric-card>
         </div>
-        <div class="col-span-2">
-            <img src="/assets/images/nishtha.jpg" class="mx-auto w-11/12" alt="Nishtha Image" />
+        <div class="xs:col-span-full xs:order-1 md:col-span-2 md:order-2">
+            <img src="/assets/images/nishtha.jpg" class="xs:w-full md:mx-auto md:w-11/12" alt="Nishtha Image" />
         </div>
-        <div class="w-10/12 justify-self-end">
+        <div class="xs:w-full xs:col-span-2 xs:order-3 md:w-10/12 md:col-span-1 justify-self-end">
             <app-metric-card name="Total Certifications" value="9.3M"></app-metric-card>
         </div>
     </div>
-    <div class="grid gap-0 grid-cols-10" *ngIf="stateWiseEnrollmentData">
-        <div class="col-span-10 md:col-span-8 lg:col-span-7 chart">
-            <app-multi-bar-chart title="Total Enrollments and Total Certifications" [categories]="categories" [series]="series" gridLineColor="transparent" [height]="height * 0.65"></app-multi-bar-chart>
+    <div class="grid grid-cols-12" *ngIf="stateWiseEnrollmentData">
+        <div class="col-span-12 md:col-span-9">
+            <app-multi-bar-chart title="Total Enrollments and Total Certifications" [categories]="categories" [series]="series" gridLineColor="transparent" [height]="height * 0.6"></app-multi-bar-chart>
         </div>
     </div>
 </div>

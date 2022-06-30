@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import * as Highcharts from "highcharts/highstock";
 import * as HighchartsMore from "highcharts/highcharts-more";
 import { HighchartsConfig } from 'src/app/core/config/HighchartsConfig';
@@ -10,7 +11,8 @@ HighchartsMore2(Highcharts);
 @Component({
   selector: 'app-multi-bar-chart',
   templateUrl: './multi-bar-chart.component.html',
-  styleUrls: ['./multi-bar-chart.component.scss']
+  styleUrls: ['./multi-bar-chart.component.scss'],
+  providers: [DecimalPipe]
 })
 export class MultiBarChartComponent implements OnInit, AfterViewInit {
   chart: Highcharts.Chart | undefined;
@@ -22,7 +24,7 @@ export class MultiBarChartComponent implements OnInit, AfterViewInit {
 
   @ViewChild('container') container: any;
 
-  constructor() { }
+  constructor(private readonly _decimalPipe: DecimalPipe) { }
 
   ngOnInit(): void {
   }
@@ -32,15 +34,14 @@ export class MultiBarChartComponent implements OnInit, AfterViewInit {
   }
 
   createBarChart(): void {
-    let ref:MultiBarChartComponent = this;
+    let ref: MultiBarChartComponent = this;
     this.chart = Highcharts.chart(this.container.nativeElement, {
       chart: {
         type: 'bar',
-        height:400,
-        width:400
+        marginTop: 75
       },
       title: {
-          text: this.title
+          text: ""
       },
       xAxis: {
           min: 0,
@@ -50,24 +51,25 @@ export class MultiBarChartComponent implements OnInit, AfterViewInit {
               text: null
           },
           scrollbar: {
-            minWidth: 2,
-            enabled: true,
-            opposite: true
+            enabled: true
           },
           gridLineColor: this.gridLineColor
       },
       yAxis: {
           min: 0,
-          minTickInterval: 1000,
           title: {
               text: null
           },
-          gridLineColor: this.gridLineColor
+          gridLineColor: this.gridLineColor,
+          
       },
       plotOptions: {
           bar: {
               dataLabels: {
-                  enabled: true
+                  enabled: true,
+                  formatter: function() {
+                    return ref._decimalPipe.transform(this.y, '1.0-0', 'en-IN');
+                  }
               }
           }
       },
@@ -75,12 +77,9 @@ export class MultiBarChartComponent implements OnInit, AfterViewInit {
           layout: 'vertical',
           align: 'right',
           verticalAlign: 'top',
-          x: -40,
-          y: 80,
           floating: true,
-          borderWidth: 1,
-          backgroundColor: '#FFFFFF',
-          shadow: true
+          borderWidth: 0,
+          shadow: false
       },
       credits: {
           enabled: false
