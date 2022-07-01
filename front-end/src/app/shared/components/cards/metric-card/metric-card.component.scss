@@ -1,13 +1,10 @@
 .metric-card {
-    box-shadow: 0 0 5px #aaa;
+    box-shadow: 0 0 5px #ddd;
     background: #fff;
-}
 
-@media (max-width: 999px) { 
-    .metric-card{
-
-        margin-left:-60PX ;
-        width: 80px;
+    .metric-card-title {
+        height: 5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
-
 }
