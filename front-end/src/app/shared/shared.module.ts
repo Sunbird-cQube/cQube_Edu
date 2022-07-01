@@ -14,13 +14,13 @@ const DECLARATIONS = [
   MultiBarChartComponent,
   DashboardCardComponent,
   MetricCardComponent,
-  MaterialTableComponent
+  MaterialTableComponent,
+  MapMyIndiaComponent
 ];
 
 @NgModule({
   declarations: [
-    DECLARATIONS,
-    MapMyIndiaComponent
+    DECLARATIONS
   ],
   imports: [
     CommonModule,
