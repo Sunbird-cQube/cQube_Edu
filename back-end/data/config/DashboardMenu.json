@@ -16,7 +16,7 @@
 
     {
         "title": "ETB & E-content",
-        "navigationURL": "",
+        "navigationURL": "/etb",
         "metrics": [
             {
                 "name": "Total ETB",
