@@ -8,8 +8,11 @@
                 <img src="assets/images/moi_logo.png" class="mr-3 h-6 sm:h-9" alt="MOI Logo" />
             </a>
         </div>
-        <div class="justify-between items-center w-full md:flex md:w-auto">
+        <div class="justify-between items-center w-full md:flex md:w-auto" *ngIf="config == 'NVSK'">
             <h1 class="font-medium leading-tight lg:text-4xl md:text-2xl xs:text-sm sm:text-1xl mt-0">NDEAR VIDYA SAMIKSHA KENDRA</h1>
+        </div>
+        <div class="justify-between items-center w-full md:flex md:w-auto" *ngIf="config == 'VSK'">
+            <h1 class="font-medium leading-tight lg:text-4xl md:text-2xl xs:text-sm sm:text-1xl mt-0">VIDYA SAMIKSHA KENDRA</h1>
         </div>
         <div class="flex items-center h-full">
             <img src="assets/images/ncert_logo.png" class="h-full" alt="NCERT Logo">

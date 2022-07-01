@@ -13,13 +13,13 @@ export class ConfigService {
 
   constructor(private readonly _http: HttpClient) { }
 
-  getMenu(): Observable<ResponseType<IMenuItem[]>> {
+  getMenu(): Observable<ResponseType<any[]>> {
     
-    return this._http.get<ResponseType<IMenuItem[]>>(`${environment.apiURL}/config/getMenu`);
+    return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/config/getMenu`);
     console.log(this.getMenu())
   }
 
-  getDashboardMenu(): Observable<ResponseType<IDashboardMenu[]>> {
-    return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/config/getDashboardMenu`);
+  getDashboardMenu(): Observable<ResponseType<any[]>> {
+    return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/config/getDashboardMenu`);
   }
 }
