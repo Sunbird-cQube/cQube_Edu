@@ -14,7 +14,7 @@ const routes: Routes = [
         component: EtbProgramComponent
       },
       {
-        path: 'etb/coverage',
+        path: 'coverage',
         component: EtbCoverageComponent
       },
       {

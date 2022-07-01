@@ -1,2 +1,35 @@
+<div class="grid gap-4 xs:grid-cols-2 xmd:grid-cols-4 md:grid-cols-5 lg:grid-cols-5">
+    <div class="col-span-full">
+        <img src="../../../../../assets/images/etbimage.jpeg" class="xs:w-full md:w-8/12 mx-auto" alt="etb image ">
+    </div>
+    <!-- <button class="bg-blue-500">Access to ETB Program</button> -->
+    <ng-container *ngIf="ETBMetrics">
+        <div class="col-span-1 xs:py-2 md:py-4" *ngFor="let metric of ETBMetrics">
+            <app-metric-card [name]="metric?.name" [value]="metric?.value"></app-metric-card>
+        </div>
+    </ng-container>
+</div>
 
-<router-outlet></router-outlet>
+<mat-tab-group mat-align-tabs="start">
+    <mat-tab label="ETB Program">
+        <div class="grid grid-cols-1 mt-12">
+            <div class="col">
+                <app-map-my-india></app-map-my-india>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="ETB Coverage">
+        <div class="grid grid-cols-1 mt-12">
+            <div class="col">
+                <table mat-table [dataSource]="tableData" matSort #etbTbSort="matSort">
+                    <ng-container [matColumnDef]="column.property" *ngFor="let column of columns">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.name }}</th>
+                        <td mat-cell *matCellDef="let element"> {{element[column.property]}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columnProperties"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnProperties;"></tr>
+                </table>
+            </div>
+        </div>
+    </mat-tab>
+  </mat-tab-group>

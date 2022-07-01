@@ -11,11 +11,15 @@ export class ETBService {
 
   constructor(private readonly _http: HttpClient) { }
 
-  getStateWiseETBCoverageData(): Observable<ResponseType<any[]>> {
-    return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/etb/getStateWiseETBCoverageData`);
+  getETBMetrics(): Observable<ResponseType<any[]>> {
+    return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/etb/getETBMetrics`);
+  }
+  
+  getStateWiseETBCoverageData(): Observable<ResponseType<any>> {
+    return this._http.get<ResponseType<any>>(`${environment.apiURL}/etb/getStateWiseETBCoverageData`);
   }
 
-  getStateWiseOverallETBCoverageData(version: string): Observable<ResponseType<any[]>> {
+  getStateWiseOverallETBCoverageData(): Observable<ResponseType<any[]>> {
     return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/etb/getStateWiseOverallETBCoverageData`);
   }
 }
