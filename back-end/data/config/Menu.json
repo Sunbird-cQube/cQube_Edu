@@ -1,5 +1,5 @@
 [
-    {
+  [{
       "label": "Dashboard",
       "icon": "",
       "path": "/dashboard",
@@ -19,5 +19,49 @@
       "path": "/etb",
       "basepath": "etb",
       "hasSub": false
-    }  
-] 
+    }],
+    [
+      {
+        "label": "Dashboard",
+        "icon": "",
+        "path": "/dashboard",
+        "basepath": "dashboard",
+        "hasSub": false
+      },
+      {
+        "label": "DIKSHA",
+        "icon": "",
+        "path": "",
+        "basepath": "",
+        "hasSub": false
+      },
+      {
+        "label": "NAS",
+        "icon": "",
+        "path": "",
+        "basepath": "",
+        "hasSub": false
+      },
+      {
+        "label": "UDISE",
+        "icon": "",
+        "path": "",
+        "basepath": "",
+        "hasSub": false
+      },
+      {
+        "label": "PGI",
+        "icon": "",
+        "path": "",
+        "basepath": "",
+        "hasSub": false
+      },
+      {
+        "label": "Poshan",
+        "icon": "",
+        "path": "",
+        "basepath": "",
+        "hasSub": false
+      }
+  ]
+]
