@@ -10,9 +10,9 @@ import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
   styleUrls: ['./nishtha-program-detail.component.scss']
 })
 export class NishthaProgramDetailComponent implements OnInit {
-  stateWiseEnrollmentData: IStateWiseEnrollmentRec[] | undefined;
-  categories: string[] | undefined;
-  series: IBarChartSeries<number>[] | undefined;
+  stateWiseEnrollmentData!: IStateWiseEnrollmentRec[];
+  categories!: string[];
+  series!: IBarChartSeries<number>[];
   height = 250;
 
   @HostListener('window:resize', ['$event'])

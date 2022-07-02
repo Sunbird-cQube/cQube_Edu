@@ -19,17 +19,6 @@
         </div>
     </mat-tab>
     <mat-tab label="ETB Coverage">
-        <div class="grid grid-cols-1 mt-12">
-            <div class="col">
-                <table mat-table [dataSource]="tableData" matSort #etbTbSort="matSort">
-                    <ng-container [matColumnDef]="column.property" *ngFor="let column of columns">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.name }}</th>
-                        <td mat-cell *matCellDef="let element"> {{element[column.property]}} </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="columnProperties"></tr>
-                    <tr mat-row *matRowDef="let row; columns: columnProperties;"></tr>
-                </table>
-            </div>
-        </div>
+        <app-etb-coverage></app-etb-coverage>
     </mat-tab>
   </mat-tab-group>
