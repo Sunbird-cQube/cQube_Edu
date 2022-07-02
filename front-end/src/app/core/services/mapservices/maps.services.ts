@@ -4,9 +4,8 @@ import * as config from '../../../../assets/data/config.json';
 import * as mapData from '../../../../assets/data/IN.json';
 
 
-declare var MapmyIndia: any;
 declare var L: any;
-export var globalMap: any;
+ export var globalMap: any;
 
 @Injectable({
     providedIn: 'root'
@@ -24,13 +23,16 @@ export class MapService {
     constructor() { }
 
     width = window.innerWidth;
-    
+    onResize() {
+        this.width = window.innerWidth;
+        this.zoomLevel = this.width > 3820 ? this.mapCenterLatlng.zoomLevel + 2 : this.width < 3820 && this.width >= 2500 ? this.mapCenterLatlng.zoomLevel + 1 : this.width < 2500 && this.width > 1920 ? this.mapCenterLatlng.zoomLevel + 1 : this.mapCenterLatlng.zoomLevel;
+        this.setMarkerRadius();
+    }
 
+    public map:any
     //Initialisation of Map  
     initMap(map: any, maxBounds: any) {
-        console.log('manpppp', this.mapCenterLatlng )
-        console.log('max-bond', maxBounds)
-        console.log('max-bond', map)
+       
         globalMap = L.map(map, { zoomSnap: 0.25, zoomControl: false, scrollWheelZoom: false, touchZoom: false, maxBounds: maxBounds }).setView([maxBounds[0][0], maxBounds[0][1]], this.mapCenterLatlng.zoomLevel);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
             {
@@ -50,8 +52,7 @@ export class MapService {
             }).addTo(map);
         }
         applyCountryBorder(globalMap);
-        console.log('markersss')
-
+        this.map = globalMap
     }
 
     restrictZoom(globalMap: any) {
@@ -62,20 +63,61 @@ export class MapService {
 
     //Initialise markers.....
     markersIcons: any = [];
-    public initMarkers1(lat: any, lng: any, color: any, strokeWeight: any, weight: any, levelWise: any) {
+    public initMarkers1(lat: any, lng: any, color: any, strokeWeight: any, weight: any) {
+      
         if (lat !== undefined && lng !== undefined) {
             var markerIcon: any;
             markerIcon = L.circleMarker([lat, lng], {
                 color: "gray",
-                fillColor: color,
+                fillColor: "green",
                 fillOpacity: 1,
                 strokeWeight: strokeWeight,
                 weight: weight
             }).addTo(globalMap);
+            
             this.markersIcons.push(markerIcon);
+            
             return markerIcon;
         }
 
         return undefined;
     }
-}
+    getMarkerRadius(rad1: any, rad2: any, rad3: any, rad4: any) {
+        let radius = this.width > 3820 ? rad1 : this.width > 2500 && this.width < 3820 ? rad2 : this.width < 2500 && this.width > 1920 ? rad3 : rad4;
+        return radius;
+    }
+
+    setMarkerRadius() {
+        
+            this.markersIcons.map((markerIcon:any) => {
+                    markerIcon.setRadius(this.getMarkerRadius(18, 14, 10, 6));
+            })
+        }
+
+
+    public getInfoFrom(object:any, value:any, levelWise:any, reportType:any, ) {
+        var popup = [];
+        var stringLine;
+        var selected = '<span>';
+        for (var key in object) {
+            if (object.hasOwnProperty(key)) {
+                    stringLine = selected 
+                     + object[key] + `</span>`;
+            }
+            popup.push(stringLine);
+        }
+        function toTitleCase(phrase:any) {
+            var key = phrase
+                .toLowerCase()
+                .split(' ')
+                .map((word:any) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+            
+            return key;
+        }
+        return popup;
+    }
+    }
+
+
+  

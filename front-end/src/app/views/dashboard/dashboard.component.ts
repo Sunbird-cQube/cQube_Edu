@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
       else if(this.config == 'VSK'){
         this.dashboardMenu = dashboardMenuResult.result[1];
       }
-      console.log(this.dashboardMenu)
     });
   }
 
