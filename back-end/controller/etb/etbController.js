@@ -30,15 +30,21 @@ exports.getStateWiseETBCoverageData = (req, res, next) => {
 			},
 			{
 				name: 'Total Physical',
-				property: 'Total Physical textbooks excluding adopted (Curriculum+Supplementary)'
+				property: 'Total Physical textbooks excluding adopted (Curriculum+Supplementary)',
+				isHeatMapRequired: true,
+				color: '#ffb300'
 			},
 			{
 				name: 'State energised (ETB)',
-				property: 'State energised (ETB)'
+				property: 'State energised (ETB)',
+				isHeatMapRequired: true,
+				color: '#ffab91'
 			},
 			{
 				name: 'ETB Coverage',
-				property: 'ETB Coverage'
+				property: 'ETB Coverage',
+				isHeatMapRequired: true,
+				color: '#81c784'
 			}
 		];
 

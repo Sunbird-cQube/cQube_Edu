@@ -2,7 +2,6 @@ import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/cor
 import { DecimalPipe } from '@angular/common';
 import * as Highcharts from "highcharts/highstock";
 import * as HighchartsMore from "highcharts/highcharts-more";
-import { HighchartsConfig } from 'src/app/core/config/HighchartsConfig';
 import { IBarChartSeries } from 'src/app/core/models/IBarChat';
 
 const HighchartsMore2: any = HighchartsMore;
@@ -15,11 +14,11 @@ HighchartsMore2(Highcharts);
   providers: [DecimalPipe]
 })
 export class MultiBarChartComponent implements OnInit, AfterViewInit {
-  chart: Highcharts.Chart | undefined;
+  chart!: Highcharts.Chart;
   @Input() height = 50;
-  @Input() title: string | undefined;
-  @Input() categories: string[] | undefined;
-  @Input() series: IBarChartSeries<number | string>[] | undefined;
+  @Input() title!: string;
+  @Input() categories!: string[];
+  @Input() series!: IBarChartSeries<number | string>[];
   @Input() gridLineColor: string = '#aaa';
 
   @ViewChild('container') container: any;
