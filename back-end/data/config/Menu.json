@@ -31,36 +31,36 @@
       {
         "label": "DIKSHA",
         "icon": "",
-        "path": "/layout",
-        "basepath": "",
+        "path": "/layout/etb",
+        "basepath": "dashboard",
         "hasSub": false
       },
       {
         "label": "NAS",
         "icon": "",
         "path": "/layout",
-        "basepath": "",
+        "basepath": "dashboard",
         "hasSub": false
       },
       {
         "label": "UDISE",
         "icon": "",
         "path": "/layout",
-        "basepath": "",
+        "basepath": "dashboard",
         "hasSub": false
       },
       {
         "label": "PGI",
         "icon": "",
         "path": "/layout",
-        "basepath": "",
+        "basepath": "dashboard",
         "hasSub": false
       },
       {
         "label": "Poshan",
         "icon": "",
         "path": "/layout",
-        "basepath": "",
+        "basepath": "dashboard",
         "hasSub": false
       }
   ]
