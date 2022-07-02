@@ -22,7 +22,7 @@ export class LayoutComponent implements OnInit {
       else if(this.config == 'VSK'){
         this.menu = menuResult.result[1];
       }
-      console.log(this.menu)
+      
     });
   }
 

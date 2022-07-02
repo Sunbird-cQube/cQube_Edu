@@ -16,7 +16,7 @@ export class ConfigService {
   getMenu(): Observable<ResponseType<any[]>> {
     
     return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/config/getMenu`);
-    console.log(this.getMenu())
+   
   }
 
   getDashboardMenu(): Observable<ResponseType<any[]>> {
