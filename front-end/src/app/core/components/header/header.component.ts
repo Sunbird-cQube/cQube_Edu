@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { environment } from 'src/environments/environment';
 
@@ -13,9 +14,13 @@ export class HeaderComponent implements OnInit {
 
   faBars = faBars;
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
+  }
+
+  signOut(){
+    this.router.navigate(['/authentication/login']);
   }
 
 }
