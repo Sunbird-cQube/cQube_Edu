@@ -4,9 +4,23 @@ import { LayoutComponent } from './core/components/layout/layout.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path:'',
+    redirectTo:'authentication',
+    pathMatch:'full', 
+  },
+  {
+    path:'authentication', 
+    loadChildren: () => import('../app/core/components/authentication/authentication.module').then(module => module.AuthenticationModule)
+  },
+  {
+    path: 'layout',
     component: LayoutComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
       {
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/dashboard.module').then(module => module.DashboardModule)
@@ -21,7 +35,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: 'layout',
         pathMatch: 'full'
       }
     ]

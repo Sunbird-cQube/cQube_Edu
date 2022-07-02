@@ -2,7 +2,7 @@
     [
         {
             "title": "NISHTHA",
-            "navigationURL": "/nishtha",
+            "navigationURL": "/layout/nishtha",
             "metrics": [
                 {
                     "name": "Net Enrollment",
@@ -16,7 +16,7 @@
         },
         {
             "title": "ETB & E-content",
-            "navigationURL": "",
+            "navigationURL": "/layout/etb",
             "metrics": [
                 {
                     "name": "Total ETB",
@@ -30,7 +30,7 @@
         },
         {
             "title": "Quizzes",
-            "navigationURL": "",
+            "navigationURL": "/layout",
             "metrics": [
                 {
                     "name": "Bhasha Sangam Enrollments",
@@ -40,7 +40,7 @@
         },
         {
             "title": "NIPUN BHARAT",
-            "navigationURL": "",
+            "navigationURL": "/layout",
             "metrics": [
                 {
                     "name": "Total Contents Linked",
@@ -54,55 +54,108 @@
         },
         {
             "title": "CWSN",
-            "navigationURL": "",
-            "metrics": []
+            "navigationURL": "/layout",
+            "metrics": [
+                {
+                    "name": "",
+                    "value": ""
+                },
+                {
+                    "name": ""
+                }
+            ]
         },
         {
             "title": "Adult Education",
-            "navigationURL": "",
+            "navigationURL": "/layout",
             "metrics": []
         },
         {
             "title": "UDISE+",
-            "navigationURL": "",
+            "navigationURL": "/layout",
             "metrics": []
         },
         {
             "title": "VIDYANJALI",
-            "navigationURL": "",
+            "navigationURL": "/layout",
             "metrics": []
         },
         {
             "title": "VIDYADAAN",
-            "navigationURL": "",
+            "navigationURL": "/layout",
             "metrics": []
         }
     ],
     [
         {
             "title": "DIKSHA",
-            "navigationURL": "/nishtha",
-            "metrics": []
+            "navigationURL": "/layout/etb",
+            "metrics": [
+                {
+                    "name": "Total ETB",
+                    "value": "6,217"
+                },
+                {
+                    "name": "Total TPD",
+                    "value": "270,361"
+                }
+            ]
         },
         {
             "title": "NAS",
-            "navigationURL": "",
-            "metrics": []
+            "navigationURL": "/layout",
+            "metrics": [
+                {
+                    "name": "Net Enrollment",
+                    "value": "29.9M"
+                },
+                {
+                    "name": "Net Certifications",
+                    "value": "20.7M"
+                }
+            ]
         },
         {
             "title": "UDISE",
-            "navigationURL": "",
-            "metrics": []
+            "navigationURL": "/layout",
+            "metrics": [
+                {
+                    "name": "Net Enrollment",
+                    "value": "29.9M"
+                },
+                {
+                    "name": "Net Certifications",
+                    "value": "20.7M"
+                }
+            ]
         },
         {
             "title": "PGI",
-            "navigationURL": "",
-            "metrics": []
+            "navigationURL": "/layout",
+            "metrics": [
+                {
+                    "name": "Net Enrollment",
+                    "value": "29.9M"
+                },
+                {
+                    "name": "Net Certifications",
+                    "value": "20.7M"
+                }
+            ]
         },
         {
             "title": "Poshan",
-            "navigationURL": "",
-            "metrics": []
+            "navigationURL": "/layout",
+            "metrics": [
+                {
+                    "name": "Net Enrollment",
+                    "value": "29.9M"
+                },
+                {
+                    "name": "Net Certifications",
+                    "value": "20.7M"
+                }
+            ]
         }
     ]
 ]
