@@ -1,0 +1,8 @@
+<div class="grid gap-2 grid-cols-12 mt-8 bg-white">
+    <div class="xs:col-span-full xmd:col-span-7 md:col-span-8" *ngIf="ETBProgramStatsByLocation">
+        <app-map-my-india [data]="ETBProgramStatsByLocation"></app-map-my-india>
+    </div>
+    <div class="xs:col-span-full xmd:col-span-5 md:col-span-4 justify-self-end">
+        <app-material-heat-chart-table [tableData]="tableData" [columns]="columns"></app-material-heat-chart-table>
+    </div>
+</div>

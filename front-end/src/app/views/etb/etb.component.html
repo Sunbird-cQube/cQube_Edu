@@ -10,15 +10,18 @@
     </ng-container>
 </div>
 
-<mat-tab-group mat-align-tabs="start">
+<mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
     <mat-tab label="ETB Program">
-        <div class="grid grid-cols-1 mt-12">
+        <div class="grid grid-cols-1 mt-12" *ngIf="ETBProgramStatsByLocation">
             <div class="col">
-                <app-map-my-india [data]="data"></app-map-my-india>
+                <app-map-my-india [data]="ETBProgramStatsByLocation"></app-map-my-india>
             </div>
         </div>
     </mat-tab>
     <mat-tab label="ETB Coverage">
         <app-etb-coverage></app-etb-coverage>
     </mat-tab>
+    <!-- <mat-tab label="QR Coverage across States">
+        <app-qr-coverage-across-states></app-qr-coverage-across-states>
+    </mat-tab> -->
 </mat-tab-group>

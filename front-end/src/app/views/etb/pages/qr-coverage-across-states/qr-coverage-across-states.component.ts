@@ -1,41 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ETBService } from 'src/app/core/services/etb/etb.service';
 
 @Component({
-  selector: 'app-etb',
-  templateUrl: './etb.component.html',
-  styleUrls: ['./etb.component.scss']
+  selector: 'app-qr-coverage-across-states',
+  templateUrl: './qr-coverage-across-states.component.html',
+  styleUrls: ['./qr-coverage-across-states.component.scss']
 })
-export class EtbComponent implements OnInit {
-  ETBMetrics: any[] | undefined;
+export class QRCoverageAcrossStatesComponent implements OnInit {
+  tableData: any;
+  columns: any[] = [];
   ETBProgramStatsByLocation: any;
 
   constructor(private readonly _ETBService: ETBService) {
-    this.getETBMetrics();
     this.getETBProgramStatsByLocation();
+    this.getStateWiseETBQRCoverageData();
   }
 
   ngOnInit(): void {
   }
 
-  getETBMetrics(): void {
-    this._ETBService.getETBMetrics().subscribe(ETBMetricsRes => {
-      this.ETBMetrics = ETBMetricsRes.result;
-    });
-  }
-  
   getETBProgramStatsByLocation(): void {
     this._ETBService.getETBProgramStatsByLocation().subscribe(ETBProgramStatsByLocationRes => {
       this.ETBProgramStatsByLocation = ETBProgramStatsByLocationRes.result;
     });
   }
 
-  onTabChanged($event: any): void {
-    setTimeout(() => {
-      window.dispatchEvent(new Event('resize'));
-      console.log('resize');
-    }, 100);
+  getStateWiseETBQRCoverageData(){
+    return this._ETBService.getStateWiseETBQRCoverageData().subscribe(res => {
+      this.tableData = res.result.data;
+      this.columns = res.result.columns;
+    });
   }
 
 }

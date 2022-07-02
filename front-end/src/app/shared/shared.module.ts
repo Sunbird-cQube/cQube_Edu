@@ -9,8 +9,8 @@ import { RouterModule } from '@angular/router';
 import { MetricCardComponent } from './components/cards/metric-card/metric-card.component';
 import { MapMyIndiaComponent } from './components/maps/map-my-india/map-my-india.component';
 import { TableHeatMapDirective, TableHeatMapCellDirective, TableHeatMapColumnDirective } from './directives/table-heat-map/table-heat-map.directive';
-import { GuageChartComponent } from './components/charts/guage-chart/guage-chart.component';
 import { MaterialHeatChartTableComponent } from './components/tables/material-heat-chart-table/material-heat-chart-table.component';
+import { GaugeChartComponent } from './components/charts/gauge-chart/gauge-chart.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -26,7 +26,7 @@ const DECLARATIONS = [
   TableHeatMapDirective,
   TableHeatMapCellDirective,
   TableHeatMapColumnDirective,
-  GuageChartComponent
+  GaugeChartComponent
 ];
 
 @NgModule({
