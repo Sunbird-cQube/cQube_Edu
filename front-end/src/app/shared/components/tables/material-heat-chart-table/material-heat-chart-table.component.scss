@@ -1,4 +1,8 @@
 ::ng-deep {
+    .mat-table {
+        border: 1px solid rgba(0,0,0,.12);
+    }
+
     tr.mat-row, tr.mat-footer-row {
         height: 40px !important;
     }

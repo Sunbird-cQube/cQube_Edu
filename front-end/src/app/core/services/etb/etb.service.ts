@@ -15,11 +15,19 @@ export class ETBService {
     return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/etb/getETBMetrics`);
   }
   
+  getETBProgramStatsByLocation(): Observable<ResponseType<any[]>> {
+    return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/etb/getETBProgramStatsByLocation`);
+  }
+  
   getStateWiseETBCoverageData(): Observable<ResponseType<any>> {
     return this._http.get<ResponseType<any>>(`${environment.apiURL}/etb/getStateWiseETBCoverageData`);
   }
 
   getStateWiseOverallETBCoverageData(): Observable<ResponseType<any[]>> {
     return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/etb/getStateWiseOverallETBCoverageData`);
+  }
+
+  getStateWiseETBQRCoverageData(): Observable<ResponseType<any>> {
+    return this._http.get<ResponseType<any>>(`${environment.apiURL}/etb/getStateWiseETBQRCoverageData`);
   }
 }

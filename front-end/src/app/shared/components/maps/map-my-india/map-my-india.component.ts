@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 import * as L from "leaflet";
 import * as R from "leaflet-responsive-popup";
@@ -12,7 +12,8 @@ import { MapService, globalMap } from '../../../../core/services/mapservices/map
 })
 export class MapMyIndiaComponent implements OnInit, AfterViewInit {
   [x: string]: any;
-  @Input() data: string | undefined;
+  @Input() data!: string;
+
   // leaflet layer dependencies
   public layerMarkers = new L.layerGroup();
   public markersList = new L.FeatureGroup();
@@ -20,17 +21,19 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit {
   // initial center position for the map
   public lat: any;
   public lng: any;
-  constructor( public globalService: MapService,) { }
+
+  @ViewChild('container') container!: ElementRef<HTMLElement>;
+
+  constructor( public globalService: MapService) { }
 
   ngOnInit(): void {
-    
   }
   
   ngAfterViewInit(): void {
     this.globalService.latitude = this.lat = this.globalService.mapCenterLatlng.lat;
     this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
-    this.globalService.initMap("map", [[this.lat, this.lng]]);
-    this.getData()
+    this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]]);
+    this.getData();
   }
 
 

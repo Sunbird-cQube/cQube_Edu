@@ -20,6 +20,25 @@ exports.getETBMetrics = (req, res, next) => {
 	});
 }
 
+exports.getETBProgramStatsByLocation = (req, res, next) => {
+	return new Promise(async function (resolve, reject) {
+        let ETBProgramStatsByLocation = require(path.join(__dataFolderPath, 'etb/programStatsByLocation.json'));
+
+		try {
+			res.status(200).send({
+				status: 200,
+				result: ETBProgramStatsByLocation
+			})
+		} catch (error) {
+			res.send({
+				status: error.status || 500,
+				message: error.message || "Internal server error",
+				errorObject: error
+			});
+		}
+	});
+}
+
 exports.getStateWiseETBCoverageData = (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
         let stateWiseETBCoverageData = require(path.join(__dataFolderPath, 'etb/StateWiseETBCoverageData.json'));
@@ -74,6 +93,40 @@ exports.getStateWiseOverallETBCoverageData = (req, res, next) => {
 			res.status(200).send({
 				status: 200,
 				result: stateWiseOverallETBCoverageData
+			})
+		} catch (error) {
+			res.send({
+				status: error.status || 500,
+				message: error.message || "Internal server error",
+				errorObject: error
+			});
+		}
+	});
+}
+
+exports.getStateWiseETBQRCoverageData = (req, res, next) => {
+	return new Promise(async function (resolve, reject) {
+        let stateWiseETBCoverageData = require(path.join(__dataFolderPath, 'etb/StateWiseETBQRCoverageData.json'));
+		let columns = [
+			{
+				name: 'State Name',
+				property: 'State Name'
+			},
+			{
+				name: 'QR Coverage',
+				property: 'QR Coverage',
+				isHeatMapRequired: true,
+				color: '#81c784'
+			}
+		];
+
+		try {
+			res.status(200).send({
+				status: 200,
+				result: {
+					columns,
+					data: stateWiseETBCoverageData
+				}
 			})
 		} catch (error) {
 			res.send({
