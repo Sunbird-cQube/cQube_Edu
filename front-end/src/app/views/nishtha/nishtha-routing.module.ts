@@ -20,7 +20,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/nishtha/dashboard',
+        redirectTo: '/layout/nishtha/dashboard',
         pathMatch: 'full'
       }
     ]
