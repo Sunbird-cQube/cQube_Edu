@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,15 +8,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  
+  error: boolean= false;
+  LoginForm = new FormGroup({
+    userId: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
+  })
 
   constructor(
     private router:Router
-  ) { }
+  ) { 
+  }
+  
 
   ngOnInit(): void {
+
   }
 
+
+
+
   onSubmit(){
-    this.router.navigate(['/layout'])
+    if(this.LoginForm.controls.userId.value == 'admin' && this.LoginForm.controls.password.value == 'admin'){
+      
+      this.router.navigate(['/layout'])
+    }
+    else{
+      this.error = true;
+    }
   }
 }
