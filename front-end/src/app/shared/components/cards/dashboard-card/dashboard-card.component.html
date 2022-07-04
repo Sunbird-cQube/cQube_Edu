@@ -1,4 +1,4 @@
-<div style="cursor: pointer;" [routerLink]="cardInfo?.navigationURL">
+<div style="cursor: pointer;" (click)="onClick.emit(cardInfo)">
     <div class="dashboard-card shadow-2xl px-3 py-3 mx-auto md:grid-cols-6" *ngIf="cardInfo">
         <div class="dashboard-card-header py-3 text-center"> 
             <img [src]="" class="text-center" alt="icon here">
@@ -19,6 +19,5 @@
                 <h3 class="my-1 font-weight-bold" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                     Access Dashboard <i class="fa fa-arrow-right ml-3" aria-hidden="true"></i></h3> 
             </div>
-        </div>
-        
+        </div>        
 </div>
