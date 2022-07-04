@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IDashboardMenu } from 'src/app/core/models/IDashboardCard';
 
 @Component({
@@ -9,6 +9,7 @@ import { IDashboardMenu } from 'src/app/core/models/IDashboardCard';
 export class DashboardCardComponent implements OnInit {
 
   @Input() cardInfo: IDashboardMenu | undefined;
+  @Output() onClick: EventEmitter<IDashboardMenu | undefined> = new EventEmitter<IDashboardMenu | undefined>();
 
   constructor() { }
 
@@ -16,6 +17,6 @@ export class DashboardCardComponent implements OnInit {
   }
 
   len(arr: any[]){
-    return arr.length
+    return arr.length;
   }
 }

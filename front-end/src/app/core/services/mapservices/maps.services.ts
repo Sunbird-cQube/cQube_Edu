@@ -11,21 +11,18 @@ declare var L: any;
     providedIn: 'root'
 })
 export class MapService {
-    // mapName = environment.mapName;
-
-   
+    // mapName = environment.mapName;   
     mapCenterLatlng = config.default['IN'];
-
-    zoomLevel = this.mapCenterLatlng.zoomLevel;
+    width = window.innerWidth;
+    zoomLevel = this.width > 3820 ? this.mapCenterLatlng.zoomLevel + 0.85 : this.width < 3820 && this.width >= 2500 ? this.mapCenterLatlng.zoomLevel + 0.3 : this.width < 2500 && this.width > 1920 ? this.mapCenterLatlng.zoomLevel : this.width > 1500 ? this.mapCenterLatlng.zoomLevel - 0.4 : this.width > 1336 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.width > 1200 ? this.mapCenterLatlng.zoomLevel - 0.75 : this.width > 700 ? this.mapCenterLatlng.zoomLevel - 0.3 :  this.width > 76 ? this.mapCenterLatlng.zoomLevel - 0.5 : this.width > 400 ? this.mapCenterLatlng.zoomLevel - 0.6 : this.width > 320 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.mapCenterLatlng.zoomLevel;
     latitude: any;
     longitude: any;
 
     constructor() { }
 
-    width = window.innerWidth;
     onResize() {
         this.width = window.innerWidth;
-        this.zoomLevel = this.width > 3820 ? this.mapCenterLatlng.zoomLevel + 2 : this.width < 3820 && this.width >= 2500 ? this.mapCenterLatlng.zoomLevel + 1 : this.width < 2500 && this.width > 1920 ? this.mapCenterLatlng.zoomLevel + 1 : this.mapCenterLatlng.zoomLevel;
+        this.zoomLevel = this.width > 3820 ? this.mapCenterLatlng.zoomLevel + 0.85 : this.width < 3820 && this.width >= 2500 ? this.mapCenterLatlng.zoomLevel + 0.3 : this.width < 2500 && this.width > 1920 ? this.mapCenterLatlng.zoomLevel : this.width > 1500 ? this.mapCenterLatlng.zoomLevel - 0.4 : this.width > 1336 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.width > 1200 ? this.mapCenterLatlng.zoomLevel - 0.75 : this.width > 700 ? this.mapCenterLatlng.zoomLevel - 0.3 :  this.width > 76 ? this.mapCenterLatlng.zoomLevel - 0.5 : this.width > 400 ? this.mapCenterLatlng.zoomLevel - 0.6 : this.width > 320 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.mapCenterLatlng.zoomLevel;
         this.setMarkerRadius();
     }
 
@@ -33,11 +30,11 @@ export class MapService {
     //Initialisation of Map  
     initMap(map: any, maxBounds: any) {
        
-        globalMap = L.map(map, { zoomSnap: 0.25, zoomControl: false, scrollWheelZoom: false, touchZoom: false, maxBounds: maxBounds }).setView([maxBounds[0][0], maxBounds[0][1]], this.mapCenterLatlng.zoomLevel);
+        globalMap = L.map(map, { zoomSnap: 0.25, zoomControl: false, scrollWheelZoom: false, touchZoom: false, maxBounds: maxBounds }).setView([maxBounds[0][0], maxBounds[0][1]], this.zoomLevel);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
             {
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-                 maxZoom: this.mapCenterLatlng.zoomLevel + 10,
+                 maxZoom: this.zoomLevel + 10,
             }
         ).addTo(globalMap);
 
@@ -56,9 +53,9 @@ export class MapService {
     }
 
     restrictZoom(globalMap: any) {
-        globalMap.touchZoom.disable();
-        globalMap.boxZoom.disable();
-        globalMap.keyboard.disable();
+        //globalMap.touchZoom.disable();
+        //globalMap.boxZoom.disable();
+        //globalMap.keyboard.disable();
     }
 
     //Initialise markers.....
@@ -88,7 +85,6 @@ export class MapService {
     }
 
     setMarkerRadius() {
-        
             this.markersIcons.map((markerIcon:any) => {
                     markerIcon.setRadius(this.getMarkerRadius(18, 14, 10, 6));
             })

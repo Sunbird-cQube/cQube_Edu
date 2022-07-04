@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 
 import * as L from "leaflet";
 import * as R from "leaflet-responsive-popup";
@@ -36,8 +36,7 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit {
     this.getData();
   }
 
-
-  getData(){
+  getData() {
     // globalMap.removeLayer(this.markersList);
     this.layerMarkers.clearLayers();
     this.globalService.latitude = this.lat = this.globalService.mapCenterLatlng.lat;
@@ -54,8 +53,6 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit {
       centerLng: this.lng,
       level: "State"
     };
-
-    
 
     this.genericFun(this.markers, options);
 
