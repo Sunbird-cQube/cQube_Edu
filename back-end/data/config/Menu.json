@@ -1,5 +1,6 @@
 [
-  [{
+  [
+    {
       "label": "Dashboard",
       "icon": "",
       "path": "/dashboard",
@@ -19,49 +20,106 @@
       "path": "/etb",
       "basepath": "etb",
       "hasSub": false
-    }],
-    [
-      {
-        "label": "Dashboard",
-        "icon": "",
-        "path": "/dashboard",
-        "basepath": "dashboard",
-        "hasSub": false
-      },
-      {
-        "label": "DIKSHA",
-        "icon": "",
-        "path": "/etb",
-        "basepath": "dashboard",
-        "hasSub": false
-      },
-      {
-        "label": "NAS",
-        "icon": "",
-        "path": "/nas",
-        "basepath": "dashboard",
-        "hasSub": false
-      },
-      {
-        "label": "UDISE",
-        "icon": "",
-        "path": "",
-        "basepath": "dashboard",
-        "hasSub": false
-      },
-      {
-        "label": "PGI",
-        "icon": "",
-        "path": "",
-        "basepath": "dashboard",
-        "hasSub": false
-      },
-      {
-        "label": "Poshan",
-        "icon": "",
-        "path": "",
-        "basepath": "dashboard",
-        "hasSub": false
-      }
+    },
+    {
+      "label": "NAS",
+      "icon": "",
+      "path": "/nas",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "Quizzes",
+      "icon": "",
+      "path": "",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "NIPUN BHARAT",
+      "icon": "",
+      "path": "",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "CWSN",
+      "icon": "",
+      "path": "",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "Adult Education",
+      "icon": "",
+      "path": "",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "Adult Education",
+      "icon": "",
+      "path": "",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "VIDYANJALI",
+      "icon": "",
+      "path": "",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "VIDYADAAN",
+      "icon": "",
+      "path": "",
+      "basepath": "dashboard",
+      "hasSub": false
+    }
+  ],
+  [
+    {
+      "label": "Dashboard",
+      "icon": "",
+      "path": "/dashboard",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "DIKSHA",
+      "icon": "",
+      "path": "/etb",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "NAS",
+      "icon": "",
+      "path": "/nas",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "UDISE",
+      "icon": "",
+      "path": "",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "PGI",
+      "icon": "",
+      "path": "",
+      "basepath": "dashboard",
+      "hasSub": false
+    },
+    {
+      "label": "Poshan",
+      "icon": "",
+      "path": "",
+      "basepath": "dashboard",
+      "hasSub": false
+    }
   ]
 ]
