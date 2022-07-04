@@ -1,20 +1,24 @@
-<div>
+<div style="cursor: pointer;" [routerLink]="cardInfo?.navigationURL">
     <div class="dashboard-card shadow-2xl px-3 py-3 mx-auto md:grid-cols-6" *ngIf="cardInfo">
-        <div class="dashboard-card-header py-3">
-            <h3 class="font-medium text-1xl md:text-2xl">{{cardInfo.title}}</h3>
+        <div class="dashboard-card-header py-3 text-center"> 
+            <img [src]="" class="text-center" alt="icon here">
+            <p class="h6 font-weight-bold text-primary">{{cardInfo.title}}</p>
         </div>
-        <div class="dashboard-card-body py-2">
+        <div class="dashboard-card-body bg-light py-2">
             <div class="metrics-wrapper">
-                <div class="metric-wrapper" *ngFor="let metric of cardInfo.metrics">
-                    <p>{{metric.name}}</p>
-                    <p>{{metric.value}}</p>
+                <div class="metric-wrapper mb-1" *ngFor="let metric of cardInfo.metrics">
+                    <p class="metric-value text-center" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{metric.value}}</p>
+                    <p class="metric-name text-center" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{metric.name}}</p>
                 </div>
             </div>
+            <div *ngIf="!len(cardInfo.metrics)">
+                <p class="text-center">Access dashboard to</p>
+                <p class="text-center">view details</p>
+            </div>
+            <div class="dashboard-card-footer bg-sky-800 p-2 ml-3 mb-1 mr-3 rounded-lg justify-content-around">
+                <h3 class="my-1 font-weight-bold" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    Access Dashboard <i class="fa fa-arrow-right ml-3" aria-hidden="true"></i></h3> 
+            </div>
         </div>
-        <div class="dashboard-card-footer bg-sky-800 p-2 -ml-3 -mb-3 -mr-3">
-            <h3>Access Dashboard</h3>
-            <a [routerLink]="cardInfo.navigationURL"><img class="pointer-icon" src="/assets/images/handimage1.png"
-                    alt=""></a>
-        </div>
-    </div> 
+        
 </div>
