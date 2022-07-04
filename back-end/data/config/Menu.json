@@ -38,7 +38,7 @@
       {
         "label": "NAS",
         "icon": "",
-        "path": "",
+        "path": "/nas",
         "basepath": "dashboard",
         "hasSub": false
       },

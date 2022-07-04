@@ -29,6 +29,20 @@
             ]
         },
         {
+            "title": "NAS",
+            "navigationURL": "/nas",
+            "metrics": [
+                {
+                    "name": "Total Students Surveyed",
+                    "value": "78.4M"
+                },
+                {
+                    "name": "Total schools Surveyed",
+                    "value": "4.08M"
+                }
+            ]
+        },
+        {
             "title": "Quizzes",
             "navigationURL": "",
             "metrics": [
@@ -96,22 +110,22 @@
                     "value": "6,217"
                 },
                 {
-                    "name": "Total TPD",
+                    "name": "Total Contents",
                     "value": "270,361"
                 }
             ]
         },
         {
             "title": "NAS",
-            "navigationURL": "",
+            "navigationURL": "/nas",
             "metrics": [
                 {
-                    "name": "Net Enrollment",
-                    "value": "29.9M"
+                    "name": "Total Students Surveyed",
+                    "value": "78.4M"
                 },
                 {
-                    "name": "Net Certifications",
-                    "value": "20.7M"
+                    "name": "Total schools Surveyed",
+                    "value": "4.08M"
                 }
             ]
         },
