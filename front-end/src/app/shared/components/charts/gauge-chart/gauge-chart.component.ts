@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import * as Highcharts from "highcharts/highstock";
 import * as HighchartsMore from "highcharts/highcharts-more";
 import * as solidGauge from 'highcharts/modules/solid-gauge';
@@ -13,15 +13,11 @@ solidGauge2(Highcharts);
   templateUrl: './gauge-chart.component.html',
   styleUrls: ['./gauge-chart.component.scss']
 })
-export class GaugeChartComponent implements OnInit, AfterViewInit {
+export class GaugeChartComponent implements OnInit, OnChanges {
   chart!: Highcharts.Chart;
   @Input() height = 350;
   @Input() title!: string;
-  @Input() set options(options: Highcharts.Options | undefined) {
-    if (options) {
-        this.createBarChart(options);
-    }
-  }
+  @Input() options: Highcharts.Options | undefined;
 
   @ViewChild('container') container: any;
 
@@ -30,10 +26,13 @@ export class GaugeChartComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.options) {
+        this.createGaugeChart(this.options);
+    }    
   }
 
-  createBarChart(options: Highcharts.Options): void {
+  createGaugeChart(options: Highcharts.Options): void {
     let defaultOptions: Highcharts.Options = {
         chart: {
           type: 'solidgauge'

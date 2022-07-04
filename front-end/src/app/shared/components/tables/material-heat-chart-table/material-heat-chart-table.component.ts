@@ -44,8 +44,4 @@ export class MaterialHeatChartTableComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  contentChanged() {
-    //this.tableHeatMap.startPlottingHeatMap();
-  }
 }

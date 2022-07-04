@@ -4,6 +4,7 @@ import {
   Directive,
   ElementRef,
   Input,
+  OnChanges,
   QueryList,
 } from '@angular/core';
 
@@ -34,7 +35,7 @@ export class TableHeatMapColumnDirective {
 @Directive({
   selector: '[tableHeatMap]',
 })
-export class TableHeatMapDirective implements AfterViewInit {
+export class TableHeatMapDirective implements AfterViewInit, OnChanges {
   @ContentChildren(TableHeatMapCellDirective, { descendants: true }) tableHeatMapCells: QueryList<TableHeatMapCellDirective> | undefined;
   @ContentChildren(TableHeatMapColumnDirective, { descendants: true }) tableHeatMapColumns: QueryList<TableHeatMapColumnDirective> | undefined;
 
@@ -57,6 +58,10 @@ export class TableHeatMapDirective implements AfterViewInit {
       this.calculateHighestValues();
       this.applyHeatMap();
     }, 2000);
+  }
+
+  ngOnChanges(): void {
+    console.log('changed');
   }
 
   private setOptions() {
