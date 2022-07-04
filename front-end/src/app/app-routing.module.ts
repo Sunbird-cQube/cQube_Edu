@@ -27,6 +27,10 @@ const routes: Routes = [
       {
         path: 'etb',
         loadChildren: () => import('./views/etb/etb.module').then(module => module.EtbModule)
+      },
+      {
+        path: 'nas',
+        loadChildren: () => import('./views/nas/nas.module').then(module => module.NasModule)
       }
     ]
   }
