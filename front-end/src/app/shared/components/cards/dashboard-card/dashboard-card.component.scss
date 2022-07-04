@@ -6,6 +6,11 @@
 
     .dashboard-card-header {
         margin: 16px;
+
+        img{
+            min-height: 64px;
+            margin-bottom: 10px;
+        }
     }
 
     .dashboard-card-body {
@@ -15,6 +20,9 @@
         .metrics-wrapper {
             display: flex;
             justify-content: space-around;
+        }
+        .metrics-wrapper p{
+            // max-width: calc(#{$app}/2);
         }
         .metrics-wrapper .metric-value{
             font-weight: 600;

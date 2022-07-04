@@ -1,7 +1,7 @@
 <aside class="app-side-nav">
     <ul class="menu">
         <li class="menu-item" *ngFor="let menuItem of menu">
-            <div [routerLink]="menuItem.path">
+            <div [routerLink]="menuItem.path" routerLinkActive="activeLink" class="btn active inside">
                 {{menuItem.label}}
             </div>
         </li>

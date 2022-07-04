@@ -15,6 +15,10 @@ export class HeaderComponent implements OnInit {
 
   faBars = faBars;
 
+  drop: boolean = false;
+  withinTime: boolean = false;
+  dropdown: boolean = false;
+
   constructor(private router:Router, private readonly _authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
@@ -22,6 +26,20 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this._authenticationService.logout();
+  }
+
+  onMouseOver(){
+    this.withinTime=true;
+    this.dropdown = true;
+  }
+
+  onMouseOut(){
+    this.withinTime=false;
+    setTimeout(() => {
+      if(!this.withinTime){
+        this.dropdown = false;
+      }
+    }, 2000)
   }
 
 }
