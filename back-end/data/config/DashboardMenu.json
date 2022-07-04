@@ -12,7 +12,8 @@
                     "name": "Net Certifications",
                     "value": "20.7M"
                 }
-            ]
+            ],
+            "icon": ""
         },
         {
             "title": "ETB & E-content",
@@ -26,7 +27,8 @@
                     "name": "Total Contents",
                     "value": "270,361"
                 }
-            ]
+            ],
+            "icon": ""
         },
         {
             "title": "NAS",
@@ -40,7 +42,8 @@
                     "name": "Total schools Surveyed",
                     "value": "4.08M"
                 }
-            ]
+            ],
+            "icon": ""
         },
         {
             "title": "Quizzes",
@@ -50,7 +53,8 @@
                     "name": "Bhasha Sangam Enrollments",
                     "value": "11,960"
                 }
-            ]
+            ],
+            "icon": ""
         },
         {
             "title": "NIPUN BHARAT",
@@ -64,40 +68,38 @@
                     "name": "Total LO",
                     "value": "484"
                 }
-            ]
+            ],
+            "icon": ""
         },
         {
             "title": "CWSN",
             "navigationURL": "",
-            "metrics": [
-                {
-                    "name": "",
-                    "value": ""
-                },
-                {
-                    "name": ""
-                }
-            ]
+            "metrics": [],
+            "icon": ""
         },
         {
             "title": "Adult Education",
             "navigationURL": "",
-            "metrics": []
+            "metrics": [],
+            "icon": ""
         },
         {
             "title": "UDISE+",
             "navigationURL": "",
-            "metrics": []
+            "metrics": [],
+            "icon": ""
         },
         {
             "title": "VIDYANJALI",
             "navigationURL": "",
-            "metrics": []
+            "metrics": [],
+            "icon": ""
         },
         {
             "title": "VIDYADAAN",
             "navigationURL": "",
-            "metrics": []
+            "metrics": [],
+            "icon": ""
         }
     ],
     [
@@ -113,7 +115,8 @@
                     "name": "Total Contents",
                     "value": "270,361"
                 }
-            ]
+            ],
+            "icon": ""
         },
         {
             "title": "NAS",
@@ -127,7 +130,8 @@
                     "name": "Total schools Surveyed",
                     "value": "4.08M"
                 }
-            ]
+            ],
+            "icon": ""
         },
         {
             "title": "UDISE",
@@ -141,7 +145,8 @@
                     "name": "Net Certifications",
                     "value": "20.7M"
                 }
-            ]
+            ],
+            "icon": ""
         },
         {
             "title": "PGI",
@@ -155,7 +160,8 @@
                     "name": "Net Certifications",
                     "value": "20.7M"
                 }
-            ]
+            ],
+            "icon": ""
         },
         {
             "title": "Poshan",
@@ -169,7 +175,8 @@
                     "name": "Net Certifications",
                     "value": "20.7M"
                 }
-            ]
+            ],
+            "icon": ""
         }
     ]
 ]

@@ -9,7 +9,7 @@
 }
 
 .app-side-nav {
-    margin-top: $app-nav-bar-height;
+    margin-top: calc(10px + #{$app-nav-bar-height});
     height: calc(100vh - #{$app-nav-bar-height});
     width: $app-side-nav-width;
     box-shadow: 1px 3px 5px #aaa;

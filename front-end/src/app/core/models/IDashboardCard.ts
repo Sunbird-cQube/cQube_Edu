@@ -1,7 +1,8 @@
 export interface IDashboardMenu {
     title: string;
     navigationURL: string;
-    metrics: IDashboardMetric[]
+    metrics: IDashboardMetric[];
+    icon: string;
 }
 
 export interface IDashboardMetric {

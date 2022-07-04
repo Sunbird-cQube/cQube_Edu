@@ -15,4 +15,7 @@ export class DashboardCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  len(arr: any[]){
+    return arr.length
+  }
 }

@@ -2,17 +2,31 @@
     max-width: 350px;
     box-shadow: 0 0 3px #aaa;
     background: #fff;
+    padding: 0 !important;
+
+    .dashboard-card-header {
+        margin: 16px;
+    }
 
     .dashboard-card-body {
+        padding: 16px;
         min-height: 80px;
 
         .metrics-wrapper {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
+        }
+        .metrics-wrapper .metric-value{
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .metrics-wrapper .metric-name{
+            font-size: 16px;
         }
     }
 
     .dashboard-card-footer {
+        margin: 16px;
         color: white;
         display: flex;
         justify-content: space-between;
