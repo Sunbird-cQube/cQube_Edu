@@ -26,10 +26,25 @@ export class NishthaProgramDetailComponent implements OnInit {
       if (params['version']) {
         this._nishthaService.getStateWiseEnrollmentData(params['version']).subscribe(res => {
           this.options = {
+            chart: {
+              events: {
+                load: function(this: any) {
+                  let categoryHeight = 20;
+                  this.update({
+                    chart: {
+                      height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
+                    }
+                  })
+                }
+              }
+            },
             xAxis: {
               categories: res.result.map((record: IStateWiseEnrollmentRec) => {
                 return record['State'];
               })
+            },
+            yAxis: {
+              opposite: true
             },
             series: [{
               type: 'bar',
