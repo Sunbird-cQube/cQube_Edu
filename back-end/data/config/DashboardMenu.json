@@ -35,15 +35,15 @@
             "navigationURL": "/nas",
             "metrics": [
                 {
-                    "name": "Total Students Surveyed",
+                    "name": "Students Surveyed",
                     "value": "78.4M"
                 },
                 {
-                    "name": "Total schools Surveyed",
+                    "name": "Schools Surveyed",
                     "value": "4.08M"
                 }
             ],
-            "icon": ""
+            "icon": "NISHTHA.png"
         },
         {
             "title": "Quizzes",
@@ -93,7 +93,7 @@
             "title": "VIDYANJALI",
             "navigationURL": "",
             "metrics": [],
-            "icon": ""
+            "icon": "NISHTHA.png"
         },
         {
             "title": "VIDYADAAN",
