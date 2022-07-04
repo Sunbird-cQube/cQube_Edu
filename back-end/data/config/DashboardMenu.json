@@ -2,7 +2,7 @@
     [
         {
             "title": "NISHTHA",
-            "navigationURL": "/layout/nishtha",
+            "navigationURL": "/nishtha",
             "metrics": [
                 {
                     "name": "Net Enrollment",
@@ -16,7 +16,7 @@
         },
         {
             "title": "ETB & E-content",
-            "navigationURL": "/layout/etb",
+            "navigationURL": "/etb",
             "metrics": [
                 {
                     "name": "Total ETB",
@@ -30,7 +30,7 @@
         },
         {
             "title": "Quizzes",
-            "navigationURL": "/layout",
+            "navigationURL": "",
             "metrics": [
                 {
                     "name": "Bhasha Sangam Enrollments",
@@ -40,7 +40,7 @@
         },
         {
             "title": "NIPUN BHARAT",
-            "navigationURL": "/layout",
+            "navigationURL": "",
             "metrics": [
                 {
                     "name": "Total Contents Linked",
@@ -54,7 +54,7 @@
         },
         {
             "title": "CWSN",
-            "navigationURL": "/layout",
+            "navigationURL": "",
             "metrics": [
                 {
                     "name": "",
@@ -67,29 +67,29 @@
         },
         {
             "title": "Adult Education",
-            "navigationURL": "/layout",
+            "navigationURL": "",
             "metrics": []
         },
         {
             "title": "UDISE+",
-            "navigationURL": "/layout",
+            "navigationURL": "",
             "metrics": []
         },
         {
             "title": "VIDYANJALI",
-            "navigationURL": "/layout",
+            "navigationURL": "",
             "metrics": []
         },
         {
             "title": "VIDYADAAN",
-            "navigationURL": "/layout",
+            "navigationURL": "",
             "metrics": []
         }
     ],
     [
         {
             "title": "DIKSHA",
-            "navigationURL": "/layout/etb",
+            "navigationURL": "/etb",
             "metrics": [
                 {
                     "name": "Total ETB",
@@ -103,7 +103,7 @@
         },
         {
             "title": "NAS",
-            "navigationURL": "/layout",
+            "navigationURL": "",
             "metrics": [
                 {
                     "name": "Net Enrollment",
@@ -117,7 +117,7 @@
         },
         {
             "title": "UDISE",
-            "navigationURL": "/layout",
+            "navigationURL": "",
             "metrics": [
                 {
                     "name": "Net Enrollment",
@@ -131,7 +131,7 @@
         },
         {
             "title": "PGI",
-            "navigationURL": "/layout",
+            "navigationURL": "",
             "metrics": [
                 {
                     "name": "Net Enrollment",
@@ -145,7 +145,7 @@
         },
         {
             "title": "Poshan",
-            "navigationURL": "/layout",
+            "navigationURL": "",
             "metrics": [
                 {
                     "name": "Net Enrollment",

@@ -4,16 +4,11 @@ import { LayoutComponent } from './core/components/layout/layout.component';
 
 const routes: Routes = [
   {
-    path:'',
-    redirectTo:'authentication',
-    pathMatch:'full', 
+    path:'', 
+    loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
   },
   {
-    path:'authentication', 
-    loadChildren: () => import('../app/core/components/authentication/authentication.module').then(module => module.AuthenticationModule)
-  },
-  {
-    path: 'layout',
+    path: '',
     component: LayoutComponent,
     children: [
       {
@@ -32,11 +27,6 @@ const routes: Routes = [
       {
         path: 'etb',
         loadChildren: () => import('./views/etb/etb.module').then(module => module.EtbModule)
-      },
-      {
-        path: '',
-        redirectTo: 'layout',
-        pathMatch: 'full'
       }
     ]
   }

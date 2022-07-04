@@ -2,21 +2,21 @@
   [{
       "label": "Dashboard",
       "icon": "",
-      "path": "/layout/dashboard",
+      "path": "/dashboard",
       "basepath": "dashboard",
       "hasSub": false
     },
     {
       "label": "Nishtha",
       "icon": "",
-      "path": "/layout/nishtha",
+      "path": "/nishtha",
       "basepath": "nishtha",
       "hasSub": false
     },
     {
       "label": "ETB & E-content",
       "icon": "",
-      "path": "/layout/etb",
+      "path": "/etb",
       "basepath": "etb",
       "hasSub": false
     }],
@@ -24,42 +24,42 @@
       {
         "label": "Dashboard",
         "icon": "",
-        "path": "/layout/dashboard",
+        "path": "/dashboard",
         "basepath": "dashboard",
         "hasSub": false
       },
       {
         "label": "DIKSHA",
         "icon": "",
-        "path": "/layout/etb",
+        "path": "/etb",
         "basepath": "dashboard",
         "hasSub": false
       },
       {
         "label": "NAS",
         "icon": "",
-        "path": "/layout",
+        "path": "",
         "basepath": "dashboard",
         "hasSub": false
       },
       {
         "label": "UDISE",
         "icon": "",
-        "path": "/layout",
+        "path": "",
         "basepath": "dashboard",
         "hasSub": false
       },
       {
         "label": "PGI",
         "icon": "",
-        "path": "/layout",
+        "path": "",
         "basepath": "dashboard",
         "hasSub": false
       },
       {
         "label": "Poshan",
         "icon": "",
-        "path": "/layout",
+        "path": "",
         "basepath": "dashboard",
         "hasSub": false
       }
