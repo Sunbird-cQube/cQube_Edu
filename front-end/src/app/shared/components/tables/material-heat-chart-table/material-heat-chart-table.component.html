@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource" matSort tableHeatMap (contentChanged)="contentChanged()">
+<table mat-table [dataSource]="dataSource" matSort tableHeatMap>
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element; let i = index;">{{i + 1}}. </td>

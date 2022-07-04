@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IBarChartSeries } from 'src/app/core/models/IBarChat';
+import * as Highcharts from "highcharts/highstock";
+
 import { IStateWiseEnrollmentRec } from 'src/app/core/models/IStateWiseEnrollmentRec';
 import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
 
@@ -11,9 +12,8 @@ import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
 })
 export class NishthaProgramDetailComponent implements OnInit {
   stateWiseEnrollmentData!: IStateWiseEnrollmentRec[];
-  categories!: string[];
-  series!: IBarChartSeries<number>[];
-  height = 250;
+  options: Highcharts.Options | undefined;
+  height: number;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -25,10 +25,13 @@ export class NishthaProgramDetailComponent implements OnInit {
     this._activatedRoute.params.subscribe(params => {
       if (params['version']) {
         this._nishthaService.getStateWiseEnrollmentData(params['version']).subscribe(res => {
-          this.categories = res.result.map((record: IStateWiseEnrollmentRec) => {
-            return record['State'];
-          });
-          this.series = [{
+          this.options = {
+            xAxis: {
+              categories: res.result.map((record: IStateWiseEnrollmentRec) => {
+                return record['State'];
+              })
+            },
+            series: [{
               type: 'bar',
               name: 'Total Enrollments',
               data: res.result.map((record: IStateWiseEnrollmentRec) => record['Total Enrollments'])
@@ -36,8 +39,9 @@ export class NishthaProgramDetailComponent implements OnInit {
               type: 'bar',
               name: 'Total Certifications',
               data: res.result.map((record: IStateWiseEnrollmentRec) => record['Total Certifications'])
-            }
-          ];
+            }]
+          };
+          
           this.stateWiseEnrollmentData = res.result;
         });
       }
