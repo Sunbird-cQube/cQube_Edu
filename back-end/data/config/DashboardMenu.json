@@ -13,7 +13,7 @@
                     "value": "20.7M"
                 }
             ],
-            "icon": ""
+            "icon": "NISHTHA.png"
         },
         {
             "title": "ETB & E-content",
@@ -28,7 +28,7 @@
                     "value": "270,361"
                 }
             ],
-            "icon": ""
+            "icon": "ETB & E-Content.png"
         },
         {
             "title": "NAS",
@@ -54,7 +54,7 @@
                     "value": "11,960"
                 }
             ],
-            "icon": ""
+            "icon": "Quizzes.png"
         },
         {
             "title": "NIPUN BHARAT",
@@ -69,25 +69,25 @@
                     "value": "484"
                 }
             ],
-            "icon": ""
+            "icon": "NIPUN BHARAT.png"
         },
         {
             "title": "CWSN",
             "navigationURL": "",
             "metrics": [],
-            "icon": ""
+            "icon": "CWSN.png"
         },
         {
             "title": "Adult Education",
             "navigationURL": "",
             "metrics": [],
-            "icon": ""
+            "icon": "Adults Education.png"
         },
         {
             "title": "UDISE+",
             "navigationURL": "",
             "metrics": [],
-            "icon": ""
+            "icon": "UDISE+.png"
         },
         {
             "title": "VIDYANJALI",
@@ -99,7 +99,7 @@
             "title": "VIDYADAAN",
             "navigationURL": "",
             "metrics": [],
-            "icon": ""
+            "icon": "VIDHYADAAN.png"
         }
     ],
     [
