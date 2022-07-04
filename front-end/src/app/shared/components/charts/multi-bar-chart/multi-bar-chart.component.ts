@@ -14,7 +14,7 @@ HighchartsMore2(Highcharts);
 })
 export class MultiBarChartComponent implements OnInit, OnChanges {
   chart!: Highcharts.Chart;
-  @Input() height = 350;
+  @Input() height: number | string = 'auto';
   @Input() title!: string;
   @Input() options: Highcharts.Options | undefined;
 
@@ -44,14 +44,12 @@ export class MultiBarChartComponent implements OnInit, OnChanges {
           text: ""
       },
       xAxis: {
-          min: 0,
-          max: 6.5,
           categories: [],
           title: {
               text: null
           },
           scrollbar: {
-            enabled: true
+            enabled: false
           },
           gridLineColor: 'transparent'
       },
@@ -60,13 +58,15 @@ export class MultiBarChartComponent implements OnInit, OnChanges {
           title: {
               text: null
           },
-          gridLineColor: 'transparent',
+          gridLineColor: 'transparent'
           
       },
       plotOptions: {
           bar: {
               dataLabels: {
                   enabled: true,
+                  crop: false,
+                  allowOverlap: true,
                   formatter: function() {
                     return ref._decimalPipe.transform(this.y, '1.0-0', 'en-IN');
                   }
