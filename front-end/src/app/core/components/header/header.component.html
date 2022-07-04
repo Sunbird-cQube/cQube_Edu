@@ -8,19 +8,17 @@
                 <img src="assets/images/moi_logo.png" class="mr-3 h-6 sm:h-9" alt="MOI Logo" />
             </a>
         </div>
-        <div class="justify-between items-center w-full md:flex md:w-auto" *ngIf="config == 'NVSK'">
+        <div class="justify-between items-center md:flex" *ngIf="config == 'NVSK'">
             <h1 class="font-medium leading-tight lg:text-4xl md:text-2xl xs:text-sm sm:text-1xl mt-0">NDEAR VIDYA
                 SAMIKSHA KENDRA</h1>
         </div>
-        <div class="justify-between items-center w-full md:flex md:w-auto" *ngIf="config == 'VSK'">
+        <div class="justify-between items-center md:flex" *ngIf="config == 'VSK'">
             <h1 class="font-medium leading-tight lg:text-4xl md:text-2xl xs:text-sm sm:text-1xl mt-0">VIDYA SAMIKSHA
                 KENDRA</h1>
         </div>
-        <div class="justify-between items-center h-full">
-                <img src="assets/images/ncert_logo.png" class="h-full logo" alt="NCERT Logo">
-        </div>
-        <div class="justify-between items-center h-full ">
-            <i class="fa fa-sign-out fa-2x ml-5" style="cursor: pointer;" (click)="signOut()"></i>
+        <div class="d-flex justify-between items-center h-full">
+            <img src="assets/images/ncert_logo.png" class="h-full logo" alt="NCERT Logo">
+            <i class="fa fa-sign-out fa-2x ml-3" style="cursor: pointer;" (click)="logout()"></i>
         </div>
     </div>
 </nav>

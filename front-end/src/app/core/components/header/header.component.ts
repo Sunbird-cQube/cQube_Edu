@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { environment } from 'src/environments/environment';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +15,13 @@ export class HeaderComponent implements OnInit {
 
   faBars = faBars;
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private readonly _authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
   }
 
-  signOut(){
-    this.router.navigate(['/authentication/login']);
+  logout() {
+    this._authenticationService.logout();
   }
 
 }

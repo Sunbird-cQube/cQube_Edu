@@ -1,7 +1,7 @@
 [
     {
         "title": "NISHTHA 1.0",
-        "navigationURL": "/layout/nishtha/detail/1.0",
+        "navigationURL": "/nishtha/detail/1.0",
         "metrics": [
             {
                 "name": "Total Enrollments",
@@ -15,7 +15,7 @@
     },
     {
         "title": "Nishtha 2.0",
-        "navigationURL": "/layout/nishtha/detail/2.0",
+        "navigationURL": "/nishtha/detail/2.0",
         "metrics": [
             {
                 "name": "Total Enrollments",
@@ -29,7 +29,7 @@
     },
     {
         "title": "Nishtha 3.0",
-        "navigationURL": "/layout/nishtha/detail/3.0",
+        "navigationURL": "/nishtha/detail/3.0",
         "metrics": [
             {
                 "name": "Total Enrollments",
