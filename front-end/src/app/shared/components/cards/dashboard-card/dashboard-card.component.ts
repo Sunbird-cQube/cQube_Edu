@@ -19,4 +19,5 @@ export class DashboardCardComponent implements OnInit {
   len(arr: any[]){
     return arr.length;
   }
+
 }

@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild, SimpleChanges } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import * as Highcharts from "highcharts/highstock";
 import * as HighchartsMore from "highcharts/highcharts-more";
-import { IBarChartSeries } from 'src/app/core/models/IBarChat';
 
 const HighchartsMore2: any = HighchartsMore;
 HighchartsMore2(Highcharts);
@@ -13,13 +12,11 @@ HighchartsMore2(Highcharts);
   styleUrls: ['./multi-bar-chart.component.scss'],
   providers: [DecimalPipe]
 })
-export class MultiBarChartComponent implements OnInit, AfterViewInit {
+export class MultiBarChartComponent implements OnInit, OnChanges {
   chart!: Highcharts.Chart;
-  @Input() height = 50;
+  @Input() height: number | string = 'auto';
   @Input() title!: string;
-  @Input() categories!: string[];
-  @Input() series!: IBarChartSeries<number | string>[];
-  @Input() gridLineColor: string = '#aaa';
+  @Input() options: Highcharts.Options | undefined;
 
   @ViewChild('container') container: any;
 
@@ -28,13 +25,17 @@ export class MultiBarChartComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
-    this.createBarChart();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.options !== undefined) {
+      setTimeout(() => {
+        this.createMultiBarChart(this.options);
+      }, 100);
+    }
   }
 
-  createBarChart(): void {
+  createMultiBarChart(options: Highcharts.Options | undefined): void {
     let ref: MultiBarChartComponent = this;
-    this.chart = Highcharts.chart(this.container.nativeElement, {
+    let defaultOptions: Highcharts.Options = {
       chart: {
         type: 'bar',
         marginTop: 75
@@ -43,29 +44,29 @@ export class MultiBarChartComponent implements OnInit, AfterViewInit {
           text: ""
       },
       xAxis: {
-          min: 0,
-          max: 6.5,
-          categories: this.categories,
+          categories: [],
           title: {
               text: null
           },
           scrollbar: {
-            enabled: true
+            enabled: false
           },
-          gridLineColor: this.gridLineColor
+          gridLineColor: 'transparent'
       },
       yAxis: {
           min: 0,
           title: {
               text: null
           },
-          gridLineColor: this.gridLineColor,
+          gridLineColor: 'transparent'
           
       },
       plotOptions: {
           bar: {
               dataLabels: {
                   enabled: true,
+                  crop: false,
+                  allowOverlap: true,
                   formatter: function() {
                     return ref._decimalPipe.transform(this.y, '1.0-0', 'en-IN');
                   }
@@ -83,9 +84,9 @@ export class MultiBarChartComponent implements OnInit, AfterViewInit {
       credits: {
           enabled: false
       },
-      series: this.series
-  }, function(this: any) {
-
+      series: []
+    };
+    this.chart = Highcharts.chart(this.container.nativeElement, Highcharts.merge(defaultOptions, options), function(this: any) {
   });
   }
 }

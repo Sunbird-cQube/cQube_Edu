@@ -13,7 +13,7 @@
                     "value": "20.7M"
                 }
             ],
-            "icon": ""
+            "icon": "NISHTHA.png"
         },
         {
             "title": "ETB & E-content",
@@ -28,22 +28,22 @@
                     "value": "270,361"
                 }
             ],
-            "icon": ""
+            "icon": "ETB & E-Content.png"
         },
         {
             "title": "NAS",
             "navigationURL": "/nas",
             "metrics": [
                 {
-                    "name": "Total Students Surveyed",
+                    "name": "Students Surveyed",
                     "value": "78.4M"
                 },
                 {
-                    "name": "Total schools Surveyed",
+                    "name": "Schools Surveyed",
                     "value": "4.08M"
                 }
             ],
-            "icon": ""
+            "icon": "NISHTHA.png"
         },
         {
             "title": "Quizzes",
@@ -54,7 +54,7 @@
                     "value": "11,960"
                 }
             ],
-            "icon": ""
+            "icon": "Quizzes.png"
         },
         {
             "title": "NIPUN BHARAT",
@@ -69,37 +69,37 @@
                     "value": "484"
                 }
             ],
-            "icon": ""
+            "icon": "NIPUN BHARAT.png"
         },
         {
             "title": "CWSN",
             "navigationURL": "",
             "metrics": [],
-            "icon": ""
+            "icon": "CWSN.png"
         },
         {
             "title": "Adult Education",
             "navigationURL": "",
             "metrics": [],
-            "icon": ""
+            "icon": "Adults Education.png"
         },
         {
             "title": "UDISE+",
             "navigationURL": "",
             "metrics": [],
-            "icon": ""
+            "icon": "UDISE+.png"
         },
         {
             "title": "VIDYANJALI",
             "navigationURL": "",
             "metrics": [],
-            "icon": ""
+            "icon": "NISHTHA.png"
         },
         {
             "title": "VIDYADAAN",
             "navigationURL": "",
             "metrics": [],
-            "icon": ""
+            "icon": "VIDHYADAAN.png"
         }
     ],
     [
@@ -123,11 +123,11 @@
             "navigationURL": "/nas",
             "metrics": [
                 {
-                    "name": "Total Students Surveyed",
+                    "name": "Students Surveyed",
                     "value": "78.4M"
                 },
                 {
-                    "name": "Total schools Surveyed",
+                    "name": "schools Surveyed",
                     "value": "4.08M"
                 }
             ],
@@ -164,7 +164,7 @@
             "icon": ""
         },
         {
-            "title": "Poshan",
+            "title": "POSHAN",
             "navigationURL": "",
             "metrics": [
                 {
