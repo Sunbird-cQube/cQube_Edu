@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
       if(!this.withinTime){
         this.dropdown = false;
       }
-    }, 2000)
+    }, 3000)
   }
 
 }

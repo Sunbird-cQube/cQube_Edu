@@ -35,10 +35,14 @@
 .app-content-wrapper {
     padding-top: $app-nav-bar-height;
     padding-left: $app-side-nav-width;
+    padding-right:80px;
 
     .app-content {
         padding: 1.5rem;
     }
+}
+.dropdown{
+    bottom: calc(5px - #{$app-nav-bar-height});
 }
 
 @screen max-xmd {
@@ -48,6 +52,7 @@
 
     .app-content-wrapper {
         padding-left: 0;
+        padding-right: 0;
     }
 
     .app-content {

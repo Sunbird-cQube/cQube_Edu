@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MultiBarChartComponent } from './components/charts/multi-bar-chart/multi-bar-chart.component';
 import { DashboardCardComponent } from './components/cards/dashboard-card/dashboard-card.component';
@@ -15,6 +16,7 @@ import { GaugeChartComponent } from './components/charts/gauge-chart/gauge-chart
 const IMPORTS: any[] = [
   MatTableModule,
   MatSortModule,
+  MatTooltipModule,
 ];
 
 const DECLARATIONS = [

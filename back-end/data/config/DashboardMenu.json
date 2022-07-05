@@ -123,11 +123,11 @@
             "navigationURL": "/nas",
             "metrics": [
                 {
-                    "name": "Total Students Surveyed",
+                    "name": "Students Surveyed",
                     "value": "78.4M"
                 },
                 {
-                    "name": "Total schools Surveyed",
+                    "name": "schools Surveyed",
                     "value": "4.08M"
                 }
             ],
@@ -164,7 +164,7 @@
             "icon": ""
         },
         {
-            "title": "Poshan",
+            "title": "POSHAN",
             "navigationURL": "",
             "metrics": [
                 {

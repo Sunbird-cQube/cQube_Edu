@@ -1,18 +1,22 @@
 [
     {
         "name": "Grade 3 Performance",
-        "value": "61.1 %"
+        "value": "61.1 %",
+        "tooltip": "Grade 3 Performance"
     },
     {
         "name": "Grade 5 Performance",
-        "value": "53.4 %"
+        "value": "53.4 %",
+        "tooltip": "Grade 5 Performance"
     },
     {
         "name": "Grade 8 Performance",
-        "value": "42 %"
+        "value": "42 %",
+        "tooltip": "Grade 8 Performance"
     },
     {
         "name": "Grade 10 Performance",
-        "value": ""
+        "value": "",
+        "tooltip": "Grade 10 Performance"
     }
 ]

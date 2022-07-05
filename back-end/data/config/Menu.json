@@ -36,7 +36,7 @@
       "hasSub": false
     },
     {
-      "label": "NIPUN BHARAT",
+      "label": "Nipun Bharat",
       "icon": "",
       "path": "",
       "basepath": "dashboard",
@@ -57,21 +57,14 @@
       "hasSub": false
     },
     {
-      "label": "Adult Education",
+      "label": "Vidyanjali",
       "icon": "",
       "path": "",
       "basepath": "dashboard",
       "hasSub": false
     },
     {
-      "label": "VIDYANJALI",
-      "icon": "",
-      "path": "",
-      "basepath": "dashboard",
-      "hasSub": false
-    },
-    {
-      "label": "VIDYADAAN",
+      "label": "Vidyadaan",
       "icon": "",
       "path": "",
       "basepath": "dashboard",
@@ -87,7 +80,7 @@
       "hasSub": false
     },
     {
-      "label": "DIKSHA",
+      "label": "Diksha",
       "icon": "",
       "path": "/etb",
       "basepath": "dashboard",
