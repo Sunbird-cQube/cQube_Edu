@@ -12,6 +12,8 @@ import { MapMyIndiaComponent } from './components/maps/map-my-india/map-my-india
 import { TableHeatMapDirective, TableHeatMapCellDirective, TableHeatMapColumnDirective } from './directives/table-heat-map/table-heat-map.directive';
 import { MaterialHeatChartTableComponent } from './components/tables/material-heat-chart-table/material-heat-chart-table.component';
 import { GaugeChartComponent } from './components/charts/gauge-chart/gauge-chart.component';
+import { ScatterChartComponent } from './components/scatter-chart/scatter-chart.component';
+import { ChartsModule } from 'ng2-charts';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -28,16 +30,20 @@ const DECLARATIONS = [
   TableHeatMapDirective,
   TableHeatMapCellDirective,
   TableHeatMapColumnDirective,
-  GaugeChartComponent
+  GaugeChartComponent,
+  ScatterChartComponent,
+ 
 ];
 
 @NgModule({
   declarations: [
-    DECLARATIONS
+    DECLARATIONS,
+    
   ],
   imports: [
     CommonModule,
     RouterModule,
+    ChartsModule,
     IMPORTS
   ],
   exports: [
