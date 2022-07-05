@@ -22,7 +22,7 @@
             <div>
                 <img src="../../../../assets/images/user.png" class="user-icon ml-5" (mouseover)="onMouseOver()"
                     (mouseout)="onMouseOut()">
-                <div *ngIf="dropdown" class="dropdown" (mouseover)="withinTime = true;" (mouseout)="onMouseOut()">
+                <div *ngIf="dropdown" class="dropdown" (mouseover)="withinTime = true;" [@fadeInOut] (mouseout)="onMouseOut()">
                     <a href="#" (click)="logout()"> logout</a>
                 </div>
             </div>

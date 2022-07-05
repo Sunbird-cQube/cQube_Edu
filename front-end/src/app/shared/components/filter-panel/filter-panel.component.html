@@ -1,0 +1,29 @@
+<div class="wrapper">
+    <div class="grid grid-cols-6 filter-panel-wrapper" *ngIf="config == 'VSK'">
+        <div class="col-span-1">
+            <ng-select class="mx-2" placeholder="Select District">
+                <!-- <ng-option *ngFor="let "></ng-option> -->
+            </ng-select>
+        </div>
+        <div class="col-span-1">
+            <ng-select class="mx-2" placeholder="Select Block">
+
+            </ng-select>
+        </div>
+        <div class="col-span-1">
+            <ng-select class="mx-2" placeholder="Select Cluster">
+
+            </ng-select>
+        </div>
+        <div class="col-span-1">
+            <ng-select class="mx-2" placeholder="Select School">
+
+            </ng-select>
+        </div>
+        <div class="col-span-2">
+            <button class="btn download pull-right">
+                <i class="fa fa-download fx-lg" aria-hidden="true"></i> Download
+            </button>
+        </div>
+    </div>
+</div>
