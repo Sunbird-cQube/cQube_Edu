@@ -23,15 +23,13 @@
     "@fortawesome/angular-fontawesome": "^0.11.1",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
-<<<<<<< Updated upstream
-    "chart.js": "^3.8.0",
-=======
+    "chart.js": "^2.9.3",
     "@ng-select/ng-select": "^9.0.2",
->>>>>>> Stashed changes
     "color2k": "^2.0.0",
     "highcharts": "^10.1.0",
     "leaflet": "^1.6.0",
     "leaflet-responsive-popup": "^1.0.0",
+    "ng2-charts": "^2.4.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "xlsx": "^0.18.5",

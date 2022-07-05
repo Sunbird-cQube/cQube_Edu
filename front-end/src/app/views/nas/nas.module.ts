@@ -19,8 +19,10 @@ import { MatTabsModule } from '@angular/material/tabs';
     imports: [
         CommonModule,
         NasRoutingModule,
+        MatTabsModule,
         SharedModule,
-        MatTabsModule
+
+
     ]
 })
 export class NasModule { }
