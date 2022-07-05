@@ -9,11 +9,12 @@ import { NasRoutingModule } from './nas-routing.module';
 import { NasComponent } from './nas.component';
 import { MatTabsModule } from '@angular/material/tabs';
 
+
 @NgModule({
     declarations: [
         DashboardComponent,
         NasProgramComponent,
-        NasComponent
+        NasComponent,
     ],
     imports: [
         CommonModule,

@@ -1,0 +1,326 @@
+[
+    {
+        "State Name": "Maharashtra",
+        "Total Live TB": 790,
+        "Total Energised (Live ETB)": 667,
+        "State energised (ETB)": 667,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 702,
+        "ETB Coverage %": "95.01%",
+        "ETB Coverage": 95
+    },
+    {
+        "State Name": "Tamil Nadu",
+        "Total Live TB": 363,
+        "Total Energised (Live ETB)": 346,
+        "State energised (ETB)": 346,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": "",
+        "ETB Coverage %": "#DIV/0!",
+        "ETB Coverage": 100
+    },
+    {
+        "State Name": "Delhi",
+        "Total Live TB": 415,
+        "Total Energised (Live ETB)": 222,
+        "State energised (ETB)": 10,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 10,
+        "ETB Coverage %": "100.00%",
+        "ETB Coverage": 100
+    },
+    {
+        "State Name": "Haryana",
+        "Total Live TB": 516,
+        "Total Energised (Live ETB)": 200,
+        "State energised (ETB)": 39,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 39,
+        "ETB Coverage %": "100.00%",
+        "ETB Coverage": 100
+    },
+    {
+        "State Name": "Kerala",
+        "Total Live TB": 213,
+        "Total Energised (Live ETB)": 202,
+        "State energised (ETB)": 170,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 595,
+        "ETB Coverage %": "28.57%",
+        "ETB Coverage": 28.6
+    },
+    {
+        "State Name": "Andhra Pradesh",
+        "Total Live TB": 125,
+        "Total Energised (Live ETB)": 112,
+        "State energised (ETB)": 112,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 300,
+        "ETB Coverage %": "37.33%",
+        "ETB Coverage": 37.3
+    },
+    {
+        "State Name": "Bihar",
+        "Total Live TB": 156,
+        "Total Energised (Live ETB)": 200,
+        "State energised (ETB)": 200,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 234,
+        "ETB Coverage %": "85.47%",
+        "ETB Coverage": 85.5
+    },
+    {
+        "State Name": "Goa",
+        "Total Live TB": 236,
+        "Total Energised (Live ETB)": 110,
+        "State energised (ETB)": 48,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 48,
+        "ETB Coverage %": "100.00%",
+        "ETB Coverage": 100
+    },
+    {
+        "State Name": "Karnataka",
+        "Total Live TB": 264,
+        "Total Energised (Live ETB)": 332,
+        "State energised (ETB)": 332,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 714,
+        "ETB Coverage %": "46.50%",
+        "ETB Coverage": 46.5
+    },
+    {
+        "State Name": "Odisha",
+        "Total Live TB": 167,
+        "Total Energised (Live ETB)": 167,
+        "State energised (ETB)": 167,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 215,
+        "ETB Coverage %": "77.67%",
+        "ETB Coverage": 77.7
+    },
+    {
+        "State Name": "Uttar Pradesh",
+        "Total Live TB": 239,
+        "Total Energised (Live ETB)": 208,
+        "State energised (ETB)": 96,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 132,
+        "ETB Coverage %": "72.73%",
+        "ETB Coverage": 72.7
+    },
+    {
+        "State Name": "Assam",
+        "Total Live TB": 197,
+        "Total Energised (Live ETB)": 152,
+        "State energised (ETB)": 152,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 291,
+        "ETB Coverage %": "52.23%",
+        "ETB Coverage": 52.2
+    },
+    {
+        "State Name": "Chhattisgarh",
+        "Total Live TB": 71,
+        "Total Energised (Live ETB)": 69,
+        "State energised (ETB)": 69,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 108,
+        "ETB Coverage %": "63.89%",
+        "ETB Coverage": 63.9
+    },
+    {
+        "State Name": "Gujarat",
+        "Total Live TB": 245,
+        "Total Energised (Live ETB)": 105,
+        "State energised (ETB)": 105,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 112,
+        "ETB Coverage %": "93.75%",
+        "ETB Coverage": 93.8
+    },
+    {
+        "State Name": "Manipur",
+        "Total Live TB": 86,
+        "Total Energised (Live ETB)": 77,
+        "State energised (ETB)": 66,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 103,
+        "ETB Coverage %": "64.08%",
+        "ETB Coverage": 64.1
+    },
+    {
+        "State Name": "Jammu And Kashmir",
+        "Total Live TB": 62,
+        "Total Energised (Live ETB)": 58,
+        "State energised (ETB)": 58,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 148,
+        "ETB Coverage %": "39.19%",
+        "ETB Coverage": 39.2
+    },
+    {
+        "State Name": "Jharkhand",
+        "Total Live TB": 262,
+        "Total Energised (Live ETB)": 166,
+        "State energised (ETB)": 42,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 105,
+        "ETB Coverage %": "40.00%",
+        "ETB Coverage": 40
+    },
+    {
+        "State Name": "Rajasthan",
+        "Total Live TB": 263,
+        "Total Energised (Live ETB)": 220,
+        "State energised (ETB)": 166,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 166,
+        "ETB Coverage %": "100.00%",
+        "ETB Coverage": 100
+    },
+    {
+        "State Name": "Sikkim",
+        "Total Live TB": 132,
+        "Total Energised (Live ETB)": 110,
+        "State energised (ETB)": 30,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 486,
+        "ETB Coverage %": "6.17%",
+        "ETB Coverage": 6.2
+    },
+    {
+        "State Name": "Uttarakhand",
+        "Total Live TB": 229,
+        "Total Energised (Live ETB)": 214,
+        "State energised (ETB)": 162,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 236,
+        "ETB Coverage %": "68.64%",
+        "ETB Coverage": 68.6
+    },
+    {
+        "State Name": "Telangana",
+        "Total Live TB": 317,
+        "Total Energised (Live ETB)": 59,
+        "State energised (ETB)": 59,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 273,
+        "ETB Coverage %": "21.61%",
+        "ETB Coverage": 21.6
+    },
+    {
+        "State Name": "Meghalaya",
+        "Total Live TB": 35,
+        "Total Energised (Live ETB)": 33,
+        "State energised (ETB)": 33,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 277,
+        "ETB Coverage %": "11.91%",
+        "ETB Coverage": 11.9
+    },
+    {
+        "State Name": "Punjab",
+        "Total Live TB": 62,
+        "Total Energised (Live ETB)": 36,
+        "State energised (ETB)": 0,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": "",
+        "ETB Coverage %": "#DIV/0!",
+        "ETB Coverage": 0
+    },
+    {
+        "State Name": "Mizoram",
+        "Total Live TB": 17,
+        "Total Energised (Live ETB)": 49,
+        "State energised (ETB)": 49,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 49,
+        "ETB Coverage %": "100.00%",
+        "ETB Coverage": 100
+    },
+    {
+        "State Name": "Tripura",
+        "Total Live TB": 6,
+        "Total Energised (Live ETB)": 6,
+        "State energised (ETB)": 6,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": "",
+        "ETB Coverage %": "#DIV/0!",
+        "ETB Coverage": 100
+    },
+    {
+        "State Name": "Nagaland",
+        "Total Live TB": 19,
+        "Total Energised (Live ETB)": 25,
+        "State energised (ETB)": 16,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": "",
+        "ETB Coverage %": "#DIV/0!",
+        "ETB Coverage": 100
+    },
+    {
+        "State Name": "Himachal Pradesh",
+        "Total Live TB": 508,
+        "Total Energised (Live ETB)": 264,
+        "State energised (ETB)": 108,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 211,
+        "ETB Coverage %": "51.18%",
+        "ETB Coverage": 51.2
+    },
+    {
+        "State Name": "Andaman and Nicobar Islands",
+        "Total Live TB": 163,
+        "Total Energised (Live ETB)": 139,
+        "State energised (ETB)": 0,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 40,
+        "ETB Coverage %": "0.00%",
+        "ETB Coverage": 0
+    },
+    {
+        "State Name": "Arunachal Pradesh",
+        "Total Live TB": 102,
+        "Total Energised (Live ETB)": 84,
+        "State energised (ETB)": 0,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 14,
+        "ETB Coverage %": "0.00%",
+        "ETB Coverage": 0
+    },
+    {
+        "State Name": "Chandigarh",
+        "Total Live TB": 297,
+        "Total Energised (Live ETB)": 190,
+        "State energised (ETB)": 0,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 0,
+        "ETB Coverage %": "0.00%",
+        "ETB Coverage": 0
+    },
+    {
+        "State Name": "Madhya Pradesh",
+        "Total Live TB": 383,
+        "Total Energised (Live ETB)": 230,
+        "State energised (ETB)": 175,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 356,
+        "ETB Coverage %": "49.16%",
+        "ETB Coverage": 49.2
+    },
+    {
+        "State Name": "Puducherry",
+        "Total Live TB": 0,
+        "Total Energised (Live ETB)": 15,
+        "State energised (ETB)": 15,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 66,
+        "ETB Coverage %": "22.73%",
+        "ETB Coverage": 22.7
+    },
+    {
+        "State Name": "Ladakh",
+        "Total Live TB": 0,
+        "Total Energised (Live ETB)": 117,
+        "State energised (ETB)": 117,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 117,
+        "ETB Coverage %": "100.00%",
+        "ETB Coverage": 100
+    },
+    {
+        "State Name": "Dadra & nagar haveli AND Daman & Diu",
+        "Total Live TB": 0,
+        "Total Energised (Live ETB)": 283,
+        "State energised (ETB)": 283,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 283,
+        "ETB Coverage %": "100.00%",
+        "ETB Coverage": 100
+    },
+    {
+        "State Name": "West Bengal",
+        "Total Live TB": 0,
+        "Total Energised (Live ETB)": 0,
+        "State energised (ETB)": 0,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 0,
+        "ETB Coverage %": "0.00%",
+        "ETB Coverage": 0
+    },
+    {
+        "State Name": "Lakshwadeep",
+        "Total Live TB": 0,
+        "Total Energised (Live ETB)": 0,
+        "State energised (ETB)": 0,
+        "Total Physical textbooks excluding adopted (Curriculum+Supplementary)": 0,
+        "ETB Coverage %": "0.00%",
+        "ETB Coverage": 0
+    }
+]

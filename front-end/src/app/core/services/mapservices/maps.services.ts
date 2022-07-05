@@ -53,9 +53,10 @@ export class MapService {
     }
 
     restrictZoom(globalMap: any) {
-        //globalMap.touchZoom.disable();
-        //globalMap.boxZoom.disable();
-        //globalMap.keyboard.disable();
+        globalMap.touchZoom.disable();
+        globalMap.boxZoom.disable();
+        globalMap.keyboard.disable();
+        globalMap.doubleClickZoom.disable(); 
     }
 
     //Initialise markers.....
