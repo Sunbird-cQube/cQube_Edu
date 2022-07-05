@@ -13,4 +13,7 @@ export class NasService {
   getNASMetrics(): Observable<ResponseType<any[]>> {
     return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/nas/getNasMetrics`);
   }
+  getNasStateData(): Observable<ResponseType<any[]>> {
+    return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/nas/getNasState`);
+  }
 }
