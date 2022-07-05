@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
 
 import { MultiBarChartComponent } from './components/charts/multi-bar-chart/multi-bar-chart.component';
 import { DashboardCardComponent } from './components/cards/dashboard-card/dashboard-card.component';
@@ -12,11 +14,14 @@ import { MapMyIndiaComponent } from './components/maps/map-my-india/map-my-india
 import { TableHeatMapDirective, TableHeatMapCellDirective, TableHeatMapColumnDirective } from './directives/table-heat-map/table-heat-map.directive';
 import { MaterialHeatChartTableComponent } from './components/tables/material-heat-chart-table/material-heat-chart-table.component';
 import { GaugeChartComponent } from './components/charts/gauge-chart/gauge-chart.component';
+import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
   MatSortModule,
   MatTooltipModule,
+  NgSelectModule,
+  FormsModule
 ];
 
 const DECLARATIONS = [
@@ -28,7 +33,8 @@ const DECLARATIONS = [
   TableHeatMapDirective,
   TableHeatMapCellDirective,
   TableHeatMapColumnDirective,
-  GaugeChartComponent
+  GaugeChartComponent,
+  FilterPanelComponent
 ];
 
 @NgModule({

@@ -12,13 +12,15 @@
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
         <mat-tab label="Student Performance">
-            <div class="grid grid-cols-1 mt-12">
+            <div class="grid grid-cols-1">
                 <div class="col">
+                    <app-filter-panel></app-filter-panel>
                     <app-map-my-india [data]="NASProgramStatsByLocation"></app-map-my-india>
                 </div>
             </div>
         </mat-tab>
         <mat-tab label="Grade and Subject performance">
+            <app-filter-panel></app-filter-panel>
         </mat-tab>
     </mat-tab-group>
 </div>

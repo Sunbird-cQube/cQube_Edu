@@ -21,7 +21,7 @@ import { QRCoverageAcrossStatesComponent } from './pages/qr-coverage-across-stat
     CommonModule,
     EtbRoutingModule,
     SharedModule,
-    MatTabsModule
+    MatTabsModule,
   ]
 })
 export class EtbModule { }

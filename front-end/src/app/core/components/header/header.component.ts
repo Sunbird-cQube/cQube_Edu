@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +8,18 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({opacity:0}),
+        animate(500, style({opacity:1})) 
+      ]),
+      transition(':leave', [
+        animate(500, style({opacity:0}))
+      ])
+    ])
+  ]
 })
 export class HeaderComponent implements OnInit {
 

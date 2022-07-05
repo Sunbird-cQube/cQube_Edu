@@ -3,6 +3,7 @@ export interface IDashboardMenu {
     navigationURL: string;
     metrics: IDashboardMetric[];
     icon: string;
+    tooltip: string;
 }
 
 export interface IDashboardMetric {
