@@ -13,7 +13,8 @@
                     "value": "20.7M"
                 }
             ],
-            "icon": "NISHTHA.png"
+            "icon": "NISHTHA.png",
+            "tooltip": "Nishtha"
         },
         {
             "title": "ETB & E-content",
@@ -28,7 +29,8 @@
                     "value": "270,361"
                 }
             ],
-            "icon": "ETB & E-Content.png"
+            "icon": "ETB & E-Content.png",
+            "tooltip": ""
         },
         {
             "title": "NAS",
@@ -43,7 +45,8 @@
                     "value": "4.08M"
                 }
             ],
-            "icon": "NISHTHA.png"
+            "icon": "NISHTHA.png",
+            "tooltip": ""
         },
         {
             "title": "Quizzes",
@@ -54,7 +57,8 @@
                     "value": "11,960"
                 }
             ],
-            "icon": "Quizzes.png"
+            "icon": "Quizzes.png",
+            "tooltip": ""
         },
         {
             "title": "NIPUN BHARAT",
@@ -69,37 +73,43 @@
                     "value": "484"
                 }
             ],
-            "icon": "NIPUN BHARAT.png"
+            "icon": "NIPUN BHARAT.png",
+            "tooltip": ""
         },
         {
             "title": "CWSN",
             "navigationURL": "",
             "metrics": [],
-            "icon": "CWSN.png"
+            "icon": "CWSN.png",
+            "tooltip": ""
         },
         {
             "title": "Adult Education",
             "navigationURL": "",
             "metrics": [],
-            "icon": "Adults Education.png"
+            "icon": "Adults Education.png",
+            "tooltip": ""
         },
         {
             "title": "UDISE+",
             "navigationURL": "",
             "metrics": [],
-            "icon": "UDISE+.png"
+            "icon": "UDISE+.png",
+            "tooltip": ""
         },
         {
             "title": "VIDYANJALI",
             "navigationURL": "",
             "metrics": [],
-            "icon": "NISHTHA.png"
+            "icon": "NISHTHA.png",
+            "tooltip": ""
         },
         {
             "title": "VIDYADAAN",
             "navigationURL": "",
             "metrics": [],
-            "icon": "VIDHYADAAN.png"
+            "icon": "VIDHYADAAN.png",
+            "tooltip": ""
         }
     ],
     [
@@ -116,7 +126,8 @@
                     "value": "270,361"
                 }
             ],
-            "icon": ""
+            "icon": "",
+            "tooltip": ""
         },
         {
             "title": "NAS",
@@ -131,7 +142,8 @@
                     "value": "4.08M"
                 }
             ],
-            "icon": ""
+            "icon": "",
+            "tooltip": ""
         },
         {
             "title": "UDISE",
@@ -146,7 +158,8 @@
                     "value": "20.7M"
                 }
             ],
-            "icon": ""
+            "icon": "",
+            "tooltip": ""
         },
         {
             "title": "PGI",
@@ -161,7 +174,8 @@
                     "value": "20.7M"
                 }
             ],
-            "icon": ""
+            "icon": "",
+            "tooltip": ""
         },
         {
             "title": "POSHAN",
@@ -176,7 +190,8 @@
                     "value": "20.7M"
                 }
             ],
-            "icon": ""
+            "icon": "",
+            "tooltip": ""
         }
     ]
 ]

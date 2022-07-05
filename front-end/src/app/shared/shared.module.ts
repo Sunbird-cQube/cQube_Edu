@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
 
 import { MultiBarChartComponent } from './components/charts/multi-bar-chart/multi-bar-chart.component';
 import { DashboardCardComponent } from './components/cards/dashboard-card/dashboard-card.component';
@@ -14,11 +16,14 @@ import { MaterialHeatChartTableComponent } from './components/tables/material-he
 import { GaugeChartComponent } from './components/charts/gauge-chart/gauge-chart.component';
 import { ScatterChartComponent } from './components/scatter-chart/scatter-chart.component';
 import { ChartsModule } from 'ng2-charts';
+import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
   MatSortModule,
   MatTooltipModule,
+  NgSelectModule,
+  FormsModule
 ];
 
 const DECLARATIONS = [
@@ -32,7 +37,7 @@ const DECLARATIONS = [
   TableHeatMapColumnDirective,
   GaugeChartComponent,
   ScatterChartComponent,
- 
+  FilterPanelComponent
 ];
 
 @NgModule({

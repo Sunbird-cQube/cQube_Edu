@@ -13,9 +13,11 @@
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
         <mat-tab label="Student Performance">
-            <div class="grid grid-cols-1 mt-12">
+            <div class="grid grid-cols-1">
                 <div class="col">
                     <app-map-my-india [data]="NasStateData"></app-map-my-india>
+                    <app-filter-panel></app-filter-panel>
+                    
                 </div>
             </div>
         </mat-tab>
@@ -24,6 +26,7 @@
         </mat-tab>
         <mat-tab label="LO Table">
             <app-scatter-chart></app-scatter-chart>
+            <app-filter-panel></app-filter-panel>
         </mat-tab>
     </mat-tab-group>
 </div>

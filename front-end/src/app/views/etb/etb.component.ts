@@ -34,7 +34,6 @@ export class EtbComponent implements OnInit {
   onTabChanged($event: any): void {
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
-      console.log('resize');
     }, 100);
   }
 
