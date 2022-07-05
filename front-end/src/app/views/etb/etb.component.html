@@ -1,27 +1,33 @@
-<div class="grid gap-4 xs:grid-cols-2 xmd:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
-    <!-- <div class="col-span-full">
-        <img src="../../../../../assets/images/etbimage.jpeg" class="xs:w-full md:w-8/12 mx-auto" alt="etb image ">
-    </div> -->
-    <!-- <button class="bg-blue-500">Access to ETB Program</button> -->
-    <ng-container *ngIf="ETBMetrics">
-        <div class="col-span-1 xs:py-2 md:py-4" *ngFor="let metric of ETBMetrics">
-            <app-metric-card [name]="metric?.name" [value]="metric?.value"></app-metric-card>
-        </div>
-    </ng-container>
+<div class="metric-card-wrapper">
+    <p class="h4">Diksha</p>
+    <div class="grid gap-4 xs:grid-cols-2 xmd:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+        <!-- <div class="col-span-full">
+            <img src="../../../../../assets/images/etbimage.jpeg" class="xs:w-full md:w-8/12 mx-auto" alt="etb image ">
+        </div> -->
+        <!-- <button class="bg-blue-500">Access to ETB Program</button> -->
+        <ng-container *ngIf="ETBMetrics">
+            <div class="col-span-1 xs:py-2 md:py-4" *ngFor="let metric of ETBMetrics">
+                <app-metric-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip">
+                </app-metric-card>
+            </div>
+        </ng-container>
+    </div>
 </div>
 
-<mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
-    <mat-tab label="ETB Program">
-        <div class="grid grid-cols-1 mt-12" *ngIf="ETBProgramStatsByLocation">
-            <div class="col">
-                <app-map-my-india [data]="ETBProgramStatsByLocation"></app-map-my-india>
+<div class="tab-group-wrapper">
+    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+        <mat-tab label="ETB Program">
+            <div class="grid grid-cols-1 mt-12" *ngIf="ETBProgramStatsByLocation">
+                <div class="col">
+                    <app-map-my-india [data]="ETBProgramStatsByLocation"></app-map-my-india>
+                </div>
             </div>
-        </div>
-    </mat-tab>
-    <mat-tab label="ETB Coverage">
-        <app-etb-coverage></app-etb-coverage>
-    </mat-tab>
-    <mat-tab label="QR Coverage across States">
-        <app-qr-coverage-across-states></app-qr-coverage-across-states>
-    </mat-tab>
-</mat-tab-group>
+        </mat-tab>
+        <mat-tab label="ETB Coverage">
+            <app-etb-coverage></app-etb-coverage>
+        </mat-tab>
+        <mat-tab label="QR Coverage across States">
+            <app-qr-coverage-across-states></app-qr-coverage-across-states>
+        </mat-tab>
+    </mat-tab-group>
+</div>
