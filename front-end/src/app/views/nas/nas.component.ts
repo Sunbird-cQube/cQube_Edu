@@ -22,7 +22,7 @@ export class NasComponent implements OnInit {
   getNASMetrics(): void {
     this._NASService.getNASMetrics().subscribe(NASMetricsRes => {
       this.NASMetrics = NASMetricsRes.result;
-      console.log('this', this.NASMetrics)
+      
     });
   }
 

@@ -18,6 +18,7 @@ import { GaugeChartComponent } from './components/charts/gauge-chart/gauge-chart
 import { ScatterChartComponent } from './components/scatter-chart/scatter-chart.component';
 import { NgChartsModule } from 'ng2-charts';
 import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
+import { StackedBarComponent } from './components/charts/stacked-bar/stacked-bar.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -39,12 +40,13 @@ const DECLARATIONS = [
   TableHeatMapColumnDirective,
   GaugeChartComponent,
   ScatterChartComponent,
-  FilterPanelComponent
+  FilterPanelComponent,
+  StackedBarComponent
 ];
 
 @NgModule({
   declarations: [
-    DECLARATIONS
+    DECLARATIONS,
   ],
   imports: [
     CommonModule,
