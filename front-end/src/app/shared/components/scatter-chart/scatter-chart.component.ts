@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
+import { ChartDataset, ChartType, ChartOptions } from 'chart.js';
 // import { Label } from 'ng2-charts';
 
 @Component({
@@ -23,7 +23,7 @@ export class ScatterChartComponent implements OnInit {
     responsive: true,
   };
 
-  public scatterChartData: ChartDataSets[] = [
+  public scatterChartData: ChartDataset[] = [
     {
       data: [
         { x: 1, y: 1 },

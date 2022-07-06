@@ -2,25 +2,6 @@ const path = require('path');
 const csv = require('csvtojson');
 const _ = require('lodash');
 
-exports.getNishthaMenu = (req, res, next) => {
-	return new Promise(async function (resolve, reject) {
-        let menu = require(path.join(__dataFolderPath, 'nishtha/NishthaMenu.json'));
-
-		try {
-			res.status(200).send({
-				status: 200,
-				result: menu
-			})
-		} catch (error) {
-			res.send({
-				status: error.status || 500,
-				message: error.message || "Internal server error",
-				errorObject: error
-			});
-		}
-	});
-}
-
 exports.getStateWiseEnrollmentData = (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
 		let version = req.params.version;

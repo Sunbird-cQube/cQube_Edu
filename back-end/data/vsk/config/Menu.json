@@ -1,0 +1,44 @@
+[
+  {
+    "label": "Dashboard",
+    "icon": "",
+    "path": "/dashboard",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "DIKSHA",
+    "icon": "",
+    "path": "/etb",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "NAS",
+    "icon": "",
+    "path": "/nas",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "UDISE",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "PGI",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "Poshan",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  }
+]

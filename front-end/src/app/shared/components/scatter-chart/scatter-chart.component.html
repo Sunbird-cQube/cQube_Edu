@@ -1,26 +1,26 @@
 <div class="fluid-container">
     <div class="row mt-4 mb-4">
         <div class="col-sm-3 ">
-            <span class="chooseLevel">X-Axis: &nbsp;</span> <select id="x-axis" name="xAxis">
+            <span class="chooseLevel">X-Axis: &nbsp;</span>
+            <select id="x-axis" name="xAxis">
                 <option disabled selected="selected">choose
                     x-axis
                 </option>
-               <option  *ngFor="let axis in xAxis " value="">{{axis}}</option>
+               <option *ngFor="let axis in xAxis" value="">{{axis}}</option>
             </select>
         </div>
         <div class="col-sm-3 ">
-            <span class="chooseLevel">Y-Axis: &nbsp;</span> <select id="y-axis" name="yAxis">
+            <span class="chooseLevel">Y-Axis: &nbsp;</span>
+            <select id="y-axis" name="yAxis">
                 <option disabled selected="selected">choose
                     y-axis
                 </option>
-
             </select>
         </div>
     </div>
     <div class="row">
         <div class="chart col-sm-9">
-            <canvas baseChart [datasets]="scatterChartData" [options]="scatterChartOption"
-                [chartType]="scatterChartType">
+            <canvas baseChart [datasets]="scatterChartData" [options]="scatterChartOption" [type]="scatterChartType">
             </canvas>
         </div>
     </div>

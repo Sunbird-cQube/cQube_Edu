@@ -1,0 +1,72 @@
+[
+  {
+    "label": "Dashboard",
+    "icon": "",
+    "path": "/dashboard",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "Nishtha",
+    "icon": "",
+    "path": "/nishtha",
+    "basepath": "nishtha",
+    "hasSub": false
+  },
+  {
+    "label": "ETB & E-content",
+    "icon": "",
+    "path": "/etb",
+    "basepath": "etb",
+    "hasSub": false
+  },
+  {
+    "label": "NAS",
+    "icon": "",
+    "path": "/nas",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "Quizzes",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "NIPUN BHARAT",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "CWSN",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "Adult Education",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "VIDYANJALI",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "VIDYADAAN",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  }
+]
