@@ -1,0 +1,45 @@
+[
+    {
+        "title": "NISHTHA 1.0",
+        "navigationURL": "/nishtha/detail/1.0",
+        "metrics": [
+            {
+                "name": "Total Enrollments",
+                "value": "13.8M"
+            },
+            {
+                "name": "Total Certifications",
+                "value": "9.3M"
+            }
+        ]
+    },
+    {
+        "title": "Nishtha 2.0",
+        "navigationURL": "/nishtha/detail/2.0",
+        "metrics": [
+            {
+                "name": "Total Enrollments",
+                "value": "13.8M"
+            },
+            {
+                "name": "Total Certifications",
+                "value": "9.3M"
+            }
+        ]
+    },
+    {
+        "title": "Nishtha 3.0",
+        "navigationURL": "/nishtha/detail/3.0",
+        "metrics": [
+            {
+                "name": "Total Enrollments",
+                "value": "12.3M"
+            },
+            {
+                "name": "Total Certifications",
+                "value": "8.6M"
+            }
+        ]
+
+    }
+]

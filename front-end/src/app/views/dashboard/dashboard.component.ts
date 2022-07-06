@@ -11,17 +11,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  config = environment.config
   dashboardMenu: IDashboardMenu[] | undefined;
 
   constructor(private readonly _configService: ConfigService, private readonly _router: Router) {
     this._configService.getDashboardMenu().subscribe(dashboardMenuResult => {
-      if(this.config == 'NVSK'){
-        this.dashboardMenu = dashboardMenuResult.result[0];
-      }
-      else if(this.config == 'VSK'){
-        this.dashboardMenu = dashboardMenuResult.result[1];
-      }
+      this.dashboardMenu = dashboardMenuResult.result;
     });
   }
 
@@ -30,7 +24,7 @@ export class DashboardComponent implements OnInit {
 
   onClickOfDashboardItem(cardInfo: IDashboardMenu | undefined): void {
     if (cardInfo) {
-      this._router.navigate([cardInfo.navigationURL])
+      this._router.navigate([cardInfo.navigationURL]);
     }
   }
 

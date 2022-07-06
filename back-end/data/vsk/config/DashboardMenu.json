@@ -1,0 +1,82 @@
+[
+    {
+        "title": "DIKSHA",
+        "navigationURL": "/etb",
+        "metrics": [
+            {
+                "name": "Total ETB",
+                "value": "6,217"
+            },
+            {
+                "name": "Total Contents",
+                "value": "270,361"
+            }
+        ],
+        "icon": "",
+        "tooltip": ""
+    },
+    {
+        "title": "NAS",
+        "navigationURL": "/nas",
+        "metrics": [
+            {
+                "name": "Students Surveyed",
+                "value": "78.4M"
+            },
+            {
+                "name": "schools Surveyed",
+                "value": "4.08M"
+            }
+        ],
+        "icon": "",
+        "tooltip": ""
+    },
+    {
+        "title": "UDISE",
+        "navigationURL": "",
+        "metrics": [
+            {
+                "name": "Net Enrollment",
+                "value": "29.9M"
+            },
+            {
+                "name": "Net Certifications",
+                "value": "20.7M"
+            }
+        ],
+        "icon": "",
+        "tooltip": ""
+    },
+    {
+        "title": "PGI",
+        "navigationURL": "",
+        "metrics": [
+            {
+                "name": "Net Enrollment",
+                "value": "29.9M"
+            },
+            {
+                "name": "Net Certifications",
+                "value": "20.7M"
+            }
+        ],
+        "icon": "",
+        "tooltip": ""
+    },
+    {
+        "title": "POSHAN",
+        "navigationURL": "",
+        "metrics": [
+            {
+                "name": "Net Enrollment",
+                "value": "29.9M"
+            },
+            {
+                "name": "Net Certifications",
+                "value": "20.7M"
+            }
+        ],
+        "icon": "",
+        "tooltip": ""
+    }
+]

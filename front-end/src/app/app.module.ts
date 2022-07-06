@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import { ChartsModule } from 'ng2-charts';
     BrowserAnimationsModule,
     MatTableModule,
     MatSortModule,
-    ChartsModule,
+    NgChartsModule,
     FormsModule,
     ReactiveFormsModule
   ],

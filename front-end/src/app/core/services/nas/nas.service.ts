@@ -10,9 +10,11 @@ import { environment } from 'src/environments/environment';
 export class NasService {
 
   constructor(private readonly _http: HttpClient) { }
+  
   getNASMetrics(): Observable<ResponseType<any[]>> {
     return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/nas/getNasMetrics`);
   }
+
   getNasStateData(): Observable<ResponseType<any[]>> {
     return this._http.get<ResponseType<any[]>>(`${environment.apiURL}/nas/getNasState`);
   }
