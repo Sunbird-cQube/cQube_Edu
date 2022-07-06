@@ -17,6 +17,7 @@
         <mat-tab label="program Status">
             <div class="grid grid-cols-1">
                 <div class="col">
+                    <app-filter-panel></app-filter-panel>
                 <div class="col-sm-3 ">
                       
                     <select id="period" [(ngModel)]="version" (change)="onVersionSelect()">
@@ -27,12 +28,13 @@
                     </select>
                 </div>
                     <app-nishtha-program-detail></app-nishtha-program-detail>
-                    <app-filter-panel></app-filter-panel>
+                    
 
                 </div>
             </div>
         </mat-tab>
         <mat-tab label="States started as per plan">
+            <app-filter-panel></app-filter-panel>
             <div class="col-sm-3 ">
             
                 <select id="period" [(ngModel)]="version" (change)="onVersionSelect()">
@@ -45,6 +47,7 @@
         <app-nisitha-bar></app-nisitha-bar>
         </mat-tab>
         <mat-tab label="Enrolment and Completion">
+            <app-filter-panel></app-filter-panel>
             <div class="col-sm-3 ">
             
                 <select id="period" [(ngModel)]="version" (change)="onVersionSelect()">
@@ -55,9 +58,10 @@
                 </select>
             </div>
             <app-nishitha-table></app-nishitha-table>
-            <app-filter-panel></app-filter-panel>
+            
         </mat-tab>
         <mat-tab label="% Enrollment and Completion of expected">
+            <app-filter-panel></app-filter-panel>
             <div class="col-sm-3 ">
                 <select id="period" [(ngModel)]="version" (change)="onVersionSelect()">
                     <option [value]="version" disabled selected="selected">Choose Version</option>
@@ -70,7 +74,7 @@
                        <app-nisitha-stacked-bar></app-nisitha-stacked-bar>
                         <app-nisitha-stacked-bar></app-nisitha-stacked-bar>
                     </div>
-            <app-filter-panel></app-filter-panel>
+            
         </mat-tab>
 
     </mat-tab-group>
