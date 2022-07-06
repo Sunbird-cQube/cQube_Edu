@@ -1,18 +1,21 @@
 <div class="dashboard-card shadow-2xl px-3 py-3 mx-auto md:grid-cols-6" *ngIf="cardInfo">
-    <i class="fa fa-info-circle fa-lg pull-right" aria-hidden="true" [matTooltip]="cardInfo.tooltip" matTooltipPosition="left"></i>
+    <i class="fa fa-info-circle fa-lg pull-right" aria-hidden="true" [matTooltip]="cardInfo.tooltip"
+        matTooltipPosition="left"></i>
     <div class="dashboard-card-header py-3 text-center">
         <div>
-            <img [src]="'assets/images/' + cardInfo.icon" class="px-32" alt="icon here">
+            <img class="mg-0" [src]="'assets/images/' + cardInfo.icon" class="px-32" alt="icon here">
         </div>
         <p class="h6 font-weight-bold card-title">{{cardInfo.title}}</p>
     </div>
     <div class="dashboard-card-body bg-light py-2">
-        <div class="metrics-wrapper">
-            <div class="metric-wrapper mb-1" *ngFor="let metric of cardInfo.metrics">
-                <p class="metric-value text-center"
-                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{metric.value}}</p>
-                <p class="metric-name text-center"
-                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{metric.name}}</p>
+        <div [ngClass]="isTextWrapIssueFix ? 'metrics-wrapper-height ' : 'metrics-wrapper'">
+            <div class="metrics-wrapper">
+                <div class="metric-wrapper mb-1" *ngFor="let metric of cardInfo.metrics">
+                    <p class="metric-value text-center text-wrapper"
+                        >{{metric.value}}</p>
+                    <p class="metric-name text-center px-1"
+                    [ngClass]="isTextWrapIssueFix ? 'text-wrapper-zoomin' : 'text-wrapper'" >{{metric.name}}</p>
+                </div>
             </div>
         </div>
         <div *ngIf="!len(cardInfo.metrics)">
@@ -21,7 +24,7 @@
         </div>
         <div class="dashboard-card-footer p-2 ml-3 mb-1 mr-3 rounded-lg justify-content-around"
             (click)="onClick.emit(cardInfo)">
-            <h3 class="my-1 font-weight-bold" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            <h3 class="my-1 font-weight-bold" [ngClass]="isTextWrapIssueFix ? 'text-wrapper-zoomin' : 'text-wrapper'">
                 Access Dashboard <i class="fa fa-arrow-right ml-3" aria-hidden="true"></i></h3>
         </div>
     </div>
