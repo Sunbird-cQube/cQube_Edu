@@ -14,10 +14,10 @@ export class ConfigService {
   constructor(private readonly _http: HttpClient) { }
 
   getMenu(): Observable<ResponseType<IMenuItem[]>> {
-    return this._http.get<ResponseType<IMenuItem[]>>(`${environment.apiURL}/config/getConfig/${environment.config}/menu`);
+    return this._http.get<ResponseType<IMenuItem[]>>(`${environment.apiURL}/config/getConfig/${environment.config.toLowerCase()}/menu`);
   }
 
   getDashboardMenu(): Observable<ResponseType<IDashboardMenu[]>> {
-    return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/config/getConfig/${environment.config}/dashboardMenu`);
+    return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/config/getConfig/${environment.config.toLowerCase()}/dashboardMenu`);
   }
 }
