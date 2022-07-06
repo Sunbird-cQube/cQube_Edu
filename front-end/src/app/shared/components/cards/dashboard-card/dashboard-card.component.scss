@@ -24,6 +24,9 @@ $white: #fff;
             min-height: 64px;
             margin-bottom: 10px;
         }
+        .mg-0 {
+            margin: auto;
+        }
     }
 
     .dashboard-card-body {
@@ -43,6 +46,23 @@ $white: #fff;
         }
         .metrics-wrapper .metric-name{
             font-size: 16px;
+        }
+        .metrics-wrapper-height {
+            display: flex;
+            justify-content: space-around;
+            max-height: 45px;
+        }
+
+        .text-wrapper {
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+        }
+        .text-wrapper-zoomin {
+            // white-space: nowrap;
+            overflow: hidden;
+            // text-overflow: ellipsis;
+            line-height: 1.2;
         }
     }
 
