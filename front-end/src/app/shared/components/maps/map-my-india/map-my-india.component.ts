@@ -32,8 +32,8 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.globalService.latitude = this.lat = this.globalService.mapCenterLatlng.lat;
     this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
-    this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]]);
-    this.getData();
+    this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]], this.data);
+    // this.getData();
   }
 
   getData() {
