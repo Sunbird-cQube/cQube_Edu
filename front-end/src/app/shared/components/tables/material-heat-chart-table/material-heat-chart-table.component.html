@@ -5,7 +5,7 @@
     </ng-container>
     <ng-container [matColumnDef]="column.property" *ngFor="let column of columns; let i = index">
         <ng-container *ngIf="column.isHeatMapRequired; else default">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header [tableHeatMapColumn]="{color: column.color}" [id]="i" class="text-center text-neutral-600 xmd:text-sm md:text-md">{{ column.name }}</th>
+            <th [ngClass]="'heat-chart-column'" mat-header-cell *matHeaderCellDef mat-sort-header [tableHeatMapColumn]="{color: column.color}" [id]="i" class="text-center text-neutral-600 xmd:text-sm md:text-md">{{ column.name }}</th>
             <td mat-cell *matCellDef="let element" [tableHeatMapCell]="element[column.property]" [id]="i" class="text-center">{{element[column.property] ? element[column.property] : 'No data'}}</td>
         </ng-container>
         
