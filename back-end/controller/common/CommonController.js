@@ -1,16 +1,23 @@
 const path = require('path');
-const { paths } = require("../../core/config/config");
+const { reportTypes, paths } = require("../../core/config/config");
+var XLSX = require('xlsx');
 
-exports.getConfig = (req, res, next) => {
+exports.getReportData = (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
-		let { appName, configName } = req.params;
+		let { appName, dataSourceName, reportName, reportType } = req.params;
+		let reqBody = req.body;
 
 		try {
-			if (!appName || !configName) {
+			if (!appName || !dataSourceName || !reportName || !reportType) {
 				throw "Some of the parameters are missing, make sure all the required parameters are present";
-			}
+			}	
 
-			let menu = require(path.join(__dataFolderPath, `${appName}/${paths.config[configName]}`));
+			if (reportType === reportTypes.map) {
+				getMapReportData(appName, dataSourceName, reportName, reportType, reqBody);
+			} else {
+				throw "Invalid report type";
+			}
+			
 			res.status(200).send({
 				status: 200,
 				result: menu
@@ -23,4 +30,12 @@ exports.getConfig = (req, res, next) => {
 			});
 		}
 	});
+}
+
+function getMapReportData(appName, dataSourceName, reportName, reportType, reqBody) {
+	
+}
+
+function getFileExtension(filename) {
+	return filename.split('.').pop();	
 }

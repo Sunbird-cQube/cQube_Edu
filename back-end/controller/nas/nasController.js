@@ -27,28 +27,43 @@ exports.getStateWiseNasData = (req, res, next) => {
         let NasData = require(path.join(__dataFolderPath, 'nas/NasStateLotable.json'));
         let columns = [
             {
-                name: 'State Name',
-                property: 'State Name'
+                name: 'Indicator',
+                property: 'Indicator'
             },
             {
-                name: 'Total Physical',
-                property: 'Total Physical textbooks excluding adopted (Curriculum+Supplementary)',
-                isHeatMapRequired: true,
-                color: '#ffb300'
+                name: 'Grade',
+                property: 'Grade'
             },
             {
-                name: 'State energised (ETB)',
-                property: 'State energised (ETB)',
-                isHeatMapRequired: true,
-                color: '#ffab91'
-            },
-            {
-                name: 'ETB Coverage',
-                property: 'ETB Coverage',
-                isHeatMapRequired: true,
-                color: '#81c784'
+                name: 'Subject',
+                property: 'Subject'
             }
         ];
+
+        Object.keys(NasData[0]).forEach((col, ind) => {
+            if (ind > 2) {
+                columns.push({
+                    name: col,
+                    property: col,
+                    isHeatMapRequired: true,
+				    color: [
+                        "#81c784",
+                        "#ffb300",
+                        "#ffab91"
+                    ]
+                })
+            }
+        });
+
+        NasData = NasData.map(rec => {
+            Object.keys(rec).forEach((col, ind) => {
+                if (ind > 2) {
+                    rec[col] = isNaN(rec[col]) ? rec[col] : Number(Number(rec[col]).toFixed(2))
+                }
+            });
+
+            return rec;
+        });
 
         try {
             res.status(200).send({
