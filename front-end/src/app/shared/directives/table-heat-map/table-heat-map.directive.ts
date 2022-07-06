@@ -94,10 +94,10 @@ export class TableHeatMapDirective implements AfterViewInit, OnChanges {
 
   private getColor(id: string, value: number) {
     const color = this.config[id].color;
-    const [r, g, b, a] = parseToRgba(color);
+    let [r, g, b, a] = parseToRgba(Array.isArray(color) ? color[color.length - 1] : color);
 
     if (value) {
-      const color = this.config[id].color;
+      let color = this.config[id].color;
       let textColor = null;
       let bgColor = null;
       if (color != null) {
@@ -110,6 +110,18 @@ export class TableHeatMapDirective implements AfterViewInit, OnChanges {
           console.log(value, h, s, 1 - lightness, Math.min(1 - lightness, 0.95), a);
         }
         textColor = readableColor(bgColor);*/
+        if (Array.isArray(color)) {
+          if (value / this.highestValues[id] > 0.7) {
+            color = color[0];
+            console.log(color);
+          } else if (value / this.highestValues[id] > 0.45) {
+            color = color[1];
+          } else {
+            color = color[2];
+          }
+        }
+
+        let [r, g, b, a] = parseToRgba(color);
         bgColor = rgba(r, g, b, +(Math.min(1, value / this.highestValues[id] + 0.06)).toFixed(3));
         textColor = readableColor(bgColor);
       }

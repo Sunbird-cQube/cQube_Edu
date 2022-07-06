@@ -1,26 +1,51 @@
-.wrapper{
+.wrapper {
     margin: 20px 0px;
 
-    .filter-panel-wrapper{
+    .filter-panel-wrapper {
         background-color: rgb(245, 245, 245);
         padding: 20px;
 
-        .download{
-            background-color:#004e9d;
+        .download {
+            background-color: #004e9d;
             color: white;
         }
-        .filter-wrapper{
+
+        .filter-wrapper {
             padding-left: 15px;
             padding-right: 15px;
         }
     }
 }
-::ng-deep{
-    .ng-select-container{
+
+::ng-deep {
+    .ng-clear {
+        color: white;
+    }
+
+    .ng-has-value .ng-arrow {
+        border-color: white transparent transparent !important;
+    }
+
+    .ng-option-disabled {
+        opacity: 0.6;
+    }
+
+    .ng-option {
+        background-color: #004e9d !important;
+        color: white !important;
+    }
+
+    .ng-has-value {
+        background-color: #004e9d !important;
+        color: white !important;
+    }
+
+    .ng-select-container {
         border-radius: 10px !important;
         border-color: #004e9d !important;
     }
-    .ng-placeholder{
-        color:#004e9d;
+
+    .ng-placeholder {
+        color: #004e9d;
     }
 }
