@@ -15,18 +15,19 @@
         <mat-tab label="Student Performance">
             <div class="grid grid-cols-1">
                 <div class="col">
-                    <app-map-my-india [data]="NasStateData"></app-map-my-india>
                     <app-filter-panel></app-filter-panel>
+                    <app-map-my-india [data]="NasStateData"></app-map-my-india>
                     
                 </div>
             </div>
         </mat-tab>
         <mat-tab label="Grade and Subject performance">
+            <app-filter-panel></app-filter-panel>
             <app-nas-program></app-nas-program>
         </mat-tab>
         <mat-tab label="LO Table">
-            <app-scatter-chart></app-scatter-chart>
             <app-filter-panel></app-filter-panel>
+            <app-scatter-chart></app-scatter-chart>
         </mat-tab>
     </mat-tab-group>
 </div>

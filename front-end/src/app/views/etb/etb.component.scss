@@ -12,33 +12,3 @@
     padding: 30px;
     background-color: white;
 }
-
-::ng-deep{
-    .mat-tab-label{
-        opacity: 1 !important;
-        min-width: 120px !important;
-        padding: 0px 10px !important;
-        height: 36px !important;
-        color: #004e9d;
-        border: solid 0px #004e9d;
-        border-width: 2px 2px 2px 0px;
-    }
-    .mat-tab-label-active{
-        background-color: #004e9d;
-        color:white
-    }
-    // #mat-tab-label-0-0{
-    //     border-radius: 18px 0px 0px 18px;
-    // }
-
-    .mat-ink-bar{
-        display: none !important;
-    }
-    .mat-tab-label:first-child{
-        border-radius: 18px 0px 0px 18px;
-        border-width: 2px 2px 2px 2px;
-    }
-    .mat-tab-label:last-child{
-        border-radius: 0px 18px 18px 0px;
-    }
-}

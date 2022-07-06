@@ -9,10 +9,14 @@ import { environment } from 'src/environments/environment';
 export class FilterPanelComponent implements OnInit {
 
   config: string = environment.config
+  NVSK: boolean = true;
 
   constructor() { }
 
   ngOnInit(): void {
+    if(this.config == 'VSK'){
+      this.NVSK = false;
+    }
   }
 
 }
