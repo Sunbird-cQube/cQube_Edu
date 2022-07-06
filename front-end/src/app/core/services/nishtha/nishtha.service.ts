@@ -15,7 +15,7 @@ export class NishthaService {
   constructor(private readonly _http: HttpClient) { }
 
   getNishthaMenu(): Observable<ResponseType<IDashboardMenu[]>> {
-    return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/config/getConfig/${environment.config}/nishthaMenu`);
+    return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/config/getConfig/${environment.config.toLowerCase()}/nishthaMenu`);
   }
 
   getStateWiseEnrollmentData(version: string): Observable<ResponseType<IStateWiseEnrollmentRec[]>> {

@@ -1,29 +1,60 @@
 <div class="wrapper">
-    <div class="grid grid-cols-6 filter-panel-wrapper" *ngIf="config == 'VSK'">
-        <div class="col-span-1">
+    <div class="grid grid-cols-3 sm:grid-cols-6 filter-panel-wrapper">
+        <div class="col-span-1 filter-wrapper">
+            <ng-select class="mx-2" placeholder="Select Grade">
+
+            </ng-select>
+        </div>
+        <div class="col-span-1 filter-wrapper">
+            <ng-select class="mx-2" placeholder="Select Subject">
+
+            </ng-select>
+        </div>
+        <div class="col-span-1 filter-wrapper">
+            <ng-select class="mx-2" placeholder="Select Indicator">
+
+            </ng-select>
+        </div>
+        <div class="col-span-1 filter-wrapper">
+            <ng-select class="mx-2" placeholder="Select Year">
+
+            </ng-select>
+        </div>
+        <div class="col-span-1 filter-wrapper" *ngIf="NVSK">
+            <ng-select class="mx-2" placeholder="Select State" >
+            </ng-select>
+        </div>
+        <div class="col-span-1 filter-wrapper" *ngIf="NVSK">
+            <button class="btn download pull-right">
+                <i class="fa fa-download fx-lg" aria-hidden="true"></i> Download
+            </button>
+        </div>
+        <div class="col-span-2" *ngIf="!NVSK">
+            <button class="btn download pull-right">
+                <i class="fa fa-download fx-lg" aria-hidden="true"></i> Download
+            </button>
+        </div>
+    </div>
+    <div class="grid grid-cols-6 filter-panel-wrapper" *ngIf="!NVSK">
+        <div class="col-span-1 filter-wrapper">
             <ng-select class="mx-2" placeholder="Select District">
                 <!-- <ng-option *ngFor="let "></ng-option> -->
             </ng-select>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-1 filter-wrapper">
             <ng-select class="mx-2" placeholder="Select Block">
 
             </ng-select>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-1 filter-wrapper">
             <ng-select class="mx-2" placeholder="Select Cluster">
 
             </ng-select>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-1 filter-wrapper">
             <ng-select class="mx-2" placeholder="Select School">
 
             </ng-select>
-        </div>
-        <div class="col-span-2">
-            <button class="btn download pull-right">
-                <i class="fa fa-download fx-lg" aria-hidden="true"></i> Download
-            </button>
         </div>
     </div>
 </div>
