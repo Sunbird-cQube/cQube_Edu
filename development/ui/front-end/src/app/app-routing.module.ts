@@ -44,6 +44,10 @@ if(environment.config == 'NVSK'){
         {
           path: 'pgi',
           loadChildren: () => import('./views/pgi/pgi.module').then(module => module.PGIModule)
+        },
+        {
+          path: 'nipunbharath',
+          loadChildren: () => import('./views/nipunbharath/nipunbharath.module').then(module => module.NipunbharathModule)
         }
       ]
     }
@@ -79,6 +83,18 @@ else{
         {
           path: 'nas',
           loadChildren: () => import('./views/nas/nas.module').then(module => module.NasModule)
+        },
+        {
+          path: 'poshan',
+          loadChildren: () => import('./views/pm-poshan/pm-poshan.module').then(module => module.PmPoshanModule)
+        },
+        {
+          path: 'pgi',
+          loadChildren: () => import('./views/pgi/pgi.module').then(module => module.PGIModule)
+        },
+        {
+          path: 'nipunbharath',
+          loadChildren: () => import('./views/nipunbharath/nipunbharath.module').then(module => module.NipunbharathModule)
         }
       ]
     }

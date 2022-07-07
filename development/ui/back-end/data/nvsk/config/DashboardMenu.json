@@ -32,16 +32,16 @@
         "tooltip": ""
     },
     {
-        "title": "Nipun Bharat",
-        "navigationURL": "",
+        "title": "NIPUN BHARAT",
+        "navigationURL": "/nipunbharath",
         "metrics": [
             {
-                "name": "Total Contents Linked",
-                "value": "1,293"
+                "name": "Total Content",
+                "value": "12.93M"
             },
             {
-                "name": "Total LO",
-                "value": "484"
+                "name": "Total Learning sessions",
+                "value": "64.3%"
             }
         ],
         "icon": "NIPUN BHARAT.png",
