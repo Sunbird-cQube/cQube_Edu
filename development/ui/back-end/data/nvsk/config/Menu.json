@@ -44,7 +44,7 @@
   {
     "label": "PGI",
     "icon": "",
-    "path": "",
+    "path": "/pgi",
     "basepath": "dashboard",
     "hasSub": false
   },
@@ -57,7 +57,7 @@
   },
   {
     "label": "PM Poshan",
-    "icon": "",
+    "icon": "/poshan",
     "path": "",
     "basepath": "dashboard",
     "hasSub": false

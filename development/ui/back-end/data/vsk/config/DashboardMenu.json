@@ -65,7 +65,7 @@
     },
     {
         "title": "PGI",
-        "navigationURL": "",
+        "navigationURL": "/pgi",
         "metrics": [
             {
                 "name": "Net Enrollment",
@@ -81,7 +81,7 @@
     },
     {
         "title": "POSHAN",
-        "navigationURL": "",
+        "navigationURL": "/poshan",
         "metrics": [
             {
                 "name": "Net Enrollment",
