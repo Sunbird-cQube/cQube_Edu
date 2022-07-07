@@ -21,9 +21,9 @@
     "hasSub": false
   },
   {
-    "label": "NAS",
+    "label": "NIPUN BHARAT",
     "icon": "",
-    "path": "/nas",
+    "path": "",
     "basepath": "dashboard",
     "hasSub": false
   },
@@ -35,30 +35,38 @@
     "hasSub": false
   },
   {
-    "label": "NIPUN BHARAT",
+    "label": "NAS",
     "icon": "",
-    "path": "",
+    "path": "/nas",
     "basepath": "dashboard",
     "hasSub": false
   },
   {
-    "label": "CWSN",
+    "label": "PGI",
     "icon": "",
     "path": "",
     "basepath": "dashboard",
     "hasSub": false
   },
-  {
-    "label": "Adult Education",
-    "icon": "",
-    "path": "",
-    "basepath": "dashboard",
-    "hasSub": false
-  },
+
   {
     "label": "UDISE",
     "icon": "",
     "path": "/udise",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "PM Poshan",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "NCF",
+    "icon": "",
+    "path": "",
     "basepath": "dashboard",
     "hasSub": false
   },
@@ -70,7 +78,35 @@
     "hasSub": false
   },
   {
-    "label": "VIDYADAAN",
+    "label": "Micro-Improvement Program",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "National ICT Award for Teachers",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "National Award to Teachers",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "PM Shri",
+    "icon": "",
+    "path": "",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
+    "label": "PM eVidya and Radio Channels",
     "icon": "",
     "path": "",
     "basepath": "dashboard",

@@ -32,34 +32,6 @@
         "tooltip": ""
     },
     {
-        "title": "NAS",
-        "navigationURL": "/nas",
-        "metrics": [
-            {
-                "name": "Students Surveyed",
-                "value": "78.4M"
-            },
-            {
-                "name": "Schools Surveyed",
-                "value": "4.08M"
-            }
-        ],
-        "icon": "NISHTHA.png",
-        "tooltip": ""
-    },
-    {
-        "title": "Quizzes",
-        "navigationURL": "",
-        "metrics": [
-            {
-                "name": "Bhasha Sangam Enrollments",
-                "value": "11,960"
-            }
-        ],
-        "icon": "Quizzes.png",
-        "tooltip": ""
-    },
-    {
         "title": "NIPUN BHARAT",
         "navigationURL": "",
         "metrics": [
@@ -76,19 +48,49 @@
         "tooltip": ""
     },
     {
-        "title": "CWSN",
+        "title": "Quizzes",
         "navigationURL": "",
-        "metrics": [],
-        "icon": "CWSN.png",
+        "metrics": [
+            {
+                "name": "Bhasha Sangam Enrollments",
+                "value": "11,960"
+            }
+        ],
+        "icon": "Quizzes.png",
         "tooltip": ""
     },
     {
-        "title": "Adult Education",
-        "navigationURL": "",
-        "metrics": [],
-        "icon": "Adults Education.png",
+        "title": "NAS",
+        "navigationURL": "/nas",
+        "metrics": [
+            {
+                "name": "Students Surveyed",
+                "value": "78.4M"
+            },
+            {
+                "name": "Schools Surveyed",
+                "value": "4.08M"
+            }
+        ],
+        "icon": "NISHTHA.png",
         "tooltip": ""
     },
+    {
+        "title": "PGI",
+        "navigationURL": "",
+        "metrics": [
+            {
+                "name":"Total States",
+                "value":"24"
+            },
+            {
+                "name":"Net Score",
+                "value":"1,293"
+            }
+        ],
+        "icon": "UDISE+.png",
+        "tooltip": ""
+    }, 
     {
         "title": "UDISE",
         "navigationURL": "/udise",
@@ -106,17 +108,115 @@
         "tooltip": ""
     },
     {
+        "title": "PM Poshan",
+        "navigationURL": "",
+        "metrics": [
+            {
+                "name":"Total Students Served",
+                "value":"270,361"
+            },
+            {
+                "name":"Total Meals Served",
+                "value":"27,444"
+            }
+        ],
+        "icon": "Adults Education.png",
+        "tooltip": ""
+    },
+    {
+        "title": "NCF",
+        "navigationURL": "",
+        "metrics": [
+            {
+                "name":"No of States Participated",
+                "value":"484"
+            },
+            {
+                "name":"No of Position Paper",
+                "value":"1,293"
+            }
+        ],
+        "icon": "Adults Education.png",
+        "tooltip": ""
+    },
+    {
         "title": "VIDYANJALI",
         "navigationURL": "",
+        "metrics": [
+            {
+                "name":"Total Content Contributed",
+                "value":"1228"
+            },
+            {
+                "name":"Total Children Impacted",
+                "value":"1,293"
+            }
+        ],
+        "icon": "NISHTHA.png",
+        "tooltip": ""
+    },
+    
+    
+    {
+        "title": "Micro-Improvement Program",
+        "navigationURL": "",
         "metrics": [],
+        "icon": "Adults Education.png",
+        "tooltip": ""
+    },
+    {
+        "title": "National ICT Award for Teachers",
+        "navigationURL": "",
+        "metrics": [
+            {
+                "name":"Number of Teachers Awarded",
+                "value":"1228"
+            }
+        ],
         "icon": "NISHTHA.png",
         "tooltip": ""
     },
     {
-        "title": "VIDYADAAN",
+        "title": "National Award to Teachers",
         "navigationURL": "",
-        "metrics": [],
-        "icon": "VIDHYADAAN.png",
+        "metrics": [
+            {
+                "name":"Number of Teachers Awarded",
+                "value":"1,293"
+            }
+        ],
+        "icon": "Adults Education.png",
+        "tooltip": ""
+    },
+    {
+        "title": "PM Shri",
+        "navigationURL": "",
+        "metrics": [
+            {
+                "name":"Number of Shools Shortlisted",
+                "value":"1228"
+            }
+        ],
+        "icon": "Adults Education.png",
+        "tooltip": ""
+    },
+    {
+        "title": "PM eVidya and Radio Channels",
+        "navigationURL": "",
+        "metrics": [
+            {
+                "name": "Total Channels",
+                "value": "1,293"
+            },
+            {
+                "name": "Total Available Content",
+                "value": "484"
+            }
+        ],
+        "icon": "NISHTHA.png",
         "tooltip": ""
     }
+
+
+    
 ]
