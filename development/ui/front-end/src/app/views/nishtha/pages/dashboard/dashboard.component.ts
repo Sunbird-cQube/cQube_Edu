@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   constructor(private readonly _nishthaService: NishthaService, private readonly _router: Router) {
     this._nishthaService.getNishthaMenu().subscribe(nishthaMenuRes => {
       this.nishthaMenu = nishthaMenuRes.result;
+      console.log(this.nishthaMenu);
     })
   }
 

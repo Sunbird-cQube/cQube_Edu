@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { IDashboardMenu } from 'src/app/core/models/IDashboardCard';
 import { ConfigService } from 'src/app/core/services/config/config.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +15,7 @@ export class DashboardComponent implements OnInit {
   constructor(private readonly _configService: ConfigService, private readonly _router: Router) {
     this._configService.getDashboardMenu().subscribe(dashboardMenuResult => {
       this.dashboardMenu = dashboardMenuResult.result;
+      console.log(this.dashboardMenu);
     });
   }
 
