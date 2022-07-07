@@ -32,6 +32,10 @@ if(environment.config == 'NVSK'){
         {
           path: 'nas',
           loadChildren: () => import('./views/nas/nas.module').then(module => module.NasModule)
+        },
+        {
+          path: 'udise',
+          loadChildren: () => import('./views/udise/udise.module').then(module => module.UdiseModule)
         }
       ]
     }

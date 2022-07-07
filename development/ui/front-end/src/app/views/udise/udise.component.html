@@ -1,0 +1,29 @@
+<div class="metric-card-wrapper">
+    <p class="h4">UDISE</p>
+    <div class="grid gap-4 xs:grid-cols-2 xmd:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+        <ng-container *ngIf="udiseMetricsData">
+            <div class="col-span-1 xs:py-2 md:py-4" *ngFor="let metric of udiseMetricsData">
+                <app-metric-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip">
+                </app-metric-card>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="tab-group-wrapper">
+    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+        <mat-tab label="UDISE Performance">
+            <div class="grid grid-cols-1">
+                <div class="col">
+                    <app-filter-panel></app-filter-panel>
+                    <app-map-my-india [data]="udiseStateData"></app-map-my-india>
+                    
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Scatter Plot">
+            <app-filter-panel></app-filter-panel>
+            <app-scatter-chart></app-scatter-chart>
+        </mat-tab>
+    </mat-tab-group>
+</div>

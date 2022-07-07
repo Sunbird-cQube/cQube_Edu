@@ -56,6 +56,13 @@
     "hasSub": false
   },
   {
+    "label": "UDISE",
+    "icon": "",
+    "path": "/udise",
+    "basepath": "dashboard",
+    "hasSub": false
+  },
+  {
     "label": "VIDYANJALI",
     "icon": "",
     "path": "",
