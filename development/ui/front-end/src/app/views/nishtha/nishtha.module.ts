@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatTabsModule } from '@angular/material/tabs';
+import { CqubeLibraryModule } from 'cqube-library';
 
 import { NishthaRoutingModule } from './nishtha-routing.module';
 import { NishthaComponent } from './nishtha.component';
@@ -25,7 +26,8 @@ import { NisithaStackedBarComponent } from './pages/nisitha-stacked-bar/nisitha-
     CommonModule,
     NishthaRoutingModule,
     SharedModule,
-    MatTabsModule
+    MatTabsModule,
+    CqubeLibraryModule
   ]
 })
 export class NishthaModule { }
