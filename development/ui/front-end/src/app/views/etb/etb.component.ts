@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ETBService } from 'src/app/core/services/etb/etb.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-etb',
@@ -8,6 +9,10 @@ import { ETBService } from 'src/app/core/services/etb/etb.service';
   styleUrls: ['./etb.component.scss']
 })
 export class EtbComponent implements OnInit {
+
+  config: string = environment.config
+  NVSK: boolean = true;
+
   ETBMetrics: any[] | undefined;
   ETBProgramStatsByLocation: any;
 
@@ -17,6 +22,9 @@ export class EtbComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.config == 'VSK'){
+      this.NVSK = false;
+    }
   }
 
   getETBMetrics(): void {

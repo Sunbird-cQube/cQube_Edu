@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-nishtha',
@@ -7,6 +8,9 @@ import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
   styleUrls: ['./nishtha.component.scss']
 })
 export class NishthaComponent implements OnInit {
+
+  config: string = environment.config
+  NVSK: boolean = true;
 
    NisithaMetrics:any
   nishithaVersion:any=[]
@@ -16,6 +20,9 @@ export class NishthaComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if(this.config == 'VSK'){
+      this.NVSK = false;
+    }
     this.NisithaMetrics = [
       {
         "name": "Total States participating",

@@ -16,7 +16,7 @@
 
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
-        <mat-tab label="ETB Program" class="tab-first">
+        <mat-tab label="ETB Program" class="tab-first" *ngIf="NVSK">
             <div class="grid grid-cols-1" *ngIf="ETBProgramStatsByLocation">
                 <div class="col">
                     <app-filter-panel></app-filter-panel>
@@ -24,11 +24,11 @@
                 </div>
             </div>
         </mat-tab>
-        <mat-tab label="ETB Coverage">
+        <mat-tab label="ETB Coverage" *ngIf="NVSK">
             <app-filter-panel></app-filter-panel>
             <app-etb-coverage></app-etb-coverage>
         </mat-tab>
-        <mat-tab label="QR Coverage across States" class="tab-last">
+        <mat-tab label="QR Coverage across States" class="tab-last" *ngIf="NVSK">
             <app-filter-panel></app-filter-panel>
             <app-qr-coverage-across-states></app-qr-coverage-across-states>
         </mat-tab>
