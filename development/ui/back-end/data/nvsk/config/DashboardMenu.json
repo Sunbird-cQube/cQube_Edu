@@ -109,7 +109,7 @@
     },
     {
         "title": "PM Poshan",
-        "navigationURL": "poshan",
+        "navigationURL": "/poshan",
         "metrics": [
             {
                 "name": "Total Students Served",
