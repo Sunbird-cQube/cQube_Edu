@@ -1,6 +1,6 @@
 [
     {
-        "title": "NISHTHA",
+        "title": "Nishtha",
         "navigationURL": "/nishtha",
         "metrics": [
             {
@@ -140,15 +140,15 @@
         "tooltip": ""
     },
     {
-        "title": "Vidyanjalu",
+        "title": "Vidyanjali",
         "navigationURL": "",
         "metrics": [
             {
-                "name": "Total Content Contributed",
+                "name": "Content Contributed",
                 "value": "1228"
             },
             {
-                "name": "Total Children Impacted",
+                "name": "Children Impacted",
                 "value": "1,293"
             }
         ],
