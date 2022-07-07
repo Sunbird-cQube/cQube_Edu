@@ -32,7 +32,7 @@
         "tooltip": ""
     },
     {
-        "title": "NIPUN BHARAT",
+        "title": "Nipun Bharat",
         "navigationURL": "",
         "metrics": [
             {
@@ -80,17 +80,17 @@
         "navigationURL": "",
         "metrics": [
             {
-                "name":"Total States",
-                "value":"24"
+                "name": "Total States",
+                "value": "24"
             },
             {
-                "name":"Net Score",
-                "value":"1,293"
+                "name": "Net Score",
+                "value": "1,293"
             }
         ],
         "icon": "UDISE+.png",
         "tooltip": ""
-    }, 
+    },
     {
         "title": "UDISE",
         "navigationURL": "/udise",
@@ -112,12 +112,12 @@
         "navigationURL": "",
         "metrics": [
             {
-                "name":"Total Students Served",
-                "value":"270,361"
+                "name": "Total Students Served",
+                "value": "270,361"
             },
             {
-                "name":"Total Meals Served",
-                "value":"27,444"
+                "name": "Total Meals Served",
+                "value": "27,444"
             }
         ],
         "icon": "Adults Education.png",
@@ -128,35 +128,33 @@
         "navigationURL": "",
         "metrics": [
             {
-                "name":"No of States Participated",
-                "value":"484"
+                "name": "No of States Participated",
+                "value": "484"
             },
             {
-                "name":"No of Position Paper",
-                "value":"1,293"
+                "name": "No of Position Paper",
+                "value": "1,293"
             }
         ],
         "icon": "Adults Education.png",
         "tooltip": ""
     },
     {
-        "title": "VIDYANJALI",
+        "title": "Vidyanjalu",
         "navigationURL": "",
         "metrics": [
             {
-                "name":"Total Content Contributed",
-                "value":"1228"
+                "name": "Total Content Contributed",
+                "value": "1228"
             },
             {
-                "name":"Total Children Impacted",
-                "value":"1,293"
+                "name": "Total Children Impacted",
+                "value": "1,293"
             }
         ],
         "icon": "NISHTHA.png",
         "tooltip": ""
     },
-    
-    
     {
         "title": "Micro-Improvement Program",
         "navigationURL": "",
@@ -169,8 +167,8 @@
         "navigationURL": "",
         "metrics": [
             {
-                "name":"Number of Teachers Awarded",
-                "value":"1228"
+                "name": "Number of Teachers Awarded",
+                "value": "1228"
             }
         ],
         "icon": "NISHTHA.png",
@@ -181,8 +179,8 @@
         "navigationURL": "",
         "metrics": [
             {
-                "name":"Number of Teachers Awarded",
-                "value":"1,293"
+                "name": "Number of Teachers Awarded",
+                "value": "1,293"
             }
         ],
         "icon": "Adults Education.png",
@@ -193,8 +191,8 @@
         "navigationURL": "",
         "metrics": [
             {
-                "name":"Number of Shools Shortlisted",
-                "value":"1228"
+                "name": "Number of Shools Shortlisted",
+                "value": "1228"
             }
         ],
         "icon": "Adults Education.png",
@@ -216,7 +214,4 @@
         "icon": "NISHTHA.png",
         "tooltip": ""
     }
-
-
-    
 ]
