@@ -19,6 +19,7 @@ import { ScatterChartComponent } from './components/scatter-chart/scatter-chart.
 import { NgChartsModule } from 'ng2-charts';
 import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
 import { StackedBarComponent } from './components/charts/stacked-bar/stacked-bar.component';
+import { PieChartComponent } from './components/charts/pie-chart/pie-chart.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -41,12 +42,14 @@ const DECLARATIONS = [
   GaugeChartComponent,
   ScatterChartComponent,
   FilterPanelComponent,
-  StackedBarComponent
+  StackedBarComponent,
+  PieChartComponent,
 ];
 
 @NgModule({
   declarations: [
     DECLARATIONS,
+    
   ],
   imports: [
     CommonModule,
