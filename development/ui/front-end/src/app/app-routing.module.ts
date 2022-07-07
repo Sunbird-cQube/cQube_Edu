@@ -40,6 +40,10 @@ if(environment.config == 'NVSK'){
         {
           path: 'poshan',
           loadChildren: () => import('./views/pm-poshan/pm-poshan.module').then(module => module.PmPoshanModule)
+        },
+        {
+          path: 'pgi',
+          loadChildren: () => import('./views/pgi/pgi.module').then(module => module.PGIModule)
         }
       ]
     }

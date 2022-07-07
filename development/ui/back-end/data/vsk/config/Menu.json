@@ -37,14 +37,14 @@
   {
     "label": "PGI",
     "icon": "",
-    "path": "",
+    "path": "/pgi",
     "basepath": "dashboard",
     "hasSub": false
   },
   {
     "label": "Poshan",
     "icon": "",
-    "path": "",
+    "path": "/poshan",
     "basepath": "dashboard",
     "hasSub": false
   }

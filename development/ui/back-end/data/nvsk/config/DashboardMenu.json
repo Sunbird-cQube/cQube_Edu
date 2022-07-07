@@ -77,7 +77,7 @@
     },
     {
         "title": "PGI",
-        "navigationURL": "",
+        "navigationURL": "/pgi",
         "metrics": [
             {
                 "name": "Total States",
@@ -89,7 +89,7 @@
             }
         ],
         "icon": "UDISE+.png",
-        "tooltip": ""
+        "tooltip": "PGI"
     },
     {
         "title": "UDISE",
@@ -109,7 +109,7 @@
     },
     {
         "title": "PM Poshan",
-        "navigationURL": "",
+        "navigationURL": "poshan",
         "metrics": [
             {
                 "name": "Total Students Served",

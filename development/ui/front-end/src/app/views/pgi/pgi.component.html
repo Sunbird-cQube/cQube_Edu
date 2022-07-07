@@ -1,0 +1,26 @@
+<div class="metric-card-wrapper">
+    <p class="h4">PGI</p>
+    <div class="grid gap-4 xs:grid-cols-2 xmd:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+        <ng-container *ngIf="pgiMetricsData">
+            <div class="col-span-1 xs:py-2 md:py-4" *ngFor="let metric of pgiMetricsData">
+                <app-metric-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip">
+                </app-metric-card>
+            </div>
+        </ng-container>
+    </div>
+</div>
+<div class="tab-group-wrapper">
+    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+        <mat-tab label="PGI Performance">
+            <app-filter-panel></app-filter-panel>
+            <div class="grid grid-cols-2 sm:grid-cols-3">
+                <div class="col-span-2">
+                    <app-map-my-india [data]="pgiStateData"></app-map-my-india>
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                    <app-gauge-chart [options]="options"></app-gauge-chart>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
