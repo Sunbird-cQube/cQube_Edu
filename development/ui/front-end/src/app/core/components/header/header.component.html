@@ -17,7 +17,7 @@
         <div class="d-flex justify-between items-center h-full">
             <img src="assets/images/ncert_logo.png" class="h-full logo" alt="NCERT Logo">
             <!-- <i class="fa fa-sign-out fa-2x ml-3" style="cursor: pointer;" (click)="logout()"></i> -->
-            <div>
+            <div *ngIf="!NVSK">
                 <img src="../../../../assets/images/user.png" class="user-icon ml-5" (mouseover)="onMouseOver()"
                     (mouseout)="onMouseOut()">
                 <div *ngIf="dropdown" class="dropdown" (mouseover)="withinTime = true;" [@fadeInOut] (mouseout)="onMouseOut()">
