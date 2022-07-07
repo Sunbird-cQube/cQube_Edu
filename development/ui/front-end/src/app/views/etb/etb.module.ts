@@ -4,6 +4,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { EtbRoutingModule } from './etb-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CqubeLibraryModule } from 'cqube-library';
 
 import { EtbComponent } from './etb.component';
 import { EtbProgramComponent } from './pages/etb-program/etb-program.component';
@@ -22,6 +23,7 @@ import { QRCoverageAcrossStatesComponent } from './pages/qr-coverage-across-stat
     EtbRoutingModule,
     SharedModule,
     MatTabsModule,
+    CqubeLibraryModule
   ]
 })
 export class EtbModule { }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CqubeLibraryModule } from 'cqube-library';
 
 import { UdiseRoutingModule } from './udise-routing.module';
 import { UdiseComponent } from './udise.component';
@@ -18,7 +19,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     CommonModule,
     UdiseRoutingModule,
     SharedModule,
-    MatTabsModule
+    MatTabsModule,
+    CqubeLibraryModule
   ]
 })
 export class UdiseModule { }

@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
+import { CqubeLibraryModule } from 'cqube-library';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,7 +29,8 @@ import { NgChartsModule } from 'ng2-charts';
     MatSortModule,
     NgChartsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CqubeLibraryModule
   ],
   providers: [],
   bootstrap: [AppComponent]
