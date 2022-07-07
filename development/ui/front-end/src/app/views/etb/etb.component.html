@@ -32,5 +32,10 @@
             <app-filter-panel></app-filter-panel>
             <app-qr-coverage-across-states></app-qr-coverage-across-states>
         </mat-tab>
+        <mat-tab label="Total ETB Plays/QR Scans by Districts">
+            <app-filter-panel></app-filter-panel>
+            <app-multi-bar-chart title="Total Enrollments and Total Certifications" [options]="options">
+            </app-multi-bar-chart>
+        </mat-tab>
     </mat-tab-group>
 </div>
