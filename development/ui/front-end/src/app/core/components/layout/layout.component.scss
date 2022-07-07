@@ -29,6 +29,9 @@
     .mat-tab-label:last-child{
         border-radius: 0px 18px 18px 0px;
     }
+    .mat-tab-label:only-child{
+        border-radius: 18px !important;
+    }
 }
 ::ng-deep{
     .legend{
