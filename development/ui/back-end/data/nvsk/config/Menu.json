@@ -21,7 +21,7 @@
     "hasSub": false
   },
   {
-    "label": "NIPUN BHARAT",
+    "label": "Nipun Bharat",
     "icon": "",
     "path": "",
     "basepath": "dashboard",
@@ -48,7 +48,6 @@
     "basepath": "dashboard",
     "hasSub": false
   },
-
   {
     "label": "UDISE",
     "icon": "",
@@ -71,7 +70,7 @@
     "hasSub": false
   },
   {
-    "label": "VIDYANJALI",
+    "label": "Vidyanjali",
     "icon": "",
     "path": "",
     "basepath": "dashboard",
