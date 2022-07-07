@@ -90,9 +90,18 @@
         "tooltip": ""
     },
     {
-        "title": "UDISE+",
-        "navigationURL": "",
-        "metrics": [],
+        "title": "UDISE",
+        "navigationURL": "/udise",
+        "metrics": [
+            {
+                "name": "Total Schools",
+                "value": "78.4M"
+            },
+            {
+                "name": "Total Teachers",
+                "value": "4.08M"
+            }
+        ],
         "icon": "UDISE+.png",
         "tooltip": ""
     },
