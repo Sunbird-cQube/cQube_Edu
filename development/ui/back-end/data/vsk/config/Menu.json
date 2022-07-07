@@ -7,6 +7,13 @@
     "hasSub": false
   },
   {
+    "label": "Nishtha",
+    "icon": "",
+    "path": "/nishtha",
+    "basepath": "nishtha",
+    "hasSub": false
+  },
+  {
     "label": "DIKSHA",
     "icon": "",
     "path": "/etb",

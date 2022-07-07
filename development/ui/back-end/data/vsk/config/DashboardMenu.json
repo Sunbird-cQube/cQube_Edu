@@ -1,5 +1,21 @@
 [
     {
+        "title": "NISHTHA",
+        "navigationURL": "/nishtha",
+        "metrics": [
+            {
+                "name": "Net Enrollment",
+                "value": "29.9M"
+            },
+            {
+                "name": "Net Certifications",
+                "value": "20.7M"
+            }
+        ],
+        "icon": "NISHTHA.png",
+        "tooltip": "Nishtha"
+    },
+    {
         "title": "DIKSHA",
         "navigationURL": "/etb",
         "metrics": [
