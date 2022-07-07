@@ -39,7 +39,7 @@ export class MapService {
         }
         // markers[0]
         globalMap = L.map(map, { zoomSnap: 0.25, zoomControl: false, scrollWheelZoom: false, touchZoom: false, maxBounds: maxBounds }).setView([maxBounds[0][0], maxBounds[0][1]], this.zoomLevel);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
             {
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
                 maxZoom: this.zoomLevel + 10,
@@ -143,13 +143,13 @@ export class MapService {
             }
             else {
                 labels = ['<strong>Performance</strong>'];
-                values = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
+                values = ['100', '90', '80', '70', '60', '50', '40', '30', '20', '10']; 
                 for (var i = 0; i < values.length; i++) {
 
                     div.innerHTML +=
                         labels.push(
-                            '<i class="fa fa-square" style="color:' + getZoneColor(values[i] + 1) + '"></i> ' +
-                            values[i] + (values[i + 1] ? '&ndash;' + values[i + 1] + ' %' : '+'));
+                            '<i class="fa  fa-square" style="color:' + getZoneColor(Number(values[i]) - 1) + '"></i><span class="h6">' +
+                            ' ' + (values[i + 1] ? values[i + 1] + '&ndash;': '0 &ndash;') + values[i] + ' %' + '</span>');
 
                 }
             }
