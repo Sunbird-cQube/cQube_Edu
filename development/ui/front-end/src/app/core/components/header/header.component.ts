@@ -24,6 +24,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 export class HeaderComponent implements OnInit {
 
   config: string = environment.config
+  NVSK: boolean = true;
 
   faBars = faBars;
 
@@ -34,6 +35,9 @@ export class HeaderComponent implements OnInit {
   constructor(private router:Router, private readonly _authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    if(this.config == 'VSK'){
+      this.NVSK = false;
+    }
   }
 
   logout() {
