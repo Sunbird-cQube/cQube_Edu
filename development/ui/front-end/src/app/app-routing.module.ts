@@ -36,6 +36,10 @@ if(environment.config == 'NVSK'){
         {
           path: 'udise',
           loadChildren: () => import('./views/udise/udise.module').then(module => module.UdiseModule)
+        },
+        {
+          path: 'poshan',
+          loadChildren: () => import('./views/pm-poshan/pm-poshan.module').then(module => module.PmPoshanModule)
         }
       ]
     }
