@@ -44,6 +44,10 @@ if(environment.config == 'NVSK'){
         {
           path: 'pgi',
           loadChildren: () => import('./views/pgi/pgi.module').then(module => module.PGIModule)
+        },
+        {
+          path: 'nipunbharath',
+          loadChildren: () => import('./views/nipunbharath/nipunbharath.module').then(module => module.NipunbharathModule)
         }
       ]
     }
