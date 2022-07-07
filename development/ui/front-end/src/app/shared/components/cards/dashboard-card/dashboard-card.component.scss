@@ -9,9 +9,10 @@ $white: #fff;
     padding: 0 !important;
 
     .fa-info-circle{
-        color: blue;
+        color: #004e9d;
         cursor: pointer;
         margin: 10px;
+        font-size: 1.5rem;
     }
 
     .dashboard-card-header {
@@ -30,6 +31,7 @@ $white: #fff;
     }
 
     .dashboard-card-body {
+        padding-top: 25px !important;
         padding: 16px;
         min-height: 80px;
 
