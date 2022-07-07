@@ -31,10 +31,10 @@ export class MapService {
     initMap(map: any, maxBounds: any, markers: any) {
         let reportTypeETB: any;
 
-        if(markers[0].perfomance){
+        if (markers[0].perfomance) {
             reportTypeETB = false;
         }
-        else{
+        else {
             reportTypeETB = true;
         }
         // markers[0]
@@ -47,46 +47,56 @@ export class MapService {
         ).addTo(globalMap);
 
         function getZoneColor(e: any) {
-            if(reportTypeETB){
-                if (e?.trim() == "Yes") {
+            if (reportTypeETB) {
+                if (e == "Yes") {
                     return "#a7ffa4"
                 }
                 else {
                     return "grey"
                 }
             }
-            else{
+            else {
                 return e > 90 ? "#002966" :
-                        e > 80 ? "#003d99" :
+                    e > 80 ? "#003d99" :
                         e > 70 ? "#0052cc" :
-                        e > 50 ? "#0066ff" :
-                        e > 40 ? "#1a75ff" :
-                        e > 30 ? "#4d94ff" :
-                        e > 20 ? "#80b3ff" :
-                        e > 10 ? "#b3d1ff" :
-                        e > 0 ? "#cce0ff" :
-                            "#e6f0ff";
+                            e > 50 ? "#0066ff" :
+                                e > 40 ? "#1a75ff" :
+                                    e > 30 ? "#4d94ff" :
+                                        e > 20 ? "#80b3ff" :
+                                            e > 10 ? "#b3d1ff" :
+                                                e > 0 ? "#cce0ff" :
+                                                    "#e6f0ff";
             }
-            
+
         }
 
         function style_states1(feature: any) {
             let check: any = '';
-            if(reportTypeETB){
+            if (reportTypeETB) {
                 markers.forEach((states: any) => {
                     if (states?.Location?.trim() == feature?.properties?.st_nm?.trim()) {
-                        check = states?.status?.split(':')[1]
+                        check = states?.status?.split(':')[1]?.trim()
+                        if (feature.properties) {
+                            feature.properties['popUpContent'] = feature?.properties?.st_nm + ' : ' + check;
+                        }
+                    }
+                    else {
+                        console.log(states?.Location?.trim())
+                        console.log(feature?.properties, 'In')
                     }
                 })
             }
-            else{
-                markers.forEach((states:any) => {
-                    if(states?.Location?.trim() == feature?.properties?.st_nm?.trim()){
+            else {
+                markers.forEach((states: any) => {
+                    if (states?.Location?.trim() == feature?.properties?.st_nm?.trim()) {
                         check = Number(states?.perfomance?.split(':')[1]?.trim())
+                        if (feature.properties) {
+                            feature.properties['popUpContent'] = 'Performance of ' + feature?.properties?.st_nm + ' is ' + check + '%';
+                        }
                     }
                 })
             }
-           
+
             return {
                 fillColor: getZoneColor(check),
                 weight: 1,
@@ -97,6 +107,9 @@ export class MapService {
             };
         }
 
+        var popUp = document.getElementsByClassName('leaflet-popup');
+        var within: boolean = true;
+
         var data = mapData.default;
         function applyCountryBorder(map: any) {
             L.geoJSON(data["IN"]['features'], {
@@ -104,9 +117,49 @@ export class MapService {
                 color: "#a0a1a3",
                 weight: 1,
                 fillOpacity: 0,
-                fontWeight: "bold"
+                fontWeight: "bold",
+                onEachFeature: function (feature: any, layer: any) {
+                    layer.bindTooltip('<h3>' + feature?.properties?.popUpContent + '</h3>', { closeButton: false, offset: L.point(0, -20) });
+                }
             }).addTo(map);
         }
+
+        var legend = L.control({ position: 'topright' });
+        legend.onAdd = function (map: any) {
+
+            let labels: any[] = [];
+            let values: any[] = [];
+
+            var div = L.DomUtil.create('div', 'info legend');
+            if (reportTypeETB) {
+                labels = ['<strong>State & NCERT adopted:</strong>'];
+                values = ["Yes", "No"];
+                for (var i = 0; i < values.length; i++) {
+
+                    div.innerHTML +=
+                        labels.push('<i class="fa fa-square" style="color:' + getZoneColor(values[i]) + '"></i> ' + values[i]);
+
+                }
+            }
+            else {
+                labels = ['<strong>Performance</strong>'];
+                values = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
+                for (var i = 0; i < values.length; i++) {
+
+                    div.innerHTML +=
+                        labels.push(
+                            '<i class="fa fa-square" style="color:' + getZoneColor(values[i] + 1) + '"></i> ' +
+                            values[i] + (values[i + 1] ? '&ndash;' + values[i + 1] + ' %' : '+'));
+
+                }
+            }
+
+
+
+            div.innerHTML = labels.join('<br>');
+            return div;
+        };
+        legend.addTo(globalMap);
         applyCountryBorder(globalMap);
         this.map = globalMap
     }

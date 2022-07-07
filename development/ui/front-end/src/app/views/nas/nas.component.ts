@@ -95,7 +95,7 @@ export class NasComponent implements OnInit {
           "Location": "Goa",
           "Latitude": 15.2993,
           "Longitude": 74.1240,
-          "performance": "Performance: 43.26"
+          "perfomance": "Performance: 43.26"
         },
         {
           "Location": "Haryana ",
