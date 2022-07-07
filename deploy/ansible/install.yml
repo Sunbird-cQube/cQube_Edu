@@ -1,0 +1,12 @@
+---
+- name: Installing cQube NVSK
+  hosts: localhost
+  gather_facts: true
+  remote_user: root
+  vars_files:
+    - ../config.yml
+
+  roles:
+          - { role: java, tags: install }
+          - angular
+          - cqube_conf

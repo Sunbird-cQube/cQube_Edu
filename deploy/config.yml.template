@@ -1,0 +1,21 @@
+---
+#------------------------------------------------------#
+#
+# cQube_NVSK Installaion configuration parameters
+#
+# ALL VARIABLES ARE MANDATORY.
+# PLEASE FILL THOSE BEFORE RUNNING CORRESPONDING STEPS.
+#
+#------------------------------------------------------#
+
+#NOTE: Please fill the value with a space between ":" and the value. 
+#Example-   `system_user_name: ubuntu`
+
+system_user_name:                         # Non-root username with sudo privileges. To find the username run `whoami` in the same server terminal.
+
+base_dir: /opt                            # provide the absolute path where cqube needs to be installed and served. Eg. /opt  ( in this case cqube will be installed under /opt/cqube)
+access_type:                              # Please enter nvsk or vsk,                                                  
+state_code: NA                              # Please enter state code if you selected access_type as VSK 
+storage_type:                             # enter s3 or azure
+api_endpoint:                             # enter domain name if mode_of_installation is `public` ( Example: cqubeprojects.com ), if mode_of_installation is `localhost` then api_endpoint should be `localhost`
+local_ipv4_address:                       # enter the private ip of this server. To find the ip address. Use `ip addr` or `ifconfig`I
