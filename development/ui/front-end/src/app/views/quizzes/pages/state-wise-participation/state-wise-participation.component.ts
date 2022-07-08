@@ -2,41 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { ETBService } from 'src/app/core/services/etb/etb.service';
 
 @Component({
-  selector: 'app-pgi',
-  templateUrl: './pgi.component.html',
-  styleUrls: ['./pgi.component.scss']
+  selector: 'app-state-wise-participation',
+  templateUrl: './state-wise-participation.component.html',
+  styleUrls: ['./state-wise-participation.component.scss']
 })
-export class PGIComponent implements OnInit {
+export class StateWiseParticipationComponent implements OnInit {
 
-  pgiMetricsData: any;
-  pgiStateData: any;
-
-  tableData: any;
-  columns: any[] = [];
+  quizzesStateData: any;
   options: Highcharts.Options | undefined;
 
-  constructor(private readonly _ETBService: ETBService) {
-    this.getPGIMetricsData();
-    this.getPGIStateData();
-    this.getStateWisePGICoverageData();
-   }
+  constructor(private readonly _ETBService: ETBService) { 
+    this.getQuizzesStateData();
+    this.getStateWiseQuizzesCoverageData();
+  }
 
   ngOnInit(): void {
   }
 
-  onTabChanged($event: any): void {
-    setTimeout(() => {
-      window.dispatchEvent(new Event('resize'));
-      console.log('resize');
-    }, 100);
-  }
-
-  getStateWisePGICoverageData(){
+  getStateWiseQuizzesCoverageData(){
     return this._ETBService.getStateWiseETBCoverageData().subscribe(res => {
-      this.tableData = res.result.data;
-      this.columns = res.result.columns;
-
-
       this.options = {
         title: {
           text: ""
@@ -44,7 +28,7 @@ export class PGIComponent implements OnInit {
         yAxis: {
           title: {
             y: 60,
-            text: 'Overall PGI Coverage'
+            text: 'Overall Quizzes Coverage'
           }
         },
         series: [{
@@ -67,18 +51,8 @@ export class PGIComponent implements OnInit {
     });
   }
 
-  getPGIMetricsData() {
-    this.pgiMetricsData = [
-      {
-          "name": "Total District Participated",
-          "value": "248",
-          "tooltip": "Total District Participated"
-      }
-  ];
-  }
-
-  getPGIStateData() {
-    this.pgiStateData = [
+  getQuizzesStateData() {
+    this.quizzesStateData = [
       {
         "Location": "Andaman And Nicobar",
         "Latitude": 11.66702557,
@@ -291,6 +265,4 @@ export class PGIComponent implements OnInit {
       }
     ];
   }
-
-
 }

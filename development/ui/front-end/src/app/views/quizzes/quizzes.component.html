@@ -1,10 +1,10 @@
 <div class="metric-card-wrapper">
-    <p class="h4">PM Poshan</p>
+    <p class="h4">Quizzes</p>
     <div class="grid gap-4 xs:grid-cols-2 xmd:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
-        <ng-container *ngIf="pmposhanMetricsData">
-            <div class="col-span-1 xs:py-2 md:py-4" *ngFor="let metric of pmposhanMetricsData">
-                <!-- <app-metric-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip">
-                </app-metric-card> -->
+        <ng-container *ngIf="quizzesMetricsData">
+            <div class="col-span-1 xs:py-2 md:py-4" *ngFor="let metric of quizzesMetricsData">
+                <!--<app-metric-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip">
+                </app-metric-card>-->
                 <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip"></sb-cqube-info-card>
             </div>
         </ng-container>
@@ -13,17 +13,17 @@
 
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
-        <mat-tab label="PM Poshan access across India">
+        <mat-tab label="State Participation">
             <div class="grid grid-cols-1">
                 <div class="col">
                     <app-filter-panel></app-filter-panel>
-                    <app-map-my-india [data]="pmPoshanStateData"></app-map-my-india>
-                    
+                    <app-state-wise-participation></app-state-wise-participation>
                 </div>
             </div>
         </mat-tab>
+        <mat-tab label="States started as per plan">
+            <app-filter-panel></app-filter-panel>
+            <app-states-started-table></app-states-started-table>
+        </mat-tab>
     </mat-tab-group>
 </div>
-
-
-

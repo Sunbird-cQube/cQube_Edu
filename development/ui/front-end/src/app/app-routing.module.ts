@@ -52,6 +52,10 @@ if(environment.config == 'NVSK'){
         {
           path: 'vidyanjali',
           loadChildren: () => import('./views/vidyanjali/vidyanjali.module').then(module => module.VidyanjaliModule)
+        },
+        {
+          path: 'quizzes',
+          loadChildren: () => import('./views/quizzes/quizzes.module').then(module => module.QuizzesModule)
         }
       ]
     }

@@ -7,6 +7,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { PmPoshanRoutingModule } from './pm-poshan-routing.module';
 import { PmPoshanComponent } from './pm-poshan.component';
+import { CqubeLibraryModule } from 'cqube-library';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { PmPoshanComponent } from './pm-poshan.component';
     CommonModule,
     PmPoshanRoutingModule,
     SharedModule,
-    MatTabsModule
+    MatTabsModule,
+    CqubeLibraryModule
   ]
 })
 export class PmPoshanModule { }
