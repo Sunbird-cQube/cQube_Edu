@@ -10,6 +10,8 @@ const router = require('./routes');
 
 global.__basedir = __dirname;
 global.__dataFolderPath = path.join(__dirname, 'data');
+global.__rawDataFolderPath = path.join(__dirname, 'new_data/raw_data');
+global.__convertedDataFolderPath = path.join(__dirname, 'new_data/converted');
 
 app.use(bodyParser.urlencoded({ extended: false, limit: '1024mb' }));
 app.use(bodyParser.json({limit: '1024mb'}));

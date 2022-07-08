@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -8,15 +8,13 @@ import { environment } from 'src/environments/environment';
 })
 export class FilterPanelComponent implements OnInit {
 
+  @Input() filters: any = [];
   config: string = environment.config
   NVSK: boolean = true;
 
   constructor() { }
 
   ngOnInit(): void {
-    if(this.config == 'VSK'){
-      this.NVSK = false;
-    }
   }
 
 }

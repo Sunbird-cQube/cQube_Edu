@@ -12,7 +12,7 @@ export class CommonService {
 
   constructor(private readonly _http: HttpClient) { }
   
-  getReportData(data: IReportDataPayload): Observable<ResponseType<any[]>> {
-    return this._http.post<ResponseType<any[]>>(`${environment.apiURL}/common/getReportData`, data);
+  getReportData(data: IReportDataPayload): Observable<ResponseType<any>> {
+    return this._http.post<ResponseType<any>>(`${environment.apiURL}/common/getReportData`, data);
   }
 }

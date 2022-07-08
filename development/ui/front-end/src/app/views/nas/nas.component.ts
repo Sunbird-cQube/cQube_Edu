@@ -12,22 +12,26 @@ import { environment } from 'src/environments/environment';
 export class NasComponent implements OnInit {
   NASMetrics: any[] | undefined;
   NASProgramStatsByLocation: any
-  NasStateData: any
+  NasStateData: any;
+  filters: any;
 
   constructor(private readonly _NASService: NasService, private readonly _commonService: CommonService) {
     this.getNASMetrics()
-    this.getNasData()
+    //this.getNasData()
 
     let data: IReportDataPayload = {
-      config: environment.config.toLowerCase(),
-      dataSource: 'nas',
+      appName: environment.config.toLowerCase(),
+      dataSourceName: 'nas',
       reportName: 'studentPerformance',
       reportType: 'map',
+      stateCode: environment.stateCode?.toLocaleLowerCase(),
       filtersRequired: true
     };
 
-    // this._commonService.getReportData(data).subscribe(res => {
-    // });
+    this._commonService.getReportData(data).subscribe(res => {
+      this.NasStateData = res.result.data;
+      this.filters = res.result.filters;
+    });
   }
 
   ngOnInit(): void {

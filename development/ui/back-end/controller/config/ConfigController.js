@@ -1,5 +1,5 @@
 const path = require('path');
-const { paths } = require("../../core/config/config");
+const { configFiles } = require("../../core/config/config");
 
 exports.getConfig = (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
@@ -10,7 +10,7 @@ exports.getConfig = (req, res, next) => {
 				throw "Some of the parameters are missing, make sure all the required parameters are present";
 			}
 
-			let menu = require(path.join(__dataFolderPath, `${appName}/${paths.config[configName]}`));
+			let menu = require(path.join(__dataFolderPath, `${appName}/${configFiles[configName]}`));
 			res.status(200).send({
 				status: 200,
 				result: menu

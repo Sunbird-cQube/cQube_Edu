@@ -31,7 +31,7 @@ export class MapService {
     initMap(map: any, maxBounds: any, markers: any) {
         let reportTypeETB: any;
 
-        if (markers[0].perfomance) {
+        if (markers[0].perfomance || markers[0].Performance) {
             reportTypeETB = false;
         }
         else {
@@ -85,7 +85,8 @@ export class MapService {
             else {
                 markers.forEach((states: any) => {
                     if (states?.Location?.trim() == feature?.properties?.st_nm?.trim()) {
-                        check = Number(states?.perfomance?.split(':')[1]?.trim())
+                        let performance = states.perfomance ? states.perfomance : states.Performance;
+                        check = typeof performance === 'string' ? Number(states?.perfomance?.split(':')[1]?.trim()) : performance;
                         if (feature.properties) {
                             feature.properties['popUpContent'] = 'Performance of ' + feature?.properties?.st_nm + ' is ' + check + '%';
                         }

@@ -1,8 +1,8 @@
 export interface IReportDataPayload {
-    config: string;
-    stateId?: string;
-    dataSource: string;
+    appName: string;
+    stateCode?: string;
+    dataSourceName: string;
     reportName: string;
-    reportType: string;
+    reportType: 'map' | 'multiBarChart' | 'loTable';
     filtersRequired?: boolean;
 }
