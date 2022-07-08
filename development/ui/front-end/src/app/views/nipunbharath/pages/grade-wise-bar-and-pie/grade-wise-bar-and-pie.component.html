@@ -1,10 +1,8 @@
 <div class="grid grid-cols-2 mt-8">
     <div class="grid col-span-2 md:col-span-1">
-        <!-- <p>{{"bar"}}</p> -->
-        <app-stacked-bar title="Grade wise contents" [options]="options"></app-stacked-bar>
+        <app-stacked-bar [options]="options"></app-stacked-bar>
     </div>
     <div class="grid col-span-2 md:col-span-1">
-        <!-- <p>{{"pie"}}</p> -->
-        <app-pie-chart [data]="chartOptions" class="pie"></app-pie-chart>
+        <app-pie-chart [data]="chartOptions"></app-pie-chart>
     </div>
 </div>

@@ -18,12 +18,18 @@ export class GardeWiseResourceComponent implements OnInit {
 
   getBarData() {
     this.options = {
+      xAxis: {
+        categories: ['Grade 1', 'Grade 2', 'Grade 3', 'Pre School 1', 'Pre School 2', 'Pre School 3', 'Multi Grade']
+      },
+      yAxis: {
+        opposite: true
+      },
       series: [
       {
         type: 'bar',
         color: "#DBADEC",
         name: 'Content count',
-        data: [245, 75, 104, 85]
+        data: [245, 75, 104, 85,768,104,205]
         
       }
        ]

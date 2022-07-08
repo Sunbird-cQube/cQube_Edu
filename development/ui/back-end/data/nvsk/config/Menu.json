@@ -30,7 +30,7 @@
   {
     "label": "Quizzes",
     "icon": "",
-    "path": "",
+    "path": "/quizzes",
     "basepath": "dashboard",
     "hasSub": false
   },
@@ -72,14 +72,14 @@
   {
     "label": "Vidyanjali",
     "icon": "",
-    "path": "",
+    "path": "/vidyanjali",
     "basepath": "dashboard",
     "hasSub": false
   },
   {
     "label": "Micro-Improvement Program",
     "icon": "",
-    "path": "",
+    "path": "/microimprovement",
     "basepath": "dashboard",
     "hasSub": false
   },

@@ -18,12 +18,18 @@ export class DevelopmentGoalBarComponent implements OnInit {
 
   getBarData() {
     this.options = {
+      xAxis: {
+        categories: ['Videos', 'Docs', 'Interactive', 'YouTube']
+      },
+      yAxis: {
+        opposite: true
+      },
       series: [
       {
         type: 'bar',
         color: "#DBADEC",
         name: 'Content count',
-        data: [245, 75, 104, 85]
+        data: [23.34, 10.8, 48.5, 6.2]
         
       }
        ]

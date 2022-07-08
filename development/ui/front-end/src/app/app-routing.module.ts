@@ -48,6 +48,10 @@ if(environment.config == 'NVSK'){
         {
           path: 'nipunbharath',
           loadChildren: () => import('./views/nipunbharath/nipunbharath.module').then(module => module.NipunbharathModule)
+        },
+        {
+          path: 'vidyanjali',
+          loadChildren: () => import('./views/vidyanjali/vidyanjali.module').then(module => module.VidyanjaliModule)
         }
       ]
     }
