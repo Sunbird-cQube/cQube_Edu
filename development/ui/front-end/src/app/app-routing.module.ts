@@ -56,8 +56,12 @@ if(environment.config == 'NVSK'){
         {
           path: 'quizzes',
           loadChildren: () => import('./views/quizzes/quizzes.module').then(module => module.QuizzesModule)
-        }
-      ]
+        },
+        {
+          path: 'microimprovement',
+          loadChildren: () => import('./views/micro-improvement/micro-improvement.module').then(module => module.MicroImprovementModule)
+    }
+  ]
     }
   ];
 }
