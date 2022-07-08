@@ -44,12 +44,12 @@
                 "value": "4.08M"
             }
         ],
-        "icon": "NISHTHA.png",
+        "icon": "NAS.png",
         "tooltip": ""
     },
     {
         "title": "UDISE",
-        "navigationURL": "",
+        "navigationURL": "/udise",
         "metrics": [
             {
                 "name": "Net Enrollment",
@@ -60,7 +60,7 @@
                 "value": "20.7M"
             }
         ],
-        "icon": "UDISE+.png",
+        "icon": "UDISE.png",
         "tooltip": ""
     },
     {
@@ -76,7 +76,7 @@
                 "value": "20.7M"
             }
         ],
-        "icon": "Quizzes.png",  
+        "icon": "PGI.png",  
         "tooltip": ""
     },
     {

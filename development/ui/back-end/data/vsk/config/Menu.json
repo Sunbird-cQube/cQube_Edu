@@ -30,7 +30,7 @@
   {
     "label": "UDISE",
     "icon": "",
-    "path": "",
+    "path": "/udise",
     "basepath": "dashboard",
     "hasSub": false
   },
