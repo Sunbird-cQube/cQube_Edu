@@ -1,63 +1,12 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="filters && filters.length > 0">
     <div class="grid grid-cols-2 md:grid-cols-6 filter-panel-wrapper">
-        <div class="col-span-1 filter-wrapper">
-            <ng-select class="mx-2" placeholder="Select Grade">
-                <ng-option disabled="true">Select a Grade</ng-option>
-                <ng-option>Grade 1</ng-option>
-            </ng-select>
-        </div>
-        <div class="col-span-1 filter-wrapper">
-            <ng-select class="mx-2" placeholder="Select Subject">
-                <ng-option disabled="true">Select a Subject</ng-option>
-            </ng-select>
-        </div>
-        <div class="col-span-1 filter-wrapper">
-            <ng-select class="mx-2" placeholder="Select Indicator">
-                <ng-option disabled="true">Select an Indicator</ng-option>
-            </ng-select>
-        </div>
-        <div class="col-span-1 filter-wrapper">
-            <ng-select class="mx-2" placeholder="Select Year">
-                <ng-option disabled="true">Select a Year</ng-option>
-            </ng-select>
-        </div>
-        <div class="col-span-1 filter-wrapper" *ngIf="NVSK">
-            <ng-select class="mx-2" placeholder="Select State">
-                <ng-option disabled="true">Select a State</ng-option>
-            </ng-select>
-        </div>
-        <div class="col-span-1 filter-wrapper" *ngIf="NVSK">
-            <button class="btn download pull-right">
-                <i class="fa fa-download fx-lg" aria-hidden="true"></i> Download
-            </button>
-        </div>
-        <div class="col-span-2" *ngIf="!NVSK">
-            <button class="btn download pull-right">
-                <i class="fa fa-download fx-lg" aria-hidden="true"></i> Download
-            </button>
-        </div>
-    </div>
-    <div class="grid grid-cols-6 filter-panel-wrapper" *ngIf="!NVSK">
-        <div class="col-span-1 filter-wrapper">
-            <ng-select class="mx-2" placeholder="Select District">
-                <ng-option disabled="true">Select a District</ng-option>
-                <!-- <ng-option *ngFor="let "></ng-option> -->
-            </ng-select>
-        </div>
-        <div class="col-span-1 filter-wrapper">
-            <ng-select class="mx-2" placeholder="Select Block">
-                <ng-option disabled="true">Select a Block</ng-option>
-            </ng-select>
-        </div>
-        <div class="col-span-1 filter-wrapper">
-            <ng-select class="mx-2" placeholder="Select Cluster">
-                <ng-option disabled="true">Select a Cluster</ng-option>
-            </ng-select>
-        </div>
-        <div class="col-span-1 filter-wrapper">
-            <ng-select class="mx-2" placeholder="Select School">
-                <ng-option disabled="true">Select a School</ng-option>
-            </ng-select>
-        </div>
+        <ng-container *ngFor="let filter of filters">
+            <div class="col-span-1 filter-wrapper">
+                <ng-select class="mx-2" placeholder="Select {{filter.name}}">
+                    <ng-option disabled="true">Select {{filter.name}}</ng-option>
+                    <ng-option *ngFor="let option of filter.options" [value]="option.value">{{ option.name }}</ng-option>
+                </ng-select>
+            </div>
+        </ng-container>
     </div>
 </div>
