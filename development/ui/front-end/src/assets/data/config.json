@@ -5,5 +5,12 @@
         "lng": 78.9629,
         "zoomLevel": 4.8,
         "stateCode": "02"
+    },
+    "GJ": {
+        "name": "Gujrath",
+        "lat": 22.2587,
+        "lng": 71.1924,
+        "zoomLevel": 7.5,
+        "stateCode": "24"
     }
 }
