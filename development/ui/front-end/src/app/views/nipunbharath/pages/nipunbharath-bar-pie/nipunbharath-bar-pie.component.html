@@ -1,9 +1,5 @@
 <div class="grid grid-cols-2 mt-8">
-
-        <div class="grid col-span-2 md:col-span-1">
-            <app-stacked-bar title="Development Goals content count" [options]="options"></app-stacked-bar>
-        </div>
-        <div class="grid col-span-2 md:col-span-1">
-            <app-pie-chart [data]="chartOptions"></app-pie-chart>
-        </div>
+    <div class="xs:col-span-full md:col-span-11 col-span">
+        <app-map-my-india [data]="nipunBharathData"></app-map-my-india>
+    </div>
 </div>

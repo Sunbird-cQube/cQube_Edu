@@ -49,7 +49,7 @@
     },
     {
         "title": "Quizzes",
-        "navigationURL": "",
+        "navigationURL": "/quizzes",
         "metrics": [
             {
                 "name": "Bhasha Sangam Enrollments",
@@ -141,7 +141,7 @@
     },
     {
         "title": "Vidyanjali",
-        "navigationURL": "",
+        "navigationURL": "/vidyanjali",
         "metrics": [
             {
                 "name": "Content Contributed",
@@ -157,7 +157,7 @@
     },
     {
         "title": "Micro-Improvement Program",
-        "navigationURL": "",
+        "navigationURL": "/microimprovement",
         "metrics": [],
         "icon": "Adults Education.png",
         "tooltip": ""
