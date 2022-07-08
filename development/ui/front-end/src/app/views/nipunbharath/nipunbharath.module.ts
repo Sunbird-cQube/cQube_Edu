@@ -11,6 +11,7 @@ import { NipunbharathBarPieComponent } from './pages/nipunbharath-bar-pie/nipunb
 import { DevelopmentGoalBarComponent } from './pages/development-goal-bar/development-goal-bar.component';
 import { GradeWiseBarAndPieComponent } from './pages/grade-wise-bar-and-pie/grade-wise-bar-and-pie.component';
 import { GardeWiseResourceComponent } from './pages/garde-wise-resource/garde-wise-resource.component';
+import { CqubeLibraryModule } from 'cqube-library';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { GardeWiseResourceComponent } from './pages/garde-wise-resource/garde-wi
     CommonModule,
     NipunbharathRoutingModule,
     SharedModule,
-    MatTabsModule
+    MatTabsModule,
+    CqubeLibraryModule
   ]
 })
 export class NipunbharathModule { }

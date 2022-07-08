@@ -80,10 +80,6 @@ export class MapService {
                             feature.properties['popUpContent'] = feature?.properties?.st_nm + ' : ' + check;
                         }
                     }
-                    else {
-                        console.log(states?.Location?.trim())
-                        console.log(feature?.properties, 'In')
-                    }
                 })
             }
             else {
