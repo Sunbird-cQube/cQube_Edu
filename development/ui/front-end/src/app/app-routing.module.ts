@@ -6,8 +6,8 @@ import { LayoutComponent } from './core/components/layout/layout.component';
 
 var routes: Routes = []
 
-if(environment.config == 'NVSK'){
-  routes= [
+if (environment.config == 'NVSK') {
+  routes = [
     {
       path: '',
       component: LayoutComponent,
@@ -60,15 +60,15 @@ if(environment.config == 'NVSK'){
         {
           path: 'microimprovement',
           loadChildren: () => import('./views/micro-improvement/micro-improvement.module').then(module => module.MicroImprovementModule)
-    }
-  ]
+        }
+      ]
     }
   ];
 }
-else{
+else {
   routes = [
     {
-      path:'', 
+      path: '',
       loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
     },
     {
@@ -105,8 +105,8 @@ else{
           loadChildren: () => import('./views/pgi/pgi.module').then(module => module.PGIModule)
         },
         {
-          path: 'nipunbharath',
-          loadChildren: () => import('./views/nipunbharath/nipunbharath.module').then(module => module.NipunbharathModule)
+          path: 'udise',
+          loadChildren: () => import('./views/udise/udise.module').then(module => module.UdiseModule)
         }
       ]
     }
