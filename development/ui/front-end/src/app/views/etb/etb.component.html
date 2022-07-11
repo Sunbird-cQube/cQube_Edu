@@ -21,6 +21,7 @@
             <div class="grid grid-cols-1" *ngIf="ETBProgramStatsByLocation">
                 <div class="col">
                     <app-filter-panel></app-filter-panel>
+                    <br>
                     <app-map-my-india [data]="ETBProgramStatsByLocation"></app-map-my-india>
                 </div>
             </div>
@@ -35,6 +36,7 @@
         </mat-tab>
         <mat-tab label="Total ETB Plays/QR Scans by Districts">
             <app-filter-panel></app-filter-panel>
+            <br>
             <app-multi-bar-chart title="Total Enrollments and Total Certifications" [options]="options">
             </app-multi-bar-chart>
         </mat-tab>
