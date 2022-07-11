@@ -53,6 +53,14 @@ const dataSourceInfo = {
                 ],
                 filters: [
                     {
+                        name: 'Grade',
+                        property: 'Grade'
+                    },
+                    {
+                        name: 'Subject',
+                        property: 'Subject'
+                    },
+                    {
                         name: 'State',
                         property: 'State',
                         optionValueColumn: "State Code",
@@ -63,14 +71,6 @@ const dataSourceInfo = {
                         property: 'District',
                         optionValueColumn: "District Code",
                         isSSPFilter: true
-                    },
-                    {
-                        name: 'Grade',
-                        property: 'Grade'
-                    },
-                    {
-                        name: 'Subject',
-                        property: 'Subject'
                     }
                 ]
             },
@@ -78,32 +78,22 @@ const dataSourceInfo = {
                 pathToFile: 'common/nas/nas_data',
                 columns: [
                     {
-                        name: "State",
-                        property: "State",
-                        isLocationName: true,
-                        isSSPColumn: false,
-                        isMainFilterForSSP: true,
-                        isGroupByColumn: true,
+                        name: "Grade",
+                        property: "Grade"
                     },
                     {
-                        name: "District",
-                        property: "District",
-                        isLocationName: true,
-                        isSSPColumn: true,
-                        isGroupByColumn: true,
+                        name: "Subject",
+                        property: "Subject",
                     },
                     {
-                        name: "Latitude",
-                        property: "Latitude",
-                    },
-                    {
-                        name: "Longitude",
-                        property: "Longitude",
+                        name: "Indicator",
+                        property: "Indicator",
                     },
                     {
                         name: "Performance",
                         property: "Performance",
-                        weightedAverageAgainst: "Students Surveyed"
+                        weightedAverageAgainst: "Students Surveyed",
+                        transposeColumn: "State"
                     }
                 ],
                 filters: [
@@ -126,7 +116,7 @@ const dataSourceInfo = {
                         property: 'District',
                         optionValueColumn: "District Code",
                         isSSPFilter: true
-                    }
+                    },
                 ]
             }
         }

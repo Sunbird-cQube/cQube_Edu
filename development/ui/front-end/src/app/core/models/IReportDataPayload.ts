@@ -4,5 +4,5 @@ export interface IReportDataPayload {
     dataSourceName: string;
     reportName: string;
     reportType: 'map' | 'multiBarChart' | 'loTable';
-    filtersRequired?: boolean;
+    filters: any;
 }
