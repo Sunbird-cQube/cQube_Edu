@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 
 import * as L from "leaflet";
 import * as R from "leaflet-responsive-popup";
@@ -10,7 +10,7 @@ import { MapService, globalMap } from '../../../../core/services/mapservices/map
   templateUrl: './map-my-india.component.html',
   styleUrls: ['./map-my-india.component.scss']
 })
-export class MapMyIndiaComponent implements OnInit, AfterViewInit {
+export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
   [x: string]: any;
   @Input() data!: string;
 
@@ -34,6 +34,14 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit {
     this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
     this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]], this.data);
     // this.getData();
+  }
+
+  ngOnChanges(): void {
+    if (this.container) {
+      this.globalService.latitude = this.lat = this.globalService.mapCenterLatlng.lat;
+      this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
+      this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]], this.data);
+    }
   }
 
   getData() {

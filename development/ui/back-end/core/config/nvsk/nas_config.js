@@ -35,21 +35,25 @@ const dataSourceInfo = {
             filters: [
                 {
                     name: 'Grade',
-                    property: 'Grade'
+                    column: 'Grade'
                 },
                 {
                     name: 'Subject',
-                    property: 'Subject'
+                    column: 'Subject'
+                },
+                {
+                    name: 'Indicator Code',
+                    column: 'Indicator Code'
                 },
                 {
                     name: 'State',
-                    property: 'State',
+                    column: 'State',
                     optionValueColumn: "State Code",
                     isSSPFilter: false
                 },
                 {
                     name: 'District',
-                    property: 'District',
+                    column: 'District',
                     optionValueColumn: "District Code",
                     isSSPFilter: true
                 }
@@ -59,16 +63,19 @@ const dataSourceInfo = {
             pathToFile: 'nas/nas_data.json',
             columns: [
                 {
+                    name: "Indicator Code",
+                    property: "Indicator Code",
+                    isGroupByColumn: true
+                },
+                {
                     name: "Grade",
-                    property: "Grade"
+                    property: "Grade",
+                    isGroupByColumn: true
                 },
                 {
                     name: "Subject",
                     property: "Subject",
-                },
-                {
-                    name: "Indicator",
-                    property: "Indicator",
+                    isGroupByColumn: true
                 },
                 {
                     name: "Performance",
@@ -80,21 +87,21 @@ const dataSourceInfo = {
             filters: [
                 {
                     name: 'Grade',
-                    property: 'Grade'
+                    column: 'Grade'
                 },
                 {
                     name: 'Subject',
-                    property: 'Subject'
+                    column: 'Subject'
                 },
                 {
                     name: 'State',
-                    property: 'State',
+                    column: 'State',
                     optionValueColumn: "State Code",
                     isSSPFilter: false
                 },
                 {
                     name: 'District',
-                    property: 'District',
+                    column: 'District',
                     optionValueColumn: "District Code",
                     isSSPFilter: true
                 },

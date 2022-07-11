@@ -25,9 +25,13 @@ exports.getReportData = (req, res, next) => {
 			let dataSourcePath = reportConfig.pathToFile;
 
 			await AwsConfig.s3.headObject({ Bucket: AwsConfig.params.OutputBucket, Key: `${dataSourcePath}` }).promise();
+			const response = await AwsConfig.s3.getObject({ Bucket: AwsConfig.params.OutputBucket, Key: `${reportConfig.pathToFile}` }).promise();
+			let rawData = JSON.parse(response.Body.toString('utf-8'));
 
 			if (reqBody.reportType === reportTypes.map) {
-				reportData = await getMapReportData(reqBody, reportConfig);
+				reportData = await getMapReportData(reqBody, reportConfig, rawData);
+			} else if (reqBody.reportType === reportTypes.loTable) {
+				reportData = await getLOTableReportData(reqBody, reportConfig, rawData);
 			} else {
 				throw `Invalid report type: ${reqBody.reportType}`;
 			}
@@ -64,7 +68,7 @@ exports.uploadSourceData = async (req, res, next) => {
                         message: "Invalid AWS S3 credentials or can't connect to the server"
                     });
                 } else {
-					try {               
+					try {              
 						const filePaths = listObjectRes.Contents.filter((content, ind) => content.Key.split('/').slice(-1).length > 0 && content.Key.split('/').slice(-1)[0] !== '');
 						filePaths.forEach(async (filePathObj) => {
 							const response = await AwsConfig.s3.getObject({ Bucket: AwsConfig.params.InputBucket, Key: filePathObj.Key }).promise();
@@ -91,20 +95,19 @@ exports.uploadSourceData = async (req, res, next) => {
 	});
 };
 
-async function getMapReportData(reqBody, reportConfig) {
-	const response = await AwsConfig.s3.getObject({ Bucket: AwsConfig.params.OutputBucket, Key: `${reportConfig.pathToFile}` }).promise();
-	let rawData = JSON.parse(response.Body.toString('utf-8'));
+async function getMapReportData(reqBody, reportConfig, rawData) {
+	console.log("process started");
 	let { columns, filters } = reportConfig;
-	let mainFilterForSSP, groupByColumn;
+	let mainFilterForSSP, groupByColumns;
 
 	if (reqBody.appName === appNames.nvsk) {
 		columns = columns.filter(col => !col.hasOwnProperty('isSSPColumn') || !col.isSSPColumn);
-		groupByColumn = columns.filter(col => col.isGroupByColumn);
+		groupByColumns = columns.filter(col => col.isGroupByColumn);
 		filters = filters.filter(filter => !filter.hasOwnProperty('isSSPFilter') || !filter.isSSPFilter);
 	} else {
 		mainFilterForSSP = columns.filter(col => col.isMainFilterForSSP);
 		columns = columns.filter(col => !col.hasOwnProperty('isSSPColumn') || col.isSSPColumn);
-		groupByColumn = columns.filter(col => col.isGroupByColumn);
+		groupByColumns = columns.filter(col => col.isGroupByColumn);
 		filters = filters.filter(filter => !filter.hasOwnProperty('isSSPFilter') || filter.isSSPFilter);
 
 		if (mainFilterForSSP && mainFilterForSSP.length > 0) {
@@ -112,8 +115,44 @@ async function getMapReportData(reqBody, reportConfig) {
 		}
 	}
 
+	if (reqBody.filters && reqBody.filters.length > 0) {
+		filters = reqBody.filters;
+	} else {
+		filters = filters.map(filter => {
+			return {
+				...filter,
+				value: "",
+				options: []
+			}
+		})
+	}
+
+	filters = filters.map((filter, index) => {
+		let filterOptionMap = new Map();
+		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+
+		if (filter.value !== '') {
+			rawData = rawData.filter(record => {
+				return record[filterProperty] === filter.value;
+			});
+		} else if (index === 0 || filters[index - 1].value !== '') {
+			rawData.forEach(record => {
+				if (!filterOptionMap.has(record[filterProperty])) {
+					filter.options.push({
+						label: record[filter.column],
+						value: record[filterProperty]
+					});
+
+					filterOptionMap.set(record[filterProperty], true);
+				}
+			});
+		}
+
+		return filter;
+	});
+
 	rawData = _.chain(rawData)
-		.groupBy(groupByColumn[0].property)
+		.groupBy(groupByColumns[0].property)
 		.map((objs, key) => {
 			let data = {};
 			columns.forEach(col => {
@@ -141,84 +180,89 @@ async function getMapReportData(reqBody, reportConfig) {
 		})
 		.value();
 
-	filters = filters.map(filter => {
-		return {
-			name: filter.name,
-			property: filter.property,
-			value: '',
-			options: []
-		}
-	});
-
 	return {
 		data: rawData,
 		filters: filters
 	};
 }
 
-function getLOTableReportData(reqBody, reportPath) {
-	let rawData = require(reportPath);
-	let { columns, filters } = dataSourceInfo[reqBody.dataSourceName][reqBody.reportName][reqBody.reportType];
-	let mainFilterForSSP, groupByColumn;
+async function getLOTableReportData(reqBody, reportConfig, rawData) {
+	console.log("process started");
+	let { columns, filters } = reportConfig;
+	let mainFilterForSSP, groupByColumns;
 
 	if (reqBody.appName === appNames.nvsk) {
 		columns = columns.filter(col => !col.hasOwnProperty('isSSPColumn') || !col.isSSPColumn);
-		groupByColumn = columns.filter(col => col.isGroupByColumn);
+		groupByColumns = columns.filter(col => col.isGroupByColumn);
 		filters = filters.filter(filter => !filter.hasOwnProperty('isSSPFilter') || !filter.isSSPFilter);
 	} else {
 		mainFilterForSSP = columns.filter(col => col.isMainFilterForSSP);
 		columns = columns.filter(col => !col.hasOwnProperty('isSSPColumn') || col.isSSPColumn);
-		groupByColumn = columns.filter(col => col.isGroupByColumn);
+		groupByColumns = columns.filter(col => col.isGroupByColumn);
 		filters = filters.filter(filter => !filter.hasOwnProperty('isSSPFilter') || filter.isSSPFilter);
 
 		if (mainFilterForSSP && mainFilterForSSP.length > 0) {
-			rawData = rawData.filter(record => record[mainFilterForSSP[0].property] == reqBody.stateCode);
+			rawData = rawData.filter(record => record[mainFilterForSSP[0].property] && (record[mainFilterForSSP[0].property].toLowerCase() == reqBody.stateCode));
 		}
 	}
 
-	rawData = _.chain(rawData)
-		.groupBy(groupByColumn[0].property)
-		.map((objs, key) => {
-			let data = {};
-			columns.forEach(col => {
-				if (col.isLocationName) {
-					data.Location = key;
-					return;
-				}
+	if (reqBody.filters && reqBody.filters.length > 0) {
+		filters = reqBody.filters;
+	} else {
+		filters = filters.map(filter => {
+			return {
+				...filter,
+				value: "",
+				options: []
+			}
+		})
+	}
 
-				if (col.weightedAverageAgainst) {
-					let numeratorSum = 0;
-					let denominatorSum = 0;
-					
-					objs.forEach((obj, index) => {
-						numeratorSum += obj[col.property] * obj[col.weightedAverageAgainst];
-						denominatorSum += obj[col.weightedAverageAgainst];
+	filters = filters.map((filter, index) => {
+		let filterOptionMap = new Map();
+		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+
+		if (filter.value !== '') {
+			rawData = rawData.filter(record => {
+				return record[filterProperty] === filter.value;
+			});
+		} else if (index === 0 || filters[index - 1].value !== '') {
+			rawData.forEach(record => {
+				if (!filterOptionMap.has(record[filterProperty])) {
+					filter.options.push({
+						label: record[filter.column],
+						value: record[filterProperty]
 					});
 
-					data[col.property] = Number((numeratorSum / denominatorSum).toFixed(2));
+					filterOptionMap.set(record[filterProperty], true);
 				}
-
-				data[col.property] = objs[0][col.property];
 			});
-
-			return data;
-		})
-		.value();
-
-	filters = filters.map(filter => {
-		return {
-			name: filter.name,
-			property: filter.property,
-			value: '',
-			options: []
 		}
+
+		return filter;
 	});
+
+	if (groupByColumns.length > 0) {
+		console.log(groupByColumns.map(col => col.Property));
+		rawData = nest(rawData.slice(0, 100), groupByColumns.map(col => col.Property))
+	}
 
 	return {
 		data: rawData,
-		filters: filters
+		filters: filters,
+		columns
 	};
 }
+
+var nest = function (seq, keys) {
+    if (!keys.length)
+        return seq;
+    var first = keys[0];
+    var rest = keys.slice(1);
+    return _.mapValues(_.groupBy(seq, first), function (value) { 
+        return nest(value, rest)
+    });
+};
 
 function convertRawDataToJSON(sourceFilePath, destinationFilePath) {
 	let fileExt = path.extname(sourceFilePath).substring(1);

@@ -14,10 +14,11 @@ export class NasComponent implements OnInit {
   NASProgramStatsByLocation: any
   NasStateData: any;
   filters: any;
+  isMapReportLoading = true;
 
   constructor(private readonly _NASService: NasService, private readonly _commonService: CommonService) {
     this.getNASMetrics()
-    this.getNasData();
+    this.getNasData(this.filters);
   }
 
   ngOnInit(): void {
@@ -26,23 +27,25 @@ export class NasComponent implements OnInit {
   getNASMetrics(): void {
     this._NASService.getNASMetrics().subscribe(NASMetricsRes => {
       this.NASMetrics = NASMetricsRes.result;
-      
     });
   }
 
-  getNasData(): void {
+  getNasData(filters: any): void {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
       dataSourceName: 'nas',
       reportName: 'studentPerformance',
       reportType: 'map',
       stateCode: environment.stateCode?.toLocaleLowerCase(),
-      filters: this.filters
+      filters
     };
 
     this._commonService.getReportData(data).subscribe(res => {
+      this.isMapReportLoading = false;
       this.NasStateData = res.result.data;
       this.filters = res.result.filters;
+    }, error => {
+      this.isMapReportLoading = false;
     });
   }
 
@@ -52,6 +55,10 @@ export class NasComponent implements OnInit {
       window.dispatchEvent(new Event('resize'));
       console.log('resize');
     }, 100);
+  }
+
+  filtersUpdated(filters: any): void {
+    this.getNasData(filters);
   }
 
 }

@@ -135,7 +135,6 @@ export class TableHeatMapDirective implements AfterViewInit, OnDestroy {
         if (Array.isArray(color)) {
           if (value / this.highestValues[id] > 0.7) {
             color = color[0];
-            console.log(color);
           } else if (value / this.highestValues[id] > 0.45) {
             color = color[1];
           } else {

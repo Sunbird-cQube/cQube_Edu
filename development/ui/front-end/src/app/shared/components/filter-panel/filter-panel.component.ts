@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,12 +9,24 @@ import { environment } from 'src/environments/environment';
 export class FilterPanelComponent implements OnInit {
 
   @Input() filters: any = [];
-  config: string = environment.config
-  NVSK: boolean = true;
+  @Output() filtersUpdated = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onSelectOption(event: any, ind: number): void {
+    this.filters = this.filters.map((filter: any, filterInd: number) => {
+      if (filterInd > ind) {
+        filter.options = [];
+        filter.value = "";
+      }
+
+      return filter;
+    });
+
+    this.filtersUpdated.emit(this.filters);
   }
 
 }
