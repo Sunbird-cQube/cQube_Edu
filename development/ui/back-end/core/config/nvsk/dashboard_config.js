@@ -32,7 +32,18 @@ const metrics = [
         "title": "NIPUN BHARAT",
         "navigationURL": "/nipunbharath",
         "metrics": [
-            
+            {
+                pathToFile: 'dashboard/Total Contents Linked.json',
+                name: "Total Contents Linked",
+                aggegration: 'SUM',
+                columnName: 'Content Count'
+             },
+            {
+                pathToFile: 'dashboard/Total Lo.json',
+                name: "Total LO",
+                aggegration: '',
+                columnName: ''
+            }
         ],
         "icon": "NIPUN BHARAT.png",
         "tooltip": ""
@@ -41,7 +52,12 @@ const metrics = [
         "title": "Quizzes",
         "navigationURL": "/quizzes",
         "metrics": [
-            
+            {
+                pathToFile: 'dashboard/Bhasha Sangam Enrolment.json',
+                name: "Total Enrolment",
+                aggegration: 'SUM',
+                columnName: 'Total'
+            }
         ],
         "icon": "Quizzes.png",
         "tooltip": ""
@@ -68,7 +84,18 @@ const metrics = [
         "title": "UDISE",
         "navigationURL": "/udise",
         "metrics": [
-            
+            {
+                pathToFile: 'dashboard/Total Teachers.json',
+                name: "Total Teachers",
+                aggegration: 'SUM',
+                columnName: 'Total Teachers'
+             },
+            {
+                pathToFile: 'dashboard/Total students.json',
+                name: "Total students",
+                aggegration: 'SUM',
+                columnName: 'Total Students'
+            }
         ],
         "icon": "UDISE.png",
         "tooltip": ""

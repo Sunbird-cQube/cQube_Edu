@@ -45,7 +45,7 @@ exports.getMetrics = async (req, res, next) => {
 						let subMetric = metric.metrics[j];
 						const response = await AwsConfig.s3.getObject({ Bucket: AwsConfig.params.OutputBucket, Key: subMetric.pathToFile }).promise();
 						const fileContent = JSON.parse(response.Body.toString('utf-8'));
-						
+
 						if (subMetric.aggegration === 'SUM') {
 							let sum = 0;
 							fileContent.forEach(record => {
@@ -53,6 +53,8 @@ exports.getMetrics = async (req, res, next) => {
 								sum += value;
 							});
 							subMetric.value = sum;
+						} else if(subMetric.aggegration === ''){
+							subMetric.value = fileContent.length;
 						}
 					}
 				}
