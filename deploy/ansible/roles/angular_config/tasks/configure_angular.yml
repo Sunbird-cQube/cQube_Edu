@@ -32,7 +32,8 @@
   tags: [ install, update ]
 
 - name: Building Angular client-side code
-  command: ng build
+  become: true
+  command: npm run node-build
   args:
     chdir: "{{ base_dir }}/cqube/dashboard/client_side"
   tags: [ install, update ]
