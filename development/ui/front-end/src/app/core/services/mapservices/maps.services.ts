@@ -50,6 +50,9 @@ export class MapService {
         let reportTypeETB: any;
         let NVSK = this.NVSK;
         console.log(markers)
+        if (globalMap) {
+            globalMap.remove();
+        }
 
         if (markers[0].perfomance || markers[0].Performance) {
             reportTypeETB = false;
@@ -58,6 +61,7 @@ export class MapService {
             reportTypeETB = true;
         }
         // markers[0]
+        console.log('initializing');
         globalMap = L.map(map, { zoomSnap: 0.25, zoomControl: false, scrollWheelZoom: false, touchZoom: false, maxBounds: maxBounds }).setView([maxBounds[0][0], maxBounds[0][1]], this.zoomLevel);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
             {
