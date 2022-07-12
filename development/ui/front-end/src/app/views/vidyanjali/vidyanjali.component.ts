@@ -27,24 +27,24 @@ export class VidyanjaliComponent implements OnInit {
   getVidyanjaliMetricsData() {
     this.vidyanjaliMetricsData = [
       {
-          "name": "No of volunteers",
-          "value": "73.8M",
-          "tooltip": "No of volunteers"
+          "name": "Total Volunteers",
+          "value": "35 K",
+          "tooltip": "Total Volunteers"
       },
       {
-          "name": "Total Service Delivered",
-          "value": "65.4 %",
-          "tooltip": "Total Service Delivered"
+          "name": "Total Impacted Students",
+          "value": "17.7 K",
+          "tooltip": "Total Impacted Students"
       },
       {
-          "name": "Total Material Received",
-          "value": "42 %",
-          "tooltip": "Total Material Received"
+          "name": "Total Content Contributed",
+          "value": "2.2 L",
+          "tooltip": "Total Content Contributed"
       },
       {
-          "name": "No of Schools Registered",
-          "value": "85.7M",
-          "tooltip": "Total Material Received"
+          "name": "Total Users Contributed",
+          "value": "11.3 K",
+          "tooltip": "Total Users Contributed"
       }
     ]
   }

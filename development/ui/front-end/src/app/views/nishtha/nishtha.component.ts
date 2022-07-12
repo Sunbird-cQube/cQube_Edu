@@ -23,8 +23,8 @@ export class NishthaComponent implements OnInit {
     }
     this.NisithaMetrics = [
       {
-        "name": "Total States participating",
-        "value": "61.1 %",
+        "name": "Total States Participating ",
+        "value": "37 ",
         "tooltip": "Total States participating"
       },
       {
@@ -34,18 +34,23 @@ export class NishthaComponent implements OnInit {
       },
       {
         "name": "Total Languages",
-        "value": "42 %",
+        "value": " ",
         "tooltip": "Total Languages"
       },
       {
-        "name": "Total Enrollments",
-        "value": "",
+        "name": "Total Enrollment",
+        "value": "3.2 Cr",
         "tooltip": "Total Enrollments"
       },
       {
-        "name": "Total Certifications",
-        "value": "",
-        "tooltip": "Total Certifications"
+        "name": "Total Completion",
+        "value": "2.5 Cr",
+        "tooltip": "Total Completion"
+      },
+      {
+        "name": "Total Certification",
+        "value": "2.2 Cr",
+        "tooltip": "Total Certification"
       }
     ]
     this.nishithaVersion = [

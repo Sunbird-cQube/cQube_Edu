@@ -27,34 +27,34 @@ export class UdiseComponent implements OnInit {
   getUdiseMetricsData() {
     this.udiseMetricsData = [
       {
-          "name": "Pupil Teacher Ratio",
-          "value": "61.1 %",
-          "tooltip": "Pupil Teacher Ratio"
+          "name": "Total Students",
+          "value": "26.5 Cr",
+          "tooltip": "Total Students"
       },
       {
-          "name": "Schools with drinking Water",
-          "value": "53.4 %",
-          "tooltip": "Schools with drinking Water"
+          "name": "PTR",
+          "value": "26.3",
+          "tooltip": "PTR"
       },
       {
-          "name": "Schools with electricity Connection",
-          "value": "42 %",
-          "tooltip": "Schools with electricity Connection"
+          "name": "% schools with electricty connection",
+          "value": "86.9%",
+          "tooltip": "% schools with electricty connection"
       },
       {
-          "name": "Schools with library",
-          "value": "67.7M",
-          "tooltip": "Schools with library"
+          "name": "% schools with Library",
+          "value": "85.6%",
+          "tooltip": "% schools with Library"
       },
       {
-        "name": "CWSN Enrollment",
-        "value": "52%",
-        "tooltip": "CWSN Enrollment"
+        "name": "% schools with Girls toilet",
+        "value": "97.3%",
+        "tooltip": "schools with Girls toilet"
         },
       {
-        "name": "Schools with ramp",
-        "value": "17.7M",
-        "tooltip": "Schools with ramp"
+        "name": "% schools with Computer- ",
+        "value": "41.3%",
+        "tooltip": "% schools with Computer- "
       }
   ];
   }
