@@ -4,12 +4,12 @@
         "navigationURL": "/nishtha",
         "metrics": [
             {
-                "name": "Net Enrollment",
-                "value": "29.9M"
+                "name": "Total Enrollment",
+                "value": "3.2 Cr "
             },
             {
-                "name": "Net Certifications",
-                "value": "20.7M"
+                "name": "Total Certification",
+                "value": "2.2 Cr"
             }
         ],
         "icon": "NISHTHA-01-01.png",
@@ -20,12 +20,12 @@
         "navigationURL": "/etb",
         "metrics": [
             {
-                "name": "Total ETB",
-                "value": "6,217"
+                "name": "Total Content",
+                "value": "2.2 L"
             },
             {
-                "name": "Total Contents",
-                "value": "270,361"
+                "name": "Total Learning Sessions",
+                "value": "495 Cr"
             }
         ],
         "icon": "CWSN.png",
@@ -36,12 +36,12 @@
         "navigationURL": "/nas",
         "metrics": [
             {
-                "name": "Students Surveyed",
-                "value": "78.4M"
+                "name": "Total Schools Surveyed",
+                "value": "1.2 L"
             },
             {
-                "name": "schools Surveyed",
-                "value": "4.08M"
+                "name": "Total Students Surveyed",
+                "value": "34.0 L"
             }
         ],
         "icon": "NAS.png",
@@ -52,12 +52,12 @@
         "navigationURL": "/udise",
         "metrics": [
             {
-                "name": "Net Enrollment",
-                "value": "29.9M"
+                "name": "Total Schools Surveyed",
+                "value": "15.1 L"
             },
             {
-                "name": "Net Certifications",
-                "value": "20.7M"
+                "name": "Total Teachers",
+                "value": "97 L"
             }
         ],
         "icon": "UDISE.png",
@@ -68,12 +68,12 @@
         "navigationURL": "/pgi",
         "metrics": [
             {
-                "name": "Net Enrollment",
-                "value": "29.9M"
+                "name": "Total States",
+                "value": "37"
             },
             {
-                "name": "Net Certifications",
-                "value": "20.7M"
+                "name": "Net PGI Score",
+                "value": " "
             }
         ],
         "icon": "PGI.png",  
@@ -84,12 +84,12 @@
         "navigationURL": "/poshan",
         "metrics": [
             {
-                "name": "Net Enrollment",
-                "value": "29.9M"
+                "name": "Total Schools",
+                "value": "3.9 L"
             },
             {
-                "name": "Net Certifications",
-                "value": "20.7M"
+                "name": "Total Meals Served",
+                "value": "15.5 L"
             }
         ],
         "icon": "Adults Education.png",

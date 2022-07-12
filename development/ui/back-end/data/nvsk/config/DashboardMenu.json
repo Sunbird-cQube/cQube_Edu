@@ -4,12 +4,12 @@
         "navigationURL": "/nishtha",
         "metrics": [
             {
-                "name": "Net Enrollment",
-                "value": "29.9M"
+                "name": "Total Enrollment",
+                "value": "3.2 Cr"
             },
             {
-                "name": "Net Certifications",
-                "value": "20.7M"
+                "name": "Total Certification",
+                "value": "2.2 Cr"
             }
         ],
         "icon": "NISHTHA-01-01.png",
@@ -20,12 +20,12 @@
         "navigationURL": "/etb",
         "metrics": [
             {
-                "name": "Total ETB",
-                "value": "6,217"
+                "name": "Total Content",
+                "value": "2.2 L"
             },
             {
-                "name": "Total Contents",
-                "value": "270,361"
+                "name": "Total Learning Sessions",
+                "value": "495 Cr"
             }
         ],
         "icon": "ETB & E-Content.png",
@@ -36,12 +36,12 @@
         "navigationURL": "/nipunbharath",
         "metrics": [
             {
-                "name": "Total Content",
-                "value": "12.93M"
+                "name": "Total Learning Sessions ",
+                "value": "1.2 L"
             },
             {
-                "name": "Total Learning sessions",
-                "value": "64.3%"
+                "name": "Total Content ",
+                "value": "1.3K"
             }
         ],
         "icon": "Nipun Bharat Logo-01.png",
@@ -52,8 +52,12 @@
         "navigationURL": "/quizzes",
         "metrics": [
             {
-                "name": "Bhasha Sangam Enrollments",
-                "value": "11,960"
+                "name": "Total Enrollment ",
+                "value": "18.3K"
+            },
+            {
+                "name":"Total Certification",
+                "value":"12.4K"
             }
         ],
         "icon": "Quizzes.png",
@@ -64,12 +68,12 @@
         "navigationURL": "/nas",
         "metrics": [
             {
-                "name": "Students Surveyed",
-                "value": "78.4M"
+                "name": "Total Schools Surveyed",
+                "value": "1.2 L"
             },
             {
-                "name": "Schools Surveyed",
-                "value": "4.08M"
+                "name": "Total Students Surveyed",
+                "value": "34.0 L"
             }
         ],
         "icon": "NAS.png",
@@ -81,11 +85,11 @@
         "metrics": [
             {
                 "name": "Total States",
-                "value": "24"
+                "value": "37"
             },
             {
-                "name": "Net Score",
-                "value": "1,293"
+                "name": "Net PGI Score",
+                "value": " "
             }
         ],
         "icon": "PGI.png",
@@ -96,12 +100,12 @@
         "navigationURL": "/udise",
         "metrics": [
             {
-                "name": "Total Schools",
-                "value": "78.4M"
+                "name": "Total Schools Surveyed ",
+                "value": "15.1 L"
             },
             {
-                "name": "Total Teachers",
-                "value": "4.08M"
+                "name": "Total Teachers ",
+                "value": "97 L"
             }
         ],
         "icon": "UDISE.png",
@@ -112,12 +116,12 @@
         "navigationURL": "/poshan",
         "metrics": [
             {
-                "name": "Total Students Served",
-                "value": "270,361"
+                "name": "Total Schools",
+                "value": "3.9 L"
             },
             {
                 "name": "Total Meals Served",
-                "value": "27,444"
+                "value": "15.5 L"
             }
         ],
         "icon": "Adults Education.png",
@@ -128,12 +132,12 @@
         "navigationURL": "",
         "metrics": [
             {
-                "name": "No of States Participated",
-                "value": "484"
+                "name": "Total States Participating",
+                "value": " "
             },
             {
-                "name": "No of Position Paper",
-                "value": "1,293"
+                "name": "Total Position Paper",
+                "value": " "
             }
         ],
         "icon": "NCF.png",
@@ -144,31 +148,31 @@
         "navigationURL": "/vidyanjali",
         "metrics": [
             {
-                "name": "Content Contributed",
-                "value": "1228"
+                "name": "Total Content Contributed",
+                "value": "2.2 L"
             },
             {
-                "name": "Children Impacted",
-                "value": "1,293"
+                "name": "Total Users Contributed",
+                "value": "11.3K"
             }
         ],
         "icon": "Vidyanjali.jpg",
-        "tooltip": ""
+        "tooltip": " "
     },
     {
         "title": "Micro-Improvement Program",
         "navigationURL": "/microimprovement",
         "metrics": [],
         "icon": "Adults Education.png",
-        "tooltip": ""
+        "tooltip": " "
     },
     {
         "title": "National ICT Award for Teachers",
-        "navigationURL": "",
+        "navigationURL": " ",
         "metrics": [
             {
                 "name": "Number of Teachers Awarded",
-                "value": "1228"
+                "value": " "
             }
         ],
         "icon": "NISHTHA.png",
@@ -179,8 +183,8 @@
         "navigationURL": "",
         "metrics": [
             {
-                "name": "Number of Teachers Awarded",
-                "value": "1,293"
+                "name": "Total Teachers Awarded",
+                "value": " "
             }
         ],
         "icon": "Adults Education.png",
@@ -191,8 +195,8 @@
         "navigationURL": "",
         "metrics": [
             {
-                "name": "Number of Shools Shortlisted",
-                "value": "1228"
+                "name": "Total Schools Shortlisted",
+                "value": " "
             }
         ],
         "icon": "Adults Education.png",
@@ -204,11 +208,11 @@
         "metrics": [
             {
                 "name": "Total Channels",
-                "value": "1,293"
+                "value": " "
             },
             {
                 "name": "Total Available Content",
-                "value": "484"
+                "value": " "
             }
         ],
         "icon": "Pm Evidya-01-01.png",
