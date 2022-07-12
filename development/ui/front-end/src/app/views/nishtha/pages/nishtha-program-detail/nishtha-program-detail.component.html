@@ -1,7 +1,10 @@
 
 <div class="grid grid-cols-12 mt-8">
-
-    <div class="xs:col-span-full md:col-span-11 col-span">
-        <app-map-my-india [data]="NishithaStateData"></app-map-my-india>
+    <div class="xs:col-span-full md:col-span-11 col-span" *ngIf="nishithaStateData">
+        <app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated"></app-filter-panel>
+        <app-map-my-india [data]="nishithaStateData"></app-map-my-india>
+    </div>
+    <div class="col" *ngIf="isMapReportLoading">
+        <p class="mt-8">Loading...</p>
     </div>
 </div>
