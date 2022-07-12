@@ -13,6 +13,13 @@
         "zoomLevel": 7.5,
         "stateCode": "10"
     },
+    "HR": {
+        "name": "Haryana",
+        "lat": 27.9832,
+        "lng": 77.0504,
+        "zoomLevel": 7.5,
+        "stateCode": "10"
+    },
     "GJ": {
         "name": "Gujrath",
         "lat": 22.2587,
