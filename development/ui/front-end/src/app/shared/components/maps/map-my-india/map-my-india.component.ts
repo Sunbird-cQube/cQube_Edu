@@ -13,6 +13,7 @@ import { MapService, globalMap } from '../../../../core/services/mapservices/map
 export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
   [x: string]: any;
   @Input() data!: string;
+  @Input() state!: Number;
 
   // leaflet layer dependencies
   public layerMarkers = new L.layerGroup();
@@ -30,17 +31,17 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
   }
   
   ngAfterViewInit(): void {
+    this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]], this.data, this.state);
     this.globalService.latitude = this.lat = this.globalService.mapCenterLatlng.lat;
     this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
-    this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]], this.data);
     // this.getData();
   }
 
   ngOnChanges(): void {
     if (this.container) {
+      this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]], this.data, this.state);
       this.globalService.latitude = this.lat = this.globalService.mapCenterLatlng.lat;
       this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
-      this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]], this.data);
     }
   }
 

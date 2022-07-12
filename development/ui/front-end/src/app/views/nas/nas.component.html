@@ -17,7 +17,7 @@
             <div class="grid grid-cols-1">
                 <div class="col" *ngIf="NasStateData">
                     <app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
-                    <app-map-my-india [data]="NasStateData"></app-map-my-india>
+                    <app-map-my-india [data]="NasStateData" [state]="selectedState"></app-map-my-india>
                 </div>
                 <div class="col" *ngIf="isMapReportLoading">
                     <p class="mt-8">Loading...</p>
