@@ -6,6 +6,7 @@ import * as GJData from '../../../../assets/data/Gujarat.json'
 // import * as UPData from '../../../../assets/data/IN.json';
 import * as  BHData from '../../../../assets/data/BH.json';
 import * as HRData from '../../../../assets/data/HR.json';
+import * as MLData from '../../../../assets/data/ML.json';
 
 declare var L: any;
 export var globalMap: any;
@@ -65,6 +66,9 @@ export class MapService {
                     break;
                 case 12:
                     this.mapCenterLatlng = config.default['GJ'];
+                    break;
+                case 24:
+                    this.mapCenterLatlng = config.default['ML'];
                     break;
             }
         }
@@ -187,6 +191,9 @@ export class MapService {
                     break;
                 case 13:
                     var data = HRData.default;
+                    break;
+                case 24:
+                    var data = MLData.default;
                     break;
                 case 12:
                     var data = GJData.default;

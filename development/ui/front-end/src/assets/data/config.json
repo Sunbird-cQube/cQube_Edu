@@ -18,7 +18,14 @@
         "lat": 27.9832,
         "lng": 77.0504,
         "zoomLevel": 7.5,
-        "stateCode": "10"
+        "stateCode": "06"
+    },
+    "ML": {
+        "name": "Meghalaya",
+        "lat": 25.6364,
+        "lng": 90.184,
+        "zoomLevel": 7.5,
+        "stateCode": "17"
     },
     "GJ": {
         "name": "Gujrath",
