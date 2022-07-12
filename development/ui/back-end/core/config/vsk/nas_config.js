@@ -1,22 +1,13 @@
-export default dataSourceInfo = {
+const dataSourceInfo = {
     studentPerformance: {
         map: {
             pathToFile: 'nas/nas_data.json',
+            mainFilterForSSP: "State",
             columns: [
-                {
-                    name: "State",
-                    property: "State",
-                    isLocationName: true,
-                    isSSPColumn: false,
-                    isMainFilterForSSP: true,
-                    isGroupByColumn: true,
-                },
                 {
                     name: "District",
                     property: "District",
-                    isLocationName: true,
-                    isSSPColumn: true,
-                    isGroupByColumn: true,
+                    isLocationName: true
                 },
                 {
                     name: "Latitude",
@@ -42,16 +33,9 @@ export default dataSourceInfo = {
                     property: 'Subject'
                 },
                 {
-                    name: 'State',
-                    property: 'State',
-                    optionValueColumn: "State Code",
-                    isSSPFilter: false
-                },
-                {
                     name: 'District',
                     property: 'District',
-                    optionValueColumn: "District Code",
-                    isSSPFilter: true
+                    optionValueColumn: "District Code"
                 }
             ]
         },
@@ -102,3 +86,5 @@ export default dataSourceInfo = {
         }
     }
 }
+
+module.exports = dataSourceInfo;

@@ -1,5 +1,5 @@
 const path = require('path');
-const { reportTypes, dataSourceInfo, appNames } = require("../../core/config/config");
+const { reportTypes, appNames } = require("../../core/config/config");
 const XLSX = require('xlsx');
 const fs = require('fs');
 const _ = require('lodash');
@@ -97,22 +97,12 @@ exports.uploadSourceData = async (req, res, next) => {
 
 async function getMapReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { columns, filters } = reportConfig;
-	let mainFilterForSSP, groupByColumns;
+	let { columns, filters, mainFilterForSSP } = reportConfig;
+	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
+	let groupByColumn = reportConfig.defaultLevel;
 
-	if (reqBody.appName === appNames.nvsk) {
-		columns = columns.filter(col => !col.hasOwnProperty('isSSPColumn') || !col.isSSPColumn);
-		groupByColumns = columns.filter(col => col.isGroupByColumn);
-		filters = filters.filter(filter => !filter.hasOwnProperty('isSSPFilter') || !filter.isSSPFilter);
-	} else {
-		mainFilterForSSP = columns.filter(col => col.isMainFilterForSSP);
-		columns = columns.filter(col => !col.hasOwnProperty('isSSPColumn') || col.isSSPColumn);
-		groupByColumns = columns.filter(col => col.isGroupByColumn);
-		filters = filters.filter(filter => !filter.hasOwnProperty('isSSPFilter') || filter.isSSPFilter);
-
-		if (mainFilterForSSP && mainFilterForSSP.length > 0) {
-			rawData = rawData.filter(record => record[mainFilterForSSP[0].property] && (record[mainFilterForSSP[0].property].toLowerCase() == reqBody.stateCode));
-		}
+	if (mainFilterForSSP) {
+		rawData = rawData.filter(record => record[mainFilterForSSP] && (record[mainFilterForSSP].toLowerCase() == reqBody.stateCode));
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -135,9 +125,17 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 			rawData = rawData.filter(record => {
 				return record[filterProperty] === filter.value;
 			});
+
+			if (filter.level) {
+				groupByColumn = filter.level;
+			}
 		} else if (index === 0 || filters[index - 1].value !== '') {
-			rawData.forEach(record => {
+			rawData = rawData.filter(record => {
 				if (!filterOptionMap.has(record[filterProperty])) {
+					if (filter.defaultValue && filter.options.length === 0) {
+						filter.value = record[filterProperty];
+					}
+
 					filter.options.push({
 						label: record[filter.column],
 						value: record[filterProperty]
@@ -145,14 +143,21 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 
 					filterOptionMap.set(record[filterProperty], true);
 				}
+
+				if (filter.defaultValue) {
+					return record[filterProperty] === filter.value;
+				}
+
+				return true;
 			});
 		}
 
 		return filter;
 	});
 
-	rawData = _.chain(rawData)
-		.groupBy(groupByColumns[0].property)
+	if (isWeightedAverageNeeded) {
+		rawData = _.chain(rawData)
+		.groupBy(groupByColumn)
 		.map((objs, key) => {
 			let data = {};
 			columns.forEach(col => {
@@ -161,49 +166,59 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 					return;
 				}
 
-				if (col.weightedAverageAgainst) {
+				if (col.weightedAverage) {
 					let numeratorSum = 0;
 					let denominatorSum = 0;
 					
 					objs.forEach((obj, index) => {
-						numeratorSum += obj[col.property] * obj[col.weightedAverageAgainst];
-						denominatorSum += obj[col.weightedAverageAgainst];
+						numeratorSum += obj[col.property] * obj[col.weightedAverage.against];
+						denominatorSum += obj[col.weightedAverage.against];
 					});
 
-					data[col.property] = Number((numeratorSum / denominatorSum).toFixed(2));
+					data[col.name] = Number((numeratorSum / denominatorSum).toFixed(2));
 				}
 
-				data[col.property] = objs[0][col.property];
+				data[col.name] = objs[0][col.property];
 			});
 
 			return data;
 		})
 		.value();
+	} else {
+		rawData = rawData.map(record => {
+			let data = {};
+			columns.forEach(col => {
+				if (col.isLocationName) {
+					data.Location = record[col.property];
+					return;
+				}
+
+				if (col.tooltipDesc) {
+					data[col.name] = col.tooltipDesc + ' ' + record[col.property];
+					return;
+				}
+
+				data[col.name] = record[col.property];
+			});
+
+			return data;
+		});
+	}
 
 	return {
 		data: rawData,
-		filters: filters
+		filters: filters,
+		level: groupByColumn ? groupByColumn : "State"
 	};
 }
 
 async function getLOTableReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { columns, filters } = reportConfig;
-	let mainFilterForSSP, groupByColumns;
+	let { columns, filters, mainFilterForSSP } = reportConfig;
+	let groupByColumns;
 
-	if (reqBody.appName === appNames.nvsk) {
-		columns = columns.filter(col => !col.hasOwnProperty('isSSPColumn') || !col.isSSPColumn);
-		groupByColumns = columns.filter(col => col.isGroupByColumn);
-		filters = filters.filter(filter => !filter.hasOwnProperty('isSSPFilter') || !filter.isSSPFilter);
-	} else {
-		mainFilterForSSP = columns.filter(col => col.isMainFilterForSSP);
-		columns = columns.filter(col => !col.hasOwnProperty('isSSPColumn') || col.isSSPColumn);
-		groupByColumns = columns.filter(col => col.isGroupByColumn);
-		filters = filters.filter(filter => !filter.hasOwnProperty('isSSPFilter') || filter.isSSPFilter);
-
-		if (mainFilterForSSP && mainFilterForSSP.length > 0) {
-			rawData = rawData.filter(record => record[mainFilterForSSP[0].property] && (record[mainFilterForSSP[0].property].toLowerCase() == reqBody.stateCode));
-		}
+	if (mainFilterForSSP && mainFilterForSSP.length > 0) {
+		rawData = rawData.filter(record => record[mainFilterForSSP[0].property] && (record[mainFilterForSSP[0].property].toLowerCase() == reqBody.stateCode));
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -243,8 +258,8 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 	});
 
 	if (groupByColumns.length > 0) {
-		console.log(groupByColumns.map(col => col.Property));
-		rawData = nest(rawData.slice(0, 100), groupByColumns.map(col => col.Property))
+		let columnNames = groupByColumns.map(col => col.property);
+		rawData = nest(rawData.slice(0, 100), columnNames)
 	}
 
 	return {
@@ -259,6 +274,7 @@ var nest = function (seq, keys) {
         return seq;
     var first = keys[0];
     var rest = keys.slice(1);
+	console.log(keys);
     return _.mapValues(_.groupBy(seq, first), function (value) { 
         return nest(value, rest)
     });

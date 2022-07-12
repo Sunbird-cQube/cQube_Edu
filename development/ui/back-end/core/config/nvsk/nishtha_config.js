@@ -1,8 +1,7 @@
 const dataSourceInfo = {
-    studentPerformance: {
+    programStatus: {
         map: {
-            pathToFile: 'nas/nas_data.json',
-            defaultLevel: "State",
+            pathToFile: 'nishtha/nishtha_coverage_state_wise.json',
             columns: [
                 {
                     name: "State",
@@ -18,32 +17,16 @@ const dataSourceInfo = {
                     property: "Longitude"
                 },
                 {
-                    name: "Performance",
-                    property: "Performance",
-                    weightedAverage: {
-                        column: "Performance",
-                        against: "Students Surveyed"
-                    }
+                    name: "status",
+                    property: "Started",
+                    tooltipDesc: 'Energised textbooks (State & NCERT adopted:'
                 }
             ],
             filters: [
                 {
-                    name: 'Grade',
-                    column: 'Grade'
-                },
-                {
-                    name: 'Subject',
-                    column: 'Subject'
-                },
-                {
-                    name: 'Indicator Code',
-                    column: 'Indicator Code'
-                },
-                {
-                    name: 'State',
-                    column: 'State',
-                    optionValueColumn: "State Code",
-                    level: "District"
+                    name: 'Program',
+                    column: 'Program',
+                    defaultValue: true
                 }
             ]
         },

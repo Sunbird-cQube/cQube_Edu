@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,13 +10,12 @@ export class NishthaComponent implements OnInit {
 
   config: string = environment.config
   NVSK: boolean = true;
-
-   NisithaMetrics:any
-  nishithaVersion:any=[]
-  version: String = ''
-  constructor(private readonly _nishthaService: NishthaService) {
-         
-   }
+  NisithaMetrics:any;
+  nishithaVersion:any=[];
+  version: String = '';
+  
+  constructor() {
+  }
 
   ngOnInit(): void {
     if(this.config == 'VSK'){
@@ -56,8 +54,6 @@ export class NishthaComponent implements OnInit {
       { key: "Nishitha 3.0", value: "Nishitha 3.0" },
     ];
   }
-
-
 
   onVersionSelect(){
     console.log('version', this.version)

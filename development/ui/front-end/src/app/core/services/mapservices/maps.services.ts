@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as config from '../../../../assets/data/config.json';
 import * as mapData from '../../../../assets/data/IN.json';
-import * as gujaratData from '../../../../assets/data/Gujarat.json';
-
 
 declare var L: any;
 export var globalMap: any;
@@ -49,9 +47,10 @@ export class MapService {
     initMap(map: any, maxBounds: any, markers: any) {
         let reportTypeETB: any;
         let NVSK = this.NVSK;
-        console.log(markers)
+        
         if (globalMap) {
             globalMap.remove();
+            console.log('removed');
         }
 
         if (markers[0].perfomance || markers[0].Performance) {
@@ -72,10 +71,10 @@ export class MapService {
 
         function getZoneColor(e: any) {
             if (reportTypeETB) {
+                console.log(e);
                 if (e == "Yes") {
                     return "#a7ffa4"
-                }
-                else {
+                } else {
                     return "grey"
                 }
             }
@@ -155,12 +154,12 @@ export class MapService {
             };
         }
 
-        if (this.NVSK) {
+        //if (this.NVSK) {
             var data = mapData.default['IN'];
-        }
-        else {
-            var data = gujaratData.default;
-        }
+        //}
+        //else {
+           // var data = gujaratData.default;
+        //}
         function applyCountryBorder(map: any, NVSK:any) {
             L.geoJSON(data['features'], {
                 style: style_states1,
