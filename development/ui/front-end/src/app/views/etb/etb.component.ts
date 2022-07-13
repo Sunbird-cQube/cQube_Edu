@@ -21,12 +21,14 @@ export class EtbComponent implements OnInit {
   stateWiseEnrollmentData!: IStateWiseEnrollmentRec[];
   options: Highcharts.Options | undefined;
 
-  constructor(private readonly _ETBService: ETBService,
-    private readonly _nishthaService: NishthaService
-  ) {
+  constructor(private readonly _ETBService: ETBService,private readonly _nishthaService: NishthaService) {
     let params: any = {
       "version": "1.0"
     }
+
+    this._nishthaService.getNishthaVanityMetrics().subscribe(dashboardMenuResult => {
+      this.ETBMetrics = dashboardMenuResult.result[1]?.metrics;
+    });
 
     this.getETBMetrics();
     this.getETBProgramStatsByLocation();

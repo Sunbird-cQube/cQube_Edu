@@ -3,7 +3,18 @@ const metrics = [
         "title": "Nishtha",
         "navigationURL": "/nishtha",
         "metrics": [
-            
+            {
+                pathToFile: 'dashboard/Nishta metrics.json',
+                name: "New enrolment",
+                aggegration: 'SUM',
+                columnName: 'Total Enrollments'
+             },
+             {
+                 pathToFile: 'dashboard/Nishta metrics.json',
+                 name: "New Certifications",
+                 aggegration: 'SUM',
+                 columnName: 'Total Certifications'
+              }
         ],
         "icon": "NISHTHA.png",
         "tooltip": "Nishtha"
@@ -66,7 +77,18 @@ const metrics = [
         "title": "NAS",
         "navigationURL": "/nas",
         "metrics": [
-            
+            {
+                pathToFile: 'dashboard/Nas metrics.json',
+                name: "Total Students Surveyed",
+                aggegration: 'SUM',
+                columnName: 'Students Surveyed'
+             },
+            {
+                pathToFile: 'dashboard/Nas metrics.json',
+                name: "Total Schools Surveyed",
+                aggegration: 'SUM',
+                columnName: ''
+            }
         ],
         "icon": "NAS.png",
         "tooltip": ""

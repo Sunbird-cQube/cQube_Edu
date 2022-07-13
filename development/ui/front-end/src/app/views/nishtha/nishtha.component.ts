@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { IDashboardMenu } from 'src/app/core/models/IDashboardCard';
+import { ConfigService } from 'src/app/core/services/config/config.service';
+import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,47 +15,51 @@ export class NishthaComponent implements OnInit {
   NVSK: boolean = true;
   NisithaMetrics:any;
   nishithaVersion:any=[];
+  val: any =[];
   version: String = '';
   
-  constructor() {
+  constructor(private readonly _configService: NishthaService) {
+    this._configService.getNishthaVanityMetrics().subscribe(dashboardMenuResult => {
+      this.NisithaMetrics = dashboardMenuResult.result[0]?.metrics;
+    });
   }
 
   ngOnInit(): void {
     if(this.config == 'VSK'){
       this.NVSK = false;
     }
-    this.NisithaMetrics = [
-      {
-        "name": "Total States Participating ",
-        "value": "37 ",
-        "tooltip": "Total States participating" 
-      },
-      {
-        "name": "Total Courses Launched",
-        "value": "53.4 %",
-        "tooltip": "Total Courses Launched"
-      },
-      {
-        "name": "Total Languages",
-        "value": " ",
-        "tooltip": "Total Languages"
-      },
-      {
-        "name": "Total Enrollment",
-        "value": "3.2 Cr",
-        "tooltip": "Total Enrollments"
-      },
-      {
-        "name": "Total Completion",
-        "value": "2.5 Cr",
-        "tooltip": "Total Completion"
-      },
-      {
-        "name": "Total Certification",
-        "value": "2.2 Cr",
-        "tooltip": "Total Certification"
-      }
-    ]
+    // this.NisithaMetrics = [
+    //   {
+    //     "name": "Total States Participating ",
+    //     "value": "37 ",
+    //     "tooltip": "Total States participating"
+    //   },
+    //   {
+    //     "name": "Total Courses Launched",
+    //     "value": "53.4 %",
+    //     "tooltip": "Total Courses Launched"
+    //   },
+    //   {
+    //     "name": "Total Languages",
+    //     "value": " ",
+    //     "tooltip": "Total Languages"
+    //   },
+    //   {
+    //     "name": "Total Enrollment",
+    //     "value": "3.2 Cr",
+    //     "tooltip": "Total Enrollments"
+    //   },
+    //   {
+    //     "name": "Total Completion",
+    //     "value": "2.5 Cr",
+    //     "tooltip": "Total Completion"
+    //   },
+    //   {
+    //     "name": "Total Certification",
+    //     "value": "2.2 Cr",
+    //     "tooltip": "Total Certification"
+    //   }
+    // ]
     this.nishithaVersion = [
       { key: "Nishitha 1.0", value: "Nishitha 1.0" },
       { key: "Nishitha 2.0", value: "Nishitha 2.0" },

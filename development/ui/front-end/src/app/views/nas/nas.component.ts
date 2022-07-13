@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { NasService } from 'src/app/core/services/nas/nas.service';
+import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -17,7 +18,12 @@ export class NasComponent implements OnInit {
   filters: any;
   isMapReportLoading = true;
 
-  constructor(private readonly _NASService: NasService, private readonly _commonService: CommonService) {
+  constructor(private readonly _NASService: NasService, private readonly _commonService: CommonService, private readonly _configService: NishthaService) {
+
+    this._configService.getNishthaVanityMetrics().subscribe(dashboardMenuResult => {
+      this.NASMetrics = dashboardMenuResult.result[2]?.metrics;
+    });
+
     this.getNASMetrics()
     this.getNasData(this.filters);
   }
