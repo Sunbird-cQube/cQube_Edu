@@ -8,3 +8,5 @@
 @import '~@project-sunbird/sb-themes/themes/theme-cqube.scss';
 html, body { height: 100%; }
 body { margin: 0; font-family: Arial, Helvetica, sans-serif; }
+.sidebaractive .app-side-nav {width:6rem !important}
+.sidebaractive .app-content-wrapper{padding-left: 7rem !important;}
