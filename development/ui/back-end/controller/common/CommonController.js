@@ -3,8 +3,8 @@ const { reportTypes, appNames } = require("../../core/config/config");
 const XLSX = require('xlsx');
 const fs = require('fs');
 const _ = require('lodash');
-const AwsConfig = require("../../core/config/aws-config");
 const csvToJson = require('csvtojson');
+const { getFileData, getAllFiles, getFileRawData, uploadFile } = require('../../service/storage_service');
 
 exports.getReportData = (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
@@ -24,9 +24,7 @@ exports.getReportData = (req, res, next) => {
 			let reportConfig = dataSourceConfig[reqBody.reportName][reqBody.reportType];
 			let dataSourcePath = reportConfig.pathToFile;
 
-			await AwsConfig.s3.headObject({ Bucket: AwsConfig.params.OutputBucket, Key: `${dataSourcePath}` }).promise();
-			const response = await AwsConfig.s3.getObject({ Bucket: AwsConfig.params.OutputBucket, Key: `${reportConfig.pathToFile}` }).promise();
-			let rawData = JSON.parse(response.Body.toString('utf-8'));
+			let rawData = await getFileData(dataSourcePath);
 
 			if (reqBody.reportType === reportTypes.map) {
 				reportData = await getMapReportData(reqBody, reportConfig, rawData);
@@ -64,29 +62,13 @@ exports.getReportData = (req, res, next) => {
 exports.uploadSourceData = async (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
 		try {
-			AwsConfig.s3.listObjectsV2({ Bucket: AwsConfig.params.InputBucket }, async function (err, listObjectRes) {
-                if (err) {
-					res.status(500).send({
-                        message: "Invalid AWS S3 credentials or can't connect to the server"
-                    });
-                } else {
-					try {              
-						const filePaths = listObjectRes.Contents.filter((content, ind) => content.Key.split('/').slice(-1).length > 0 && content.Key.split('/').slice(-1)[0] !== '');
-						filePaths.forEach(async (filePathObj) => {
-							const response = await AwsConfig.s3.getObject({ Bucket: AwsConfig.params.InputBucket, Key: filePathObj.Key }).promise();
-							const fileContent = response.Body;
-							await convertRawDataToJSONAndUploadToS3(fileContent, filePathObj);
-						});
-						res.json(filePaths);
-					} catch (error) {
-						return reject({
-							status: error.status || 500,
-							message: error.message || "Internal server error",
-							errorObject: error
-						});
-					}
-				}
+			const filePaths = await getAllFiles();
+			filePaths.forEach(async (filePath) => {
+				const fileContent = await getFileRawData(filePath);
+				await convertRawDataToJSONAndUploadToS3(fileContent, filePath);
 			});
+
+			res.send('Success');
 		} catch (error) {
             return reject({
                 status: error.status || 500,
@@ -374,9 +356,10 @@ function convertRawDataToJSON(sourceFilePath, destinationFilePath) {
 	fs.writeFileSync(destinationFilePath, JSON.stringify(reportRawData));
 }
 
-async function convertRawDataToJSONAndUploadToS3(fileContent, filePathObj) {
-	let fileExt = path.extname(filePathObj.Key).substring(1);
-	let fileName = path.join(path.dirname(filePathObj.Key),path.basename(filePathObj.Key, path.extname(filePathObj.Key))).replace(/\\/g, "/").replace('input_files', 'converted');
+async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
+	console.log(filePath);
+	let fileExt = path.extname(filePath).substring(1);
+	let fileName = path.join(path.dirname(filePath),path.basename(filePath, path.extname(filePath))).replace(/\\/g, "/").replace('input_files', 'converted');
 
 	if (fileExt === 'xlsx') {
 		const workbook = XLSX.read(fileContent);
@@ -384,7 +367,7 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePathObj) {
 		
 		reportRawData = XLSX.utils.sheet_to_json(worksheet);
 	} else {
-		let tempFilePath = path.join(__basedir, `temp/${path.basename(filePathObj.Key)}`);
+		let tempFilePath = path.join(__basedir, `temp/${path.basename(filePath)}`);
 		fs.writeFileSync(tempFilePath, fileContent.toString('utf-8'));
 		reportRawData = await csvToJson({
 			trim: true
@@ -392,7 +375,5 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePathObj) {
 		fs.unlinkSync(tempFilePath);
 	}
 
-	AwsConfig.s3.putObject({ Bucket: AwsConfig.params.OutputBucket, Key: `${fileName}.json`, Body: JSON.stringify(reportRawData) }, function(s3Err, data) {
-		if (s3Err) throw s3Err
-	});
+	uploadFile(fileName, reportRawData);
 }
