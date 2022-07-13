@@ -4,5 +4,6 @@ export interface IMenuItem {
     path: string;
     basepath: string;
     hasSub: boolean;
-    children?: IMenuItem[]
+    children?: IMenuItem[];
+    isSelected: boolean;
 }
