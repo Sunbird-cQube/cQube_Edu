@@ -25,26 +25,20 @@ export class PmPoshanComponent implements OnInit {
   getUdiseMetricsData() {
     this.pmposhanMetricsData = [
       {
-        "name": "Total Schools Served",
-        "value": "60.1 %",
-        "tooltip": "Total Schools Served"
+        "name": "Total States Participating",
+        "value": "17 ",
+        "tooltip": "Total States Participating"
       },
       {
-        "name": "Cook cum Helpers Involved",
-        "value": "51.4 %",
-        "tooltip": "Cook cum Helpers Involved"
+        "name": "Total Schools",
+        "value": "3.9 L",
+        "tooltip": "Total Schools"
       },
       {
-        "name": "Total Expenditure",
-        "value": "56 %",
-        "tooltip": "Total Expenditure"
+        "name": "Total Meals Served",
+        "value": "15.5 L",
+        "tooltip": "Total Meals Served"
       },
-      {
-        "name": "States onboarded on ARMS",
-        "value": "6.7M",
-        "tooltip": "States onboarded on ARMS"
-      },
-
     ];
   }
 

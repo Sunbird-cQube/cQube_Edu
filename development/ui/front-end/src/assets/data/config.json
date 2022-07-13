@@ -6,6 +6,27 @@
         "zoomLevel": 4.8,
         "stateCode": "02"
     },
+    "BH": {
+        "name": "Bihar",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": "10"
+    },
+    "HR": {
+        "name": "Haryana",
+        "lat": 27.9832,
+        "lng": 77.0504,
+        "zoomLevel": 7.5,
+        "stateCode": "06"
+    },
+    "ML": {
+        "name": "Meghalaya",
+        "lat": 25.6364,
+        "lng": 90.184,
+        "zoomLevel": 7.5,
+        "stateCode": "17"
+    },
     "GJ": {
         "name": "Gujrath",
         "lat": 22.2587,

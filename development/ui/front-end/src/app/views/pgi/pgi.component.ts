@@ -19,7 +19,7 @@ export class PGIComponent implements OnInit {
     this.getPGIMetricsData();
     this.getPGIStateData();
     this.getStateWisePGICoverageData();
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -31,7 +31,7 @@ export class PGIComponent implements OnInit {
     }, 100);
   }
 
-  getStateWisePGICoverageData(){
+  getStateWisePGICoverageData() {
     return this._ETBService.getStateWiseETBCoverageData().subscribe(res => {
       this.tableData = res.result.data;
       this.columns = res.result.columns;
@@ -53,14 +53,14 @@ export class PGIComponent implements OnInit {
           data: [60.6],
           innerRadius: '80%',
           dataLabels: {
-              y: -20,
-              format:
-                  '<div style="text-align:center">' +
-                  '<span style="font-size:25px">{y}%</span><br/>' +
-                  '</div>'
+            y: -20,
+            format:
+              '<div style="text-align:center">' +
+              '<span style="font-size:25px">{y}%</span><br/>' +
+              '</div>'
           },
           tooltip: {
-              valueSuffix: ' %'
+            valueSuffix: ' %'
           }
         }]
       }
@@ -70,11 +70,36 @@ export class PGIComponent implements OnInit {
   getPGIMetricsData() {
     this.pgiMetricsData = [
       {
-          "name": "Total District Participated",
-          "value": "248",
-          "tooltip": "Total District Participated"
-      }
-  ];
+        "name": "States in Level I",
+        "value": "0",
+        "tooltip": "States in Level I- 0"
+      },
+      {
+        "name": "States in Level II",
+        "value": "5",
+        "tooltip": "States in Level II"
+      },
+      {
+        "name": "States in Grade I+",
+        "value": "7",
+        "tooltip": "States in Grade I+"
+      },
+      {
+        "name": "States in Grade I",
+        "value": "8",
+        "tooltip": "States in Grade I"
+      },
+      {
+        "name": "States in Grade II",
+        "value": "8",
+        "tooltip": "States in Grade II"
+      },
+      {
+        "name": "States in Grade III",
+        "value": "4",
+        "tooltip": "States in Grade III"
+      },
+    ];
   }
 
   getPGIStateData() {

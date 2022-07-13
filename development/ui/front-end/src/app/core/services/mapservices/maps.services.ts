@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as config from '../../../../assets/data/config.json';
 import * as mapData from '../../../../assets/data/IN.json';
+import * as GJData from '../../../../assets/data/Gujarat.json'
+// import * as UPData from '../../../../assets/data/IN.json';
+import * as  BHData from '../../../../assets/data/BH.json';
+import * as HRData from '../../../../assets/data/HR.json';
+import * as MLData from '../../../../assets/data/ML.json';
 
 declare var L: any;
 export var globalMap: any;
@@ -13,28 +18,28 @@ export class MapService {
 
     NVSK: boolean = true;
     parentThis = this
-    
+
     width = window.innerWidth;
     // mapName = environment.mapName;
     mapCenterLatlng: any;
     latitude: any;
     longitude: any;
     zoomLevel: any;
-    
+
 
     constructor() {
         if (environment.config == 'VSK') {
             this.NVSK = false
             this.mapCenterLatlng = config.default['GJ'];
         }
-        else{
-            this.mapCenterLatlng = config.default['IN']
+        else {
+            this.mapCenterLatlng = config.default['IN'];
         }
         this.zoomLevel = this.width > 3820 ? this.mapCenterLatlng.zoomLevel + 0.85 : this.width < 3820 && this.width >= 2500 ? this.mapCenterLatlng.zoomLevel + 0.3 : this.width < 2500 && this.width > 1920 ? this.mapCenterLatlng.zoomLevel : this.width > 1500 ? this.mapCenterLatlng.zoomLevel - 0.4 : this.width > 1336 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.width > 1200 ? this.mapCenterLatlng.zoomLevel - 0.75 : this.width > 700 ? this.mapCenterLatlng.zoomLevel - 0.3 : this.width > 76 ? this.mapCenterLatlng.zoomLevel - 0.5 : this.width > 400 ? this.mapCenterLatlng.zoomLevel - 0.6 : this.width > 320 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.mapCenterLatlng.zoomLevel;
 
     }
-    
-    
+
+
 
     onResize() {
         this.width = window.innerWidth;
@@ -44,10 +49,34 @@ export class MapService {
 
     public map: any
     //Initialisation of Map  
-    initMap(map: any, maxBounds: any, markers: any) {
+    initMap(map: any, maxBounds: any, markers: any, state: Number) {
+        if (environment.config == 'VSK') {
+            this.NVSK = false;
+        }
+        else {
+            switch (state) {
+                case 0:
+                    this.mapCenterLatlng = config.default['IN'];
+                    break;
+                case 5:
+                    this.mapCenterLatlng = config.default['BH'];
+                    break;
+                case 13: 
+                    this.mapCenterLatlng = config.default['HR'];
+                    break;
+                case 12:
+                    this.mapCenterLatlng = config.default['GJ'];
+                    break;
+                case 24:
+                    this.mapCenterLatlng = config.default['ML'];
+                    break;
+            }
+        }
+        this.zoomLevel = this.width > 3820 ? this.mapCenterLatlng.zoomLevel + 0.85 : this.width < 3820 && this.width >= 2500 ? this.mapCenterLatlng.zoomLevel + 0.3 : this.width < 2500 && this.width > 1920 ? this.mapCenterLatlng.zoomLevel : this.width > 1500 ? this.mapCenterLatlng.zoomLevel - 0.4 : this.width > 1336 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.width > 1200 ? this.mapCenterLatlng.zoomLevel - 0.75 : this.width > 700 ? this.mapCenterLatlng.zoomLevel - 0.3 : this.width > 76 ? this.mapCenterLatlng.zoomLevel - 0.5 : this.width > 400 ? this.mapCenterLatlng.zoomLevel - 0.6 : this.width > 320 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.mapCenterLatlng.zoomLevel;
+
         let reportTypeETB: any;
         let NVSK = this.NVSK;
-        
+
         if (globalMap) {
             globalMap.remove();
             console.log('removed');
@@ -61,7 +90,7 @@ export class MapService {
         }
         // markers[0]
         console.log('initializing');
-        globalMap = L.map(map, { zoomSnap: 0.25, zoomControl: false, scrollWheelZoom: false, touchZoom: false, maxBounds: maxBounds }).setView([maxBounds[0][0], maxBounds[0][1]], this.zoomLevel);
+        globalMap = L.map(map, { zoomSnap: 0.25, zoomControl: false, scrollWheelZoom: false, touchZoom: false, maxBounds: [this.mapCenterLatlng.lat, this.mapCenterLatlng.lng] }).setView([this.mapCenterLatlng.lat, this.mapCenterLatlng.lng], this.zoomLevel);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
             {
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
@@ -96,7 +125,7 @@ export class MapService {
         function style_states1(feature: any) {
             let check: any = '';
             if (reportTypeETB) {
-                if(NVSK) {
+                if (NVSK && !state) {
                     markers.forEach((states: any) => {
                         if (states?.Location?.trim().toLowerCase() == feature?.properties?.st_nm?.trim().toLowerCase()) {
                             check = states?.status?.split(':')[1]?.trim()
@@ -106,7 +135,7 @@ export class MapService {
                         }
                     })
                 }
-                else{
+                else {
                     markers.forEach((district: any) => {
                         if (district?.Location?.trim().toLowerCase() == feature?.properties?.NAME_2?.trim().toLowerCase()) {
                             check = district?.status?.split(':')[1]?.trim()
@@ -116,10 +145,9 @@ export class MapService {
                         }
                     })
                 }
-                
             }
             else {
-                if (NVSK) {
+                if (NVSK && !state) {
                     markers.forEach((states: any) => {
                         if (states?.Location?.trim().toLowerCase() == feature?.properties?.st_nm?.trim().toLowerCase()) {
                             let performance = states.perfomance ? states.perfomance : states.Performance;
@@ -131,7 +159,6 @@ export class MapService {
                     })
                 }
                 else {
-                    debugger; 
                     markers.forEach((district: any) => {
                         if (district?.Location?.trim().toLowerCase() == feature?.properties?.NAME_2?.trim().toLowerCase()) {
                             let performance = district.perfomance ? district.perfomance : district.Performance;
@@ -154,13 +181,26 @@ export class MapService {
             };
         }
 
-        //if (this.NVSK) {
+        if (this.NVSK && !state) {
             var data = mapData.default['IN'];
-        //}
-        //else {
-           // var data = gujaratData.default;
-        //}
-        function applyCountryBorder(map: any, NVSK:any) {
+        }
+        else {
+            switch (state) {
+                case 5:
+                    var data = BHData.default;
+                    break;
+                case 13:
+                    var data = HRData.default;
+                    break;
+                case 24:
+                    var data = MLData.default;
+                    break;
+                case 12:
+                    var data = GJData.default;
+                    break;
+            }
+        }
+        function applyCountryBorder(map: any, NVSK: any) {
             L.geoJSON(data['features'], {
                 style: style_states1,
                 color: "#a0a1a3",

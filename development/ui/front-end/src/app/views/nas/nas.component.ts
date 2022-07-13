@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./nas.component.scss']
 })
 export class NasComponent implements OnInit {
+  selectedState:Number = 0;
   NASMetrics: any[] | undefined;
   NASProgramStatsByLocation: any
   NasStateData: any;
@@ -44,6 +45,9 @@ export class NasComponent implements OnInit {
       this.isMapReportLoading = false;
       this.NasStateData = res.result.data;
       this.filters = res.result.filters;
+      if(res.result.level == 'District' && Number(this.filters[3].value) > 0){
+        this.selectedState = Number(this.filters[3].value);
+      }
     }, error => {
       this.isMapReportLoading = false;
     });

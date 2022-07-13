@@ -26,18 +26,23 @@ export class NipunbharathComponent implements OnInit {
     this.nipunBharathMetricsData = [
       {
           "name": "Total LOs covered",
-          "value": "61.1 %",
+          "value": "497",
           "tooltip": "Total LOs covered"
       },
       {
           "name": "Total Digital Books",
-          "value": "73.4 %",
+          "value": "18 ",
           "tooltip": "Total Digital Books"
       },
       {
         "name": "Total Content",
-        "value": "85.9 %",
+        "value": "1.3 K",
         "tooltip": "Total Content"
+    },
+    {
+      "name": "Total Learning Sessions",
+        "value": "1.2 L",
+        "tooltip": "Total Learning Sessions"
     },
   ];
   }
