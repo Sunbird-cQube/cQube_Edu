@@ -81,12 +81,14 @@ exports.uploadSourceData = async (req, res, next) => {
 
 async function getMapReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { columns, filters, mainFilterForSSP } = reportConfig;
+	let { columns, filters, mainFilter } = reportConfig;
 	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
 
-	if (mainFilterForSSP) {
-		rawData = rawData.filter(record => record[mainFilterForSSP] && (record[mainFilterForSSP].toLowerCase() == reqBody.stateCode));
+	if (mainFilter) {
+		console.log(rawData.length);
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter].toLowerCase() == reqBody.stateCode));
+		console.log(rawData.length);
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -139,10 +141,12 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		return filter;
 	});
 
+	console.log(groupByColumn);
 	if (isWeightedAverageNeeded) {
 		rawData = _.chain(rawData)
 		.groupBy(groupByColumn)
 		.map((objs, key) => {
+			console.log(key);
 			let data = {};
 			columns.forEach(col => {
 				if (col.isLocationName) {
@@ -198,11 +202,11 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 
 async function getLOTableReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { columns, filters, mainFilterForSSP } = reportConfig;
+	let { columns, filters, mainFilter } = reportConfig;
 	let groupByColumns;
 
-	if (mainFilterForSSP && mainFilterForSSP.length > 0) {
-		rawData = rawData.filter(record => record[mainFilterForSSP[0].property] && (record[mainFilterForSSP[0].property].toLowerCase() == reqBody.stateCode));
+	if (mainFilter && mainFilter.length > 0) {
+		rawData = rawData.filter(record => record[mainFilter[0].property] && (record[mainFilter[0].property].toLowerCase() == reqBody.stateCode));
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -255,12 +259,12 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 
 async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { columns, filters, mainFilterForSSP } = reportConfig;
+	let { columns, filters, mainFilter } = reportConfig;
 	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
 	let groupByColumns = reportConfig.defaultLevel;
 
-	if (mainFilterForSSP) {
-		rawData = rawData.filter(record => record[mainFilterForSSP] && (record[mainFilterForSSP].toLowerCase() == reqBody.stateCode));
+	if (mainFilter) {
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter].toLowerCase() == reqBody.stateCode));
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -367,12 +371,9 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 		
 		reportRawData = XLSX.utils.sheet_to_json(worksheet);
 	} else {
-		let tempFilePath = path.join(__basedir, `temp/${path.basename(filePath)}`);
-		fs.writeFileSync(tempFilePath, fileContent.toString('utf-8'));
 		reportRawData = await csvToJson({
 			trim: true
-		}).fromFile(tempFilePath);
-		fs.unlinkSync(tempFilePath);
+		}).fromString(fileContent.toString('utf-8'));
 	}
 
 	uploadFile(fileName, reportRawData);
