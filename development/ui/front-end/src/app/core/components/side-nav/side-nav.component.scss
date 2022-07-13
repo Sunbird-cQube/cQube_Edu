@@ -7,3 +7,7 @@
 .active:focus{
     box-shadow: none;
 }
+.selectedMenu {
+    background-color: var(--cQ-theme-bg-shade);
+    border-radius: 2rem;
+}
