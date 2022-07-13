@@ -20,5 +20,12 @@ export class SideNavComponent implements OnInit {
     });
     menuItemSelected.isSelected = true;
   }
+  toggleSideBar(): void {
+    if(document.body.classList.contains("sidebaractive")) {
+      document.body.classList.remove("sidebaractive");
+    } else {
+      document.body.classList.add("sidebaractive");
+    }     
+  }
 
 }

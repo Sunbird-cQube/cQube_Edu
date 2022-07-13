@@ -1,10 +1,14 @@
 <aside class="app-side-nav">
-    <ul class="menu">
+    <input type="checkbox"  class="openSidebarMenu" id="openSidebarMenu" (click)="toggleSideBar()">
+    <label for="openSidebarMenu" class="sidebarIconToggle">
+      <div class="spinner diagonal part-1"></div>
+      <div class="spinner horizontal"></div>
+      <div class="spinner diagonal part-2"></div>
+    </label>
+    <ul class="menu" id="sidebarMenu">
         <li class="menu-item" *ngFor="let menuItem of menu">
             <div [routerLink]="menuItem.path" routerLinkActive="activeLink" class="btn active inside" [ngClass]="menuItem.isSelected?'selectedMenu':''" (click)="setMenuLinkActive(menuItem)">
-                <span>
                     <img class="rounded-3xl mr-2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAexJREFUSEvdVdeKAkEQ7FVMqKggGEEUETH+/z/4YAIxouKLqBgRs0cNKDs7wbuDe7kCkZ2d7pqu6eo1arXak/4Qxv8hCAaD5Pf7ObF2ux1tt1utgKFQiHw+Hz0eD/Z7Pp+02WzodDqxuLdEyWSSIpEIlwybW60WXa9XKYnL5aJSqSS863Q6dDweeQI8lctlcjqdXAA2IkAGJAeJGYvFgqbT6XuJu2TViSaTCS2XSy5RPB6nWCzGrV0uF1axGUIXRaNRSiQSglSNRoPu9ztbVx2k3W7T+XzWE+BtoVAgj8fDbTwcDtTtdtmaTJrZbEbz+VxQUuoDh8PB7sMwDC5gNBqR2+0myGOG7p6URguHw5RKpQSprKTotGazSbfbTdoIWifn83nyer1aH6Cq9Xqt3KMlsNvtVKlUyGazSRPAiP1+X3uAj7MITs1kMkISuLZerzPn6vCRAOMjl8sJOaA5WvcTtAS40Gq1SpBKhtVqRePx+PcVZLNZCgQC2gTwBjyigrIClfbWRHA3pFLdhZRA1T0Yeul0mpnNDIzn4XD4fR/I+v+lN6YtXG7FYDCQfjuECmQOtsogG4hoW0iFfzM4AtUMgplgKjOKxaIg1X6/p16vpyaQTVGVW1VSoW0h5wvvCn5S9isYHxzrZLUOvy98dj5wx2YUMQAAAABJRU5ErkJggg==">
-                </span>
                 <span>{{menuItem.label}}</span>
             </div>
         </li>
