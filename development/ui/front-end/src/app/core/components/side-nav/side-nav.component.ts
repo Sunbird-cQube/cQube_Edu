@@ -16,7 +16,9 @@ export class SideNavComponent implements OnInit {
   }
   setMenuLinkActive(menuItemSelected: IMenuItem): void {
     this.menu?.forEach(menuItem => {
-      menuItem.isSelected = false;
+      if(menuItem.isSelected == true)  {
+        menuItem.isSelected = false;
+      }
     });
     menuItemSelected.isSelected = true;
   }
