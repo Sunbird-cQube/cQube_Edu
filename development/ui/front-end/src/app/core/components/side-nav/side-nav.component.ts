@@ -14,5 +14,18 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  setMenuLinkActive(menuItemSelected: IMenuItem): void {
+    this.menu?.forEach(menuItem => {
+      menuItem.isSelected = false;
+    });
+    menuItemSelected.isSelected = true;
+  }
+  toggleSideBar(): void {
+    if(document.body.classList.contains("sidebaractive")) {
+      document.body.classList.remove("sidebaractive");
+    } else {
+      document.body.classList.add("sidebaractive");
+    }     
+  }
 
 }
