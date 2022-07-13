@@ -1,6 +1,6 @@
 const { reject } = require("lodash");
 const AwsConfig = require("../core/config/aws-config");
-const { inputContainerClient, outputContainerClient } = require("../core/config/azure-config");
+const { blobServiceClient, inputContainerName, outputContainerName } = require("../core/config/azure-config");
 
 const storageServices = {
     AZURE_DATA_LAKE: "AZURE_DATA_LAKE",
@@ -11,13 +11,12 @@ const storageServiceType = process.env.STORAGE_SERVICE;
 const getAllFiles = async () => {
     return new Promise(async function (resolve, reject) {
         if (storageServiceType === storageServices.AZURE_DATA_LAKE) {
-            let iter = await inputContainerClient.listPaths({path: "dashboard", recursive: true});
-            console.log(iter);
-            for await (const path of iter) {
-
-                console.log(`Path ${i++}: ${path.name}, is directory: ${path.isDirectory}`);
-              }
-            resolve(iter);
+            let containerClient = blobServiceClient.getContainerClient(inputContainerName);
+            // List the blob(s) in the container.
+            for await (const blob of containerClient.listBlobsFlat()) {
+                console.log("\t", blob.name);
+            }
+            resolve('success');
         } else if (storageServiceType === storageServices.AWS_S3) {
             AwsConfig.s3.listObjectsV2({ Bucket: AwsConfig.params.InputBucket }, function (err, listObjectRes) {
                 if (err) {

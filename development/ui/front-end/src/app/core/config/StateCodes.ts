@@ -1,5 +1,5 @@
 export enum StateCodes {
-    JAMMU_AND_KASHMIR,
+    JAMMU_AND_KASHMIR = 1,
     HIMACHAL_PRADESH,
     PUNJAB,
     CHANDIGARH,

@@ -15,7 +15,6 @@ export var globalMap: any;
     providedIn: 'root'
 })
 export class MapService {
-
     NVSK: boolean = true;
     parentThis = this
 
@@ -26,7 +25,6 @@ export class MapService {
     longitude: any;
     zoomLevel: any;
 
-
     constructor() {
         if (environment.config == 'VSK') {
             this.NVSK = false
@@ -35,8 +33,8 @@ export class MapService {
         else {
             this.mapCenterLatlng = config.default['IN'];
         }
+        
         this.zoomLevel = this.width > 3820 ? this.mapCenterLatlng.zoomLevel + 0.85 : this.width < 3820 && this.width >= 2500 ? this.mapCenterLatlng.zoomLevel + 0.3 : this.width < 2500 && this.width > 1920 ? this.mapCenterLatlng.zoomLevel : this.width > 1500 ? this.mapCenterLatlng.zoomLevel - 0.4 : this.width > 1336 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.width > 1200 ? this.mapCenterLatlng.zoomLevel - 0.75 : this.width > 700 ? this.mapCenterLatlng.zoomLevel - 0.3 : this.width > 76 ? this.mapCenterLatlng.zoomLevel - 0.5 : this.width > 400 ? this.mapCenterLatlng.zoomLevel - 0.6 : this.width > 320 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.mapCenterLatlng.zoomLevel;
-
     }
 
 
@@ -49,7 +47,7 @@ export class MapService {
 
     public map: any
     //Initialisation of Map  
-    initMap(map: any, maxBounds: any, markers: any, state: Number) {
+    async initMap(map: any, maxBounds: any, markers: any, state: Number) {
         if (environment.config == 'VSK') {
             this.NVSK = false;
         }
@@ -127,44 +125,82 @@ export class MapService {
             if (reportTypeETB) {
                 if (NVSK && !state) {
                     markers.forEach((states: any) => {
-                        if (states?.Location?.trim().toLowerCase() == feature?.properties?.st_nm?.trim().toLowerCase()) {
-                            check = states?.status?.split(':')[1]?.trim()
-                            if (feature.properties) {
-                                feature.properties['popUpContent'] = feature?.properties?.st_nm + ' : ' + check;
+                        if (states['Location Code']) {
+                            if (states['Location Code'] == (typeof feature?.properties?.state_code === 'number' ? feature?.properties?.state_code : feature?.properties?.state_code?.trim())) {
+                                check = states?.status?.split(':')[1]?.trim()
+                                if (feature.properties) {
+                                    feature.properties['popUpContent'] = feature?.properties?.st_nm + ' : ' + check;
+                                }
+                            }
+                        } else {
+                            if (states?.Location?.trim().toLowerCase() == feature?.properties?.st_nm?.trim().toLowerCase()) {
+                                check = states?.status?.split(':')[1]?.trim()
+                                if (feature.properties) {
+                                    feature.properties['popUpContent'] = feature?.properties?.st_nm + ' : ' + check;
+                                }
                             }
                         }
                     })
                 }
                 else {
                     markers.forEach((district: any) => {
+                        if (district['Location Code']) {
+                            if (district['Location Code'] == (typeof feature?.properties?.ID_0 === 'number' ? feature?.properties?.ID_0 : feature?.properties?.state_code?.trim())) {
+                                check = district?.status?.split(':')[1]?.trim()
+                                if (feature.properties) {
+                                    feature.properties['popUpContent'] = feature?.properties?.NAME_2 + ' : ' + check;
+                                }
+                            }
+                        }else {
                         if (district?.Location?.trim().toLowerCase() == feature?.properties?.NAME_2?.trim().toLowerCase()) {
                             check = district?.status?.split(':')[1]?.trim()
                             if (feature.properties) {
                                 feature.properties['popUpContent'] = feature?.properties?.NAME_2 + ' : ' + check;
                             }
                         }
+                    }
                     })
                 }
             }
             else {
                 if (NVSK && !state) {
                     markers.forEach((states: any) => {
-                        if (states?.Location?.trim().toLowerCase() == feature?.properties?.st_nm?.trim().toLowerCase()) {
-                            let performance = states.perfomance ? states.perfomance : states.Performance;
-                            check = typeof performance === 'string' ? Number(states?.perfomance?.split(':')[1]?.trim()) : performance;
-                            if (feature.properties) {
-                                feature.properties['popUpContent'] = 'Performance of ' + feature?.properties?.st_nm + ' is ' + check + '%';
+                        if (states['Location Code']) {
+                            if (states['Location Code'] == (typeof feature?.properties?.state_code === 'number' ? feature?.properties?.state_code : feature?.properties?.state_code?.trim())) {
+                                let performance = states.perfomance ? states.perfomance : states.Performance;
+                                check = typeof performance === 'string' ? Number(states?.perfomance?.split(':')[1]?.trim()) : performance;
+                                if (feature.properties) {
+                                    feature.properties['popUpContent'] = 'Performance of ' + feature?.properties?.st_nm + ' is ' + check + '%';
+                                }
+                            }
+                        } else {
+                            if (states?.Location?.trim().toLowerCase() == feature?.properties?.st_nm?.trim().toLowerCase()) {
+                                let performance = states.perfomance ? states.perfomance : states.Performance;
+                                check = typeof performance === 'string' ? Number(states?.perfomance?.split(':')[1]?.trim()) : performance;
+                                if (feature.properties) {
+                                    feature.properties['popUpContent'] = 'Performance of ' + feature?.properties?.st_nm + ' is ' + check + '%';
+                                }
                             }
                         }
                     })
                 }
                 else {
                     markers.forEach((district: any) => {
-                        if (district?.Location?.trim().toLowerCase() == feature?.properties?.NAME_2?.trim().toLowerCase()) {
-                            let performance = district.perfomance ? district.perfomance : district.Performance;
-                            check = typeof performance === 'string' ? Number(district?.perfomance?.split(':')[1]?.trim()) : performance;
-                            if (feature.properties) {
-                                feature.properties['popUpContent'] = 'Performance of ' + feature?.properties?.NAME_2 + ' is ' + check + '%';
+                        if (district['Location Code']) {
+                            if (district['Location Code'] == (typeof feature?.properties?.ID_0 === 'number' ? feature?.properties?.ID_0 : feature?.properties?.state_code?.trim())) {
+                                let performance = district.perfomance ? district.perfomance : district.Performance;
+                                check = typeof performance === 'string' ? Number(district?.perfomance?.split(':')[1]?.trim()) : performance;
+                                if (feature.properties) {
+                                    feature.properties['popUpContent'] = 'Performance of ' + feature?.properties?.NAME_2 + ' is ' + check + '%';
+                                }
+                            }
+                        } else {
+                            if (district?.Location?.trim().toLowerCase() == feature?.properties?.NAME_2?.trim().toLowerCase()) {
+                                let performance = district.perfomance ? district.perfomance : district.Performance;
+                                check = typeof performance === 'string' ? Number(district?.perfomance?.split(':')[1]?.trim()) : performance;
+                                if (feature.properties) {
+                                    feature.properties['popUpContent'] = 'Performance of ' + feature?.properties?.NAME_2 + ' is ' + check + '%';
+                                }
                             }
                         }
                     })
@@ -182,7 +218,9 @@ export class MapService {
         }
 
         if (this.NVSK && !state) {
-            var data = mapData.default['IN'];
+            const response = await fetch(`${environment.apiURL}/assets/geo-locations/IN.json`);
+            const body = await response.json();
+            var data = body['IN'];
         }
         else {
             switch (state) {

@@ -10,6 +10,10 @@ const dataSourceInfo = {
                     isLocationName: true
                 },
                 {
+                    name: "Location Code",
+                    property: "State Code"
+                },
+                {
                     name: "Latitude",
                     property: "Latitude"
                 },
@@ -93,6 +97,38 @@ const dataSourceInfo = {
                     optionValueColumn: "District Code",
                     isSSPFilter: true
                 },
+            ]
+        },
+        scatterPlot: {
+            pathToFile: 'nas/nas_data.json',
+            defaultLevel: ["State", "Grade", "Subject"],
+            columns: [
+                {
+                    "name": "X-Axis",
+                    "property": ["Grade", "Subject"],
+                    weightedAverage: {
+                        column: "Performance",
+                        against: "Students Surveyed"
+                    }
+                },
+                {
+                    "name": "Y-Axis",
+                    "property": ["Grade", "Subject"],
+                    weightedAverage: {
+                        column: "Performance",
+                        against: "Students Surveyed"
+                    }
+                }
+            ],
+            filters: [
+                {
+                    "name": "X-Axis",
+                    "property": ["Grade", "Subject"]
+                },
+                {
+                    "name": "Y-Axis",
+                    "property": ["Grade", "Subject"]
+                }
             ]
         }
     }

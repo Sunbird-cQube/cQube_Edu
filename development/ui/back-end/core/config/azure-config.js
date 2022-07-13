@@ -1,26 +1,13 @@
-const {
-    AzureStorageDataLake,
-    DataLakeServiceClient,
-    StorageSharedKeyCredential
-} = require("@azure/storage-file-datalake");
+const { BlobServiceClient } = require('@azure/storage-blob');
 
-const accountName = process.env.STORAGE_ACCOUNT_NAME;
-const accountKey = process.env.STORAGE_ACCOUNT_KEY;
+const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING;
 const inputContainerName = process.env.INPUT_CONTAINER_NAME;
 const outputContainerName = process.env.OUTPUT_CONTAINER_NAME;
 
-const sharedKeyCredential = new StorageSharedKeyCredential(accountName, accountKey);
-  
-const datalakeServiceClient = new DataLakeServiceClient(`https://${accountName}.dfs.core.windows.net`, sharedKeyCredential);
+// Create the BlobServiceClient object which will be used to create a container client
+const blobServiceClient = BlobServiceClient.fromConnectionString(
+    AZURE_STORAGE_CONNECTION_STRING
+);
 
-function CreateFileSystem(datalakeServiceClient, containerName) {
-    const fileSystemName = containerName;
-    const fileSystemClient = datalakeServiceClient.getFileSystemClient(fileSystemName);
-    return fileSystemClient;
-}
-
-const inputContainerClient = CreateFileSystem(datalakeServiceClient, inputContainerName);
-const outputContainerClient = CreateFileSystem(datalakeServiceClient, outputContainerName);
-
-
-module.exports = { inputContainerClient, outputContainerClient };
+//module.exports = { inputContainerClient, outputContainerClient };
+module.exports = { blobServiceClient, inputContainerName, outputContainerName };

@@ -9,6 +9,10 @@ const dataSourceInfo = {
                     isLocationName: true
                 },
                 {
+                    name: "Location Code",
+                    property: "State Code"
+                },
+                {
                     name: "Latitude",
                     property: "Latitude"
                 },

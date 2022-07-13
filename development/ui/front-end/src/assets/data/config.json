@@ -3,29 +3,28 @@
         "name": "INDIA",
         "lat": 20.5937,
         "lng": 78.9629,
-        "zoomLevel": 4.8,
-        "stateCode": "02"
+        "zoomLevel": 4.8
     },
     "BH": {
         "name": "Bihar",
         "lat": 27.0775,
         "lng": 84.346,
         "zoomLevel": 7.5,
-        "stateCode": "10"
+        "stateCode": 5
     },
     "HR": {
         "name": "Haryana",
         "lat": 27.9832,
         "lng": 77.0504,
         "zoomLevel": 7.5,
-        "stateCode": "06"
+        "stateCode": 13
     },
     "ML": {
         "name": "Meghalaya",
         "lat": 25.6364,
         "lng": 90.184,
         "zoomLevel": 7.5,
-        "stateCode": "17"
+        "stateCode": 24
     },
     "GJ": {
         "name": "Gujrath",
