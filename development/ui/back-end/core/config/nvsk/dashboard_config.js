@@ -75,7 +75,12 @@ const metrics = [
         "title": "PGI",
         "navigationURL": "/pgi",
         "metrics": [
-            
+            {
+                pathToFile: 'dashboard/PGI metrics.json',
+                name: "Net PGI Score",
+                aggegration: 'SUM',
+                columnName: 'Grand Total'
+             },
         ],
         "icon": "PGI.png",
         "tooltip": "PGI"
@@ -104,7 +109,18 @@ const metrics = [
         "title": "PM Poshan",
         "navigationURL": "/poshan",
         "metrics": [
-            
+            {
+                pathToFile: 'dashboard/PM Poshan metrics.json',
+                name: "Total Schools",
+                aggegration: 'SUM',
+                columnName: 'Total Schools'
+             },
+            {
+                pathToFile: 'dashboard/PM Poshan metrics.json',
+                name: "Total Meals Served",
+                aggegration: 'SUM',
+                columnName: 'MealServed(02/July/2022)'
+            },
         ],
         "icon": "Adults Education.png",
         "tooltip": ""
