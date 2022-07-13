@@ -2,7 +2,8 @@ const dataSourceInfo = {
     studentPerformance: {
         map: {
             pathToFile: 'nas/nas_data.json',
-            mainFilterForSSP: "State",
+            defaultLevel: "District",
+            mainFilter: "State",
             columns: [
                 {
                     name: "District",

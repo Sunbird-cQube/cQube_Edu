@@ -46,9 +46,9 @@ router.post("/azure2", (req, res, next) => {
 router.post("/azure3", (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
         try {
-			let rawData = await getFileRawData('nishtha/nishtha_coverage_state_wise.xlsx');
+			let rawData = await getFileRawData('dashboard/Total Lo.csv');
 			
-			await convertRawDataToJSONAndUploadToS3(rawData, 'nishtha/nishtha_coverage_state_wise.xlsx');
+			await convertRawDataToJSONAndUploadToS3(rawData, 'dashboard/Total Lo.csv');
 
 			res.status(200).send({
 				status: 200,
@@ -93,12 +93,9 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, fileKey) {
 		
 		reportRawData = XLSX.utils.sheet_to_json(worksheet);
 	} else {
-		let tempFilePath = path.join(__basedir, `temp/${path.basename(fileKey)}`);
-		fs.writeFileSync(tempFilePath, fileContent.toString('utf-8'));
 		reportRawData = await csvToJson({
 			trim: true
-		}).fromFile(tempFilePath);
-		fs.unlinkSync(tempFilePath);
+		}).fromString(fileContent.toString('utf-8'));
 	}
 
 	uploadFile(fileName, reportRawData);
