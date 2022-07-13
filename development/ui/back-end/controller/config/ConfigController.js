@@ -1,6 +1,7 @@
 const path = require('path');
 const { configFiles } = require("../../core/config/config");
 const AwsConfig = require("../../core/config/aws-config");
+const { getFileData } = require('../../service/storage_service');
 
 exports.getConfig = (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
@@ -43,8 +44,7 @@ exports.getMetrics = async (req, res, next) => {
 				if (metric.metrics.length > 0) {
 					for (let j = 0; j < metric.metrics.length; j++) {
 						let subMetric = metric.metrics[j];
-						const response = await AwsConfig.s3.getObject({ Bucket: AwsConfig.params.OutputBucket, Key: subMetric.pathToFile }).promise();
-						const fileContent = JSON.parse(response.Body.toString('utf-8'));
+						const fileContent = await getFileData(subMetric.pathToFile);
 
 						if (subMetric.aggegration === 'SUM') {
 							let sum = 0;
@@ -52,10 +52,9 @@ exports.getMetrics = async (req, res, next) => {
 								let value = record[subMetric.columnName] && typeof record[subMetric.columnName] === 'string' ? +record[subMetric.columnName].replace(/\,/g, "") : record[subMetric.columnName];
 								sum += value;
 							});
-							subMetric.value = sum;
+							subMetric.value = +sum.toFixed(2);
 							if(subMetric.value > 1000000){
 								 subMetric.value  =  (subMetric.value/1000000).toFixed(1) + 'M';
-								 console.log(val);
 							}
 						} else if(subMetric.aggegration === ''){
 							subMetric.value = fileContent.length;
