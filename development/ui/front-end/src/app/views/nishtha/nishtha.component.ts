@@ -25,7 +25,7 @@ export class NishthaComponent implements OnInit {
       {
         "name": "Total States Participating ",
         "value": "37 ",
-        "tooltip": "Total States participating"
+        "tooltip": "Total States participating" 
       },
       {
         "name": "Total Courses Launched",

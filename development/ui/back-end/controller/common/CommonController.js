@@ -32,6 +32,8 @@ exports.getReportData = (req, res, next) => {
 				reportData = await getMapReportData(reqBody, reportConfig, rawData);
 			} else if (reqBody.reportType === reportTypes.loTable) {
 				reportData = await getLOTableReportData(reqBody, reportConfig, rawData);
+			} else if (reqBody.reportType === reportTypes.scatterPlot) {
+				reportData = await getScatterPlotReportData(reqBody, reportConfig, rawData);
 			} else {
 				throw `Invalid report type: ${reqBody.reportType}`;
 			}
@@ -266,6 +268,81 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		data: rawData,
 		filters: filters,
 		columns
+	};
+}
+
+async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
+	console.log("process started");
+	let { columns, filters, mainFilterForSSP } = reportConfig;
+	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
+	let groupByColumns = reportConfig.defaultLevel;
+
+	if (mainFilterForSSP) {
+		rawData = rawData.filter(record => record[mainFilterForSSP] && (record[mainFilterForSSP].toLowerCase() == reqBody.stateCode));
+	}
+
+	if (reqBody.filters && reqBody.filters.length > 0) {
+		filters = reqBody.filters;
+	} else {
+		filters = filters.map(filter => {
+			return {
+				...filter,
+				value: "",
+				options: []
+			}
+		});
+	}
+
+	filters = filters.map((filter, index) => {
+		let filterOptionMap = new Map();
+		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+
+		if (filter.value !== '') {
+			rawData = rawData.filter(record => {
+				return record[filterProperty] === filter.value;
+			});
+
+			if (filter.level) {
+				groupByColumn = filter.level;
+			}
+		} else if (index === 0 || filters[index - 1].value !== '') {
+			rawData = rawData.filter(record => {
+				if (!filterOptionMap.has(record[filterProperty])) {
+					if (filter.defaultValue && filter.options.length === 0) {
+						filter.value = record[filterProperty];
+					}
+
+					filter.options.push({
+						label: record[filter.column],
+						value: record[filterProperty]
+					});
+
+					filterOptionMap.set(record[filterProperty], true);
+				}
+
+				if (filter.defaultValue) {
+					return record[filterProperty] === filter.value;
+				}
+
+				return true;
+			});
+		}
+
+		return filter;
+	});
+
+	let currentGroupCol = 0;
+	rawData = _.chain(rawData)
+		.groupBy(groupByColumns[0])
+		.map((objs, key) => {
+			
+		});
+		
+
+	return {
+		data: rawData,
+		filters: filters,
+		level: groupByColumn ? groupByColumn : "State"
 	};
 }
 

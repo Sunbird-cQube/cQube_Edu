@@ -20,6 +20,7 @@ app.use(cors());
 app.use(compression());
 
 app.use("/api", router);
+app.use("/api/assets", express.static(__dirname + '/public'));
 
 app.use((req, res, next) => {
   const error = new Error('Not found');
