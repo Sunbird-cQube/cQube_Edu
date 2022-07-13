@@ -20,4 +20,9 @@ export class ConfigService {
   getDashboardMenu(): Observable<ResponseType<IDashboardMenu[]>> {
     return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/config/getConfig/${environment.config.toLowerCase()}/dashboardMenu`);
   }
+
+  getDashboardMetrics(): Observable<ResponseType<IDashboardMenu[]>> {
+    return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/config/getMetrics/${environment.config.toLowerCase()}/dashboard`);
+  }
+
 }

@@ -13,7 +13,12 @@ export class DashboardComponent implements OnInit {
   dashboardMenu: IDashboardMenu[] | undefined;
 
   constructor(private readonly _configService: ConfigService, private readonly _router: Router) {
-    this._configService.getDashboardMenu().subscribe(dashboardMenuResult => {
+    // this._configService.getDashboardMenu().subscribe(dashboardMenuResult => {
+    //   this.dashboardMenu = dashboardMenuResult.result;
+    //   console.log(this.dashboardMenu);
+    // });
+
+    this._configService.getDashboardMetrics().subscribe(dashboardMenuResult => {
       this.dashboardMenu = dashboardMenuResult.result;
       console.log(this.dashboardMenu);
     });

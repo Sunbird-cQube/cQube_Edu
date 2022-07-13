@@ -53,6 +53,10 @@ exports.getMetrics = async (req, res, next) => {
 								sum += value;
 							});
 							subMetric.value = sum;
+							if(subMetric.value > 1000000){
+								 subMetric.value  =  (subMetric.value/1000000).toFixed(1) + 'M';
+								 console.log(val);
+							}
 						} else if(subMetric.aggegration === ''){
 							subMetric.value = fileContent.length;
 						}
