@@ -18,6 +18,9 @@
 }
 
 ::ng-deep {
+    .ng-select{
+        overflow: visible !important;
+    }
     .ng-clear {
         color: white;
     }
