@@ -55,6 +55,8 @@ exports.getMetrics = async (req, res, next) => {
 							subMetric.value = +sum.toFixed(2);
 							if(subMetric.value > 1000000){
 								 subMetric.value  =  (subMetric.value/1000000).toFixed(1) + 'M';
+							} else if(subMetric.value > 10000000){
+								subMetric.value  =  (subMetric.value/10000000).toFixed(1) + 'Cr';
 							}
 						} else if(subMetric.aggegration === ''){
 							subMetric.value = fileContent.length;
@@ -104,6 +106,8 @@ exports.getVanityMetrics = async (req, res, next) => {
 							subMetric.value = sum;
 							if(subMetric.value > 1000000){
 								 subMetric.value  =  (subMetric.value/1000000).toFixed(1) + 'M';
+							} else if(subMetric.value > 10000000){
+								subMetric.value  =  (subMetric.value/10000000).toFixed(1) + 'Cr';
 							}
 						} else if(subMetric.aggegration === ''){
 							subMetric.value = fileContent.length;
