@@ -73,10 +73,10 @@ export class MapService {
         let reportTypeETB: any;
         let NVSK = this.NVSK;
 
-        if (globalMap) {
-            globalMap.remove();
-            console.log('removed');
-        }
+        // if (globalMap) {
+        //     globalMap.remove();
+        //     console.log('removed');
+        // }
 
         if (markers[0].perfomance || markers[0].Performance) {
             reportTypeETB = false;

@@ -3,9 +3,10 @@
     <div class="xs:col-span-full md:col-span-11 col-span" *ngIf="nishithaStateData">
         <app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
         <app-map-my-india [data]="nishithaStateData"></app-map-my-india>
-        <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+        <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-scale-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
     </div>
     <div class="col" *ngIf="isMapReportLoading">
+        <!-- <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-scale-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner> -->
         <p class="mt-8 mb-8">Loading...</p>
     </div>
 </div>
