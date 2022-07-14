@@ -27,7 +27,7 @@ export class NishthaProgramDetailComponent implements OnInit {
       dataSourceName: 'nishtha',
       reportName: 'programStatus',
       reportType: 'map',
-      stateCode: environment.stateCode?.toLocaleLowerCase(),
+      stateCode: environment.stateCode,
       filters
     };
 
