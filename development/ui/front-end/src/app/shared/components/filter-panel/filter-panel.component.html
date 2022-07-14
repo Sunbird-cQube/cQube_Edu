@@ -3,7 +3,7 @@
         <ng-container *ngFor="let filter of filters; let i = index">
             <div class="col-span-1 filter-wrapper">
                 <ng-select class="mx-2" placeholder="Select {{filter.name}}" [(ngModel)]="filter.value" (change)="onSelectOption($event, i)">
-                    <ng-option disabled="true">Select {{filter.name}}</ng-option>
+                    <!-- <ng-option disabled="true">Select {{filter.name}}</ng-option> -->
                     <ng-option *ngFor="let option of filter.options" [value]="option.value">{{ option.label }}</ng-option>
                 </ng-select>
             </div>
