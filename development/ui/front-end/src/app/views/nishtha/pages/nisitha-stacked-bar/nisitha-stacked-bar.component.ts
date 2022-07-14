@@ -39,7 +39,7 @@ export class NisithaStackedBarComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(res => {
       let result = res.result.data;
-      this.filters = filters
+      this.filters = res.result.filters;
       this.enrollmentTargetChartOptions = {
         chart: {
           marginTop: 50,

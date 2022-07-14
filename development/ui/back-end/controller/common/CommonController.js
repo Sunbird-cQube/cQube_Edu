@@ -360,7 +360,7 @@ async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 		let filterOptionMap = new Map();
 		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
 
-		if (filter.value !== '') {
+		if (filter.value !== '' && filter.value !== 'overall') {
 			rawData = rawData.filter(record => {
 				return record[filterProperty] === filter.value;
 			});
@@ -370,6 +370,12 @@ async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 			}
 		} else if (index === 0 || filters[index - 1].value !== '') {
 			filter.options = [];
+			if (filter.includeAll) {
+				filter.options.push({
+					label: 'Overall',
+					value: 'overall'
+				})
+			}
 			rawData = rawData.filter(record => {
 				if (!filterOptionMap.has(record[filterProperty])) {
 					if (filter.defaultValue && filter.options.length === 0) {
@@ -491,7 +497,7 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 		let filterOptionMap = new Map();
 		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
 
-		if (filter.value !== '') {
+		if (filter.value !== '' && filter.value !== 'overall') {
 			rawData = rawData.filter(record => {
 				return record[filterProperty] === filter.value;
 			});
@@ -501,6 +507,12 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 			}
 		} else if (index === 0 || filters[index - 1].value !== '') {
 			filter.options = [];
+			if (filter.includeAll) {
+				filter.options.push({
+					label: 'Overall',
+					value: 'overall'
+				})
+			}
 			rawData = rawData.filter(record => {
 				if (!filterOptionMap.has(record[filterProperty])) {
 					if (filter.defaultValue && filter.options.length === 0) {

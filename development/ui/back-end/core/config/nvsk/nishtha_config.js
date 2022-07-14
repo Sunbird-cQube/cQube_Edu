@@ -63,7 +63,8 @@ const dataSourceInfo = {
                     name: 'State',
                     column: 'State',
                     optionValueColumn: "State Code",
-                    level: 'User District_Correct'
+                    level: 'User District_Correct',
+                    includeAll: true
                 }
             ]
         }
