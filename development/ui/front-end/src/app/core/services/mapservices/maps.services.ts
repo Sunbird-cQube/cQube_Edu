@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as config from '../../../../assets/data/config.json';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var L: any;
 export var globalMap: any;
@@ -19,7 +20,7 @@ export class MapService {
     longitude: any;
     zoomLevel: any;
 
-    constructor() {
+    constructor(private readonly _spinner:NgxSpinnerService) {
         if (environment.config == 'VSK') {
             this.NVSK = false
             this.mapCenterLatlng = config.default['GJ'];
@@ -42,6 +43,7 @@ export class MapService {
     public map: any
     //Initialisation of Map  
     async initMap(map: any, maxBounds: any, markers: any, state: Number) {
+        this._spinner.show()
         if (environment.config == 'VSK') {
             this.NVSK = false;
             this.mapCenterLatlng = config.default[`${environment.stateCode}`]
@@ -49,6 +51,7 @@ export class MapService {
         else {
             switch (state) {
                 case 0:
+                    console.log('here')
                     this.mapCenterLatlng = config.default['IN'];
                     break;
                 case 5:
@@ -274,6 +277,7 @@ export class MapService {
         legend.addTo(globalMap);
         applyCountryBorder(globalMap, this.NVSK);
         this.map = globalMap
+        this._spinner.hide()
     }
 
     restrictZoom(globalMap: any) {
