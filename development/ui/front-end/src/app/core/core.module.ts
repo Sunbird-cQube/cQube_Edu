@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const IMPORTS: any[] = [
   FontAwesomeModule
@@ -26,6 +27,7 @@ const DECLARATIONS = [
     CommonModule,
     RouterModule,
     TranslocoCoreModule,
+    NgxSpinnerModule,
     IMPORTS
   ],
   exports: [

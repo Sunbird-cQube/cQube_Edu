@@ -12,6 +12,7 @@ import { NishthaProgramDetailComponent } from './pages/nishtha-program-detail/ni
 import { NisithaBarComponent } from './pages/nisitha-bar/nisitha-bar.component';
 import { NishithaTableComponent } from './pages/nishitha-table/nishitha-table.component';
 import { NisithaStackedBarComponent } from './pages/nisitha-stacked-bar/nisitha-stacked-bar.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NisithaStackedBarComponent } from './pages/nisitha-stacked-bar/nisitha-
     NishthaRoutingModule,
     SharedModule,
     MatTabsModule,
-    CqubeLibraryModule
+    CqubeLibraryModule,
+    NgxSpinnerModule
   ]
 })
 export class NishthaModule { }
