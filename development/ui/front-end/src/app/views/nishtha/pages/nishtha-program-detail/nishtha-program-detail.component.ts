@@ -3,6 +3,7 @@ import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { environment } from 'src/environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-nishtha-program-detail',
@@ -14,8 +15,9 @@ export class NishthaProgramDetailComponent implements OnInit {
   filters: any;
   isMapReportLoading = true;
 
-  constructor(private readonly _commonService: CommonService) {
+  constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService) {
     this.getNishithaData(this.filters);
+    this._spinner.show();
   }
 
   ngOnInit(): void {
@@ -32,6 +34,7 @@ export class NishthaProgramDetailComponent implements OnInit {
     };
 
     this._commonService.getReportData(data).subscribe(nishthaStateDataRes => {
+      this._spinner.hide()
       this.isMapReportLoading = false;
       this.nishithaStateData = nishthaStateDataRes.result.data;
       this.filters = nishthaStateDataRes.result.filters;
