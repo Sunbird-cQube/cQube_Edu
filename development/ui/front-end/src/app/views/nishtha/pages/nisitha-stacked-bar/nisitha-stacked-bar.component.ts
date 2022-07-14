@@ -81,7 +81,7 @@ export class NisithaStackedBarComponent implements OnInit {
         series: [
           {
             type: 'bar',
-            color: "#bbdefb",
+            color: "#7cb5ec",
             name: '% Total Target-Enrollment',
             data: result.map((record: any) => {
               return Number(Number(100 - record['% Target Achieved- Enrolment']).toFixed(2));
@@ -89,7 +89,7 @@ export class NisithaStackedBarComponent implements OnInit {
           },
           {
           type: 'bar',
-          color: "#34e5eb",
+          color: "#434348",
           name: '% Target Achieved-Enrollment',
           data: result.map((record: any) => {
             return record['% Target Achieved- Enrolment'];
@@ -152,7 +152,7 @@ export class NisithaStackedBarComponent implements OnInit {
         series: [
           {
             type: 'bar',
-            color: "#bbdefb",
+            color: "#7cb5ec",
             name: '% Total Target-Certificates',
             data: result.map((record: any) => {
               return Number(Number(100 - record['% Target Achieved- Certificates']).toFixed(2));
@@ -160,7 +160,7 @@ export class NisithaStackedBarComponent implements OnInit {
           },
           {
           type: 'bar',
-          color: "#34e5eb",
+          color: "#434348",
           name: '% Target Achieved-Certificates',
           data: result.map((record: any) => {
             return record['% Target Achieved- Certificates'];
