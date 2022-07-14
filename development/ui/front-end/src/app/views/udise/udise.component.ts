@@ -11,7 +11,8 @@ export class UdiseComponent implements OnInit {
   udiseStateData: any;
 
   constructor(private readonly _configService: NishthaService) { 
-    this._configService.getNishthaVanityMetrics().subscribe(dashboardMenuResult => {
+    let data:any = "UDISE";
+    this._configService.getNishthaVanityMetrics(data).subscribe(dashboardMenuResult => {
       this.udiseMetricsData = dashboardMenuResult.result[4]?.metrics;
     });
     // this.getUdiseMetricsData();

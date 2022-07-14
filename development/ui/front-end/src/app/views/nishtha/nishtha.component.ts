@@ -19,8 +19,9 @@ export class NishthaComponent implements OnInit {
   version: String = '';
   
   constructor(private readonly _configService: NishthaService) {
-    this._configService.getNishthaVanityMetrics().subscribe(dashboardMenuResult => {
-      this.NisithaMetrics = dashboardMenuResult?.result[0]?.metrics;
+    let data:any = "Nishtha";
+    this._configService.getNishthaVanityMetrics(data).subscribe(dashboardMenuResult => {
+      this.NisithaMetrics = dashboardMenuResult.result[0]?.metrics;
     });
   }
 

@@ -18,8 +18,8 @@ export class NishthaService {
     return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/config/getConfig/${environment.config.toLowerCase()}/nishthaMenu`);
   }
 
-  getNishthaVanityMetrics(): Observable<ResponseType<IDashboardMenu[]>> {
-    return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/config/getVanityMetrics/${environment.config.toLowerCase()}/vanity`);
+  getNishthaVanityMetrics(data:any): Observable<ResponseType<any>> {
+    return this._http.post<ResponseType<any>>(`${environment.apiURL}/config/getVanityMetrics/${data}/${environment.config.toLowerCase()}/vanity`,data);
   }
 
   getStateWiseEnrollmentData(version: string): Observable<ResponseType<IStateWiseEnrollmentRec[]>> {

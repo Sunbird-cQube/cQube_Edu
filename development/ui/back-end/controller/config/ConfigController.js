@@ -81,39 +81,56 @@ exports.getMetrics = async (req, res, next) => {
 
 exports.getVanityMetrics = async (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
-		let { appName, configName } = req.params;
-
+		let { appName, configName, program } = req.params;
+		  
+        
 		try {
 			if (!appName || !configName) {
 				throw "Some of the parameters are missing, make sure all the required parameters are present";
 			}
 
 			let vanityMetrics = require(path.join(__basedir, `core/config/${appName}/${configName}_dashboard_config.js`));
-
 			for (let i = 0; i < vanityMetrics.length; i++) {
-				let metric = vanityMetrics[i];
-
+				let metric
+				if(vanityMetrics[i].title == program){
+					metric = vanityMetrics[i];
+					 
 				if (metric.metrics.length > 0) {
 					for (let j = 0; j < metric.metrics.length; j++) {
+						
 						let subMetric = metric.metrics[j];
-						const fileContent = await getFileData(subMetric.pathToFile);
-						if (subMetric.aggegration === 'SUM') {
-							let sum = 0;
-							fileContent.forEach(record => {
-								let value = record[subMetric.columnName] && typeof record[subMetric.columnName] === 'string' ? +record[subMetric.columnName].replace(/\,/g, "") : record[subMetric.columnName];
-								sum += value;
-							});
-							subMetric.value = sum;
-							if(subMetric.value > 1000000){
-								 subMetric.value  =  (subMetric.value/1000000).toFixed(1) + 'M';
-							} else if(subMetric.value > 10000000){
-								subMetric.value  =  (subMetric.value/10000000).toFixed(1) + 'Cr';
+						
+						if(metric.title === program){
+							const fileContent = await getFileData(subMetric.pathToFile);
+							if (subMetric.aggegration === 'SUM') {
+								let sum = 0;
+								fileContent.forEach(record => {
+									let value = record[subMetric.columnName] && typeof record[subMetric.columnName] === 'string' ? +record[subMetric.columnName].replace(/\,/g, "") : record[subMetric.columnName];
+									sum += value;
+								});
+								subMetric.value = sum;
+								if(subMetric.value >= 10000000){
+									subMetric.value = (subMetric.value/10000000).toFixed(2) + ' Cr';
+								}
+								else if(subMetric.value >= 100000) {
+									subMetric.value = (subMetric.value/100000).toFixed(2) + ' L';
+								}
+								else if(subMetric.value >= 1000){
+									 subMetric.value = (subMetric.value/1000).toFixed(2) + ' K';
+								}
+							} else if(subMetric.aggegration === ''){
+								subMetric.value = fileContent.length;
 							}
-						} else if(subMetric.aggegration === ''){
-							subMetric.value = fileContent.length;
 						}
+						
+					
 					}
 				}
+				}
+				
+				// let metric = vanityMetrics[i];
+				
+				
 			}
 
 			res.status(200).send({
