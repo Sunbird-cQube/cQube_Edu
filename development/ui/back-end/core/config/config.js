@@ -2,7 +2,8 @@ const reportTypes = {
     map: "map",
     multiBarChart: "multiBarChart",
     loTable: "loTable",
-    scatterPlot: "scatterPlot"
+    scatterPlot: "scatterPlot",
+    stackedBarChart: "stackedBarChart"
 }
 
 const appNames = {

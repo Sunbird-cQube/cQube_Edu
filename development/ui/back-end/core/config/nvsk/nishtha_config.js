@@ -63,7 +63,54 @@ const dataSourceInfo = {
                     name: 'State',
                     column: 'State',
                     optionValueColumn: "State Code",
-                    level: 'User District_Correct'
+                    level: 'User District_Correct',
+                    includeAll: true
+                }
+            ]
+        }
+    },
+    enrollmentAgainstTargets: {
+        stackedBarChart: {
+            pathToFile: 'nishtha/Enrollment And Completion of Expected.json',
+            defaultLevel: "State",
+            columns: [
+                {
+                    name: "Location",
+                    property: "State"
+                },
+                {
+                    name: "% Target Achieved- Enrolment",
+                    property: "% Target Achieved- Enrolment"
+                }
+            ],
+            filters: [
+                {
+                    name: 'Program',
+                    column: 'Program',
+                    defaultValue: true
+                }
+            ]
+        }
+    },
+    certificationAgainstTargets: {
+        stackedBarChart: {
+            pathToFile: 'nishtha/Enrollment And Completion of Expected.json',
+            defaultLevel: "State",
+            columns: [
+                {
+                    name: "Location",
+                    property: "State"
+                },
+                {
+                    name: "% Target Achieved- Certificates",
+                    property: "% Target Achieved- Certificates"
+                }
+            ],
+            filters: [
+                {
+                    name: 'Program',
+                    column: 'Program',
+                    defaultValue: true
                 }
             ]
         }

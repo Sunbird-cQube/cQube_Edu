@@ -38,7 +38,7 @@ export class StackedBarComponent implements OnInit, OnChanges {
     let defaultOptions: Highcharts.Options = {
       chart: {
         type: 'bar',
-        marginTop: 75
+        marginTop: 50
       },
       title: {
         text: ""
@@ -60,7 +60,6 @@ export class StackedBarComponent implements OnInit, OnChanges {
           text: null
         },
         gridLineColor: 'transparent'
-
       },
       plotOptions: {
         bar: {
