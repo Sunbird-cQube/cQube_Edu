@@ -43,7 +43,7 @@ export class NasComponent implements OnInit {
       dataSourceName: 'nas',
       reportName: 'studentPerformance',
       reportType: 'map',
-      stateCode: environment.stateCode?.toLocaleLowerCase(),
+      stateCode: environment.stateCode,
       filters
     };
 

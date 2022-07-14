@@ -5,7 +5,7 @@
         "lng": 78.9629,
         "zoomLevel": 4.8
     },
-    "BH": {
+    "BR": {
         "name": "Bihar",
         "lat": 27.0775,
         "lng": 84.346,
@@ -32,5 +32,218 @@
         "lng": 71.1924,
         "zoomLevel": 7.5,
         "stateCode": "24"
+    },
+    "AN": {
+        "name": "Andaman & Nicobar Islands",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "AR": {
+        "name": "Arunachal Pradesh",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "AS": {
+        "name": "Assam",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "CH": {
+        "name": "Chandigarh",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "CT": {
+        "name": "Chhattisgarh",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "DN": {
+        "name": "Dadra and Nagar Haveli",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "DD": {
+        "name": "Daman and Diu",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "DL": {
+        "name": "Delhi",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "GA": {
+        "name": "Goa",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "HP": {
+        "name": "Himachal Pradesh",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "JK": {
+        "name": "Jammu and Kashmir",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "JH": {
+        "name": "Jharkhand",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "KA": {
+        "name": "Karnataka",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "KL": {
+        "name": "Kerala",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "LD": {
+        "name": "Lakshadweep",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "MP": {
+        "name": "Madhya Pradesh",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "MH": {
+        "name": "Maharashtra",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "MN": {
+        "name": "Manipur",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "MZ": {
+        "name": "Mizoram",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "NL": {
+        "name": "Nagaland",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "OR": {
+        "name": "Odisha",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "PY": {
+        "name": "Puducherry",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "PB": {
+        "name": "Punjab",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "RJ": {
+        "name": "Rajasthan",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "SK": {
+        "name": "Sikkim",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "TN": {
+        "name": "Tamil Nadu",
+        "lat": 27.0775,
+        "lng": 84.346,
+        "zoomLevel": 7.5,
+        "stateCode": 5
+    },
+    "TG": {
+        "name": "Telangana",
+        "lat": 20.5937,
+        "lng": 78.9629,
+        "zoomLevel": 4.8
+    },
+    "TR": {
+        "name": "Tripura",
+        "lat": 20.5937,
+        "lng": 78.9629,
+        "zoomLevel": 4.8
+    },
+    "UP": {
+        "name": "Uttar Pradesh",
+        "lat": 20.5937,
+        "lng": 78.9629,
+        "zoomLevel": 4.8
+    },
+    "UT": {
+        "name": "Uttarakhand",
+        "lat": 20.5937,
+        "lng": 78.9629,
+        "zoomLevel": 4.8
+    },
+
+    "WB": {
+        "name": "West Bengal",
+        "lat": 20.5937,
+        "lng": 78.9629,
+        "zoomLevel": 4.8
     }
 }

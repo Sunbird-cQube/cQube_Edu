@@ -44,6 +44,7 @@ export class MapService {
     async initMap(map: any, maxBounds: any, markers: any, state: Number) {
         if (environment.config == 'VSK') {
             this.NVSK = false;
+            this.mapCenterLatlng = config.default[`${environment.stateCode}`]
         }
         else {
             switch (state) {
@@ -51,7 +52,7 @@ export class MapService {
                     this.mapCenterLatlng = config.default['IN'];
                     break;
                 case 5:
-                    this.mapCenterLatlng = config.default['BH'];
+                    this.mapCenterLatlng = config.default['BR'];
                     break;
                 case 13: 
                     this.mapCenterLatlng = config.default['HR'];
@@ -219,7 +220,7 @@ export class MapService {
         else {
             const response = await fetch(`${environment.apiURL}/assets/geo-locations/${environment.stateCode}.json`);
             const body = await response.json();
-            var data = body['IN'];
+            var data = body;
         }
 
         function applyCountryBorder(map: any, NVSK: any) {
