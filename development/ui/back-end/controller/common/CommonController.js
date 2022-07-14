@@ -367,6 +367,7 @@ async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 				groupByColumn = filter.level;
 			}
 		} else if (index === 0 || filters[index - 1].value !== '') {
+			filter.options = [];
 			rawData = rawData.filter(record => {
 				if (!filterOptionMap.has(record[filterProperty])) {
 					if (filter.defaultValue && filter.options.length === 0) {
@@ -466,7 +467,6 @@ var nest = function (seq, keys) {
         return seq;
     var first = keys[0];
     var rest = keys.slice(1);
-	console.log(keys);
     return _.mapValues(_.groupBy(seq, first), function (value) { 
         return nest(value, rest)
     });
