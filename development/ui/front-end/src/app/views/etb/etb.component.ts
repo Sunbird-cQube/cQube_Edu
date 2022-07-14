@@ -47,7 +47,7 @@ export class EtbComponent implements OnInit {
           }
         },
         xAxis: {
-          categories: res.result.map((record: IStateWiseEnrollmentRec) => {
+          categories: res.result.map((record: any) => {
             return record['State'];
           })
         },
@@ -57,11 +57,11 @@ export class EtbComponent implements OnInit {
         series: [{
           type: 'bar',
           name: 'Total Enrollments',
-          data: res.result.map((record: IStateWiseEnrollmentRec) => record['Total Enrollments'])
+          data: res.result.map((record: any) => record['Total Enrollments'])
         }, {
           type: 'bar',
           name: 'Total Certifications',
-          data: res.result.map((record: IStateWiseEnrollmentRec) => record['Total Certifications'])
+          data: res.result.map((record: any) => record['Total Certifications'])
         }]
       };
 

@@ -34,52 +34,37 @@ const dataSourceInfo = {
                 }
             ]
         },
-        loTable: {
-            pathToFile: 'nas/nas_data.json',
+        multiBarChart: {
+            pathToFile: 'nishtha/Enrollments And Completion.json',
+            defaultLevel: "State",
             columns: [
                 {
-                    name: "Indicator Code",
-                    property: "Indicator Code"
+                    name: "Location",
+                    key: true
                 },
                 {
-                    name: "Grade",
-                    property: "Grade"
+                    name: "Total Enrollments",
+                    property: "Total Enrollments",
+                    aggegration: "SUM"
                 },
                 {
-                    name: "Subject",
-                    property: "Subject"
-                },
-                {
-                    name: "State",
-                    property: "State",
-                    transposeColumn: true,
-                    weightedAverage: {
-                        column: "Performace",
-                        against: "Students Surveyed"
-                    }
+                    name: "Total Certifications",
+                    property: "Total Certifications",
+                    aggegration: "SUM"
                 }
             ],
             filters: [
                 {
-                    name: 'Grade',
-                    column: 'Grade'
-                },
-                {
-                    name: 'Subject',
-                    column: 'Subject'
+                    name: 'Program',
+                    column: 'Program',
+                    defaultValue: true
                 },
                 {
                     name: 'State',
                     column: 'State',
                     optionValueColumn: "State Code",
-                    isSSPFilter: false
-                },
-                {
-                    name: 'District',
-                    column: 'District',
-                    optionValueColumn: "District Code",
-                    isSSPFilter: true
-                },
+                    level: 'User District_Correct'
+                }
             ]
         }
     }

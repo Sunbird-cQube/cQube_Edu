@@ -33,6 +33,8 @@ exports.getReportData = (req, res, next) => {
 				reportData = await getLOTableReportData(reqBody, reportConfig, rawData);
 			} else if (reqBody.reportType === reportTypes.scatterPlot) {
 				reportData = await getScatterPlotReportData(reqBody, reportConfig, rawData);
+			} else if (reqBody.reportType === reportTypes.multiBarChart) {
+				reportData = await getMultiBarChartData(reqBody, reportConfig, rawData);
 			} else {
 				throw `Invalid report type: ${reqBody.reportType}`;
 			}
@@ -329,6 +331,136 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 	};
 }
 
+async function getMultiBarChartData(reqBody, reportConfig, rawData) {
+	console.log("process started");
+	let { columns, filters, mainFilter } = reportConfig;
+	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
+	let isAggegrationNeeded = columns.filter(col => col.aggegration).length > 0;
+	let groupByColumn = reportConfig.defaultLevel;
+
+	if (mainFilter) {
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == stateCodes[reqBody.stateCode]));
+	}
+
+	if (reqBody.filters && reqBody.filters.length > 0) {
+		filters = reqBody.filters;
+	} else {
+		filters = filters.map(filter => {
+			return {
+				...filter,
+				value: "",
+				options: []
+			}
+		})
+	}
+
+	filters = filters.map((filter, index) => {
+		let filterOptionMap = new Map();
+		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+
+		if (filter.value !== '') {
+			rawData = rawData.filter(record => {
+				return record[filterProperty] === filter.value;
+			});
+
+			if (filter.level) {
+				groupByColumn = filter.level;
+			}
+		} else if (index === 0 || filters[index - 1].value !== '') {
+			rawData = rawData.filter(record => {
+				if (!filterOptionMap.has(record[filterProperty])) {
+					if (filter.defaultValue && filter.options.length === 0) {
+						filter.value = record[filterProperty];
+					}
+
+					filter.options.push({
+						label: record[filter.column],
+						value: record[filterProperty]
+					});
+
+					filterOptionMap.set(record[filterProperty], true);
+				}
+
+				if (filter.defaultValue) {
+					return record[filterProperty] === filter.value;
+				}
+
+				return true;
+			});
+		}
+
+		return filter;
+	});
+
+	if (isWeightedAverageNeeded || isAggegrationNeeded) {
+		rawData = _.chain(rawData)
+		.groupBy(groupByColumn)
+		.map((objs, key) => {
+			let data = {};
+			columns.forEach(col => {
+				if (col.isLocationName) {
+					data.Location = key;
+					return;
+				}
+
+				if (col.key) {
+					data[col.name] = key;
+					return;
+				}
+
+				if (col.weightedAverage) {
+					let numeratorSum = 0;
+					let denominatorSum = 0;
+					
+					objs.forEach((obj, index) => {
+						numeratorSum += obj[col.property] * obj[col.weightedAverage.against];
+						denominatorSum += obj[col.weightedAverage.against];
+					});
+
+					data[col.name] = Number((numeratorSum / denominatorSum).toFixed(2));
+					return;
+				}
+
+				if (col.aggegration) {
+					if (col.aggegration === 'SUM') {
+						data[col.name] = _.sumBy(objs, col.property);
+						return;
+					}
+				}
+
+				data[col.name] = objs[0][col.property];
+			});
+
+			return data;
+		})
+		.value();
+	} else {
+		rawData = rawData.map(record => {
+			let data = {};
+			columns.forEach(col => {
+				if (col.isLocationName) {
+					data.Location = record[col.property];
+					return;
+				}
+
+				if (col.tooltipDesc) {
+					data[col.name] = col.tooltipDesc + ' ' + record[col.property];
+					return;
+				}
+
+				data[col.name] = record[col.property];
+			});
+
+			return data;
+		});
+	}
+
+	return {
+		data: rawData,
+		filters: filters
+	};
+}
+
 var nest = function (seq, keys) {
     if (!keys.length)
         return seq;
@@ -366,7 +498,8 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 		const workbook = XLSX.read(fileContent);
 		const worksheet = workbook.Sheets[workbook.SheetNames[0]];
 		
-		reportRawData = XLSX.utils.sheet_to_json(worksheet);
+		reportRawData = XLSX.utils.sheet_to_json(worksheet)
+									.map(row => _.mapKeys(row, (value, key) => key.trim()));
 	} else {
 		reportRawData = await csvToJson({
 			trim: true
