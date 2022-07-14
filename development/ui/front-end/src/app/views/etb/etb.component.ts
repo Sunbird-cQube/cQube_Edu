@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { IStateWiseEnrollmentRec } from 'src/app/core/models/IStateWiseEnrollmentRec';
+import { CommonService } from 'src/app/core/services/common/common.service';
 
 import { ETBService } from 'src/app/core/services/etb/etb.service';
 import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
@@ -11,6 +13,10 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./etb.component.scss']
 })
 export class EtbComponent implements OnInit {
+  selectedState:Number = 0;
+  ETBStateData: any;
+  filters: any;
+  isMapReportLoading = true;
 
   config: string = environment.config
   NVSK: boolean = true;
@@ -21,7 +27,7 @@ export class EtbComponent implements OnInit {
   stateWiseEnrollmentData!: IStateWiseEnrollmentRec[];
   options: Highcharts.Options | undefined;
 
-  constructor(private readonly _ETBService: ETBService,private readonly _nishthaService: NishthaService) {
+  constructor(private readonly _ETBService: ETBService,private readonly _nishthaService: NishthaService, private readonly _commonService: CommonService) {
     let params: any = {
       "version": "1.0"
     }
@@ -67,6 +73,7 @@ export class EtbComponent implements OnInit {
 
       this.stateWiseEnrollmentData = res.result;
     });
+    this.getNasData(this.filters);
   }
 
   ngOnInit(): void {
@@ -91,6 +98,28 @@ export class EtbComponent implements OnInit {
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
     }, 100);
+  }
+
+  getNasData(filters: any): void {
+    let data: IReportDataPayload = {
+      appName: environment.config.toLowerCase(),
+      dataSourceName: 'nas',
+      reportName: 'studentPerformance',
+      reportType: 'map',
+      stateCode: environment.stateCode,
+      filters
+    };
+
+    this._commonService.getReportData(data).subscribe(res => {
+      this.isMapReportLoading = false;
+      this.ETBStateData = res.result.data;
+      this.filters = res.result.filters;
+      if(res.result.level == 'District' && Number(this.filters[3].value) > 0){
+        this.selectedState = Number(this.filters[3].value);
+      }
+    }, error => {
+      this.isMapReportLoading = false;
+    });
   }
 
 }
