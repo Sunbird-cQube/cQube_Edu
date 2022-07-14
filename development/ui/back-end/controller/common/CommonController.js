@@ -5,6 +5,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const csvToJson = require('csvtojson');
 const { getFileData, getAllFiles, getFileRawData, uploadFile } = require('../../service/storage_service');
+const { stateCodes } = require('../../core/config/state-codes');
 
 exports.getReportData = (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
@@ -17,7 +18,7 @@ exports.getReportData = (req, res, next) => {
 			}
 
 			if (reqBody.appName === appNames.vsk) {
-				reqBody.stateCode = reqBody.stateCode.toLowerCase();
+				reqBody.stateCode = reqBody.stateCode;
 			}
 			
 			let dataSourceConfig = require(path.join(__basedir, `core/config/${reqBody.appName}/${reqBody.dataSourceName}_config.js`));
@@ -86,9 +87,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 	let groupByColumn = reportConfig.defaultLevel;
 
 	if (mainFilter) {
-		console.log(rawData.length);
-		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter].toLowerCase() == reqBody.stateCode));
-		console.log(rawData.length);
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == stateCodes[reqBody.stateCode]));
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -141,12 +140,10 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		return filter;
 	});
 
-	console.log(groupByColumn);
 	if (isWeightedAverageNeeded) {
 		rawData = _.chain(rawData)
 		.groupBy(groupByColumn)
 		.map((objs, key) => {
-			console.log(key);
 			let data = {};
 			columns.forEach(col => {
 				if (col.isLocationName) {

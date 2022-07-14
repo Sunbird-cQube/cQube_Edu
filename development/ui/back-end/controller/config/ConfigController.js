@@ -94,8 +94,7 @@ exports.getVanityMetrics = async (req, res, next) => {
 				if (metric.metrics.length > 0) {
 					for (let j = 0; j < metric.metrics.length; j++) {
 						let subMetric = metric.metrics[j];
-						const response = await AwsConfig.s3.getObject({ Bucket: AwsConfig.params.OutputBucket, Key: subMetric.pathToFile }).promise();
-						const fileContent = JSON.parse(response.Body.toString('utf-8'));
+						const fileContent = await getFileData(subMetric.pathToFile);
 						if (subMetric.aggegration === 'SUM') {
 							let sum = 0;
 							fileContent.forEach(record => {

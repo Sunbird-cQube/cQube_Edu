@@ -23,7 +23,7 @@
     }
 
     .ng-has-value .ng-arrow {
-        border-color: white transparent transparent !important;
+        //border-color: white transparent transparent !important;
     }
 
     .ng-option-disabled {
@@ -36,8 +36,8 @@
     }
 
     .ng-has-value {
-        background-color: #004e9d !important;
-        color: white !important;
+        //background-color: #004e9d !important;
+        //color: white !important;
     }
 
     .ng-select-container {
@@ -46,7 +46,9 @@
     }
 
     .ng-placeholder {
-        color: #004e9d;
+        //color: #004e9d;
+        color: #999;
+        font-size: 0.8rem;
     }
 }
 

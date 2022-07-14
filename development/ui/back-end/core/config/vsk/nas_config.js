@@ -3,7 +3,7 @@ const dataSourceInfo = {
         map: {
             pathToFile: 'nas/nas_data.json',
             defaultLevel: "District",
-            mainFilter: "State",
+            mainFilter: "State Code",
             columns: [
                 {
                     name: "District",
@@ -25,7 +25,10 @@ const dataSourceInfo = {
                 {
                     name: "Performance",
                     property: "Performance",
-                    weightedAverageAgainst: "Students Surveyed"
+                    weightedAverage: {
+                        column: "Performance",
+                        against: "Students Surveyed"
+                    }
                 }
             ],
             filters: [

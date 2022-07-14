@@ -1,5 +1,5 @@
 <div class="wrapper" *ngIf="filters && filters.length > 0">
-    <div class="grid grid-cols-2 md:grid-cols-6 filter-panel-wrapper">
+    <div class="grid xs:grid-cols-2 xmd:grid-cols-4 lg:grid-cols-6 filter-panel-wrapper">
         <ng-container *ngFor="let filter of filters; let i = index">
             <div class="col-span-1 filter-wrapper">
                 <ng-select class="mx-2" placeholder="Select {{filter.name}}" [(ngModel)]="filter.value" (change)="onSelectOption($event, i)">

@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as config from '../../../../assets/data/config.json';
-import * as mapData from '../../../../assets/data/IN.json';
-import * as GJData from '../../../../assets/data/Gujarat.json'
-// import * as UPData from '../../../../assets/data/IN.json';
-import * as  BHData from '../../../../assets/data/BH.json';
-import * as HRData from '../../../../assets/data/HR.json';
-import * as MLData from '../../../../assets/data/ML.json';
 
 declare var L: any;
 export var globalMap: any;
@@ -92,7 +86,7 @@ export class MapService {
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
             {
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-                maxZoom: this.zoomLevel + 10,
+                maxZoom: this.zoomLevel + 10
             }
         ).addTo(globalMap);
 
@@ -100,7 +94,7 @@ export class MapService {
             if (reportTypeETB) {
                 console.log(e);
                 if (e == "Yes") {
-                    return "#a7ffa4"
+                    return "#36a732"
                 } else {
                     return "grey"
                 }
@@ -208,7 +202,7 @@ export class MapService {
             }
 
             return {
-                fillColor: getZoneColor(check),
+                fillColor: '#fff',
                 weight: 1,
                 opacity: 1,
                 color: 'grey',
@@ -223,21 +217,11 @@ export class MapService {
             var data = body['IN'];
         }
         else {
-            switch (state) {
-                case 5:
-                    var data = BHData.default;
-                    break;
-                case 13:
-                    var data = HRData.default;
-                    break;
-                case 24:
-                    var data = MLData.default;
-                    break;
-                case 12:
-                    var data = GJData.default;
-                    break;
-            }
+            const response = await fetch(`${environment.apiURL}/assets/geo-locations/${environment.stateCode}.json`);
+            const body = await response.json();
+            var data = body['IN'];
         }
+
         function applyCountryBorder(map: any, NVSK: any) {
             L.geoJSON(data['features'], {
                 style: style_states1,
@@ -246,7 +230,7 @@ export class MapService {
                 fillOpacity: 0,
                 fontWeight: "bold",
                 onEachFeature: function (feature: any, layer: any) {
-                    layer.bindTooltip('<h3>' + feature?.properties?.popUpContent + '</h3>', { closeButton: false, offset: L.point(0, -20) });
+                    //layer.bindTooltip('<h3>' + feature?.properties?.popUpContent + '</h3>', { closeButton: false, offset: L.point(0, -20) });
                 }
             }).addTo(map);
         }
@@ -301,12 +285,11 @@ export class MapService {
     //Initialise markers.....
     markersIcons: any = [];
     public initMarkers1(lat: any, lng: any, color: any, strokeWeight: any, weight: any) {
-
         if (lat !== undefined && lng !== undefined) {
             var markerIcon: any;
             markerIcon = L.circleMarker([lat, lng], {
                 color: "gray",
-                fillColor: "green",
+                fillColor: color,
                 fillOpacity: 1,
                 strokeWeight: strokeWeight,
                 weight: weight
@@ -326,7 +309,7 @@ export class MapService {
 
     setMarkerRadius() {
         this.markersIcons.map((markerIcon: any) => {
-            markerIcon.setRadius(this.getMarkerRadius(18, 14, 10, 6));
+            markerIcon.setRadius(this.getMarkerRadius(18, 14, 10, 4));
         })
     }
 

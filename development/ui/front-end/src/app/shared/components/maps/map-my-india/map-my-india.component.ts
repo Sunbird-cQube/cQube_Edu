@@ -31,18 +31,20 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
   }
   
   ngAfterViewInit(): void {
-    this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]], this.data, this.state);
-    this.globalService.latitude = this.lat = this.globalService.mapCenterLatlng.lat;
-    this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
-    // this.getData();
+    this.renderMap();
   }
 
   ngOnChanges(): void {
     if (this.container) {
-      this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]], this.data, this.state);
-      this.globalService.latitude = this.lat = this.globalService.mapCenterLatlng.lat;
-      this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
+      this.renderMap();
     }
+  }
+
+  async renderMap(): Promise<any> {
+    await this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]], this.data, this.state);
+    this.globalService.latitude = this.lat = this.globalService.mapCenterLatlng.lat;
+    this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
+    this.getData();
   }
 
   getData() {
@@ -72,16 +74,54 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
   genericFun(data:any, options:any) {
     try {
       this.markers = data;
-    
+      let reportTypeETB = true;
+
+      if (this.markers[0].perfomance || this.markers[0].Performance) {
+        reportTypeETB = false;
+      }
+
+      function getZoneColor(e: any) {
+        if (reportTypeETB) {
+            if (e == "Yes") {
+                return "#36a732";
+            } else {
+                return "grey";
+            }
+        }
+        else {
+            return e > 90 ? "#002966" :
+                e > 80 ? "#003d99" :
+                    e > 70 ? "#0052cc" :
+                        e > 50 ? "#0066ff" :
+                            e > 40 ? "#1a75ff" :
+                                e > 30 ? "#4d94ff" :
+                                    e > 20 ? "#80b3ff" :
+                                        e > 10 ? "#b3d1ff" :
+                                            e > 0 ? "#cce0ff" :
+                                                "#e6f0ff";
+        }
+
+      }
+
       // attach values to markers
       for (var i = 0; i < this.markers.length; i++) {
-       var color ="green"
+
+       var color = '#36a732';
+
+       if (this.markers[i].status) {
+        let check = this.markers[i]?.status?.split(':')[1]?.trim();
+        color = getZoneColor(check);
+       } else {
+        let performance = this.markers[i].perfomance ? this.markers[i].perfomance : this.markers[i].Performance;
+        let check = typeof performance === 'string' ? Number(this.markers[i]?.perfomance?.split(':')[1]?.trim()) : performance;
+        color = getZoneColor(check);
+       }       
 
         var markerIcon = this.globalService.initMarkers1(
           this.markers[i].Latitude,
           this.markers[i].Longitude,
           color,
-         options.strokeWeight,
+          options.strokeWeight,
           1
         );
   
@@ -98,11 +138,11 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
     } catch (e) {
      
     }
-
   }
 
   popups(markerIcon:any, markers:any, ) {
     markerIcon.on("mouseover",  (e:any) => {
+      console.log('mouseover');
        this['openPopup']();
       
     });
@@ -153,6 +193,14 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
         yourData2
 
       );
+      markerIcon.on("mouseover",  (e:any) => {
+        e.target.openPopup();
+      });
+      
+      markerIcon.on("mouseout",  (e:any) => {
+        e.target.closePopup();
+      });
+
       markerIcon.addTo(globalMap).bindPopup(popup);
 
   }
