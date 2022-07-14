@@ -20,7 +20,7 @@ export class NishthaComponent implements OnInit {
   
   constructor(private readonly _configService: NishthaService) {
     this._configService.getNishthaVanityMetrics().subscribe(dashboardMenuResult => {
-      this.NisithaMetrics = dashboardMenuResult.result[0]?.metrics;
+      this.NisithaMetrics = dashboardMenuResult?.result[0]?.metrics;
     });
   }
 
