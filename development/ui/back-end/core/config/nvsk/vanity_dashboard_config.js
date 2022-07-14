@@ -64,6 +64,62 @@ const vanityMetrics = [
         ],
         "icon": "NAS.png",
         "tooltip": ""
+    },{
+        "title": "PGI",
+        "navigationURL": "/pgi",
+        "metrics": [
+            {
+                pathToFile: 'dashboard/PGI metrics.json',
+                name: "Total Districts Participated",
+                aggegration: '',
+                columnName: ''
+             },
+        ],
+        "icon": "PGI.png",
+        "tooltip": "PGI"
+    }, {
+        "title": "UDISE",
+        "navigationURL": "/udise",
+        "metrics": [
+            {
+                pathToFile: 'dashboard/UDISE metrics.json',
+                name: "Pupil Teacher ratio",
+                aggegration: 'SUM',
+                columnName: 'PTR'
+             },
+            {
+                pathToFile: 'dashboard/UDISE metrics.json',
+                name: "Schools with drinking water",
+                aggegration: 'SUM',
+                columnName: 'tot_schools_having_drinkingwater'
+            },
+            {
+                pathToFile: 'dashboard/UDISE metrics.json',
+                name: "Schools with Electricity connection",
+                aggegration: 'SUM',
+                columnName: 'tot_schools_having_electricity'
+            },
+            {
+                pathToFile: 'dashboard/UDISE metrics.json',
+                name: "Schools with Library",
+                aggegration: 'SUM',
+                columnName: 'tot_schools_having_library'
+            },
+            {
+                pathToFile: 'dashboard/UDISE metrics.json',
+                name: "CWSN Enrollment",
+                aggegration: 'SUM',
+                columnName: 'Total Enrollment CWSN'
+            },
+            {
+                pathToFile: 'dashboard/UDISE metrics.json',
+                name: "Schools with ramp",
+                aggegration: 'SUM',
+                columnName: 'tot_schools_having_ramp'
+            },
+        ],
+        "icon": "UDISE.png",
+        "tooltip": ""
     },
 ]
 

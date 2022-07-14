@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
 
 @Component({
   selector: 'app-udise',
@@ -9,8 +10,11 @@ export class UdiseComponent implements OnInit {
   udiseMetricsData: any;
   udiseStateData: any;
 
-  constructor() { 
-    this.getUdiseMetricsData();
+  constructor(private readonly _configService: NishthaService) { 
+    this._configService.getNishthaVanityMetrics().subscribe(dashboardMenuResult => {
+      this.udiseMetricsData = dashboardMenuResult.result[4]?.metrics;
+    });
+    // this.getUdiseMetricsData();
     this.getUdiseStateData();
   }
 

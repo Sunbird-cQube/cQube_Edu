@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ETBService } from 'src/app/core/services/etb/etb.service';
+import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
 
 @Component({
   selector: 'app-pgi',
@@ -10,13 +11,16 @@ export class PGIComponent implements OnInit {
 
   pgiMetricsData: any;
   pgiStateData: any;
-
+  pgiMetrics: any;
   tableData: any;
   columns: any[] = [];
   options: Highcharts.Options | undefined;
 
-  constructor(private readonly _ETBService: ETBService) {
-    this.getPGIMetricsData();
+  constructor(private readonly _ETBService: ETBService, private readonly _configService: NishthaService) {
+    this._configService.getNishthaVanityMetrics().subscribe(dashboardMenuResult => {
+      this.pgiMetricsData = dashboardMenuResult.result[3]?.metrics;
+    });
+    // this.getPGIMetricsData();
     this.getPGIStateData();
     this.getStateWisePGICoverageData();
   }
