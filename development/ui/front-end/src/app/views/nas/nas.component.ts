@@ -19,12 +19,12 @@ export class NasComponent implements OnInit {
   isMapReportLoading = true;
 
   constructor(private readonly _NASService: NasService, private readonly _commonService: CommonService, private readonly _configService: NishthaService) {
-
-    this._configService.getNishthaVanityMetrics().subscribe(dashboardMenuResult => {
+    let data:any = "NAS";
+    this._configService.getNishthaVanityMetrics(data).subscribe(dashboardMenuResult => {
       this.NASMetrics = dashboardMenuResult.result[2]?.metrics;
     });
 
-    this.getNASMetrics()
+    // this.getNASMetrics()
     this.getNasData(this.filters);
   }
 

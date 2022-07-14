@@ -53,14 +53,14 @@ const vanityMetrics = [
                 pathToFile: 'dashboard/Nas metrics.json',
                 name: "Total Students Surveyed",
                 aggegration: 'SUM',
-                columnName: 'Students Surveyed'
+                columnName: 'Students Surveyed',
              },
-            {
-                pathToFile: 'dashboard/Nas metrics.json',
-                name: "Total Schools Surveyed",
-                aggegration: 'SUM',
-                columnName: ''
-            }
+            // {
+            //     pathToFile: 'dashboard/Nas metrics.json',
+            //     name: "Total Schools Surveyed",
+            //     aggegration: 'SUM',
+            //     columnName: ''
+            // }
         ],
         "icon": "NAS.png",
         "tooltip": ""

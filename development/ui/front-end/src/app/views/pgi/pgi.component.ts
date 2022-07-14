@@ -17,7 +17,8 @@ export class PGIComponent implements OnInit {
   options: Highcharts.Options | undefined;
 
   constructor(private readonly _ETBService: ETBService, private readonly _configService: NishthaService) {
-    this._configService.getNishthaVanityMetrics().subscribe(dashboardMenuResult => {
+    let data:any = "PGI";
+    this._configService.getNishthaVanityMetrics(data).subscribe(dashboardMenuResult => {
       this.pgiMetricsData = dashboardMenuResult.result[3]?.metrics;
     });
     // this.getPGIMetricsData();

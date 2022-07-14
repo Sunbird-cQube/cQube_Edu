@@ -31,12 +31,12 @@ export class EtbComponent implements OnInit {
     let params: any = {
       "version": "1.0"
     }
-
-    this._nishthaService.getNishthaVanityMetrics().subscribe(dashboardMenuResult => {
+    let data:any = "ETB & E-content"
+    this._nishthaService.getNishthaVanityMetrics(data).subscribe(dashboardMenuResult => {
       this.ETBMetrics = dashboardMenuResult.result[1]?.metrics;
     });
 
-    this.getETBMetrics();
+    // this.getETBMetrics();
     this.getETBProgramStatsByLocation();
     this._nishthaService.getStateWiseEnrollmentData(params['version']).subscribe(res => {
       this.options = {
