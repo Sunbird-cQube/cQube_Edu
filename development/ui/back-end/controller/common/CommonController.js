@@ -106,43 +106,10 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		})
 	}
 
-	filters = filters.map((filter, index) => {
-		let filterOptionMap = new Map();
-		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
-
-		if (filter.value !== '') {
-			rawData = rawData.filter(record => {
-				return record[filterProperty] === filter.value;
-			});
-
-			if (filter.level) {
-				groupByColumn = filter.level;
-			}
-		} else if (index === 0 || filters[index - 1].value !== '') {
-			rawData = rawData.filter(record => {
-				if (!filterOptionMap.has(record[filterProperty])) {
-					if (filter.defaultValue && filter.options.length === 0) {
-						filter.value = record[filterProperty];
-					}
-
-					filter.options.push({
-						label: record[filter.column],
-						value: record[filterProperty]
-					});
-
-					filterOptionMap.set(record[filterProperty], true);
-				}
-
-				if (filter.defaultValue) {
-					return record[filterProperty] === filter.value;
-				}
-
-				return true;
-			});
-		}
-
-		return filter;
-	});
+	filterRes = applyFilters(filters, rawData, groupByColumn);
+	filters = filterRes.filters;
+	rawData = filterRes.rawData;
+	groupByColumn = filterRes.groupByColumn;
 
 	if (isWeightedAverageNeeded) {
 		rawData = _.chain(rawData)
@@ -204,10 +171,11 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 async function getLOTableReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
 	let { columns, filters, mainFilter } = reportConfig;
-	let groupByColumns;
+	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
+	let groupByColumn = reportConfig.defaultLevel;
 
-	if (mainFilter && mainFilter.length > 0) {
-		rawData = rawData.filter(record => record[mainFilter[0].property] && (record[mainFilter[0].property].toLowerCase() == reqBody.stateCode));
+	if (mainFilter) {
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == stateCodes[reqBody.stateCode]));
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -222,33 +190,59 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		})
 	}
 
-	filters = filters.map((filter, index) => {
-		let filterOptionMap = new Map();
-		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+	filterRes = applyFilters(filters, rawData, groupByColumn);
+	filters = filterRes.filters;
+	rawData = filterRes.rawData;
+	groupByColumn = filterRes.groupByColumn;
 
-		if (filter.value !== '') {
-			rawData = rawData.filter(record => {
-				return record[filterProperty] === filter.value;
-			});
-		} else if (index === 0 || filters[index - 1].value !== '') {
-			rawData.forEach(record => {
-				if (!filterOptionMap.has(record[filterProperty])) {
-					filter.options.push({
-						label: record[filter.column],
-						value: record[filterProperty]
+	if (isWeightedAverageNeeded) {
+		rawData = _.chain(rawData)
+		.groupBy(groupByColumn)
+		.map((objs, key) => {
+			let data = {};
+			columns.forEach(col => {
+				if (col.isLocationName) {
+					data.Location = key;
+					return;
+				}
+
+				if (col.weightedAverage) {
+					let numeratorSum = 0;
+					let denominatorSum = 0;
+					
+					objs.forEach((obj, index) => {
+						numeratorSum += obj[col.weightedAverage.property] * obj[col.weightedAverage.against];
+						denominatorSum += obj[col.weightedAverage.against];
 					});
 
-					filterOptionMap.set(record[filterProperty], true);
+					data[col.name] = Number((numeratorSum / denominatorSum).toFixed(2));
 				}
+
+				data[col.name] = objs[0][col.property];
 			});
-		}
 
-		return filter;
-	});
+			return data;
+		})
+		.value();
+	} else {
+		rawData = rawData.map(record => {
+			let data = {};
+			columns.forEach(col => {
+				if (col.isLocationName) {
+					data.Location = record[col.property];
+					return;
+				}
 
-	if (groupByColumns.length > 0) {
-		let columnNames = groupByColumns.map(col => col.property);
-		rawData = nest(rawData.slice(0, 100), columnNames)
+				if (col.tooltipDesc) {
+					data[col.name] = col.tooltipDesc + ' ' + record[col.property];
+					return;
+				}
+
+				data[col.name] = record[col.property];
+			});
+
+			return data;
+		});
 	}
 
 	return {
@@ -280,43 +274,10 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 		});
 	}
 
-	filters = filters.map((filter, index) => {
-		let filterOptionMap = new Map();
-		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
-
-		if (filter.value !== '') {
-			rawData = rawData.filter(record => {
-				return record[filterProperty] === filter.value;
-			});
-
-			if (filter.level) {
-				groupByColumn = filter.level;
-			}
-		} else if (index === 0 || filters[index - 1].value !== '') {
-			rawData = rawData.filter(record => {
-				if (!filterOptionMap.has(record[filterProperty])) {
-					if (filter.defaultValue && filter.options.length === 0) {
-						filter.value = record[filterProperty];
-					}
-
-					filter.options.push({
-						label: record[filter.column],
-						value: record[filterProperty]
-					});
-
-					filterOptionMap.set(record[filterProperty], true);
-				}
-
-				if (filter.defaultValue) {
-					return record[filterProperty] === filter.value;
-				}
-
-				return true;
-			});
-		}
-
-		return filter;
-	});
+	filterRes = applyFilters(filters, rawData, groupByColumn);
+	filters = filterRes.filters;
+	rawData = filterRes.rawData;
+	groupByColumn = filterRes.groupByColumn;
 
 	let currentGroupCol = 0;
 	rawData = _.chain(rawData)
@@ -356,50 +317,10 @@ async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 		})
 	}
 
-	filters = filters.map((filter, index) => {
-		let filterOptionMap = new Map();
-		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
-
-		if (filter.value !== '' && filter.value !== 'overall') {
-			rawData = rawData.filter(record => {
-				return record[filterProperty] === filter.value;
-			});
-
-			if (filter.level) {
-				groupByColumn = filter.level;
-			}
-		} else if (index === 0 || filters[index - 1].value !== '') {
-			filter.options = [];
-			if (filter.includeAll) {
-				filter.options.push({
-					label: 'Overall',
-					value: 'overall'
-				})
-			}
-			rawData = rawData.filter(record => {
-				if (!filterOptionMap.has(record[filterProperty])) {
-					if (filter.defaultValue && filter.options.length === 0) {
-						filter.value = record[filterProperty];
-					}
-
-					filter.options.push({
-						label: record[filter.column],
-						value: record[filterProperty]
-					});
-
-					filterOptionMap.set(record[filterProperty], true);
-				}
-
-				if (filter.defaultValue) {
-					return record[filterProperty] === filter.value;
-				}
-
-				return true;
-			});
-		}
-
-		return filter;
-	});
+	filterRes = applyFilters(filters, rawData, groupByColumn);
+	filters = filterRes.filters;
+	rawData = filterRes.rawData;
+	groupByColumn = filterRes.groupByColumn;
 
 	if (isWeightedAverageNeeded || isAggegrationNeeded) {
 		rawData = _.chain(rawData)
@@ -493,50 +414,10 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 		})
 	}
 
-	filters = filters.map((filter, index) => {
-		let filterOptionMap = new Map();
-		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
-
-		if (filter.value !== '' && filter.value !== 'overall') {
-			rawData = rawData.filter(record => {
-				return record[filterProperty] === filter.value;
-			});
-
-			if (filter.level) {
-				groupByColumn = filter.level;
-			}
-		} else if (index === 0 || filters[index - 1].value !== '') {
-			filter.options = [];
-			if (filter.includeAll) {
-				filter.options.push({
-					label: 'Overall',
-					value: 'overall'
-				})
-			}
-			rawData = rawData.filter(record => {
-				if (!filterOptionMap.has(record[filterProperty])) {
-					if (filter.defaultValue && filter.options.length === 0) {
-						filter.value = record[filterProperty];
-					}
-
-					filter.options.push({
-						label: record[filter.column],
-						value: record[filterProperty]
-					});
-
-					filterOptionMap.set(record[filterProperty], true);
-				}
-
-				if (filter.defaultValue) {
-					return record[filterProperty] === filter.value;
-				}
-
-				return true;
-			});
-		}
-
-		return filter;
-	});
+	filterRes = applyFilters(filters, rawData, groupByColumn);
+	filters = filterRes.filters;
+	rawData = filterRes.rawData;
+	groupByColumn = filterRes.groupByColumn;
 
 	if (isWeightedAverageNeeded || isAggegrationNeeded) {
 		rawData = _.chain(rawData)
@@ -654,4 +535,59 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 	}
 
 	uploadFile(fileName, reportRawData);
+}
+
+function applyFilters(filters, rawData, groupByColumn) {
+	filters.map((filter, index) => {
+		let filterOptionMap = new Map();
+		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+
+		if (filter.value !== '' && filter.value !== 'overall') {
+			rawData = rawData.filter(record => {
+				return record[filterProperty] === filter.value;
+			});
+
+			if (filter.level) {
+				groupByColumn = filter.level;
+			}
+		} else if (index === 0 || (filters[index - 1].value !== '')) {
+			filter.options = [];
+			if (filter.includeAll) {
+				filter.options.push({
+					label: 'Overall',
+					value: 'overall'
+				});
+
+				filter.value = 'overall';
+			}
+			rawData = rawData.filter(record => {
+				if (!filterOptionMap.has(record[filterProperty])) {
+					if (filter.defaultValue && filter.options.length === 0) {
+						filter.value = record[filterProperty];
+					}
+
+					filter.options.push({
+						label: record[filter.column],
+						value: record[filterProperty]
+					});
+
+					filterOptionMap.set(record[filterProperty], true);
+				}
+
+				if (filter.defaultValue) {
+					return record[filterProperty] === filter.value;
+				}
+
+				return true;
+			});
+		}
+
+		return filter;
+	});
+
+	return {
+		filters,
+		rawData,
+		groupByColumn
+	}
 }

@@ -37,7 +37,6 @@ export class NishithaTableComponent implements OnInit {
     this._commonService.getReportData(data).subscribe(res => {
       let result = res.result.data;
       this.filters = res.result.filters;
-      this.filters[1].value = 'overall'
 
       this.options = {
         chart: {
