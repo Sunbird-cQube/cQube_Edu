@@ -4,7 +4,7 @@ import * as config from '../../../../assets/data/config.json';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var L: any;
-export var globalMap: any;
+// export var globalMap: any;
 
 @Injectable({
     providedIn: 'root'
@@ -42,7 +42,7 @@ export class MapService {
 
     public map: any
     //Initialisation of Map  
-    async initMap(map: any, maxBounds: any, markers: any, state: Number) {
+    async initMap(map: any, maxBounds: any, markers: any, state: Number, newMap: any) {
         this._spinner.show()
         if (environment.config == 'VSK') {
             this.NVSK = false;
@@ -86,13 +86,6 @@ export class MapService {
         }
         // markers[0]
         console.log('initializing');
-        globalMap = L.map(map, { zoomSnap: 0.25, zoomControl: false, scrollWheelZoom: false, touchZoom: false, maxBounds: [this.mapCenterLatlng.lat, this.mapCenterLatlng.lng] }).setView([this.mapCenterLatlng.lat, this.mapCenterLatlng.lng], this.zoomLevel);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
-            {
-                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-                maxZoom: this.zoomLevel + 10
-            }
-        ).addTo(globalMap);
 
         function getZoneColor(e: any) {
             if (reportTypeETB) {
@@ -274,22 +267,22 @@ export class MapService {
             div.innerHTML = labels.join('<br>');
             return div;
         };
-        legend.addTo(globalMap);
-        applyCountryBorder(globalMap, this.NVSK);
-        this.map = globalMap
+        legend.addTo(newMap);
+        applyCountryBorder(newMap, this.NVSK);
+        this.map = newMap
         this._spinner.hide()
     }
 
-    restrictZoom(globalMap: any) {
-        globalMap.touchZoom.disable();
-        globalMap.boxZoom.disable();
-        globalMap.keyboard.disable();
-        globalMap.doubleClickZoom.disable();
+    restrictZoom(newMap: any) {
+        newMap.touchZoom.disable();
+        newMap.boxZoom.disable();
+        newMap.keyboard.disable();
+        newMap.doubleClickZoom.disable();
     }
 
     //Initialise markers.....
     markersIcons: any = [];
-    public initMarkers1(lat: any, lng: any, color: any, strokeWeight: any, weight: any) {
+    public initMarkers1(lat: any, lng: any, color: any, strokeWeight: any, weight: any, newMap: any) {
         if (lat !== undefined && lng !== undefined) {
             var markerIcon: any;
             markerIcon = L.circleMarker([lat, lng], {
@@ -298,7 +291,7 @@ export class MapService {
                 fillOpacity: 1,
                 strokeWeight: strokeWeight,
                 weight: weight
-            }).addTo(globalMap);
+            }).addTo(newMap);
 
             this.markersIcons.push(markerIcon);
 

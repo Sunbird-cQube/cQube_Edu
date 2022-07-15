@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, HostListener, Input, OnChanges, O
 import * as L from "leaflet";
 import * as R from "leaflet-responsive-popup";
 
-import { MapService, globalMap } from '../../../../core/services/mapservices/maps.services';
+import { MapService} from '../../../../core/services/mapservices/maps.services';
 
 @Component({
   selector: 'app-map-my-india',
@@ -14,8 +14,10 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
   [x: string]: any;
   @Input() data!: string;
   @Input() state!: Number;
+  // @Input() map!: any;
 
   // leaflet layer dependencies
+  public map: any;
   public layerMarkers = new L.layerGroup();
   public markersList = new L.FeatureGroup();
 
@@ -35,13 +37,23 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(): void {
+    if(this.map){
+      this.map.remove();
+    }
     if (this.container) {
       this.renderMap();
     }
   }
 
   async renderMap(): Promise<any> {
-    await this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]], this.data, this.state);
+    this.map = L.map(this.container.nativeElement, { zoomSnap: 0.25, zoomControl: false, scrollWheelZoom: false, touchZoom: false, maxBounds: [this.globalService.mapCenterLatlng.lat, this.globalService.mapCenterLatlng.lng] }).setView([this.globalService.mapCenterLatlng.lat, this.globalService.mapCenterLatlng.lng], this.globalService.zoomLevel);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
+            {
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+                maxZoom: this.globalService.zoomLevel + 10
+            }
+        ).addTo(this.map);
+    await this.globalService.initMap(this.container.nativeElement, [[this.lat, this.lng]], this.data, this.state, this.map);
     this.globalService.latitude = this.lat = this.globalService.mapCenterLatlng.lat;
     this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
     this.getData();
@@ -122,7 +134,8 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
           this.markers[i].Longitude,
           color,
           options.strokeWeight,
-          1
+          1,
+          this.map
         );
   
         // data to show on the tooltip for the desired levels
@@ -132,7 +145,8 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
           markerIcon,
           "Latitude",
           "Longitude",
-          "slug"
+          "slug",
+          this.map
         );
       }  
     } catch (e) {
@@ -155,7 +169,7 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
     markerIcon.myJsonData = markers;
 
   }
-  generateToolTip(marker: any, level: any, markerIcon: any, Latitude: any, Longitude: any, slug:any) {
+  generateToolTip(marker: any, level: any, markerIcon: any, Latitude: any, Longitude: any, slug:any, map:any) {
    
     var details:any = {};
     var orgObject:any = {};
@@ -201,7 +215,7 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
         e.target.closePopup();
       });
 
-      markerIcon.addTo(globalMap).bindPopup(popup);
+      markerIcon.addTo(map).bindPopup(popup);
 
   }
 
