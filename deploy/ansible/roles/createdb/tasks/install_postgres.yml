@@ -68,3 +68,12 @@
     state: present
   no_log: true
   tags: install
+
+- name: Run queries from SQL script
+  become: true
+  become_user: postgres
+  postgresql_query:
+    db: "{{ db_name }}"
+    path_to_script: ../cQube.sql
+  notify:
+   - restart postgresql
