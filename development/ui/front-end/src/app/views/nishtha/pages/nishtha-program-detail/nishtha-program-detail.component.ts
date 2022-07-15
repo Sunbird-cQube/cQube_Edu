@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 
 import { CommonService } from 'src/app/core/services/common/common.service';
@@ -10,7 +10,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './nishtha-program-detail.component.html',
   styleUrls: ['./nishtha-program-detail.component.scss']
 })
-export class NishthaProgramDetailComponent implements OnInit {
+export class NishthaProgramDetailComponent implements OnInit, OnChanges {
+  map: any;
   nishithaStateData: any;
   filters: any;
   isMapReportLoading = true;
@@ -21,6 +22,9 @@ export class NishthaProgramDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+  ngOnChanges(): void {
+    this.map.remove()
   }
 
   getNishithaData(filters: any): void {
