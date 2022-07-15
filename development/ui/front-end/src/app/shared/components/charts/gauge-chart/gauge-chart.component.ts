@@ -27,9 +27,9 @@ export class GaugeChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.options) {
+    if (this.options && this.container) {
         this.createGaugeChart(this.options);
-    }    
+    }
   }
 
   createGaugeChart(options: Highcharts.Options): void {
@@ -61,9 +61,9 @@ export class GaugeChartComponent implements OnInit, OnChanges {
         // the value axis
         yAxis: {
             stops: [
-                [0.9, '#DF5353'],// red
-                [0.5, '#DDDF0D'],// yellow
-                [0.1, '#55BF3B'], // green
+                [0.9, '#66a3ff'],// red
+                [0.5, '#0052cc'],// yellow
+                [0.1, '#002966'], // green
             ],
             lineWidth: 0,
             tickWidth: 0,

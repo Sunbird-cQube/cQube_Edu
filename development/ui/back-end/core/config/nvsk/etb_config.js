@@ -28,39 +28,40 @@ const dataSourceInfo = {
             ],
             filters: []
         },
-        multiBarChart: {
-            pathToFile: 'nishtha/Enrollments And Completion.json',
-            defaultLevel: "State",
+        loTable: {
+            pathToFile: 'etb/ETB_energized_text_book_percentage.json',
+            gaugeChart: {
+                title: 'Overall ETB Coverage',
+                aggegration: {
+                    type: 'AVG',
+                    column: 'State energised (ETB)',
+                    against: "Total Physical textbooks excluding adopted (Curriculum+Supplementary)"
+                },
+                valueSuffix: "%"
+            },
             columns: [
                 {
-                    name: "Location",
-                    key: true
+                    name: "State Name",
+                    property: "State Name"
                 },
                 {
-                    name: "Total Enrollments",
-                    property: "Total Enrollments",
-                    aggegration: "SUM"
+                    name: "Total Circullum Textbooks",
+                    property: "Total Physical textbooks excluding adopted (Curriculum+Supplementary)",
+                    class: "text-center"
                 },
                 {
-                    name: "Total Certifications",
-                    property: "Total Certifications",
-                    aggegration: "SUM"
+                    name: "Total Energized Textbooks",
+                    property: "State energised (ETB)",
+                    class: "text-center"
+                },
+                {
+                    name: "% Energized Textbooks",
+                    property: "ETB Coverage",
+                    isHeatMapRequired: true,
+				    color: '#002966'
                 }
             ],
-            filters: [
-                {
-                    name: 'Program',
-                    column: 'Program',
-                    defaultValue: true
-                },
-                {
-                    name: 'State',
-                    column: 'State',
-                    optionValueColumn: "State Code",
-                    level: 'User District_Correct',
-                    includeAll: true
-                }
-            ]
+            filters: []
         }
     }
 }

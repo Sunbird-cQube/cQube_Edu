@@ -152,9 +152,10 @@ export class TableHeatMapDirective implements AfterViewInit, OnDestroy {
       };
     }
 
+    console.log(readableColor(rgba(r, g, b, 0.04)));
     return {
       bgColor: rgba(r, g, b, 0.04),
-      color: readableColor(rgba(r, g, b, 0.04))
+      color: rgba(0, 0, 0, .87)
     }
   }
 

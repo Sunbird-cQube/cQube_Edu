@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ETBService } from 'src/app/core/services/etb/etb.service';
 import * as Highcharts from "highcharts/highstock";
+import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
+import { CommonService } from 'src/app/core/services/common/common.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-etb-coverage',
@@ -10,49 +12,65 @@ import * as Highcharts from "highcharts/highstock";
 export class EtbCoverageComponent implements OnInit {
   tableData: any;
   columns: any[] = [];
-  options: Highcharts.Options | undefined;
+  gaugeChartOptions: Highcharts.Options | undefined;
+  gaugeChartProperties: any | undefined;
+  filters: any;
 
-  constructor(private readonly _ETBService: ETBService) {
-    this.getStateWiseETBCoverageData();
+  constructor(private readonly _commonService: CommonService) {
+    this.getStateWiseETBCoverageData(this.filters);
   }
 
   ngOnInit(): void {
   }
 
-  getStateWiseETBCoverageData(){
-    return this._ETBService.getStateWiseETBCoverageData().subscribe(res => {
+  getStateWiseETBCoverageData(filters: any): void {
+    let data: IReportDataPayload = {
+      appName: environment.config.toLowerCase(),
+      dataSourceName: 'etb',
+      reportName: 'statesEnergizedTextBooks',
+      reportType: 'loTable',
+      stateCode: environment.stateCode,
+      filters
+    };
+
+    this._commonService.getReportData(data).subscribe(res => {
       this.tableData = res.result.data;
       this.columns = res.result.columns;
+      this.gaugeChartProperties = res.result.gaugeChart;
 
-
-      this.options = {
-        title: {
-          text: ""
-        },
-        yAxis: {
+      if (this.gaugeChartProperties) {
+        this.gaugeChartOptions = {
           title: {
-            y: 60,
-            text: 'Overall ETB Coverage'
-          }
-        },
-        series: [{
-          type: 'solidgauge',
-          name: 'Speed',
-          data: [60.6],
-          innerRadius: '80%',
-          dataLabels: {
-              y: -20,
-              format:
-                  '<div style="text-align:center">' +
-                  '<span style="font-size:25px">{y}%</span><br/>' +
-                  '</div>'
+            text: ""
           },
-          tooltip: {
-              valueSuffix: ' %'
-          }
-        }]
+          yAxis: {
+            title: {
+              y: 60,
+              text: this.gaugeChartProperties.title
+            }
+          },
+          series: [{
+            type: 'solidgauge',
+            name: 'Speed',
+            data: [this.gaugeChartProperties.percentage],
+            innerRadius: '80%',
+            dataLabels: {
+                y: -20,
+                format:
+                    '<div style="text-align:center">' +
+                    '<span style="font-size:25px">{y}' + (this.gaugeChartProperties.valueSuffix ? this.gaugeChartProperties.valueSuffix : "") + '</span><br/>' +
+                    '</div>'
+            },
+            tooltip: {
+                valueSuffix: this.gaugeChartProperties.valueSuffix ? ` ${this.gaugeChartProperties.valueSuffix}` : ''
+            }
+          }]
+        }
       }
     });
   }
 
+  filtersUpdated(filters: any): void {
+    this.getStateWiseETBCoverageData(filters);
+  }
 }
