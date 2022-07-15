@@ -53,10 +53,14 @@ exports.getMetrics = async (req, res, next) => {
 								sum += value;
 							});
 							subMetric.value = +sum.toFixed(2);
-							if(subMetric.value > 1000000){
-								 subMetric.value  =  (subMetric.value/1000000).toFixed(1) + 'M';
-							} else if(subMetric.value > 10000000){
-								subMetric.value  =  (subMetric.value/10000000).toFixed(1) + 'Cr';
+							if(subMetric.value >= 10000000){
+								subMetric.value = (subMetric.value/10000000).toFixed(2) + ' Cr';
+							}
+							else if(subMetric.value >= 100000) {
+								subMetric.value = (subMetric.value/100000).toFixed(2) + ' L';
+							}
+							else if(subMetric.value >= 1000){
+								 subMetric.value = (subMetric.value/1000).toFixed(2) + ' K';
 							}
 						} else if(subMetric.aggegration === ''){
 							subMetric.value = fileContent.length;
