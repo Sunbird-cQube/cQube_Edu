@@ -78,7 +78,49 @@ const stateCodes = {
     WB: 37
 };
 
+const stateNumbers = {
+    1:"AN",
+    2: "AP",
+    3: "AR",
+    4: "AS",
+    5: "BR",
+    6: "CH",
+    7: "CT",
+    8: "DN",
+    9: "DD",
+    10: "DL",
+    11: "GA",
+    12: "GJ",
+    13: "HR",
+    14: "HP",
+    15: "JK",
+    16: "JH",
+    17: "KA",
+    18: "KL",
+    19: "LH",
+    20: "LD",
+    21: "MP",
+    22: "MH",
+    23: "MN",
+    24: "ML",
+    25: "MZ",
+    26: "NL",
+    27: "OR",
+    28: "PY",
+    29: "PB",
+    30: "RJ",
+    31: "SK",
+    32: "TN",
+    33: "TG",
+    34: "TR",
+    35: "UP",
+    36: "UT",
+    37: "WB"
+
+}
+
 module.exports = {
     stateNames,
-    stateCodes
+    stateCodes,
+    stateNumbers
 }

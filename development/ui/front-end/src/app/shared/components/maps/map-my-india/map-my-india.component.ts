@@ -4,6 +4,7 @@ import * as L from "leaflet";
 import * as R from "leaflet-responsive-popup";
 
 import { MapService} from '../../../../core/services/mapservices/maps.services';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-map-my-india',
@@ -13,8 +14,7 @@ import { MapService} from '../../../../core/services/mapservices/maps.services';
 export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
   [x: string]: any;
   @Input() data!: string;
-  @Input() state!: Number;
-  // @Input() map!: any;
+  @Input() state!: any;
 
   // leaflet layer dependencies
   public map: any;
@@ -27,9 +27,10 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('container') container!: ElementRef<HTMLElement>;
 
-  constructor( public globalService: MapService) { }
+  constructor( public globalService: MapService, private readonly _spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
+    console.log(this.state);
   }
   
   ngAfterViewInit(): void {

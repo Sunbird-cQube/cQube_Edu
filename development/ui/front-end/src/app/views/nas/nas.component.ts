@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/core/services/common/common.service';
 import { NasService } from 'src/app/core/services/nas/nas.service';
 import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
 import { environment } from 'src/environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-nas',
@@ -11,14 +12,15 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./nas.component.scss']
 })
 export class NasComponent implements OnInit {
-  selectedState:Number = 0;
+
+  state:any = 'IN';
   NASMetrics: any[] | undefined;
   NASProgramStatsByLocation: any
   NasStateData: any;
   filters: any;
   isMapReportLoading = true;
 
-  constructor(private readonly _NASService: NasService, private readonly _commonService: CommonService, private readonly _configService: NishthaService) {
+  constructor(private readonly _NASService: NasService, private readonly _commonService: CommonService, private readonly _configService: NishthaService,private readonly _spinner:NgxSpinnerService) {
     let data:any = "NAS";
     this._configService.getNishthaVanityMetrics(data).subscribe(dashboardMenuResult => {
       this.NASMetrics = dashboardMenuResult.result[2]?.metrics;
@@ -29,6 +31,7 @@ export class NasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._spinner.show();
   }
 
   getNASMetrics(): void {
@@ -48,12 +51,17 @@ export class NasComponent implements OnInit {
     };
 
     this._commonService.getReportData(data).subscribe(res => {
+      this._spinner.hide()
       this.isMapReportLoading = false;
       this.NasStateData = res.result.data;
       this.filters = res.result.filters;
-      if(res.result.level == 'District' && Number(this.filters[3].value) > 0){
-        this.selectedState = Number(this.filters[3].value);
+      if(res.result.code != undefined){
+        this.state = res.result.code;
       }
+
+      // if(res.result.level == 'District' && Number(this.filters[3].value) > 0){
+      //   this.selectedState = Number(this.filters[3].value);
+      // }
     }, error => {
       this.isMapReportLoading = false;
     });
