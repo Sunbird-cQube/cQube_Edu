@@ -42,31 +42,14 @@ export class MapService {
 
     public map: any
     //Initialisation of Map  
-    async initMap(map: any, maxBounds: any, markers: any, state: Number, newMap: any) {
+    async initMap(map: any, maxBounds: any, markers: any, state: any, newMap: any) {
         this._spinner.show()
         if (environment.config == 'VSK') {
             this.NVSK = false;
             this.mapCenterLatlng = config.default[`${environment.stateCode}`]
         }
-        else {
-            switch (state) {
-                case 0:
-                    console.log('here')
-                    this.mapCenterLatlng = config.default['IN'];
-                    break;
-                case 5:
-                    this.mapCenterLatlng = config.default['BR'];
-                    break;
-                case 13: 
-                    this.mapCenterLatlng = config.default['HR'];
-                    break;
-                case 12:
-                    this.mapCenterLatlng = config.default['GJ'];
-                    break;
-                case 24:
-                    this.mapCenterLatlng = config.default['ML'];
-                    break;
-            }
+        else if(state) {
+            this.mapCenterLatlng = config.default[`${state}`]
         }
         this.zoomLevel = this.width > 3820 ? this.mapCenterLatlng.zoomLevel + 0.85 : this.width < 3820 && this.width >= 2500 ? this.mapCenterLatlng.zoomLevel + 0.3 : this.width < 2500 && this.width > 1920 ? this.mapCenterLatlng.zoomLevel : this.width > 1500 ? this.mapCenterLatlng.zoomLevel - 0.4 : this.width > 1336 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.width > 1200 ? this.mapCenterLatlng.zoomLevel - 0.75 : this.width > 700 ? this.mapCenterLatlng.zoomLevel - 0.3 : this.width > 76 ? this.mapCenterLatlng.zoomLevel - 0.5 : this.width > 400 ? this.mapCenterLatlng.zoomLevel - 0.6 : this.width > 320 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.mapCenterLatlng.zoomLevel;
 
@@ -114,10 +97,10 @@ export class MapService {
         function style_states1(feature: any) {
             let check: any = '';
             if (reportTypeETB) {
-                if (NVSK && !state) {
+                if (NVSK && state == 'IN') {
                     markers.forEach((states: any) => {
                         if (states['Location Code']) {
-                            if (states['Location Code'] == (typeof feature?.properties?.state_code === 'number' ? feature?.properties?.state_code : feature?.properties?.state_code?.trim())) {
+                            if (states['Location Code'] == (typeof feature?.properties?.ID_0 === 'number' ? feature?.properties?.ID_0 : feature?.properties?.ID_0?.trim())) {
                                 check = states?.status?.split(':')[1]?.trim()
                                 if (feature.properties) {
                                     feature.properties['popUpContent'] = feature?.properties?.st_nm + ' : ' + check;
@@ -136,7 +119,7 @@ export class MapService {
                 else {
                     markers.forEach((district: any) => {
                         if (district['Location Code']) {
-                            if (district['Location Code'] == (typeof feature?.properties?.ID_0 === 'number' ? feature?.properties?.ID_0 : feature?.properties?.state_code?.trim())) {
+                            if (district['Location Code'] == (typeof feature?.properties?.ID_0 === 'number' ? feature?.properties?.ID_0 : feature?.properties?.ID_0?.trim())) {
                                 check = district?.status?.split(':')[1]?.trim()
                                 if (feature.properties) {
                                     feature.properties['popUpContent'] = feature?.properties?.NAME_2 + ' : ' + check;
@@ -154,10 +137,10 @@ export class MapService {
                 }
             }
             else {
-                if (NVSK && !state) {
+                if (NVSK && state == 'IN') {
                     markers.forEach((states: any) => {
                         if (states['Location Code']) {
-                            if (states['Location Code'] == (typeof feature?.properties?.state_code === 'number' ? feature?.properties?.state_code : feature?.properties?.state_code?.trim())) {
+                            if (states['Location Code'] == (typeof feature?.properties?.ID_0 === 'number' ? feature?.properties?.ID_0 : feature?.properties?.ID_0?.trim())) {
                                 let performance = states.perfomance ? states.perfomance : states.Performance;
                                 check = typeof performance === 'string' ? Number(states?.perfomance?.split(':')[1]?.trim()) : performance;
                                 if (feature.properties) {
@@ -165,7 +148,7 @@ export class MapService {
                                 }
                             }
                         } else {
-                            if (states?.Location?.trim().toLowerCase() == feature?.properties?.st_nm?.trim().toLowerCase()) {
+                            if (states?.Location?.trim().toLowerCase() == feature?.properties?.NAME_2?.trim().toLowerCase()) {
                                 let performance = states.perfomance ? states.perfomance : states.Performance;
                                 check = typeof performance === 'string' ? Number(states?.perfomance?.split(':')[1]?.trim()) : performance;
                                 if (feature.properties) {
@@ -178,7 +161,7 @@ export class MapService {
                 else {
                     markers.forEach((district: any) => {
                         if (district['Location Code']) {
-                            if (district['Location Code'] == (typeof feature?.properties?.ID_0 === 'number' ? feature?.properties?.ID_0 : feature?.properties?.state_code?.trim())) {
+                            if (district['Location Code'] == (typeof feature?.properties?.ID_0 === 'number' ? feature?.properties?.ID_0 : feature?.properties?.ID_0?.trim())) {
                                 let performance = district.perfomance ? district.perfomance : district.Performance;
                                 check = typeof performance === 'string' ? Number(district?.perfomance?.split(':')[1]?.trim()) : performance;
                                 if (feature.properties) {
@@ -210,6 +193,11 @@ export class MapService {
 
         if (this.NVSK && !state) {
             const response = await fetch(`${environment.apiURL}/assets/geo-locations/IN.json`);
+            const body = await response.json();
+            var data = body;
+        }
+        else if(this.NVSK && state){
+            const response = await fetch(`${environment.apiURL}/assets/geo-locations/${state}.json`);
             const body = await response.json();
             var data = body;
         }
@@ -271,6 +259,7 @@ export class MapService {
         applyCountryBorder(newMap, this.NVSK);
         this.map = newMap
         this._spinner.hide()
+        console.log(this.mapCenterLatlng);
     }
 
     restrictZoom(newMap: any) {

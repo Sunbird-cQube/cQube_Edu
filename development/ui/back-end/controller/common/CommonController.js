@@ -5,7 +5,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const csvToJson = require('csvtojson');
 const { getFileData, getAllFiles, getFileRawData, uploadFile } = require('../../service/storage_service');
-const { stateCodes } = require('../../core/config/state-codes');
+const { stateCodes, stateNumbers } = require('../../core/config/state-codes');
 
 exports.getReportData = (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
@@ -87,6 +87,7 @@ exports.uploadSourceData = async (req, res, next) => {
 async function getMapReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
 	let { columns, filters, mainFilter } = reportConfig;
+	let code;
 	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
 
@@ -164,7 +165,8 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 	return {
 		data: rawData,
 		filters: filters,
-		level: groupByColumn ? groupByColumn : "State"
+		level: groupByColumn ? groupByColumn : "State",
+		code: code
 	};
 }
 
@@ -549,6 +551,7 @@ function applyFilters(filters, rawData, groupByColumn) {
 
 			if (filter.level) {
 				groupByColumn = filter.level;
+				code = stateNumbers[filter.value];
 			}
 		} else if (index === 0 || (filters[index - 1].value !== '')) {
 			filter.options = [];

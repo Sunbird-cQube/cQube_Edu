@@ -9,6 +9,7 @@ import { NasProgramComponent } from './pages/nas-program/nas-program.component';
 import { NasRoutingModule } from './nas-routing.module';
 import { NasComponent } from './nas.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MatTabsModule } from '@angular/material/tabs';
         NasRoutingModule,
         MatTabsModule,
         SharedModule,
-        CqubeLibraryModule
+        CqubeLibraryModule,
+        NgxSpinnerModule
     ]
 })
 export class NasModule { }

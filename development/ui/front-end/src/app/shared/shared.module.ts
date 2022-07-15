@@ -20,6 +20,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
 import { StackedBarComponent } from './components/charts/stacked-bar/stacked-bar.component';
 import { PieChartComponent } from './components/charts/pie-chart/pie-chart.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -27,7 +28,8 @@ const IMPORTS: any[] = [
   MatTooltipModule,
   NgSelectModule,
   FormsModule,
-  TranslocoModule
+  TranslocoModule,
+  NgxSpinnerModule
 ];
 
 const DECLARATIONS = [
