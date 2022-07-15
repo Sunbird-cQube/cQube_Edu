@@ -172,12 +172,19 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 
 async function getLOTableReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { columns, filters, mainFilter } = reportConfig;
+	let { columns, filters, mainFilter, gaugeChart } = reportConfig;
 	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
 
 	if (mainFilter) {
 		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == stateCodes[reqBody.stateCode]));
+	}
+
+	if (gaugeChart) {
+		if (gaugeChart.aggegration && gaugeChart.aggegration.type === "AVG") {
+			gaugeChart.columnSum = 0;
+			gaugeChart.againstSum = 0;
+		}
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -230,27 +237,31 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		rawData = rawData.map(record => {
 			let data = {};
 			columns.forEach(col => {
-				if (col.isLocationName) {
-					data.Location = record[col.property];
-					return;
-				}
-
-				if (col.tooltipDesc) {
-					data[col.name] = col.tooltipDesc + ' ' + record[col.property];
-					return;
-				}
-
-				data[col.name] = record[col.property];
+				data[col.property] = record[col.property];
 			});
+
+			if (gaugeChart) {
+				if (gaugeChart.aggegration && gaugeChart.aggegration.type === "AVG") {
+					gaugeChart.columnSum += record[gaugeChart.aggegration.column] ? record[gaugeChart.aggegration.column] : 0;
+					gaugeChart.againstSum += record[gaugeChart.aggegration.against] ? record[gaugeChart.aggegration.against] : 0;
+				}
+			}
 
 			return data;
 		});
 	}
 
+	if (gaugeChart) {
+		if (gaugeChart.aggegration && gaugeChart.aggegration.type === "AVG") {
+			gaugeChart.percentage = gaugeChart.againstSum > 0 ? Number((gaugeChart.columnSum / gaugeChart.againstSum * 100).toFixed(2)) : 0;
+		}
+	}
+
 	return {
 		data: rawData,
 		filters: filters,
-		columns
+		columns,
+		gaugeChart
 	};
 }
 
