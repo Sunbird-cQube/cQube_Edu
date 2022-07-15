@@ -73,7 +73,7 @@ export class EtbComponent implements OnInit {
 
       this.stateWiseEnrollmentData = res.result;
     });
-    this.getNasData(this.filters);
+    this.getETBData(this.filters);
   }
 
   ngOnInit(): void {
@@ -100,11 +100,11 @@ export class EtbComponent implements OnInit {
     }, 100);
   }
 
-  getNasData(filters: any): void {
+  getETBData(filters: any): void {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
-      dataSourceName: 'nas',
-      reportName: 'studentPerformance',
+      dataSourceName: 'etb',
+      reportName: 'statesEnergizedTextBooks',
       reportType: 'map',
       stateCode: environment.stateCode,
       filters
@@ -120,6 +120,10 @@ export class EtbComponent implements OnInit {
     }, error => {
       this.isMapReportLoading = false;
     });
+  }
+
+  filtersUpdated(filters: any): void {
+    this.getETBData(filters);
   }
 
 }

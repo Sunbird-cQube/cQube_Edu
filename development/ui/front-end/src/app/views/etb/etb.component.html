@@ -19,7 +19,7 @@
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
         <mat-tab label="ETB Program" class="tab-first" *ngIf="NVSK">
                 <div class="col">
-                    <app-filter-panel></app-filter-panel>
+                    <app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
                     <app-map-my-india [data]="ETBStateData"></app-map-my-india>
                 </div>
                 <div class="col" *ngIf="isMapReportLoading">

@@ -160,7 +160,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 					let denominatorSum = 0;
 					
 					objs.forEach((obj, index) => {
-						numeratorSum += obj[col.property] * obj[col.weightedAverage.against];
+						numeratorSum += obj[col.weightedAverage.property] * obj[col.weightedAverage.against];
 						denominatorSum += obj[col.weightedAverage.against];
 					});
 
