@@ -120,6 +120,23 @@ check_db_password(){
     fi
 }
 
+check_postgres(){
+echo "Checking for Postgres ..."
+temp=$(psql -V > /dev/null 2>&1; echo $?)
+
+if [ $temp == 0 ]; then
+    version=`psql -V | head -n1 | cut -d" " -f3`
+    if [[ $(echo "$version >= 10.12" | bc) == 1 ]]
+    then
+        echo "WARNING: Postgres found."
+        echo "Removing Postgres..."
+        sudo systemctl stop postgresql
+        sudo apt-get --purge remove postgresql* -y
+        echo "Done"
+     fi
+fi
+}
+
 get_config_values(){
 key=$1
 vals[$key]=$(awk ''/^$key:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
@@ -211,6 +228,7 @@ case $key in
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
+	     check_postgres
           check_db_naming $key $value
        fi
        ;;	   
