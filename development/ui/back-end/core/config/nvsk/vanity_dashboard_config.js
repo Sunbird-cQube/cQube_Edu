@@ -7,23 +7,25 @@ const vanityMetrics = [
                 pathToFile: 'dashboard/Nishta metrics.json',
                 name: "Total Enrollments",
                 aggegration: 'SUM',
-                columnName: 'Total Enrollments'
+                columnName: 'Total Enrollments',
+                tooltip: "Total number of enrollments by teachers across all courses"
              },
              {
                  pathToFile: 'dashboard/Nishta metrics.json',
                  name: "Total Certifications",
                  aggegration: 'SUM',
-                 columnName: 'Total Certifications'
+                 columnName: 'Total Certifications',
+                 tooltip: "Total number of certifications by teachers across all courses"
               },
               {
                 pathToFile: 'dashboard/Nishta metrics.json',
                 name: "Total Completion",
                 aggegration: 'SUM',
-                columnName: 'Total Completion'
+                columnName: 'Total Completion',
+                tooltip: "Total number of completion by teachers across all courses"
              }
         ],
-        "icon": "NISHTHA.png",
-        "tooltip": "Nishtha"
+        "icon": "NISHTHA.png"
     },
     {
         "title": "ETB & E-content",
@@ -42,8 +44,7 @@ const vanityMetrics = [
                 columnName: 'Total QR Count'
              }
         ],
-        "icon": "ETB & E-Content.png",
-        "tooltip": ""
+        "icon": "ETB & E-Content.png"
     },
     {
         "title": "NAS",
@@ -54,6 +55,7 @@ const vanityMetrics = [
                 name: "Total Students Surveyed",
                 aggegration: 'SUM',
                 columnName: 'Students Surveyed',
+                tooltip: "Total number of students assessed in the NAS survey"
              },
             // {
             //     pathToFile: 'dashboard/Nas metrics.json',
@@ -62,8 +64,7 @@ const vanityMetrics = [
             //     columnName: ''
             // }
         ],
-        "icon": "NAS.png",
-        "tooltip": ""
+        "icon": "NAS.png"
     },{
         "title": "PGI",
         "navigationURL": "/pgi",
@@ -72,11 +73,11 @@ const vanityMetrics = [
                 pathToFile: 'dashboard/PGI metrics.json',
                 name: "Total Districts Participated",
                 aggegration: '',
-                columnName: ''
+                columnName: '',
+                tooltip: "Total number of districts participated"
              },
         ],
-        "icon": "PGI.png",
-        "tooltip": "PGI"
+        "icon": "PGI.png"
     }, {
         "title": "UDISE",
         "navigationURL": "/udise",
@@ -85,41 +86,46 @@ const vanityMetrics = [
                 pathToFile: 'dashboard/UDISE metrics.json',
                 name: "Pupil Teacher ratio",
                 aggegration: 'SUM',
-                columnName: 'PTR'
+                columnName: 'PTR',
+                tooltip: "Average number of Pupil per Teacher"
              },
             {
                 pathToFile: 'dashboard/UDISE metrics.json',
                 name: "Schools with drinking water",
                 aggegration: 'SUM',
-                columnName: 'tot_schools_having_drinkingwater'
+                columnName: 'tot_schools_having_drinkingwater',
+                tooltip: "Percentage schools surveyed under UDISE with drinking water"
             },
             {
                 pathToFile: 'dashboard/UDISE metrics.json',
                 name: "Schools with Electricity connection",
                 aggegration: 'SUM',
-                columnName: 'tot_schools_having_electricity'
+                columnName: 'tot_schools_having_electricity',
+                tooltip: "Percentage schools surveyed under UDISE with electricity connection"
             },
             {
                 pathToFile: 'dashboard/UDISE metrics.json',
                 name: "Schools with Library",
                 aggegration: 'SUM',
-                columnName: 'tot_schools_having_library'
+                columnName: 'tot_schools_having_library',
+                tooltip: "Percentage schools surveyed under UDISE with library"
             },
             {
                 pathToFile: 'dashboard/UDISE metrics.json',
                 name: "CWSN Enrollment",
                 aggegration: 'SUM',
-                columnName: 'Total Enrollment CWSN'
+                columnName: 'Total Enrollment CWSN',
+                tooltip: "Percentage schools surveyed under UDISE with CWSN Enrollment"
             },
             {
                 pathToFile: 'dashboard/UDISE metrics.json',
                 name: "Schools with ramp",
                 aggegration: 'SUM',
-                columnName: 'tot_schools_having_ramp'
+                columnName: 'tot_schools_having_ramp',
+                tooltip: "Percentage schools surveyed under UDISE with ramp"
             },
         ],
-        "icon": "UDISE.png",
-        "tooltip": ""
+        "icon": "UDISE.png"
     },
 ]
 
