@@ -8,5 +8,6 @@
 
   roles:
           - { role: java, tags: install }
+          - createdb
           - angular
           - cqube_conf

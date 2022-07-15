@@ -97,6 +97,29 @@ else
 fi
 }
 
+check_db_naming(){
+check_length $2
+if [[ $? == 0 ]]; then
+    if [[ ! $2 =~ ^[A-Za-z_]*[^_0-9\$\@\#\%\*\-\^\?]$ ]]; then
+        echo "Error - Naming convention is not correct. Please change the value of $1."; fail=1
+    fi
+else
+    echo "Error - Length of the value $1 is not correct. Provide the length between 3 and 63."; fail=1
+fi
+}
+
+check_db_password(){
+    len="${#2}"
+    if test $len -ge 8 ; then
+        echo "$2" | grep "[A-Z]" | grep "[a-z]" | grep "[0-9]" | grep "[@%^*!?]" > /dev/null 2>&1
+        if [[ ! $? -eq 0 ]]; then
+            echo "Error - $1 should contain atleast one uppercase, one lowercase, one special character and one number. And should be minimum of 8 characters."; fail=1
+        fi
+    else
+        echo "Error - $1 should contain atleast one uppercase, one lowercase, one special character and one number. And should be minimum of 8 characters."; fail=1
+    fi
+}
+
 get_config_values(){
 key=$1
 vals[$key]=$(awk ''/^$key:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
@@ -115,7 +138,7 @@ echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 
 
 # An array of mandatory values
-declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "storage_type" "api_endpoint" "local_ipv4_address")
+declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "storage_type" "api_endpoint" "local_ipv4_address" "db_user" "db_name" "db_password")
 
 declare -A vals
 
@@ -182,6 +205,27 @@ case $key in
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        #else
         #  check_api_endpoint $key $value
+       fi
+       ;;
+   db_user)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_db_naming $key $value
+       fi
+       ;;	   
+   db_name)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_db_naming $key $value
+       fi
+       ;;
+   db_password)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_db_password $key $value
        fi
        ;;
    *)
