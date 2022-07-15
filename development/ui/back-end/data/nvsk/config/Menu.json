@@ -70,13 +70,6 @@
     "hasSub": false
   },
   {
-    "label": "Vidyanjali",
-    "icon": "",
-    "path": "/vidyanjali",
-    "basepath": "dashboard",
-    "hasSub": false
-  },
-  {
     "label": "Micro-Improvement Program",
     "icon": "",
     "path": "/microimprovement",

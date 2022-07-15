@@ -144,22 +144,6 @@
         "tooltip": ""
     },
     {
-        "title": "Vidyanjali",
-        "navigationURL": "/vidyanjali",
-        "metrics": [
-            {
-                "name": "Total Content Contributed",
-                "value": "2.2 L"
-            },
-            {
-                "name": "Total Users Contributed",
-                "value": "11.3K"
-            }
-        ],
-        "icon": "Vidyanjali.jpg",
-        "tooltip": " "
-    },
-    {
         "title": "Micro-Improvement Program",
         "navigationURL": "/microimprovement",
         "metrics": [],
