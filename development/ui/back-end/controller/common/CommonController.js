@@ -107,10 +107,11 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		})
 	}
 
-	filterRes = applyFilters(filters, rawData, groupByColumn);
+	filterRes = applyFilters(filters, rawData, groupByColumn, code);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
 	groupByColumn = filterRes.groupByColumn;
+	code = filterRes.code;
 
 	if (isWeightedAverageNeeded) {
 		rawData = _.chain(rawData)
@@ -550,7 +551,7 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 	uploadFile(fileName, reportRawData);
 }
 
-function applyFilters(filters, rawData, groupByColumn) {
+function applyFilters(filters, rawData, groupByColumn, code = undefined) {
 	filters.map((filter, index) => {
 		let filterOptionMap = new Map();
 		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
@@ -602,6 +603,7 @@ function applyFilters(filters, rawData, groupByColumn) {
 	return {
 		filters,
 		rawData,
-		groupByColumn
+		groupByColumn,
+		code
 	}
 }
