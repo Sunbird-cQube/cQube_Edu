@@ -24,7 +24,7 @@ const dataSourceInfo = {
                 {
                     name: 'Program',
                     column: 'Program',
-                    defaultValue: true
+                    includeAll: true
                 }
             ]
         }
