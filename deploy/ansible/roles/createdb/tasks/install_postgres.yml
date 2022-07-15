@@ -75,6 +75,4 @@
   postgresql_query:
     db: "{{ db_name }}"
     path_to_script: ../cQube.sql
-  notify:
-   - restart postgresql
   tags: install
