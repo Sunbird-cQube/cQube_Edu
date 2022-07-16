@@ -179,7 +179,7 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
     var yourData2:any
   
     Object.keys(marker).forEach((key) => {
-      if (key !== "Latitude" && key !== "Longitude") {
+      if (key !== "Latitude" && key !== "Longitude" && key!== "Location Code") {
         details[key] = marker[key];
       }
     });
