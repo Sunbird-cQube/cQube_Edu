@@ -17,14 +17,10 @@ export class FilterPanelComponent implements OnInit {
   }
 
   onSelectOption(event: any, ind: number): void {
-    if (!event) {
-      this.filters[ind].value = '';
-    }
-
     this.filters = this.filters.map((filter: any, filterInd: number) => {
       if (filterInd > ind) {
         filter.options = [];
-        filter.value = "";
+        filter.value = null;
       }
 
       return filter;
