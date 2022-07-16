@@ -312,7 +312,7 @@ export class MapService {
         for (var key in object) {
             if (object.hasOwnProperty(key)) {
                 stringLine = selected
-                    + object[key] + `</span>`;
+                    + object[key] + `</span> <br>`;
             }
             popup.push(stringLine);
         }
