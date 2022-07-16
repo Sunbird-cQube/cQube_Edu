@@ -19,13 +19,12 @@ const dataSourceInfo = {
     },
     gradeWiseConsumption: {
         barChart: {
-            pathToFile: 'nipun_bharat/gradeWiseConsumption.json',
-            defaultLevel: 'State Name',
+            pathToFile: 'nipun_bharat/contentTypeWiseConsumption.json',
+            defaultLevel: 'Grade',
             columns: [
                 {
-                    name: "State Name",
-                    property: "State Name",
-                    isLocationName: true
+                    name: "Grade",
+                    property: "Grade"
                 },
                 {
                     name: "Total No of Plays (App and Portal)",
@@ -34,14 +33,6 @@ const dataSourceInfo = {
                 }
             ],
             filters: [
-                {
-                    name: 'Medium',
-                    column: 'medium_new'
-                },
-                {
-                    name: 'Grade',
-                    column: 'grade_new'
-                },
                 {
                     name: 'Subject',
                     column: 'Subject'
@@ -52,12 +43,11 @@ const dataSourceInfo = {
     contentTypeWiseConsumption: {
         barChart: {
             pathToFile: 'nipun_bharat/contentTypeWiseConsumption.json',
-            defaultLevel: 'State Name',
+            defaultLevel: 'Mime Type',
             columns: [
                 {
-                    name: "State Name",
-                    property: "State Name",
-                    isLocationName: true
+                    name: "Mime Type",
+                    property: "Mime Type"
                 },
                 {
                     name: "Total No of Plays (App and Portal)",
@@ -65,7 +55,20 @@ const dataSourceInfo = {
                     aggegration: "SUM"
                 }
             ],
-            filters: []
+            filters: [
+                {
+                    name: 'Medium',
+                    column: 'Medium'
+                },
+                {
+                    name: 'Grade',
+                    column: 'Grade'
+                },
+                {
+                    name: 'Subject',
+                    column: 'Subject'
+                }
+            ]
         }
     }
 }

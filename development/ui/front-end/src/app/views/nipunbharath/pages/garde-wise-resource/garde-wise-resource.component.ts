@@ -24,8 +24,8 @@ export class GardeWiseResourceComponent implements OnInit {
     this.isReportLoading = true;
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
-      dataSourceName: 'etb',
-      reportName: 'totalLearningSessions',
+      dataSourceName: 'nipun_bharat',
+      reportName: 'gradeWiseConsumption',
       reportType: 'barChart',
       stateCode: environment.stateCode,
       filters
@@ -50,7 +50,7 @@ export class GardeWiseResourceComponent implements OnInit {
         },
         xAxis: {
           categories: result.map((record: any) => {
-            return record['Location'];
+            return record['Grade'];
           })
         },
         yAxis: {

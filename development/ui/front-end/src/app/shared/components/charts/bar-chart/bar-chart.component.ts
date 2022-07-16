@@ -85,6 +85,12 @@ export class BarChartComponent implements OnInit, OnChanges {
           enabled: false
       },
       series: []
+      // tooltip: {
+      //   formatter: function() {
+      //     return ' ' +
+      //       'Total No of Plays (App and Portal) :' + this.point.y + '<br />'
+      //   }
+      // }
     };
     this.chart = Highcharts.chart(this.container.nativeElement, Highcharts.merge(defaultOptions, options), function(this: any) {
     });
