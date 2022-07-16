@@ -10,13 +10,15 @@ import { EtbComponent } from './etb.component';
 import { EtbProgramComponent } from './pages/etb-program/etb-program.component';
 import { EtbCoverageComponent } from './pages/etb-coverage/etb-coverage.component';
 import { QRCoverageAcrossStatesComponent } from './pages/qr-coverage-across-states/qr-coverage-across-states.component';
+import { TotalPlaysPerCapitaComponent } from './pages/total-plays-per-capita/total-plays-per-capita.component';
 
 @NgModule({
   declarations: [
     EtbComponent,
     EtbProgramComponent,
     EtbCoverageComponent,
-    QRCoverageAcrossStatesComponent
+    QRCoverageAcrossStatesComponent,
+    TotalPlaysPerCapitaComponent
   ],
   imports: [
     CommonModule,

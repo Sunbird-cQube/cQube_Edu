@@ -19,7 +19,7 @@ export class LayoutComponent implements OnInit {
       let menuToDisplay: IMenuItem | any = {};
       menuToDisplay.label = "Dashboard";
       menuToDisplay.path = "/dashboard";
-      menuToDisplay.icon = '';
+      menuToDisplay.icon = 'dashboard.png';
       menuToDisplay.isSelected = true;
       menuToDisplay.basepath = "dasboard";
       this.menu.push(menuToDisplay);

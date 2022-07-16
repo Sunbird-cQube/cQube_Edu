@@ -208,7 +208,7 @@ export class MapService {
         }
 
         function applyCountryBorder(map: any, NVSK: any) {
-            L.geoJSON(data['features'], {
+            var addedGeoJSON = L.geoJSON(data['features'], {
                 style: style_states1,
                 color: "#a0a1a3",
                 weight: 1,
@@ -218,6 +218,10 @@ export class MapService {
                     //layer.bindTooltip('<h3>' + feature?.properties?.popUpContent + '</h3>', { closeButton: false, offset: L.point(0, -20) });
                 }
             }).addTo(map);
+
+            // map.fitBounds(addedGeoJSON.getBounds(), {
+            //     padding: [20, 20]
+            // });
         }
 
         var legend = L.control({ position: 'topright' });

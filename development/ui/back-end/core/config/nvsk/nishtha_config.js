@@ -33,7 +33,45 @@ const dataSourceInfo = {
                     defaultValue: true
                 }
             ]
-        },
+        }
+    },
+    stateOrDistrictWiseEnrollments: {
+        multiBarChart: {
+            pathToFile: 'nishtha/Enrollments And Completion.json',
+            defaultLevel: "State",
+            columns: [
+                {
+                    name: "Location",
+                    key: true
+                },
+                {
+                    name: "Total Enrollments",
+                    property: "Total Enrollments",
+                    aggegration: "SUM"
+                },
+                {
+                    name: "Total Certifications",
+                    property: "Total Certifications",
+                    aggegration: "SUM"
+                }
+            ],
+            filters: [
+                {
+                    name: 'Program',
+                    column: 'Program',
+                    includeAll: true
+                },
+                {
+                    name: 'State',
+                    column: 'State',
+                    optionValueColumn: "State Code",
+                    level: 'User District_Correct',
+                    includeAll: true
+                }
+            ]
+        }
+    },
+    stateOrCourseWiseEnrollments: {
         multiBarChart: {
             pathToFile: 'nishtha/Enrollments And Completion.json',
             defaultLevel: "State",

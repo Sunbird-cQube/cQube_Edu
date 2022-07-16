@@ -63,6 +63,90 @@ const dataSourceInfo = {
             ],
             filters: []
         }
+    },
+    qrCodeCoverageAcrossStates: {
+        map: {
+            pathToFile: 'etb/ETB_QR_coverage_across_states.json',
+            columns: [
+                {
+                    name: "State Name",
+                    property: "State Name",
+                    isLocationName: true
+                },
+                {
+                    name: "Location Code",
+                    property: "State Code"
+                },
+                {
+                    name: "Latitude",
+                    property: "Latitude"
+                },
+                {
+                    name: "Longitude",
+                    property: "Longitude"
+                },
+                {
+                    name: "Performance",
+                    property: "QR Coverage",
+                    tooltipDesc: ''
+                }
+            ],
+            filters: []
+        },
+        barChart: {
+            pathToFile: 'etb/ETB_QR_coverage_across_states.json',
+            gaugeChart: {
+                title: 'Overall ETB Coverage',
+                aggegration: {
+                    type: 'AVG',
+                    column: 'QR covered',
+                    against: "Total QR Count"
+                },
+                valueSuffix: "%"
+            },
+            columns: [
+                {
+                    name: "State Name",
+                    property: "State Name",
+                    isLocationName: true
+                },
+                {
+                    name: "QR Coverage",
+                    property: "QR Coverage"
+                }
+            ],
+            filters: []
+        }
+    },
+    totalPlaysPerCapita: {
+        map: {
+            pathToFile: 'etb/ETB_total_plays_per_capita.json',
+            columns: [
+                {
+                    name: "State Name",
+                    property: "State Name",
+                    isLocationName: true
+                },
+                {
+                    name: "Location Code",
+                    property: "State Code"
+                },
+                {
+                    name: "Latitude",
+                    property: "Latitude"
+                },
+                {
+                    name: "Longitude",
+                    property: "Longitude"
+                },
+                {
+                    name: "Performance",
+                    property: "Plays per capita ( 1st April 2020)",
+                    tooltipDesc: ''
+                }
+            ],
+            filters: []
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 const dataSourceInfo = {
-    programStatus: {
+    stateOrDistrictWiseEnrollments: {
         multiBarChart: {
             pathToFile: 'nishtha/Enrollments And Completion.json',
             defaultLevel: "User District_Correct",
