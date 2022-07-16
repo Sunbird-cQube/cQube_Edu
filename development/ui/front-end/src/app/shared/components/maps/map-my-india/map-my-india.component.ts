@@ -98,7 +98,7 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
             if (e == "Yes") {
                 return "#36a732";
             } else {
-                return "grey";
+                return "red";
             }
         }
         else {
@@ -179,17 +179,17 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
     var yourData2:any
   
     Object.keys(marker).forEach((key) => {
-      if (key !== "Latitude" ) {
+      if (key !== "Latitude" && key !== "Longitude") {
         details[key] = marker[key];
       }
     });
     Object.keys(details).forEach((key) => {
-      if (key === "status") {
+      if (key !== "Location") {
         orgObject1[key] = details[key];
       }
     });
     Object.keys(details).forEach((key) => {
-      if (key !== "Longitude" && key !== "Latitude" && key !== "status" ) {
+      if (key === "Location") {
         orgObject[key] = details[key];
       }
     });
@@ -197,6 +197,7 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
     yourData2 = this.globalService.getInfoFrom(orgObject1, "", level, "infra-map")
     
     yourData1 = this.globalService.getInfoFrom(orgObject, "", level, "infra-map")
+    console.log(yourData2)
    
       const popup = R.responsivePopup({
         hasTip: false,
@@ -204,7 +205,7 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
         offset: [15, 20],
       }).setContent(
         
-        "<span style='font-weight: bold;'>" + yourData1 + "</span>" + "<br>" + "<br>" +
+        "<span style='font-weight: bold;'>" + yourData1 + "</span>" + "<br>" +
         yourData2
 
       );
@@ -216,7 +217,7 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
         e.target.closePopup();
       });
 
-      markerIcon.addTo(map).bindPopup(popup);
+      markerIcon.addTo(map).bindPopup(popup, {closeButton: false});
 
   }
 
