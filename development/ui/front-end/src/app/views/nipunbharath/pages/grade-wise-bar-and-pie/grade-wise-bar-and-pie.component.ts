@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from "highcharts/highstock";
+import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
+import { CommonService } from 'src/app/core/services/common/common.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-grade-wise-bar-and-pie',
@@ -7,57 +10,74 @@ import * as Highcharts from "highcharts/highstock";
   styleUrls: ['./grade-wise-bar-and-pie.component.scss']
 })
 export class GradeWiseBarAndPieComponent implements OnInit {
-  options: Highcharts.Options | undefined;
-  chart!: Highcharts.Chart;
-  chartOptions: any;
-
-  constructor() {
-    this.getBarData();
-    this.getpieChart();
-   }
+  filters: any;
+  barChartOptions: Highcharts.Options | undefined;
+  isReportLoading = false;
+  constructor(private readonly _commonService: CommonService) {
+    this.getBarData(this.filters);
+  }
 
   ngOnInit(): void {
   }
 
-  getBarData() {
-    this.options = {
-      series: [
-      {
-        type: 'bar',
-        color: "#34e5eb",
-        name: 'Content count',
-        data: [80, 70, 80, 50]
-        
-      }
-       ]
+  getBarData(filters: any): void {
+    this.isReportLoading = true;
+    let data: IReportDataPayload = {
+      appName: environment.config.toLowerCase(),
+      dataSourceName: 'nipun_bharat',
+      reportName: 'loCoveredByTextbook',
+      reportType: 'barChart',
+      stateCode: environment.stateCode,
+      filters
     };
-    }
 
-    getpieChart() {
-      this.chartOptions = {
-          name: 'Brands',
-          colorByPoint: true,
-          data: [{
-            name: 'Class 1',
-            y: 432,
-            selected: true
-          }, {
-            name: 'Class 2',
-            y: 331
-          }, {
-            name: 'Class 3',
-            y: 253
-          }, {
-            name: 'Pre-School 1',
-            y: 94
-          }, {
-            name: 'Pre-School 2',
-            y: 81
-          }, {
-            name: 'Pre-School 3',
-            y: 103
-          }]
-  
+    this._commonService.getReportData(data).subscribe(res => {
+      let result = res.result.data;
+      this.filters = res.result.filters;
+
+      this.barChartOptions = {
+        chart: {
+          events: {
+            load: function (this: any) {
+              let categoryHeight = 30;
+              this.update({
+                chart: {
+                  height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
+                }
+              })
+            }
+          }
+        },
+        xAxis: {
+          categories: result.map((record: any) => {
+            return record['Textbook Name'];
+          })
+        },
+        yAxis: {
+          opposite: true
+        },
+        legend: {
+          layout: 'horizontal',
+          align: 'center',
+          verticalAlign: 'top',
+          floating: false,
+          borderWidth: 0,
+          shadow: false,
+          reversed: true
+        },
+        series: [{
+          type: 'bar',
+          name: '% LOs covered',
+          data: result.map((record: any) => record['% LOs covered'])
+        }]
       };
-    }
+      this.isReportLoading = false;
+    }, err => {
+      this.isReportLoading = false;
+    });
+  }
+
+  filtersUpdated(filters: any): void {
+    this.getBarData(filters);
+  }
 }
