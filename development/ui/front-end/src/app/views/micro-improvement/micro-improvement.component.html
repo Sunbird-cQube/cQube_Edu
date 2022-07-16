@@ -14,21 +14,21 @@
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
         <mat-tab label="Micro Improvement Program" class="tab-first">
-            <div class="grid grid-cols-1" *ngIf="MicroProgramStatsByLocation">
+            <div class="grid grid-cols-1" *ngIf="microProgramData">
                 <div class="col">
                     <app-filter-panel></app-filter-panel>
                     <br>
-                    <app-map-my-india [data]="MicroProgramStatsByLocation"></app-map-my-india>
+                    <app-map-my-india [data]="microProgramData"></app-map-my-india>
                 </div>
             </div>
         </mat-tab>
 
-        <mat-tab label="Running Micro Improvement ">
+        <mat-tab label="Micro Improvement Effectiveness">
             <div class="grid grid-cols-1">
                 <div class="col">
                     <app-filter-panel></app-filter-panel>
                     <br>
-                    <app-map-my-india [data]="microimproveStateData"></app-map-my-india>
+                    <app-map-my-india [data]="microEffectivenessData"></app-map-my-india>
                     
                 </div>
             </div>
