@@ -76,7 +76,7 @@ export class MapService {
                 if (e == "Yes") {
                     return "#36a732"
                 } else {
-                    return "grey"
+                    return "red"
                 }
             }
             else {
