@@ -23,7 +23,7 @@ const dataSourceInfo = {
                 {
                     name: "status",
                     property: "Started",
-                    tooltipDesc: 'Energised textbooks (State & NCERT adopted:'
+                    tooltipDesc: 'Participation in Nishtha:'
                 }
             ],
             filters: [

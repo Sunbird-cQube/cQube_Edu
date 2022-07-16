@@ -35,7 +35,9 @@
 }
 ::ng-deep{
     .legend{
-        //margin-right: 150px !important;
+        background-color: rgb(238, 235, 235);
+        border: solid 1px black;
+        padding: 10px;
     }
 }
 @media(min-width: 916px) and (max-width:1380px){
