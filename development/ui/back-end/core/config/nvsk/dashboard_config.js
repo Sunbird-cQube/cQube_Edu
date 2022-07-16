@@ -157,15 +157,6 @@ const metrics = [
         "tooltip": ""
     },
     {
-        "title": "Vidyanjali",
-        "navigationURL": "/vidyanjali",
-        "metrics": [
-            
-        ],
-        "icon": "Vidyanjali.jpg",
-        "tooltip": ""
-    },
-    {
         "title": "Micro-Improvement Program",
         "navigationURL": "/microimprovement",
         "metrics": [],
