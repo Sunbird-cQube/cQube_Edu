@@ -21,6 +21,8 @@ import { FilterPanelComponent } from './components/filter-panel/filter-panel.com
 import { StackedBarComponent } from './components/charts/stacked-bar/stacked-bar.component';
 import { PieChartComponent } from './components/charts/pie-chart/pie-chart.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { LeafletMapComponent } from './components/maps/leaflet-map/leaflet-map.component';
+import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -46,12 +48,13 @@ const DECLARATIONS = [
   FilterPanelComponent,
   StackedBarComponent,
   PieChartComponent,
+  LeafletMapComponent,
+  BarChartComponent
 ];
 
 @NgModule({
   declarations: [
-    DECLARATIONS,
-    
+    DECLARATIONS    
   ],
   imports: [
     CommonModule,

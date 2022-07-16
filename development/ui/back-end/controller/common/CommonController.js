@@ -37,6 +37,8 @@ exports.getReportData = (req, res, next) => {
 				reportData = await getMultiBarChartData(reqBody, reportConfig, rawData);
 			} else if (reqBody.reportType === reportTypes.stackedBarChart) {
 				reportData = await getStackedBarChartData(reqBody, reportConfig, rawData);
+			} else if (reqBody.reportType === reportTypes.barChart) {
+				reportData = await getBarChartData(reqBody, reportConfig, rawData);
 			} else {
 				throw `Invalid report type: ${reqBody.reportType}`;
 			}
@@ -501,6 +503,124 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 	return {
 		data: rawData,
 		filters: filters
+	};
+}
+
+async function getBarChartData(reqBody, reportConfig, rawData) {
+	console.log("process started");
+	let { columns, filters, mainFilter, gaugeChart } = reportConfig;
+	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
+	let isAggegrationNeeded = columns.filter(col => col.aggegration).length > 0;
+	let groupByColumn = reportConfig.defaultLevel;
+
+	if (mainFilter) {
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == stateCodes[reqBody.stateCode]));
+	}
+
+	if (gaugeChart) {
+		if (gaugeChart.aggegration && gaugeChart.aggegration.type === "AVG") {
+			gaugeChart.columnSum = 0;
+			gaugeChart.againstSum = 0;
+		}
+	}
+
+	if (reqBody.filters && reqBody.filters.length > 0) {
+		filters = reqBody.filters;
+	} else {
+		filters = filters.map(filter => {
+			return {
+				...filter,
+				value: "",
+				options: []
+			}
+		})
+	}
+
+	filterRes = applyFilters(filters, rawData, groupByColumn);
+	filters = filterRes.filters;
+	rawData = filterRes.rawData;
+	groupByColumn = filterRes.groupByColumn;
+
+	if (isWeightedAverageNeeded || isAggegrationNeeded) {
+		rawData = _.chain(rawData)
+		.groupBy(groupByColumn)
+		.map((objs, key) => {
+			let data = {};
+			columns.forEach(col => {
+				if (col.isLocationName) {
+					data.Location = key;
+					return;
+				}
+
+				if (col.key) {
+					data[col.name] = key;
+					return;
+				}
+
+				if (col.weightedAverage) {
+					let numeratorSum = 0;
+					let denominatorSum = 0;
+					
+					objs.forEach((obj, index) => {
+						numeratorSum += obj[col.property] * obj[col.weightedAverage.against];
+						denominatorSum += obj[col.weightedAverage.against];
+					});
+
+					data[col.name] = Number((numeratorSum / denominatorSum).toFixed(2));
+					return;
+				}
+
+				if (col.aggegration) {
+					if (col.aggegration === 'SUM') {
+						data[col.name] = _.sumBy(objs, col.property);
+						return;
+					}
+				}
+
+				data[col.name] = objs[0][col.property];
+			});
+
+			return data;
+		})
+		.value();
+	} else {
+		rawData = rawData.map(record => {
+			let data = {};
+			columns.forEach(col => {
+				if (col.isLocationName) {
+					data.Location = record[col.property];
+					return;
+				}
+
+				if (col.tooltipDesc) {
+					data[col.name] = col.tooltipDesc + ' ' + record[col.property];
+					return;
+				}
+
+				data[col.name] = record[col.property];
+			});
+
+			if (gaugeChart) {
+				if (gaugeChart.aggegration && gaugeChart.aggegration.type === "AVG") {
+					gaugeChart.columnSum += record[gaugeChart.aggegration.column] ? record[gaugeChart.aggegration.column] : 0;
+					gaugeChart.againstSum += record[gaugeChart.aggegration.against] ? record[gaugeChart.aggegration.against] : 0;
+				}
+			}
+
+			return data;
+		});
+	}
+
+	if (gaugeChart) {
+		if (gaugeChart.aggegration && gaugeChart.aggegration.type === "AVG") {
+			gaugeChart.percentage = gaugeChart.againstSum > 0 ? Number((gaugeChart.columnSum / gaugeChart.againstSum * 100).toFixed(2)) : 0;
+		}
+	}
+
+	return {
+		data: rawData,
+		filters: filters,
+		gaugeChart: gaugeChart
 	};
 }
 

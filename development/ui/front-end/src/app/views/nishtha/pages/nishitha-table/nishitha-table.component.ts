@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as Highcharts from "highcharts/highstock";
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
@@ -17,18 +17,19 @@ export class NishithaTableComponent implements OnInit {
   options: Highcharts.Options | undefined;
   filters: any;
   
-  constructor(private readonly _activatedRoute: ActivatedRoute, private readonly _commonService: CommonService) { 
-    this.getData(this.filters);
-  }
+  @Input() lastLevel!: string;
+
+  constructor(private readonly _activatedRoute: ActivatedRoute, private readonly _commonService: CommonService) { }
 
   ngOnInit(): void {
+    this.getData(this.filters);
   }
 
   getData(filters: any): void {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
       dataSourceName: 'nishtha',
-      reportName: 'programStatus',
+      reportName: this.lastLevel === 'district' ? 'stateOrDistrictWiseEnrollments' : 'stateOrCourseWiseEnrollments',
       reportType: 'multiBarChart',
       stateCode: environment.stateCode,
       filters
