@@ -36,6 +36,36 @@ const dataSourceInfo = {
                 }
             ]
         }
+    },
+    state_onboarded: {
+        map: {
+            pathToFile: 'pm_poshan/state_onboarded.json',
+            columns: [
+                {
+                    name: "State",
+                    property: "State",
+                    isLocationName: true
+                },
+                {
+                    name: "Location Code",
+                    property: "State Code"
+                },
+                {
+                    name: "Latitude",
+                    property: "Latitude"
+                },
+                {
+                    name: "Longitude",
+                    property: "Longitude"
+                },
+                {
+                    name: "status",
+                    property: "Onboarded on PM Poshan",
+                    tooltipDesc: 'Onboarded on PM Poshan :'
+                }
+            ],
+            filters: []
+        }
     }
 }
 
