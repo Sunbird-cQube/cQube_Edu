@@ -1,9 +1,9 @@
 {
     "IN": {
         "name": "INDIA",
-        "lat": 20.5937,
-        "lng": 78.9629,
-        "zoomLevel": 4.8
+        "lat": 22.5937,
+        "lng": 82.9629,
+        "zoomLevel": 5.2
     },
     "BR": {
         "name": "Bihar",

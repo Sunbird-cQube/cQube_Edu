@@ -46,10 +46,6 @@ export class PGIComponent implements OnInit {
 
   getStateWisePGICoverageData() {
     return this._ETBService.getStateWiseETBCoverageData().subscribe(res => {
-      this.tableData = res.result.data;
-      this.columns = res.result.columns;
-
-
       this.options = {
         title: {
           text: ""
@@ -78,41 +74,6 @@ export class PGIComponent implements OnInit {
         }]
       }
     });
-  }
-
-  getPGIMetricsData() {
-    this.pgiMetricsData = [
-      {
-        "name": "States in Level I",
-        "value": "0",
-        "tooltip": "States in Level I- 0"
-      },
-      {
-        "name": "States in Level II",
-        "value": "5",
-        "tooltip": "States in Level II"
-      },
-      {
-        "name": "States in Grade I+",
-        "value": "7",
-        "tooltip": "States in Grade I+"
-      },
-      {
-        "name": "States in Grade I",
-        "value": "8",
-        "tooltip": "States in Grade I"
-      },
-      {
-        "name": "States in Grade II",
-        "value": "8",
-        "tooltip": "States in Grade II"
-      },
-      {
-        "name": "States in Grade III",
-        "value": "4",
-        "tooltip": "States in Grade III"
-      },
-    ];
   }
 
   getPGIStateData(filters:any) {
