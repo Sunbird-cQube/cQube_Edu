@@ -30,8 +30,10 @@
             <app-etb-coverage></app-etb-coverage>
         </mat-tab>
         <mat-tab label="QR Coverage across States" class="tab-last" *ngIf="NVSK">
-            <app-filter-panel></app-filter-panel>
             <app-qr-coverage-across-states></app-qr-coverage-across-states>
+        </mat-tab>
+        <mat-tab label="Total Learning Sessions/Time Spent" class="tab-last" *ngIf="NVSK">
+            <app-total-learning-sessions></app-total-learning-sessions>
         </mat-tab>
         <mat-tab label="Total Plays per Capita" *ngIf="NVSK">
             <app-total-plays-per-capita></app-total-plays-per-capita>

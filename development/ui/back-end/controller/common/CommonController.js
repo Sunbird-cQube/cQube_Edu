@@ -103,7 +103,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		filters = filters.map(filter => {
 			return {
 				...filter,
-				value: "",
+				value: null,
 				options: []
 			}
 		})
@@ -196,7 +196,7 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		filters = filters.map(filter => {
 			return {
 				...filter,
-				value: "",
+				value: null,
 				options: []
 			}
 		})
@@ -284,7 +284,7 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 		filters = filters.map(filter => {
 			return {
 				...filter,
-				value: "",
+				value: null,
 				options: []
 			}
 		});
@@ -327,7 +327,7 @@ async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 		filters = filters.map(filter => {
 			return {
 				...filter,
-				value: "",
+				value: null,
 				options: []
 			}
 		})
@@ -424,7 +424,7 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 		filters = filters.map(filter => {
 			return {
 				...filter,
-				value: "",
+				value: null,
 				options: []
 			}
 		})
@@ -530,7 +530,7 @@ async function getBarChartData(reqBody, reportConfig, rawData) {
 		filters = filters.map(filter => {
 			return {
 				...filter,
-				value: "",
+				value: null,
 				options: []
 			}
 		})
@@ -676,7 +676,7 @@ function applyFilters(filters, rawData, groupByColumn, code = undefined) {
 		let filterOptionMap = new Map();
 		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
 
-		if (filter.value !== '' && filter.value !== 'overall') {
+		if (filter.value && filter.value !== '' && filter.value !== 'overall') {
 			rawData = rawData.filter(record => {
 				return record[filterProperty] === filter.value;
 			});
@@ -685,7 +685,7 @@ function applyFilters(filters, rawData, groupByColumn, code = undefined) {
 				groupByColumn = filter.level;
 				code = stateNumbers[filter.value];
 			}
-		} else if (index === 0 || (filters[index - 1].value !== '')) {
+		} else if (index === 0 || (filters[index - 1].value && filters[index - 1].value !== '')) {
 			filter.options = [];
 			if (filter.includeAll) {
 				filter.options.push({

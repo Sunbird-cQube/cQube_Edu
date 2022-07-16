@@ -147,6 +147,38 @@ const dataSourceInfo = {
             ],
             filters: []
         }
+    },
+    totalLearningSessions: {
+        barChart: {
+            pathToFile: 'etb/ETB Content Play.json',
+            defaultLevel: 'State Name',
+            columns: [
+                {
+                    name: "State Name",
+                    property: "State Name",
+                    isLocationName: true
+                },
+                {
+                    name: "Total No of Plays (App and Portal)",
+                    property: "Total No of Plays (App and Portal)",
+                    aggegration: "SUM"
+                }
+            ],
+            filters: [
+                {
+                    name: 'Medium',
+                    column: 'medium_new'
+                },
+                {
+                    name: 'Grade',
+                    column: 'grade_new'
+                },
+                {
+                    name: 'Subject',
+                    column: 'Subject'
+                }
+            ]
+        }
     }
 }
 
