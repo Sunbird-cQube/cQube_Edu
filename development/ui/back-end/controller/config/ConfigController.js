@@ -1,6 +1,5 @@
 const path = require('path');
 const { configFiles } = require("../../core/config/config");
-const AwsConfig = require("../../core/config/aws-config");
 const { getFileData } = require('../../service/storage_service');
 
 exports.getConfig = (req, res, next) => {
