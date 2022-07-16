@@ -10,17 +10,26 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./pm-poshan.component.scss']
 })
 export class PmPoshanComponent implements OnInit {
+  config: string = environment.config;
   state: any= 'IN';
+  state2: any = 'IN';
   filters: any;
+  filters1: any;
+  isMapReportLoading = true;
+  NVSK: boolean = true;
   pmposhanMetricsData: any;
   pmPoshanStateData:any;
-  isMapReportLoading = true;
+  pmPoshanStateOnboardedData:any;
   constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService) {
     this.getUdiseMetricsData();
     this.getPmPoshanStateData(this.filters);
+    this.getStateOnboardedData(this.filters1);
   }
 
   ngOnInit(): void {
+    if(this.config == 'VSK'){
+      this.NVSK = false;
+    }
   }
   onTabChanged($event: any): void {
     setTimeout(() => {
@@ -47,6 +56,29 @@ export class PmPoshanComponent implements OnInit {
         "tooltip": "Total Meals Served"
       },
     ];
+  }
+
+  getStateOnboardedData(filters: any){
+    let data: IReportDataPayload = {
+      appName: environment.config.toLowerCase(),
+      dataSourceName: 'pm_poshan',
+      reportName: 'state_onboarded',
+      reportType: 'map',
+      stateCode: environment.stateCode,
+      filters
+    };
+
+    this._commonService.getReportData(data).subscribe(res => {
+      this._spinner.hide()
+      this.isMapReportLoading = false;
+      this.pmPoshanStateOnboardedData = res.result.data;
+      this.filters = res.result.filters;
+      if(res.result.code){
+        this.state2 = res.result.code;
+      }
+    }, err => {
+      this.isMapReportLoading = false;
+    });
   }
 
   getPmPoshanStateData(filters: any) {

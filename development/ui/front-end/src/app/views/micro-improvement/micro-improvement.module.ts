@@ -6,6 +6,7 @@ import { CqubeLibraryModule } from 'cqube-library';
 import { MicroImprovementRoutingModule } from './micro-improvement-routing.module';
 import { MicroImprovementComponent } from './micro-improvement.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -17,8 +18,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MicroImprovementRoutingModule,
     SharedModule,
     MatTabsModule,
-    CqubeLibraryModule
-
+    CqubeLibraryModule,
+    NgxSpinnerModule
   ]
 })
 export class MicroImprovementModule { }

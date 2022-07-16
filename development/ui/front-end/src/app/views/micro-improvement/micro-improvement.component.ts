@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
+import { CommonService } from 'src/app/core/services/common/common.service';
 import { ETBService } from 'src/app/core/services/etb/etb.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -9,18 +13,24 @@ import { ETBService } from 'src/app/core/services/etb/etb.service';
 })
 export class MicroImprovementComponent implements OnInit {
 
+  config: string = environment.config;
+  state1: any= 'IN';
+  state2: any = 'IN';
+  filters1: any;
+  filters2: any;
+  NVSK: boolean = true;
+  isMapReportLoading = true;
   ETBMetrics: any[] | undefined;
-  MicroProgramStatsByLocation: any;
-
-  microimproveStateData:any;
+  microEffectivenessData: any;
+  microProgramData:any;
   microImprovementMetricsData:any;
 
 
   constructor(private readonly _ETBService: ETBService,
-    
+    private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService
   ) {
-    this.getmicroimproveStateData();
-    this.getETBProgramStatsByLocation();
+    this.getMicroEffectivenessData();
+    this.getMicroProgramData(this.filters1);
     this.getmicroMetricsData();
   }
 
@@ -28,9 +38,26 @@ export class MicroImprovementComponent implements OnInit {
    
   }
 
-  getETBProgramStatsByLocation(): void {
-    this._ETBService.getETBProgramStatsByLocation().subscribe(ETBProgramStatsByLocationRes => {
-      this.MicroProgramStatsByLocation = ETBProgramStatsByLocationRes.result;
+  getMicroProgramData(filters: any): void {
+    let data: IReportDataPayload = {
+      appName: environment.config.toLowerCase(),
+      dataSourceName: 'micro_improvements',
+      reportName: 'started_micro_improvements',
+      reportType: 'map',
+      stateCode: environment.stateCode,
+      filters
+    };
+
+    this._commonService.getReportData(data).subscribe(res => {
+      this._spinner.hide()
+      this.isMapReportLoading = false;
+      this.microProgramData = res.result.data;
+      this.filters1 = res.result.filters;
+      if(res.result.code){
+        this.state1 = res.result.code;
+      }
+    }, err => {
+      this.isMapReportLoading = false;
     });
   }
 
@@ -40,8 +67,8 @@ export class MicroImprovementComponent implements OnInit {
     }, 100);
   }
 
-  getmicroimproveStateData() {
-    this.microimproveStateData = [
+  getMicroEffectivenessData() {
+    this.microEffectivenessData = [
       {
         "Location": "Andaman And Nicobar",
         "Latitude": 11.66702557,
