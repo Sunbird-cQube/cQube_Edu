@@ -13,7 +13,7 @@ export class GardeWiseResourceComponent implements OnInit {
   filters: any;
   barChartOptions: Highcharts.Options | undefined;
   isReportLoading = false;
-  constructor(private readonly _commonService: CommonService) { 
+  constructor(private readonly _commonService: CommonService) {
     this.getBarData(this.filters);
   }
 
@@ -38,7 +38,7 @@ export class GardeWiseResourceComponent implements OnInit {
       this.barChartOptions = {
         chart: {
           events: {
-            load: function(this: any) {
+            load: function (this: any) {
               let categoryHeight = 30;
               this.update({
                 chart: {
@@ -69,7 +69,13 @@ export class GardeWiseResourceComponent implements OnInit {
           type: 'bar',
           name: 'Total No of Plays (App and Portal)',
           data: result.map((record: any) => record['Total No of Plays (App and Portal)'])
-        }]
+        }],
+        tooltip: {
+          formatter: function() {
+            return ' ' +
+              'Total Play time(App and Portal) :' + result.map((record: any) => record['Total Play time(App and Portal)'])[this.point.x] + '<br />'
+          }
+        }
       };
       this.isReportLoading = false;
     }, err => {
@@ -95,11 +101,11 @@ export class GardeWiseResourceComponent implements OnInit {
   //       color: "#DBADEC",
   //       name: 'Content count',
   //       data: [245, 75, 104, 85,768,104,205]
-        
+
   //     }
   //      ]
   //   };
   //   }
-  
+
 
 }
