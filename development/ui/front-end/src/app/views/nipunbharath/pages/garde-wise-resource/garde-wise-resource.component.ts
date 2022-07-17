@@ -73,7 +73,7 @@ export class GardeWiseResourceComponent implements OnInit {
         tooltip: {
           formatter: function() {
             return ' ' +
-              'Total Play time(App and Portal) :' + result.map((record: any) => record['Total Play time(App and Portal)'])[this.point.x] + '<br />'
+              'Total Play time(App and Portal) :' + result.map((record: any) => record['Total Play time(App and Portal)'])[this.point.x].toFixed(2) + '<br />'
           }
         }
       };
