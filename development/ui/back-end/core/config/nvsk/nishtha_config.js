@@ -2,28 +2,29 @@ const dataSourceInfo = {
     programStatus: {
         map: {
             pathToFile: 'nishtha/nishtha_coverage_state_wise.json',
-            columns: [
+            locations: [
                 {
-                    name: "State",
+                    name: "Location",
                     property: "State",
-                    isLocationName: true
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State Name"
+                    }
+                }
+            ],
+            dimensions: [
+                {
+                    name: "Program",
+                    property: "Program",
+                    tooltip: {
+                        valueAsName: true,
+                        property: "Started"
+                    }
                 },
                 {
-                    name: "Location Code",
-                    property: "State Code"
-                },
-                {
-                    name: "Latitude",
-                    property: "Latitude"
-                },
-                {
-                    name: "Longitude",
-                    property: "Longitude"
-                },
-                {
-                    name: "status",
-                    property: "Started",
-                    tooltipDesc: 'Participation in Nishtha:'
+                    name: "indicator",
+                    property: "Started"
                 }
             ],
             filters: [
@@ -32,7 +33,12 @@ const dataSourceInfo = {
                     column: 'Program',
                     defaultValue: true
                 }
-            ]
+            ],
+            options: {
+                legend: {
+                    title: 'Nishtha started'
+                }
+            }
         }
     },
     stateOrDistrictWiseEnrollments: {

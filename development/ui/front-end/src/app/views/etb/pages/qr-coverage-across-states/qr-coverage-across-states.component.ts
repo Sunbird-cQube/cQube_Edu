@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
+import { LeafletMapComponent } from 'src/app/shared/components/maps/leaflet-map/leaflet-map.component';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,6 +16,8 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
   barChartOptions: Highcharts.Options | undefined;
   gaugeChartOptions: Highcharts.Options | undefined;
   gaugeChartProperties: any | undefined;
+
+  @ViewChild(LeafletMapComponent) leafletComponent!: LeafletMapComponent;
 
   constructor(private readonly _commonService: CommonService) {
     this.getStateWiseETBQRCoverageData(this.filters);
@@ -35,7 +38,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
     };
 
     this._commonService.getReportData(data).subscribe(ETBProgramStatsByLocationRes => {
-      this.ETBProgramStatsByLocation = ETBProgramStatsByLocationRes.result.data;
+      this.ETBProgramStatsByLocation = ETBProgramStatsByLocationRes.result;
       this.filters = ETBProgramStatsByLocationRes.result.filters;
     });
   }

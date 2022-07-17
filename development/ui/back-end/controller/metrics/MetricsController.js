@@ -19,10 +19,12 @@ exports.getDashboardMetrics = async (req, res, next) => {
                     let data = {
                         programId: key,
                         title: objs[0]['Program'],
-                        metrics: []
+                        metrics: [],
+						tooltip: ""
                     };
 
                     data.metrics = objs.map(metric => {
+						data.tooltip += data.tooltip.length > 0 ? `<br>${metric['Metric Information']}` : `${metric['Metric Information']}`;
                         return {
                             name: metric['Metric Name'],
                             value: metric['Metric Value'] && metric['Metric Value'] !== '' ? metric['Metric Value'] : 0,

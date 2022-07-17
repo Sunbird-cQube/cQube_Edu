@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { IStateWiseEnrollmentRec } from 'src/app/core/models/IStateWiseEnrollmentRec';
 import { CommonService } from 'src/app/core/services/common/common.service';
 
 import { ETBService } from 'src/app/core/services/etb/etb.service';
 import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
+import { LeafletMapComponent } from 'src/app/shared/components/maps/leaflet-map/leaflet-map.component';
 import { environment } from 'src/environments/environment';
+import { QRCoverageAcrossStatesComponent } from './pages/qr-coverage-across-states/qr-coverage-across-states.component';
+import { TotalPlaysPerCapitaComponent } from './pages/total-plays-per-capita/total-plays-per-capita.component';
 
 @Component({
   selector: 'app-etb',
@@ -26,6 +29,10 @@ export class EtbComponent implements OnInit {
 
   stateWiseEnrollmentData!: IStateWiseEnrollmentRec[];
   options: Highcharts.Options | undefined;
+
+  @ViewChild(LeafletMapComponent) leafletComponent!: LeafletMapComponent;
+  @ViewChild(QRCoverageAcrossStatesComponent) qrCoverageAcrossStatesComponent!: QRCoverageAcrossStatesComponent;
+  @ViewChild(TotalPlaysPerCapitaComponent) totalPlaysPerCapitaComponent!: TotalPlaysPerCapitaComponent;
 
   constructor(private readonly _ETBService: ETBService,private readonly _nishthaService: NishthaService, private readonly _commonService: CommonService) {
     let params: any = {
@@ -112,11 +119,8 @@ export class EtbComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(res => {
       this.isMapReportLoading = false;
-      this.ETBStateData = res.result.data;
+      this.ETBStateData = res.result;
       this.filters = res.result.filters;
-      if(res.result.level == 'District' && Number(this.filters[3].value) > 0){
-        this.selectedState = Number(this.filters[3].value);
-      }
     }, error => {
       this.isMapReportLoading = false;
     });

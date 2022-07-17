@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
           let itemConfig = (DashboardMenu as any)[item.programId];
 
           if (itemConfig) {
+            item.tooltip = item.tooltip.replace(/<br\s*\/?>/gi, ', ');
             return {
               ...itemConfig,
               ...item

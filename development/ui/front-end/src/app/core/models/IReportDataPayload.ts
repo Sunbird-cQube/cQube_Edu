@@ -4,5 +4,6 @@ export interface IReportDataPayload {
     dataSourceName: string;
     reportName: string;
     reportType: 'map' | 'multiBarChart' | 'loTable' | 'stackedBarChart' | 'barChart';
-    filters: any;
+    filters?: any;
+    levels?: any;
 }

@@ -6,6 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { MultiBarChartComponent } from './components/charts/multi-bar-chart/multi-bar-chart.component';
 import { DashboardCardComponent } from './components/cards/dashboard-card/dashboard-card.component';
@@ -23,6 +24,7 @@ import { PieChartComponent } from './components/charts/pie-chart/pie-chart.compo
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LeafletMapComponent } from './components/maps/leaflet-map/leaflet-map.component';
 import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
+import { MaterialButtonGroupComponent } from './components/buttons/material-button-group/material-button-group.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -31,7 +33,8 @@ const IMPORTS: any[] = [
   NgSelectModule,
   FormsModule,
   TranslocoModule,
-  NgxSpinnerModule
+  NgxSpinnerModule,
+  MatButtonToggleModule
 ];
 
 const DECLARATIONS = [
@@ -49,12 +52,14 @@ const DECLARATIONS = [
   StackedBarComponent,
   PieChartComponent,
   LeafletMapComponent,
-  BarChartComponent
+  BarChartComponent,
+  MaterialButtonGroupComponent
 ];
 
 @NgModule({
   declarations: [
-    DECLARATIONS    
+    DECLARATIONS,
+    MaterialButtonGroupComponent    
   ],
   imports: [
     CommonModule,

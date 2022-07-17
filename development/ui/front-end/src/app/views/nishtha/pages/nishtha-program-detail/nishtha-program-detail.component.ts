@@ -41,7 +41,7 @@ export class NishthaProgramDetailComponent implements OnInit, OnChanges {
     this._commonService.getReportData(data).subscribe(nishthaStateDataRes => {
       this._spinner.hide()
       this.isMapReportLoading = false;
-      this.nishithaStateData = nishthaStateDataRes.result.data;
+      this.nishithaStateData = nishthaStateDataRes.result;
       this.filters = nishthaStateDataRes.result.filters;
       if(nishthaStateDataRes.result.code != undefined){
         this.state = nishthaStateDataRes.result.code;

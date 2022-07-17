@@ -32,7 +32,7 @@ export class TotalPlaysPerCapitaComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(res => {
       this.isMapReportLoading = false;
-      this.totalPlaysPerCapitaData = res.result.data;
+      this.totalPlaysPerCapitaData = res.result;
       this.filters = res.result.filters;
     }, error => {
       this.isMapReportLoading = false;

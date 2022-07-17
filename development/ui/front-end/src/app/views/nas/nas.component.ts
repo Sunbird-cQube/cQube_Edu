@@ -19,6 +19,7 @@ export class NasComponent implements OnInit {
   NasStateData: any;
   filters: any;
   isMapReportLoading = true;
+  levels: any;
 
   constructor(private readonly _NASService: NasService, private readonly _commonService: CommonService, private readonly _configService: NishthaService,private readonly _spinner:NgxSpinnerService) {
     let data:any = "NAS";
@@ -27,7 +28,7 @@ export class NasComponent implements OnInit {
     });
 
     // this.getNASMetrics()
-    this.getNasData(this.filters);
+    this.getNasData(this.filters, this.levels);
   }
 
   ngOnInit(): void {
@@ -40,21 +41,23 @@ export class NasComponent implements OnInit {
     });
   }
 
-  getNasData(filters: any): void {
+  getNasData(filters: any, levels: any): void {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
       dataSourceName: 'nas',
       reportName: 'studentPerformance',
       reportType: 'map',
       stateCode: environment.stateCode,
-      filters
+      filters,
+      levels
     };
 
     this._commonService.getReportData(data).subscribe(res => {
       this._spinner.hide()
       this.isMapReportLoading = false;
-      this.NasStateData = res.result.data;
+      this.NasStateData = res.result;
       this.filters = res.result.filters;
+      this.levels = res.result.levels;
       if(res.result.code != undefined){
         this.state = res.result.code;
       }
@@ -71,12 +74,19 @@ export class NasComponent implements OnInit {
   onTabChanged($event: any): void {
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
-      console.log('resize');
     }, 100);
   }
 
   filtersUpdated(filters: any): void {
-    this.getNasData(filters);
+    this.getNasData(filters, this.levels);
+  }
+
+  onSelectLevel(event: any): void {
+    event.items.forEach((level: any, levelInd: number) => {
+        level.selected = levelInd === event.index;
+    });
+
+    this.getNasData(this.filters, event.items);
   }
 
 }
