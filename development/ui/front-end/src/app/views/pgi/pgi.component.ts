@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 export class PGIComponent implements OnInit {
   state: any= 'IN';
   filters: any;
+  levels: any;
   isMapReportLoading = true;
 
   pgiMetricsData: any;
@@ -30,7 +31,7 @@ export class PGIComponent implements OnInit {
       this.pgiMetricsData = dashboardMenuResult.result[3]?.metrics;
     });
     // this.getPGIMetricsData();
-    this.getPGIStateData(this.filters);
+    this.getPGIStateData(this.filters, this.levels);
     this.getStateWisePGICoverageData();
   }
 
@@ -76,21 +77,23 @@ export class PGIComponent implements OnInit {
     });
   }
 
-  getPGIStateData(filters:any) {
+  getPGIStateData(filters:any, levels:any) {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
-      dataSourceName: 'pm_poshan',
-      reportName: 'PM_poshan_access',
+      dataSourceName: 'pgi',
+      reportName: 'pgi_performance',
       reportType: 'map',
       stateCode: environment.stateCode,
-      filters
+      filters,
+      levels
     };
 
     this._commonService.getReportData(data).subscribe(res => {
       this._spinner.hide()
       this.isMapReportLoading = false;
-      this.pgiStateData = res.result.data;
+      this.pgiStateData = res.result;
       this.filters = res.result.filters;
+      this.levels = res.result.levels;
       if(res.result.code){
         this.state = res.result.code;
       }
@@ -100,7 +103,15 @@ export class PGIComponent implements OnInit {
   }
 
   filtersUpdated(filters: any): void {
-    this.getPGIStateData(filters);
+    this.getPGIStateData(filters, this.levels);
+  }
+
+  onSelectLevel(event: any): void {
+    event.items.forEach((level: any, levelInd: number) => {
+        level.selected = levelInd === event.index;
+    });
+
+    this.getPGIStateData(this.filters, event.items);
   }
 
 }

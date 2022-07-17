@@ -90,7 +90,7 @@ exports.uploadSourceData = async (req, res, next) => {
 async function getMapReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
 	let { locations, latitude, longitude, dimensions, filters, levels, stateColumnFilter, groupByDefault, options } = reportConfig;
-	let isWeightedAverageNeeded = dimensions.filter(dimension => dimension.weightedAverage).length > 0;
+	let isWeightedAverageNeeded = dimensions.filter(dimension => dimension.weightedAverage || dimension.aggegration).length > 0;
 	let groupByColumn = groupByDefault;
 	let level = reqBody.appName === appNames.nvsk ? 'state' : 'district';
 	let currentLevel;
@@ -209,6 +209,24 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 
 					return;
 				}
+				if (dimension.aggegration) {
+					if(dimension.aggegration.type === "SUM"){
+						let sum = 0;
+					
+						objs.forEach((obj, index) => {
+							sum += obj[dimension.property];
+						});
+						
+						data[dimension.name] = Number(sum.toFixed(2));
+					}
+
+					if (dimension.tooltip) {
+						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+						data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${data[dimension.name]}</b>`;
+					}
+
+					return;
+				}
 
 				if (dimension.tooltip) {
 					data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
@@ -295,7 +313,6 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 }
 
 async function getLOTableReportData(reqBody, reportConfig, rawData) {
-	console.log("process started");
 	let { columns, filters, mainFilter, gaugeChart } = reportConfig;
 	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
