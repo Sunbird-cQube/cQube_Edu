@@ -197,7 +197,6 @@ export class MapMyIndiaComponent implements OnInit, AfterViewInit, OnChanges {
     yourData2 = this.globalService.getInfoFrom(orgObject1, "", level, "infra-map")
     
     yourData1 = this.globalService.getInfoFrom(orgObject, "", level, "infra-map")
-    console.log(yourData2)
    
       const popup = R.responsivePopup({
         hasTip: false,
