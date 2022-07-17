@@ -2,31 +2,38 @@ const dataSourceInfo = {
     studentPerformance: {
         map: {
             pathToFile: 'nas/nas_data.json',
-            defaultLevel: "State",
-            columns: [
+            locations: [
                 {
-                    name: "State",
+                    name: "Location",
                     property: "State",
-                    isLocationName: true
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State Name"
+                        //valueAsName: true,
+                        //property: "Started"
+                    }
                 },
                 {
-                    name: "Location Code",
-                    property: "State Code"
-                },
+                    name: "Location",
+                    property: "District",
+                    level: "district",
+                    tooltip: {
+                        name: "District Name"
+                    }
+                }
+            ],
+            dimensions: [
                 {
-                    name: "Latitude",
-                    property: "Latitude"
-                },
-                {
-                    name: "Longitude",
-                    property: "Longitude"
-                },
-                {
-                    name: "Performance",
+                    name: "indicator",
                     property: "Performance",
                     weightedAverage: {
-                        column: "Performance",
+                        property: "Performance",
                         against: "Students Surveyed"
+                    },
+                    tooltip: {
+                        name: "Performance",
+                        property: "Performance"
                     }
                 }
             ],
@@ -46,10 +53,29 @@ const dataSourceInfo = {
                 {
                     name: 'State',
                     column: 'State',
-                    optionValueColumn: "State Code",
-                    level: "District"
+                    optionValueColumn: "State Code"
                 }
-            ]
+            ],
+            levels: [
+                {
+                    name: "State",
+                    value: "state",
+                    property: "State"
+                },
+                {
+                    name: "District",
+                    value: "district",
+                    property: "District"
+                }
+            ],
+            options: {
+                legend: {
+                    title: 'NAS Performance'
+                },
+                tooltip: {
+                    reportTypeIndicator: 'percent'
+                }
+            }
         },
         loTable: {
             pathToFile: 'nas/nas_data.json',

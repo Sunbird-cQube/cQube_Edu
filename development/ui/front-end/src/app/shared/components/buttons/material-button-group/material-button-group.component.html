@@ -1,0 +1,5 @@
+<ng-container *ngIf="buttons">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="bold" *ngFor="let button of buttons; let i = index" (click)="onSelect(buttons, i)">{{button.name}}</mat-button-toggle>
+    </mat-button-toggle-group>
+</ng-container>

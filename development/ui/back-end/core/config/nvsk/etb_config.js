@@ -2,31 +2,32 @@ const dataSourceInfo = {
     statesEnergizedTextBooks: {
         map: {
             pathToFile: 'etb/ETB_states_running_program.json',
-            columns: [
+            locations: [
                 {
-                    name: "State",
+                    name: "Location",
                     property: "State",
-                    isLocationName: true
-                },
-                {
-                    name: "Location Code",
-                    property: "State Code"
-                },
-                {
-                    name: "Latitude",
-                    property: "Latitude"
-                },
-                {
-                    name: "Longitude",
-                    property: "Longitude"
-                },
-                {
-                    name: "status",
-                    property: "Energised textbooks (State & NCERT adopted)",
-                    tooltipDesc: 'Energised textbooks (State & NCERT adopted:'
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State Name"
+                    }
                 }
             ],
-            filters: []
+            dimensions: [
+                {
+                    name: "indicator",
+                    property: "Energised textbooks (State & NCERT adopted)",
+                    tooltip: {
+                        name: "Energised textbooks (State & NCERT adopted)"
+                    }
+                }
+            ],
+            filters: [],
+            options: {
+                legend: {
+                    title: 'Energised textbooks (State & NCERT adopted)'
+                }
+            }
         },
         loTable: {
             pathToFile: 'etb/ETB_energized_text_book_percentage.json',
@@ -67,31 +68,35 @@ const dataSourceInfo = {
     qrCodeCoverageAcrossStates: {
         map: {
             pathToFile: 'etb/ETB_QR_coverage_across_states.json',
-            columns: [
+            locations: [
                 {
-                    name: "State Name",
+                    name: "Location",
                     property: "State Name",
-                    isLocationName: true
-                },
-                {
-                    name: "Location Code",
-                    property: "State Code"
-                },
-                {
-                    name: "Latitude",
-                    property: "Latitude"
-                },
-                {
-                    name: "Longitude",
-                    property: "Longitude"
-                },
-                {
-                    name: "Performance",
-                    property: "QR Coverage",
-                    tooltipDesc: ''
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State Name"
+                    }
                 }
             ],
-            filters: []
+            dimensions: [
+                {
+                    name: "indicator",
+                    property: "QR Coverage",
+                    tooltip: {
+                        name: "QR Code Content Coverage"
+                    },
+                }
+            ],
+            filters: [],
+            options: {
+                legend: {
+                    title: 'QR Coverage'
+                },
+                tooltip: {
+                    reportTypeIndicator: 'percent'
+                }
+            }
         },
         barChart: {
             pathToFile: 'etb/ETB_QR_coverage_across_states.json',
@@ -121,31 +126,32 @@ const dataSourceInfo = {
     totalPlaysPerCapita: {
         map: {
             pathToFile: 'etb/ETB_total_plays_per_capita.json',
-            columns: [
+            locations: [
                 {
-                    name: "State Name",
+                    name: "Location",
                     property: "State Name",
-                    isLocationName: true
-                },
-                {
-                    name: "Location Code",
-                    property: "State Code"
-                },
-                {
-                    name: "Latitude",
-                    property: "Latitude"
-                },
-                {
-                    name: "Longitude",
-                    property: "Longitude"
-                },
-                {
-                    name: "Performance",
-                    property: "Plays per capita ( 1st April 2020)",
-                    tooltipDesc: ''
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State Name"
+                    }
                 }
             ],
-            filters: []
+            dimensions: [
+                {
+                    name: "indicator",
+                    property: "Plays per capita ( 1st April 2020)",
+                    tooltip: {
+                        name: "Plays per Capita"
+                    },
+                }
+            ],
+            filters: [],
+            options: {
+                legend: {
+                    title: 'Total Plays per Capita'
+                }
+            }
         }
     },
     totalLearningSessions: {

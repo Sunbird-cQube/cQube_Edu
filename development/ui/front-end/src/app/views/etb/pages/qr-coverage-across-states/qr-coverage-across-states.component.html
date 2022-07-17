@@ -1,6 +1,6 @@
 <div class="grid gap-2 grid-cols-12 mt-8 bg-white">
-    <div class="xs:col-span-full xmd:col-span-5 md:col-span-5" *ngIf="ETBProgramStatsByLocation">
-        <app-map-my-india [data]="ETBProgramStatsByLocation"></app-map-my-india>
+    <div class="xs:col-span-full xmd:col-span-5 md:col-span-5">
+        <app-leaflet-map [mapData]="ETBProgramStatsByLocation"></app-leaflet-map>
     </div>
     <div class="xs:col-span-full xmd:col-span-7 md:col-span-7 justify-self-end">
         <div class="grid gap-2 grid-cols-3">

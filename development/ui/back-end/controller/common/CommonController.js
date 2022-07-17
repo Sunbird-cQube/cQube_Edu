@@ -5,7 +5,8 @@ const fs = require('fs');
 const _ = require('lodash');
 const csvToJson = require('csvtojson');
 const { getFileData, getAllFiles, getFileRawData, uploadFile } = require('../../service/storage_service');
-const { stateCodes, stateNumbers } = require('../../core/config/state-codes');
+const { states } = require('../../core/config/state-codes');
+const { isArray } = require('lodash');
 
 exports.getReportData = (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
@@ -88,13 +89,30 @@ exports.uploadSourceData = async (req, res, next) => {
 
 async function getMapReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { columns, filters, mainFilter } = reportConfig;
+	let { locations, latitude, longitude, dimensions, filters, levels, stateColumnFilter, groupByDefault, options } = reportConfig;
+	let isWeightedAverageNeeded = dimensions.filter(dimension => dimension.weightedAverage).length > 0;
+	let groupByColumn = groupByDefault;
+	let level = reqBody.appName === appNames.nvsk ? 'state' : 'district';
+	let currentLevel;
+	levels = reqBody.levels ? reqBody.levels : levels;
+	latitude = latitude ? latitude : 'Latitude';
+	longitude = longitude ? longitude : "Longitude";
 	let code;
-	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
-	let groupByColumn = reportConfig.defaultLevel;
 
-	if (mainFilter) {
-		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == stateCodes[reqBody.stateCode]));
+	if (levels && levels.length > 0) {
+		currentLevel = levels.find(level => level.selected);
+
+		if (!currentLevel) {
+			levels[0].selected = true;
+			currentLevel = levels[0];
+			level = currentLevel.value;
+		} else {
+			level = currentLevel.value;
+		}
+	}
+
+	if (stateColumnFilter) {
+		rawData = rawData.filter(record => record[stateColumnFilter] && (record[stateColumnFilter] == states[reqBody.stateCode].Code));
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -113,32 +131,91 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
 	groupByColumn = filterRes.groupByColumn;
-	code = filterRes.code;
 
 	if (isWeightedAverageNeeded) {
+		if (!groupByColumn && !currentLevel) {
+			throw "Define group by column as you want to do some aggegration";
+		}
+
 		rawData = _.chain(rawData)
-		.groupBy(groupByColumn)
+		.groupBy(groupByColumn ? groupByColumn : currentLevel.property)
 		.map((objs, key) => {
-			let data = {};
-			columns.forEach(col => {
-				if (col.isLocationName) {
-					data.Location = key;
-					return;
+			let data = {
+				tooltip: ""
+			};
+
+			locationLevelPos = locations.length === 0 ? 0 : locations.findIndex(location => location.level === level);
+
+			if (locationLevelPos !== undefined) {
+				let location = locations[locationLevelPos];
+				if (location.isState) {
+					let regex = new RegExp(`^${objs[0][location.property].split(' ')[0]}`, "i");
+					let stateCode = Object.keys(states).find(stateCode => regex.test(states[stateCode].Name));
+					if (stateCode) {
+						data.Location = states[stateCode].Name;
+						data.Latitude = states[stateCode].Latitude;
+						data.Longitude = states[stateCode].Longitude;
+					} else {
+						data.Location = objs[0]['property'];
+						data.Latitude = objs[0][latitude];
+						data.Longitude = objs[0][longitude];
+					}
+				} else {
+					data.Location = objs[0]['property'];
+					data.Latitude = objs[0][latitude];
+					data.Longitude = objs[0][longitude];
 				}
 
-				if (col.weightedAverage) {
+				if (locationLevelPos > 0) {
+					for (let i = 0; i <= locationLevelPos; i++) {
+						let location = locations[i];
+						if (location.isState) {
+							let regex = new RegExp(`^${objs[0][location.property].split(' ')[0]}`, "i");
+							let stateCode = Object.keys(states).find(stateCode => regex.test(states[stateCode].Name));
+							if (stateCode) {
+								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+								data.tooltip += location.tooltip.valueAsName ? `${stateCode}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${stateCode}</b>`;
+							} else {
+								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+								data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${objs[0][location.property]}</b>`;
+							}
+						} else {
+							data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+							data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${objs[0][location.property]}</b>`;
+						}
+					}
+				} else {
+					data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+					data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${objs[0][location.property]}</b>`;
+				}
+			}
+
+			dimensions.forEach(dimension => {
+				if (dimension.weightedAverage) {
 					let numeratorSum = 0;
 					let denominatorSum = 0;
 					
 					objs.forEach((obj, index) => {
-						numeratorSum += obj[col.weightedAverage.property] * obj[col.weightedAverage.against];
-						denominatorSum += obj[col.weightedAverage.against];
+						numeratorSum += obj[dimension.weightedAverage.property] * obj[dimension.weightedAverage.against];
+						denominatorSum += obj[dimension.weightedAverage.against];
 					});
+					
+					data[dimension.name] = Number((numeratorSum / denominatorSum).toFixed(2));
 
-					data[col.name] = Number((numeratorSum / denominatorSum).toFixed(2));
+					if (dimension.tooltip) {
+						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+						data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${data[dimension.name]}</b>`;
+					}
+
+					return;
 				}
 
-				data[col.name] = objs[0][col.property];
+				if (dimension.tooltip) {
+					data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+					data.tooltip += dimension.tooltip.valueAsName ? `${objs[0][dimension.property]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${objs[0][dimension.property]}</b>`;
+				}
+
+				data[dimension.name] = objs[0][dimension.property];
 			});
 
 			return data;
@@ -146,19 +223,63 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		.value();
 	} else {
 		rawData = rawData.map(record => {
-			let data = {};
-			columns.forEach(col => {
-				if (col.isLocationName) {
-					data.Location = record[col.property];
-					return;
+			let data = {
+				tooltip: ""
+			};
+
+			locationLevelPos = locations.length === 0 ? 0 : locations.findIndex(location => location.level === level);
+
+			if (locationLevelPos !== undefined) {
+				let location = locations[locationLevelPos];
+				if (location.isState) {
+					let regex = new RegExp(`^${record[location.property].split(' ')[0]}`, "i");
+					let stateCode = Object.keys(states).find(stateCode => regex.test(states[stateCode].Name));
+					if (stateCode) {
+						data.Location = states[stateCode].Name;
+						data.Latitude = states[stateCode].Latitude;
+						data.Longitude = states[stateCode].Longitude;
+					} else {
+						data.Location = record['property'];
+						data.Latitude = record[latitude];
+						data.Longitude = record[longitude];
+					}
+				} else {
+					data.Location = record['property'];
+					data.Latitude = record[latitude];
+					data.Longitude = record[longitude];
 				}
 
-				if (col.tooltipDesc) {
-					data[col.name] = col.tooltipDesc + ' ' + record[col.property];
-					return;
+				if (locationLevelPos > 0) {
+					for (let i = 0; i <= locationLevelPos; i++) {
+						let location = locations[i];
+						if (location.isState) {
+							let regex = new RegExp(`^${record[location.property].split(' ')[0]}`, "i");
+							let stateCode = Object.keys(states).find(stateCode => regex.test(states[stateCode].Name));
+							if (stateCode) {
+								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+								data.tooltip += location.tooltip.valueAsName ? `${stateCode}: <b>${record[location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${stateCode}</b>`;
+							} else {
+								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+								data.tooltip += location.tooltip.valueAsName ? `${record[location.property]}: <b>${record[location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${record[location.property]}</b>`;
+							}
+						} else {
+							data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+							data.tooltip += location.tooltip.valueAsName ? `${record[location.property]}: <b>${record[location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${record[location.property]}</b>`;
+						}
+					}
+				} else {
+					data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+					data.tooltip += location.tooltip.valueAsName ? `${record[location.property]}: <b>${record[location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${record[location.property]}</b>`;
+				}
+			}
+
+			dimensions.forEach(dimension => {
+				if (dimension.tooltip) {
+					data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+					data.tooltip += dimension.tooltip.valueAsName ? `${record[dimension.property]}: <b>${record[dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${record[dimension.property]}</b>`;
 				}
 
-				data[col.name] = record[col.property];
+				data[dimension.name] = record[dimension.property];
 			});
 
 			return data;
@@ -168,8 +289,8 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 	return {
 		data: rawData,
 		filters: filters,
-		level: groupByColumn ? groupByColumn : "State",
-		code: code
+		options,
+		levels
 	};
 }
 
@@ -180,7 +301,7 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 	let groupByColumn = reportConfig.defaultLevel;
 
 	if (mainFilter) {
-		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == stateCodes[reqBody.stateCode]));
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
 	}
 
 	if (gaugeChart) {
@@ -275,7 +396,7 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 	let groupByColumns = reportConfig.defaultLevel;
 
 	if (mainFilter) {
-		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter].toLowerCase() == reqBody.stateCode));
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -318,7 +439,7 @@ async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 	let groupByColumn = reportConfig.defaultLevel;
 
 	if (mainFilter) {
-		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == stateCodes[reqBody.stateCode]));
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -415,7 +536,7 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 	let groupByColumn = reportConfig.defaultLevel;
 
 	if (mainFilter) {
-		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == stateCodes[reqBody.stateCode]));
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -514,7 +635,7 @@ async function getBarChartData(reqBody, reportConfig, rawData) {
 	let groupByColumn = reportConfig.defaultLevel;
 
 	if (mainFilter) {
-		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == stateCodes[reqBody.stateCode]));
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
 	}
 
 	if (gaugeChart) {
@@ -666,6 +787,7 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 		reportRawData = await csvToJson({
 			trim: true
 		}).fromString(fileContent.toString('utf-8'));
+		reportRawData = reportRawData.map(row => _.mapValues(row, (value, key) => !isNaN(Number(value)) ? Number(value) : value));
 	}
 
 	uploadFile(fileName, reportRawData);
@@ -683,7 +805,7 @@ function applyFilters(filters, rawData, groupByColumn, code = undefined) {
 
 			if (filter.level) {
 				groupByColumn = filter.level;
-				code = stateNumbers[filter.value];
+				code = Object.keys(states)[filter.value];
 			}
 		} else if (index === 0 || (filters[index - 1].value && filters[index - 1].value !== '')) {
 			filter.options = [];
