@@ -18,7 +18,7 @@
                 <div class="col">
                     <app-filter-panel></app-filter-panel>
                     <br>
-                    <app-map-my-india [data]="microProgramData"></app-map-my-india>
+                    <app-leaflet-map [mapData]="microProgramDatayesno"></app-leaflet-map>
                 </div>
             </div>
         </mat-tab>
@@ -28,8 +28,7 @@
                 <div class="col">
                     <app-filter-panel></app-filter-panel>
                     <br>
-                    <app-map-my-india [data]="microEffectivenessData"></app-map-my-india>
-                    
+                    <app-leaflet-map [mapData]="microProgramData"></app-leaflet-map>
                 </div>
             </div>
         </mat-tab>
