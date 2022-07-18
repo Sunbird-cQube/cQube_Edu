@@ -11,10 +11,13 @@ import { environment } from 'src/environments/environment';
 })
 export class PmPoshanComponent implements OnInit {
   config: string = environment.config;
-  state: any= 'IN';
+  state1: any= 'IN';
   state2: any = 'IN';
-  filters: any;
   filters1: any;
+  filters2: any;
+  levels1: any;
+  levels2: any;
+
   isMapReportLoading = true;
   NVSK: boolean = true;
   pmposhanMetricsData: any;
@@ -22,8 +25,8 @@ export class PmPoshanComponent implements OnInit {
   pmPoshanStateOnboardedData:any;
   constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService) {
     this.getUdiseMetricsData();
-    this.getPmPoshanStateData(this.filters);
-    this.getStateOnboardedData(this.filters1);
+    this.getPmPoshanStateData(this.filters1, this.levels1);
+    this.getStateOnboardedData(this.filters2, this.levels2);
   }
 
   ngOnInit(): void {
@@ -58,21 +61,23 @@ export class PmPoshanComponent implements OnInit {
     ];
   }
 
-  getStateOnboardedData(filters: any){
+  getStateOnboardedData(filters: any, levels:any){
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
       dataSourceName: 'pm_poshan',
       reportName: 'state_onboarded',
       reportType: 'map',
       stateCode: environment.stateCode,
-      filters
+      filters,
+      levels
     };
 
     this._commonService.getReportData(data).subscribe(res => {
       this._spinner.hide()
       this.isMapReportLoading = false;
-      this.pmPoshanStateOnboardedData = res.result.data;
-      this.filters = res.result.filters;
+      this.pmPoshanStateOnboardedData = res.result;
+      this.filters2 = res.result.filters;
+      this.levels2 = res.result.levels;
       if(res.result.code){
         this.state2 = res.result.code;
       }
@@ -81,23 +86,25 @@ export class PmPoshanComponent implements OnInit {
     });
   }
 
-  getPmPoshanStateData(filters: any) {
+  getPmPoshanStateData(filters: any, levels: any) {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
       dataSourceName: 'pm_poshan',
       reportName: 'PM_poshan_access',
       reportType: 'map',
       stateCode: environment.stateCode,
-      filters
+      filters,
+      levels
     };
 
     this._commonService.getReportData(data).subscribe(pmPoshanStateDataRes => {
       this._spinner.hide()
       this.isMapReportLoading = false;
-      this.pmPoshanStateData = pmPoshanStateDataRes.result.data;
-      this.filters = pmPoshanStateDataRes.result.filters;
+      this.pmPoshanStateData = pmPoshanStateDataRes.result;
+      this.filters1 = pmPoshanStateDataRes.result.filters;
+      this.levels1 = pmPoshanStateDataRes.result.levels;
       if(pmPoshanStateDataRes.result.code){
-        this.state = pmPoshanStateDataRes.result.code;
+        this.state1 = pmPoshanStateDataRes.result.code;
       }
     }, err => {
       this.isMapReportLoading = false;
@@ -105,7 +112,15 @@ export class PmPoshanComponent implements OnInit {
   }
 
   filtersUpdated(filters: any): void {
-    this.getPmPoshanStateData(filters);
+    this.getPmPoshanStateData(filters, this.levels1);
+  }
+
+  onSelectLevel(event: any): void {
+    event.items.forEach((level: any, levelInd: number) => {
+        level.selected = levelInd === event.index;
+    });
+
+    this.getPmPoshanStateData(this.filters1, event.items);
   }
 
 }

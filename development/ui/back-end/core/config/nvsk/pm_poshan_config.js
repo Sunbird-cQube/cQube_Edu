@@ -2,69 +2,121 @@ const dataSourceInfo = {
     PM_poshan_access: {
         map: {
             pathToFile: 'pm_poshan/PM_poshan_access.json',
-            defaultLevel: "State",
-            columns: [
+            locations: [
                 {
-                    name: "State",
+                    name: "Location",
                     property: "State Name",
-                    isLocationName: true
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State Name"
+                    }
                 },
                 {
-                    name: "Location Code",
-                    property: "State Code"
-                },
+                    name: "Location",
+                    property: "District Name",
+                    level: "district",
+                    tooltip: {
+                        name: "District Name"
+                    }
+                }
+            ],
+            dimensions: [
                 {
-                    name: "Latitude",
-                    property: "Latitude"
-                },
-                {
-                    name: "Longitude",
-                    property: "Longitude"
-                },
-                {
-                    name: "Performance",
+                    name: "indicator",
                     property: "Total Schools",
-                    tooltipDesc: 'Total Schools :'
+                    tooltip: {
+                        name: "Total Schools",
+                        property: "Total Schools"
+                    },
+                    aggegration: {
+                        type: "SUM"
+                    }
                 }
             ],
             filters: [
                 {
                     name: 'State',
                     column: 'State Name',
-                    optionValueColumn: "State Code",
-                    level: "District"
+                    optionValueColumn: "State Code"
                 }
-            ]
+            ],
+            levels: [
+                {
+                    name: "State",
+                    value: "state",
+                    property: "State Name"
+                },
+                {
+                    name: "District",
+                    value: "district",
+                    property: "District Name"
+                }
+            ],
+            options: {
+                legend: {
+                    title: 'PM Poshan Access'
+                }
+            }
         }
     },
     state_onboarded: {
+        // map: {
+        //     pathToFile: 'pm_poshan/state_onboarded.json',
+        //     columns: [
+        //         {
+        //             name: "State",
+        //             property: "State",
+        //             isLocationName: true
+        //         },
+        //         {
+        //             name: "Location Code",
+        //             property: "State Code"
+        //         },
+        //         {
+        //             name: "Latitude",
+        //             property: "Latitude"
+        //         },
+        //         {
+        //             name: "Longitude",
+        //             property: "Longitude"
+        //         },
+        //         {
+        //             name: "status",
+        //             property: "Onboarded on PM Poshan",
+        //             tooltipDesc: 'Onboarded on PM Poshan :'
+        //         }
+        //     ],
+        //     filters: []
+        // },
         map: {
             pathToFile: 'pm_poshan/state_onboarded.json',
-            columns: [
+            locations: [
                 {
-                    name: "State",
+                    name: "Location",
                     property: "State",
-                    isLocationName: true
-                },
-                {
-                    name: "Location Code",
-                    property: "State Code"
-                },
-                {
-                    name: "Latitude",
-                    property: "Latitude"
-                },
-                {
-                    name: "Longitude",
-                    property: "Longitude"
-                },
-                {
-                    name: "status",
-                    property: "Onboarded on PM Poshan",
-                    tooltipDesc: 'Onboarded on PM Poshan :'
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State Name"
+                    }
                 }
             ],
-            filters: []
+            dimensions: [
+                {
+                    name: "indicator",
+                    property: "Onboarded on PM Poshan",
+                    tooltip: {
+                        name: "Onboarded on PM Poshan"
+                    }
+                }
+            ],
+            filters: [],
+            options: {
+                legend: {
+                    title: 'States onboarded on PM Poshan'
+                }
+            }
         }
     }
 }

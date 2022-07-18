@@ -5,7 +5,8 @@
             <div class="col-span-1 xs:py-2 md:py-4" *ngFor="let metric of pmposhanMetricsData">
                 <!-- <app-metric-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip">
                 </app-metric-card> -->
-                <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip"></sb-cqube-info-card>
+                <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip">
+                </sb-cqube-info-card>
             </div>
         </ng-container>
     </div>
@@ -14,20 +15,19 @@
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
         <mat-tab label="States Onboarded" *ngIf="NVSK">
-            <app-map-my-india [data]="pmPoshanStateOnboardedData" [state]="state"></app-map-my-india>
+            <app-leaflet-map [mapData]="pmPoshanStateOnboardedData"></app-leaflet-map>
         </mat-tab>
         <mat-tab label="PM Poshan access across India">
             <div class="grid grid-cols-1">
                 <div class="col">
-                    <app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                    <app-filter-panel [filters]="filters1" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
                     <br>
-                    <app-map-my-india [data]="pmPoshanStateData" [state]="state"></app-map-my-india>
-                    
+                    <app-material-button-group [buttons]="levels1" (select)="onSelectLevel($event)">
+                    </app-material-button-group>
+                    <app-leaflet-map [mapData]="pmPoshanStateData"></app-leaflet-map>
+
                 </div>
             </div>
         </mat-tab>
     </mat-tab-group>
 </div>
-
-
-
