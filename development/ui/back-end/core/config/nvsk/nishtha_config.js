@@ -170,26 +170,33 @@ const dataSourceInfo = {
     totalCoursesAndMedium:{
         loTable: {
             pathToFile: 'nishtha/Total Courses and Medium.json',
-            defaultLevel: 'Program Name',
+            defaultLevel: 'State Name',
             columns: [
-                {
-                    name: "Program Name",
-                    property: "Program Name"
-                },
                 {
                     name: "State Name",
                     property: "State Name"
+                    
                 },
                 {
                     name: "Distinct Count of Course id",
-                    property: "Distinct Count of Course id"
+                    property: "Distinct Count of Course id",
+                    aggegration: {
+                        type: "SUM"
+                    }
                 },
                 {
                     name: "Medium",
-                    property: "Medium"
+                    property: "Medium",
+                    aggegration: {
+                        type: "SUM"
+                    }
                 }
             ],
             filters: [
+                {
+                    name: "Program Name",
+                    column: "Program Name"
+                }
             ]
         }
     }
