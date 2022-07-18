@@ -12,7 +12,6 @@ exports.getDashboardMetrics = async (req, res, next) => {
 
 			let metrics = await getFileData('dashboard/key_vanity_metrics.json');
             metrics = metrics.filter(metric => metric['Metric Type'] === 'Key Metric');
-			console.log(metrics)
 
             metricsRes = _.chain(metrics)
                 .groupBy("Program ID")
