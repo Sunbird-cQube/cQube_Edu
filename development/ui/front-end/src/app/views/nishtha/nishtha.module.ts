@@ -13,6 +13,7 @@ import { NisithaBarComponent } from './pages/nisitha-bar/nisitha-bar.component';
 import { NishithaTableComponent } from './pages/nishitha-table/nishitha-table.component';
 import { NisithaStackedBarComponent } from './pages/nisitha-stacked-bar/nisitha-stacked-bar.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { TotalCoursesTableComponent } from './pages/total-courses-table/total-courses-table.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NishthaProgramDetailComponent,
     NisithaBarComponent,
     NishithaTableComponent,
-    NisithaStackedBarComponent
+    NisithaStackedBarComponent,
+    TotalCoursesTableComponent
   ],
   imports: [
     CommonModule,
