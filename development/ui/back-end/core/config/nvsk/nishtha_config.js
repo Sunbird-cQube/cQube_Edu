@@ -166,6 +166,32 @@ const dataSourceInfo = {
                 }
             ]
         }
+    },
+    totalCoursesAndMedium:{
+        loTable: {
+            pathToFile: 'nishtha/Total Courses and Medium.json',
+            defaultLevel: 'Program Name',
+            columns: [
+                {
+                    name: "Program Name",
+                    property: "Program Name"
+                },
+                {
+                    name: "State Name",
+                    property: "State Name"
+                },
+                {
+                    name: "Distinct Count of Course id",
+                    property: "Distinct Count of Course id"
+                },
+                {
+                    name: "Medium",
+                    property: "Medium"
+                }
+            ],
+            filters: [
+            ]
+        }
     }
 }
 

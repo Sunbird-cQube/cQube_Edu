@@ -1,6 +1,6 @@
 [
     {
-        "title": "Nishtha",
+        "title": "NISHTHA",
         "navigationURL": "/nishtha",
         "metrics": [
             {
@@ -129,7 +129,7 @@
     },
     {
         "title": "NCF",
-        "navigationURL": "/ncf",
+        "navigationURL": "",
         "metrics": [
             {
                 "name": "Total States Participating",
