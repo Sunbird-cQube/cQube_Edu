@@ -1,32 +1,75 @@
 const dataSourceInfo = {
-    started_micro_improvements: {
+    micro_improvements: {
         map: {
             pathToFile: 'micro_improvements/micro_improvements.json',
-            columns: [
+            locations: [
                 {
-                    name: "State",
+                    name: "Location",
                     property: "State",
-                    isLocationName: true
-                },
-                {
-                    name: "Location Code",
-                    property: "State Code"
-                },
-                {
-                    name: "Latitude",
-                    property: "Latitude"
-                },
-                {
-                    name: "Longitude",
-                    property: "Longitude"
-                },
-                {
-                    name: "status",
-                    property: "Started Micro-Improvement",
-                    tooltipDesc: 'Started Micro-Improvement :'
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State Name"
+                    }
                 }
             ],
-            filters: []
+            dimensions: [
+                {
+                    name: "indicator",
+                    property: "Total Micro Improvements Projects",
+                    tooltip: {
+                        name: "Total Micro Improvements Projects",
+                        property:"Total Micro Improvements Projects"
+                    }
+                }
+            ],
+            filters: [],
+            options: {
+                legend: {
+                    title: 'Micro-improvements '
+                },
+                tooltip: {
+                    reportTypeIndicator: 'Micro-improvements '
+                }
+            },
+            levels: [
+                {
+                    name: "State",
+                    value: "state",
+                    property: "State"
+                }
+            ]
+        },
+    },
+    micro_improvements_program: {
+        map: {
+            pathToFile: 'micro_improvements/micro_improvements.json',
+            locations: [
+                {
+                    name: "Location",
+                    property: "State",
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State Name"
+                    }
+                }
+            ],
+            dimensions: [
+                {
+                    name: "indicator",
+                    property: "Started Micro-Improvement",
+                    tooltip: {
+                        name: "Started Micro-Improvement"
+                    }
+                }
+            ],
+            filters: [],
+            options: {
+                legend: {
+                    title: 'Started Micro-Improvement'
+                }
+            }
         }
     }
 }
