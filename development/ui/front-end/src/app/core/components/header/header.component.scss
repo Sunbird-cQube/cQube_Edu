@@ -67,3 +67,9 @@
  .mainHeaderContent {
     width: calc(100vw - 18rem)
  }
+
+ ::ng-deep{
+    html[data-layout=cQubeDefault] h1.leading-tight, html[data-layout=cQubeDefault] .metric-card-wrapper .h4{
+        font-size: 28px;
+    }
+}
