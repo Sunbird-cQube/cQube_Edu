@@ -24,7 +24,6 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
   constructor(private readonly _decimalPipe: DecimalPipe) { }
 
   ngOnInit(): void {
-    alert('init multi')
   }
 
   ngAfterViewInit(): void {
