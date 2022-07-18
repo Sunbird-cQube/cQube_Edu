@@ -60,6 +60,10 @@ if (environment.config == 'NVSK') {
         {
           path: 'microimprovement',
           loadChildren: () => import('./views/micro-improvement/micro-improvement.module').then(module => module.MicroImprovementModule)
+        },
+        {
+          path: 'ncf',
+          loadChildren: () => import('./views/ncf/ncf.module').then(module => module.NcfModule)
         }
       ]
     }

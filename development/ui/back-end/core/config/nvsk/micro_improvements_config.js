@@ -27,9 +27,6 @@ const dataSourceInfo = {
             options: {
                 legend: {
                     title: 'Micro-improvements '
-                },
-                tooltip: {
-                    reportTypeIndicator: 'Micro-improvements '
                 }
             },
             levels: [
