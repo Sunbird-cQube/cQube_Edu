@@ -12,7 +12,7 @@ export const DashboardMenu = {
         icon: 'Nipun Bharat Logo-01.png'
     },
     quiz: {
-        navigationURL: '/quiz',
+        navigationURL: '/quizzes',
         icon: 'Quizzes.png'
     },
     nas: {
@@ -32,7 +32,7 @@ export const DashboardMenu = {
         icon: 'Adults Education.png'
     },
     ncf: {
-        navigationURL: '',
+        navigationURL: '/ncf',
         icon: 'NCF.png'
     },
     mip: {

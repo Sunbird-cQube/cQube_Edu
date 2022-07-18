@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild, SimpleChanges, AfterViewInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import * as Highcharts from "highcharts/highstock";
 import * as HighchartsMore from "highcharts/highcharts-more";
@@ -12,11 +12,12 @@ HighchartsMore2(Highcharts);
   styleUrls: ['./multi-bar-chart.component.scss'],
   providers: [DecimalPipe]
 })
-export class MultiBarChartComponent implements OnInit, OnChanges {
+export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit {
   chart!: Highcharts.Chart;
   @Input() height: number | string = 'auto';
   @Input() title!: string;
   @Input() options: Highcharts.Options | undefined;
+  defaultOptions: Highcharts.Options | undefined;
 
   @ViewChild('container') container: any;
 
@@ -25,10 +26,26 @@ export class MultiBarChartComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.createMultiBarChart(this.options);
+    }, 100);
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
+    // if (this.options !== undefined) {
+    //   setTimeout(() => {
+    //     // this.createMultiBarChart(this.options);
+    //   }, 100);
+    // }
     if (this.options !== undefined) {
       setTimeout(() => {
-        this.createMultiBarChart(this.options);
+        if (!this.chart) {
+          this.createMultiBarChart(this.options);
+        }
+        else {
+          this.updateChart(this.options);
+        }
       }, 100);
     }
   }
@@ -41,60 +58,65 @@ export class MultiBarChartComponent implements OnInit, OnChanges {
         marginTop: 75
       },
       title: {
-          text: ""
+        text: ""
       },
       xAxis: {
-          categories: [],
-          title: {
-              text: null
-          },
-          scrollbar: {
-            enabled: false
-          },
-          gridLineColor: 'transparent'
+        categories: [],
+        title: {
+          text: null
+        },
+        scrollbar: {
+          enabled: false
+        },
+        gridLineColor: 'transparent'
       },
       yAxis: {
-          min: 0,
-          title: {
-              text: null
-          },
-          gridLineColor: 'transparent'
-          
+        min: 0,
+        title: {
+          text: null
+        },
+        gridLineColor: 'transparent'
+
       },
       plotOptions: {
-          bar: {
-              dataLabels: {
-                  enabled: true,
-                  crop: false,
-                  allowOverlap: true,
-                  formatter: function() {
-                    return ref._decimalPipe.transform(this.y, '1.0-0', 'en-IN');
-                  }
-              }
+        bar: {
+          dataLabels: {
+            enabled: true,
+            crop: false,
+            allowOverlap: true,
+            formatter: function () {
+              return ref._decimalPipe.transform(this.y, '1.0-0', 'en-IN');
+            }
           }
+        }
       },
       legend: {
-          layout: 'vertical',
-          align: 'right',
-          verticalAlign: 'top',
-          floating: true,
-          borderWidth: 0,
-          shadow: false
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        floating: true,
+        borderWidth: 0,
+        shadow: false
       },
       tooltip: {
         shared: true,
-        formatter: function(this: any) {
+        formatter: function (this: any) {
           return this.points.reduce(function (s: any, point: any) {
             return s + '<br/>' + point.series.name + ': ' + ref._decimalPipe.transform(point.y, '1.0-0', 'en-IN');
           }, '<b>' + this.x + '</b>');
         }
       },
       credits: {
-          enabled: false
+        enabled: false
       },
       series: []
     };
-    this.chart = Highcharts.chart(this.container.nativeElement, Highcharts.merge(defaultOptions, options), function(this: any) {
-  });
+    this.defaultOptions = defaultOptions;
+    this.chart = Highcharts.chart(this.container.nativeElement, Highcharts.merge(defaultOptions, options), function (this: any) {
+    });
+  }
+
+  updateChart(options: any) {
+    this.chart.update(Highcharts.merge(this.defaultOptions, options))
   }
 }

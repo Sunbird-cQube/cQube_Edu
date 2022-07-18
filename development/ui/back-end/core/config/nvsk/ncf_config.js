@@ -26,7 +26,7 @@ const dataSourceInfo = {
             filters: [],
             options: {
                 legend: {
-                    title: ''
+                    title: 'NCF Progress'
                 }
             },
             levels: [
