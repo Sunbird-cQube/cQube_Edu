@@ -12,21 +12,17 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./micro-improvement.component.scss']
 })
 export class MicroImprovementComponent implements OnInit {
-
   config: string = environment.config;
   state1: any= 'IN';
   state2: any = 'IN';
   filters1: any;
   filters2: any;
   NVSK: boolean = true;
-<<<<<<< HEAD
   isMapReportLoading = true;
-=======
   isMapReport1Loading = true;
   isMapReport2Loading = true;
   ETBMetrics: any[] | undefined;
   microEffectivenessData: any;
->>>>>>> 548cb8160c88150ecc1acba56b948dd783f59d2c
   microProgramData:any;
   microImprovementMetricsData:any;
   microProgramDatayesno:any;
