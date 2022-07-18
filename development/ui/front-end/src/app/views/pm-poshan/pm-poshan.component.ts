@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
+import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -24,8 +25,8 @@ export class PmPoshanComponent implements OnInit {
   pmposhanMetricsData: any;
   pmPoshanStateData:any;
   pmPoshanStateOnboardedData:any;
-  constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService) {
-    this.getUdiseMetricsData();
+  constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService, private readonly _configService: ConfigService) {
+    this.getPmPoshanMetricsData();
     this.getPmPoshanStateData(this.filters1, this.levels1);
     this.getStateOnboardedData(this.filters2, this.levels2);
   }
@@ -42,24 +43,10 @@ export class PmPoshanComponent implements OnInit {
     }, 100);
   }
 
-  getUdiseMetricsData() {
-    this.pmposhanMetricsData = [
-      {
-        "name": "Total States Participating",
-        "value": "17 ",
-        "tooltip": "Total States Participating"
-      },
-      {
-        "name": "Total Schools",
-        "value": "3.9 L",
-        "tooltip": "Total Schools"
-      },
-      {
-        "name": "Total Meals Served",
-        "value": "15.5 L",
-        "tooltip": "Total Meals Served"
-      },
-    ];
+  getPmPoshanMetricsData() {
+    this._configService.getVanityMetrics('pmp').subscribe(vanityMetricsRes => {
+      this.pmposhanMetricsData = vanityMetricsRes.result;
+    });
   }
 
   getStateOnboardedData(filters: any, levels:any){

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfigService } from 'src/app/core/services/config/config.service';
 
 @Component({
   selector: 'app-nipunbharath',
@@ -6,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nipunbharath.component.scss']
 })
 export class NipunbharathComponent implements OnInit {
-  nipunBharathMetricsData: any;
+  nipunBharathMetrics: any;
 
-  constructor() {
+  constructor(private readonly _configService: ConfigService) {
     this.getnipunBharathMetricsData();
    }
 
@@ -23,27 +24,8 @@ export class NipunbharathComponent implements OnInit {
   }    
 
   getnipunBharathMetricsData() {
-    this.nipunBharathMetricsData = [
-      {
-          "name": "Total LOs covered",
-          "value": "497",
-          "tooltip": "Total LOs covered"
-      },
-      {
-          "name": "Total Digital Books",
-          "value": "18 ",
-          "tooltip": "Total Digital Books"
-      },
-      {
-        "name": "Total Content",
-        "value": "1.3 K",
-        "tooltip": "Total Content"
-    },
-    {
-      "name": "Total Learning Sessions",
-        "value": "1.2 L",
-        "tooltip": "Total Learning Sessions"
-    },
-  ];
+    this._configService.getVanityMetrics('nib').subscribe(vanityMetricsRes => {
+      this.nipunBharathMetrics = vanityMetricsRes.result;
+    });
   }
 }

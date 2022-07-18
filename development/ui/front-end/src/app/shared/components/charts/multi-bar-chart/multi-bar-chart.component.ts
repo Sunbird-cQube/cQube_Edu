@@ -81,6 +81,14 @@ export class MultiBarChartComponent implements OnInit, OnChanges {
           borderWidth: 0,
           shadow: false
       },
+      tooltip: {
+        shared: true,
+        formatter: function(this: any) {
+          return this.points.reduce(function (s: any, point: any) {
+            return s + '<br/>' + point.series.name + ': ' + ref._decimalPipe.transform(point.y, '1.0-0', 'en-IN');
+          }, '<b>' + this.x + '</b>');
+        }
+      },
       credits: {
           enabled: false
       },

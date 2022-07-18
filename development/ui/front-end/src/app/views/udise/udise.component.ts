@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
+import { ConfigService } from 'src/app/core/services/config/config.service';
 
 @Component({
   selector: 'app-udise',
@@ -10,12 +10,8 @@ export class UdiseComponent implements OnInit {
   udiseMetricsData: any;
   udiseStateData: any;
 
-  constructor(private readonly _configService: NishthaService) { 
-    let data:any = "UDISE";
-    this._configService.getNishthaVanityMetrics(data).subscribe(dashboardMenuResult => {
-      this.udiseMetricsData = dashboardMenuResult.result[4]?.metrics;
-    });
-    // this.getUdiseMetricsData();
+  constructor(private readonly _configService: ConfigService) {
+    this.getUdiseMetricsData();
     this.getUdiseStateData();
   }
 
@@ -30,38 +26,9 @@ export class UdiseComponent implements OnInit {
   }
 
   getUdiseMetricsData() {
-    this.udiseMetricsData = [
-      {
-          "name": "Total Students",
-          "value": "26.5 Cr",
-          "tooltip": "Total Students"
-      },
-      {
-          "name": "PTR",
-          "value": "26.3",
-          "tooltip": "PTR"
-      },
-      {
-          "name": "% schools with electricty connection",
-          "value": "86.9%",
-          "tooltip": "% schools with electricty connection"
-      },
-      {
-          "name": "% schools with Library",
-          "value": "85.6%",
-          "tooltip": "% schools with Library"
-      },
-      {
-        "name": "% schools with Girls toilet",
-        "value": "97.3%",
-        "tooltip": "schools with Girls toilet"
-        },
-      {
-        "name": "% schools with Computer- ",
-        "value": "41.3%",
-        "tooltip": "% schools with Computer- "
-      }
-  ];
+    this._configService.getVanityMetrics('udise').subscribe(vanityMetricsRes => {
+      this.udiseMetricsData = vanityMetricsRes.result;
+    });
   }
 
   getUdiseStateData() {
