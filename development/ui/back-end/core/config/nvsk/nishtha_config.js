@@ -53,12 +53,16 @@ const dataSourceInfo = {
                 {
                     name: "Total Enrollments",
                     property: "Total Enrollments",
-                    aggegration: "SUM"
+                    aggegration: {
+                        type: "SUM"
+                    }
                 },
                 {
                     name: "Total Certifications",
                     property: "Total Certifications",
-                    aggegration: "SUM"
+                    aggegration: {
+                        type: "SUM"
+                    }
                 }
             ],
             filters: [
@@ -89,12 +93,16 @@ const dataSourceInfo = {
                 {
                     name: "Total Enrollments",
                     property: "Total Enrollments",
-                    aggegration: "SUM"
+                    aggegration: {
+                        type: "SUM"
+                    }
                 },
                 {
                     name: "Total Certifications",
                     property: "Total Certifications",
-                    aggegration: "SUM"
+                    aggegration: {
+                        type: "SUM"
+                    }
                 }
             ],
             filters: [

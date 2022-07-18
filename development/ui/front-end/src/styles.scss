@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";
 @import './assets/styles/styles.scss';
 @import '~@project-sunbird/sb-themes/themes/theme-cqube.scss';
 html, body { height: 100%; }

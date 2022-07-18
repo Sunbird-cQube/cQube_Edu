@@ -5,7 +5,6 @@ import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 
 import { IStateWiseEnrollmentRec } from 'src/app/core/models/IStateWiseEnrollmentRec';
 import { CommonService } from 'src/app/core/services/common/common.service';
-import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-nishitha-table',
