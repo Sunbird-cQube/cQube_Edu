@@ -18,7 +18,8 @@ export class PmPoshanComponent implements OnInit {
   levels1: any;
   levels2: any;
 
-  isMapReportLoading = true;
+  isMapReport1Loading = true;
+  isMapReport2Loading = true;
   NVSK: boolean = true;
   pmposhanMetricsData: any;
   pmPoshanStateData:any;
@@ -74,7 +75,7 @@ export class PmPoshanComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(res => {
       this._spinner.hide()
-      this.isMapReportLoading = false;
+      this.isMapReport1Loading = false;
       this.pmPoshanStateOnboardedData = res.result;
       this.filters2 = res.result.filters;
       this.levels2 = res.result.levels;
@@ -82,7 +83,7 @@ export class PmPoshanComponent implements OnInit {
         this.state2 = res.result.code;
       }
     }, err => {
-      this.isMapReportLoading = false;
+      this.isMapReport1Loading = false;
     });
   }
 
@@ -99,7 +100,7 @@ export class PmPoshanComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(pmPoshanStateDataRes => {
       this._spinner.hide()
-      this.isMapReportLoading = false;
+      this.isMapReport2Loading = false;
       this.pmPoshanStateData = pmPoshanStateDataRes.result;
       this.filters1 = pmPoshanStateDataRes.result.filters;
       this.levels1 = pmPoshanStateDataRes.result.levels;
@@ -107,7 +108,7 @@ export class PmPoshanComponent implements OnInit {
         this.state1 = pmPoshanStateDataRes.result.code;
       }
     }, err => {
-      this.isMapReportLoading = false;
+      this.isMapReport2Loading = false;
     });
   }
 

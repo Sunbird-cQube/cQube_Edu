@@ -16,6 +16,9 @@
         <mat-tab label="Micro Improvement Program" class="tab-first">
             <div class="grid grid-cols-1" *ngIf="microProgramData">
                 <div class="col">
+                    <div class="col" *ngIf="isMapReport1Loading">
+                        <p class="mt-8">Loading...</p>
+                    </div>
                     <app-filter-panel></app-filter-panel>
                     <br>
                     <app-leaflet-map [mapData]="microProgramDatayesno"></app-leaflet-map>
@@ -26,6 +29,9 @@
         <mat-tab label="Micro Improvement Effectiveness">
             <div class="grid grid-cols-1">
                 <div class="col">
+                    <div class="col" *ngIf="isMapReport2Loading">
+                        <p class="mt-8">Loading...</p>
+                    </div>
                     <app-filter-panel></app-filter-panel>
                     <br>
                     <app-leaflet-map [mapData]="microProgramData"></app-leaflet-map>
