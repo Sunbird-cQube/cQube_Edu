@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { IStateWiseEnrollmentRec } from 'src/app/core/models/IStateWiseEnrollmentRec';
 import { CommonService } from 'src/app/core/services/common/common.service';
+import { ConfigService } from 'src/app/core/services/config/config.service';
 
 import { ETBService } from 'src/app/core/services/etb/etb.service';
 import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
@@ -34,16 +35,12 @@ export class EtbComponent implements OnInit {
   @ViewChild(QRCoverageAcrossStatesComponent) qrCoverageAcrossStatesComponent!: QRCoverageAcrossStatesComponent;
   @ViewChild(TotalPlaysPerCapitaComponent) totalPlaysPerCapitaComponent!: TotalPlaysPerCapitaComponent;
 
-  constructor(private readonly _ETBService: ETBService,private readonly _nishthaService: NishthaService, private readonly _commonService: CommonService) {
+  constructor(private readonly _ETBService: ETBService,private readonly _nishthaService: NishthaService, private readonly _commonService: CommonService, private readonly _configService: ConfigService) {
     let params: any = {
       "version": "1.0"
     }
-    let data:any = "ETB & E-content"
-    this._nishthaService.getNishthaVanityMetrics(data).subscribe(dashboardMenuResult => {
-      this.ETBMetrics = dashboardMenuResult.result[1]?.metrics;
-    });
 
-    // this.getETBMetrics();
+    this.getETBMetrics();
     this.getETBProgramStatsByLocation();
     this._nishthaService.getStateWiseEnrollmentData(params['version']).subscribe(res => {
       this.options = {
@@ -90,8 +87,8 @@ export class EtbComponent implements OnInit {
   }
 
   getETBMetrics(): void {
-    this._ETBService.getETBMetrics().subscribe(ETBMetricsRes => {
-      this.ETBMetrics = ETBMetricsRes.result;
+    this._configService.getVanityMetrics('etb').subscribe(vanityMetricsRes => {
+      this.ETBMetrics = vanityMetricsRes.result;
     });
   }
 

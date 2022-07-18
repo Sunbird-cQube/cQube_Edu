@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
+import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ETBService } from 'src/app/core/services/etb/etb.service';
-import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -19,23 +19,23 @@ export class PGIComponent implements OnInit {
 
   pgiMetricsData: any;
   pgiStateData: any;
-  pgiMetrics: any;
   tableData: any;
   columns: any[] = [];
   options: Highcharts.Options | undefined;
 
-  constructor(private readonly _ETBService: ETBService, private readonly _configService: NishthaService,
-    private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService) {
-    let data:any = "PGI";
-    this._configService.getNishthaVanityMetrics(data).subscribe(dashboardMenuResult => {
-      this.pgiMetricsData = dashboardMenuResult.result[3]?.metrics;
-    });
-    // this.getPGIMetricsData();
+  constructor(private readonly _ETBService: ETBService, private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService, private readonly _configService: ConfigService) {
+    this.getPGIMetricsData();
     this.getPGIStateData(this.filters, this.levels);
     this.getStateWisePGICoverageData();
   }
 
   ngOnInit(): void {
+  }
+
+  getPGIMetricsData(): void {
+    this._configService.getVanityMetrics('pgi').subscribe(vanityMetricsRes => {
+      this.pgiMetricsData = vanityMetricsRes.result;
+    });
   }
 
   onTabChanged($event: any): void {

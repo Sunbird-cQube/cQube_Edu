@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
-import { ETBService } from 'src/app/core/services/etb/etb.service';
+import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
 
 
@@ -20,20 +20,14 @@ export class MicroImprovementComponent implements OnInit {
   filters2: any;
   NVSK: boolean = true;
   isMapReportLoading = true;
-  ETBMetrics: any[] | undefined;
-  microEffectivenessData: any;
   microProgramData:any;
   microImprovementMetricsData:any;
   microProgramDatayesno:any;
 
-  constructor(private readonly _ETBService: ETBService,
-    private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService
-  ) {
+  constructor(private readonly _configService: ConfigService, private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService) {
     this.getMicroProgramData(this.filters1);
     this.getmicroMetricsData();
     this.getMicroProgramyesno(this.filters1);
-
-
   }
 
   ngOnInit(): void {
@@ -95,28 +89,9 @@ export class MicroImprovementComponent implements OnInit {
   
 
   getmicroMetricsData() {
-    this.microImprovementMetricsData = [
-      {
-          "name": "Net states",
-          "value": "61.1 %",
-          "tooltip": "Net states"
-      },
-      {
-          "name": "Net Micro Improvements Projects ",
-          "value": "53.4 %",
-          "tooltip": "Net Micro Improvements Projects "
-      },
-      {
-          "name": "Net Micro Improvements Started",
-          "value": "42 %",
-          "tooltip": "Net Micro Improvements Started"
-      },
-      {
-          "name": "Net Micro improvement completed",
-          "value": "67.7M",
-          "tooltip": "Net Micro improvement completed"
-      }
-  ];
+    this._configService.getVanityMetrics('mip').subscribe(vanityMetricsRes => {
+      this.microImprovementMetricsData = vanityMetricsRes.result;
+    });
   }
   
 }

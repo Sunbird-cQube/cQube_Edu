@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
+import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,7 +16,7 @@ export class QuizzesComponent implements OnInit {
   filters: any;
   isMapReportLoading = false;
 
-  constructor(private readonly _commonService: CommonService) {
+  constructor(private readonly _commonService: CommonService, private readonly _configService: ConfigService) {
     this.getQuizzesMetricsData();
     this.getQuizzesStateData(this.filters);
    }
@@ -30,33 +31,9 @@ export class QuizzesComponent implements OnInit {
   }
 
   getQuizzesMetricsData() {
-    this.quizzesMetricsData = [
-      {
-          "name": "Total Quizzes",
-          "value": "4",
-          "tooltip": "Total Quizzes"
-      },
-      {
-        "name": "Total Medium",
-          "value": "2 ",
-          "tooltip": "Total Medium"
-      },
-      {
-        "name": "Total States Participating",
-          "value": "34",
-          "tooltip": "Total States Participating"
-      },
-      {
-        "name": "Total Enrollment",
-          "value": "18.3K ",
-          "tooltip": "Total Enrollment"
-      },
-      {
-        "name": "Total Certification",
-          "value": "12.4K ",
-          "tooltip": "Total Certification "
-      }
-    ];
+    this._configService.getVanityMetrics('quiz').subscribe(vanityMetricsRes => {
+      this.quizzesMetricsData = vanityMetricsRes.result;
+    });
   }
 
   getQuizzesStateData(filters: any): void {

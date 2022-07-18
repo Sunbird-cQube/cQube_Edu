@@ -5,6 +5,7 @@ import { NasService } from 'src/app/core/services/nas/nas.service';
 import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
 import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ConfigService } from 'src/app/core/services/config/config.service';
 
 @Component({
   selector: 'app-nas',
@@ -21,13 +22,8 @@ export class NasComponent implements OnInit {
   isMapReportLoading = true;
   levels: any;
 
-  constructor(private readonly _NASService: NasService, private readonly _commonService: CommonService, private readonly _configService: NishthaService,private readonly _spinner:NgxSpinnerService) {
-    let data:any = "NAS";
-    this._configService.getNishthaVanityMetrics(data).subscribe(dashboardMenuResult => {
-      this.NASMetrics = dashboardMenuResult.result[2]?.metrics;
-    });
-
-    // this.getNASMetrics()
+  constructor(private readonly _commonService: CommonService, private readonly _configService: ConfigService, private readonly _spinner:NgxSpinnerService) {
+    this.getNASMetrics()
     this.getNasData(this.filters, this.levels);
   }
 
@@ -36,8 +32,8 @@ export class NasComponent implements OnInit {
   }
 
   getNASMetrics(): void {
-    this._NASService.getNASMetrics().subscribe(NASMetricsRes => {
-      this.NASMetrics = NASMetricsRes.result;
+    this._configService.getVanityMetrics('nas').subscribe(vanityMetricsRes => {
+      this.NASMetrics = vanityMetricsRes.result;
     });
   }
 

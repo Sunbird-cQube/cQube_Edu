@@ -29,4 +29,8 @@ export class ConfigService {
     }
   }
 
+  getVanityMetrics(programId: string): Observable<ResponseType<any>> {
+    return this._http.get<ResponseType<any>>(`${environment.apiURL}/metrics/getVanityMetrics/${environment.config.toLowerCase()}/${programId}`);
+  }
+
 }

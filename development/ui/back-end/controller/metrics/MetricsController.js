@@ -51,15 +51,23 @@ exports.getDashboardMetrics = async (req, res, next) => {
 
 exports.getVanityMetrics = async (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
-		let { appName, configName, program } = req.params;
-		  
+		let { appName, programId } = req.params;
         
 		try {
-			if (!appName || !configName) {
+			if (!appName || !programId) {
 				throw "Some of the parameters are missing, make sure all the required parameters are present";
 			}
 
-			let vanityMetrics = 
+			let metrics = await getFileData('dashboard/key_vanity_metrics.json');
+            vanityMetrics = metrics.filter(metric => metric['Program ID'] === programId && metric['Metric Type'] === 'Vanity Metric' && metric['Metric Name'] && metric['Metric Value']);
+
+			vanityMetrics = vanityMetrics.map(vanityMetric => {
+				return {
+					name: vanityMetric['Metric Name'],
+					value: vanityMetric['Metric Value'] ? vanityMetric['Metric Value'] : 0,
+					tooltip: vanityMetric['Metric Information']
+				};
+			})
 
 			res.status(200).send({
 				status: 200,
