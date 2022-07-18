@@ -167,7 +167,9 @@ const dataSourceInfo = {
                 {
                     name: "Total No of Plays (App and Portal)",
                     property: "Total No of Plays (App and Portal)",
-                    aggegration: "SUM"
+                    aggegration: {
+                        type: "SUM"
+                    }
                 }
             ],
             filters: [

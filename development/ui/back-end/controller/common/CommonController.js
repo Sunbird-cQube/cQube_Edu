@@ -209,12 +209,13 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 
 					return;
 				}
+
 				if (dimension.aggegration) {
 					if(dimension.aggegration.type === "SUM"){
 						let sum = 0;
 					
 						objs.forEach((obj, index) => {
-							sum += obj[dimension.property];
+							sum += obj[dimension.property] ? obj[dimension.property] : 0;
 						});
 						
 						data[dimension.name] = Number(sum.toFixed(2));
@@ -314,7 +315,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 
 async function getLOTableReportData(reqBody, reportConfig, rawData) {
 	let { columns, filters, mainFilter, gaugeChart } = reportConfig;
-	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
+	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage || col.aggegration).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
 
 	if (mainFilter) {
@@ -366,6 +367,20 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 					});
 
 					data[col.name] = Number((numeratorSum / denominatorSum).toFixed(2));
+					return;
+				}
+
+				if(col.aggegration) {
+					if (col.aggegration.type === "SUM") {
+						let sum = 0;
+				
+						objs.forEach((obj, index) => {
+							sum += obj[col.property] ? obj[col.property] : 0;
+						});
+						
+						data[col.name] = Number(sum.toFixed(2));
+						return;
+					}
 				}
 
 				data[col.name] = objs[0][col.property];
@@ -451,8 +466,7 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 	console.log("process started");
 	let { columns, filters, mainFilter } = reportConfig;
-	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
-	let isAggegrationNeeded = columns.filter(col => col.aggegration).length > 0;
+	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage || col.aggegration).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
 
 	if (mainFilter) {
@@ -506,7 +520,7 @@ async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 				}
 
 				if (col.aggegration) {
-					if (col.aggegration === 'SUM') {
+					if (col.aggegration.type === 'SUM') {
 						data[col.name] = _.sumBy(objs, col.property);
 						return;
 					}
@@ -603,7 +617,7 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 				}
 
 				if (col.aggegration) {
-					if (col.aggegration === 'SUM') {
+					if (col.aggegration.type === 'SUM') {
 						data[col.name] = _.sumBy(objs, col.property);
 						return;
 					}
@@ -709,7 +723,7 @@ async function getBarChartData(reqBody, reportConfig, rawData) {
 				}
 
 				if (col.aggegration) {
-					if (col.aggegration === 'SUM') {
+					if (col.aggegration.type === 'SUM') {
 						data[col.name] = _.sumBy(objs, col.property);
 						return;
 					}
