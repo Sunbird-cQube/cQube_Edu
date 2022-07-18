@@ -20,15 +20,15 @@ exports.getDashboardMetrics = async (req, res, next) => {
                         programId: key,
                         title: objs[0]['Program'],
                         metrics: [],
-						tooltip: ""
+						tooltip: objs[0]['Program Information']
                     };
 
                     data.metrics = objs.map(metric => {
-						data.tooltip += data.tooltip.length > 0 ? `<br>${metric['Metric Information']}` : `${metric['Metric Information']}`;
+						//data.tooltip += data.tooltip.length > 0 ? `<br>${metric['Metric Information']}` : `${metric['Metric Information']}`;
                         return {
                             name: metric['Metric Name'],
                             value: metric['Metric Value'] && metric['Metric Value'] !== '' ? metric['Metric Value'] : 0,
-                            information: metric['Metric Information']
+                            tooltip: metric['Metric Information']
                         }
                     });
 
@@ -59,7 +59,7 @@ exports.getVanityMetrics = async (req, res, next) => {
 			}
 
 			let metrics = await getFileData('dashboard/key_vanity_metrics.json');
-            vanityMetrics = metrics.filter(metric => metric['Program ID'] === programId && metric['Metric Type'] === 'Vanity Metric' && metric['Metric Name'] && metric['Metric Value']);
+            vanityMetrics = metrics.filter(metric => metric['Program ID'] === programId && metric['Metric Type'] === 'Vanity Metric' && metric['Metric Name']);
 
 			vanityMetrics = vanityMetrics.map(vanityMetric => {
 				return {

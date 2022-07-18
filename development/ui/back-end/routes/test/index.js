@@ -46,9 +46,9 @@ router.post("/azure2", (req, res, next) => {
 router.post("/azure3", (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
         try {
-			let rawData = await getFileRawData('dashboard/Total Lo.csv');
+			let rawData = await getFileRawData('dashboard/key_vanity_metrics.xlsx');
 			
-			await convertRawDataToJSONAndUploadToS3(rawData, 'dashboard/Total Lo.csv');
+			await convertRawDataToJSONAndUploadToS3(rawData, 'dashboard/key_vanity_metrics.xlsx');
 
 			res.status(200).send({
 				status: 200,
@@ -98,6 +98,7 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, fileKey) {
 		}).fromString(fileContent.toString('utf-8'));
 	}
 
+	console.log(reportRawData);
 	uploadFile(fileName, reportRawData);
 }
 
