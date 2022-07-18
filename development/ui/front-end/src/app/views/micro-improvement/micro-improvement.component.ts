@@ -19,7 +19,8 @@ export class MicroImprovementComponent implements OnInit {
   filters1: any;
   filters2: any;
   NVSK: boolean = true;
-  isMapReportLoading = true;
+  isMapReport1Loading = true;
+  isMapReport2Loading = true;
   ETBMetrics: any[] | undefined;
   microEffectivenessData: any;
   microProgramData:any;
@@ -52,14 +53,14 @@ export class MicroImprovementComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(res => {
       this._spinner.hide()
-      this.isMapReportLoading = false;
+      this.isMapReport2Loading = false;
       this.microProgramData = res.result;
       this.filters1 = res.result.filters;
       if(res.result.code){
         this.state1 = res.result.code;
       }
     }, err => {
-      this.isMapReportLoading = false;
+      this.isMapReport2Loading = false;
     });
   }
 
@@ -82,14 +83,14 @@ export class MicroImprovementComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(res => {
       this._spinner.hide()
-      this.isMapReportLoading = false;
+      this.isMapReport1Loading = false;
       this.microProgramDatayesno = res.result;
       this.filters1 = res.result.filters;
       if(res.result.code){
         this.state1 = res.result.code;
       }
     }, err => {
-      this.isMapReportLoading = false;
+      this.isMapReport1Loading = false;
     });
   }
   

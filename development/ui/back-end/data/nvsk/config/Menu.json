@@ -65,7 +65,7 @@
   {
     "label": "NCF",
     "icon": "",
-    "path": "",
+    "path": "/ncf",
     "basepath": "dashboard",
     "hasSub": false
   },
