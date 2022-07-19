@@ -149,57 +149,8 @@
         "metrics": [],
         "icon": "Adults Education.png",
         "tooltip": " "
-    },
-    {
-        "title": "National ICT Award for Teachers",
-        "navigationURL": " ",
-        "metrics": [
-            {
-                "name": "Number of Teachers Awarded",
-                "value": " "
-            }
-        ],
-        "icon": "NISHTHA.png",
-        "tooltip": ""
-    },
-    {
-        "title": "National Award to Teachers",
-        "navigationURL": "",
-        "metrics": [
-            {
-                "name": "Total Teachers Awarded",
-                "value": " "
-            }
-        ],
-        "icon": "Adults Education.png",
-        "tooltip": ""
-    },
-    {
-        "title": "PM Shri",
-        "navigationURL": "",
-        "metrics": [
-            {
-                "name": "Total Schools Shortlisted",
-                "value": " "
-            }
-        ],
-        "icon": "Adults Education.png",
-        "tooltip": ""
-    },
-    {
-        "title": "PM eVidya and Radio Channels",
-        "navigationURL": "",
-        "metrics": [
-            {
-                "name": "Total Channels",
-                "value": " "
-            },
-            {
-                "name": "Total Available Content",
-                "value": " "
-            }
-        ],
-        "icon": "Pm Evidya-01-01.png",
-        "tooltip": ""
     }
+   
+   
+
 ]
