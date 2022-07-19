@@ -1,0 +1,10 @@
+<div class="grid grid-cols-12 align-items-center">
+    <div class="col-span-6">
+        <app-material-button-group [buttons]="levels" (select)="onSelectLevel($event)"></app-material-button-group>
+    </div>
+    <div class="col-span-6" *ngIf="metricFilter">
+        <ng-select class="mx-2" dropdownPosition="bottom" placeholder="{{metricFilter.name}}" [(ngModel)]="metricFilter.value" (change)="onSelectMetricFilter($event)">
+            <ng-option *ngFor="let option of metricFilter.options" [value]="option.value">{{ option.label }}</ng-option>
+        </ng-select>
+    </div>
+</div>

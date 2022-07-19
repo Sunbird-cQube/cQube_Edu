@@ -98,6 +98,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 	latitude = latitude ? latitude : 'Latitude';
 	longitude = longitude ? longitude : "Longitude";
 	let code;
+	let metricFilter = reqBody.metricFilter ? reqBody.metricFilter : [];
 
 	if (levels && levels.length > 0) {
 		currentLevel = levels.find(level => level.selected);
@@ -113,6 +114,30 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 
 	if (stateColumnFilter) {
 		rawData = rawData.filter(record => record[stateColumnFilter] && (record[stateColumnFilter] == states[reqBody.stateCode].Code));
+	}
+
+	if (dimensions && dimensions.length > 0 && metricFilter.length === 0) {
+		metricFilter = {
+			name: "Metrics to be shown",
+			options: [],
+			value: 'overall'
+		};
+
+		metricFilter.options.push({
+			label: "Overall",
+			value: "overall"
+		});
+
+		dimensions.forEach(dimension => {
+			if (!dimension.includeAsMetricFilter) {
+				return;
+			}
+
+			metricFilter.options.push({
+				label: dimension.name,
+				value: dimension.property
+			});
+		});
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -211,23 +236,42 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 				}
 
 				if (dimension.aggegration) {
-					if(dimension.aggegration.type === "SUM"){
+					let value = 0;
+					if(dimension.aggegration.type === "SUM") {
 						let sum = 0;
 					
 						objs.forEach((obj, index) => {
 							sum += obj[dimension.property] ? obj[dimension.property] : 0;
 						});
 						
-						data[dimension.name] = Number(sum.toFixed(2));
+						value = Number(sum.toFixed(2));
+					} else if(dimension.aggegration.type === "AVG") {
+						let sum = 0;
+					
+						objs.forEach((obj, index) => {
+							sum += obj[dimension.property] ? obj[dimension.property] : 0;
+						});
+
+						value = Number((sum / objs.length).toFixed(2));
+					}
+
+					if (metricFilter && metricFilter.value === dimension.property) {
+						data['indicator'] = value;
+					} else if (data['indicator'] && dimension.name === 'indicator') {
+						data[dimension.property] = value;
+					} else {
+						data[dimension.name] = value;
 					}
 
 					if (dimension.tooltip) {
 						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-						data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${data[dimension.name]}</b>`;
+						data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
 					}
 
 					return;
 				}
+
+
 
 				if (dimension.tooltip) {
 					data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
@@ -309,7 +353,8 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		data: rawData,
 		filters: filters,
 		options,
-		levels
+		levels,
+		metricFilter
 	};
 }
 

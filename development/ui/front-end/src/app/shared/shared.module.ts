@@ -6,7 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButtonModule } from '@angular/material/button';
 
 import { MultiBarChartComponent } from './components/charts/multi-bar-chart/multi-bar-chart.component';
 import { DashboardCardComponent } from './components/cards/dashboard-card/dashboard-card.component';
@@ -25,6 +25,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { LeafletMapComponent } from './components/maps/leaflet-map/leaflet-map.component';
 import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
 import { MaterialButtonGroupComponent } from './components/buttons/material-button-group/material-button-group.component';
+import { LevelNMetricFilterPanelComponent } from './components/level-n-metric-filter-panel/level-n-metric-filter-panel.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -34,7 +35,7 @@ const IMPORTS: any[] = [
   FormsModule,
   TranslocoModule,
   NgxSpinnerModule,
-  MatButtonToggleModule
+  MatButtonModule
 ];
 
 const DECLARATIONS = [
@@ -53,7 +54,8 @@ const DECLARATIONS = [
   PieChartComponent,
   LeafletMapComponent,
   BarChartComponent,
-  MaterialButtonGroupComponent
+  MaterialButtonGroupComponent,
+  LevelNMetricFilterPanelComponent
 ];
 
 @NgModule({

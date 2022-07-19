@@ -6,4 +6,5 @@ export interface IReportDataPayload {
     reportType: 'map' | 'multiBarChart' | 'loTable' | 'stackedBarChart' | 'barChart';
     filters?: any;
     levels?: any;
+    metricFilter?: any;
 }

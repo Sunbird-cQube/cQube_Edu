@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 export class PGIComponent implements OnInit {
   state: any= 'IN';
   filters: any;
+  metricFilter: any;
   levels: any;
   isMapReportLoading = true;
 
@@ -25,7 +26,7 @@ export class PGIComponent implements OnInit {
 
   constructor(private readonly _ETBService: ETBService, private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService, private readonly _configService: ConfigService) {
     this.getPGIMetricsData();
-    this.getPGIStateData(this.filters, this.levels);
+    this.getPGIStateData(this.filters, this.levels, this.metricFilter);
     this.getStateWisePGICoverageData();
   }
 
@@ -77,7 +78,7 @@ export class PGIComponent implements OnInit {
     });
   }
 
-  getPGIStateData(filters:any, levels:any) {
+  getPGIStateData(filters:any, levels:any, metricFilter: any) {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
       dataSourceName: 'pgi',
@@ -85,7 +86,8 @@ export class PGIComponent implements OnInit {
       reportType: 'map',
       stateCode: environment.stateCode,
       filters,
-      levels
+      levels,
+      metricFilter
     };
 
     this._commonService.getReportData(data).subscribe(res => {
@@ -94,6 +96,7 @@ export class PGIComponent implements OnInit {
       this.pgiStateData = res.result;
       this.filters = res.result.filters;
       this.levels = res.result.levels;
+      this.metricFilter = res.result.metricFilter;
       if(res.result.code){
         this.state = res.result.code;
       }
@@ -103,15 +106,15 @@ export class PGIComponent implements OnInit {
   }
 
   filtersUpdated(filters: any): void {
-    this.getPGIStateData(filters, this.levels);
+    this.getPGIStateData(filters, this.levels, this.metricFilter);
+  }
+
+  onSelectMetricFilter(metricFilter: any): void {
+    this.getPGIStateData(this.filters, this.levels, metricFilter);
   }
 
   onSelectLevel(event: any): void {
-    event.items.forEach((level: any, levelInd: number) => {
-        level.selected = levelInd === event.index;
-    });
-
-    this.getPGIStateData(this.filters, event.items);
+    this.getPGIStateData(this.filters, event.items, this.metricFilter);
   }
 
 }
