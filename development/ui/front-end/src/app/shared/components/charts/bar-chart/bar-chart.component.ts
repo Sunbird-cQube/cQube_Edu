@@ -62,16 +62,23 @@ export class BarChartComponent implements OnInit, OnChanges {
           
       },
       plotOptions: {
-          bar: {
-              dataLabels: {
-                  enabled: true,
-                  crop: false,
-                  allowOverlap: true,
-                  formatter: function() {
-                    return ref._decimalPipe.transform(this.y, '1.0-0', 'en-IN');
-                  }
-              }
+        bar: {
+            dataLabels: {
+                enabled: true,
+                crop: false,
+                allowOverlap: true,
+                formatter: function() {
+                  return ref._decimalPipe.transform(this.y, '1.0-0', 'en-IN');
+                }
+            }
+        },
+        series: {
+          events: {
+            legendItemClick: function (e) {
+              e.preventDefault();
+            }
           }
+        }
       },
       legend: {
           layout: 'vertical',

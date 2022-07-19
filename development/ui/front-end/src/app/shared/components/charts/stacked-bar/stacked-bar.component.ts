@@ -73,7 +73,13 @@ export class StackedBarComponent implements OnInit, OnChanges {
           }
         },
         series: {
-          stacking: 'normal'
+          stacking: 'normal',
+          events: {
+            legendItemClick: function (e) {
+              e.preventDefault();
+            }
+          },
+          borderWidth: 0
         }
       },
       legend: {
