@@ -46,29 +46,62 @@ const dataSourceInfo = {
                 }
             }
         },
+        // loTable: {
+        //     pathToFile: 'quizzes/quizzesStarted.json',
+        //     defaultLevel: 'State',
+        //     columns: [
+        //         {
+        //             name: "State",
+        //             property: "State"
+        //         },
+        //         {
+        //             name: "Total Enrollments",
+        //             property: "Total Enrollments",
+        //             class: "text-center",
+        //             aggegration: {
+        //                 type: "SUM"
+        //             }
+        //         }
+        //     ],
+        //     filters: [
+        //         {
+        //             name: "Quiz Name",
+        //             column: "Quiz Name"
+        //         }
+        //     ]
+        // }
         loTable: {
-            pathToFile: 'quizzes/quizzesStarted.json',
-            defaultLevel: 'State',
+            pathToFile: 'quizzes/ncertQuiz.json',
+            defaultLevel: 'Collection Name',
             columns: [
                 {
-                    name: "State",
-                    property: "State"
+                    name: "Quiz Name",
+                    property: "Collection Name"
                 },
                 {
-                    name: "Total Enrollments",
-                    property: "Total Enrollments",
+                    name: "Total Enrolments",
+                    property: "Total Enrolments",
+                    class: "text-center"
+                },
+                {
+                    name: "Certificate Issued (100% completion)",
+                    property: "Certificate Issued (100% completion)",
+                    class: "text-center"
+                },
+                {
+                    name: "Completion %",
+                    property: "Completion %",
                     class: "text-center",
-                    aggegration: {
-                        type: "SUM"
-                    }
+                    isHeatMapRequired: true,
+				    color: '#002966'
+                },
+                {
+                    name: "Medium",
+                    property: "Medium",
+                    class: "text-center"
                 }
             ],
-            filters: [
-                {
-                    name: "Quiz Name",
-                    column: "Quiz Name"
-                }
-            ]
+            filters: []
         }
     }
 }

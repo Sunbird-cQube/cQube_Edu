@@ -20,8 +20,9 @@
                 </div>
             </div>
         </mat-tab>
-        <mat-tab label="Enrollments and Completion by State/District">
-            <app-nishitha-table lastLevel="district"></app-nishitha-table>
+        <mat-tab label="Total Courses and Medium">
+            <app-filter-panel></app-filter-panel>
+            <app-total-courses-table></app-total-courses-table>
         </mat-tab>
         <mat-tab label="Enrollments and Completion by State/Course Name" *ngIf="NVSK">
             <app-nishitha-table lastLevel="course"></app-nishitha-table>
@@ -34,10 +35,8 @@
             </div>
            
         </mat-tab>
-
-        <mat-tab label="Total Courses and Medium">
-            <app-filter-panel></app-filter-panel>
-            <app-total-courses-table></app-total-courses-table>
+        <mat-tab label="Enrollments and Completion by State/District">
+            <app-nishitha-table lastLevel="district"></app-nishitha-table>
         </mat-tab>
     </mat-tab-group>
 </div>
