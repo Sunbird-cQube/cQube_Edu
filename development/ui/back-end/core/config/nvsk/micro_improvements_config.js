@@ -50,14 +50,14 @@ const dataSourceInfo = {
                     name: "indicator",
                     property: "Started Micro-Improvement",
                     tooltip: {
-                        name: "Started Micro-Improvement"
+                        name: "Participating in Micro-Improvement Program"
                     }
                 }
             ],
             filters: [],
             options: {
                 legend: {
-                    title: 'Started Micro-Improvement'
+                    title: 'Started doing Micro-Improvement'
                 }
             }
         }
