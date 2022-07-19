@@ -13,8 +13,7 @@ export class LayoutComponent implements OnInit {
   menu: IMenuItem[] | undefined;
 
   constructor(private readonly _configService: ConfigService) {
-    this._configService.getDashboardMenu().subscribe(menuResult => {
-      console.log(menuResult);
+    this._configService.getDashboardMetrics(true).subscribe(menuResult => {
       this.menu = [];
       let menuToDisplay: IMenuItem | any = {};
       menuToDisplay.label = "Dashboard";
