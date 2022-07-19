@@ -53,7 +53,7 @@ export class NishithaTableComponent implements OnInit {
         },
         xAxis: {
           categories: result.map((record: any) => {
-            return record['Location'];
+            return record['Course Name'];
           })
         },
         yAxis: {
@@ -61,12 +61,12 @@ export class NishithaTableComponent implements OnInit {
         },
         series: [{
           type: 'bar',
-          name: 'Total Enrollments',
-          data: result.map((record: any) => record['Total Enrollments'])
+          name: 'Enrollments',
+          data: result.map((record: any) => record['Enrollments'])
         }, {
           type: 'bar',
-          name: 'Total Certifications',
-          data: result.map((record: any) => record['Total Certifications'])
+          name: 'Completion',
+          data: result.map((record: any) => record['Completion'])
         }]
       };
       
