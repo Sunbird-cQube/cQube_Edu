@@ -23,14 +23,25 @@
         <mat-tab label="PM Poshan access across India">
             <div class="grid grid-cols-1">
                 <div class="col">
-                    <br>
                     <div class="col" *ngIf="isMapReport2Loading">
                         <p class="mt-8">Loading...</p>
                     </div>
-                    <app-filter-panel [filters]="filters1" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
-                    <app-material-button-group [buttons]="levels1" (select)="onSelectLevel($event)">
-                    </app-material-button-group>
-                    <app-leaflet-map [mapData]="pmPoshanStateData"></app-leaflet-map>
+                    <div class="grid grid-cols-12">
+                        <div class="xs:col-span-full xmd:col-span-4">
+                            <app-level-n-metric-filter-panel [metricFilter]="metricFilter" [levels]="levels1" (selectMetricFilter)="onSelectMetricFilter($event)" (selectLevel)="onSelectLevel($event)"></app-level-n-metric-filter-panel>
+                        </div>
+                        <div class="xs:col-span-full xmd:col-span-8">
+                            <app-filter-panel [filters]="filters1" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-12">
+                        <div class="xs:col-span-full" *ngIf="metricFilter">
+                            <app-leaflet-map [mapData]="pmPoshanStateData"></app-leaflet-map>
+                        </div>
+                        <!-- <div class="xs:col-span-full xmd:col-span-4">
+                            <app-gauge-chart [options]="options"></app-gauge-chart>
+                        </div> -->
+                    </div>
                 </div>
             </div>
         </mat-tab>

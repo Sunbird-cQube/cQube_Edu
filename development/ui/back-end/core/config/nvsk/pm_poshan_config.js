@@ -2,6 +2,7 @@ const dataSourceInfo = {
     PM_poshan_access: {
         map: {
             pathToFile: 'pm_poshan/PM_poshan_access.json',
+            overallMetricsOption: false,
             locations: [
                 {
                     name: "Location",
@@ -23,15 +24,37 @@ const dataSourceInfo = {
             ],
             dimensions: [
                 {
-                    name: "indicator",
-                    property: "Total Schools",
+                    name: "Total Enrolled",
+                    property: "Enrolled In July",
                     tooltip: {
-                        name: "Total Schools",
-                        property: "Total Schools"
+                        name: "Total Enrolled"
                     },
                     aggegration: {
                         type: "SUM"
-                    }
+                    },
+                    includeAsMetricFilter: true,
+                },
+                {
+                    name: "Meal Served",
+                    property: "MealServed(02/July/2022)",
+                    tooltip: {
+                        name: "Meal Served"
+                    },
+                    aggegration: {
+                        type: "SUM"
+                    },
+                    includeAsMetricFilter: true,
+                },
+                {
+                    name: "Total Schools",
+                    property: "Total Schools",
+                    tooltip: {
+                        name: "Total Schools"
+                    },
+                    aggegration: {
+                        type: "SUM"
+                    },
+                    includeAsMetricFilter: true,
                 }
             ],
             filters: [
@@ -61,34 +84,6 @@ const dataSourceInfo = {
         }
     },
     state_onboarded: {
-        // map: {
-        //     pathToFile: 'pm_poshan/state_onboarded.json',
-        //     columns: [
-        //         {
-        //             name: "State",
-        //             property: "State",
-        //             isLocationName: true
-        //         },
-        //         {
-        //             name: "Location Code",
-        //             property: "State Code"
-        //         },
-        //         {
-        //             name: "Latitude",
-        //             property: "Latitude"
-        //         },
-        //         {
-        //             name: "Longitude",
-        //             property: "Longitude"
-        //         },
-        //         {
-        //             name: "status",
-        //             property: "Onboarded on PM Poshan",
-        //             tooltipDesc: 'Onboarded on PM Poshan :'
-        //         }
-        //     ],
-        //     filters: []
-        // },
         map: {
             pathToFile: 'pm_poshan/state_onboarded.json',
             locations: [

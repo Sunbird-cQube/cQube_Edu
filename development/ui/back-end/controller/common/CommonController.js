@@ -120,13 +120,17 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		metricFilter = {
 			name: "Metrics to be shown",
 			options: [],
-			value: 'overall'
+			value: ""
 		};
 
-		metricFilter.options.push({
-			label: "Overall",
-			value: "overall"
-		});
+		if (!reportConfig.hasOwnProperty('overallMetricsOption') || reportConfig.overallMetricsOption) {
+			metricFilter.options.push({
+				label: "Overall",
+				value: "overall"
+			});
+
+			metricFilter.value = "overall";
+		}
 
 		dimensions.forEach(dimension => {
 			if (!dimension.includeAsMetricFilter) {
@@ -138,6 +142,10 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 				value: dimension.property
 			});
 		});
+
+		if (metricFilter.value === "") {
+			metricFilter.value = metricFilter.options[0].value;
+		}
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -337,12 +345,13 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 			}
 
 			dimensions.forEach(dimension => {
+				let value = record[dimension.property] ? record[dimension.property] : 0;
 				if (dimension.tooltip) {
 					data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-					data.tooltip += dimension.tooltip.valueAsName ? `${record[dimension.property]}: <b>${record[dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${record[dimension.property]}</b>`;
+					data.tooltip += dimension.tooltip.valueAsName ? `${value}: <b>${record[dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
 				}
 
-				data[dimension.name] = record[dimension.property];
+				data[dimension.name] = value;
 			});
 
 			return data;

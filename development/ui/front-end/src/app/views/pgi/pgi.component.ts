@@ -24,7 +24,7 @@ export class PGIComponent implements OnInit {
   columns: any[] = [];
   options: Highcharts.Options | undefined;
 
-  constructor(private readonly _ETBService: ETBService, private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService, private readonly _configService: ConfigService) {
+  constructor(private readonly _ETBService: ETBService, private readonly _commonService: CommonService, private readonly _spinner: NgxSpinnerService, private readonly _configService: ConfigService) {
     this.getPGIMetricsData();
     this.getPGIStateData(this.filters, this.levels, this.metricFilter);
     this.getStateWisePGICoverageData();
