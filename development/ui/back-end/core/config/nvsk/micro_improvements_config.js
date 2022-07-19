@@ -28,14 +28,7 @@ const dataSourceInfo = {
                 legend: {
                     title: 'Micro-improvements '
                 }
-            },
-            levels: [
-                {
-                    name: "State",
-                    value: "state",
-                    property: "State"
-                }
-            ]
+            }
         },
     },
     micro_improvements_program: {

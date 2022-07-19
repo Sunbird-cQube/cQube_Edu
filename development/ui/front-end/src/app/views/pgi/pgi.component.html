@@ -27,12 +27,12 @@
                         </div>
                     </div>
                     <div class="grid grid-cols-12">
-                        <div class="xs:col-span-full xmd:col-span-8" *ngIf="metricFilter">
+                        <div class="xs:col-span-full" *ngIf="metricFilter">
                             <app-leaflet-map [mapData]="pgiStateData"></app-leaflet-map>
                         </div>
-                        <div class="xs:col-span-full xmd:col-span-4">
+                        <!-- <div class="xs:col-span-full xmd:col-span-4">
                             <app-gauge-chart [options]="options"></app-gauge-chart>
-                        </div>
+                        </div> -->
                     </div>
                     
                 </div>

@@ -18,6 +18,7 @@ export class PmPoshanComponent implements OnInit {
   filters2: any;
   levels1: any;
   levels2: any;
+  metricFilter: any;
 
   isMapReport1Loading = true;
   isMapReport2Loading = true;
@@ -27,7 +28,7 @@ export class PmPoshanComponent implements OnInit {
   pmPoshanStateOnboardedData:any;
   constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService, private readonly _configService: ConfigService) {
     this.getPmPoshanMetricsData();
-    this.getPmPoshanStateData(this.filters1, this.levels1);
+    this.getPmPoshanStateData(this.filters1, this.levels1, this.metricFilter);
     this.getStateOnboardedData(this.filters2, this.levels2);
   }
 
@@ -74,7 +75,7 @@ export class PmPoshanComponent implements OnInit {
     });
   }
 
-  getPmPoshanStateData(filters: any, levels: any) {
+  getPmPoshanStateData(filters: any, levels: any, metricFilter: any) {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
       dataSourceName: 'pm_poshan',
@@ -82,7 +83,8 @@ export class PmPoshanComponent implements OnInit {
       reportType: 'map',
       stateCode: environment.stateCode,
       filters,
-      levels
+      levels,
+      metricFilter
     };
 
     this._commonService.getReportData(data).subscribe(pmPoshanStateDataRes => {
@@ -91,6 +93,7 @@ export class PmPoshanComponent implements OnInit {
       this.pmPoshanStateData = pmPoshanStateDataRes.result;
       this.filters1 = pmPoshanStateDataRes.result.filters;
       this.levels1 = pmPoshanStateDataRes.result.levels;
+      this.metricFilter = pmPoshanStateDataRes.result.metricFilter;
       if(pmPoshanStateDataRes.result.code){
         this.state1 = pmPoshanStateDataRes.result.code;
       }
@@ -100,15 +103,15 @@ export class PmPoshanComponent implements OnInit {
   }
 
   filtersUpdated(filters: any): void {
-    this.getPmPoshanStateData(filters, this.levels1);
+    this.getPmPoshanStateData(filters, this.levels1, this.metricFilter);
+  }
+
+  onSelectMetricFilter(metricFilter: any): void {
+    this.getPmPoshanStateData(this.filters1, this.levels1, metricFilter);
   }
 
   onSelectLevel(event: any): void {
-    event.items.forEach((level: any, levelInd: number) => {
-        level.selected = levelInd === event.index;
-    });
-
-    this.getPmPoshanStateData(this.filters1, event.items);
+    this.getPmPoshanStateData(this.filters1, event.items, this.metricFilter);
   }
 
 }

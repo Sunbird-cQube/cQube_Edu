@@ -16,15 +16,32 @@
         <mat-tab label="UDISE Performance">
             <div class="grid grid-cols-1">
                 <div class="col">
-                    <app-filter-panel></app-filter-panel>
-                    <br>
-                    <app-map-my-india [data]="udiseStateData"></app-map-my-india>
+                    <div class="col" *ngIf="isMapReportLoading">
+                        <p class="mt-8">Loading...</p>
+                    </div>
+                    <div class="grid grid-cols-12">
+                        <div class="xs:col-span-full xmd:col-span-4">
+                            <app-level-n-metric-filter-panel [metricFilter]="metricFilter" [levels]="levels" (selectMetricFilter)="onSelectMetricFilter($event)" (selectLevel)="onSelectLevel($event)"></app-level-n-metric-filter-panel>
+                        </div>
+                        <div class="xs:col-span-full xmd:col-span-8">
+                            <app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-12">
+                        <div class="xs:col-span-full" *ngIf="metricFilter">
+                            <app-leaflet-map [mapData]="udiseStateData"></app-leaflet-map>
+                        </div>
+                        <!-- <div class="xs:col-span-full xmd:col-span-4">
+                            <app-gauge-chart [options]="options"></app-gauge-chart>
+                        </div> -->
+                    </div>
                 </div>
             </div>
         </mat-tab>
         <mat-tab label="Scatter Plot">
-            <app-filter-panel></app-filter-panel>
-            <app-scatter-chart></app-scatter-chart>
+            <!-- <app-filter-panel></app-filter-panel>
+            <app-scatter-chart></app-scatter-chart> -->
+            <p class="p-2">Coming soon...</p>
         </mat-tab>
     </mat-tab-group>
 </div>
