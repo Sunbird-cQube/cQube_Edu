@@ -3,7 +3,7 @@ const _ = require('lodash');
 
 exports.getDashboardMetrics = async (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
-		let { appName } = req.params;
+		let { appName, forMenu } = req.params;
 
 		try {
 			if (!appName) {
@@ -18,9 +18,11 @@ exports.getDashboardMetrics = async (req, res, next) => {
                 .map((objs, key) => {
                     let data = {
                         programId: key,
-                        title: objs[0]['Program'],
+                        title: forMenu && forMenu === 'true' ? objs[0]['Menu Name'] : objs[0]['Program'],
                         metrics: [],
-						tooltip: objs[0]['Program Information']
+						tooltip: objs[0]['Program Information'],
+						navigationURL: objs[0]['Navigation URL'],
+						icon: objs[0]['Image URL']
                     };
 
                     data.metrics = objs.map(metric => {
@@ -67,7 +69,7 @@ exports.getVanityMetrics = async (req, res, next) => {
 					value: vanityMetric['Metric Value'] ? vanityMetric['Metric Value'] : 0,
 					tooltip: vanityMetric['Metric Information']
 				};
-			})
+			});
 
 			res.status(200).send({
 				status: 200,

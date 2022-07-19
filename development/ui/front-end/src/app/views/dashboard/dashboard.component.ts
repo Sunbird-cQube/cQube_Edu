@@ -16,23 +16,23 @@ export class DashboardComponent implements OnInit {
   isNvsk = environment.config.toLocaleLowerCase() === 'nvsk';
   constructor(private readonly _configService: ConfigService, private readonly _router: Router) {
     this._configService.getDashboardMetrics().subscribe(dashboardMenuResult => {
-      if (this.isNvsk) {
-        this.dashboardMenu = dashboardMenuResult.result.map((item: any) => {
-          let itemConfig = (DashboardMenu as any)[item.programId];
+      // if (this.isNvsk) {
+      //   this.dashboardMenu = dashboardMenuResult.result.map((item: any) => {
+      //     let itemConfig = (DashboardMenu as any)[item.programId];
 
-          if (itemConfig) {
-            //item.tooltip = item.tooltip.replace(/<br\s*\/?>/gi, ', ');
-            return {
-              ...itemConfig,
-              ...item
-            }
-          }
+      //     if (itemConfig) {
+      //       //item.tooltip = item.tooltip.replace(/<br\s*\/?>/gi, ', ');
+      //       return {
+      //         ...itemConfig,
+      //         ...item
+      //       }
+      //     }
 
-          return;
-        });
+      //     return;
+      //   });
 
-        return;
-      }
+      //   return;
+      // }
       this.dashboardMenu = dashboardMenuResult.result;
     });
   }
