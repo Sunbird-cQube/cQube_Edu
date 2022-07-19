@@ -83,17 +83,15 @@ ansible-playbook ansible/create_base.yml --tags "install" --extra-vars "@config.
 if [[ $storage_type == "s3" ]]; then
 ansible-playbook ansible/install.yml --tags "install" --extra-vars "@aws_s3_config.yml" \
 					        --extra-vars "@$base_dir/cqube/conf/azure_container_config.yml"
-ansible-playbook ansible/deploy_ui.yml --tags "install" --extra-vars "@aws_s3_config.yml" \
-                                                --extra-vars "@$base_dir/cqube/conf/azure_container_config.yml"
-    if [ $? = 0 ]; then
-        echo "cQube $access_type installed successfully!!"
-    fi
 fi
 if [[ $storage_type == "azure" ]]; then
 ansible-playbook ansible/install.yml --tags "install" --extra-vars "@azure_container_config.yml" \
 						   --extra-vars "@$base_dir/cqube/conf/aws_s3_config.yml"
-ansible-playbook ansible/deploy_ui.yml --tags "install" --extra-vars "@azure_container_config.yml" \
-                                                   --extra-vars "@$base_dir/cqube/conf/aws_s3_config.yml"
+fi
+
+if [ $? = 0 ]; then
+chmod u+x install_ui.sh
+. "install_ui.sh"
     if [ $? = 0 ]; then
         echo "cQube $access_type installed successfully!!"
     fi
