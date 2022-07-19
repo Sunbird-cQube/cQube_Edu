@@ -38,6 +38,31 @@ export class NishithaTableComponent implements OnInit {
       let result = res.result.data;
       this.filters = res.result.filters;
 
+      let series: any = [];
+      if (this.lastLevel === 'district') {
+        //result = result.slice(0, 10);
+        series = [{
+          type: 'bar',
+          name: 'Total Certifications',
+          data: result.map((record: any) => record['Total Certifications'])
+        }, {
+          type: 'bar',
+          name: 'Total Enrollments',
+          data: result.map((record: any) => record['Total Enrollments'])
+        }];
+      } else {
+        result = result.slice(0, 10);
+        series = [{
+          type: 'bar',
+          name: 'Enrollments',
+          data: result.map((record: any) => record['Enrollments'])
+        }, {
+          type: 'bar',
+          name: 'Completion',
+          data: result.map((record: any) => record['Completion'])
+        }];
+      }
+
       this.options = {
         chart: {
           events: {
@@ -59,15 +84,7 @@ export class NishithaTableComponent implements OnInit {
         yAxis: {
           opposite: true
         },
-        series: [{
-          type: 'bar',
-          name: 'Enrollments',
-          data: result.map((record: any) => this.lastLevel === 'district' ? record['Total Certifications'] : record['Enrollments'])
-        }, {
-          type: 'bar',
-          name: 'Completion',
-          data: result.map((record: any) => this.lastLevel === 'district' ? record['Total Enrollments'] : record['Completion'])
-        }]
+        series: series
       };
       
       this.stateWiseEnrollmentData = result;

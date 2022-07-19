@@ -107,11 +107,11 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
       },
       tooltip: {
         shared: true,
-        formatter: function (this: any) {
-          return this.points.reduce(function (s: any, point: any) {
-            return s + '<br/>' + point.series.name + ': ' + ref._decimalPipe.transform(point.y, '1.0-0', 'en-IN');
-          }, '<b>' + this.x + '</b>');
-        }
+        // formatter: function (this: any) {
+        //   return this.points.reduce(function (s: any, point: any) {
+        //     return s + '<br/>' + point.series.name + ': ' + ref._decimalPipe.transform(point.y, '1.0-0', 'en-IN');
+        //   }, '<b>' + this.x + '</b>');
+        // }
       },
       credits: {
         enabled: false
