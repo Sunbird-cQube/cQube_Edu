@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
+import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -19,7 +20,10 @@ export class NcfComponent implements OnInit {
   NCFMetrics: any[] | undefined;
   ncfProgressData: any;
 
-  constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService) { 
+  constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService, private readonly _configService: ConfigService) {
+    this._configService.getVanityMetrics('ncf').subscribe(vanityMetricsRes => {
+      this.NCFMetrics = vanityMetricsRes.result;
+    });
     this.getNcfProgressData(this.filters);
   }
 
