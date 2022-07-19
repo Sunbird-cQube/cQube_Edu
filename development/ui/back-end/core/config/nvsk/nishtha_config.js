@@ -83,23 +83,23 @@ const dataSourceInfo = {
     },
     stateOrCourseWiseEnrollments: {
         multiBarChart: {
-            pathToFile: 'nishtha/Enrollments And Completion.json',
-            defaultLevel: "State",
+            pathToFile: 'nishtha/State or Course.json',
+            defaultLevel: "Course Name",
             columns: [
                 {
-                    name: "Location",
-                    key: true
+                    name: "Course Name",
+                    property: "Course Name"
                 },
                 {
-                    name: "Total Enrollments",
-                    property: "Total Enrollments",
+                    name: "Enrollments",
+                    property: "Enrollments",
                     aggegration: {
                         type: "SUM"
                     }
                 },
                 {
-                    name: "Total Certifications",
-                    property: "Total Certifications",
+                    name: "Completion",
+                    property: "Completion",
                     aggegration: {
                         type: "SUM"
                     }
@@ -112,10 +112,9 @@ const dataSourceInfo = {
                     includeAll: true
                 },
                 {
-                    name: 'State',
-                    column: 'State',
+                    name: 'State Name',
+                    column: 'State Name',
                     optionValueColumn: "State Code",
-                    level: 'User District_Correct',
                     includeAll: true
                 }
             ]
