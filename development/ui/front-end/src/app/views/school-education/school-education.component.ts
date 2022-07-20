@@ -7,11 +7,11 @@ import { ETBService } from 'src/app/core/services/etb/etb.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-pgi',
-  templateUrl: './pgi.component.html',
-  styleUrls: ['./pgi.component.scss']
+  selector: 'app-school-education',
+  templateUrl: './school-education.component.html',
+  styleUrls: ['./school-education.component.scss']
 })
-export class PGIComponent implements OnInit {
+export class SchoolEducationComponent implements OnInit {
   state: any= 'IN';
   filters: any;
   metricFilter: any;

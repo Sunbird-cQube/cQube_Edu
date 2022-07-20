@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PGIComponent } from './pgi.component';
+import { SchoolEducationComponent } from './school-education.component';
+
 
 const routes: Routes = [
   {
     path: '',
-    component: PGIComponent,
+    component: SchoolEducationComponent,
     children: [
         {
             path: 'dashboard',
-            component: PGIComponent
+            component: SchoolEducationComponent
         },
         {
             path: '',
@@ -24,4 +25,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PGIRoutingModule { }
+export class SchoolEducationRoutingModule { }

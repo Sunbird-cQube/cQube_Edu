@@ -6,11 +6,11 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-ncf',
-  templateUrl: './ncf.component.html',
-  styleUrls: ['./ncf.component.scss']
+  selector: 'app-curriculum-framework',
+  templateUrl: './curriculum-framework.component.html',
+  styleUrls: ['./curriculum-framework.component.scss']
 })
-export class NcfComponent implements OnInit {
+export class CurriculumFrameworkComponent implements OnInit {
 
   config: string = environment.config;
   state: any= 'IN';

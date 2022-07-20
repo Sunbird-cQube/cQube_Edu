@@ -39,11 +39,11 @@ if (environment.config == 'NVSK') {
         },
         {
           path: 'poshan',
-          loadChildren: () => import('./views/pm-poshan/pm-poshan.module').then(module => module.PmPoshanModule)
+          loadChildren: () => import('./views/nutrition-health/nutrition-health.module').then(module => module.NutritionHealthModule)
         },
         {
           path: 'pgi',
-          loadChildren: () => import('./views/pgi/pgi.module').then(module => module.PGIModule)
+          loadChildren: () => import('./views/school-education/school-education.module').then(module => module.SchoolEducationModule)
         },
         {
           path: 'nipunbharath',
@@ -63,7 +63,7 @@ if (environment.config == 'NVSK') {
         },
         {
           path: 'ncf',
-          loadChildren: () => import('./views/ncf/ncf.module').then(module => module.NcfModule)
+          loadChildren: () => import('./views/curriculum-framework/curriculum-framework.module').then(module => module.CurriculumFrameworkModule)
         }
       ]
     }
@@ -102,11 +102,11 @@ else {
         },
         {
           path: 'poshan',
-          loadChildren: () => import('./views/pm-poshan/pm-poshan.module').then(module => module.PmPoshanModule)
+          loadChildren: () => import('./views/nutrition-health/nutrition-health.module').then(module => module.NutritionHealthModule)
         },
         {
           path: 'pgi',
-          loadChildren: () => import('./views/pgi/pgi.module').then(module => module.PGIModule)
+          loadChildren: () => import('./views/school-education/school-education.module').then(module => module.SchoolEducationModule)
         },
         {
           path: 'udise',

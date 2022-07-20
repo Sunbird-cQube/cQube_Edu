@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NcfComponent } from './ncf.component';
+import { CurriculumFrameworkComponent } from './curriculum-framework.component';
+
 
 const routes: Routes = [
   {
     path: '',
-    component: NcfComponent,
+    component: CurriculumFrameworkComponent,
     children: [
       {
         path: 'dashboard',
-        component: NcfComponent
+        component: CurriculumFrameworkComponent
       },
       {
         path: '',
@@ -24,4 +25,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class NcfRoutingModule { }
+export class CurriculumFrameworkRoutingModule { }
