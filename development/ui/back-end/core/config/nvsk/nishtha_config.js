@@ -83,7 +83,7 @@ const dataSourceInfo = {
     },
     stateOrCourseWiseEnrollments: {
         multiBarChart: {
-            pathToFile: 'nishtha/State or Course.json',
+            pathToFile: 'nishtha/State or Course Enrollment and Completion.json',
             defaultLevel: "Course Name",
             columns: [
                 {
