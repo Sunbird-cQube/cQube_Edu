@@ -15,6 +15,7 @@ export class NishithaTableComponent implements OnInit {
   stateWiseEnrollmentData!: IStateWiseEnrollmentRec[];
   options: Highcharts.Options | undefined;
   filters: any;
+  title: any;
   
   @Input() lastLevel!: string;
 
@@ -22,6 +23,12 @@ export class NishithaTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData(this.filters);
+    if(this.lastLevel === 'district'){
+      this.title = 'Total Enrollments and Total Certifications'
+    }
+    else{
+      this.title = 'Total Enrollments and Total Completion'
+    }
   }
 
   getData(filters: any): void {

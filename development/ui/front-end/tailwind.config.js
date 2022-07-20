@@ -15,7 +15,8 @@ module.exports = {
       'max-xmd': { max: '1280px' },
       'md': '1280px',
       'lg': '1440px',
-      'xl': '1920px'
+      'xl': '1920px',
+      '4k': '2560px'
     }
   },
   plugins: [],
