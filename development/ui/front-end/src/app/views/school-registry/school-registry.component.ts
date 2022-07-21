@@ -17,7 +17,7 @@ export class SchoolRegistryComponent implements OnInit {
   metricFilter: any;
   levels: any;
   isMapReportLoading = true;
-
+  level: string = 'state';
   scatterData: any;
   filters1: any;
   levels1: any;
@@ -62,6 +62,9 @@ export class SchoolRegistryComponent implements OnInit {
       this.udiseStateData = res.result;
       this.filters = res.result.filters;
       this.levels = res.result.levels;
+      this.levels.forEach((level:any) => {
+        this.level = level.selected ? level.value : 'state'
+      })
       this.metricFilter = res.result.metricFilter;
     }, err => {
       this.isMapReportLoading = false;

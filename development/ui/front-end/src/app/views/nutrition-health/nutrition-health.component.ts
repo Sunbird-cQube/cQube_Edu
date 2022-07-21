@@ -19,6 +19,7 @@ export class NutritionHealthComponent implements OnInit {
   levels1: any;
   levels2: any;
   metricFilter: any;
+  level: string = 'state';
 
   isMapReport1Loading = true;
   isMapReport2Loading = true;
@@ -93,6 +94,9 @@ export class NutritionHealthComponent implements OnInit {
       this.pmPoshanStateData = pmPoshanStateDataRes.result;
       this.filters1 = pmPoshanStateDataRes.result.filters;
       this.levels1 = pmPoshanStateDataRes.result.levels;
+      this.levels1.forEach((level:any) => {
+        this.level = level.selected ? level.value : 'state'
+      })
       this.metricFilter = pmPoshanStateDataRes.result.metricFilter;
       if(pmPoshanStateDataRes.result.code){
         this.state1 = pmPoshanStateDataRes.result.code;
