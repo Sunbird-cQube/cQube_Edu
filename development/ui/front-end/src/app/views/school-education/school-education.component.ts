@@ -17,6 +17,7 @@ export class SchoolEducationComponent implements OnInit {
   metricFilter: any;
   levels: any;
   isMapReportLoading = true;
+  level: string = 'state';
 
   pgiMetricsData: any;
   pgiStateData: any;
@@ -96,6 +97,9 @@ export class SchoolEducationComponent implements OnInit {
       this.pgiStateData = res.result;
       this.filters = res.result.filters;
       this.levels = res.result.levels;
+      this.levels.forEach((level:any) => {
+        this.level = level.selected ? level.value : 'state'
+      })
       this.metricFilter = res.result.metricFilter;
       if(res.result.code){
         this.state = res.result.code;
