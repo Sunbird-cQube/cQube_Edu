@@ -6,11 +6,11 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-udise',
-  templateUrl: './udise.component.html',
-  styleUrls: ['./udise.component.scss']
+  selector: 'app-school-registry',
+  templateUrl: './school-registry.component.html',
+  styleUrls: ['./school-registry.component.scss']
 })
-export class UdiseComponent implements OnInit {
+export class SchoolRegistryComponent implements OnInit {
   udiseMetricsData: any;
   udiseStateData: any;
   filters: any;

@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SchoolRegistryComponent } from './school-registry.component';
 
-import { NasProgramComponent } from './nas-program.component';
 
-describe('NasProgramComponent', () => {
-  let component: NasProgramComponent;
-  let fixture: ComponentFixture<NasProgramComponent>;
+
+describe('SchoolRegistryComponent', () => {
+  let component: SchoolRegistryComponent;
+  let fixture: ComponentFixture<SchoolRegistryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NasProgramComponent ]
+      declarations: [ SchoolRegistryComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NasProgramComponent);
+    fixture = TestBed.createComponent(SchoolRegistryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

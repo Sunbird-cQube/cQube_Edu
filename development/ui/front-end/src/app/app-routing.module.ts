@@ -27,15 +27,15 @@ if (environment.config == 'NVSK') {
         },
         {
           path: 'etb',
-          loadChildren: () => import('./views/etb/etb.module').then(module => module.EtbModule)
+          loadChildren: () => import('./views/digital-learning/digital-learning.module').then(module => module.DigitalLearningModule)
         },
         {
           path: 'nas',
-          loadChildren: () => import('./views/nas/nas.module').then(module => module.NasModule)
+          loadChildren: () => import('./views/student-learning-survey/student-learning-survey.module').then(module => module.StudentLearningSurveyModule)
         },
         {
           path: 'udise',
-          loadChildren: () => import('./views/udise/udise.module').then(module => module.UdiseModule)
+          loadChildren: () => import('./views/school-registry/school-registry.module').then(module => module.SchoolRegistryModule)
         },
         {
           path: 'poshan',
@@ -94,11 +94,11 @@ else {
         },
         {
           path: 'etb',
-          loadChildren: () => import('./views/etb/etb.module').then(module => module.EtbModule)
+          loadChildren: () => import('./views/digital-learning/digital-learning.module').then(module => module.DigitalLearningModule)
         },
         {
           path: 'nas',
-          loadChildren: () => import('./views/nas/nas.module').then(module => module.NasModule)
+          loadChildren: () => import('./views/student-learning-survey/student-learning-survey.module').then(module => module.StudentLearningSurveyModule)
         },
         {
           path: 'poshan',
@@ -110,7 +110,7 @@ else {
         },
         {
           path: 'udise',
-          loadChildren: () => import('./views/udise/udise.module').then(module => module.UdiseModule)
+          loadChildren: () => import('./views/school-registry/school-registry.module').then(module => module.SchoolRegistryModule)
         }
       ]
     }

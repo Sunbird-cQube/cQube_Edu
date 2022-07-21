@@ -4,23 +4,23 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CqubeLibraryModule } from 'cqube-library';
 
-import { UdiseRoutingModule } from './udise-routing.module';
-import { UdiseComponent } from './udise.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { SchoolRegistryComponent } from './school-registry.component';
+import { SchoolRegistryRoutingModule } from './school-registry-routing.module';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    UdiseComponent
+    SchoolRegistryComponent
   ],
   imports: [
     CommonModule,
-    UdiseRoutingModule,
+    SchoolRegistryRoutingModule,
     SharedModule,
     MatTabsModule,
     CqubeLibraryModule
   ]
 })
-export class UdiseModule { }
+export class SchoolRegistryModule { }

@@ -8,11 +8,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 
 @Component({
-  selector: 'app-nas',
-  templateUrl: './nas.component.html',
-  styleUrls: ['./nas.component.scss']
+  selector: 'app-student-learning-survey',
+  templateUrl: './student-learning-survey.component.html',
+  styleUrls: ['./student-learning-survey.component.scss']
 })
-export class NasComponent implements OnInit {
+export class StudentLearningSurveyComponent implements OnInit {
 
   state:any = 'IN';
   NASMetrics: any[] | undefined;

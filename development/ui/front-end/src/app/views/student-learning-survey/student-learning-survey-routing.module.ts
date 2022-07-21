@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NasComponent } from './nas.component';
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { NasProgramComponent } from './pages/nas-program/nas-program.component';
+import { StudentLearningSurveyProgramComponent } from './pages/student-learning-survey-program/student-learning-survey-program.component';
+import { StudentLearningSurveyComponent } from './student-learning-survey.component';
 
 
 const routes: Routes = [
     {
         path: '',
-        component: NasComponent,
+        component: StudentLearningSurveyComponent,
         children: [
             {
                 path: 'dashboard',
@@ -17,7 +17,7 @@ const routes: Routes = [
             },
             {
                 path: 'detail',
-                component: NasProgramComponent
+                component: StudentLearningSurveyProgramComponent
             },
             {
                 path: '',
@@ -32,4 +32,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class NasRoutingModule { }
+export class StudentLearningSurveyRoutingModule { }
