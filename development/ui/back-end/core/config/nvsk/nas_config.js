@@ -166,6 +166,13 @@ const dataSourceInfo = {
                         name: "District Name"
                     }
                 }
+            ],
+            filters: [
+                {
+                    name: 'State',
+                    column: 'State',
+                    optionValueColumn: "State Code"
+                }
             ]
         }
     }

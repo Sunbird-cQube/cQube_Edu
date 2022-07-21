@@ -7,4 +7,5 @@ export interface IReportDataPayload {
     filters?: any;
     levels?: any;
     metricFilter?: any;
+    axisFilters?: any;
 }

@@ -4,16 +4,16 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CqubeLibraryModule } from 'cqube-library';
 
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SchoolRegistryComponent } from './school-registry.component';
 import { SchoolRegistryRoutingModule } from './school-registry-routing.module';
+import { SchoolFacilitiesComparisionComponent } from './pages/school-facilities-comparision/school-facilities-comparision.component';
 
 
 @NgModule({
   declarations: [
-    DashboardComponent,
-    SchoolRegistryComponent
+    SchoolRegistryComponent,
+    SchoolFacilitiesComparisionComponent
   ],
   imports: [
     CommonModule,

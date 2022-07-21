@@ -477,9 +477,9 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 
 async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { series, filters, levels, stateColumnFilter } = reportConfig;
+	let { series, filters, levels, stateColumnFilter, propertyAsOption } = reportConfig;
 	let groupByColumn = reportConfig.groupByDefault;
-	let isWeightedAverageNeeded = Object.keys(series).filter(axis => series[axis].weightedAverage).length > 0;
+	let isWeightedAverageNeeded = Object.keys(series).filter(axis => series[axis].weightedAverage || series[axis].aggegration).length > 0;
 	let level = reqBody.appName === appNames.nvsk ? 'state' : 'district';
 	let currentLevel;
 	levels = reqBody.levels ? reqBody.levels : levels;
@@ -503,21 +503,38 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 		rawData = rawData.filter(record => record[stateColumnFilter] && (record[stateColumnFilter] == states[reqBody.stateCode].Code));
 	}
 
-	if (reqBody.filters && reqBody.filters.length > 0) {
-		filters = reqBody.filters;
+	if (reqBody.axisFilters && reqBody.axisFilters.length > 0) {
+		axisFilters = reqBody.axisFilters;
 	} else {
-		filters = Object.keys(series).map(axis => {
+		axisFilters = Object.keys(series).map(axis => {
 			return {
 				name: series[axis].name,
 				value: null,
 				options: [],
 				series: axis,
-				property: series[axis].property
+				property: series[axis].property,
+				propertyAsOption: series[axis].propertyAsOption
 			}
 		});
 	}
 	
-	let filterRes = applyScatterChartFilters(filters, rawData);
+	let axisFilterRes = applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption);
+	axisFilters = axisFilterRes.axisFilters;
+	rawData = axisFilterRes.rawData;
+	
+	if (reqBody.filters && reqBody.filters.length > 0) {
+		filters = reqBody.filters;
+	} else {
+		filters = filters.map(filter => {
+			return {
+				...filter,
+				value: null,
+				options: []
+			}
+		})
+	}
+
+	let filterRes = applyFilters(filters, rawData, groupByColumn);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
 	
@@ -549,29 +566,64 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 			}
 
 			Object.keys(series).forEach(axis => {
-				let filter = filters.find(filter => filter.series === axis);
-				let filterData = filter.options.find(option => option.value === filter.value);
+				let axisFilter = axisFilters.find(filter => filter.series === axis);
+				let axisFilterData = axisFilter.options.find(option => option.value === axisFilter.value);
 
 				if (series[axis].weightedAverage) {
 					let numeratorSum = 0;
 					let denominatorSum = 0;
 					
 					objs.forEach((obj, index) => {
-						let match = true;
-						for (let i = 0; i < filter.property.length; i++) {
-							if (obj[filter.property[i]] !== filterData.data[i]) {
-								match = false;
-								break;
+						if (!propertyAsOption) {
+							let match = true;
+							for (let i = 0; i < axisFilter.property.length; i++) {
+								if (obj[axisFilter.property[i]] !== axisFilterData.data[i]) {
+									match = false;
+									break;
+								}
 							}
+
+							if (match) {
+								numeratorSum += obj[series[axis].weightedAverage.property] * obj[series[axis].weightedAverage.against];
+								denominatorSum += obj[series[axis].weightedAverage.against];
+							}
+
+							return;
 						}
 
-						if (match) {
-							numeratorSum += obj[series[axis].weightedAverage.property] * obj[series[axis].weightedAverage.against];
-							denominatorSum += obj[series[axis].weightedAverage.against];
-						}
+						numeratorSum += obj[series[axis].weightedAverage.property] * obj[series[axis].weightedAverage.against];
+						denominatorSum += obj[series[axis].weightedAverage.against];
 					});
 					
 					data[axis] = denominatorSum > 0 ? Number((numeratorSum / denominatorSum).toFixed(2)) : 0;
+
+					data.data += `<br>${series[axis].name}: ${data[axis]}`;
+				}
+
+				if (series[axis].aggegration) {
+					let sum = 0;
+					
+					objs.forEach((obj, index) => {
+						if (!propertyAsOption) {
+							let match = true;
+							for (let i = 0; i < filter.property.length; i++) {
+								if (obj[filter.property[i]] !== filterData.data[i]) {
+									match = false;
+									break;
+								}
+							}
+
+							if (match) {
+								sum += obj[axisFilter.value];
+							}
+
+							return;
+						}
+
+						sum += obj[axisFilter.value];
+					});
+					
+					data[axis] = Number((sum / objs.length).toFixed(2));
 
 					data.data += `<br>${series[axis].name}: ${data[axis]}`;
 				}
@@ -585,7 +637,8 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 
 	return {
 		data: rawData,
-		filters: filters,
+		filters,
+		axisFilters,
 		levels
 	};
 }
@@ -1005,64 +1058,75 @@ function applyFilters(filters, rawData, groupByColumn, code = undefined) {
 	}
 }
 
-function applyScatterChartFilters(filters, rawData) {
-	filters.map((filter, index) => {
-		let filterOptionMap = new Map();
+function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
+	axisFilters.map((axisFilter, index) => {
+		if (!propertyAsOption) {
+			let axisFilterOptionMap = new Map();
 
-		if (filter.options.length === 0 && filter.value === null) {
-			filterData = filter.options.find(option => option.value === filter.value);
-			filter.options = [];
-			
-			rawData = rawData.filter(record => {
-				let value = "";
-				let data = [];
-
-				filter.property.forEach((property, index) => {
-					value += index === 0 ? record[property] : "-" + record[property];
-					data.push(record[property]);
-				});
+			if (axisFilter.options.length === 0 && axisFilter.value === null) {
+				axisFilterData = axisFilter.options.find(option => option.value === axisFilter.value);
+				axisFilter.options = [];
 				
-				if (!filterOptionMap.has(value)) {
-					filter.options.push({
-						label: value,
-						value,
-						data
+				rawData = rawData.filter(record => {
+					let value = "";
+					let data = [];
+
+					axisFilter.property.forEach((property, index) => {
+						value += index === 0 ? record[property] : "-" + record[property];
+						data.push(record[property]);
 					});
+					
+					if (!axisFilterOptionMap.has(value)) {
+						axisFilter.options.push({
+							label: value,
+							value,
+							data
+						});
 
-					if (filter.value === null) {
-						filter.value = value;
-						filter.data = data;
+						if (axisFilter.value === null) {
+							axisFilter.value = value;
+							axisFilter.data = data;
+						}
+
+						axisFilterOptionMap.set(value, true);
 					}
 
-					filterOptionMap.set(value, true);
-				}
-
-				for (let i = 0; i < filter.property.length; i++) {
-					if (record[filter.property[i]] === filter.data[i]) {
-						return true;
+					for (let i = 0; i < axisFilter.property.length; i++) {
+						if (record[axisFilter.property[i]] === axisFilter.data[i]) {
+							return true;
+						}
 					}
-				}
 
-				return false;
-			});
-		} else if (filter.value !== null) {
-			filterData = filter.options.find(option => option.value === filter.value);
-			rawData = rawData.filter(record => {
-				for (let i = 0; i < filter.property.length; i++) {
-					if (record[filter.property[i]] === filterData.data[i]) {
-						return true;
+					return false;
+				});
+			} else if (axisFilter.value !== null) {
+				axisFilterData = axisFilter.options.find(option => option.value === axisFilter.value);
+				rawData = rawData.filter(record => {
+					for (let i = 0; i < axisFilter.property.length; i++) {
+						if (record[axisFilter.property[i]] === axisFilterData.data[i]) {
+							return true;
+						}
 					}
-				}
 
-				return false;
-			});
+					return false;
+				});
+			}
+		} else {
+			if (axisFilter.options && axisFilter.options.length === 0) {
+				axisFilter.property.forEach(property => axisFilter.options.push({
+					label: property,
+					value: property
+				}));
+
+				axisFilter.value = axisFilter.options[0].value;
+			}
 		}
 
-		return filter;
+		return axisFilter;
 	});
 
 	return {
-		filters,
+		axisFilters,
 		rawData
 	}
 }

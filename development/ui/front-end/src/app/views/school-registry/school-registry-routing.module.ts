@@ -7,18 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: SchoolRegistryComponent,
-    children: [
-        {
-            path: 'dashboard',
-            component: DashboardComponent
-        },
-        {
-            path: '',
-            redirectTo: '/udise/dashboard',
-            pathMatch: 'full'
-        }
-    ]
-}
+  }
 ];
 
 @NgModule({
