@@ -1,4 +1,5 @@
 import { state } from '@angular/animations';
+import { ThisReceiver } from '@angular/compiler';
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import * as L from "leaflet";
 import * as R from "leaflet-responsive-popup";
@@ -35,12 +36,22 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.updateMap();
+    this.markers.clearLayers();
+    if(this.level === 'district'){
+      // this.updateMap();
+      this.initMap();
+    }
+    else{
+      this.initMap();
+    }
   }
 
   async initMap(): Promise<any> {
     if (!this.mapContainer || !this.mapData) {
       return;
+    }
+    if(this.map){
+      this.map.remove();
     }
     let reportTypeBoolean = false;
     if (typeof this.mapData?.data[0]?.indicator === 'string') {
@@ -85,22 +96,32 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     this.createMarkers(this.mapData);
   }
 
-  getLayerColor(e: any) {
-    let reportTypeBoolean = false;
-    if (typeof e === 'string') {
-      reportTypeBoolean = true;
-    }
-    if (reportTypeBoolean) {
-      // console.log(e == "Yes");
-      if (e.trim() == "Yes") {
-        return "rgb(33,113,181)";
-      } else {
-        return "rgb(239,243,255)";
+  getLayerColor(e: any, legend?: boolean) {
+    if (this.level === 'state' || legend) {
+      let reportTypeBoolean = false;
+      if (typeof e === 'string') {
+        reportTypeBoolean = true;
+      }
+      if (reportTypeBoolean) {
+        if (e.trim() == "Yes") {
+          return "rgb(33,113,181)";
+        } else {
+          return "rgb(239,243,255)";
+        }
+      }
+      else {
+        {
+          return e > 75 ? "rgb(33,113,181)" :
+            e > 50 ? "rgb(107,174,214)" :
+              e > 25 ? "rgb(189,215,231)" :
+                e > 0 ? "rgb(239,243,255)" : "#fff";
+        }
       }
     }
     else {
       return "#fff"
     }
+
 
   }
 
@@ -114,12 +135,52 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         const response = await fetch(`${environment.apiURL}/assets/geo-locations/IN.json`);
         const body = await response.json();
         const data = body;
+        let min!: number, max!: number, values: any[] = [];
+        let reportTypeBoolean = false;
+        if (typeof mapData?.data[0]?.indicator === 'string') {
+          reportTypeBoolean = true;
+        }
+        if (reportTypeBoolean === false) {
+          mapData.data.forEach((data: any, index: number) => {
+            if (index === 0) {
+              min = data.indicator;
+              max = data.indicator;
+              return;
+            }
+
+            min = min <= data.indicator ? min : data.indicator;
+            max = max >= data.indicator ? max : data.indicator;
+          });
+
+          let range = max - min;
+          // let partSize = (range / 10 % 1 === 0) ? range / 10 : Number((range / 10).toFixed(2));
+          let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
+          for (let i = 1; i <= 4; i++) {
+            if (i === 4) {
+              values.push(min);
+              continue;
+            }
+
+            if (i === 1) {
+              values.push(max);
+              continue;
+            }
+
+            values.push(Number((max - partSize * i).toFixed(2)));
+          }
+        }
 
         function styleStates(feature: any) {
           let color = '#fff';
+          let reportTypeBoolean = false;
+          if (typeof mapData?.data[0]?.indicator === 'string') {
+            reportTypeBoolean = true;
+          }
+
           mapData?.data.forEach((state: any) => {
+
             if (state.state_code == feature.properties.state_code) {
-              color = parent.getLayerColor(state.indicator);
+              color = parent.getLayerColor(max ? state.indicator / max * 100 : state.indicator);
             }
           });
 
@@ -136,13 +197,13 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         function getPopUp(feature: any) {
           let popup: any;
           mapData.data.forEach((state: any) => {
+
             if (state.state_code == feature.properties.state_code) {
               popup = state.tooltip
             }
           });
           return popup;
         }
-        let color = 'red'
         this.countryGeoJSON = L.geoJSON(data['features'], {
           onEachFeature: function (feature: any, layer: any) {
             layer.bindTooltip(getPopUp(feature));
@@ -154,6 +215,9 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           fontWeight: "bold",
         }).addTo(this.map);
         this.fitBoundsToCountryBorder();
+        if(this.level === 'state'){
+          this.createLegend(reportTypeBoolean ? 'boolean' : 'values', this.mapData.options, values);
+        }
         resolve('India map borders plotted successfully');
       } catch (e) {
         reject(e);
@@ -169,7 +233,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
   createMarkers(mapData: any): void {
     let reportTypeIndicator = this.mapData.options && this.mapData.options.tooltip && this.mapData.options.tooltip.reportTypeIndicator ? this.mapData.options.tooltip.reportTypeIndicator : (typeof this.mapData.data[0].indicator === 'string') ? 'boolean' : 'value'
-    if (mapData && reportTypeIndicator !== 'boolean') {
+    if (mapData && this.level !== 'state') {
       let min!: number, max!: number, values: any[] = [];
       if (reportTypeIndicator === 'value') {
         mapData.data.forEach((data: any, index: number) => {
@@ -184,9 +248,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         });
 
         let range = max - min;
-        let partSize = (range / 10 % 1 === 0) ? range / 10 : Number((range / 10).toFixed(2));
-        for (let i = 1; i <= 10; i++) {
-          if (i === 10) {
+        // let partSize = (range / 10 % 1 === 0) ? range / 10 : Number((range / 10).toFixed(2));
+        let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
+        for (let i = 1; i <= 4; i++) {
+          if (i === 4) {
             values.push(min);
             continue;
           }
@@ -233,8 +298,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       });
 
       this.map.addLayer(this.markers);
-
-      this.createLegend(reportTypeIndicator, this.mapData.options, values);
+      if(this.level === 'district'){
+        console.log('district level')
+        this.createLegend(reportTypeIndicator, this.mapData.options, values);
+      }
     }
   }
 
@@ -252,16 +319,15 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         values = ["Yes", "No"];
 
         for (let i = 0; i < values.length; i++) {
-          labels.push(`<i class="fa fa-square" style="color:${ref.getZoneColor(reportTypeIndicator, values[i])}"></i> ${values[i]}`);
+          labels.push(`<i class="fa fa-square" style="color:${ref.getLayerColor(values[i])}"></i> ${values[i]}`);
         }
       } else {
-        values = values && values.length > 0 ? values : [100, 90, 80, 70, 60, 50, 40, 30, 20, 10];
+        values = values && values.length > 0 ? values : [100, 75, 50, 25];
         for (let i = values.length; i > 0; i--) {
           labels.push(
-            `<i class="fa  fa-square" style="color: ${ref.getZoneColor(reportTypeIndicator, 10 * i)}"></i> 
+            `<i class="fa  fa-square" style="color: ${ref.getLayerColor(25 * i, true)}"></i> 
               <span>${values[values.length - i + 1] ? values[values.length - i + 1] : 0} &dash; ${values[values.length - i]}${reportTypeIndicator === 'percent' ? '%' : ''}</span>`
           );
-
         }
       }
 
@@ -280,15 +346,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         return "red";
       }
     } else {
-      return value > 90 ? "#002966" :
-        value > 80 ? "#003d99" :
-          value > 70 ? "#0052cc" :
-            value > 50 ? "#0066ff" :
-              value > 40 ? "#1a75ff" :
-                value > 30 ? "#4d94ff" :
-                  value > 20 ? "#80b3ff" :
-                    value > 10 ? "#b3d1ff" :
-                      value > 0 ? "#cce0ff" : "#e6f0ff";
+      return value > 75 ? "rgb(33,113,181)" :
+            value > 50 ? "rgb(107,174,214)" :
+              value > 25 ? "rgb(189,215,231)" :
+                value > 0 ? "rgb(239,243,255)" : "#fff";
     }
   }
 }
