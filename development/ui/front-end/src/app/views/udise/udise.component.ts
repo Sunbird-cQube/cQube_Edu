@@ -18,9 +18,14 @@ export class UdiseComponent implements OnInit {
   levels: any;
   isMapReportLoading = true;
 
+  scatterData: any;
+  filters1: any;
+  levels1: any;
+
   constructor(private readonly _configService: ConfigService, private readonly _commonService: CommonService, private readonly _spinner: NgxSpinnerService) {
     this.getUdiseMetricsData();
     this.getUdiseStateData(this.filters, this.levels, this.metricFilter);
+    this.getScatterData(this.filters, this.levels);
   }
 
   ngOnInit(): void {
@@ -73,5 +78,37 @@ export class UdiseComponent implements OnInit {
 
   onSelectLevel(event: any): void {
     this.getUdiseStateData(this.filters, event.items, this.metricFilter);
+  }
+
+  getScatterData(filters: any, levels: any): void {
+    let data: IReportDataPayload = {
+      appName: environment.config.toLowerCase(),
+      dataSourceName: 'nas',
+      reportName: 'studentPerformance',
+      reportType: 'scatterPlot',
+      stateCode: environment.stateCode,
+      filters,
+      levels
+    };
+
+    this._commonService.getReportData(data).subscribe(res => {
+      this.scatterData = res.result.data;
+      this.filters1 = res.result.filters;
+      this.levels1 = res.result.levels;
+    }, error => {
+      this.isMapReportLoading = false;
+    });
+  }
+
+  scatterFiltersUpdated(filters: any): void {
+    this.getScatterData(filters, this.levels);
+  }
+
+  onScatterSelectLevel(event: any): void {
+    event.items.forEach((level: any, levelInd: number) => {
+        level.selected = levelInd === event.index;
+    });
+
+    this.getScatterData(this.filters, event.items);
   }
 }
