@@ -134,7 +134,7 @@ const dataSourceInfo = {
             series: {
                 x: {
                     name: "X-Axis",
-                    "property": "Performance",
+                    property: ["Grade", "Subject"],
                     weightedAverage: {
                         property: "Performance",
                         against: "Students Surveyed"
@@ -142,25 +142,13 @@ const dataSourceInfo = {
                 },
                 y: {
                     name: "Y-Axis",
-                    "property": "Performance",
+                    property: ["Grade", "Subject"],
                     weightedAverage: {
                         property: "Performance",
                         against: "Students Surveyed"
                     }
                 }
             },
-            filters: [
-                {
-                    "name": "X-Axis",
-                    "property": ["Grade", "Subject"],
-                    "series": "x"
-                },
-                {
-                    "name": "Y-Axis",
-                    "property": ["Grade", "Subject"],
-                    "series": "y"
-                }
-            ],
             levels: [
                 {
                     name: "State",

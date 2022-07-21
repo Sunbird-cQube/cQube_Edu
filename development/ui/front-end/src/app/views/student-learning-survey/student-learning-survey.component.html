@@ -30,9 +30,7 @@
             <p class="p-2">Coming soon...</p>
         </mat-tab>
         <mat-tab label="Grade and Subject performance">
-            <app-filter-panel [filters]="filters1" [resetOthers]="false" (filtersUpdated)="scatterFiltersUpdated($event)"></app-filter-panel>
-            <app-material-button-group [buttons]="levels1" (select)="onScatterSelectLevel($event)"></app-material-button-group>
-            <app-scatter-chart [data]="scatterData"></app-scatter-chart>
+            <app-performance-comparision-by-grade-subject></app-performance-comparision-by-grade-subject>
         </mat-tab>
     </mat-tab-group>
 </div>

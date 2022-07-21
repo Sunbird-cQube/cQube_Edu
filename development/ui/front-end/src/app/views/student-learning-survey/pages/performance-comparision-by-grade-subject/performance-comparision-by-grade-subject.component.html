@@ -1,0 +1,3 @@
+<app-filter-panel [filters]="filters" [resetOthers]="false" (filtersUpdated)="scatterFiltersUpdated($event)"></app-filter-panel>
+<app-material-button-group [buttons]="levels" (select)="onScatterSelectLevel($event)"></app-material-button-group>
+<app-scatter-chart [options]="options"></app-scatter-chart>

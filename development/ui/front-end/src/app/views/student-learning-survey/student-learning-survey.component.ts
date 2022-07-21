@@ -21,13 +21,10 @@ export class StudentLearningSurveyComponent implements OnInit {
   filters: any;
   isMapReportLoading = true;
   levels: any;
-  scatterData: any;
-  filters1: any;
-  levels1: any;
+
   constructor(private readonly _commonService: CommonService, private readonly _configService: ConfigService, private readonly _spinner:NgxSpinnerService) {
     this.getNASMetrics()
     this.getNasData(this.filters, this.levels);
-    this.getScatterData(this.filters, this.levels);
   }
 
   ngOnInit(): void {
@@ -68,26 +65,6 @@ export class StudentLearningSurveyComponent implements OnInit {
       this.isMapReportLoading = false;
     });
   }
-  
-  getScatterData(filters: any, levels: any): void {
-    let data: IReportDataPayload = {
-      appName: environment.config.toLowerCase(),
-      dataSourceName: 'nas',
-      reportName: 'studentPerformance',
-      reportType: 'scatterPlot',
-      stateCode: environment.stateCode,
-      filters,
-      levels
-    };
-
-    this._commonService.getReportData(data).subscribe(res => {
-      this.scatterData = res.result.data;
-      this.filters1 = res.result.filters;
-      this.levels1 = res.result.levels;
-    }, error => {
-      this.isMapReportLoading = false;
-    });
-  }
 
 
   onTabChanged($event: any): void {
@@ -106,18 +83,6 @@ export class StudentLearningSurveyComponent implements OnInit {
     });
 
     this.getNasData(this.filters, event.items);
-  }
-
-  scatterFiltersUpdated(filters: any): void {
-    this.getScatterData(filters, this.levels);
-  }
-
-  onScatterSelectLevel(event: any): void {
-    event.items.forEach((level: any, levelInd: number) => {
-        level.selected = levelInd === event.index;
-    });
-
-    this.getScatterData(this.filters, event.items);
   }
 
 }
