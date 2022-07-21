@@ -10,7 +10,7 @@
 
 - name: copying client-side script
   copy:
-    src: "../../development/user_interface/"
+    src: "../../development/ui/front-end/"
     dest: "{{base_dir}}/cqube/dashboard/client_side"
   tags: [ install, update ]
 
