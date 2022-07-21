@@ -176,12 +176,14 @@ const dataSourceInfo = {
             columns: [
                 {
                     name: "State Name",
-                    property: "State Name"
+                    property: "State Name",
+                    class: "text-center"
                     
                 },
                 {
                     name: "Total Courses",
                     property: "Total Courses",
+                    class: "text-center",
                     aggegration: {
                         type: "SUM"
                     }
@@ -189,6 +191,7 @@ const dataSourceInfo = {
                 {
                     name: "Total Mediums",
                     property: "Total Mediums",
+                    class: "text-center",
                     aggegration: {
                         type: "SUM"
                     }
