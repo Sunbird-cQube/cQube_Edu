@@ -180,15 +180,15 @@ const dataSourceInfo = {
                     
                 },
                 {
-                    name: "Distinct Count of Course id",
-                    property: "Distinct Count of Course id",
+                    name: "Total Courses",
+                    property: "Total Courses",
                     aggegration: {
                         type: "SUM"
                     }
                 },
                 {
-                    name: "Medium",
-                    property: "Medium",
+                    name: "Total Mediums",
+                    property: "Total Mediums",
                     aggegration: {
                         type: "SUM"
                     }
