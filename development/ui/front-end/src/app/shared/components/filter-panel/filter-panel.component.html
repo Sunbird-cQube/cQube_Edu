@@ -1,7 +1,7 @@
 <div class="wrapper" *ngIf="filters && filters.length > 0">
-    <div class="grid xs:grid-cols-2 xmd:grid-cols-4 lg:grid-cols-6 filter-panel-wrapper">
+    <div class="grid grid-cols-12 filter-panel-wrapper">
         <ng-container *ngFor="let filter of filters; let i = index">
-            <div class="col-span-1 filter-wrapper">
+            <div class="col-span-3 filter-wrapper">
                 <ng-select class="mx-2" dropdownPosition="bottom" placeholder="Select {{filter.name}}" [(ngModel)]="filter.value" (change)="onSelectOption($event, i)">
                     <!-- <ng-option disabled="true">Select {{filter.name}}</ng-option> -->
                     <ng-option *ngFor="let option of filter.options" [value]="option.value">{{ option.label }}</ng-option>

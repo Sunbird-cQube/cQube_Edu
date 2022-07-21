@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { environment } from 'src/environments/environment';
-import * as Highcharts from "highcharts/highstock";
 
 @Component({
-  selector: 'app-performance-comparision-by-grade-subject',
-  templateUrl: './performance-comparision-by-grade-subject.component.html',
-  styleUrls: ['./performance-comparision-by-grade-subject.component.scss']
+  selector: 'app-school-facilities-comparision',
+  templateUrl: './school-facilities-comparision.component.html',
+  styleUrls: ['./school-facilities-comparision.component.scss']
 })
-export class PerformanceComparisionByGradeSubjectComponent implements OnInit {
+export class SchoolFacilitiesComparisionComponent implements OnInit {
+
   filters: any;
   levels: any;
   axisFilters: any
@@ -25,8 +25,8 @@ export class PerformanceComparisionByGradeSubjectComponent implements OnInit {
   getScatterData(filters: any, levels: any, axisFilters: any): void {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
-      dataSourceName: 'nas',
-      reportName: 'studentPerformance',
+      dataSourceName: 'udise',
+      reportName: 'udise_performance',
       reportType: 'scatterPlot',
       stateCode: environment.stateCode,
       filters,
@@ -40,6 +40,12 @@ export class PerformanceComparisionByGradeSubjectComponent implements OnInit {
       this.levels = res.result.levels;
 
       this.options = {
+        xAxis: {
+          max: 100
+        },
+        yAxis: {
+          max: 100
+        },
         tooltip: {
           formatter: function() {
             return (this.point as any).data;

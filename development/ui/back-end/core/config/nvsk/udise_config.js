@@ -129,6 +129,51 @@ const dataSourceInfo = {
                     title: 'PGI Performance'
                 }
             }
+        },
+        scatterPlot: {
+            pathToFile: 'udise/UDISE_District_wise_Data.json',
+            series: {
+                x: {
+                    name: "X-Axis",
+                    property: ["% schools having toilet", "% schools having drinking water", "% schools having electricity", "% schools having library", "% govt aided schools received textbook", "% schools with Ramp"],
+                    aggegration: {
+                        type: "AVG"
+                    }
+                },
+                y: {
+                    name: "Y-Axis",
+                    property: ["% schools having toilet", "% schools having drinking water", "% schools having electricity", "% schools having library", "% govt aided schools received textbook", "% schools with Ramp"],
+                    aggegration: {
+                        type: "AVG"
+                    }
+                }
+            },
+            propertyAsOption: true,
+            levels: [
+                {
+                    name: "State",
+                    value: "state",
+                    property: "State Name",
+                    tooltip: {
+                        name: "State Name"
+                    }
+                },
+                {
+                    name: "District",
+                    value: "district",
+                    property: "District Name",
+                    tooltip: {
+                        name: "District Name"
+                    }
+                }
+            ],
+            filters: [
+                {
+                    name: 'State',
+                    column: 'State Name',
+                    optionValueColumn: "State Code"
+                }
+            ]
         }
     }
 }
