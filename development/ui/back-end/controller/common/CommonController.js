@@ -506,19 +506,21 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 	if (reqBody.filters && reqBody.filters.length > 0) {
 		filters = reqBody.filters;
 	} else {
-		filters = filters.map(filter => {
+		filters = Object.keys(series).map(axis => {
 			return {
-				...filter,
+				name: series[axis].name,
 				value: null,
-				options: []
+				options: [],
+				series: axis,
+				property: series[axis].property
 			}
 		});
 	}
-
-	filterRes = applyScatterChartFilters(filters, rawData);
+	
+	let filterRes = applyScatterChartFilters(filters, rawData);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
-
+	
 	if (isWeightedAverageNeeded) {
 		if (!groupByColumn && !currentLevel) {
 			throw "Define group by column as you want to do some aggegration";
@@ -547,16 +549,29 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 			}
 
 			Object.keys(series).forEach(axis => {
+				let filter = filters.find(filter => filter.series === axis);
+				let filterData = filter.options.find(option => option.value === filter.value);
+
 				if (series[axis].weightedAverage) {
 					let numeratorSum = 0;
 					let denominatorSum = 0;
 					
 					objs.forEach((obj, index) => {
-						numeratorSum += obj[series[axis].weightedAverage.property] * obj[series[axis].weightedAverage.against];
-						denominatorSum += obj[series[axis].weightedAverage.against];
+						let match = true;
+						for (let i = 0; i < filter.property.length; i++) {
+							if (obj[filter.property[i]] !== filterData.data[i]) {
+								match = false;
+								break;
+							}
+						}
+
+						if (match) {
+							numeratorSum += obj[series[axis].weightedAverage.property] * obj[series[axis].weightedAverage.against];
+							denominatorSum += obj[series[axis].weightedAverage.against];
+						}
 					});
 					
-					data[axis] = Number((numeratorSum / denominatorSum).toFixed(2));
+					data[axis] = denominatorSum > 0 ? Number((numeratorSum / denominatorSum).toFixed(2)) : 0;
 
 					data.data += `<br>${series[axis].name}: ${data[axis]}`;
 				}
@@ -565,6 +580,7 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 			return data;
 		});
 	}
+	
 		
 
 	return {
@@ -990,21 +1006,11 @@ function applyFilters(filters, rawData, groupByColumn, code = undefined) {
 }
 
 function applyScatterChartFilters(filters, rawData) {
-	filters = filters.map((filter, index) => {
+	filters.map((filter, index) => {
 		let filterOptionMap = new Map();
 
-		if (filter.options.length > 0 && filter.value !== null) {
+		if (filter.options.length === 0 && filter.value === null) {
 			filterData = filter.options.find(option => option.value === filter.value);
-			rawData = rawData.filter(record => {
-				for (let i = 0; i < filter.property.length; i++) {
-					if (record[filter.property[i]] === filterData.data[i]) {
-						return true;
-					}
-				}
-
-				return false;
-			});
-		} else {
 			filter.options = [];
 			
 			rawData = rawData.filter(record => {
@@ -1033,6 +1039,17 @@ function applyScatterChartFilters(filters, rawData) {
 
 				for (let i = 0; i < filter.property.length; i++) {
 					if (record[filter.property[i]] === filter.data[i]) {
+						return true;
+					}
+				}
+
+				return false;
+			});
+		} else if (filter.value !== null) {
+			filterData = filter.options.find(option => option.value === filter.value);
+			rawData = rawData.filter(record => {
+				for (let i = 0; i < filter.property.length; i++) {
+					if (record[filter.property[i]] === filterData.data[i]) {
 						return true;
 					}
 				}

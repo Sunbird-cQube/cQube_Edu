@@ -10,6 +10,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { StudentLearningSurveyComponent } from './student-learning-survey.component';
 import { StudentLearningSurveyRoutingModule } from './student-learning-survey-routing.module';
 import { StudentLearningSurveyProgramComponent } from './pages/student-learning-survey-program/student-learning-survey-program.component';
+import { PerformanceComparisionByGradeSubjectComponent } from './pages/performance-comparision-by-grade-subject/performance-comparision-by-grade-subject.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { StudentLearningSurveyProgramComponent } from './pages/student-learning-
         DashboardComponent,
         StudentLearningSurveyProgramComponent,
         StudentLearningSurveyComponent,
+        PerformanceComparisionByGradeSubjectComponent,
     ],
     imports: [
         CommonModule,

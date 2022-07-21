@@ -1,8 +1,5 @@
-<ng-container *ngIf="scatterChartData; else loading">
-    <canvas baseChart [datasets]="scatterChartData" [options]="scatterChartOption" [type]="scatterChartType">
-    </canvas>
-</ng-container>
+<div>
+    <h6 class="font-medium xs:text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl bg-white text-center">{{title}}</h6>
+    <div #container [ngStyle]="{ height: height === 'auto' ? 'auto': height + 'px' }"></div>
+</div>
 
-<ng-template #loading>
-    <p class="py-2">Loading...</p>
-</ng-template>
