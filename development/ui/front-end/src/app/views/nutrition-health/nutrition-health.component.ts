@@ -6,11 +6,11 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-pm-poshan',
-  templateUrl: './pm-poshan.component.html',
-  styleUrls: ['./pm-poshan.component.scss']
+  selector: 'app-nutrition-health',
+  templateUrl: './nutrition-health.component.html',
+  styleUrls: ['./nutrition-health.component.scss']
 })
-export class PmPoshanComponent implements OnInit {
+export class NutritionHealthComponent implements OnInit {
   config: string = environment.config;
   state1: any= 'IN';
   state2: any = 'IN';

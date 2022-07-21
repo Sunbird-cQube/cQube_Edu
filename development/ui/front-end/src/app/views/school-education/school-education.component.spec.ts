@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NcfComponent } from './ncf.component';
+import { SchoolEducationComponent } from './school-education.component';
 
-describe('NcfComponent', () => {
-  let component: NcfComponent;
-  let fixture: ComponentFixture<NcfComponent>;
+describe('PGIComponent', () => {
+  let component: SchoolEducationComponent;
+  let fixture: ComponentFixture<SchoolEducationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NcfComponent ]
+      declarations: [ SchoolEducationComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NcfComponent);
+    fixture = TestBed.createComponent(SchoolEducationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,21 +3,23 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { PGIRoutingModule } from './pgi-routing.module';
-import { PGIComponent } from './pgi.component';
+import { SchoolEducationRoutingModule } from './school-education-routing.module';  
+
 import { MatTabsModule } from '@angular/material/tabs';
 import { CqubeLibraryModule } from 'cqube-library';
+import { SchoolEducationComponent } from './school-education.component';
 
 
 @NgModule({
   declarations: [
-    PGIComponent
+    SchoolEducationComponent
   ],
   imports: [
     CommonModule,
-    PGIRoutingModule,
+    SchoolEducationRoutingModule,
     SharedModule,
     MatTabsModule,
     CqubeLibraryModule
   ]
 })
-export class PGIModule { }
+export class SchoolEducationModule { }

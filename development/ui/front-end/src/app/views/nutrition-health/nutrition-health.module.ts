@@ -5,21 +5,21 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 
 
-import { PmPoshanRoutingModule } from './pm-poshan-routing.module';
-import { PmPoshanComponent } from './pm-poshan.component';
+import { NutritionHealthRoutingModule } from './nutrition-health-routing.module';
+import { NutritionHealthComponent } from './nutrition-health.component';
 import { CqubeLibraryModule } from 'cqube-library';
 
 
 @NgModule({
   declarations: [
-    PmPoshanComponent
+    NutritionHealthComponent
   ],
   imports: [
     CommonModule,
-    PmPoshanRoutingModule,
+    NutritionHealthRoutingModule,
     SharedModule,
     MatTabsModule,
     CqubeLibraryModule
   ]
 })
-export class PmPoshanModule { }
+export class NutritionHealthModule { }

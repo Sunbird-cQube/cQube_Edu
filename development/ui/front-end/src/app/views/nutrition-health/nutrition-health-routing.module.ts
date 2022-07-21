@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PmPoshanComponent } from './pm-poshan.component';
+import { NutritionHealthComponent } from './nutrition-health.component';
+
 
 const routes: Routes = [{
     path: '',
-    component: PmPoshanComponent,
+    component: NutritionHealthComponent,
     children: [
         {
             path: 'dashboard',
-            component: PmPoshanComponent
+            component: NutritionHealthComponent
         },
         {
             path: '',
@@ -23,4 +24,4 @@ const routes: Routes = [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PmPoshanRoutingModule { }
+export class NutritionHealthRoutingModule { }
