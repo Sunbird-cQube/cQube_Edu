@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MicroImprovementComponent } from './micro-improvement.component';
+import { QuizComponent } from './quiz.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MicroImprovementComponent,
+    component: QuizComponent,
     children: [
         {
             path: 'dashboard',
-            component: MicroImprovementComponent
+            component: QuizComponent
         },
         {
             path: '',
-            redirectTo: '/microimprovement/dashboard',
+            redirectTo: '/quizzes/dashboard',
             pathMatch: 'full'
         }
     ]
@@ -24,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MicroImprovementRoutingModule { }
+export class QuizRoutingModule { }

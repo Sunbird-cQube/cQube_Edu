@@ -4,24 +4,24 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CqubeLibraryModule } from 'cqube-library';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { QuizzesRoutingModule } from './quizzes-routing.module';
-import { QuizzesComponent } from './quizzes.component';
+import { QuizComponent } from './quiz.component';
 import { StateWiseParticipationComponent } from './pages/state-wise-participation/state-wise-participation.component';
 import { StatesStartedTableComponent } from './pages/states-started-table/states-started-table.component';
+import { QuizRoutingModule } from './quiz-routing.module';
 
 
 @NgModule({
   declarations: [
-    QuizzesComponent,
+    QuizComponent,
     StateWiseParticipationComponent,
     StatesStartedTableComponent
   ],
   imports: [
     CommonModule,
-    QuizzesRoutingModule,
+    QuizRoutingModule,
     SharedModule,
     CqubeLibraryModule,
     MatTabsModule
   ]
 })
-export class QuizzesModule { }
+export class QuizModule { }

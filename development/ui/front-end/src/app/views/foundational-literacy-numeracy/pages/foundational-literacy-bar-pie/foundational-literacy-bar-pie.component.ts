@@ -3,11 +3,11 @@ import * as Highcharts from "highcharts/highstock";
 import { PieChartComponent } from 'src/app/shared/components/charts/pie-chart/pie-chart.component';
 
 @Component({
-  selector: 'app-nipunbharath-bar-pie',
-  templateUrl: './nipunbharath-bar-pie.component.html',
-  styleUrls: ['./nipunbharath-bar-pie.component.scss']
+  selector: 'app-foundational-literacy-bar-pie',
+  templateUrl: './foundational-literacy-bar-pie.component.html',
+  styleUrls: ['./foundational-literacy-bar-pie.component.scss']
 })
-export class NipunbharathBarPieComponent implements OnInit {
+export class FoundationalLiteracyBarPieComponent implements OnInit {
   nipunBharathData: any
 
   constructor() { 

@@ -5,11 +5,11 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-quizzes',
-  templateUrl: './quizzes.component.html',
-  styleUrls: ['./quizzes.component.scss']
+  selector: 'app-quiz',
+  templateUrl: './quiz.component.html',
+  styleUrls: ['./quiz.component.scss']
 })
-export class QuizzesComponent implements OnInit {
+export class QuizComponent implements OnInit {
 
   quizzesMetricsData: any;
   quizzesStateData: any;
