@@ -39,9 +39,9 @@
             </div>
         </mat-tab>
         <mat-tab label="Scatter Plot">
-            <!-- <app-filter-panel></app-filter-panel>
-            <app-scatter-chart></app-scatter-chart> -->
-            <p class="p-2">Coming soon...</p>
+            <app-filter-panel [filters]="filters1" [resetOthers]="false" (filtersUpdated)="scatterFiltersUpdated($event)"></app-filter-panel>
+            <app-material-button-group [buttons]="levels1" (select)="onScatterSelectLevel($event)"></app-material-button-group>
+            <app-scatter-chart [data]="scatterData"></app-scatter-chart>
         </mat-tab>
     </mat-tab-group>
 </div>

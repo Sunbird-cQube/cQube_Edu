@@ -16,6 +16,7 @@ export class NishithaTableComponent implements OnInit {
   options: Highcharts.Options | undefined;
   filters: any;
   title: any;
+  chartHeight: any;
   
   @Input() lastLevel!: string;
 
@@ -44,6 +45,7 @@ export class NishithaTableComponent implements OnInit {
     this._commonService.getReportData(data).subscribe(res => {
       let result = res.result.data;
       this.filters = res.result.filters;
+      this.chartHeight = result.length * 50;
 
       let series: any = [];
       if (this.lastLevel === 'district') {
@@ -58,7 +60,7 @@ export class NishithaTableComponent implements OnInit {
           data: result.map((record: any) => record['Total Enrollments'])
         }];
       } else {
-        result = result.slice(0, 10);
+        //result = result.slice(0, 100);
         series = [{
           type: 'bar',
           name: 'Enrollments',
@@ -72,16 +74,16 @@ export class NishithaTableComponent implements OnInit {
 
       this.options = {
         chart: {
-          events: {
-            load: function(this: any) {
-              let categoryHeight = 20;
-              this.update({
-                chart: {
-                  height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
-                }
-              })
-            }
-          }
+          // events: {
+          //   load: function(this: any) {
+          //     let categoryHeight = 20;
+          //     this.update({
+          //       chart: {
+          //         height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
+          //       }
+          //     })
+          //   }
+          // }
         },
         xAxis: {
           categories: result.map((record: any) => {

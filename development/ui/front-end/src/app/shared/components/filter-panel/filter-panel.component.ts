@@ -1,14 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-filter-panel',
   templateUrl: './filter-panel.component.html',
   styleUrls: ['./filter-panel.component.scss']
 })
-export class FilterPanelComponent implements OnInit {
+export class FilterPanelComponent implements OnInit, OnChanges {
 
   @Input() filters: any = [];
+  @Input() resetOthers = true;
+
   @Output() filtersUpdated = new EventEmitter<any>();
 
   constructor() { }
@@ -16,15 +17,20 @@ export class FilterPanelComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSelectOption(event: any, ind: number): void {
-    this.filters = this.filters.map((filter: any, filterInd: number) => {
-      if (filterInd > ind) {
-        filter.options = [];
-        filter.value = null;
-      }
+  ngOnChanges(changes: SimpleChanges): void {
+  }
 
-      return filter;
-    });
+  onSelectOption(event: any, ind: number): void {
+    if (this.resetOthers) {
+      this.filters = this.filters.map((filter: any, filterInd: number) => {
+        if (filterInd > ind) {
+          filter.options = [];
+          filter.value = null;
+        }
+
+        return filter;
+      });
+    }
 
     this.filtersUpdated.emit(this.filters);
   }

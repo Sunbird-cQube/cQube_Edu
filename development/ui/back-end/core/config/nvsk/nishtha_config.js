@@ -109,13 +109,12 @@ const dataSourceInfo = {
                 {
                     name: 'Program',
                     column: 'Program',
-                    includeAll: true
+                    defaultValue: true
                 },
-                {
+                {   
                     name: 'State Name',
                     column: 'State Name',
-                    optionValueColumn: "State Code",
-                    includeAll: true
+                    optionValueColumn: "State Code"
                 }
             ]
         }

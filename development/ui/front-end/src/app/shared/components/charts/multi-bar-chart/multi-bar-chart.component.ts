@@ -84,9 +84,9 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
               enabled: true,
               crop: false,
               allowOverlap: true,
-              formatter: function() {
-                return ref._decimalPipe.transform(this.y, '1.0-0', 'en-IN');
-              }
+              // formatter: function() {
+              //   return ref._decimalPipe.transform(this.y, '1.0-0', 'en-IN');
+              // }
           }
         },
         series: {
@@ -94,7 +94,8 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
             legendItemClick: function (e) {
               e.preventDefault();
             }
-          }
+          },
+          animation: false
         }
       },
       legend: {

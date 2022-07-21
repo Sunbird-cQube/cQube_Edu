@@ -127,33 +127,52 @@ const dataSourceInfo = {
         },
         scatterPlot: {
             pathToFile: 'nas/nas_data.json',
-            defaultLevel: ["State", "Grade", "Subject"],
-            columns: [
-                {
-                    "name": "X-Axis",
-                    "property": ["Grade", "Subject"],
+            series: {
+                x: {
+                    name: "X-Axis",
+                    "property": "Performance",
                     weightedAverage: {
-                        column: "Performance",
+                        property: "Performance",
                         against: "Students Surveyed"
                     }
                 },
-                {
-                    "name": "Y-Axis",
-                    "property": ["Grade", "Subject"],
+                y: {
+                    name: "Y-Axis",
+                    "property": "Performance",
                     weightedAverage: {
-                        column: "Performance",
+                        property: "Performance",
                         against: "Students Surveyed"
                     }
                 }
-            ],
+            },
             filters: [
                 {
                     "name": "X-Axis",
-                    "property": ["Grade", "Subject"]
+                    "property": ["Grade", "Subject"],
+                    "series": "x"
                 },
                 {
                     "name": "Y-Axis",
-                    "property": ["Grade", "Subject"]
+                    "property": ["Grade", "Subject"],
+                    "series": "y"
+                }
+            ],
+            levels: [
+                {
+                    name: "State",
+                    value: "state",
+                    property: "State",
+                    tooltip: {
+                        name: "State Name"
+                    }
+                },
+                {
+                    name: "District",
+                    value: "district",
+                    property: "District",
+                    tooltip: {
+                        name: "District Name"
+                    }
                 }
             ]
         }

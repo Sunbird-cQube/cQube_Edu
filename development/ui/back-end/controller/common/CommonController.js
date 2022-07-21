@@ -6,7 +6,7 @@ const _ = require('lodash');
 const csvToJson = require('csvtojson');
 const { getFileData, getAllFiles, getFileRawData, uploadFile } = require('../../service/storage_service');
 const { states } = require('../../core/config/state-codes');
-const { isArray } = require('lodash');
+const { isArray, property } = require('lodash');
 
 exports.getReportData = (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
@@ -477,12 +477,30 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 
 async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { columns, filters, mainFilter } = reportConfig;
-	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
-	let groupByColumns = reportConfig.defaultLevel;
+	let { series, filters, levels, stateColumnFilter } = reportConfig;
+	let groupByColumn = reportConfig.groupByDefault;
+	let isWeightedAverageNeeded = Object.keys(series).filter(axis => series[axis].weightedAverage).length > 0;
+	let level = reqBody.appName === appNames.nvsk ? 'state' : 'district';
+	let currentLevel;
+	levels = reqBody.levels ? reqBody.levels : levels;
 
-	if (mainFilter) {
-		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
+	if (levels && levels.length > 0) {
+		let selectedLevelInd = levels.findIndex(level => level.selected);
+		if (selectedLevelInd > -1) {
+			currentLevel = reportConfig.levels[selectedLevelInd];
+		}
+
+		if (!currentLevel) {
+			levels[0].selected = true;
+			currentLevel = levels[0];
+			level = currentLevel.value;
+		} else {
+			level = currentLevel.value;
+		}
+	}
+
+	if (stateColumnFilter) {
+		rawData = rawData.filter(record => record[stateColumnFilter] && (record[stateColumnFilter] == states[reqBody.stateCode].Code));
 	}
 
 	if (reqBody.filters && reqBody.filters.length > 0) {
@@ -497,23 +515,62 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 		});
 	}
 
-	filterRes = applyFilters(filters, rawData, groupByColumn);
+	filterRes = applyScatterChartFilters(filters, rawData);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
-	groupByColumn = filterRes.groupByColumn;
 
-	let currentGroupCol = 0;
-	rawData = _.chain(rawData)
-		.groupBy(groupByColumns[0])
+	if (isWeightedAverageNeeded) {
+		if (!groupByColumn && !currentLevel) {
+			throw "Define group by column as you want to do some aggegration";
+		}
+
+		rawData = _.chain(rawData)
+		.groupBy(groupByColumn ? groupByColumn : currentLevel.property)
 		.map((objs, key) => {
-			
+			let data = {
+				data: ""
+			};
+
+			levelPos =  levels.findIndex(level => level.selected);
+
+			if (levelPos !== undefined) {
+				if (levelPos > 0) {
+					for (let i = 0; i <= levelPos; i++) {
+						let level = reportConfig.levels[i];
+						data.data += data.data && data.data.length > 0 ? '<br>' : '';
+						data.data += level.tooltip.valueAsName ? `${objs[0][level.property]}: ${objs[0][level.tooltip.property]}` : `${level.tooltip.name.trim()}: ${objs[0][level.property]}`;
+					}
+				} else {
+					data.data += data.data && data.data.length > 0 ? '<br>' : '';
+					data.data += currentLevel.tooltip.valueAsName ? `${objs[0][currentLevel.property]}: ${objs[0][currentLevel.tooltip.property]}` : `${currentLevel.tooltip.name.trim()}: ${objs[0][currentLevel.property]}`;
+				}
+			}
+
+			Object.keys(series).forEach(axis => {
+				if (series[axis].weightedAverage) {
+					let numeratorSum = 0;
+					let denominatorSum = 0;
+					
+					objs.forEach((obj, index) => {
+						numeratorSum += obj[series[axis].weightedAverage.property] * obj[series[axis].weightedAverage.against];
+						denominatorSum += obj[series[axis].weightedAverage.against];
+					});
+					
+					data[axis] = Number((numeratorSum / denominatorSum).toFixed(2));
+
+					data.data += `<br>${series[axis].name}: ${data[axis]}`;
+				}
+			});
+
+			return data;
 		});
+	}
 		
 
 	return {
 		data: rawData,
 		filters: filters,
-		level: groupByColumn ? groupByColumn : "State"
+		levels
 	};
 }
 
@@ -678,8 +735,6 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 				}
 
 				data[col.name] = objs[0][col.property];
-
-				console.log(data[col.name]);
 			});
 
 			return data;
@@ -858,7 +913,6 @@ function convertRawDataToJSON(sourceFilePath, destinationFilePath) {
 }
 
 async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
-	console.log(filePath);
 	let fileExt = path.extname(filePath).substring(1);
 	let fileName = path.join(path.dirname(filePath),path.basename(filePath, path.extname(filePath))).replace(/\\/g, "/").replace('input_files', 'converted');
 
@@ -932,5 +986,66 @@ function applyFilters(filters, rawData, groupByColumn, code = undefined) {
 		rawData,
 		groupByColumn,
 		code
+	}
+}
+
+function applyScatterChartFilters(filters, rawData) {
+	filters = filters.map((filter, index) => {
+		let filterOptionMap = new Map();
+
+		if (filter.options.length > 0 && filter.value !== null) {
+			filterData = filter.options.find(option => option.value === filter.value);
+			rawData = rawData.filter(record => {
+				for (let i = 0; i < filter.property.length; i++) {
+					if (record[filter.property[i]] === filterData.data[i]) {
+						return true;
+					}
+				}
+
+				return false;
+			});
+		} else {
+			filter.options = [];
+			
+			rawData = rawData.filter(record => {
+				let value = "";
+				let data = [];
+
+				filter.property.forEach((property, index) => {
+					value += index === 0 ? record[property] : "-" + record[property];
+					data.push(record[property]);
+				});
+				
+				if (!filterOptionMap.has(value)) {
+					filter.options.push({
+						label: value,
+						value,
+						data
+					});
+
+					if (filter.value === null) {
+						filter.value = value;
+						filter.data = data;
+					}
+
+					filterOptionMap.set(value, true);
+				}
+
+				for (let i = 0; i < filter.property.length; i++) {
+					if (record[filter.property[i]] === filter.data[i]) {
+						return true;
+					}
+				}
+
+				return false;
+			});
+		}
+
+		return filter;
+	});
+
+	return {
+		filters,
+		rawData
 	}
 }

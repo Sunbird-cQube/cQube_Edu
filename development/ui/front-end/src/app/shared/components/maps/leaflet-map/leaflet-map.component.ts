@@ -185,7 +185,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       this.map.addLayer(this.markers);
 
       this.createLegend(reportTypeIndicator, this.mapData.options, values);
-      console.log('create legend')
     }
   }
 
@@ -216,7 +215,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           }
       }
 
-      console.log(labels);
       div.innerHTML = labels.join('<br>');
       return div;
     };
