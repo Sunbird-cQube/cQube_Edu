@@ -89,6 +89,10 @@ const dataSourceInfo = {
                         type: "AVG"
                     }
                 },
+                {
+                    name: "state_code",
+                    property: "State Code"
+                }
             ],
             filters: [
                 {

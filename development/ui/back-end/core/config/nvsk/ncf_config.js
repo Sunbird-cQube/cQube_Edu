@@ -21,6 +21,10 @@ const dataSourceInfo = {
                         name: "Total SSC Onboarded",
                         property:"Total SSC Onboarded"
                     }
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
                 }
             ],
             filters: [],

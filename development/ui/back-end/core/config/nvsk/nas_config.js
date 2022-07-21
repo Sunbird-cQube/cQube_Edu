@@ -35,6 +35,10 @@ const dataSourceInfo = {
                         name: "Performance",
                         property: "Performance"
                     }
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
                 }
             ],
             filters: [
