@@ -25,6 +25,10 @@ const dataSourceInfo = {
                 {
                     name: "indicator",
                     property: "Started"
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
                 }
             ],
             filters: [

@@ -20,6 +20,10 @@ const dataSourceInfo = {
                     tooltip: {
                         name: "Energised textbooks (State & NCERT adopted)"
                     }
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
                 }
             ],
             filters: [],
@@ -86,6 +90,10 @@ const dataSourceInfo = {
                     tooltip: {
                         name: "QR Code Content Coverage"
                     },
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
                 }
             ],
             filters: [],
@@ -144,6 +152,10 @@ const dataSourceInfo = {
                     tooltip: {
                         name: "Plays per Capita"
                     },
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
                 }
             ],
             filters: [],

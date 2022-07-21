@@ -55,6 +55,10 @@ const dataSourceInfo = {
                         type: "SUM"
                     },
                     includeAsMetricFilter: true,
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
                 }
             ],
             filters: [
@@ -104,6 +108,10 @@ const dataSourceInfo = {
                     tooltip: {
                         name: "Onboarded on PM Poshan"
                     }
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
                 }
             ],
             filters: [],

@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import * as L from "leaflet";
 import * as R from "leaflet-responsive-popup";
@@ -41,13 +42,16 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     if (!this.mapContainer || !this.mapData) {
       return;
     }
-
+    let reportTypeBoolean = false;
+    if (typeof this.mapData?.data[0]?.indicator === 'string') {
+      reportTypeBoolean = true;
+    }
     this.map = L.map(this.mapContainer.nativeElement, { zoomSnap: 0.05, minZoom: 4, zoomControl: true, scrollWheelZoom: false, touchZoom: false }).setView([this.mapCenterLatlng.lat, this.mapCenterLatlng.lng], this.mapCenterLatlng.zoomLevel);
     try {
-      await this.applyCountryBorder();
+      await this.applyCountryBorder(this.mapData);
       const tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
         {
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+          subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }
       );
 
@@ -59,7 +63,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       this.map.on('resize', () => {
         this.fitBoundsToCountryBorder();
       });
-    } catch(e) {
+    } catch (e) {
       console.error(e);
       this.error = true;
     }
@@ -81,31 +85,77 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     this.createMarkers(this.mapData);
   }
 
-  async applyCountryBorder(): Promise<any> {
+  getLayerColor(e: any) {
+    let reportTypeBoolean = false;
+    if (typeof e === 'string') {
+      reportTypeBoolean = true;
+    }
+    if (reportTypeBoolean) {
+      // console.log(e == "Yes");
+      if (e.trim() == "Yes") {
+        return "rgb(33,113,181)";
+      } else {
+        return "rgb(239,243,255)";
+      }
+    }
+    else {
+      return "#fff"
+    }
+
+  }
+
+
+
+
+  async applyCountryBorder(mapData: any): Promise<any> {
+    let parent = this;
     return new Promise(async (resolve, reject) => {
       try {
         const response = await fetch(`${environment.apiURL}/assets/geo-locations/IN.json`);
         const body = await response.json();
         const data = body;
 
-        this.countryGeoJSON = L.geoJSON(data['features'], {
-          style: {
-            fillColor: '#fff',
+        function styleStates(feature: any) {
+          let color = '#fff';
+          mapData?.data.forEach((state: any) => {
+            if (state.state_code == feature.properties.state_code) {
+              color = parent.getLayerColor(state.indicator);
+            }
+          });
+
+          return {
+            fillColor: color,
             weight: 1,
             opacity: 1,
             color: 'grey',
             dashArray: '0',
             fillOpacity: 1
+          };
+        }
+
+        function getPopUp(feature: any) {
+          let popup: any;
+          mapData.data.forEach((state: any) => {
+            if (state.state_code == feature.properties.state_code) {
+              popup = state.tooltip
+            }
+          });
+          return popup;
+        }
+        let color = 'red'
+        this.countryGeoJSON = L.geoJSON(data['features'], {
+          onEachFeature: function (feature: any, layer: any) {
+            layer.bindTooltip(getPopUp(feature));
           },
+          style: styleStates,
           color: "#a0a1a3",
           weight: 1,
           fillOpacity: 0,
           fontWeight: "bold",
-          onEachFeature: function (feature: any, layer: any) { }
         }).addTo(this.map);
         this.fitBoundsToCountryBorder();
         resolve('India map borders plotted successfully');
-      } catch(e) {
+      } catch (e) {
         reject(e);
       }
     });
@@ -118,8 +168,8 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   createMarkers(mapData: any): void {
-    if (mapData) {
-      let reportTypeIndicator = this.mapData.options && this.mapData.options.tooltip && this.mapData.options.tooltip.reportTypeIndicator ? this.mapData.options.tooltip.reportTypeIndicator : (typeof this.mapData.data[0].indicator === 'string') ? 'boolean' : 'value';
+    let reportTypeIndicator = this.mapData.options && this.mapData.options.tooltip && this.mapData.options.tooltip.reportTypeIndicator ? this.mapData.options.tooltip.reportTypeIndicator : (typeof this.mapData.data[0].indicator === 'string') ? 'boolean' : 'value'
+    if (mapData && reportTypeIndicator !== 'boolean') {
       let min!: number, max!: number, values: any[] = [];
       if (reportTypeIndicator === 'value') {
         mapData.data.forEach((data: any, index: number) => {
@@ -166,18 +216,18 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           autoPan: true,
           offset: [15, 20],
         }).setContent(
-          data.tooltip  
+          data.tooltip
         );
 
-        markerIcon.on("mouseover",  (e:any) => {
+        markerIcon.on("mouseover", (e: any) => {
           e.target.openPopup();
         });
-        
-        markerIcon.on("mouseout",  (e:any) => {
+
+        markerIcon.on("mouseout", (e: any) => {
           e.target.closePopup();
         });
-  
-        markerIcon.addTo(this.map).bindPopup(popup, {closeButton: false});
+
+        markerIcon.addTo(this.map).bindPopup(popup, { closeButton: false });
 
         this.markers.addLayer(markerIcon);
       });
@@ -188,7 +238,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  createLegend(reportTypeIndicator: string, mapOptions: any, values: any): void {  
+  createLegend(reportTypeIndicator: string, mapOptions: any, values: any): void {
     let legend = L.control({ position: 'topright' });
     let ref = this;
     let labels: any[] = [];
@@ -205,14 +255,14 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           labels.push(`<i class="fa fa-square" style="color:${ref.getZoneColor(reportTypeIndicator, values[i])}"></i> ${values[i]}`);
         }
       } else {
-          values = values && values.length > 0 ? values : [100, 90, 80, 70, 60, 50, 40, 30, 20, 10];
-          for (let i = values.length; i > 0; i--) {
-            labels.push(
-              `<i class="fa  fa-square" style="color: ${ref.getZoneColor(reportTypeIndicator, 10 * i)}"></i> 
+        values = values && values.length > 0 ? values : [100, 90, 80, 70, 60, 50, 40, 30, 20, 10];
+        for (let i = values.length; i > 0; i--) {
+          labels.push(
+            `<i class="fa  fa-square" style="color: ${ref.getZoneColor(reportTypeIndicator, 10 * i)}"></i> 
               <span>${values[values.length - i + 1] ? values[values.length - i + 1] : 0} &dash; ${values[values.length - i]}${reportTypeIndicator === 'percent' ? '%' : ''}</span>`
-              );
+          );
 
-          }
+        }
       }
 
       div.innerHTML = labels.join('<br>');
@@ -224,21 +274,21 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
   getZoneColor(reportTypeIndicator: string, value: string | number) {
     if (reportTypeIndicator === 'boolean') {
-        if (value == "Yes") {
-            return "#36a732";
-        } else {
-            return "red";
-        }
+      if (value == "Yes") {
+        return "#36a732";
+      } else {
+        return "red";
+      }
     } else {
       return value > 90 ? "#002966" :
-              value > 80 ? "#003d99" :
-                  value > 70 ? "#0052cc" :
-                      value > 50 ? "#0066ff" :
-                          value > 40 ? "#1a75ff" :
-                              value > 30 ? "#4d94ff" :
-                                  value > 20 ? "#80b3ff" :
-                                      value > 10 ? "#b3d1ff" :
-                                          value > 0 ? "#cce0ff" : "#e6f0ff";
+        value > 80 ? "#003d99" :
+          value > 70 ? "#0052cc" :
+            value > 50 ? "#0066ff" :
+              value > 40 ? "#1a75ff" :
+                value > 30 ? "#4d94ff" :
+                  value > 20 ? "#80b3ff" :
+                    value > 10 ? "#b3d1ff" :
+                      value > 0 ? "#cce0ff" : "#e6f0ff";
     }
   }
 }

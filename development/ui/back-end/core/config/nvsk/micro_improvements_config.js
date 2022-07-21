@@ -21,6 +21,10 @@ const dataSourceInfo = {
                         name: "Total Micro Improvements Projects",
                         property:"Total Micro Improvements Projects"
                     }
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
                 }
             ],
             filters: [],
@@ -52,6 +56,10 @@ const dataSourceInfo = {
                     tooltip: {
                         name: "Participating in Micro-Improvement Program"
                     }
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
                 }
             ],
             filters: [],

@@ -31,6 +31,10 @@ const dataSourceInfo = {
                     tooltip: {
                         name: "Enrollments"
                     }
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
                 }
             ],
             filters: [
