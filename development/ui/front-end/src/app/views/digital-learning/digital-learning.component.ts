@@ -12,11 +12,11 @@ import { QRCoverageAcrossStatesComponent } from './pages/qr-coverage-across-stat
 import { TotalPlaysPerCapitaComponent } from './pages/total-plays-per-capita/total-plays-per-capita.component';
 
 @Component({
-  selector: 'app-etb',
-  templateUrl: './etb.component.html',
-  styleUrls: ['./etb.component.scss']
+  selector: 'app-digital-learning',
+  templateUrl: './digital-learning.component.html',
+  styleUrls: ['./digital-learning.component.scss']
 })
-export class EtbComponent implements OnInit {
+export class DigitalLearningComponent implements OnInit {
   selectedState:Number = 0;
   ETBStateData: any;
   filters: any;

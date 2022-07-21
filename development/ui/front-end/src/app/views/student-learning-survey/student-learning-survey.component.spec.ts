@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NasComponent } from './nas.component';
+import { StudentLearningSurveyComponent } from './student-learning-survey.component';
 
 describe('NasComponent', () => {
-  let component: NasComponent;
-  let fixture: ComponentFixture<NasComponent>;
+  let component: StudentLearningSurveyComponent;
+  let fixture: ComponentFixture<StudentLearningSurveyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NasComponent ]
+      declarations: [ StudentLearningSurveyComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NasComponent);
+    fixture = TestBed.createComponent(StudentLearningSurveyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

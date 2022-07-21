@@ -5,11 +5,11 @@ import { CommonService } from 'src/app/core/services/common/common.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-etb-coverage',
-  templateUrl: './etb-coverage.component.html',
-  styleUrls: ['./etb-coverage.component.scss']
+  selector: 'app-digital-learning-coverage',
+  templateUrl: './digital-learning-coverage.component.html',
+  styleUrls: ['./digital-learning-coverage.component.scss']
 })
-export class EtbCoverageComponent implements OnInit {
+export class DigitalLearningCoverageComponent implements OnInit {
   tableData: any;
   columns: any[] = [];
   gaugeChartOptions: Highcharts.Options | undefined;
