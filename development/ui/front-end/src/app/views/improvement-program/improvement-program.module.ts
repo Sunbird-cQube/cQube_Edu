@@ -3,19 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CqubeLibraryModule } from 'cqube-library';
-import { MicroImprovementRoutingModule } from './micro-improvement-routing.module';
-import { MicroImprovementComponent } from './micro-improvement.component';
+import { ImprovementProgramRoutingModule } from './improvement-program-routing.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ImprovementProgramComponent } from './improvement-program.component';
 
 
 @NgModule({
   declarations: [
-    MicroImprovementComponent
+    ImprovementProgramComponent
   ],
   imports: [
     CommonModule,
-    MicroImprovementRoutingModule,
+    ImprovementProgramRoutingModule,
     SharedModule,
     MatTabsModule,
     CqubeLibraryModule,

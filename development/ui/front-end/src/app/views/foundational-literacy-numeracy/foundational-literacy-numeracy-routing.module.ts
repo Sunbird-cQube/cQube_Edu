@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NipunbharathComponent } from './nipunbharath.component';
+import { FoundationalLiteracyNumeracyComponent } from './foundational-literacy-numeracy.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: NipunbharathComponent,
+    component: FoundationalLiteracyNumeracyComponent,
     children: [
         {
             path: 'dashboard',
-            component: DashboardComponent
+            component: FoundationalLiteracyNumeracyComponent
         },
         {
             path: '',
@@ -25,4 +25,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class NipunbharathRoutingModule { }
+export class FoundationalLiteracyNumeracyRoutingModule { }

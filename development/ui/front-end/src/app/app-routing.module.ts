@@ -47,7 +47,7 @@ if (environment.config == 'NVSK') {
         },
         {
           path: 'nipunbharath',
-          loadChildren: () => import('./views/nipunbharath/nipunbharath.module').then(module => module.NipunbharathModule)
+          loadChildren: () => import('./views/foundational-literacy-numeracy/foundational-literacy-numeracy.module').then(module =>module.FoundationalLiteracyNumeracyModule)
         },
         {
           path: 'vidyanjali',
@@ -55,11 +55,11 @@ if (environment.config == 'NVSK') {
         },
         {
           path: 'quizzes',
-          loadChildren: () => import('./views/quizzes/quizzes.module').then(module => module.QuizzesModule)
+          loadChildren: () => import('./views/quiz/quiz.module').then(module => module.QuizModule)
         },
         {
           path: 'microimprovement',
-          loadChildren: () => import('./views/micro-improvement/micro-improvement.module').then(module => module.MicroImprovementModule)
+          loadChildren: () => import('./views/improvement-program/improvement-program.module').then(module => module.MicroImprovementModule)
         },
         {
           path: 'ncf',

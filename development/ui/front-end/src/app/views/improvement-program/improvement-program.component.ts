@@ -7,11 +7,11 @@ import { environment } from 'src/environments/environment';
 
 
 @Component({
-  selector: 'app-micro-improvement',
-  templateUrl: './micro-improvement.component.html',
-  styleUrls: ['./micro-improvement.component.scss']
+  selector: 'app-improvement-program',
+  templateUrl: './improvement-program.component.html',
+  styleUrls: ['./improvement-program.component.scss']
 })
-export class MicroImprovementComponent implements OnInit {
+export class ImprovementProgramComponent implements OnInit {
   config: string = environment.config;
   state1: any= 'IN';
   state2: any = 'IN';

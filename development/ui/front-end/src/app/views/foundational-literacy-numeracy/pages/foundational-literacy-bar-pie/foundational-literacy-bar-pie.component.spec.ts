@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FoundationalLiteracyBarPieComponent } from './foundational-literacy-bar-pie.component';
 
-import { NipunbharathBarPieComponent } from './nipunbharath-bar-pie.component';
 
 describe('NipunbharathBarPieComponent', () => {
-  let component: NipunbharathBarPieComponent;
-  let fixture: ComponentFixture<NipunbharathBarPieComponent>;
+  let component: FoundationalLiteracyBarPieComponent;
+  let fixture: ComponentFixture<FoundationalLiteracyBarPieComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NipunbharathBarPieComponent ]
+      declarations: [ FoundationalLiteracyBarPieComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NipunbharathBarPieComponent);
+    fixture = TestBed.createComponent(FoundationalLiteracyBarPieComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

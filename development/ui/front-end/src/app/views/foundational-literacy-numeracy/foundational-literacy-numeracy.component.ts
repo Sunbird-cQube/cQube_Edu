@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 
 @Component({
-  selector: 'app-nipunbharath',
-  templateUrl: './nipunbharath.component.html',
-  styleUrls: ['./nipunbharath.component.scss']
+  selector: 'app-foundational-literacy-numeracy',
+  templateUrl: './foundational-literacy-numeracy.component.html',
+  styleUrls: ['./foundational-literacy-numeracy.component.scss']
 })
-export class NipunbharathComponent implements OnInit {
+export class FoundationalLiteracyNumeracyComponent implements OnInit {
   nipunBharathMetrics: any;
 
   constructor(private readonly _configService: ConfigService) {
