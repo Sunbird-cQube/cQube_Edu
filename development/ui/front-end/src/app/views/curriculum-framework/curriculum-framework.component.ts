@@ -19,24 +19,26 @@ export class CurriculumFrameworkComponent implements OnInit {
   isMapReportLoading = true;
   NCFMetrics: any[] | undefined;
   ncfProgressData: any;
+  metricFilter: any;
 
   constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService, private readonly _configService: ConfigService) {
     this._configService.getVanityMetrics('ncf').subscribe(vanityMetricsRes => {
       this.NCFMetrics = vanityMetricsRes.result;
     });
-    this.getNcfProgressData(this.filters);
+    this.getNcfProgressData(this.filters, this.metricFilter);
   }
 
   ngOnInit(): void {
   }
-  getNcfProgressData(filters: any): void {
+  getNcfProgressData(filters: any, metricFilter:any): void {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
       dataSourceName: 'ncf',
       reportName: 'progressOfNCF',
       reportType: 'map',
       stateCode: environment.stateCode,
-      filters
+      filters,
+      metricFilter
     };
 
     this._commonService.getReportData(data).subscribe(res => {
@@ -44,6 +46,7 @@ export class CurriculumFrameworkComponent implements OnInit {
       this.isMapReportLoading = false;
       this.ncfProgressData = res.result;
       this.filters = res.result.filters;
+      this.metricFilter = res.result.metricFilter;
       if(res.result.code){
         this.state = res.result.code;
       }
@@ -59,6 +62,10 @@ export class CurriculumFrameworkComponent implements OnInit {
   }
 
   filtersUpdated(filters: any): void {
-    this.getNcfProgressData(filters);
+    this.getNcfProgressData(filters, this.metricFilter);
+  }
+
+  onSelectMetricFilter(metricFilter: any): void {
+    this.getNcfProgressData(this.filters, metricFilter);
   }
 }
