@@ -63,7 +63,7 @@ const dataSourceInfo = {
                 },
                 {
                     name: "Total Certifications",
-                    property: "Total Certifications",
+                    property: "Total Certificates Issued",
                     aggegration: {
                         type: "SUM"
                     }
