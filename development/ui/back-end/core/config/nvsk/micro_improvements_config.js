@@ -70,7 +70,7 @@
   },
   micro_improvements_program: {
     map: {
-      pathToFile: "micro_improvements/micro-improvement_program-started.json",
+      pathToFile: "micro_improvements/micro-improvement_all-dashboard.json",
       locations: [
         {
           name: "Location",
