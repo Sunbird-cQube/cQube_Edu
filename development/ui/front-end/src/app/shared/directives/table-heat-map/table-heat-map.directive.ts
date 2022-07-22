@@ -49,44 +49,47 @@ export class TableHeatMapDirective implements AfterViewInit, OnDestroy {
   constructor(private elRef: ElementRef) {}
 
   ngAfterViewInit() {
-    setTimeout(()=> {
-      if (this.tableHeatMapCells) {
-        this.cells = this.tableHeatMapCells.toArray();
-      }
+    // setTimeout(()=> {
+    //   if (this.tableHeatMapCells) {
+    //     this.cells = this.tableHeatMapCells.toArray();
+    //   }
   
-      if (this.tableHeatMapColumns) {
-        this.columns = this.tableHeatMapColumns.toArray();
-      }
+    //   if (this.tableHeatMapColumns) {
+    //     this.columns = this.tableHeatMapColumns.toArray();
+    //   }
   
-      this.setOptions();
-      this.calculateHighestValues();
-      this.applyHeatMap();
+    //   this.setOptions();
+    //   this.calculateHighestValues();
+    //   this.applyHeatMap();
   
-      let ref: TableHeatMapDirective = this;
-    }, 2000)
+    //   let ref: TableHeatMapDirective = this;
+    // }, 10000)
     
 
-    // this.observer = new MutationObserver((mutations) => {
-    //   let timer: any;
-    //   mutations.forEach(function (mutation) {
-    //     if (timer) clearTimeout(timer);
-    //     timer = setTimeout(() => {
-    //       if (ref.tableHeatMapCells && ref.tableHeatMapColumns) {
-    //         ref.cells = ref.tableHeatMapCells.toArray();
-    //         ref.columns = ref.tableHeatMapColumns.toArray();
-    //         ref.setOptions();
-    //         ref.calculateHighestValues();
-    //         ref.applyHeatMap();
-    //       }
-    //     }, 1000);
-    //   });
-    // });
-    // var config = { attributes: true, childList: true, characterData: true };
+    let ref = this;
+    this.observer = new MutationObserver((mutations) => {
+      let timer: any;
+      mutations.forEach(function (mutation) {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          if (ref.tableHeatMapCells && ref.tableHeatMapColumns) {
+            ref.cells = ref.tableHeatMapCells.toArray();
+            ref.columns = ref.tableHeatMapColumns.toArray();
+            ref.setOptions();
+            ref.calculateHighestValues();
+            ref.applyHeatMap();
+          }
+        }, 500);
+      });
+    });
+    var config = { attributes: true, childList: true, characterData: true };
 
-    // this.observer.observe(this.elRef.nativeElement, config);
+    this.observer.observe(this.elRef.nativeElement, config);
   }
 
   private setOptions() {
+    console.log(this.columns);
+    
     this.columns.forEach((col: any) => {
       this.config = {
         ...this.config,

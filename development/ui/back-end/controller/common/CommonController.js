@@ -380,6 +380,7 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 	let { columns, filters, mainFilter, gaugeChart } = reportConfig;
 	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage || col.aggegration).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
+	let isTransposeNeeded = columns.filter(col => col.transposeColumn).length > 0;
 
 	if (mainFilter) {
 		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
@@ -401,7 +402,7 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 				value: null,
 				options: []
 			}
-		})
+		});
 	}
 
 	filterRes = applyFilters(filters, rawData, groupByColumn);
@@ -409,7 +410,77 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 	rawData = filterRes.rawData;
 	groupByColumn = filterRes.groupByColumn;
 
-	if (isWeightedAverageNeeded) {
+	if (isTransposeNeeded) {
+		const rows = columns.filter(col => !col.transposeColumn);
+		const transCol = columns.find(col => col.transposeColumn);
+		const cols = [];
+		
+		let uniqueMap = new Map();
+		rawData.forEach(rec => {
+			if (!uniqueMap.has(rec[transCol.property])) {
+				cols.push({
+					name: rec[transCol.property],
+					property: rec[transCol.property],
+					isHeatMapRequired: transCol.isHeatMapRequired,
+					color: transCol.color
+				});
+				uniqueMap.set(rec[transCol.property], true)
+			}
+		});
+		
+		let pivotMap = new Map();
+		let result = [];
+		rawData.forEach(data => {
+			let key = '';
+			let dataObj = {};
+		
+			rows.forEach(col => {
+				key += key.length > 0 ? '_' + data[col.property] : data[col.property];
+				dataObj[col.name] = data[col.name];
+			});
+		
+			if (!pivotMap.has(key)) {
+				pivotMap.set(key, result.length);
+				
+				if (transCol.weightedAverage) {
+					dataObj[data[transCol.property]] = {
+						numeratorSum: data[transCol.weightedAverage.property] && data[transCol.weightedAverage.against] ? data[transCol.weightedAverage.property] * data[transCol.weightedAverage.against] : 0,
+						denominatorSum: data[transCol.weightedAverage.against] ? data[transCol.weightedAverage.against] : 0
+					}
+		
+					result.push(dataObj);
+		
+					return;
+				}
+		
+				dataObj[data[transCol.property]] = dataObj[data[transCol.property]];
+			} else {
+				dataObj = result[pivotMap.get(key)];
+				if (transCol.weightedAverage) {
+					dataObj[data[transCol.property]] = dataObj[data[transCol.property]] ? dataObj[data[transCol.property]] : { numeratorSum: 0, denominatorSum: 0};
+					dataObj[data[transCol.property]].numeratorSum += data[transCol.weightedAverage.property] && data[transCol.weightedAverage.against] ? data[transCol.weightedAverage.property] * data[transCol.weightedAverage.against] : 0;
+					dataObj[data[transCol.property]].denominatorSum += data[transCol.weightedAverage.against] ? data[transCol.weightedAverage.against] : 0;
+					return;
+				}
+		
+				dataObj[data[transCol.property]] = dataObj[data[transCol.property]];
+			}
+		});
+		
+		rawData = result.map(rec => {
+			cols.forEach(col => {
+				if (transCol.weightedAverage) {
+					rec[col.property] = rec[col.property] && rec[col.property].denominatorSum > 0 ? Number((rec[col.property].numeratorSum / rec[col.property].denominatorSum).toFixed(2)) : 0;
+				}
+		
+				rec[col.property] = rec[col.property] ? rec[col.property] : 0;
+			});
+		
+			return rec;
+		});
+
+		columns = [...rows, ...cols];
+	} else if (isWeightedAverageNeeded) {
 		rawData = _.chain(rawData)
 		.groupBy(groupByColumn)
 		.map((objs, key) => {
