@@ -18,7 +18,14 @@
                     <div class="col" *ngIf="isMapReportLoading">
                         <p class="mt-8">Loading...</p>
                     </div>
-                    <app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                    <div class="grid grid-cols-12">
+                        <div class="xs:col-span-full xmd:col-span-4">
+                            <app-level-n-metric-filter-panel [metricFilter]="metricFilter" (selectMetricFilter)="onSelectMetricFilter($event)"></app-level-n-metric-filter-panel>
+                        </div>
+                        <div class="xs:col-span-full xmd:col-span-8">
+                            <app-filter-panel></app-filter-panel>
+                        </div>
+                    </div>
                     <app-leaflet-map [mapData]="ncfProgressData"></app-leaflet-map>
                 </div>
             </div>

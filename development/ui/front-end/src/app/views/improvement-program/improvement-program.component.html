@@ -19,8 +19,6 @@
                     <div class="col" *ngIf="isMapReport1Loading">
                         <p class="mt-8">Loading...</p>
                     </div>
-                    <app-filter-panel></app-filter-panel>
-                    <br>
                     <app-leaflet-map [mapData]="microProgramDatayesno"></app-leaflet-map>
                 </div>
             </div>
@@ -32,8 +30,14 @@
                     <div class="col" *ngIf="isMapReport2Loading">
                         <p class="mt-8">Loading...</p>
                     </div>
-                    <app-filter-panel></app-filter-panel>
-                    <br>
+                    <div class="grid grid-cols-12">
+                        <div class="xs:col-span-full xmd:col-span-4">
+                            <app-level-n-metric-filter-panel [metricFilter]="metricFilter" (selectMetricFilter)="onSelectMetricFilter($event)"></app-level-n-metric-filter-panel>
+                        </div>
+                        <div class="xs:col-span-full xmd:col-span-8">
+                            <app-filter-panel></app-filter-panel>
+                        </div>
+                    </div>
                     <app-leaflet-map [mapData]="microProgramData"></app-leaflet-map>
                 </div>
             </div>
