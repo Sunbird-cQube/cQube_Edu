@@ -56,12 +56,12 @@ const dataSourceInfo = {
                 },
                 {
                     name: "Total Energized Textbooks",
-                    property: "State ETB",
+                    property: "Total Energized (Live ETB)",
                     class: "text-center"
                 },
                 {
                     name: "% Energized Textbooks",
-                    property: "ETB Coverage %",
+                    property: "ETB Coverage",
                     isHeatMapRequired: true,
 				    color: '#002966'
                 }

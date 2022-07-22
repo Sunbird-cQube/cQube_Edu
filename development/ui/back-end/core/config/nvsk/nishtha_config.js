@@ -190,8 +190,8 @@ const dataSourceInfo = {
                     }
                 },
                 {
-                    name: "Total Mediums",
-                    property: "Total Mediums",
+                    name: "Total Medium",
+                    property: "Total Medium",
                     class: "text-center",
                     aggegration: {
                         type: "SUM"
