@@ -346,6 +346,15 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 
 			dimensions.forEach(dimension => {
 				let value = record[dimension.property] ? record[dimension.property] : 0;
+console.log(value);
+				if (metricFilter && metricFilter.value === dimension.property) {
+					data['indicator'] = value;
+				} else if (data['indicator'] && dimension.name === 'indicator') {
+					data[dimension.property] = value;
+				} else {
+					data[dimension.name] = value;
+				}
+				
 				if (dimension.tooltip) {
 					data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
 					data.tooltip += dimension.tooltip.valueAsName ? `${value}: <b>${record[dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
