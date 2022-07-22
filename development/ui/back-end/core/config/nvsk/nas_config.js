@@ -100,8 +100,10 @@ const dataSourceInfo = {
                     name: "State",
                     property: "State",
                     transposeColumn: true,
+                    isHeatMapRequired: true,
+				    color: '#002966',
                     weightedAverage: {
-                        column: "Performace",
+                        property: "Performance",
                         against: "Students Surveyed"
                     }
                 }
@@ -118,15 +120,8 @@ const dataSourceInfo = {
                 {
                     name: 'State',
                     column: 'State',
-                    optionValueColumn: "State Code",
-                    isSSPFilter: false
-                },
-                {
-                    name: 'District',
-                    column: 'District',
-                    optionValueColumn: "District Code",
-                    isSSPFilter: true
-                },
+                    optionValueColumn: "State Code"
+                }
             ]
         },
         scatterPlot: {
