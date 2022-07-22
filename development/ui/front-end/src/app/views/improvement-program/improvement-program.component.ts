@@ -17,6 +17,7 @@ export class ImprovementProgramComponent implements OnInit {
   state2: any = 'IN';
   filters1: any;
   filters2: any;
+  metricFilter: any;
   NVSK: boolean = true;
   isMapReportLoading = true;
   isMapReport1Loading = true;
@@ -28,7 +29,7 @@ export class ImprovementProgramComponent implements OnInit {
   microProgramDatayesno:any;
 
   constructor(private readonly _configService: ConfigService, private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService) {
-    this.getMicroProgramData(this.filters1);
+    this.getMicroProgramData(this.filters1, this.metricFilter);
     this.getmicroMetricsData();
     this.getMicroProgramyesno(this.filters1);
   }
@@ -37,14 +38,15 @@ export class ImprovementProgramComponent implements OnInit {
    
   }
 
-  getMicroProgramData(filters: any): void {
+  getMicroProgramData(filters: any, metricFilter: any): void {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
       dataSourceName: 'micro_improvements',
       reportName: 'micro_improvements',
       reportType: 'map',
       stateCode: environment.stateCode,
-      filters:''
+      filters:'',
+      metricFilter
     };
 
     this._commonService.getReportData(data).subscribe(res => {
@@ -52,6 +54,7 @@ export class ImprovementProgramComponent implements OnInit {
       this.isMapReport2Loading = false;
       this.microProgramData = res.result;
       this.filters1 = res.result.filters;
+      this.metricFilter = res.result.metricFilter;
       if(res.result.code){
         this.state1 = res.result.code;
       }
@@ -97,4 +100,7 @@ export class ImprovementProgramComponent implements OnInit {
     });
   }
   
+  onSelectMetricFilter(metricFilter: any): void {
+    this.getMicroProgramData(this.filters1, metricFilter);
+  }
 }
