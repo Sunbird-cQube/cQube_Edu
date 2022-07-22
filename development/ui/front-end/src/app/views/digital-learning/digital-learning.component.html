@@ -1,0 +1,42 @@
+<div class="metric-card-wrapper">
+    <p class="h4">DIKSHA- ETB and eContent (ETB : Energized Textbook)</p>
+    <div class="grid gap-4 xs:grid-cols-2 xmd:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+        <!-- <div class="col-span-full">
+            <img src="../../../../../assets/images/etbimage.jpeg" class="xs:w-full md:w-8/12 mx-auto" alt="etb image ">
+        </div> -->
+        <!-- <button class="bg-blue-500">Access to ETB Program</button> -->
+        <ng-container *ngIf="ETBMetrics">
+            <div class="col-span-1 xs:py-2 md:py-4" *ngFor="let metric of ETBMetrics">
+                <!--<app-metric-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip">
+                </app-metric-card>-->
+                <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip"></sb-cqube-info-card>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="tab-group-wrapper">
+    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+        <mat-tab label="ETB Program" class="tab-first" *ngIf="NVSK">
+            <div class="col">
+                <app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                <app-leaflet-map [mapData]="ETBStateData"></app-leaflet-map>
+            </div>
+            <div class="col" *ngIf="isMapReportLoading">
+                <p class="mt-8">Loading...</p>
+            </div>
+        </mat-tab>
+        <mat-tab label="ETB Coverage" *ngIf="NVSK">
+            <app-digital-learning-coverage></app-digital-learning-coverage>
+        </mat-tab>
+        <mat-tab label="QR Coverage across States" class="tab-last" *ngIf="NVSK">
+            <app-qr-coverage-across-states></app-qr-coverage-across-states>
+        </mat-tab>
+        <mat-tab label="Total Learning Sessions/Time Spent" class="tab-last" *ngIf="NVSK">
+            <app-total-learning-sessions></app-total-learning-sessions>
+        </mat-tab>
+        <mat-tab label="Total Plays per Capita" *ngIf="NVSK">
+            <app-total-plays-per-capita></app-total-plays-per-capita>
+        </mat-tab>
+    </mat-tab-group>
+</div>

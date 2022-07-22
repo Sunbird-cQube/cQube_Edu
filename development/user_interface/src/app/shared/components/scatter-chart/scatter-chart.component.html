@@ -1,8 +1,0 @@
-<ng-container *ngIf="scatterChartData; else loading">
-    <canvas baseChart [datasets]="scatterChartData" [options]="scatterChartOption" [type]="scatterChartType">
-    </canvas>
-</ng-container>
-
-<ng-template #loading>
-    <p class="py-2">Loading...</p>
-</ng-template>
