@@ -1,7 +1,7 @@
 const dataSourceInfo = {
     pgi_performance: {
         map: {
-            pathToFile: 'pgi/pgiPerformance.json',
+            pathToFile: 'pgi/pgi_all-dashboard.json',
             locations: [
                 {
                     name: "Location",

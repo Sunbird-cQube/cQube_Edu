@@ -377,7 +377,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 }
 
 async function getLOTableReportData(reqBody, reportConfig, rawData) {
-	let { columns, filters, mainFilter, gaugeChart } = reportConfig;
+	let { columns, filters, mainFilter, gaugeChart, sortByProperty } = reportConfig;
 	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage || col.aggegration).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
 	let isTransposeNeeded = columns.filter(col => col.transposeColumn).length > 0;
@@ -539,6 +539,10 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 
 			return data;
 		});
+	}
+
+	if(sortByProperty){
+		rawData.sort((a,b) => b[sortByProperty] - a[sortByProperty]);
 	}
 
 	if (gaugeChart) {

@@ -1,7 +1,7 @@
 const dataSourceInfo = {
     statesEnergizedTextBooks: {
         map: {
-            pathToFile: 'etb/ETB_states_running_program.json',
+            pathToFile: 'etb/diksha_etb_program-started.json',
             locations: [
                 {
                     name: "Location",
@@ -34,7 +34,7 @@ const dataSourceInfo = {
             }
         },
         loTable: {
-            pathToFile: 'etb/ETB_energized_text_book_percentage.json',
+            pathToFile: 'etb/diksha_etb_etb-coverage.json',
             gaugeChart: {
                 title: 'Overall ETB Coverage',
                 aggegration: {
@@ -56,12 +56,12 @@ const dataSourceInfo = {
                 },
                 {
                     name: "Total Energized Textbooks",
-                    property: "State energised (ETB)",
+                    property: "State ETB",
                     class: "text-center"
                 },
                 {
                     name: "% Energized Textbooks",
-                    property: "ETB Coverage",
+                    property: "ETB Coverage %",
                     isHeatMapRequired: true,
 				    color: '#002966'
                 }
@@ -71,7 +71,7 @@ const dataSourceInfo = {
     },
     qrCodeCoverageAcrossStates: {
         map: {
-            pathToFile: 'etb/ETB_QR_coverage_across_states.json',
+            pathToFile: 'etb/diksha_etb_qr-coverage.json',
             locations: [
                 {
                     name: "Location",
@@ -107,7 +107,7 @@ const dataSourceInfo = {
             }
         },
         barChart: {
-            pathToFile: 'etb/ETB_QR_coverage_across_states.json',
+            pathToFile: 'etb/diksha_etb_qr-coverage.json',
             gaugeChart: {
                 title: 'Overall ETB Coverage',
                 aggegration: {
@@ -133,7 +133,7 @@ const dataSourceInfo = {
     },
     totalPlaysPerCapita: {
         map: {
-            pathToFile: 'etb/ETB_total_plays_per_capita.json',
+            pathToFile: 'etb/diksha_etb_plays-per-capita.json',
             locations: [
                 {
                     name: "Location",
@@ -168,7 +168,7 @@ const dataSourceInfo = {
     },
     totalLearningSessions: {
         barChart: {
-            pathToFile: 'etb/ETB Content Play.json',
+            pathToFile: 'etb/diksha_etb_learning-session.json',
             defaultLevel: 'State Name',
             columns: [
                 {

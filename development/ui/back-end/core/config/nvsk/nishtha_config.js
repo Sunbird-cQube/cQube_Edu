@@ -1,7 +1,7 @@
 const dataSourceInfo = {
     programStatus: {
         map: {
-            pathToFile: 'nishtha/nishtha_coverage_state_wise.json',
+            pathToFile: 'nishtha/diksha_nishtha_program-started.json',
             locations: [
                 {
                     name: "Location",
@@ -47,7 +47,7 @@ const dataSourceInfo = {
     },
     stateOrDistrictWiseEnrollments: {
         multiBarChart: {
-            pathToFile: 'nishtha/Enrollments And Completion.json',
+            pathToFile: 'nishtha/diksha_nishtha_percentage-enrollment-certification.json',
             defaultLevel: "State",
             columns: [
                 {
@@ -87,7 +87,7 @@ const dataSourceInfo = {
     },
     stateOrCourseWiseEnrollments: {
         multiBarChart: {
-            pathToFile: 'nishtha/State or Course Enrollment and Completion.json',
+            pathToFile: 'nishtha/diksha_nishtha_consumption-by-course.json',
             defaultLevel: "Course Name",
             columns: [
                 {
@@ -125,7 +125,7 @@ const dataSourceInfo = {
     },
     enrollmentAgainstTargets: {
         stackedBarChart: {
-            pathToFile: 'nishtha/Enrollment And Completion of Expected.json',
+            pathToFile: 'nishtha/diksha_nishtha_percentage-enrollment-certification.json',
             defaultLevel: "State",
             columns: [
                 {
@@ -148,7 +148,7 @@ const dataSourceInfo = {
     },
     certificationAgainstTargets: {
         stackedBarChart: {
-            pathToFile: 'nishtha/Enrollment And Completion of Expected.json',
+            pathToFile: 'nishtha/diksha_nishtha_percentage-enrollment-certification.json',
             defaultLevel: "State",
             columns: [
                 {
@@ -171,8 +171,9 @@ const dataSourceInfo = {
     },
     totalCoursesAndMedium:{
         loTable: {
-            pathToFile: 'nishtha/Total Courses and Medium.json',
+            pathToFile: 'nishtha/diksha_nishtha_tot-courses-medium.json',
             defaultLevel: 'State Name',
+            sortByProperty: 'Total Courses',
             columns: [
                 {
                     name: "State Name",
