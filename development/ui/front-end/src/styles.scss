@@ -11,3 +11,9 @@ body { margin: 0; font-family: Arial, Helvetica, sans-serif;}
 sb-cqube-info-card .sb-cQ-card {
     height: 6.25rem !important;
 }
+
+body {
+    &:before {
+        background: url('assets/images/Union.svg');
+}
+}
