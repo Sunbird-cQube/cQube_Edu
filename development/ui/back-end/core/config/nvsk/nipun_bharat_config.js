@@ -1,7 +1,7 @@
 const dataSourceInfo = {
     loCoveredByTextbook: {
         barChart: {
-            pathToFile: 'nipun_bharat/loCoveredByTextbook.json',
+            pathToFile: 'nipun_bharat/nipunbharat_lo-covered-by-textbook.json',
             defaultLevel: 'Textbook Name',
             columns: [
                 {
@@ -21,7 +21,7 @@ const dataSourceInfo = {
     },
     gradeWiseConsumption: {
         barChart: {
-            pathToFile: 'nipun_bharat/contentTypeWiseConsumption.json',
+            pathToFile: 'nipun_bharat/nipunbharat_content-consumption.json',
             defaultLevel: 'Grade',
             columns: [
                 {
@@ -53,7 +53,7 @@ const dataSourceInfo = {
     },
     contentTypeWiseConsumption: {
         barChart: {
-            pathToFile: 'nipun_bharat/contentTypeWiseConsumption.json',
+            pathToFile: 'nipun_bharat/nipunbharat_content-consumption.json',
             defaultLevel: 'Mime Type',
             columns: [
                 {

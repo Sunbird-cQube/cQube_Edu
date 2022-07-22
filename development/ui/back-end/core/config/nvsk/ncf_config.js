@@ -1,7 +1,7 @@
 const dataSourceInfo = {
     progressOfNCF: {
         map: {
-            pathToFile: 'ncf/progressOfNCF.json',
+            pathToFile: 'ncf/ncf_all-dashboard.json',
             overallMetricsOption: false,
             locations: [
                 {

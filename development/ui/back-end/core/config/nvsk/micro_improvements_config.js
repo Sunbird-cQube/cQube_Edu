@@ -1,7 +1,7 @@
 ﻿const dataSourceInfo = {
   micro_improvements: {
     map: {
-      pathToFile: "micro_improvements/micro_improvements.json",
+      pathToFile: "micro_improvements/micro-improvement_effectiveness.json",
       overallMetricsOption: false,
       locations: [
         {
@@ -70,7 +70,7 @@
   },
   micro_improvements_program: {
     map: {
-      pathToFile: "micro_improvements/micro_improvements.json",
+      pathToFile: "micro_improvements/micro-improvement_program-started.json",
       locations: [
         {
           name: "Location",

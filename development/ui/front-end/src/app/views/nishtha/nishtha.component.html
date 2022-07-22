@@ -13,24 +13,24 @@
 
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
-        <mat-tab label="Program Status" *ngIf="NVSK">
+        <mat-tab label="Implementation Status" *ngIf="NVSK">
             <div class="grid grid-cols-1">
                 <div class="col">
                     <app-nishtha-program-detail></app-nishtha-program-detail>
                 </div>
             </div>
         </mat-tab>
-        <mat-tab label="Total Courses and Medium">
+        <mat-tab label="Courses and Mediums status">
             <app-filter-panel></app-filter-panel>
             <app-total-courses-table></app-total-courses-table>
         </mat-tab>
-        <mat-tab label="Enrollments and Completion by State/Course Name" *ngIf="NVSK">
+        <mat-tab label="Course wise Status " *ngIf="NVSK">
             <app-nishitha-table lastLevel="course"></app-nishitha-table>
         </mat-tab>
-        <mat-tab label="Enrollments and Completion by State/District">
+        <mat-tab label="District wise Status">
             <app-nishitha-table lastLevel="district"></app-nishitha-table>
         </mat-tab>
-        <mat-tab label="% Enrolments and Certification against Targets" *ngIf="NVSK">
+        <mat-tab label="% agaisnt Potential Base" *ngIf="NVSK">
             <div class=" grid grid-cols-1">
                 <div class="col-span-full">
                     <app-nisitha-stacked-bar></app-nisitha-stacked-bar>

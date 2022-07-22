@@ -11,14 +11,14 @@
 
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
-        <mat-tab label="% of LOs covered by Textbook">
+        <mat-tab label="Textbook Status">
             <app-grade-wise-bar-and-pie></app-grade-wise-bar-and-pie>
         </mat-tab>
-        <mat-tab label="Grade wise consumption/resource">
+        <mat-tab label="Learning Sessions">
             <app-garde-wise-resource></app-garde-wise-resource>
         </mat-tab>
-        <mat-tab label="content wise consumption/resource">
+        <!-- <mat-tab label="content wise consumption/resource">
             <app-development-goal-bar></app-development-goal-bar>
-        </mat-tab>
+        </mat-tab> -->
     </mat-tab-group>
 </div>
