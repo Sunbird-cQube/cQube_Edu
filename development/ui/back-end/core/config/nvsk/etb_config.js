@@ -18,7 +18,7 @@ const dataSourceInfo = {
                     name: "indicator",
                     property: "Energised textbooks (State & NCERT adopted)",
                     tooltip: {
-                        name: "Energised textbooks (State & NCERT adopted)"
+                        name: "Textbooks Energized"
                     }
                 },
                 {
@@ -50,13 +50,13 @@ const dataSourceInfo = {
                     property: "State Name"
                 },
                 {
-                    name: "Total Circullum Textbooks",
+                    name: "Total Curriculum Textbooks",
                     property: "Total Physical textbooks excluding adopted (Curriculum+Supplementary)",
                     class: "text-center"
                 },
                 {
                     name: "Total Energized Textbooks",
-                    property: "Total Energized (Live ETB)",
+                    property: "Total Energised (Live ETB)",
                     class: "text-center"
                 },
                 {
@@ -150,7 +150,7 @@ const dataSourceInfo = {
                     name: "indicator",
                     property: "Plays per capita ( 1st April 2020)",
                     tooltip: {
-                        name: "Plays per Capita"
+                        name: "Learning Sessions per Capita"
                     },
                 },
                 {
@@ -161,7 +161,7 @@ const dataSourceInfo = {
             filters: [],
             options: {
                 legend: {
-                    title: 'Total Plays per Capita'
+                    title: 'Total Learning Sessions per Capita'
                 }
             }
         }
