@@ -114,7 +114,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           return e > 75 ? "rgb(33,113,181)" :
             e > 50 ? "rgb(107,174,214)" :
               e > 25 ? "rgb(189,215,231)" :
-                e > 0 ? "rgb(239,243,255)" : "#fff";
+                e >= 0 ? "rgb(239,243,255)" : "#fff";
         }
       }
     }
@@ -156,17 +156,18 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           // let partSize = (range / 10 % 1 === 0) ? range / 10 : Number((range / 10).toFixed(2));
           let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
           for (let i = 1; i <= 4; i++) {
-            if (i === 4) {
-              values.push(min);
-              continue;
-            }
+            // if (i === 4) {
+            //   values.push(min);
+            //   console.log(min)
+            //   continue;
+            // }
 
             if (i === 1) {
               values.push(max);
               continue;
             }
 
-            values.push(Number((max - partSize * i).toFixed(2)));
+            values.push(Number((max - partSize * (i-1)).toFixed(2)));
           }
         }
 
@@ -251,17 +252,17 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         // let partSize = (range / 10 % 1 === 0) ? range / 10 : Number((range / 10).toFixed(2));
         let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
         for (let i = 1; i <= 4; i++) {
-          if (i === 4) {
-            values.push(min);
-            continue;
-          }
+          // if (i === 4) {
+          //   values.push(min);
+          //   continue;
+          // }
 
           if (i === 1) {
             values.push(max);
             continue;
           }
 
-          values.push(Number((max - partSize * i).toFixed(2)));
+          values.push(Number((max - partSize * (i-1)).toFixed(2)));
         }
       }
 
@@ -349,7 +350,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       return value > 75 ? "rgb(33,113,181)" :
             value > 50 ? "rgb(107,174,214)" :
               value > 25 ? "rgb(189,215,231)" :
-                value > 0 ? "rgb(239,243,255)" : "#fff";
+                value >= 0 ? "rgb(239,243,255)" : "#fff";
     }
   }
 }
