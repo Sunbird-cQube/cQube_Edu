@@ -61,12 +61,12 @@ export class SchoolFacilitiesComparisionComponent implements OnInit {
     });
   }
 
-  scatterAxisFiltersUpdated(filters: any): void {
-    this.getScatterData(filters, this.levels, this.axisFilters);
+  scatterAxisFiltersUpdated(axisFilters: any): void {
+    this.getScatterData(this.filters, this.levels, axisFilters);
   }
   
-  scatterFiltersUpdated(axisFilters: any): void {
-    this.getScatterData(this.filters, this.levels, axisFilters);
+  scatterFiltersUpdated(filters: any): void {
+    this.getScatterData(filters, this.levels, this.axisFilters);
   }
 
   onScatterSelectLevel(event: any): void {

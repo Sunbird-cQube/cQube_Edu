@@ -49,47 +49,47 @@ export class TableHeatMapDirective implements AfterViewInit, OnDestroy {
   constructor(private elRef: ElementRef) {}
 
   ngAfterViewInit() {
-    // setTimeout(()=> {
-    //   if (this.tableHeatMapCells) {
-    //     this.cells = this.tableHeatMapCells.toArray();
-    //   }
+    setTimeout(()=> {
+      if (this.tableHeatMapCells) {
+        this.cells = this.tableHeatMapCells.toArray();
+      }
   
-    //   if (this.tableHeatMapColumns) {
-    //     this.columns = this.tableHeatMapColumns.toArray();
-    //   }
+      if (this.tableHeatMapColumns) {
+        this.columns = this.tableHeatMapColumns.toArray();
+      }
   
-    //   this.setOptions();
-    //   this.calculateHighestValues();
-    //   this.applyHeatMap();
+      this.setOptions();
+      this.calculateHighestValues();
+      this.applyHeatMap();
   
-    //   let ref: TableHeatMapDirective = this;
-    // }, 10000)
+      let ref: TableHeatMapDirective = this;
+    }, 1000);
     
 
-    let ref = this;
-    let MutationObserver = window.MutationObserver || (window as any).WebKitMutationObserver || (window as any).MozMutationObserver;
-    console.log('MutationObserver', MutationObserver);
+    // let ref = this;
+    // let MutationObserver = window.MutationObserver || (window as any).WebKitMutationObserver || (window as any).MozMutationObserver;
+    // console.log('MutationObserver', MutationObserver);
     
-    this.observer = new MutationObserver((mutations) => {
-      let timer: any;
-      mutations.forEach(function (mutation) {
-        console.log(mutation);
+    // this.observer = new MutationObserver((mutations) => {
+    //   let timer: any;
+    //   mutations.forEach(function (mutation) {
+    //     console.log(mutation);
         
-        if (timer) clearTimeout(timer);
-        timer = setTimeout(() => {
-          if (ref.tableHeatMapCells && ref.tableHeatMapColumns) {
-            ref.cells = ref.tableHeatMapCells.toArray();
-            ref.columns = ref.tableHeatMapColumns.toArray();
-            ref.setOptions();
-            ref.calculateHighestValues();
-            ref.applyHeatMap();
-          }
-        }, 500);
-      });
-    });
-    var config = { attributes: true, childList: true, characterData: true };
+    //     if (timer) clearTimeout(timer);
+    //     timer = setTimeout(() => {
+    //       if (ref.tableHeatMapCells && ref.tableHeatMapColumns) {
+    //         ref.cells = ref.tableHeatMapCells.toArray();
+    //         ref.columns = ref.tableHeatMapColumns.toArray();
+    //         ref.setOptions();
+    //         ref.calculateHighestValues();
+    //         ref.applyHeatMap();
+    //       }
+    //     }, 500);
+    //   });
+    // });
+    // var config = { attributes: true, childList: true, characterData: true };
 
-    this.observer.observe(this.elRef.nativeElement, config);
+    // this.observer.observe(this.elRef.nativeElement, config);
   }
 
   private setOptions() {
