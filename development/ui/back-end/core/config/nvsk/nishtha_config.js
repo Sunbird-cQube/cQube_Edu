@@ -47,7 +47,7 @@ const dataSourceInfo = {
     },
     stateOrDistrictWiseEnrollments: {
         multiBarChart: {
-            pathToFile: 'diksha_nishtha_percentage-enrollment-certification.json',
+            pathToFile: 'diksha_nishtha_consumption-by-district.json',
             defaultLevel: "State",
             columns: [
                 {
@@ -56,14 +56,14 @@ const dataSourceInfo = {
                 },
                 {
                     name: "Total Enrollments",
-                    property: "Total Enrolments",
+                    property: "Total Enrollments",
                     aggegration: {
                         type: "SUM"
                     }
                 },
                 {
                     name: "Total Certifications",
-                    property: "Total Certificates Issued",
+                    property: "Total Certifications",
                     aggegration: {
                         type: "SUM"
                     }
