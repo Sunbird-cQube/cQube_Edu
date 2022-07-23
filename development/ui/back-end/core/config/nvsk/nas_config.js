@@ -9,7 +9,7 @@ const dataSourceInfo = {
                     level: "state",
                     isState: true,
                     tooltip: {
-                        name: "State Name"
+                        name: "State/UT name"
                         //valueAsName: true,
                         //property: "Started"
                     }
@@ -55,7 +55,7 @@ const dataSourceInfo = {
                     column: 'Indicator Code'
                 },
                 {
-                    name: 'State',
+                    name: 'State/UT',
                     column: 'State',
                     optionValueColumn: "State Code"
                 }
@@ -118,7 +118,7 @@ const dataSourceInfo = {
                     column: 'Subject'
                 },
                 {
-                    name: 'State',
+                    name: 'State/UT',
                     column: 'State',
                     optionValueColumn: "State Code"
                 }
@@ -150,7 +150,7 @@ const dataSourceInfo = {
                     value: "state",
                     property: "State",
                     tooltip: {
-                        name: "State Name"
+                        name: "State/UT name"
                     }
                 },
                 {
@@ -164,7 +164,7 @@ const dataSourceInfo = {
             ],
             filters: [
                 {
-                    name: 'State',
+                    name: 'State/UT',
                     column: 'State',
                     optionValueColumn: "State Code"
                 }

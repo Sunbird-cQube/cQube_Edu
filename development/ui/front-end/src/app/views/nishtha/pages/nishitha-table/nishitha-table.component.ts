@@ -25,10 +25,10 @@ export class NishithaTableComponent implements OnInit {
   ngOnInit(): void {
     this.getData(this.filters);
     if(this.lastLevel === 'district'){
-      this.title = 'Total Enrollments and Total Certifications'
+      this.title = 'Total Enrolments and Total Certifications'
     }
     else{
-      this.title = 'Total Enrollments and Total Completion'
+      this.title = 'Total Enrolments and Total Completion'
     }
   }
 
@@ -56,7 +56,7 @@ export class NishithaTableComponent implements OnInit {
           data: result.map((record: any) => record['Total Certifications'])
         }, {
           type: 'bar',
-          name: 'Total Enrollments',
+          name: 'Total Enrolments',
           color: "rgb(33,113,181)",
           data: result.map((record: any) => record['Total Enrollments'])
         }];
@@ -64,7 +64,7 @@ export class NishithaTableComponent implements OnInit {
         //result = result.slice(0, 100);
         series = [{
           type: 'bar',
-          name: 'Enrollments',
+          name: 'Enrolments',
           data: result.map((record: any) => record['Enrollments'])
         }, {
           type: 'bar',

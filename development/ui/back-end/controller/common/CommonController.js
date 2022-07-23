@@ -500,7 +500,7 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 						denominatorSum += obj[col.weightedAverage.against];
 					});
 
-					data[col.name] = Number((numeratorSum / denominatorSum).toFixed(2));
+					data[col.property] = Number((numeratorSum / denominatorSum).toFixed(2));
 					return;
 				}
 
@@ -512,12 +512,12 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 							sum += obj[col.property] ? obj[col.property] : 0;
 						});
 						
-						data[col.name] = Number(sum.toFixed(2));
+						data[col.property] = Number(sum.toFixed(2));
 						return;
 					}
 				}
 
-				data[col.name] = objs[0][col.property];
+				data[col.property] = objs[0][col.property];
 			});
 
 			return data;

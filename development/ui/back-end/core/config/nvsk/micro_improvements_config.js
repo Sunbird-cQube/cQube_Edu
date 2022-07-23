@@ -10,7 +10,7 @@
           level: "state",
           isState: true,
           tooltip: {
-            name: "State Name",
+            name: "State/UT name",
           },
         },
       ],
@@ -78,7 +78,7 @@
           level: "state",
           isState: true,
           tooltip: {
-            name: "State Name",
+            name: "State/UT name",
           },
         },
       ],
