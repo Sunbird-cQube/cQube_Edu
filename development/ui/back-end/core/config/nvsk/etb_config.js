@@ -109,7 +109,7 @@ const dataSourceInfo = {
         barChart: {
             pathToFile: 'diksha_etb_qr-coverage.json',
             gaugeChart: {
-                title: 'Overall ETB Coverage',
+                title: 'Overall QR Coverage',
                 aggegration: {
                     type: 'AVG',
                     column: 'QR covered',
