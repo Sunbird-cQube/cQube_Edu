@@ -1,7 +1,7 @@
 const dataSourceInfo = {
     studentPerformance: {
         map: {
-            pathToFile: 'nas/nas_all-dashboard.json',
+            pathToFile: 'nas_all-dashboard.json',
             locations: [
                 {
                     name: "Location",
@@ -82,7 +82,7 @@ const dataSourceInfo = {
             }
         },
         loTable: {
-            pathToFile: 'nas/nas_all-dashboard.json',
+            pathToFile: 'nas_all-dashboard.json',
             columns: [
                 {
                     name: "Indicator Code",
@@ -125,7 +125,7 @@ const dataSourceInfo = {
             ]
         },
         scatterPlot: {
-            pathToFile: 'nas/nas_all-dashboard.json',
+            pathToFile: 'nas_all-dashboard.json',
             series: {
                 x: {
                     name: "X-Axis",

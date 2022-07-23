@@ -1,7 +1,7 @@
 const dataSourceInfo = {
     udise_performance: {
         map: {
-            pathToFile: 'udise/udise-all-dashboard.json',
+            pathToFile: 'udise-all-dashboard.json',
             overallMetricsOption: false,
             locations: [
                 {
@@ -131,7 +131,7 @@ const dataSourceInfo = {
             }
         },
         scatterPlot: {
-            pathToFile: 'udise/udise-all-dashboard.json',
+            pathToFile: 'udise-all-dashboard.json',
             series: {
                 x: {
                     name: "X-Axis",

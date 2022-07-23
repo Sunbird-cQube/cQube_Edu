@@ -1,5 +1,6 @@
 const { getFileData } = require("../../service/storage_service");
 const _ = require('lodash');
+const { configFiles } = require("../../core/config/config");
 
 exports.getDashboardMetrics = async (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
@@ -9,8 +10,7 @@ exports.getDashboardMetrics = async (req, res, next) => {
 			if (!appName) {
 				throw "Some of the parameters are missing, make sure all the required parameters are present";
 			}
-
-			let metrics = await getFileData('dashboard/key_vanity_metrics.json');
+			let metrics = await getFileData(configFiles.dashboardMenu);
             metrics = metrics.filter(metric => metric['Metric Type'] === 'Key Metric');
 
             metricsRes = _.chain(metrics)
@@ -60,7 +60,7 @@ exports.getVanityMetrics = async (req, res, next) => {
 				throw "Some of the parameters are missing, make sure all the required parameters are present";
 			}
 
-			let metrics = await getFileData('dashboard/key_vanity_metrics.json');
+			let metrics = await getFileData(configFiles.dashboardMenu);
             vanityMetrics = metrics.filter(metric => metric['Program ID'] === programId && metric['Metric Type'] === 'Vanity Metric' && metric['Metric Name']);
 
 			vanityMetrics = vanityMetrics.map(vanityMetric => {
