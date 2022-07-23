@@ -61,7 +61,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
         chart: {
           events: {
             load: function(this: any) {
-              let categoryHeight = 15;
+              let categoryHeight = 16;
               this.update({
                 chart: {
                   height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
