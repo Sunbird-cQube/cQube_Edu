@@ -45,7 +45,6 @@ export class NishithaTableComponent implements OnInit {
     this._commonService.getReportData(data).subscribe(res => {
       let result = res.result.data;
       this.filters = res.result.filters;
-      this.chartHeight = result.length * 50;
 
       let series: any = [];
       if (this.lastLevel === 'district') {

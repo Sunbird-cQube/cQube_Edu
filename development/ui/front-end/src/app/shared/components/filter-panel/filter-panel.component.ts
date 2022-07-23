@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 export class FilterPanelComponent implements OnInit, OnChanges {
 
   @Input() filters: any = [];
+  @Input() colSize: any = "col-span-3";
   @Input() resetOthers = true;
 
   @Output() filtersUpdated = new EventEmitter<any>();
