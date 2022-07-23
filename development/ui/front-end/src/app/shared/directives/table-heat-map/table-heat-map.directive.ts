@@ -67,9 +67,14 @@ export class TableHeatMapDirective implements AfterViewInit, OnDestroy {
     
 
     let ref = this;
+    let MutationObserver = window.MutationObserver || (window as any).WebKitMutationObserver || (window as any).MozMutationObserver;
+    console.log('MutationObserver', MutationObserver);
+    
     this.observer = new MutationObserver((mutations) => {
       let timer: any;
       mutations.forEach(function (mutation) {
+        console.log(mutation);
+        
         if (timer) clearTimeout(timer);
         timer = setTimeout(() => {
           if (ref.tableHeatMapCells && ref.tableHeatMapColumns) {

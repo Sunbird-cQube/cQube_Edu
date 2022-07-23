@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiURL: 'https://cqube-national.tibilprojects.com/api',
+  apiURL: 'http://localhost:3000/api',
   config: "NVSK",
   stateCode: ""
 };

@@ -24,8 +24,9 @@ export class NishthaProgramDetailComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
   }
+
   ngOnChanges(): void {
-    this.map.remove()
+    this.map.remove();
   }
 
   getNishithaData(filters: any): void {

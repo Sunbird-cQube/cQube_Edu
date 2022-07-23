@@ -8,13 +8,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./nishtha.component.scss']
 })
 export class NishthaComponent implements OnInit {
-
   config: string = environment.config
   NVSK: boolean = true;
   nisithaMetrics: any;
-  nishithaVersion: any=[];
-  val: any =[];
-  version: String = '';
   
   constructor(private readonly _configService: ConfigService) {
     this._configService.getVanityMetrics('nishtha').subscribe(vanityMetricsRes => {
@@ -26,16 +22,6 @@ export class NishthaComponent implements OnInit {
     if(this.config == 'VSK'){
       this.NVSK = false;
     }
-    
-    this.nishithaVersion = [
-      { key: "Nishitha 1.0", value: "Nishitha 1.0" },
-      { key: "Nishitha 2.0", value: "Nishitha 2.0" },
-      { key: "Nishitha 3.0", value: "Nishitha 3.0" },
-    ];
-  }
-
-  onVersionSelect(){
-    console.log('version', this.version)
   }
 
   onTabChanged($event: any): void {
