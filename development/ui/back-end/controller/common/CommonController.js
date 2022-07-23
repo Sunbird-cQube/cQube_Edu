@@ -1079,7 +1079,7 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 		reportRawData = await csvToJson({
 			trim: true
 		}).fromString(fileContent.toString('utf-8'));
-		reportRawData = reportRawData.map(row => _.mapValues(row, (value, key) => !isNaN(Number(value)) ? Number(value) : value));
+		reportRawData = reportRawData.map(row => _.mapValues(row, (value, key) => !isNaN(Number(value.replace(/\,/g, ''))) ? Number(value.replace(/\,/g, '')) : value));
 	}
 
 	uploadFile(fileName, reportRawData);

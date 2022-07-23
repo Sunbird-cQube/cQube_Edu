@@ -1,7 +1,7 @@
 const dataSourceInfo = {
     quizzesStarted: {
         map: {
-            pathToFile: 'quizzes/diksha_quiz_state-participation.json',
+            pathToFile: 'diksha_quiz_state-participation.json',
             groupByDefault: "State",
             locations: [
                 {
@@ -75,7 +75,7 @@ const dataSourceInfo = {
         //     ]
         // }
         loTable: {
-            pathToFile: 'quizzes/diksha_quiz-started-plan.json',
+            pathToFile: 'diksha_quiz-started-plan.json',
             defaultLevel: 'Collection Name',
             columns: [
                 {

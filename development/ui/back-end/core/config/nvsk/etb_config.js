@@ -1,7 +1,7 @@
 const dataSourceInfo = {
     statesEnergizedTextBooks: {
         map: {
-            pathToFile: 'etb/diksha_etb_program-started.json',
+            pathToFile: 'diksha_etb_program-started.json',
             locations: [
                 {
                     name: "Location",
@@ -34,7 +34,7 @@ const dataSourceInfo = {
             }
         },
         loTable: {
-            pathToFile: 'etb/diksha_etb_etb-coverage.json',
+            pathToFile: 'diksha_etb_etb-coverage.json',
             gaugeChart: {
                 title: 'Overall ETB Coverage',
                 aggegration: {
@@ -71,7 +71,7 @@ const dataSourceInfo = {
     },
     qrCodeCoverageAcrossStates: {
         map: {
-            pathToFile: 'etb/diksha_etb_qr-coverage.json',
+            pathToFile: 'diksha_etb_qr-coverage.json',
             locations: [
                 {
                     name: "Location",
@@ -107,7 +107,7 @@ const dataSourceInfo = {
             }
         },
         barChart: {
-            pathToFile: 'etb/diksha_etb_qr-coverage.json',
+            pathToFile: 'diksha_etb_qr-coverage.json',
             gaugeChart: {
                 title: 'Overall ETB Coverage',
                 aggegration: {
@@ -133,7 +133,7 @@ const dataSourceInfo = {
     },
     totalPlaysPerCapita: {
         map: {
-            pathToFile: 'etb/diksha_etb_plays-per-capita.json',
+            pathToFile: 'diksha_etb_plays-per-capita.json',
             locations: [
                 {
                     name: "Location",
@@ -168,7 +168,7 @@ const dataSourceInfo = {
     },
     totalLearningSessions: {
         barChart: {
-            pathToFile: 'etb/diksha_etb_learning-session.json',
+            pathToFile: 'diksha_etb_learning-session.json',
             defaultLevel: 'State Name',
             columns: [
                 {

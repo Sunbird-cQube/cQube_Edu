@@ -1,7 +1,7 @@
 const dataSourceInfo = {
     programStatus: {
         map: {
-            pathToFile: 'nishtha/diksha_nishtha_program-started.json',
+            pathToFile: 'diksha_nishtha_program-started.json',
             locations: [
                 {
                     name: "Location",
@@ -47,7 +47,7 @@ const dataSourceInfo = {
     },
     stateOrDistrictWiseEnrollments: {
         multiBarChart: {
-            pathToFile: 'nishtha/diksha_nishtha_percentage-enrollment-certification.json',
+            pathToFile: 'diksha_nishtha_percentage-enrollment-certification.json',
             defaultLevel: "State",
             columns: [
                 {
@@ -87,7 +87,7 @@ const dataSourceInfo = {
     },
     stateOrCourseWiseEnrollments: {
         multiBarChart: {
-            pathToFile: 'nishtha/diksha_nishtha_consumption-by-course.json',
+            pathToFile: 'diksha_nishtha_consumption-by-course.json',
             defaultLevel: "Course Name",
             columns: [
                 {
@@ -125,7 +125,7 @@ const dataSourceInfo = {
     },
     enrollmentAgainstTargets: {
         stackedBarChart: {
-            pathToFile: 'nishtha/diksha_nishtha_percentage-enrollment-certification.json',
+            pathToFile: 'diksha_nishtha_percentage-enrollment-certification.json',
             defaultLevel: "State",
             columns: [
                 {
@@ -148,7 +148,7 @@ const dataSourceInfo = {
     },
     certificationAgainstTargets: {
         stackedBarChart: {
-            pathToFile: 'nishtha/diksha_nishtha_percentage-enrollment-certification.json',
+            pathToFile: 'diksha_nishtha_percentage-enrollment-certification.json',
             defaultLevel: "State",
             columns: [
                 {
@@ -171,7 +171,7 @@ const dataSourceInfo = {
     },
     totalCoursesAndMedium:{
         loTable: {
-            pathToFile: 'nishtha/diksha_nishtha_tot-courses-medium.json',
+            pathToFile: 'diksha_nishtha_tot-courses-medium.json',
             defaultLevel: 'State Name',
             sortByProperty: 'Total Courses',
             columns: [

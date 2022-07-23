@@ -1,7 +1,7 @@
 const dataSourceInfo = {
     PM_poshan_access: {
         map: {
-            pathToFile: 'pm_poshan/pm-poshan_access-across-india.json',
+            pathToFile: 'pm-poshan_access-across-india.json',
             overallMetricsOption: false,
             locations: [
                 {
@@ -89,7 +89,7 @@ const dataSourceInfo = {
     },
     state_onboarded: {
         map: {
-            pathToFile: 'pm_poshan/pm-poshan_state-onboarded.json',
+            pathToFile: 'pm-poshan_state-onboarded.json',
             locations: [
                 {
                     name: "Location",

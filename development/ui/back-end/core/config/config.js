@@ -13,10 +13,7 @@ const appNames = {
 }
 
 const configFiles = {
-    menu: 'config/Menu.json',
-    dashboardMenu: 'config/DashboardMenu.json',
-    nishthaMenu: 'config/NishthaMenu.json',
-    nasMenu: 'config/NasMenu.json'
+    dashboardMenu: '/main_metrics.json'
 };
 
 module.exports = {
