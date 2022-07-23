@@ -14,13 +14,13 @@
 
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
-        <mat-tab label="States Onboarded" *ngIf="NVSK">
+        <mat-tab label="Implementation Status " *ngIf="NVSK">
             <div class="col" *ngIf="isMapReport1Loading">
                 <p class="mt-8">Loading...</p>
             </div>
             <app-leaflet-map [mapData]="pmPoshanStateOnboardedData"></app-leaflet-map>
         </mat-tab>
-        <mat-tab label="PM Poshan access across India">
+        <mat-tab label="Progress Status ">
             <div class="grid grid-cols-1">
                 <div class="col">
                     <div class="col" *ngIf="isMapReport2Loading">

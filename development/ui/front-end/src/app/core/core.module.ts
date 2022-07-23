@@ -8,6 +8,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FooterComponent } from './components/footer/footer.component';
 
 const IMPORTS: any[] = [
   FontAwesomeModule
@@ -21,7 +22,8 @@ const DECLARATIONS = [
 
 @NgModule({
   declarations: [
-    DECLARATIONS
+    DECLARATIONS,
+    FooterComponent
   ],
   imports: [
     CommonModule,

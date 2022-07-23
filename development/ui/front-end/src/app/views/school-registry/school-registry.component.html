@@ -13,7 +13,7 @@
 
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
-        <mat-tab label="UDISE Performance">
+        <mat-tab label="State Wise Performance ">
             <div class="grid grid-cols-1">
                 <div class="col">
                     <div class="col" *ngIf="isMapReportLoading">
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </mat-tab>
-        <mat-tab label="Scatter Plot">
+        <mat-tab label="Correlation">
             <app-school-facilities-comparision></app-school-facilities-comparision>
         </mat-tab>
     </mat-tab-group>
