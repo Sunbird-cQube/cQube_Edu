@@ -180,7 +180,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           mapData?.data.forEach((state: any) => {
 
             if (state.state_code == feature.properties.state_code) {
-              console.log(max)
               color = parent.getLayerColor(max-min ? (state.indicator-min) / (max-min) * 100 : state.indicator);
             }
           });
@@ -251,11 +250,11 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         let range = max - min;
         // let partSize = (range / 10 % 1 === 0) ? range / 10 : Number((range / 10).toFixed(2));
         let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
-        for (let i = 1; i <= 4; i++) {
-          // if (i === 4) {
-          //   values.push(min);
-          //   continue;
-          // }
+        for (let i = 1; i <= 5; i++) {
+          if (i === 5) {
+            values.push(min);
+            continue;
+          }
 
           if (i === 1) {
             values.push(max);
@@ -269,7 +268,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       mapData.data.forEach((data: any) => {
         let markerIcon = L.circleMarker([data.Latitude, data.Longitude], {
           color: "gray",
-          fillColor: this.getZoneColor(reportTypeIndicator, max ? data.indicator / max * 100 : data.indicator),
+          fillColor: this.getZoneColor(reportTypeIndicator, max-min ? (data.indicator-min) / (max-min) * 100 : data.indicator),
           fillOpacity: 1,
           strokeWeight: 0.01,
           weight: 1
@@ -322,7 +321,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           labels.push(`<i class="fa fa-square" style="color:${ref.getLayerColor(values[i])}"></i> ${values[i]}`);
         }
       } else {
-        console.log(values)
         values = values && values.length > 0 ? values : [100, 75, 50, 25, 0];
         for (let i = values.length; i > 1; i--) {
           labels.push(
