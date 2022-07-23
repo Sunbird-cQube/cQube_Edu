@@ -13,7 +13,7 @@
 
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
-        <mat-tab label="Micro Improvement Program" class="tab-first">
+        <mat-tab label="Implementation Status " class="tab-first">
             <div class="grid grid-cols-1" *ngIf="microProgramData">
                 <div class="col">
                     <div class="col" *ngIf="isMapReport1Loading">
@@ -24,7 +24,7 @@
             </div>
         </mat-tab>
 
-        <mat-tab label="Micro Improvement Effectiveness">
+        <mat-tab label="Improvements Status ">
             <div class="grid grid-cols-1">
                 <div class="col">
                     <div class="col" *ngIf="isMapReport2Loading">
