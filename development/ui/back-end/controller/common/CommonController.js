@@ -51,13 +51,13 @@ exports.getReportData = (req, res, next) => {
 		} catch (error) {
 			if (error.name === 'NotFound') {
 				// Handle no object on cloud here...
-				res.send({
+				res.status(500).send({
 					status: 500,
 					message: "Report file not found in the specified location",
 					errorObject: error
 				});
 			} else {
-				res.send({
+				res.status(500).send({
 					status: error.status || 500,
 					message: error.message || "Internal server error",
 					errorObject: error
@@ -78,7 +78,7 @@ exports.uploadSourceData = async (req, res, next) => {
 
 			res.send('Success');
 		} catch (error) {
-            return reject({
+            return res.status(500).send({
                 status: error.status || 500,
                 message: error.message || "Internal server error",
                 errorObject: error
@@ -1067,7 +1067,7 @@ function convertRawDataToJSON(sourceFilePath, destinationFilePath) {
 
 async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 	let fileExt = path.extname(filePath).substring(1);
-	let fileName = path.join(path.dirname(filePath),path.basename(filePath, path.extname(filePath))).replace(/\\/g, "/").replace('input_files', 'converted');
+	let fileName = path.join(path.dirname(filePath), path.basename(filePath, path.extname(filePath)));
 
 	if (fileExt === 'xlsx') {
 		const workbook = XLSX.read(fileContent);
@@ -1079,10 +1079,10 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 		reportRawData = await csvToJson({
 			trim: true
 		}).fromString(fileContent.toString('utf-8'));
-		reportRawData = reportRawData.map(row => _.mapValues(row, (value, key) => !isNaN(Number(value.replace(/\,/g, ''))) ? Number(value.replace(/\,/g, '')) : value));
+		reportRawData = reportRawData.map(row => _.mapValues(row, (value, key) => typeof value === 'string' && !isNaN(Number(value.replace(/\,/g, ''))) ? Number(value.replace(/\,/g, '')) : value));
 	}
 
-	uploadFile(fileName, reportRawData);
+	uploadFile(filePath, fileName, reportRawData);
 }
 
 function applyFilters(filters, rawData, groupByColumn, code = undefined) {

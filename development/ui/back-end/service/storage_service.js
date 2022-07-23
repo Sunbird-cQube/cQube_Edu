@@ -77,7 +77,7 @@ const getFileRawData = async (fileName) => {
     });
 }
 
-const uploadFile = async (fileName, data) => {
+const uploadFile = async (filePath, fileName, data) => {
     return new Promise(async function (resolve, reject) {
         if (storageServiceType === storageServices.AZURE_DATA_LAKE) {
             try {
@@ -85,6 +85,7 @@ const uploadFile = async (fileName, data) => {
                 const blockBlobClient = containerClient.getBlockBlobClient(`${fileName}.json`);
                 let stringObj = JSON.stringify(data);
                 const uploadBlobResponse = blockBlobClient.upload(stringObj, stringObj.length);
+                deleteFile(filePath);
                 resolve('Success');
                 console.log('Uploaded');
             } catch(e) {
@@ -93,6 +94,30 @@ const uploadFile = async (fileName, data) => {
         } else if (storageServiceType === storageServices.AWS_S3) {
             try {
 			    AwsConfig.s3.putObject({ Bucket: AwsConfig.params.OutputBucket, Key: `${fileName}.json`, Body: JSON.stringify(data) }, function(s3Err, data) {
+                    deleteFile(filePath);
+                    resolve('Success');
+                });
+            } catch(e) {
+                reject(e);
+            }
+        }
+    });
+}
+
+const deleteFile = async (filePath) => {
+    return new Promise(async function (resolve, reject) {
+        if (storageServiceType === storageServices.AZURE_DATA_LAKE) {
+            try {
+                let containerClient = blobServiceClient.getContainerClient(inputContainerName);
+                const blockBlobClient = containerClient.getBlockBlobClient(filePath);
+                blockBlobClient.delete({ deleteSnapshots: "include" });
+                resolve('Success');
+            } catch(e) {
+                reject(e);
+            }
+        } else if (storageServiceType === storageServices.AWS_S3) {
+            try {
+			    AwsConfig.s3.deleteObject({ Bucket: AwsConfig.params.OutputBucket, Key: filePath }, function(s3Err, data) {
                     resolve('Success');
                 });
             } catch(e) {

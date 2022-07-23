@@ -11,7 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "@azure/storage-blob": "^12.11.0",
-    "@azure/storage-file-datalake": "^12.10.0",
     "aws-sdk": "^2.1171.0",
     "body-parser": "^1.20.0",
     "compression": "^1.7.4",

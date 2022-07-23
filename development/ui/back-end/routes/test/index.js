@@ -27,7 +27,7 @@ router.post("/azure", (req, res, next) => {
 router.post("/azure2", (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
         try {
-			let rawData = await getFileRawData('dashboard/Bhasha Sangam Enrolment.csv');
+			let rawData = await getFileRawData('main_metrics.csv');
 			
 			res.status(200).send({
 				status: 200,
@@ -67,7 +67,7 @@ router.post("/azure3", (req, res, next) => {
 router.post("/azure4", (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
         try {
-			let rawData = await getFileData('nishtha/nishtha_coverage_state_wise.json');
+			let rawData = await getFileData('main_metrics.json');
 
 			res.status(200).send({
 				status: 200,
