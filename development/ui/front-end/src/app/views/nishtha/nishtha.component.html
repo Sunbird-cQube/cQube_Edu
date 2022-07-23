@@ -24,18 +24,18 @@
             <app-filter-panel></app-filter-panel>
             <app-total-courses-table></app-total-courses-table>
         </mat-tab>
-        <mat-tab label="Course wise Status " *ngIf="NVSK">
-            <app-nishitha-table lastLevel="course"></app-nishitha-table>
-        </mat-tab>
-        <mat-tab label="District wise Status">
-            <app-nishitha-table lastLevel="district"></app-nishitha-table>
-        </mat-tab>
         <mat-tab label="% agaisnt Potential Base" *ngIf="NVSK">
             <div class=" grid grid-cols-1">
                 <div class="col-span-full">
                     <app-nisitha-stacked-bar></app-nisitha-stacked-bar>
                 </div>
             </div>
+        </mat-tab>
+        <mat-tab label="District wise Status">
+            <app-nishitha-table lastLevel="district"></app-nishitha-table>
+        </mat-tab>
+        <mat-tab label="Course wise Status " *ngIf="NVSK">
+            <app-nishitha-table lastLevel="course"></app-nishitha-table>
         </mat-tab>
     </mat-tab-group>
 </div>
