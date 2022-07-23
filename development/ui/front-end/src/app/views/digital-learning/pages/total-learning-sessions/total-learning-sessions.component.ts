@@ -67,11 +67,12 @@ export class TotalLearningSessionsComponent implements OnInit {
         },
         series: [{
           type: 'bar',
-          name: 'Total No of Plays (App and Portal)',
+          name: 'Total No of Learning Sessions (App and Portal)',
           data: result.map((record: any) => record['Total No of Plays (App and Portal)'])
         }]
       };
       this.isReportLoading = false;
+
     }, err => {
       this.isReportLoading = false;
     });
