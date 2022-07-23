@@ -56,7 +56,7 @@ const dataSourceInfo = {
                 },
                 {
                     name: "Total Enrollments",
-                    property: "Total Enrollments",
+                    property: "Total Enrolments",
                     aggegration: {
                         type: "SUM"
                     }

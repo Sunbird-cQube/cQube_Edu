@@ -42,7 +42,7 @@ exports.getDashboardMetrics = async (req, res, next) => {
 				result: metricsRes
 			});
 		} catch (error) {
-			res.send({
+			res.status(500).send({
 				status: error.status || 500,
 				message: error.message || "Internal server error",
 				errorObject: error
@@ -76,7 +76,7 @@ exports.getVanityMetrics = async (req, res, next) => {
 				result: vanityMetrics
 			});
 		} catch (error) {
-			res.send({
+			res.status(500).send({
 				status: error.status || 500,
 				message: error.message || "Internal server error",
 				errorObject: error
