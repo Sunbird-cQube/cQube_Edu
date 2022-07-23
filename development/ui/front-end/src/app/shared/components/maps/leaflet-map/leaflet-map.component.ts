@@ -155,12 +155,11 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           let range = max - min;
           // let partSize = (range / 10 % 1 === 0) ? range / 10 : Number((range / 10).toFixed(2));
           let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
-          for (let i = 1; i <= 4; i++) {
-            // if (i === 4) {
-            //   values.push(min);
-            //   console.log(min)
-            //   continue;
-            // }
+          for (let i = 1; i <= 5; i++) {
+            if (i === 5) {
+              values.push(min);
+              continue;
+            }
 
             if (i === 1) {
               values.push(max);
@@ -181,7 +180,8 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           mapData?.data.forEach((state: any) => {
 
             if (state.state_code == feature.properties.state_code) {
-              color = parent.getLayerColor(max ? state.indicator / max * 100 : state.indicator);
+              console.log(max)
+              color = parent.getLayerColor(max-min ? (state.indicator-min) / (max-min) * 100 : state.indicator);
             }
           });
 
@@ -300,7 +300,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
       this.map.addLayer(this.markers);
       if(this.level === 'district'){
-        console.log('district level')
         this.createLegend(reportTypeIndicator, this.mapData.options, values);
       }
     }
@@ -323,10 +322,11 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           labels.push(`<i class="fa fa-square" style="color:${ref.getLayerColor(values[i])}"></i> ${values[i]}`);
         }
       } else {
-        values = values && values.length > 0 ? values : [100, 75, 50, 25];
-        for (let i = values.length; i > 0; i--) {
+        console.log(values)
+        values = values && values.length > 0 ? values : [100, 75, 50, 25, 0];
+        for (let i = values.length; i > 1; i--) {
           labels.push(
-            `<i class="fa  fa-square" style="color: ${ref.getLayerColor(25 * i, true)}"></i> 
+            `<i class="fa  fa-square" style="color: ${ref.getLayerColor(25 * (i-1), true)}"></i> 
               <span>${values[values.length - i + 1] ? values[values.length - i + 1] : 0} &dash; ${values[values.length - i]}${reportTypeIndicator === 'percent' ? '%' : ''}</span>`
           );
         }
