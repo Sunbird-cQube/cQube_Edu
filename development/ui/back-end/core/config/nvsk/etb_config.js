@@ -29,7 +29,7 @@ const dataSourceInfo = {
             filters: [],
             options: {
                 legend: {
-                    title: 'Energised textbooks (State & NCERT adopted)'
+                    title: 'Textbooks Energized'
                 }
             }
         },
