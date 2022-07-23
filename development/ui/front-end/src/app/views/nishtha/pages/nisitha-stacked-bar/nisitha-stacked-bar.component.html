@@ -1,4 +1,4 @@
-<app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+<app-filter-panel [filters]="filters" colSize="col-span-3" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
 <div class="grid gap-4 grid-cols-12">
     <div class="xs:col-span-full xmd:col-span-6">
        <app-stacked-bar title="" [options]="enrollmentTargetChartOptions"></app-stacked-bar>
