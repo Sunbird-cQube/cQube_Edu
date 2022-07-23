@@ -51,14 +51,15 @@ export class NishithaTableComponent implements OnInit {
         //result = result.slice(0, 10);
         series = [{
           type: 'bar',
-          name: 'Total Certifications',
-          color: "rgb(239,243,255)",
-          data: result.map((record: any) => record['Total Certifications'])
-        }, {
-          type: 'bar',
           name: 'Total Enrolments',
           color: "rgb(33,113,181)",
           data: result.map((record: any) => record['Total Enrollments'])
+          
+        }, {
+          type: 'bar',
+          name: 'Total Certifications',
+          color: "rgb(239,243,255)",
+          data: result.map((record: any) => record['Total Certifications'])
         }];
       } else {
         //result = result.slice(0, 100);
