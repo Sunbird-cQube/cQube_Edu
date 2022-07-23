@@ -9,7 +9,7 @@ const dataSourceInfo = {
                     level: "state",
                     isState: true,
                     tooltip: {
-                        name: "State Name"
+                        name: "State/UT name"
                     }
                 }
             ],
@@ -46,7 +46,7 @@ const dataSourceInfo = {
             },
             columns: [
                 {
-                    name: "State Name",
+                    name: "State/UT name",
                     property: "State Name"
                 },
                 {
@@ -79,7 +79,7 @@ const dataSourceInfo = {
                     level: "state",
                     isState: true,
                     tooltip: {
-                        name: "State Name"
+                        name: "State/UT name"
                     }
                 }
             ],
@@ -119,7 +119,7 @@ const dataSourceInfo = {
             },
             columns: [
                 {
-                    name: "State Name",
+                    name: "State/UT name",
                     property: "State Name",
                     isLocationName: true
                 },
@@ -141,7 +141,7 @@ const dataSourceInfo = {
                     level: "state",
                     isState: true,
                     tooltip: {
-                        name: "State Name"
+                        name: "State/UT name"
                     }
                 }
             ],
@@ -172,7 +172,7 @@ const dataSourceInfo = {
             defaultLevel: 'State Name',
             columns: [
                 {
-                    name: "State Name",
+                    name: "State/UT name",
                     property: "State Name",
                     isLocationName: true
                 },

@@ -9,7 +9,7 @@ const dataSourceInfo = {
                     level: "state",
                     isState: true,
                     tooltip: {
-                        name: "State Name"
+                        name: "State/UT name"
                     }
                 }
             ],
@@ -40,7 +40,7 @@ const dataSourceInfo = {
             ],
             options: {
                 legend: {
-                    title: 'Nishtha started'
+                    title: 'NISHTHA started'
                 }
             }
         }
@@ -76,7 +76,7 @@ const dataSourceInfo = {
                     includeAll: true
                 },
                 {
-                    name: 'State',
+                    name: 'State/UT',
                     column: 'State',
                     optionValueColumn: "State Code",
                     level: 'User District_Correct',
@@ -116,7 +116,7 @@ const dataSourceInfo = {
                     defaultValue: true
                 },
                 {   
-                    name: 'State Name',
+                    name: 'State/UT',
                     column: 'State Name',
                     optionValueColumn: "State Code"
                 }
@@ -176,13 +176,13 @@ const dataSourceInfo = {
             sortByProperty: 'Total Courses',
             columns: [
                 {
-                    name: "State Name",
+                    name: "State/UT Name",
                     property: "State Name",
                     class: "text-center"
                     
                 },
                 {
-                    name: "Total Courses",
+                    name: "Count of courses launched",
                     property: "Total Courses",
                     class: "text-center",
                     aggegration: {
@@ -190,7 +190,7 @@ const dataSourceInfo = {
                     }
                 },
                 {
-                    name: "Total Medium",
+                    name: "Count of course mediums",
                     property: "Total Medium",
                     class: "text-center",
                     aggegration: {
@@ -200,7 +200,7 @@ const dataSourceInfo = {
             ],
             filters: [
                 {
-                    name: "Program Name",
+                    name: "Program",
                     column: "Program Name"
                 }
             ]

@@ -10,7 +10,7 @@ const dataSourceInfo = {
                     level: "state",
                     isState: true,
                     tooltip: {
-                        name: "State"
+                        name: "State/UT Name"
                     }
                 }
             ],

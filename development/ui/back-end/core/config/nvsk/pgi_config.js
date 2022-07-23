@@ -9,7 +9,7 @@ const dataSourceInfo = {
                     level: "state",
                     isState: true,
                     tooltip: {
-                        name: "State Name"
+                        name: "State/UT name"
                         //valueAsName: true,
                         //property: "Started"
                     }
@@ -96,7 +96,7 @@ const dataSourceInfo = {
             ],
             filters: [
                 {
-                    name: 'State',
+                    name: 'State/UT',
                     column: 'state Name',
                     optionValueColumn: "State Code"
                 }
