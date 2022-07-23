@@ -49,6 +49,10 @@ export class TableHeatMapDirective implements AfterViewInit, OnDestroy {
   constructor(private elRef: ElementRef) {}
 
   ngAfterViewInit() {
+    this.colorTheTable();
+  }
+
+  colorTheTable(): void {
     setTimeout(()=> {
       if (this.tableHeatMapCells) {
         this.cells = this.tableHeatMapCells.toArray();
@@ -63,38 +67,10 @@ export class TableHeatMapDirective implements AfterViewInit, OnDestroy {
       this.applyHeatMap();
   
       let ref: TableHeatMapDirective = this;
-    }, 1000);
-    
-
-    // let ref = this;
-    // let MutationObserver = window.MutationObserver || (window as any).WebKitMutationObserver || (window as any).MozMutationObserver;
-    // console.log('MutationObserver', MutationObserver);
-    
-    // this.observer = new MutationObserver((mutations) => {
-    //   let timer: any;
-    //   mutations.forEach(function (mutation) {
-    //     console.log(mutation);
-        
-    //     if (timer) clearTimeout(timer);
-    //     timer = setTimeout(() => {
-    //       if (ref.tableHeatMapCells && ref.tableHeatMapColumns) {
-    //         ref.cells = ref.tableHeatMapCells.toArray();
-    //         ref.columns = ref.tableHeatMapColumns.toArray();
-    //         ref.setOptions();
-    //         ref.calculateHighestValues();
-    //         ref.applyHeatMap();
-    //       }
-    //     }, 500);
-    //   });
-    // });
-    // var config = { attributes: true, childList: true, characterData: true };
-
-    // this.observer.observe(this.elRef.nativeElement, config);
-  }
+    }, 500);
+  } 
 
   private setOptions() {
-    console.log(this.columns);
-    
     this.columns.forEach((col: any) => {
       this.config = {
         ...this.config,
@@ -160,7 +136,6 @@ export class TableHeatMapDirective implements AfterViewInit, OnDestroy {
       };
     }
 
-    console.log(readableColor(rgba(r, g, b, 0.04)));
     return {
       bgColor: rgba(r, g, b, 0.04),
       color: rgba(0, 0, 0, .87)

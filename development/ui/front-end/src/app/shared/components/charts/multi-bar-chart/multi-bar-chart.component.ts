@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges, OnInit, ViewChild, SimpleChanges, AfterViewInit } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
 import * as Highcharts from "highcharts/highstock";
 import * as HighchartsMore from "highcharts/highcharts-more";
 import { cloneDeep } from "lodash";
@@ -10,8 +9,7 @@ HighchartsMore2(Highcharts);
 @Component({
   selector: 'app-multi-bar-chart',
   templateUrl: './multi-bar-chart.component.html',
-  styleUrls: ['./multi-bar-chart.component.scss'],
-  providers: [DecimalPipe]
+  styleUrls: ['./multi-bar-chart.component.scss']
 })
 export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit {
   chart!: Highcharts.Chart;
@@ -29,7 +27,7 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
   @ViewChild('left') left: any;
   @ViewChild('right') right: any;
 
-  constructor(private readonly _decimalPipe: DecimalPipe) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -42,7 +40,7 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
       let pageSize = (this.options?.series as any)[0].data.length < this.pageSize ? (this.options?.series as any)[0].data.length : this.pageSize;
       
       setTimeout(() => {
-        this.height = pageSize * 45 + this.pageSize;
+        this.height = pageSize * 45 + 100;
         this.totalRecords = (this.options?.series as any)[0].data.length;
       });
 
@@ -59,12 +57,17 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
 
   onPageChange(event: any): void {
     let originalSeries = cloneDeep(this.series);
+    this.pageSize = event.pageSize;
+    this.height = this.pageSize * 45 + 100;
     (this.options as Highcharts.Options).series = originalSeries?.map((series: any) => {
       series.data = series.data.slice(this.pageSize * event.pageIndex, this.pageSize * event.pageIndex + this.pageSize);
       return series;
     });
     
     this.updateChart(this.options);
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 100)
   }
 
   createMultiBarChart(options: Highcharts.Options | undefined): void {
@@ -100,12 +103,13 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
               enabled: true,
               crop: false,
               allowOverlap: true,
-              formatter: function() {
-                return ref._decimalPipe.transform(this.y, '1.0-0', 'en-IN');
+              formatter: function(this: any) {
+                return new Intl.NumberFormat('en-IN').format(this.y);
               }
           },
           pointWidth: 10,
-          pointPadding: 0
+          pointPadding: 0.2,
+          minPointLength: 10
         },
         series: {
           events: {
@@ -128,9 +132,10 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
         shared: true,
         formatter: function (this: any) {
           return this.points.reduce(function (s: any, point: any) {
-            return s + '<br/>' + point.series.name + ': ' + ref._decimalPipe.transform(point.y, '1.0-0', 'en-IN');
+            return s + '<br/>' + point.series.name + ': ' + new Intl.NumberFormat('en-IN').format(point.y);
           }, '<b>' + this.x + '</b>');
-        }
+        },
+        enabled: true
       },
       credits: {
         enabled: false

@@ -79,7 +79,10 @@ const dataSourceInfo = {
                     name: 'State/UT',
                     column: 'State',
                     optionValueColumn: "State Code",
-                    level: 'User District_Correct',
+                    level: {
+                        value: "district",
+                        property: "User District_Correct"
+                    },
                     includeAll: true
                 }
             ]
@@ -89,6 +92,8 @@ const dataSourceInfo = {
         multiBarChart: {
             pathToFile: 'diksha_nishtha_consumption-by-course.json',
             defaultLevel: "Course Name",
+            sortByProperty: 'Enrollments',
+            sortDirection: 'desc',
             columns: [
                 {
                     name: "Course Name",
@@ -174,6 +179,7 @@ const dataSourceInfo = {
             pathToFile: 'diksha_nishtha_tot-courses-medium.json',
             defaultLevel: 'State Name',
             sortByProperty: 'Total Courses',
+            sortDirection: 'desc',
             columns: [
                 {
                     name: "State/UT Name",

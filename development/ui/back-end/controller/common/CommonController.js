@@ -97,7 +97,6 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 	levels = reqBody.levels ? reqBody.levels : levels;
 	latitude = latitude ? latitude : 'Latitude';
 	longitude = longitude ? longitude : "Longitude";
-	let code;
 	let metricFilter = reqBody.metricFilter ? reqBody.metricFilter : [];
 
 	if (levels && levels.length > 0) {
@@ -160,10 +159,11 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		})
 	}
 
-	filterRes = applyFilters(filters, rawData, groupByColumn, code);
+	filterRes = applyFilters(filters, rawData, groupByColumn, level);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
 	groupByColumn = filterRes.groupByColumn;
+	level = filterRes.level ? filterRes.level : level;
 
 	if (isWeightedAverageNeeded) {
 		if (!groupByColumn && !currentLevel) {
@@ -171,127 +171,127 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		}
 
 		rawData = _.chain(rawData)
-		.groupBy(groupByColumn ? groupByColumn : currentLevel.property)
-		.map((objs, key) => {
-			let data = {
-				tooltip: ""
-			};
+			.groupBy(groupByColumn ? groupByColumn : currentLevel.property)
+			.map((objs, key) => {
+				let data = {
+					tooltip: ""
+				};
 
-			locationLevelPos = locations.length === 0 ? 0 : locations.findIndex(location => location.level === level);
+				locationLevelPos = locations.length === 0 ? 0 : locations.findIndex(location => location.level === level);
 
-			if (locationLevelPos !== undefined) {
-				let location = locations[locationLevelPos];
-				if (location.isState) {
-					let regex = new RegExp(`^${objs[0][location.property].split(' ')[0]}`, "i");
-					let stateCode = Object.keys(states).find(stateCode => regex.test(states[stateCode].Name));
-					if (stateCode) {
-						data.Location = states[stateCode].Name;
-						data.Latitude = states[stateCode].Latitude;
-						data.Longitude = states[stateCode].Longitude;
+				if (locationLevelPos !== undefined) {
+					let location = locations[locationLevelPos];
+					if (location.isState) {
+						let regex = new RegExp(`^${objs[0][location.property].split(' ')[0]}`, "i");
+						let stateCode = Object.keys(states).find(stateCode => regex.test(states[stateCode].Name));
+						if (stateCode) {
+							data.Location = states[stateCode].Name;
+							data.Latitude = states[stateCode].Latitude;
+							data.Longitude = states[stateCode].Longitude;
+						} else {
+							data.Location = objs[0]['property'];
+							data.Latitude = objs[0][latitude];
+							data.Longitude = objs[0][longitude];
+						}
 					} else {
 						data.Location = objs[0]['property'];
 						data.Latitude = objs[0][latitude];
 						data.Longitude = objs[0][longitude];
 					}
-				} else {
-					data.Location = objs[0]['property'];
-					data.Latitude = objs[0][latitude];
-					data.Longitude = objs[0][longitude];
-				}
 
-				if (locationLevelPos > 0) {
-					for (let i = 0; i <= locationLevelPos; i++) {
-						let location = locations[i];
-						if (location.isState) {
-							let regex = new RegExp(`^${objs[0][location.property].split(' ')[0]}`, "i");
-							let stateCode = Object.keys(states).find(stateCode => regex.test(states[stateCode].Name));
-							if (stateCode) {
-								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-								data.tooltip += location.tooltip.valueAsName ? `${stateCode}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${stateCode}</b>`;
+					if (locationLevelPos > 0) {
+						for (let i = 0; i <= locationLevelPos; i++) {
+							let location = locations[i];
+							if (location.isState) {
+								let regex = new RegExp(`^${objs[0][location.property].split(' ')[0]}`, "i");
+								let stateCode = Object.keys(states).find(stateCode => regex.test(states[stateCode].Name));
+								if (stateCode) {
+									data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+									data.tooltip += location.tooltip.valueAsName ? `${stateCode}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${stateCode}</b>`;
+								} else {
+									data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+									data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${objs[0][location.property]}</b>`;
+								}
 							} else {
 								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
 								data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${objs[0][location.property]}</b>`;
 							}
-						} else {
-							data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-							data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${objs[0][location.property]}</b>`;
 						}
-					}
-				} else {
-					data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-					data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${objs[0][location.property]}</b>`;
-				}
-			}
-
-			dimensions.forEach(dimension => {
-				if (dimension.weightedAverage) {
-					let numeratorSum = 0;
-					let denominatorSum = 0;
-					
-					objs.forEach((obj, index) => {
-						numeratorSum += obj[dimension.weightedAverage.property] * obj[dimension.weightedAverage.against];
-						denominatorSum += obj[dimension.weightedAverage.against];
-					});
-					
-					data[dimension.name] = Number((numeratorSum / denominatorSum).toFixed(2));
-
-					if (dimension.tooltip) {
+					} else {
 						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-						data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${data[dimension.name]}</b>`;
+						data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${objs[0][location.property]}</b>`;
 					}
-
-					return;
 				}
 
-				if (dimension.aggegration) {
-					let value = 0;
-					if(dimension.aggegration.type === "SUM") {
-						let sum = 0;
-					
+				dimensions.forEach(dimension => {
+					if (dimension.weightedAverage) {
+						let numeratorSum = 0;
+						let denominatorSum = 0;
+						
 						objs.forEach((obj, index) => {
-							sum += obj[dimension.property] ? obj[dimension.property] : 0;
+							numeratorSum += obj[dimension.weightedAverage.property] * obj[dimension.weightedAverage.against];
+							denominatorSum += obj[dimension.weightedAverage.against];
 						});
 						
-						value = Number(sum.toFixed(2));
-					} else if(dimension.aggegration.type === "AVG") {
-						let sum = 0;
-					
-						objs.forEach((obj, index) => {
-							sum += obj[dimension.property] ? obj[dimension.property] : 0;
-						});
+						data[dimension.name] = Number((numeratorSum / denominatorSum).toFixed(2));
 
-						value = Number((sum / objs.length).toFixed(2));
+						if (dimension.tooltip) {
+							data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+							data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${data[dimension.name]}</b>`;
+						}
+
+						return;
 					}
 
-					if (metricFilter && metricFilter.value === dimension.property) {
-						data['indicator'] = value;
-					} else if (data['indicator'] && dimension.name === 'indicator') {
-						data[dimension.property] = value;
-					} else {
-						data[dimension.name] = value;
+					if (dimension.aggegration) {
+						let value = 0;
+						if(dimension.aggegration.type === "SUM") {
+							let sum = 0;
+						
+							objs.forEach((obj, index) => {
+								sum += obj[dimension.property] ? obj[dimension.property] : 0;
+							});
+							
+							value = Number(sum.toFixed(2));
+						} else if(dimension.aggegration.type === "AVG") {
+							let sum = 0;
+						
+							objs.forEach((obj, index) => {
+								sum += obj[dimension.property] ? obj[dimension.property] : 0;
+							});
+
+							value = Number((sum / objs.length).toFixed(2));
+						}
+
+						if (metricFilter && metricFilter.value === dimension.property) {
+							data['indicator'] = value;
+						} else if (data['indicator'] && dimension.name === 'indicator') {
+							data[dimension.property] = value;
+						} else {
+							data[dimension.name] = value;
+						}
+
+						if (dimension.tooltip) {
+							data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+							data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
+						}
+
+						return;
 					}
+
+
 
 					if (dimension.tooltip) {
 						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-						data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
+						data.tooltip += dimension.tooltip.valueAsName ? `${objs[0][dimension.property]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${objs[0][dimension.property]}</b>`;
 					}
 
-					return;
-				}
+					data[dimension.name] = objs[0][dimension.property];
+				});
 
-
-
-				if (dimension.tooltip) {
-					data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-					data.tooltip += dimension.tooltip.valueAsName ? `${objs[0][dimension.property]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${objs[0][dimension.property]}</b>`;
-				}
-
-				data[dimension.name] = objs[0][dimension.property];
-			});
-
-			return data;
-		})
-		.value();
+				return data;
+			})
+			.value();
 	} else {
 		rawData = rawData.map(record => {
 			let data = {
@@ -377,10 +377,11 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 }
 
 async function getLOTableReportData(reqBody, reportConfig, rawData) {
-	let { columns, filters, mainFilter, gaugeChart, sortByProperty } = reportConfig;
+	let { columns, filters, mainFilter, gaugeChart, sortByProperty, sortDirection } = reportConfig;
 	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage || col.aggegration).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
 	let isTransposeNeeded = columns.filter(col => col.transposeColumn).length > 0;
+	let level = reqBody.appName === appNames.nvsk ? 'state' : 'district';
 
 	if (mainFilter) {
 		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
@@ -405,10 +406,13 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		});
 	}
 
-	filterRes = applyFilters(filters, rawData, groupByColumn);
+	filterRes = applyFilters(filters, rawData, groupByColumn, level);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
 	groupByColumn = filterRes.groupByColumn;
+	level = filterRes.level ? filterRes.level : level;
+	
+	columns = columns.filter(col => !col.level || col.level === level);
 
 	if (isTransposeNeeded) {
 		const rows = columns.filter(col => !col.transposeColumn);
@@ -541,9 +545,9 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		});
 	}
 
-	if(sortByProperty){
-		rawData.sort((a,b) => b[sortByProperty] - a[sortByProperty]);
-	}
+	sortByProperty = sortByProperty ? sortByProperty : columns[0].property;
+	sortDirection = sortDirection ? sortDirection : 'asc';
+	rawData.sort((a,b) => compare(a[sortByProperty], b[sortByProperty], sortDirection));
 
 	if (gaugeChart) {
 		if (gaugeChart.aggegration && gaugeChart.aggegration.type === "AVG") {
@@ -555,7 +559,9 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		data: rawData,
 		filters: filters,
 		columns,
-		gaugeChart
+		gaugeChart,
+		sortByProperty,
+		sortDirection
 	};
 }
 
@@ -618,9 +624,11 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 		})
 	}
 
-	let filterRes = applyFilters(filters, rawData, groupByColumn);
+	filterRes = applyFilters(filters, rawData, groupByColumn, level);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
+	groupByColumn = filterRes.groupByColumn;
+	level = filterRes.level ? filterRes.level : level;
 	
 	if (isWeightedAverageNeeded) {
 		if (!groupByColumn && !currentLevel) {
@@ -716,8 +724,6 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 			return data;
 		});
 	}
-	
-		
 
 	return {
 		data: rawData,
@@ -729,9 +735,10 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 
 async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { columns, filters, mainFilter } = reportConfig;
+	let { columns, filters, mainFilter, sortByProperty, sortDirection } = reportConfig;
 	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage || col.aggegration).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
+	let level = reqBody.appName === appNames.nvsk ? 'state' : 'district';
 
 	if (mainFilter) {
 		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
@@ -749,10 +756,11 @@ async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 		})
 	}
 
-	filterRes = applyFilters(filters, rawData, groupByColumn);
+	filterRes = applyFilters(filters, rawData, groupByColumn, level);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
 	groupByColumn = filterRes.groupByColumn;
+	level = filterRes.level ? filterRes.level : level;
 
 	if (isWeightedAverageNeeded || isAggegrationNeeded) {
 		rawData = _.chain(rawData)
@@ -817,6 +825,9 @@ async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 		});
 	}
 
+	if (sortByProperty && sortDirection)
+		rawData.sort((a,b) => compare(a[sortByProperty], b[sortByProperty], sortDirection));
+
 	return {
 		data: rawData,
 		filters: filters
@@ -829,6 +840,7 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
 	let isAggegrationNeeded = columns.filter(col => col.aggegration).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
+	let level = reqBody.appName === appNames.nvsk ? 'state' : 'district';
 
 	if (mainFilter) {
 		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
@@ -846,10 +858,11 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 		})
 	}
 
-	filterRes = applyFilters(filters, rawData, groupByColumn);
+	filterRes = applyFilters(filters, rawData, groupByColumn, level);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
 	groupByColumn = filterRes.groupByColumn;
+	level = filterRes.level ? filterRes.level : level;
 
 	if (isWeightedAverageNeeded || isAggegrationNeeded) {
 		rawData = _.chain(rawData)
@@ -926,6 +939,7 @@ async function getBarChartData(reqBody, reportConfig, rawData) {
 	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage).length > 0;
 	let isAggegrationNeeded = columns.filter(col => col.aggegration).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
+	let level = reqBody.appName === appNames.nvsk ? 'state' : 'district';
 
 	if (mainFilter) {
 		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
@@ -950,10 +964,11 @@ async function getBarChartData(reqBody, reportConfig, rawData) {
 		})
 	}
 
-	filterRes = applyFilters(filters, rawData, groupByColumn);
+	filterRes = applyFilters(filters, rawData, groupByColumn, level);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
 	groupByColumn = filterRes.groupByColumn;
+	level = filterRes.level ? filterRes.level : level;
 
 	if (isWeightedAverageNeeded || isAggegrationNeeded) {
 		rawData = _.chain(rawData)
@@ -1038,6 +1053,10 @@ async function getBarChartData(reqBody, reportConfig, rawData) {
 	};
 }
 
+function compare(a, b, sortDirection) {
+	return (a < b ? -1 : 1) * (sortDirection === 'asc' ? 1 : -1);
+}
+
 var nest = function (seq, keys) {
     if (!keys.length)
         return seq;
@@ -1047,23 +1066,6 @@ var nest = function (seq, keys) {
         return nest(value, rest)
     });
 };
-
-function convertRawDataToJSON(sourceFilePath, destinationFilePath) {
-	let fileExt = path.extname(sourceFilePath).substring(1);
-	let reportRawData;
-	
-	if (fileExt === 'xlsx') {
-		const workbook = XLSX.readFile(sourceFilePath);
-		const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-		
-		reportRawData = XLSX.utils.sheet_to_json(worksheet);
-	} else {
-		reportRawData = csvToJson.formatValueByType().fieldDelimiter(',').getJsonFromCsv(sourceFilePath);
-	}
-
-	fs.mkdirSync(destinationFilePath.split(/[\/\\]/).slice(0, -1).join("\/"), { recursive: true });
-	fs.writeFileSync(destinationFilePath, JSON.stringify(reportRawData));
-}
 
 async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 	let fileExt = path.extname(filePath).substring(1);
@@ -1085,9 +1087,50 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 	uploadFile(filePath, fileName, reportRawData);
 }
 
-function applyFilters(filters, rawData, groupByColumn, code = undefined) {
+function applyFilters(filters, rawData, groupByColumn, level = undefined) {
 	filters.map((filter, index) => {
 		let filterOptionMap = new Map();
+		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+
+		if (index === 0 || filters[index - 1].includeAll || filters[index - 1].defaultValue || (filters[index - 1].value && filters[index - 1].value !== '')) {
+			filter.options = [];
+			rawData.forEach(record => {
+				if (!filterOptionMap.has(record[filterProperty])) {
+					filter.options.push({
+						label: record[filter.column],
+						value: record[filterProperty]
+					});
+
+					filterOptionMap.set(record[filterProperty], true);
+				}
+			});
+		}
+
+		return filter;
+	});
+
+	filters.map(filter => {
+		if (filter.options.length > 1) {
+			filter.options.sort((a, b) => compare(a.label, b.label, 'asc'));
+		}
+
+		if (filter.defaultValue && filter.options.length > 0) {
+			filter.value = filter.options[0].value;
+		}
+
+		if (filter.includeAll) {
+			filter.options.unshift({
+				label: 'Overall',
+				value: 'overall'
+			});
+
+			filter.value = 'overall';
+		}
+
+		return filter;
+	});
+	
+	filters.forEach((filter, index) => {
 		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
 
 		if (filter.value && filter.value !== '' && filter.value !== 'overall') {
@@ -1096,49 +1139,17 @@ function applyFilters(filters, rawData, groupByColumn, code = undefined) {
 			});
 
 			if (filter.level) {
-				groupByColumn = filter.level;
-				code = Object.keys(states)[filter.value];
+				groupByColumn = filter.level.property;
+				level = filter.level.value;
 			}
-		} else if (index === 0 || (filters[index - 1].value && filters[index - 1].value !== '')) {
-			filter.options = [];
-			if (filter.includeAll) {
-				filter.options.push({
-					label: 'Overall',
-					value: 'overall'
-				});
-
-				filter.value = 'overall';
-			}
-			rawData = rawData.filter(record => {
-				if (!filterOptionMap.has(record[filterProperty])) {
-					if (filter.defaultValue && filter.options.length === 0) {
-						filter.value = record[filterProperty];
-					}
-
-					filter.options.push({
-						label: record[filter.column],
-						value: record[filterProperty]
-					});
-
-					filterOptionMap.set(record[filterProperty], true);
-				}
-
-				if (filter.defaultValue) {
-					return record[filterProperty] === filter.value;
-				}
-
-				return true;
-			});
 		}
-
-		return filter;
 	});
 
 	return {
 		filters,
 		rawData,
 		groupByColumn,
-		code
+		level
 	}
 }
 

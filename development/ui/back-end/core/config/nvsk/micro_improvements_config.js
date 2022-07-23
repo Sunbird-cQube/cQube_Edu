@@ -11,7 +11,7 @@
           isState: true,
           tooltip: {
             name: "State/UT name",
-          },
+          }
         },
       ],
       dimensions: [
@@ -21,7 +21,7 @@
           tooltip: {
             name: "Total Projects",
           },
-          includeAsMetricFilter: true,
+          includeAsMetricFilter: true
         },
         {
           name: "Program Started",
@@ -29,7 +29,7 @@
           tooltip: {
             name: "Program Started",
           },
-          includeAsMetricFilter: true,
+          includeAsMetricFilter: true
         },
         {
           name: "Program In progress",
@@ -37,7 +37,7 @@
           tooltip: {
             name: "Program In progress",
           },
-          includeAsMetricFilter: true,
+          includeAsMetricFilter: true
         },
         {
           name: "Program Submitted",
@@ -45,7 +45,7 @@
           tooltip: {
             name: "Program Submitted",
           },
-          includeAsMetricFilter: true,
+          includeAsMetricFilter: true
         },
         {
           name: "Programs Submitted with Evidence",
@@ -53,7 +53,7 @@
           tooltip: {
             name: "Program Submitted with Evidence",
           },
-          includeAsMetricFilter: true,
+          includeAsMetricFilter: true
         },
         {
           name: "state_code",

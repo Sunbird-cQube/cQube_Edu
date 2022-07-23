@@ -12,8 +12,6 @@ import { environment } from 'src/environments/environment';
 })
 export class NutritionHealthComponent implements OnInit {
   config: string = environment.config;
-  state1: any= 'IN';
-  state2: any = 'IN';
   filters1: any;
   filters2: any;
   levels1: any;
@@ -68,9 +66,6 @@ export class NutritionHealthComponent implements OnInit {
       this.pmPoshanStateOnboardedData = res.result;
       this.filters2 = res.result.filters;
       this.levels2 = res.result.levels;
-      if(res.result.code){
-        this.state2 = res.result.code;
-      }
     }, err => {
       this.isMapReport1Loading = false;
     });
@@ -98,9 +93,6 @@ export class NutritionHealthComponent implements OnInit {
         this.level = level.selected ? level.value : 'state'
       })
       this.metricFilter = pmPoshanStateDataRes.result.metricFilter;
-      if(pmPoshanStateDataRes.result.code){
-        this.state1 = pmPoshanStateDataRes.result.code;
-      }
     }, err => {
       this.isMapReport2Loading = false;
     });

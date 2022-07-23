@@ -13,8 +13,6 @@ import { environment } from 'src/environments/environment';
 })
 export class ImprovementProgramComponent implements OnInit {
   config: string = environment.config;
-  state1: any= 'IN';
-  state2: any = 'IN';
   filters1: any;
   filters2: any;
   metricFilter: any;
@@ -45,7 +43,7 @@ export class ImprovementProgramComponent implements OnInit {
       reportName: 'micro_improvements',
       reportType: 'map',
       stateCode: environment.stateCode,
-      filters:'',
+      filters,
       metricFilter
     };
 
@@ -55,9 +53,6 @@ export class ImprovementProgramComponent implements OnInit {
       this.microProgramData = res.result;
       this.filters1 = res.result.filters;
       this.metricFilter = res.result.metricFilter;
-      if(res.result.code){
-        this.state1 = res.result.code;
-      }
     }, err => {
       this.isMapReport2Loading = false;
     });
@@ -85,9 +80,6 @@ export class ImprovementProgramComponent implements OnInit {
       this.isMapReport1Loading = false;
       this.microProgramDatayesno = res.result;
       this.filters1 = res.result.filters;
-      if(res.result.code){
-        this.state1 = res.result.code;
-      }
     }, err => {
       this.isMapReport1Loading = false;
     });

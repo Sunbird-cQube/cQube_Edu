@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./school-education.component.scss']
 })
 export class SchoolEducationComponent implements OnInit {
-  state: any= 'IN';
   filters: any;
   metricFilter: any;
   levels: any;
@@ -101,9 +100,6 @@ export class SchoolEducationComponent implements OnInit {
         this.level = level.selected ? level.value : 'state'
       })
       this.metricFilter = res.result.metricFilter;
-      if(res.result.code){
-        this.state = res.result.code;
-      }
     }, err => {
       this.isMapReportLoading = false;
     });

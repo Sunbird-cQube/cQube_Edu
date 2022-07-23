@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { MatSort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TableHeatMapDirective } from 'src/app/shared/directives/table-heat-map/table-heat-map.directive';
 
@@ -8,34 +8,14 @@ import { TableHeatMapDirective } from 'src/app/shared/directives/table-heat-map/
   templateUrl: './material-heat-chart-table.component.html',
   styleUrls: ['./material-heat-chart-table.component.scss']
 })
-export class MaterialHeatChartTableComponent implements OnInit {
-  _tableData: any;
-  _columns: any;
+export class MaterialHeatChartTableComponent implements OnInit, OnChanges {
   columnProperties: any[] = [];
   dataSource!: MatTableDataSource<any>;
+  matSortActive = "";
+  matSortDirection: SortDirection = "asc";
+  columns: any;
 
-  @Input() set tableData(tableData: any) {
-    if (tableData) {
-      this._tableData = tableData;
-      this.dataSource = new MatTableDataSource(tableData);
-      this.dataSource.sort = this.sort;
-    }
-  };
-
-  get tableData(): any {
-    return this._tableData;
-  }
-
-  @Input() set columns(columns: any) {
-    if (columns) {
-      this._columns = columns;
-      this.columnProperties = [...['id'], ...columns.map((column: any) => column.property)];
-    }
-  };
-
-  get columns(): any {
-    return this._columns;
-  }
+  @Input() tableData: any;
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(TableHeatMapDirective) tableHeatMap!: TableHeatMapDirective;
@@ -43,5 +23,20 @@ export class MaterialHeatChartTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(): void {
+    if (this.tableData) {
+      this.dataSource = new MatTableDataSource(this.tableData.data);
+      this.dataSource.sort = this.sort;
+      this.columns = this.tableData.columns;
+      this.columnProperties = [...['id'], ...this.tableData.columns.map((column: any) => column.property)];
+      this.matSortActive = this.tableData.sortByProperty;
+      this.matSortDirection = this.tableData.sortDirection;      
+    }
+  }
+
+  contentChanged(): void {
+    this.tableHeatMap.colorTheTable();
   }
 }
