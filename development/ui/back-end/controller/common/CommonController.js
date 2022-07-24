@@ -1104,32 +1104,30 @@ function applyFilters(filters, rawData, groupByColumn, level = undefined) {
 					filterOptionMap.set(record[filterProperty], true);
 				}
 			});
-		}
 
-		return filter;
-	});
-
-	filters.map(filter => {
-		if (filter.options.length > 1) {
-			filter.options.sort((a, b) => compare(a.label, b.label, 'asc'));
-		}
-
-		if (filter.defaultValue && filter.options.length > 0) {
-			filter.value = filter.options[0].value;
-		}
-
-		if (filter.includeAll) {
-			filter.options.unshift({
-				label: 'Overall',
-				value: 'overall'
-			});
-
-			filter.value = 'overall';
-		}
-
-		return filter;
-	});
+			if (filter && filter.value === null) {
+				if (filter.options.length > 1) {
+					filter.options.sort((a, b) => compare(a.label, b.label, 'asc'));
+				}
 	
+				if (filter.defaultValue && filter.options.length > 0) {
+					filter.value = filter.options[0].value;
+				}
+	
+				if (filter.includeAll) {
+					filter.options.unshift({
+						label: 'Overall',
+						value: 'overall'
+					});
+	
+					filter.value = 'overall';
+				}
+			}
+		}
+
+		return filter;
+	});
+
 	filters.forEach((filter, index) => {
 		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
 

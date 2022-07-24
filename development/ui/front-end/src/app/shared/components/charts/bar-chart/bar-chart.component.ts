@@ -60,7 +60,7 @@ export class BarChartComponent implements OnInit, OnChanges {
                 } else if (this.value > 9999 && this.value <= 9999999) {
                   return `${this.value / 100000}L`;
                 } else {
-                  return `${this.value / 10000000}C`;
+                  return `${this.value / 10000000}Cr`;
                 }
               }
               
@@ -84,7 +84,7 @@ export class BarChartComponent implements OnInit, OnChanges {
                 } else if (this.value > 9999 && this.value <= 9999999) {
                   return `${this.value / 100000}L`;
                 } else {
-                  return `${this.value / 10000000}C`;
+                  return `${this.value / 10000000}Cr`;
                 }
               }
               

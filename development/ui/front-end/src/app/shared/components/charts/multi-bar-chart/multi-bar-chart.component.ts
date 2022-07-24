@@ -99,7 +99,7 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
               } else if (this.value > 9999 && this.value <= 9999999) {
                 return `${this.value / 100000}L`;
               } else {
-                return `${this.value / 10000000}C`;
+                return `${this.value / 10000000}Cr`;
               }
             }
             
@@ -123,7 +123,7 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
               } else if (this.value > 9999 && this.value <= 9999999) {
                 return `${this.value / 100000}L`;
               } else {
-                return `${this.value / 10000000}C`;
+                return `${this.value / 10000000}Cr`;
               }
             }
             
