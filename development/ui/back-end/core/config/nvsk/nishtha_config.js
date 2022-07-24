@@ -139,7 +139,17 @@ const dataSourceInfo = {
                 },
                 {
                     name: "% Target Achieved- Enrolment",
-                    property: "% Target Achieved- Enrolment"
+                    property: "% Target Achieved- Enrolment",
+                    tooltip: {
+                        name: "Target Acheived"
+                    }
+                },
+                {
+                    name: "Total Enrolments",
+                    property: "Total Enrolments",
+                    tooltip: {
+                        name: "Actaul Enrolment"
+                    }
                 }
             ],
             filters: [

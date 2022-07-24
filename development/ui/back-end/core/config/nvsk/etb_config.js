@@ -161,7 +161,7 @@ const dataSourceInfo = {
             filters: [],
             options: {
                 legend: {
-                    title: 'Total Learning Sessions per Capita'
+                    title: 'Learning Sessions on Potential Users'
                 }
             }
         }
