@@ -608,6 +608,8 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 		});
 	}
 	
+	console.log(rawData.length);
+
 	let axisFilterRes = applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption);
 	axisFilters = axisFilterRes.axisFilters;
 	rawData = axisFilterRes.rawData;
@@ -630,6 +632,8 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 	groupByColumn = filterRes.groupByColumn;
 	level = filterRes.level ? filterRes.level : level;
 	
+	console.log(rawData.length);
+
 	if (isWeightedAverageNeeded) {
 		if (!groupByColumn && !currentLevel) {
 			throw "Define group by column as you want to do some aggegration";
@@ -908,19 +912,20 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 		.value();
 	} else {
 		rawData = rawData.map(record => {
-			let data = {};
+			let data = {
+				tooltip: ""
+			};
 			columns.forEach(col => {
 				if (col.isLocationName) {
 					data.Location = record[col.property];
 					return;
 				}
-
-				if (col.tooltipDesc) {
-					data[col.name] = col.tooltipDesc + ' ' + record[col.property];
-					return;
-				}
 				
 				data[col.name] = (!isNaN(Number(record[col.property]))) ? Number(Number(record[col.property]).toFixed(2)) : record[col.property];
+
+				if (col.tooltip) {
+					data.tooltip += (data.tooltip.length > 0 ? '<br>' : '') + `${col.tooltip.name}: <b>${col.tooltip.localeString ? new Intl.NumberFormat(col.tooltip.localeString).format(data[col.name]) : data[col.name]}</b>${col.tooltip.valueSuffix ? col.tooltip.valueSuffix : ''}`;
+				}
 			});
 
 			return data;
@@ -1152,6 +1157,10 @@ function applyFilters(filters, rawData, groupByColumn, level = undefined) {
 }
 
 function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
+	let sum = 0;
+	rawData.forEach(record => {
+		sum += record["Performance"];
+	});
 	axisFilters.map((axisFilter, index) => {
 		if (index > 0) {
 			return axisFilter;
@@ -1195,6 +1204,7 @@ function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
 		return axisFilter;
 	});
 
+	console.log(sum);
 
 	if (axisFilters && axisFilters.length > 0 && axisFilters[0].value === null) {
 		axisFilters.map((axisFilter, index) => {
@@ -1214,23 +1224,40 @@ function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
 		});
 	}
 
-	axisFilters.forEach((axisFilter, index) => {
-		if (!propertyAsOption) {
-			if (axisFilter.value !== null || (index > 0 && axisFilter.value !== axisFilter[index - 1].value)) {
-				axisFilterData = axisFilter.options.find(option => option.value === axisFilter.value);
-				rawData = rawData.filter(record => {
+	let sum1 = 0;
+	if (!propertyAsOption) {
+		rawData = rawData.filter(record => {
+			let match = false;
+
+			axisFilters.forEach((axisFilter, index) => {
+				let found = true;
+				if (match) {
+					return;
+				}
+
+				if (axisFilter.value !== null || (index > 0 && axisFilter.value !== axisFilter[index - 1].value)) {
+					axisFilterData = axisFilter.options.find(option => option.value === axisFilter.value);					
+
 					for (let i = 0; i < axisFilter.property.length; i++) {
-						if (record[axisFilter.property[i]] === axisFilterData.data[i]) {
-							return true;
+						if (record[axisFilter.property[i]] !== axisFilterData.data[i]) {
+							found = false;
+							break;
 						}
 					}
 
-					return false;
-				});
-			}
-		}
-	});
+					match = found;
+				}
+			});
 
+			if (match) {
+				sum1 += record['Performance'];
+			}
+			return match;
+		});
+	}
+
+	console.log(sum1);
+	console.log(rawData.length);
 	return {
 		axisFilters,
 		rawData

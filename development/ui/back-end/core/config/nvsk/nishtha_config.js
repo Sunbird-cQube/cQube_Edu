@@ -141,14 +141,24 @@ const dataSourceInfo = {
                     name: "% Target Achieved- Enrolment",
                     property: "% Target Achieved- Enrolment",
                     tooltip: {
-                        name: "Target Acheived"
+                        name: "Target Acheived",
+                        valueSuffix: '%'
                     }
                 },
                 {
                     name: "Total Enrolments",
                     property: "Total Enrolments",
                     tooltip: {
-                        name: "Actaul Enrolment"
+                        name: "Actaul Enrolment",
+                        localeString: 'en-IN'
+                    }
+                },
+                {
+                    name: "Total Expected Enrolment",
+                    property: "Total Expected Enrolment",
+                    tooltip: {
+                        name: "Total Expected Enrolment",
+                        localeString: 'en-IN'
                     }
                 }
             ],
@@ -172,7 +182,27 @@ const dataSourceInfo = {
                 },
                 {
                     name: "% Target Achieved- Certificates",
-                    property: "% Target Achieved- Certificates"
+                    property: "% Target Achieved- Certificates",
+                    tooltip: {
+                        name: "Target Acheived",
+                        valueSuffix: '%'
+                    }
+                },
+                {
+                    name: "Actual Certification",
+                    property: "Total Certificates Issued",
+                    tooltip: {
+                        name: "Actual Certification",
+                        localeString: 'en-IN'
+                    }
+                },
+                {
+                    name: "Total Expected Enrolment",
+                    property: "Total Expected Enrolment",
+                    tooltip: {
+                        name: "Total Expected Enrolment",
+                        localeString: 'en-IN'
+                    }
                 }
             ],
             filters: [

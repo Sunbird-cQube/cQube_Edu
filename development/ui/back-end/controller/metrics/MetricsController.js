@@ -12,7 +12,8 @@ exports.getDashboardMetrics = async (req, res, next) => {
 			}
 			let metrics = await getFileData(configFiles.dashboardMenu);
             metrics = metrics.filter(metric => metric['Metric Type'] === 'Key Metric');
-
+			metrics = metrics.sort((a, b) => compare(a['Sequence Number'], b['Sequence Number'], 'asc'));
+			
             metricsRes = _.chain(metrics)
                 .groupBy("Program ID")
                 .map((objs, key) => {
@@ -83,4 +84,8 @@ exports.getVanityMetrics = async (req, res, next) => {
 			});
 		}
 	});
+}
+
+function compare(a, b, sortDirection) {
+	return (a < b ? -1 : 1) * (sortDirection === 'asc' ? 1 : -1);
 }
