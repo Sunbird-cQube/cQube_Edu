@@ -49,26 +49,60 @@ export class BarChartComponent implements OnInit, OnChanges {
           scrollbar: {
             enabled: false
           },
-          gridLineColor: 'transparent'
+          gridLineColor: 'transparent',
+          labels: {
+            formatter: function(this: any) {
+              if (typeof this.value === 'number') {
+                if (this.value < 1000) {
+                  return `${this.value}`;
+                } else if (this.value > 999 && this.value <= 9999) {
+                  return `${this.value / 1000}K`;
+                } else if (this.value > 9999 && this.value <= 9999999) {
+                  return `${this.value / 100000}L`;
+                } else {
+                  return `${this.value / 10000000}C`;
+                }
+              }
+              
+              return `${this.axis.defaultLabelFormatter.call(this)}`;
+            }
+          }
       },
       yAxis: {
           min: 0,
           title: {
               text: null
           },
-          gridLineColor: 'transparent'
-          
+          gridLineColor: 'transparent',
+          labels: {
+            formatter: function(this: any) {
+              if (typeof this.value === 'number') {
+                if (this.value < 1000) {
+                  return `${this.value}`;
+                } else if (this.value > 999 && this.value <= 9999) {
+                  return `${this.value / 1000}K`;
+                } else if (this.value > 9999 && this.value <= 9999999) {
+                  return `${this.value / 100000}L`;
+                } else {
+                  return `${this.value / 10000000}C`;
+                }
+              }
+              
+              return `${this.axis.defaultLabelFormatter.call(this)}`;
+            }
+          }
       },
       plotOptions: {
         bar: {
-            dataLabels: {
-                enabled: true,
-                crop: false,
-                allowOverlap: true,
-                formatter: function(this: any) {
-                  return new Intl.NumberFormat('en-IN').format(this.y);
-                }
-            }
+          dataLabels: {
+              enabled: true,
+              crop: false,
+              allowOverlap: true,
+              formatter: function(this: any) {
+                return new Intl.NumberFormat('en-IN').format(this.y);
+              }
+          },
+          minPointLength: 10
         },
         series: {
           events: {
@@ -89,13 +123,12 @@ export class BarChartComponent implements OnInit, OnChanges {
       credits: {
           enabled: false
       },
-      series: []
-      // tooltip: {
-      //   formatter: function() {
-      //     return ' ' +
-      //       'Total No of Plays (App and Portal) :' + this.point.y + '<br />'
-      //   }
-      // }
+      series: [],
+      tooltip: {
+        formatter: function(this: any) {
+          return `${this.series.name}<br><span style="padding: 5px; background: ${this.color}"></span>${this.x}: ${new Intl.NumberFormat('en-IN').format(this.y)}`;
+        }
+      }
     };
     this.chart = Highcharts.chart(this.container.nativeElement, Highcharts.merge(defaultOptions, options), function(this: any) {
     });

@@ -52,7 +52,7 @@ export class SchoolFacilitiesComparisionComponent implements OnInit {
           }
         },
         series: [{
-          name: 'Performance',
+          name: 'PM Poshan Access',
           type: 'scatter',
           color: 'rgba(223, 83, 83, .5)',
           data: res.result.data
