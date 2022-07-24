@@ -37,6 +37,8 @@ export class MaterialHeatChartTableComponent implements OnInit, OnChanges {
   }
 
   contentChanged(): void {
-    this.tableHeatMap.colorTheTable();
+    if (this.tableHeatMap) {
+      this.tableHeatMap.colorTheTable();
+    }
   }
 }
