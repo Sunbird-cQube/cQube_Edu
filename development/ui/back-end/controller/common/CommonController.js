@@ -912,19 +912,20 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 		.value();
 	} else {
 		rawData = rawData.map(record => {
-			let data = {};
+			let data = {
+				tooltip: ""
+			};
 			columns.forEach(col => {
 				if (col.isLocationName) {
 					data.Location = record[col.property];
 					return;
 				}
-
-				if (col.tooltipDesc) {
-					data[col.name] = col.tooltipDesc + ' ' + record[col.property];
-					return;
-				}
 				
 				data[col.name] = (!isNaN(Number(record[col.property]))) ? Number(Number(record[col.property]).toFixed(2)) : record[col.property];
+
+				if (col.tooltip) {
+					data.tooltip += (data.tooltip.length > 0 ? '<br>' : '') + `${col.tooltip.name}: <b>${col.tooltip.localeString ? new Intl.NumberFormat(col.tooltip.localeString).format(data[col.name]) : data[col.name]}</b>${col.tooltip.valueSuffix ? col.tooltip.valueSuffix : ''}`;
+				}
 			});
 
 			return data;

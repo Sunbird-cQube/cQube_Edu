@@ -76,7 +76,14 @@ export class NisithaStackedBarComponent implements OnInit {
           reversed: true
         },
         tooltip: {
-          shared: true
+          shared: true,
+          formatter: function(this: any) {
+            return `<p style="font-weight: 700">${this.x}</p><br><br>${this.points[0].point.data}`;
+          },
+          style: {
+            opacity: 1,
+            backgroundColor: '#fff'
+          }
         },
         series: [
           {
@@ -84,11 +91,11 @@ export class NisithaStackedBarComponent implements OnInit {
             color: "rgb(239,243,255)",
             name: '% Total Target-Enrollment',
             data: result.map((record: any) => {
-              return Number(Number(100 - record['% Target Achieved- Enrolment']).toFixed(2));
-            }),
-            tooltip: {
-              pointFormat: ''
-            }
+              return {
+                y: Number(Number(100 - record['% Target Achieved- Enrolment']).toFixed(2)),
+                data: record.tooltip
+              };
+            })
           },
           {
           type: 'bar',
@@ -150,7 +157,14 @@ export class NisithaStackedBarComponent implements OnInit {
           reversed: true
         },
         tooltip: {
-          shared: true
+          shared: true,
+          formatter: function(this: any) {
+            return `<p style="font-weight: 700">${this.x}</p><br><br>${this.points[0].point.data}`;
+          },
+          style: {
+            opacity: 1,
+            backgroundColor: '#fff'
+          }
         },
         series: [
           {
@@ -158,11 +172,11 @@ export class NisithaStackedBarComponent implements OnInit {
             color: "rgb(239,243,255)",
             name: '% Total Target-Certificates',
             data: result.map((record: any) => {
-              return Number(Number(100 - record['% Target Achieved- Certificates']).toFixed(2));
-            }),
-            tooltip: {
-              pointFormat: ''
-            }
+              return {
+                y: Number(Number(100 - record['% Target Achieved- Certificates']).toFixed(2)),
+                data: record.tooltip
+              };
+            })
           },
           {
           type: 'bar',
