@@ -1157,10 +1157,6 @@ function applyFilters(filters, rawData, groupByColumn, level = undefined) {
 }
 
 function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
-	let sum = 0;
-	rawData.forEach(record => {
-		sum += record["Performance"];
-	});
 	axisFilters.map((axisFilter, index) => {
 		if (index > 0) {
 			return axisFilter;
@@ -1204,8 +1200,6 @@ function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
 		return axisFilter;
 	});
 
-	console.log(sum);
-
 	if (axisFilters && axisFilters.length > 0 && axisFilters[0].value === null) {
 		axisFilters.map((axisFilter, index) => {
 			if (axisFilter.options.length > 1) {
@@ -1224,7 +1218,6 @@ function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
 		});
 	}
 
-	let sum1 = 0;
 	if (!propertyAsOption) {
 		rawData = rawData.filter(record => {
 			let match = false;
@@ -1256,8 +1249,6 @@ function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
 		});
 	}
 
-	console.log(sum1);
-	console.log(rawData.length);
 	return {
 		axisFilters,
 		rawData
