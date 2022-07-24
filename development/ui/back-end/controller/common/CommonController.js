@@ -1241,10 +1241,7 @@ function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
 					match = found;
 				}
 			});
-
-			if (match) {
-				sum1 += record['Performance'];
-			}
+			
 			return match;
 		});
 	}
