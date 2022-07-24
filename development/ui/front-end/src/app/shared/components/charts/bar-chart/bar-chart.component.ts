@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges, OnInit, ViewChild, SimpleChanges } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
 import * as Highcharts from "highcharts/highstock";
 import * as HighchartsMore from "highcharts/highcharts-more";
 
@@ -9,8 +8,7 @@ HighchartsMore2(Highcharts);
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.scss'],
-  providers: [DecimalPipe]
+  styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent implements OnInit, OnChanges {
   chart!: Highcharts.Chart;
@@ -20,7 +18,7 @@ export class BarChartComponent implements OnInit, OnChanges {
 
   @ViewChild('container') container: any;
 
-  constructor(private readonly _decimalPipe: DecimalPipe) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -67,8 +65,8 @@ export class BarChartComponent implements OnInit, OnChanges {
                 enabled: true,
                 crop: false,
                 allowOverlap: true,
-                formatter: function() {
-                  return ref._decimalPipe.transform(this.y, '1.0-0', 'en-IN');
+                formatter: function(this: any) {
+                  return new Intl.NumberFormat('en-IN').format(this.y);
                 }
             }
         },

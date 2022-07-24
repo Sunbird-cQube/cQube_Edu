@@ -15,7 +15,6 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 export class StudentLearningSurveyComponent implements OnInit {
 
   level: string = 'state';
-  state:any = 'IN';
   NASMetrics: any[] | undefined;
   NASProgramStatsByLocation: any
   NasStateData: any;
@@ -57,14 +56,7 @@ export class StudentLearningSurveyComponent implements OnInit {
       this.levels = res.result.levels;
       this.levels.forEach((level:any) => {
         this.level = level.selected ? level.value : 'state'
-      })
-      if(res.result.code != undefined){
-        this.state = res.result.code;
-      }
-
-      // if(res.result.level == 'District' && Number(this.filters[3].value) > 0){
-      //   this.selectedState = Number(this.filters[3].value);
-      // }
+      });
     }, error => {
       this.isMapReportLoading = false;
     });

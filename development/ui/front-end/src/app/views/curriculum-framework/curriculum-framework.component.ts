@@ -11,9 +11,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./curriculum-framework.component.scss']
 })
 export class CurriculumFrameworkComponent implements OnInit {
-
   config: string = environment.config;
-  state: any= 'IN';
   filters: any;
   NVSK: boolean = true;
   isMapReportLoading = true;
@@ -47,9 +45,6 @@ export class CurriculumFrameworkComponent implements OnInit {
       this.ncfProgressData = res.result;
       this.filters = res.result.filters;
       this.metricFilter = res.result.metricFilter;
-      if(res.result.code){
-        this.state = res.result.code;
-      }
     }, err => {
       this.isMapReportLoading = false;
     });

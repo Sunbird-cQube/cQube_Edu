@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
 export class StatesStartedTableComponent implements OnInit {
 
   tableData: any;
-  columns: any[] = [];
   filters: any;
 
   constructor(private readonly _commonService: CommonService) {
@@ -33,8 +32,7 @@ export class StatesStartedTableComponent implements OnInit {
     };
 
     this._commonService.getReportData(data).subscribe(res => {
-      this.tableData = res.result.data;
-      this.columns = res.result.columns;
+      this.tableData = res.result;
       this.filters = res.result.filters;
 
     });

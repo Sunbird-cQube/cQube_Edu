@@ -8,7 +8,6 @@ import * as Highcharts from "highcharts/highstock";
 })
 export class NisithaBarComponent implements OnInit {
   tableData: any;
-  columns: any[] = [];
   options: Highcharts.Options | undefined;
   constructor(private readonly _NasService: NasService) { 
     this.getStateWiseNasCoverageData()
@@ -19,9 +18,7 @@ export class NisithaBarComponent implements OnInit {
 
   getStateWiseNasCoverageData() {
     return this._NasService.getNasStateData().subscribe((res: any) => {
-
-      this.tableData = res.result.data;
-      this.columns = res.result.columns;
+      this.tableData = res.result;
 
       this.options = {
         title: {

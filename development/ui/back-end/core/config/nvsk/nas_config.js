@@ -10,8 +10,6 @@ const dataSourceInfo = {
                     isState: true,
                     tooltip: {
                         name: "State/UT name"
-                        //valueAsName: true,
-                        //property: "Started"
                     }
                 },
                 {
@@ -105,7 +103,20 @@ const dataSourceInfo = {
                     weightedAverage: {
                         property: "Performance",
                         against: "Students Surveyed"
-                    }
+                    },
+                    level: "state"
+                },
+                {
+                    name: "District",
+                    property: "District",
+                    transposeColumn: true,
+                    isHeatMapRequired: true,
+				    color: '#002966',
+                    weightedAverage: {
+                        property: "Performance",
+                        against: "Students Surveyed"
+                    },
+                    level: "district"
                 }
             ],
             filters: [
@@ -120,7 +131,11 @@ const dataSourceInfo = {
                 {
                     name: 'State/UT',
                     column: 'State',
-                    optionValueColumn: "State Code"
+                    optionValueColumn: "State Code",
+                    level: {
+                        value: "district",
+                        property: "District"
+                    }
                 }
             ]
         },

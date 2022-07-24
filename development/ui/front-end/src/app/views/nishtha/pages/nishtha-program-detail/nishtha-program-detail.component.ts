@@ -11,7 +11,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./nishtha-program-detail.component.scss']
 })
 export class NishthaProgramDetailComponent implements OnInit, OnChanges {
-  state:any = 'IN';
   map: any;
   nishithaStateData: any;
   filters: any;
@@ -44,9 +43,6 @@ export class NishthaProgramDetailComponent implements OnInit, OnChanges {
       this.isMapReportLoading = false;
       this.nishithaStateData = nishthaStateDataRes.result;
       this.filters = nishthaStateDataRes.result.filters;
-      if(nishthaStateDataRes.result.code != undefined){
-        this.state = nishthaStateDataRes.result.code;
-      }
     }, err => {
       this.isMapReportLoading = false;
     });

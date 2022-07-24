@@ -11,7 +11,6 @@ import { environment } from 'src/environments/environment';
 })
 export class DigitalLearningCoverageComponent implements OnInit {
   tableData: any;
-  columns: any[] = [];
   gaugeChartOptions: Highcharts.Options | undefined;
   gaugeChartProperties: any | undefined;
   filters: any;
@@ -34,8 +33,7 @@ export class DigitalLearningCoverageComponent implements OnInit {
     };
 
     this._commonService.getReportData(data).subscribe(res => {
-      this.tableData = res.result.data;
-      this.columns = res.result.columns;
+      this.tableData = res.result;
       this.gaugeChartProperties = res.result.gaugeChart;
 
       if (this.gaugeChartProperties) {
