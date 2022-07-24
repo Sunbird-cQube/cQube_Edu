@@ -51,6 +51,9 @@ export class SchoolFacilitiesComparisionComponent implements OnInit {
             return (this.point as any).data;
           }
         },
+        legend: {
+          enabled: false
+        },
         series: [{
           name: 'PM Poshan Access',
           type: 'scatter',
