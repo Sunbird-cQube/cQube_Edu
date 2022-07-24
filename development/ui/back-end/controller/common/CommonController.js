@@ -1098,17 +1098,19 @@ function applyFilters(filters, rawData, groupByColumn, level = undefined) {
 		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
 
 		if (index === 0 || filters[index - 1].includeAll || filters[index - 1].defaultValue || (filters[index - 1].value && filters[index - 1].value !== '')) {
-			filter.options = [];
-			rawData.forEach(record => {
-				if (!filterOptionMap.has(record[filterProperty])) {
-					filter.options.push({
-						label: record[filter.column],
-						value: record[filterProperty]
-					});
+			if (filter.options.length === 0) {
+				filter.options = [];
+				rawData.forEach(record => {
+					if (!filterOptionMap.has(record[filterProperty])) {
+						filter.options.push({
+							label: record[filter.column],
+							value: record[filterProperty]
+						});
 
-					filterOptionMap.set(record[filterProperty], true);
-				}
-			});
+						filterOptionMap.set(record[filterProperty], true);
+					}
+				});
+			}
 
 			if (filter && filter.value === null) {
 				if (filter.options.length > 1) {
@@ -1127,25 +1129,25 @@ function applyFilters(filters, rawData, groupByColumn, level = undefined) {
 	
 					filter.value = 'overall';
 				}
+			} 
+			
+			if (filter && filter.value !== null) {
+				let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+
+				if (filter.value && filter.value !== '' && filter.value !== 'overall') {
+					rawData = rawData.filter(record => {
+						return record[filterProperty] === filter.value;
+					});
+
+					if (filter.level) {
+						groupByColumn = filter.level.property;
+						level = filter.level.value;
+					}
+				}
 			}
 		}
 
 		return filter;
-	});
-
-	filters.forEach((filter, index) => {
-		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
-
-		if (filter.value && filter.value !== '' && filter.value !== 'overall') {
-			rawData = rawData.filter(record => {
-				return record[filterProperty] === filter.value;
-			});
-
-			if (filter.level) {
-				groupByColumn = filter.level.property;
-				level = filter.level.value;
-			}
-		}
 	});
 
 	return {
