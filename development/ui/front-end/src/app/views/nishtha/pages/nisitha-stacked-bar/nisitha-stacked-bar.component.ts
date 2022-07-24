@@ -86,6 +86,9 @@ export class NisithaStackedBarComponent implements OnInit {
             data: result.map((record: any) => {
               return Number(Number(100 - record['% Target Achieved- Enrolment']).toFixed(2));
             }),
+            tooltip: {
+              pointFormat: ''
+            }
           },
           {
           type: 'bar',
@@ -93,7 +96,7 @@ export class NisithaStackedBarComponent implements OnInit {
           name: '% Target Achieved-Enrollment',
           data: result.map((record: any) => {
             return record['% Target Achieved- Enrolment'];
-          }),
+          })
           }],
       };
     })
@@ -156,7 +159,10 @@ export class NisithaStackedBarComponent implements OnInit {
             name: '% Total Target-Certificates',
             data: result.map((record: any) => {
               return Number(Number(100 - record['% Target Achieved- Certificates']).toFixed(2));
-            })
+            }),
+            tooltip: {
+              pointFormat: ''
+            }
           },
           {
           type: 'bar',
