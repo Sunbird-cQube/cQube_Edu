@@ -114,7 +114,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           return e > 75 ? "rgb(33,113,181)" :
             e > 50 ? "rgb(107,174,214)" :
               e > 25 ? "rgb(189,215,231)" :
-                e >= 0 ? "rgb(239,243,255)" : "#fff";
+                e !== 0 ? "rgb(239,243,255)" : "#fff";
         }
       }
     }
@@ -348,7 +348,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       return value > 75 ? "rgb(33,113,181)" :
             value > 50 ? "rgb(107,174,214)" :
               value > 25 ? "rgb(189,215,231)" :
-                value >= 0 ? "rgb(239,243,255)" : "#fff";
+                value !== 0 ? "rgb(239,243,255)" : "#fff";
     }
   }
 }

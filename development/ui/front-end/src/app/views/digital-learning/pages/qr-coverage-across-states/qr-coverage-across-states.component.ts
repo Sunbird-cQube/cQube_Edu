@@ -89,7 +89,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
         },
         series: [{
           type: 'bar',
-          name: 'QR Coverage',
+          name: 'QR Coverage (%)',
           data: result.map((record: any) => record['QR Coverage'])
         }]
       };
@@ -103,7 +103,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
           },
           yAxis: {
             title: {
-              y: 60,
+              y: 50,
               text: this.gaugeChartProperties.title
             },
             labels: {
