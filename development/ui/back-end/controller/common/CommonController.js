@@ -6,7 +6,7 @@ const _ = require('lodash');
 const csvToJson = require('csvtojson');
 const { getFileData, getAllFiles, getFileRawData, uploadFile } = require('../../service/storage_service');
 const { states } = require('../../core/config/state-codes');
-const { isArray, property } = require('lodash');
+const { isArray, property, filter } = require('lodash');
 
 exports.getReportData = (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
@@ -1155,14 +1155,17 @@ function applyFilters(filters, rawData, groupByColumn, level = undefined) {
 
 function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
 	axisFilters.map((axisFilter, index) => {
+		if (index > 0) {
+			return axisFilter;
+		}
+
 		if (!propertyAsOption) {
 			let axisFilterOptionMap = new Map();
-
 			if (axisFilter.options.length === 0 && axisFilter.value === null) {
 				axisFilterData = axisFilter.options.find(option => option.value === axisFilter.value);
 				axisFilter.options = [];
 				
-				rawData = rawData.filter(record => {
+				rawData.forEach(record => {
 					let value = "";
 					let data = [];
 
@@ -1178,23 +1181,44 @@ function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
 							data
 						});
 
-						if (axisFilter.value === null) {
-							axisFilter.value = value;
-							axisFilter.data = data;
-						}
-
 						axisFilterOptionMap.set(value, true);
 					}
-
-					for (let i = 0; i < axisFilter.property.length; i++) {
-						if (record[axisFilter.property[i]] === axisFilter.data[i]) {
-							return true;
-						}
-					}
-
-					return false;
 				});
-			} else if (axisFilter.value !== null) {
+			}
+		} else {
+			if (axisFilter.options && axisFilter.options.length === 0) {
+				axisFilter.property.forEach(property => axisFilter.options.push({
+					label: property,
+					value: property
+				}));
+			}
+		}
+
+		return axisFilter;
+	});
+
+
+	if (axisFilters && axisFilters.length > 0 && axisFilters[0].value === null) {
+		axisFilters.map((axisFilter, index) => {
+			if (axisFilter.options.length > 1) {
+				axisFilter.options.sort((a, b) => compare(a.label, b.label, 'asc'));
+			}
+	
+			if (index > 0) {
+				axisFilter.options = axisFilters[index - 1].options.slice();
+			}
+	
+			if (axisFilter.options.length > 0) {
+				axisFilter.value = axisFilter.options[0].value;
+			}
+	
+			return axisFilter;
+		});
+	}
+
+	axisFilters.forEach((axisFilter, index) => {
+		if (!propertyAsOption) {
+			if (axisFilter.value !== null || (index > 0 && axisFilter.value !== axisFilter[index - 1].value)) {
 				axisFilterData = axisFilter.options.find(option => option.value === axisFilter.value);
 				rawData = rawData.filter(record => {
 					for (let i = 0; i < axisFilter.property.length; i++) {
@@ -1206,18 +1230,7 @@ function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
 					return false;
 				});
 			}
-		} else {
-			if (axisFilter.options && axisFilter.options.length === 0) {
-				axisFilter.property.forEach(property => axisFilter.options.push({
-					label: property,
-					value: property
-				}));
-
-				axisFilter.value = axisFilter.options[0].value;
-			}
 		}
-
-		return axisFilter;
 	});
 
 	return {

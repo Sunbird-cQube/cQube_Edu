@@ -40,6 +40,12 @@ export class PerformanceComparisionByGradeSubjectComponent implements OnInit {
       this.levels = res.result.levels;
 
       this.options = {
+        xAxis: {
+          max: 100
+        },
+        yAxis: {
+          max: 100
+        },
         tooltip: {
           formatter: function() {
             return (this.point as any).data;

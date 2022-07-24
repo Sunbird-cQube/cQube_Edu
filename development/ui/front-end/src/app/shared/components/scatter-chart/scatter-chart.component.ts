@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import * as Highcharts from "highcharts/highstock";
-import * as HighchartsMore from "highcharts/highcharts-more";
 
 @Component({
   selector: 'app-scatter-chart',
@@ -8,61 +7,6 @@ import * as HighchartsMore from "highcharts/highcharts-more";
   styleUrls: ['./scatter-chart.component.scss']
 })
 export class ScatterChartComponent implements OnInit, OnChanges {
-  // height = 300;
-  // @Input() data!: any;
-
-
-  // public scatterChartOption: ChartOptions = {
-  //   responsive: true,
-  //   scales: {
-  //     x: {
-  //       ticks: {
-  //           stepSize: 10
-  //       }
-  //     }
-  //   },
-  //   plugins: {
-  //     tooltip: {
-  //       callbacks: {
-  //         label: (context: any) => {
-  //           if (context.raw.data) {
-  //             let tooltipData = context.raw.data.split('<br>');
-  //             return tooltipData;
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // };
-
-  // public scatterChartData!: any;
-  // public scatterChartType: ChartType = 'scatter';
-
-  // constructor() { }
-
-  // ngOnInit(): void {
-  // }
-
-  // ngAfterViewInit(): void {
-  //   this.setScatterChartData();
-  // }
-
-  // ngOnChanges(): void {
-  //   this.setScatterChartData();
-  // }
-
-  // setScatterChartData(): void {
-  //   if (this.data !== undefined) {
-  //     this.scatterChartData = [
-  //       {
-  //         data: this.data,
-  //         label: "NAS",
-  //         pointRadius: 6,
-  //       }
-  //     ];
-  //   }
-  // }
-
   chart!: Highcharts.Chart;
   @Input() height: number | string = 'auto';
   @Input() title!: string;

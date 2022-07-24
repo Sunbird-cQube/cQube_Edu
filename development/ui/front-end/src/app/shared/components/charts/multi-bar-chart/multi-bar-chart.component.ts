@@ -88,14 +88,48 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
         scrollbar: {
           enabled: false
         },
-        gridLineColor: 'transparent'
+        gridLineColor: 'transparent',
+        labels: {
+          formatter: function(this: any) {
+            if (typeof this.value === 'number') {
+              if (this.value < 1000) {
+                return `${this.value}`;
+              } else if (this.value > 999 && this.value <= 9999) {
+                return `${this.value / 1000}K`;
+              } else if (this.value > 9999 && this.value <= 9999999) {
+                return `${this.value / 100000}L`;
+              } else {
+                return `${this.value / 10000000}C`;
+              }
+            }
+            
+            return `${this.axis.defaultLabelFormatter.call(this)}`;
+          }
+        }
       },
       yAxis: {
         min: 0,
         title: {
           text: null
         },
-        gridLineColor: 'transparent'
+        gridLineColor: 'transparent',
+        labels: {
+          formatter: function(this: any) {
+            if (typeof this.value === 'number') {
+              if (this.value < 1000) {
+                return `${this.value}`;
+              } else if (this.value > 999 && this.value <= 9999) {
+                return `${this.value / 1000}K`;
+              } else if (this.value > 9999 && this.value <= 9999999) {
+                return `${this.value / 100000}L`;
+              } else {
+                return `${this.value / 10000000}C`;
+              }
+            }
+            
+            return `${this.axis.defaultLabelFormatter.call(this)}`;
+          }
+        }
       },
       plotOptions: {
         bar: {

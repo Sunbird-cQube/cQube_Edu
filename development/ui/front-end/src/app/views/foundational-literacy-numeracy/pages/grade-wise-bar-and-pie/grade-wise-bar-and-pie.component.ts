@@ -54,6 +54,7 @@ export class GradeWiseBarAndPieComponent implements OnInit {
           })
         },
         yAxis: {
+          max: 100,
           opposite: true
         },
         legend: {

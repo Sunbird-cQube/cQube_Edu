@@ -44,7 +44,7 @@ export class GardeWiseResourceComponent implements OnInit {
                 chart: {
                   height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
                 }
-              })
+              });
             }
           }
         },
@@ -69,13 +69,7 @@ export class GardeWiseResourceComponent implements OnInit {
           type: 'bar',
           name: 'Total No of Learning Session (App and Portal)',
           data: result.map((record: any) => record['Total No of Plays (App and Portal)'])
-        }],
-        tooltip: {
-          formatter: function() {
-            return ' ' +
-              'Total Learning Session time(App and Portal) :' + result.map((record: any) => record['Total Play time(App and Portal)'])[this.point.x].toFixed(2) + '<br />'
-          }
-        }
+        }]
       };
       this.isReportLoading = false;
     }, err => {
