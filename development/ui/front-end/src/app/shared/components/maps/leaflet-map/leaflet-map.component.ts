@@ -60,13 +60,14 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     this.map = L.map(this.mapContainer.nativeElement, { zoomSnap: 0.05, minZoom: 4, zoomControl: true, scrollWheelZoom: false, touchZoom: false }).setView([this.mapCenterLatlng.lat, this.mapCenterLatlng.lng], this.mapCenterLatlng.zoomLevel);
     try {
       await this.applyCountryBorder(this.mapData);
-      const tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
+      const tiles = L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png',
         {
           subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }
       );
 
       tiles.addTo(this.map);
+      this.map.attributionControl.setPrefix(false);
       // var imageUrl ='https://i.stack.imgur.com/khgzZ.png',
       // imageBounds = [[80.0, -350.0], [-40.0, 400.0]];
       // L.imageOverlay(imageUrl, imageBounds, {opacity: 0.3}).addTo(this.map);
