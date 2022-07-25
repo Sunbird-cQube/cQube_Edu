@@ -19,7 +19,7 @@ fi
 
 
 check_sys_user(){
-    result=`who | head -1 | awk '{print $1}'`
+    result=`whoami | head -1 | awk '{print $1}'`
     if [[ `egrep -i ^$2: /etc/passwd ; echo $?` != 0 && $result != $2 ]]; then
         echo "Error - Please check the system_user_name."; fail=1
     fi
