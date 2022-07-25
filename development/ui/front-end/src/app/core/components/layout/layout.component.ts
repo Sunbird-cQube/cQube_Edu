@@ -22,7 +22,7 @@ export class LayoutComponent implements OnInit {
       menuToDisplay.isSelected = true;
       menuToDisplay.basepath = "dasboard";
       this.menu.push(menuToDisplay);
-      menuResult.result.forEach((dasboardMenu:IDashboardMenu)=>{
+      menuResult?.result?.forEach((dasboardMenu:IDashboardMenu)=>{
         let menuToDisplay: IMenuItem | any = {};
         menuToDisplay.label = dasboardMenu.title;
         menuToDisplay.path = dasboardMenu.navigationURL;
