@@ -20,7 +20,7 @@
                 </div>
             </div>
         </mat-tab>
-        <mat-tab label="Courses and Mediums status">
+        <mat-tab label="Courses and Mediums status" *ngIf="NVSK">
             <app-total-courses-table></app-total-courses-table>
         </mat-tab>
         <mat-tab label="% against Potential Base" *ngIf="NVSK">
@@ -30,10 +30,10 @@
                 </div>
             </div>
         </mat-tab>
-        <mat-tab label="District wise Status">
+        <mat-tab label="District wise Status" *ngIf="NVSK">
             <app-nishitha-table lastLevel="district"></app-nishitha-table>
         </mat-tab>
-        <mat-tab label="Course wise Status " *ngIf="NVSK">
+        <mat-tab label="Course wise Status ">
             <app-nishitha-table lastLevel="course"></app-nishitha-table>
         </mat-tab>
     </mat-tab-group>

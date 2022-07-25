@@ -89,7 +89,7 @@ exports.uploadSourceData = async (req, res, next) => {
 
 async function getMapReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { locations, latitude, longitude, dimensions, filters, levels, stateColumnFilter, groupByDefault, options } = reportConfig;
+	let { locations, latitude, longitude, dimensions, filters, levels, stateColumnFilter, groupByDefault, options, mainFilter } = reportConfig;
 	let isWeightedAverageNeeded = dimensions.filter(dimension => dimension.weightedAverage || dimension.aggegration).length > 0;
 	let groupByColumn = groupByDefault;
 	let level = reqBody.appName === appNames.nvsk ? 'state' : 'district';
@@ -98,6 +98,10 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 	latitude = latitude ? latitude : 'Latitude';
 	longitude = longitude ? longitude : "Longitude";
 	let metricFilter = reqBody.metricFilter ? reqBody.metricFilter : [];
+
+	if (mainFilter) {
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
+	}
 
 	if (levels && levels.length > 0) {
 		currentLevel = levels.find(level => level.selected);

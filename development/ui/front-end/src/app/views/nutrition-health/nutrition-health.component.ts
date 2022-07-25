@@ -26,15 +26,17 @@ export class NutritionHealthComponent implements OnInit {
   pmPoshanStateData:any;
   pmPoshanStateOnboardedData:any;
   constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService, private readonly _configService: ConfigService) {
-    this.getPmPoshanMetricsData();
-    this.getPmPoshanStateData(this.filters1, this.levels1, this.metricFilter);
-    this.getStateOnboardedData(this.filters2, this.levels2);
-  }
-
-  ngOnInit(): void {
     if(this.config == 'VSK'){
       this.NVSK = false;
     }
+    this.getPmPoshanMetricsData();
+    this.getPmPoshanStateData(this.filters1, this.levels1, this.metricFilter);
+    if(this.NVSK){
+    this.getStateOnboardedData(this.filters2, this.levels2);
+    }
+  }
+
+  ngOnInit(): void {
   }
   onTabChanged($event: any): void {
     setTimeout(() => {
