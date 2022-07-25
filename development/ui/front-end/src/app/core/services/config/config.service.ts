@@ -23,7 +23,8 @@ export class ConfigService {
 
   getDashboardMetrics(forMenu = false): Observable<ResponseType<IDashboardMenu[] | any[]>> {
     if (environment.config.toLowerCase() === 'vsk') {
-      return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/config/getMetrics/${environment.config.toLowerCase()}/dashboard`);
+      // return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/config/getMetrics/${environment.config.toLowerCase()}/dashboard`);
+      return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/metrics/getDashboardMetrics/${environment.config.toLowerCase()}/${forMenu}`);
     } else {
       return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/metrics/getDashboardMetrics/${environment.config.toLowerCase()}/${forMenu}`);
     }
