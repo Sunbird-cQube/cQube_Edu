@@ -571,12 +571,16 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 
 async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { series, filters, levels, stateColumnFilter, propertyAsOption } = reportConfig;
+	let { series, filters, levels, stateColumnFilter, propertyAsOption, mainFilter } = reportConfig;
 	let groupByColumn = reportConfig.groupByDefault;
 	let isWeightedAverageNeeded = Object.keys(series).filter(axis => series[axis].weightedAverage || series[axis].aggegration).length > 0;
 	let level = reqBody.appName === appNames.nvsk ? 'state' : 'district';
 	let currentLevel;
 	levels = reqBody.levels ? reqBody.levels : levels;
+
+	if (mainFilter) {
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
+	}
 
 	if (levels && levels.length > 0) {
 		let selectedLevelInd = levels.findIndex(level => level.selected);
