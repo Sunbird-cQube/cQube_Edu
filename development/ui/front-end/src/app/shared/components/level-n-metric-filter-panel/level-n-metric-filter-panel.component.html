@@ -1,5 +1,5 @@
 <div class="grid grid-cols-12 align-items-center">
-    <div class="col-span-4" *ngIf="levels">
+    <div class="col-span-4" *ngIf="levels && NVSK">
         <app-material-button-group [buttons]="levels" (select)="onSelectLevel($event)"></app-material-button-group>
     </div>
     <div class="col-span-8" *ngIf="metricFilter">

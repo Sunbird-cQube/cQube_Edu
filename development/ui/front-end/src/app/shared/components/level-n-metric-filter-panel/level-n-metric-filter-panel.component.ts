@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-level-n-metric-filter-panel',
@@ -6,6 +7,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./level-n-metric-filter-panel.component.scss']
 })
 export class LevelNMetricFilterPanelComponent implements OnInit {
+  config: string = environment.config
+  NVSK: boolean = true;
 
   @Input() metricFilter: any;
   @Input() levels: any;
@@ -16,6 +19,9 @@ export class LevelNMetricFilterPanelComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if(this.config == 'VSK'){
+      this.NVSK = false;
+    }
   }
 
   onSelectMetricFilter(event: any): void {

@@ -37,11 +37,11 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnChanges(): void {
     this.markers.clearLayers();
-    if(this.level === 'district'){
+    if (this.level === 'district') {
       // this.updateMap();
       this.initMap();
     }
-    else{
+    else {
       this.initMap();
     }
   }
@@ -50,7 +50,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     if (!this.mapContainer || !this.mapData) {
       return;
     }
-    if(this.map){
+    if (this.map) {
       this.map.remove();
     }
     let reportTypeBoolean = false;
@@ -132,8 +132,16 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     let parent = this;
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await fetch(`${environment.apiURL}/assets/geo-locations/IN.json`);
-        const body = await response.json();
+        let body;
+        if (environment.config === 'NVSK') {
+          const response = await fetch(`${environment.apiURL}/assets/geo-locations/IN.json`);
+          body = await response.json();
+        }
+        else {
+          const response = await fetch(`${environment.apiURL}/assets/geo-locations/${environment.stateCode}.json`);
+          body = await response.json();
+      }
+
         const data = body;
         let min!: number, max!: number, values: any[] = [];
         let reportTypeBoolean = false;
@@ -166,7 +174,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
               continue;
             }
 
-            values.push(Number((max - partSize * (i-1)).toFixed(2)));
+            values.push(Number((max - partSize * (i - 1)).toFixed(2)));
           }
         }
 
@@ -180,7 +188,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           mapData?.data.forEach((state: any) => {
 
             if (state.state_code == feature.properties.state_code) {
-              color = parent.getLayerColor(max-min ? (state.indicator-min) / (max-min) * 100 : state.indicator);
+              color = parent.getLayerColor(max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator);
             }
           });
 
@@ -215,7 +223,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           fontWeight: "bold",
         }).addTo(this.map);
         this.fitBoundsToCountryBorder();
-        if(this.level === 'state'){
+        if (this.level === 'state') {
           this.createLegend(reportTypeBoolean ? 'boolean' : 'values', this.mapData.options, values);
         }
         resolve('India map borders plotted successfully');
@@ -261,14 +269,14 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
             continue;
           }
 
-          values.push(Number((max - partSize * (i-1)).toFixed(2)));
+          values.push(Number((max - partSize * (i - 1)).toFixed(2)));
         }
       }
 
       mapData.data.forEach((data: any) => {
         let markerIcon = L.circleMarker([data.Latitude, data.Longitude], {
           color: "gray",
-          fillColor: this.getZoneColor(reportTypeIndicator, max-min ? (data.indicator-min) / (max-min) * 100 : data.indicator),
+          fillColor: this.getZoneColor(reportTypeIndicator, max - min ? (data.indicator - min) / (max - min) * 100 : data.indicator),
           fillOpacity: 1,
           strokeWeight: 0.01,
           weight: 1
@@ -298,7 +306,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       });
 
       this.map.addLayer(this.markers);
-      if(this.level === 'district'){
+      if (this.level === 'district') {
         this.createLegend(reportTypeIndicator, this.mapData.options, values);
       }
     }
@@ -324,7 +332,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         values = values && values.length > 0 ? values : [100, 75, 50, 25, 0];
         for (let i = values.length; i > 1; i--) {
           labels.push(
-            `<i class="fa  fa-square" style="color: ${ref.getLayerColor(25 * (i-1), true)}"></i> 
+            `<i class="fa  fa-square" style="color: ${ref.getLayerColor(25 * (i - 1), true)}"></i> 
               <span>${values[values.length - i + 1] ? values[values.length - i + 1] : 0} &dash; ${values[values.length - i]}${reportTypeIndicator === 'percent' ? '%' : ''}</span>`
           );
         }
@@ -346,9 +354,9 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       }
     } else {
       return value > 75 ? "rgb(33,113,181)" :
-            value > 50 ? "rgb(107,174,214)" :
-              value > 25 ? "rgb(189,215,231)" :
-                value !== 0 ? "rgb(239,243,255)" : "#fff";
+        value > 50 ? "rgb(107,174,214)" :
+          value > 25 ? "rgb(189,215,231)" :
+            value !== 0 ? "rgb(239,243,255)" : "#fff";
     }
   }
 }
