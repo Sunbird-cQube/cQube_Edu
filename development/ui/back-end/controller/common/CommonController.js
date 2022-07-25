@@ -123,7 +123,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		metricFilter = {
 			name: "Metrics to be shown",
 			options: [],
-			value: ""
+			value: null
 		};
 
 		if (!reportConfig.hasOwnProperty('overallMetricsOption') || reportConfig.overallMetricsOption) {
@@ -146,7 +146,15 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 			});
 		});
 
-		if (metricFilter.value === "") {
+		if (metricFilter.value === null) {
+			metricFilter.value = metricFilter.options[0].value;
+		}
+	} else if (metricFilter.value === null) {
+		if (!reportConfig.hasOwnProperty('overallMetricsOption') || reportConfig.overallMetricsOption) {
+			metricFilter.value = "overall";
+		}
+		
+		if (metricFilter.value === null) {
 			metricFilter.value = metricFilter.options[0].value;
 		}
 	}
@@ -1092,7 +1100,8 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 									.map(row => _.mapKeys(row, (value, key) => key.trim()));
 	} else {
 		reportRawData = await csvToJson({
-			trim: true
+			trim: true,
+			flatKeys: true
 		}).fromString(fileContent.toString('utf-8'));
 		reportRawData = reportRawData.map(row => _.mapValues(row, (value, key) => typeof value === 'string' && !isNaN(Number(value.replace(/\,/g, ''))) ? Number(value.replace(/\,/g, '')) : value));
 	}
