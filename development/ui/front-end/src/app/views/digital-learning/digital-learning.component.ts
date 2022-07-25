@@ -39,9 +39,12 @@ export class DigitalLearningComponent implements OnInit {
     let params: any = {
       "version": "1.0"
     }
+    if(environment.config === 'VSK') {
+      this.NVSK = false;
+    }
 
-    this.getETBMetrics();
-    this.getETBProgramStatsByLocation();
+    // this.getETBMetrics();
+    // this.getETBProgramStatsByLocation();
     this._nishthaService.getStateWiseEnrollmentData(params['version']).subscribe(res => {
       this.options = {
         chart: {
@@ -77,13 +80,12 @@ export class DigitalLearningComponent implements OnInit {
 
       this.stateWiseEnrollmentData = res.result;
     });
-    this.getETBData(this.filters);
+    if(this.NVSK){
+      this.getETBData(this.filters);
+    }
   }
 
   ngOnInit(): void {
-    if (this.config == 'VSK') {
-      this.NVSK = false;
-    }
   }
 
   getETBMetrics(): void {
@@ -124,7 +126,9 @@ export class DigitalLearningComponent implements OnInit {
   }
 
   filtersUpdated(filters: any): void {
-    this.getETBData(filters);
+    if(this.NVSK){
+      this.getETBData(filters);
+    }
   }
 
 }
