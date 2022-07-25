@@ -25,7 +25,7 @@ export class SchoolRegistryComponent implements OnInit {
   constructor(private readonly _configService: ConfigService, private readonly _commonService: CommonService, private readonly _spinner: NgxSpinnerService) {
     this.getUdiseMetricsData();
     this.getUdiseStateData(this.filters, this.levels, this.metricFilter);
-    this.getScatterData(this.filters, this.levels);
+    // this.getScatterData(this.filters, this.levels);
   }
 
   ngOnInit(): void {
@@ -104,7 +104,7 @@ export class SchoolRegistryComponent implements OnInit {
   }
 
   scatterFiltersUpdated(filters: any): void {
-    this.getScatterData(filters, this.levels);
+    // this.getScatterData(filters, this.levels);
   }
 
   onScatterSelectLevel(event: any): void {
@@ -112,6 +112,6 @@ export class SchoolRegistryComponent implements OnInit {
         level.selected = levelInd === event.index;
     });
 
-    this.getScatterData(this.filters, event.items);
+    // this.getScatterData(this.filters, event.items);
   }
 }

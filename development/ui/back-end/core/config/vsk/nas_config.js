@@ -1,96 +1,138 @@
 const dataSourceInfo = {
     studentPerformance: {
         map: {
-            pathToFile: 'nas/nas_data.json',
-            defaultLevel: "District",
-            mainFilter: "State Code",
-            columns: [
+            pathToFile: 'nas_all-dashboard.json',
+            mainFilter: 'State Code',
+            locations: [
                 {
-                    name: "District",
+                    name: "Location",
                     property: "District",
-                    isLocationName: true
-                },
+                    level: "district",
+                    tooltip: {
+                        name: "District Name"
+                    }
+                }
+            ],
+            dimensions: [
                 {
-                    name: "Location Code",
-                    property: "District Code"
-                },
-                {
-                    name: "Latitude",
-                    property: "Latitude",
-                },
-                {
-                    name: "Longitude",
-                    property: "Longitude",
-                },
-                {
-                    name: "Performance",
+                    name: "indicator",
                     property: "Performance",
                     weightedAverage: {
-                        column: "Performance",
+                        property: "Performance",
                         against: "Students Surveyed"
+                    },
+                    tooltip: {
+                        name: "Performance",
+                        property: "Performance"
                     }
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
                 }
             ],
             filters: [
                 {
                     name: 'Grade',
-                    property: 'Grade'
+                    column: 'Grade'
                 },
                 {
                     name: 'Subject',
-                    property: 'Subject'
+                    column: 'Subject'
                 },
                 {
-                    name: 'District',
-                    property: 'District',
-                    optionValueColumn: "District Code"
+                    name: 'Indicator Code',
+                    column: 'Indicator Code'
                 }
-            ]
+            ],
+            levels: [
+                {
+                    name: "District",
+                    value: "district",
+                    property: "District"
+                }
+            ],
+            options: {
+                legend: {
+                    title: 'NAS Performance'
+                },
+                tooltip: {
+                    reportTypeIndicator: 'percent'
+                }
+            }
         },
         loTable: {
-            pathToFile: 'common/nas/nas_data',
+            pathToFile: 'nas_all-dashboard.json',
+            mainFilter: 'State Code',
             columns: [
+                {
+                    name: "Indicator Code",
+                    property: "Indicator Code"
+                },
                 {
                     name: "Grade",
                     property: "Grade"
                 },
                 {
                     name: "Subject",
-                    property: "Subject",
+                    property: "Subject"
                 },
                 {
-                    name: "Indicator",
-                    property: "Indicator",
-                },
-                {
-                    name: "Performance",
-                    property: "Performance",
-                    weightedAverageAgainst: "Students Surveyed",
-                    transposeColumn: "State"
+                    name: "District",
+                    property: "District",
+                    transposeColumn: true,
+                    isHeatMapRequired: true,
+				    color: '#002966',
+                    weightedAverage: {
+                        property: "Performance",
+                        against: "Students Surveyed"
+                    },
+                    level: "district"
                 }
             ],
             filters: [
                 {
                     name: 'Grade',
-                    property: 'Grade'
+                    column: 'Grade'
                 },
                 {
                     name: 'Subject',
-                    property: 'Subject'
-                },
-                {
-                    name: 'State',
-                    property: 'State',
-                    optionValueColumn: "State Code",
-                    isSSPFilter: false
-                },
-                {
-                    name: 'District',
-                    property: 'District',
-                    optionValueColumn: "District Code",
-                    isSSPFilter: true
-                },
+                    column: 'Subject'
+                }
             ]
+        },
+        scatterPlot: {
+            pathToFile: 'nas_all-dashboard.json',
+            mainFilter: 'State Code',
+            series: {
+                x: {
+                    name: "X-Axis",
+                    property: ["Grade", "Subject"],
+                    weightedAverage: {
+                        property: "Performance",
+                        against: "Students Surveyed"
+                    }
+                },
+                y: {
+                    name: "Y-Axis",
+                    property: ["Grade", "Subject"],
+                    weightedAverage: {
+                        property: "Performance",
+                        against: "Students Surveyed"
+                    }
+                }
+            },
+            levels: [
+                {
+                    name: "District",
+                    value: "district",
+                    property: "District",
+                    tooltip: {
+                        name: "District Name"
+                    }
+                }
+            ],
+            filters: []
         }
     }
 }

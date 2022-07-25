@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-material-button-group',
@@ -7,12 +8,17 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class MaterialButtonGroupComponent implements OnInit {
 
+  config: string = environment.config
+  NVSK: boolean = true;  
   @Input() buttons: any;
   @Output() select: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit(): void {
+    if(this.config == 'VSK'){
+      this.NVSK = false;
+    }
   }
 
   onSelect(buttons: any, index: number): any {

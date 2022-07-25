@@ -90,6 +90,7 @@ const dataSourceInfo = {
         },
         scatterPlot: {
             pathToFile: 'udise-all-dashboard.json',
+            mainFilter: 'State Code',
             series: {
                 x: {
                     name: "X-Axis",
@@ -109,14 +110,6 @@ const dataSourceInfo = {
             propertyAsOption: true,
             levels: [
                 {
-                    name: "State",
-                    value: "state",
-                    property: "State Name",
-                    tooltip: {
-                        name: "State/UT name"
-                    }
-                },
-                {
                     name: "District",
                     value: "district",
                     property: "District Name",
@@ -125,13 +118,7 @@ const dataSourceInfo = {
                     }
                 }
             ],
-            filters: [
-                {
-                    name: 'State/UT',
-                    column: 'State Name',
-                    optionValueColumn: "State Code"
-                }
-            ]
+            filters: []
         }
     }
 }
