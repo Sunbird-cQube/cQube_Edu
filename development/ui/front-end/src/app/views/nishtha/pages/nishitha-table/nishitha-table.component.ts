@@ -76,16 +76,16 @@ export class NishithaTableComponent implements OnInit {
 
       this.options = {
         chart: {
-          // events: {
-          //   load: function(this: any) {
-          //     let categoryHeight = 20;
-          //     this.update({
-          //       chart: {
-          //         height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
-          //       }
-          //     })
-          //   }
-          // }
+          events: {
+            load: function(this: any) {
+              let categoryHeight = 20;
+              this.update({
+                chart: {
+                  height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
+                }
+              })
+            }
+          }
         },
         xAxis: {
           categories: result.map((record: any) => {
