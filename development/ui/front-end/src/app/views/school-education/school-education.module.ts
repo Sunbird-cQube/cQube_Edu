@@ -8,11 +8,13 @@ import { SchoolEducationRoutingModule } from './school-education-routing.module'
 import { MatTabsModule } from '@angular/material/tabs';
 import { CqubeLibraryModule } from 'cqube-library';
 import { SchoolEducationComponent } from './school-education.component';
+import { ImplementationStatusComponent } from './pages/implementation-status/implementation-status.component';
 
 
 @NgModule({
   declarations: [
-    SchoolEducationComponent
+    SchoolEducationComponent,
+    ImplementationStatusComponent
   ],
   imports: [
     CommonModule,
