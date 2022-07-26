@@ -80,6 +80,17 @@ const dataSourceInfo = {
                     }
                 },
                 {
+                    name: "Governance Processes",
+                    property: "6.Governance Processes",
+                    tooltip: {
+                        name: "Governance Processes"
+                    },
+                    includeAsMetricFilter: true,
+                    aggegration: {
+                        type: "AVG"
+                    }
+                },
+                {
                     name: "indicator",
                     property: "Grand Total",
                     tooltip: {
