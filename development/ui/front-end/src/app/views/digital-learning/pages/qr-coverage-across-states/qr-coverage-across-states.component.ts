@@ -59,16 +59,16 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
 
       this.barChartOptions = {
         chart: {
-          events: {
-            load: function(this: any) {
-              let categoryHeight = 16;
-              this.update({
-                chart: {
-                  height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
-                }
-              })
-            }
-          }
+          // events: {
+          //   load: function(this: any) {
+          //     let categoryHeight = 20;
+          //     this.update({
+          //       chart: {
+          //         height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
+          //       }
+          //     })
+          //   }
+          // }
         },
         xAxis: {
           categories: result.map((record: any) => {
