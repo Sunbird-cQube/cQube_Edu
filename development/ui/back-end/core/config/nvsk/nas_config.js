@@ -99,7 +99,7 @@ const dataSourceInfo = {
                     property: "State",
                     transposeColumn: true,
                     isHeatMapRequired: true,
-				    color: '#002966',
+                    color: '#002966',
                     weightedAverage: {
                         property: "Performance",
                         against: "Students Surveyed"
@@ -111,7 +111,7 @@ const dataSourceInfo = {
                     property: "District",
                     transposeColumn: true,
                     isHeatMapRequired: true,
-				    color: '#002966',
+                    color: '#002966',
                     weightedAverage: {
                         property: "Performance",
                         against: "Students Surveyed"
@@ -185,6 +185,41 @@ const dataSourceInfo = {
                 }
             ]
         }
+    },
+    implementationStatus: {
+        map: {
+            pathToFile: "nas_program-started.json",
+            locations: [
+                {
+                    name: "Location",
+                    property: "State",
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State/UT name",
+                    },
+                },
+            ],
+            dimensions: [
+                {
+                    name: "indicator",
+                    property: "Started",
+                    tooltip: {
+                        name: "Participating in NAS",
+                    },
+                },
+                {
+                    name: "state_code",
+                    property: "State Code",
+                },
+            ],
+            filters: [],
+            options: {
+                legend: {
+                    title: "Started doing NAS",
+                },
+            },
+        },
     }
 }
 
