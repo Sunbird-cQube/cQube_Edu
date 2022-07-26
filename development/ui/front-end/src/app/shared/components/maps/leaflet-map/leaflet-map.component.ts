@@ -21,6 +21,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() mapData!: any;
   @Input() level = 'state';
+  @Input() perCapitaReport: any = false;
 
   @ViewChild('map') mapContainer!: ElementRef<HTMLElement>;
 
@@ -167,20 +168,26 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           for (let i = 1; i <= 5; i++) {
             if (i === 5) {
               if(min === 0){
-                values.push(0.1);
+                values.push(this.perCapitaReport ? 0.1 : 1);
               }
               else{
-                values.push(min);
+                values.push(this.perCapitaReport ? min :min.toFixed(0));
               }
               continue;
             }
-
+  
             if (i === 1) {
-              values.push(max);
+              values.push(this.perCapitaReport ? max :max.toFixed(0));
               continue;
             }
-
-            values.push(Number((max - partSize * (i - 1)).toFixed(2)));
+            if(this.perCapitaReport){
+              let value = Number((max - partSize * (i - 1)).toFixed(2))
+              values.push(value)
+            }
+            else{
+              let value = Number((max - partSize * (i - 1)).toFixed(0))
+              values.push(value >= 1 ? value : 1)
+            }
           }
         }
 
@@ -267,28 +274,28 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         for (let i = 1; i <= 5; i++) {
           if (i === 5) {
             if(min === 0){
-              values.push(0.1);
+              values.push(1);
             }
             else{
-              values.push(min);
+              values.push(min.toFixed(0));
             }
             // values.push(min);
             continue;
           }
 
           if (i === 1) {
-            values.push(max);
+            values.push(max.toFixed(0));
             continue;
           }
-
-          values.push(Number((max - partSize * (i - 1)).toFixed(2)));
+          let value = Number((max - partSize * (i - 1)).toFixed(0))
+          values.push(value >= 1 ? value : 1)
         }
       }
 
       mapData.data.forEach((data: any) => {
         let markerIcon = L.circleMarker([data.Latitude, data.Longitude], {
           color: "gray",
-          fillColor: this.getZoneColor(reportTypeIndicator, data.indicator ? (max - min ? (data.indicator - min) / (max - min) * 100 : data.indicator) : -1),
+          fillColor: this.getZoneColor(reportTypeIndicator, data.indicator >= 1 ? (max - min ? (data.indicator - min) / (max - min) * 100 : data.indicator) : -1),
           fillOpacity: 1,
           strokeWeight: 0.01,
           weight: 1
