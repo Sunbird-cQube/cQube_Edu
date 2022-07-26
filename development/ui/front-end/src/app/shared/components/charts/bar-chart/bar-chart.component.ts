@@ -125,6 +125,9 @@ export class BarChartComponent implements OnInit, OnChanges {
       },
       series: [],
       tooltip: {
+        style: {
+          fontSize: '1rem'
+        },
         formatter: function(this: any) {
           return `${this.series.name}<br><span style="padding: 5px; background: ${this.color}"></span>${this.x}: ${new Intl.NumberFormat('en-IN').format(this.y)}`;
         }
