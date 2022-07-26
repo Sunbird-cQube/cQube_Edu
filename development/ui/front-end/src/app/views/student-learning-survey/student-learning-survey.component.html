@@ -16,10 +16,14 @@
         <mat-tab label="State Wise Performance ">
             <div class="grid grid-cols-1">
                 <div class="col" *ngIf="NasStateData">
-                    <app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
-                    <app-material-button-group [buttons]="levels" (select)="onSelectLevel($event)"></app-material-button-group>
-                    <app-leaflet-map [mapData]="NasStateData" [level]="level"></app-leaflet-map>
-                    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-scale-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+                    <div class="grid grid-cols-12">
+                        <div class="col-span-full" appFullScreen>
+                            <app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                            <app-material-button-group [buttons]="levels" (select)="onSelectLevel($event)"></app-material-button-group>
+                            <app-leaflet-map [mapData]="NasStateData" [level]="level"></app-leaflet-map>
+                            <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-scale-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+                        </div>
+                    </div>
                 </div>
                 <div class="col" *ngIf="isMapReportLoading">
                     <p class="mt-8">Loading...</p>
@@ -29,7 +33,7 @@
         <mat-tab label="Grade & Subject performance">
             <app-student-learning-survey-program></app-student-learning-survey-program>
         </mat-tab>
-        <mat-tab label="Grade & Subject correlation ">
+        <mat-tab label="Grade & Subject correlation">
             <app-performance-comparision-by-grade-subject></app-performance-comparision-by-grade-subject>
         </mat-tab>
     </mat-tab-group>

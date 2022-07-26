@@ -18,7 +18,6 @@ import { TableHeatMapDirective, TableHeatMapCellDirective, TableHeatMapColumnDir
 import { MaterialHeatChartTableComponent } from './components/tables/material-heat-chart-table/material-heat-chart-table.component';
 import { GaugeChartComponent } from './components/charts/gauge-chart/gauge-chart.component';
 import { ScatterChartComponent } from './components/scatter-chart/scatter-chart.component';
-import { NgChartsModule } from 'ng2-charts';
 import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
 import { StackedBarComponent } from './components/charts/stacked-bar/stacked-bar.component';
 import { PieChartComponent } from './components/charts/pie-chart/pie-chart.component';
@@ -27,6 +26,7 @@ import { LeafletMapComponent } from './components/maps/leaflet-map/leaflet-map.c
 import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
 import { MaterialButtonGroupComponent } from './components/buttons/material-button-group/material-button-group.component';
 import { LevelNMetricFilterPanelComponent } from './components/level-n-metric-filter-panel/level-n-metric-filter-panel.component';
+import { FullScreenDirective } from './directives/full-screen.directive';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -57,18 +57,17 @@ const DECLARATIONS = [
   LeafletMapComponent,
   BarChartComponent,
   MaterialButtonGroupComponent,
-  LevelNMetricFilterPanelComponent
+  LevelNMetricFilterPanelComponent,
+  FullScreenDirective
 ];
 
 @NgModule({
   declarations: [
-    DECLARATIONS,
-    MaterialButtonGroupComponent    
+    DECLARATIONS    
   ],
   imports: [
     CommonModule,
     RouterModule,
-    NgChartsModule,
     IMPORTS
   ],
   exports: [
