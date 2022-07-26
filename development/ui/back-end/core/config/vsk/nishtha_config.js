@@ -7,7 +7,7 @@ const dataSourceInfo = {
                 {
                     name: "Location",
                     property: "State",
-                    level: "state",
+                    level: "district",
                     isState: true,
                     tooltip: {
                         name: "State/UT name"
@@ -54,11 +54,17 @@ const dataSourceInfo = {
                 },
                 {
                     name: "Total Enrollments",
-                    property: "Total Enrollments"
+                    property: "Total Enrollments",
+                    aggegration: {
+                        type: "SUM"
+                    }
                 },
                 {
                     name: "Total Certifications",
-                    property: "Total Certifications"
+                    property: "Total Certifications",
+                    aggegration: {
+                        type: "SUM"
+                    }
                 }
             ],
             filters: [
@@ -110,6 +116,7 @@ const dataSourceInfo = {
         stackedBarChart: {
             pathToFile: 'diksha_nishtha_percentage-enrollment-certification.json',
             defaultLevel: "State",
+            mainFilter: 'State Code',
             columns: [
                 {
                     name: "Location",
@@ -153,6 +160,7 @@ const dataSourceInfo = {
         stackedBarChart: {
             pathToFile: 'diksha_nishtha_percentage-enrollment-certification.json',
             defaultLevel: "State",
+            mainFilter: "State Code",
             columns: [
                 {
                     name: "Location",
@@ -197,6 +205,7 @@ const dataSourceInfo = {
             pathToFile: 'diksha_nishtha_tot-courses-medium.json',
             defaultLevel: 'State Name',
             sortByProperty: 'Total Courses',
+            mainFilter: 'State Code',
             sortDirection: 'desc',
             columns: [
                 {
@@ -208,12 +217,18 @@ const dataSourceInfo = {
                 {
                     name: "Count of courses launched",
                     property: "Total Courses",
-                    class: "text-center"
+                    class: "text-center",
+                    aggegration: {
+                        type: "SUM"
+                    }
                 },
                 {
                     name: "Count of course mediums",
                     property: "Total Medium",
-                    class: "text-center"
+                    class: "text-center",
+                    aggegration: {
+                        type: "SUM"
+                    }
                 }
             ],
             filters: [

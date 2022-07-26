@@ -205,7 +205,7 @@ const dataSourceInfo = {
                     name: "indicator",
                     property: "Started",
                     tooltip: {
-                        name: "Participating in NAS",
+                        name: "Implemented NAS",
                     },
                 },
                 {
@@ -216,7 +216,7 @@ const dataSourceInfo = {
             filters: [],
             options: {
                 legend: {
-                    title: "Started doing NAS",
+                    title: "Implemented NAS",
                 },
             },
         },
