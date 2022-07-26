@@ -127,7 +127,7 @@ const dataSourceInfo = {
                     name: "indicator",
                     property: "Started",
                     tooltip: {
-                        name: "Quizzes Started",
+                        name: "NCERT Quizzes Started",
                     },
                 },
                 {
@@ -138,7 +138,7 @@ const dataSourceInfo = {
             filters: [],
             options: {
                 legend: {
-                    title: "Started Quizzes",
+                    title: "Started NCERT Quizzes",
                 },
             },
         },
