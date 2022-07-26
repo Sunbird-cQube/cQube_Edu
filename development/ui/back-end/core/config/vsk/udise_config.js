@@ -141,14 +141,14 @@ const dataSourceInfo = {
                     name: "indicator",
                     property: "Started",
                     tooltip: {
-                        name: "UDISE Started",
+                        name: "Implemented UDISE+",
                     },
                 }
             ],
             filters: [],
             options: {
                 legend: {
-                    title: "Started UDISE",
+                    title: "Implemented UDISE+",
                 },
             },
         },

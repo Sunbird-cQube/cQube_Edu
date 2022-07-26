@@ -101,14 +101,14 @@ const dataSourceInfo = {
                     name: "indicator",
                     property: "Started",
                     tooltip: {
-                        name: "PGI Started",
+                        name: "Implemented PGI",
                     },
                 }
             ],
             filters: [],
             options: {
                 legend: {
-                    title: "Started PGI",
+                    title: "Implemented PGI",
                 },
             },
         },
