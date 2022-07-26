@@ -93,14 +93,19 @@ div.kc-logo-text span {
 }
 
 .logo{
+    font-weight: bold;
     margin-left: 80px; 
     padding: 20px 0px 0px 0px;
+    font-family:  'Oswald', sans-serif !important;
+    // margin-left: 130px !important;
+    font-size: 24px !important;
+    color: rgb(197 240 242);
 }
 
 .logoText{
     font-family:  'Oswald', sans-serif !important;
     margin-left: 130px !important;
-    font-size: 84px !important;
+    font-size: 40px !important;
     color:white;
 }
 .logoText p{

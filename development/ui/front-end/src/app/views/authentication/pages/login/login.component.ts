@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { environment } from 'src/environments/environment';
+import { stateNames } from 'src/app/core/config/StateCodes';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +12,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication/auth
 })
 export class LoginComponent implements OnInit {
   
+  stateName:any
   error: boolean= false;
   LoginForm = new FormGroup({
     userId: new FormControl('', Validators.required),
@@ -23,6 +26,26 @@ export class LoginComponent implements OnInit {
   } 
 
   ngOnInit(): void {
+    if(environment.config === 'VSK'){
+      // // this.stateName = false;
+      // this.stateName=environment.stateCode
+
+      let names: any = stateNames;
+        // this.stateName = names.filter((key:any) => {
+        //   return key.stateCode == environment.stateCode
+        //   // return key.name
+        // })
+        names.every((state:any) => {
+          if(state.stateCode == environment.stateCode){
+            this.stateName = state.stateName;
+            return false;
+          }
+          return true;
+        });
+        console.log(this.stateName)
+
+    }
+    
   }
 
   onSubmit(){
@@ -33,4 +56,7 @@ export class LoginComponent implements OnInit {
       this.error = true;
     }
   }
+
+ 
+  
 }
