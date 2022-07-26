@@ -107,6 +107,41 @@ const dataSourceInfo = {
             ],
             filters: []
         }
+    },
+    implementationStatus: {
+        map: {
+            pathToFile: "diksha_quiz_program-started.json",
+            locations: [
+                {
+                    name: "Location",
+                    property: "State",
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State/UT name",
+                    },
+                },
+            ],
+            dimensions: [
+                {
+                    name: "indicator",
+                    property: "Started",
+                    tooltip: {
+                        name: "Quizzes Started",
+                    },
+                },
+                {
+                    name: "state_code",
+                    property: "State Code",
+                },
+            ],
+            filters: [],
+            options: {
+                legend: {
+                    title: "Started Quizzes",
+                },
+            },
+        },
     }
 }
 

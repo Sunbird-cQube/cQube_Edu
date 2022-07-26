@@ -15,6 +15,7 @@ export class QuizComponent implements OnInit {
   quizzesStateData: any;
   filters: any;
   isMapReportLoading = false;
+  NVSK: boolean = true;
 
   constructor(private readonly _commonService: CommonService, private readonly _configService: ConfigService) {
     this.getQuizzesMetricsData();
@@ -22,6 +23,9 @@ export class QuizComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if(environment.config === 'VSK'){
+      this.NVSK = false;
+    }
   }
 
   onTabChanged($event: any): void {

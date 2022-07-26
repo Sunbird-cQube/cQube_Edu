@@ -21,6 +21,7 @@ export class StudentLearningSurveyComponent implements OnInit {
   filters: any;
   isMapReportLoading = true;
   levels: any;
+  NVSK: boolean = true;
 
   constructor(private readonly _commonService: CommonService, private readonly _configService: ConfigService, private readonly _spinner:NgxSpinnerService) {
     this.getNASMetrics()
@@ -28,6 +29,9 @@ export class StudentLearningSurveyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(environment.config === 'VSK'){
+      this.NVSK = false;
+    }
     this._spinner.show();
   }
 

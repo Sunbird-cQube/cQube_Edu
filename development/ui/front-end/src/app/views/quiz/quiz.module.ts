@@ -8,13 +8,15 @@ import { QuizComponent } from './quiz.component';
 import { StateWiseParticipationComponent } from './pages/state-wise-participation/state-wise-participation.component';
 import { StatesStartedTableComponent } from './pages/states-started-table/states-started-table.component';
 import { QuizRoutingModule } from './quiz-routing.module';
+import { ImplementationStatusComponent } from './pages/implementation-status/implementation-status.component';
 
 
 @NgModule({
   declarations: [
     QuizComponent,
     StateWiseParticipationComponent,
-    StatesStartedTableComponent
+    StatesStartedTableComponent,
+    ImplementationStatusComponent
   ],
   imports: [
     CommonModule,

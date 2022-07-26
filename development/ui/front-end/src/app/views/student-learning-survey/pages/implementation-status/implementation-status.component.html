@@ -1,0 +1,12 @@
+<div class="grid grid-cols-1">
+    <div class="col">
+        <div class="col" *ngIf="isMapReport1Loading">
+            <p class="mt-8">Loading...</p>
+        </div>
+        <div class="grid grid-cols-12" *ngIf="implementationStatusData">
+            <div class="col-span-full" appFullScreen>
+                <app-leaflet-map [mapData]="implementationStatusData"></app-leaflet-map>
+            </div>
+        </div>                    
+    </div>
+</div>
