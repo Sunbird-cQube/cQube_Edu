@@ -130,7 +130,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   async applyCountryBorder(mapData: any): Promise<any> {
-    console.log(mapData)
     let parent = this;
     return new Promise(async (resolve, reject) => {
       try {
@@ -273,7 +272,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
             else{
               values.push(min);
             }
-            values.push(min);
+            // values.push(min);
             continue;
           }
 
