@@ -8,12 +8,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { SchoolRegistryComponent } from './school-registry.component';
 import { SchoolRegistryRoutingModule } from './school-registry-routing.module';
 import { SchoolFacilitiesComparisionComponent } from './pages/school-facilities-comparision/school-facilities-comparision.component';
+import { ImplementationstatusComponent } from './pages/implementationstatus/implementationstatus.component';
 
 
 @NgModule({
   declarations: [
     SchoolRegistryComponent,
-    SchoolFacilitiesComparisionComponent
+    SchoolFacilitiesComparisionComponent,
+    ImplementationstatusComponent
   ],
   imports: [
     CommonModule,
