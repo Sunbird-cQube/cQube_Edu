@@ -43,7 +43,7 @@ export class DigitalLearningComponent implements OnInit {
       this.NVSK = false;
     }
 
-    // this.getETBMetrics();
+    this.getETBMetrics();
     // this.getETBProgramStatsByLocation();
     this._nishthaService.getStateWiseEnrollmentData(params['version']).subscribe(res => {
       this.options = {
