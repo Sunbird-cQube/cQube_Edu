@@ -221,6 +221,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 									data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
 									data.tooltip += location.tooltip.valueAsName ? `${stateCode}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${stateCode}</b>`;
 								} else {
+									console.log(objs[0][location.property]);
 									data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
 									data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${objs[0][location.property]}</b>`;
 								}
