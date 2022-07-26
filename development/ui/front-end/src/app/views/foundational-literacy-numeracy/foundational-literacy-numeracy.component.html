@@ -1,8 +1,8 @@
 <div class="metric-card-wrapper">
     <p class="h4">NIPUN BHARAT</p>
-    <div class="grid gap-4 xs:grid-cols-2 xmd:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+    <div class="grid gap-4 cQ-Grid">
         <ng-container>
-            <div class="col-span-1 xs:py-2 md:py-4" *ngFor="let metric of nipunBharathMetrics">
+            <div class="" *ngFor="let metric of nipunBharathMetrics">
                 <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip"></sb-cqube-info-card>
             </div>
         </ng-container>
