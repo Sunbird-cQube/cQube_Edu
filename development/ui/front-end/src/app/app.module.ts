@@ -14,9 +14,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import { NgChartsModule } from 'ng2-charts';
 import { NgxSpinnerModule } from 'ngx-spinner';
-
 
 @NgModule({
   declarations: [
@@ -30,7 +28,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserAnimationsModule,
     MatTableModule,
     MatSortModule,
-    NgChartsModule,
     FormsModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
