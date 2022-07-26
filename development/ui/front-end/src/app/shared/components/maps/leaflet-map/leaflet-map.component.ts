@@ -105,17 +105,17 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       }
       if (reportTypeBoolean) {
         if (e.trim() == "Yes") {
-          return "rgb(33,113,181)";
+          return "rgba(12,52,61,255)";
         } else {
-          return "rgb(239,243,255)";
+          return "rgba(164,194,244,255)";
         }
       }
       else {
         {
-          return e > 75 ? "rgb(33,113,181)" :
-            e > 50 ? "rgb(107,174,214)" :
-              e > 25 ? "rgb(189,215,231)" :
-                e !== 0 ? "rgb(239,243,255)" : "#fff";
+          return e > 75 ? "rgba(12,52,61,255)" :
+            e > 50 ? "rgba(27,68,135,255)" :
+              e > 25 ? "rgba(60,120,216,255)" :
+                e >= 0 ? "rgba(164,194,244,255)" : "#fff";
         }
       }
     }
@@ -141,7 +141,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         else {
           const response = await fetch(`${environment.apiURL}/assets/geo-locations/${environment.stateCode}.json`);
           body = await response.json();
-      }
+        }
 
         const data = body;
         let min!: number, max!: number, values: any[] = [];
@@ -189,7 +189,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           mapData?.data.forEach((state: any) => {
 
             if (state.state_code == feature.properties.state_code) {
-              color = parent.getLayerColor(max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator);
+              color = parent.getLayerColor(state.indicator ? (max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator) : -1);
             }
           });
 
@@ -349,15 +349,15 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
   getZoneColor(reportTypeIndicator: string, value: string | number) {
     if (reportTypeIndicator === 'boolean') {
       if (value == "Yes") {
-        return "#36a732";
+        return "rgba(12,52,61,255)";
       } else {
-        return "red";
+        return "rgba(164,194,244,255)";
       }
     } else {
-      return value > 75 ? "rgb(33,113,181)" :
-        value > 50 ? "rgb(107,174,214)" :
-          value > 25 ? "rgb(189,215,231)" :
-            value !== 0 ? "rgb(239,243,255)" : "#fff";
+      return value > 75 ? "rgba(12,52,61,255)" :
+        value > 50 ? "rgba(27,68,135,255)" :
+          value > 25 ? "rgba(60,120,216,255)" :
+            value >= 0 ? "rgba(164,194,244,255)" : "#fff";
     }
   }
 }
