@@ -80,9 +80,7 @@ export class DigitalLearningComponent implements OnInit {
 
       this.stateWiseEnrollmentData = res.result;
     });
-    if(this.NVSK){
-      this.getETBData(this.filters);
-    }
+    this.getETBData(this.filters);
   }
 
   ngOnInit(): void {

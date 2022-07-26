@@ -89,7 +89,7 @@ export class NisithaStackedBarComponent implements OnInit {
           {
             type: 'bar',
             color: "rgb(239,243,255)",
-            name: '% Total Target-Enrollment',
+            name: '% Total Target-Enrolment',
             data: result.map((record: any) => {
               return {
                 y: Number(Number(100 - record['% Target Achieved- Enrolment']).toFixed(2)),
@@ -100,7 +100,7 @@ export class NisithaStackedBarComponent implements OnInit {
           {
           type: 'bar',
           color: "rgb(33,113,181)",
-          name: '% Target Achieved-Enrollment',
+          name: '% Target Achieved-Enrolment',
           data: result.map((record: any) => {
             return record['% Target Achieved- Enrolment'];
           })

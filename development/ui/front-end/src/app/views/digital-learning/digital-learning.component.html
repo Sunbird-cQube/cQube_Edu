@@ -15,7 +15,7 @@
 
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
-        <mat-tab label="Implementation Status" class="tab-first" *ngIf="NVSK">
+        <mat-tab label="Implementation Status" class="tab-first" >
             <div class="col">
                 <div class="grid grid-cols-12">
                     <div class="col-span-full" appFullScreen>
@@ -28,16 +28,16 @@
                 <p class="mt-8">Loading...</p>
             </div>
         </mat-tab>
-        <mat-tab label="ETB Coverage Status" *ngIf="NVSK">
+        <mat-tab label="ETB Coverage Status" >
             <app-digital-learning-coverage></app-digital-learning-coverage>
         </mat-tab>
-        <mat-tab label="Content against QR Code Status" class="tab-last" *ngIf="NVSK">
+        <mat-tab label="Content against QR Code Status" class="tab-last" >
             <app-qr-coverage-across-states></app-qr-coverage-across-states>
         </mat-tab>
         <mat-tab label="Learning Sessions" class="tab-last">
             <app-total-learning-sessions></app-total-learning-sessions>
         </mat-tab>
-        <mat-tab label="Learning Sessions on Potential Users" *ngIf="NVSK">
+        <mat-tab label="Learning Sessions on Potential Users" >
             <app-total-plays-per-capita></app-total-plays-per-capita>
         </mat-tab>
     </mat-tab-group>
