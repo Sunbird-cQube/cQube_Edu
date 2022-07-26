@@ -49,7 +49,13 @@ export class StackedBarComponent implements OnInit, OnChanges {
         scrollbar: {
           enabled: false
         },
-        gridLineColor: 'transparent'
+        gridLineColor: 'transparent',
+        labels: {
+          style: {
+            fontSize: '0.7rem',
+            width: 200
+          }
+        }
       },
       yAxis: {
         min: 0,
@@ -57,7 +63,12 @@ export class StackedBarComponent implements OnInit, OnChanges {
         title: {
           text: null
         },
-        gridLineColor: 'transparent'
+        gridLineColor: 'transparent',
+        labels: {
+          style: {
+            fontSize: '0.7rem'
+          }
+        }
       },
       plotOptions: {
         bar: {
@@ -77,7 +88,12 @@ export class StackedBarComponent implements OnInit, OnChanges {
               e.preventDefault();
             }
           },
-          borderWidth: 0
+          borderWidth: 0,
+          dataLabels: {
+            style: {
+              fontSize: '0.7rem'
+            }
+          }
         }
       },
       legend: {
@@ -91,7 +107,36 @@ export class StackedBarComponent implements OnInit, OnChanges {
       credits: {
         enabled: false
       },
-      series:[]
+      series:[],
+      tooltip: {
+        style: {
+          fontSize: '0.8rem'
+        }
+      },
+      responsive: {
+        rules: [
+          {
+            chartOptions: {
+              xAxis: {
+                labels: {
+                  style: {
+                    fontSize: '4rem',
+                    width: 200
+                  }
+                }
+              },
+              tooltip: {
+                style: {
+                  fontSize: '2rem'
+                }
+              }
+            },
+            condition: {
+              minWidth: 2048
+            }
+          }
+        ]
+      }
     };
     this.chart = Highcharts.chart(this.container.nativeElement, Highcharts.merge(defaultOptions, options), function (this: any) {
     });
