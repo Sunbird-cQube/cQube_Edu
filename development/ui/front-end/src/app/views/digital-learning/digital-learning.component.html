@@ -1,12 +1,12 @@
 <div class="metric-card-wrapper">
     <p class="h3"><b>DIKSHA- ETB and eContent</b> <em>(ETB : Energized Textbook)</em></p>
-    <div class="grid gap-4 xs:grid-cols-2 xmd:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+    <div class="grid gap-4 cQ-Grid">
         <!-- <div class="col-span-full">
             <img src="../../../../../assets/images/etbimage.jpeg" class="xs:w-full md:w-8/12 mx-auto" alt="etb image ">
         </div> -->
         <!-- <button class="bg-blue-500">Access to ETB Program</button> -->
         <ng-container *ngIf="ETBMetrics">
-            <div class="col-span-1 xs:py-2 md:py-4" *ngFor="let metric of ETBMetrics">
+            <div class="" *ngFor="let metric of ETBMetrics">
                 <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltip]="metric?.tooltip"></sb-cqube-info-card>
             </div>
         </ng-container>

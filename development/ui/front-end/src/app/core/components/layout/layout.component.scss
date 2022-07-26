@@ -1,3 +1,54 @@
+.fontBar {
+    min-height: 3rem;
+   background: var(--cQ-primary);
+   z-index: 999;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 0.5rem;
+   padding:0 0.5rem 0 0.5rem;
+       position: fixed;
+    top: 0;
+   color: var(--white);
+   width: 100%;
+   .flagArea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+        margin-right: 0.5rem;
+    }
+   }
+
+   .btnGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap:0.5rem;
+    button {
+        background:var(--cQ-primary);
+        border: 0.0625rem solid rgb(255 255 255 / 25%);
+        border-radius: 100%;
+        padding:0.5rem;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+            background: var(--cQ-secondary);
+        }
+        &:disabled {
+            opacity: 0.5;
+            &:hover {
+                background: none;
+            }
+        }
+       }
+}
+
+}
+
 ::ng-deep{
     .mat-tab-nav-bar, .mat-tab-header{
         border-bottom: none !important;
