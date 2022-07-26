@@ -86,14 +86,14 @@ const dataSourceInfo = {
                     name: "indicator",
                     property: "QR Coverage",
                     tooltip: {
-                        name: "QR Code Content Coverage"
+                        name: "Content Coverage on QR"
                     },
                 }
             ],
             filters: [],
             options: {
                 legend: {
-                    title: 'QR Coverage'
+                    title: 'Content Coverage on QR'
                 },
                 tooltip: {
                     reportTypeIndicator: 'percent'
@@ -104,7 +104,7 @@ const dataSourceInfo = {
             pathToFile: 'diksha_etb_qr-coverage.json',
             mainFilter: 'State Code',
             gaugeChart: {
-                title: 'Overall QR Coverage',
+                title: 'Content Coverage on QR',
                 aggegration: {
                     type: 'AVG',
                     column: 'QR covered',

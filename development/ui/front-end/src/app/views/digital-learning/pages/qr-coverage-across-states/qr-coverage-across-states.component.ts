@@ -89,7 +89,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
         },
         series: [{
           type: 'bar',
-          name: 'QR Coverage (%)',
+          name: 'Content Coverage on QR',
           data: result.map((record: any) => record['QR Coverage'])
         }]
       };

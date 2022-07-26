@@ -84,7 +84,7 @@ const dataSourceInfo = {
             ],
             options: {
                 legend: {
-                    title: 'PGI Performance'
+                    title: 'UDISE+ Performance'
                 }
             }
         },
