@@ -120,6 +120,38 @@ const dataSourceInfo = {
             ],
             filters: []
         }
+    },
+    implementationStatus: {
+        map: {
+            pathToFile: "udise_program-started.json",
+            mainFilter: 'State Code',
+            locations: [
+                {
+                    name: "Location",
+                    property: "State",
+                    level: "district",
+                    isState: true,
+                    tooltip: {
+                        name: "State/UT name",
+                    },
+                },
+            ],
+            dimensions: [
+                {
+                    name: "indicator",
+                    property: "Started",
+                    tooltip: {
+                        name: "UDISE Started",
+                    },
+                }
+            ],
+            filters: [],
+            options: {
+                legend: {
+                    title: "Started UDISE",
+                },
+            },
+        },
     }
 }
 

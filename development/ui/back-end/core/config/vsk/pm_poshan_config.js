@@ -58,6 +58,38 @@ const dataSourceInfo = {
                 }
             }
         }
+    },
+    state_onboarded: {
+        map: {
+            pathToFile: 'pm-poshan_state-onboarded.json',
+            mainFilter: 'State Code',
+            locations: [
+                {
+                    name: "Location",
+                    property: "State",
+                    level: "district",
+                    isState: true,
+                    tooltip: {
+                        name: "State/UT name"
+                    }
+                }
+            ],
+            dimensions: [
+                {
+                    name: "indicator",
+                    property: "Onboarded on PM Poshan",
+                    tooltip: {
+                        name: "Onboarded on PM Poshan"
+                    }
+                }
+            ],
+            filters: [],
+            options: {
+                legend: {
+                    title: 'States onboarded on PM Poshan'
+                }
+            }
+        }
     }
 }
 

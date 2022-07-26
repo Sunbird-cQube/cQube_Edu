@@ -105,17 +105,17 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       }
       if (reportTypeBoolean) {
         if (e.trim() == "Yes") {
-          return "rgba(12,52,61,255)";
+          return "#1D4586";
         } else {
-          return "rgba(164,194,244,255)";
+          return "#FFFFFF";
         }
       }
       else {
         {
-          return e > 75 ? "rgba(12,52,61,255)" :
-            e > 50 ? "rgba(27,68,135,255)" :
-              e > 25 ? "rgba(60,120,216,255)" :
-                e >= 0 ? "rgba(164,194,244,255)" : "#fff";
+          return e > 75 ? "#1D4586" :
+            e > 50 ? "#1156CC" :
+              e > 25 ? "#6D9FEB" :
+                e >= 0 ? "#C9DAF7" : "#fff";
         }
       }
     }
@@ -130,6 +130,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   async applyCountryBorder(mapData: any): Promise<any> {
+    console.log(mapData)
     let parent = this;
     return new Promise(async (resolve, reject) => {
       try {
@@ -166,7 +167,12 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
           for (let i = 1; i <= 5; i++) {
             if (i === 5) {
-              values.push(min);
+              if(min === 0){
+                values.push(0.1);
+              }
+              else{
+                values.push(min);
+              }
               continue;
             }
 
@@ -261,6 +267,12 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
         for (let i = 1; i <= 5; i++) {
           if (i === 5) {
+            if(min === 0){
+              values.push(0.1);
+            }
+            else{
+              values.push(min);
+            }
             values.push(min);
             continue;
           }
@@ -277,7 +289,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       mapData.data.forEach((data: any) => {
         let markerIcon = L.circleMarker([data.Latitude, data.Longitude], {
           color: "gray",
-          fillColor: this.getZoneColor(reportTypeIndicator, max - min ? (data.indicator - min) / (max - min) * 100 : data.indicator),
+          fillColor: this.getZoneColor(reportTypeIndicator, data.indicator ? (max - min ? (data.indicator - min) / (max - min) * 100 : data.indicator) : -1),
           fillOpacity: 1,
           strokeWeight: 0.01,
           weight: 1
@@ -349,15 +361,15 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
   getZoneColor(reportTypeIndicator: string, value: string | number) {
     if (reportTypeIndicator === 'boolean') {
       if (value == "Yes") {
-        return "rgba(12,52,61,255)";
+        return "#1D4586";
       } else {
-        return "rgba(164,194,244,255)";
+        return "#FFFFFF";
       }
     } else {
-      return value > 75 ? "rgba(12,52,61,255)" :
-        value > 50 ? "rgba(27,68,135,255)" :
-          value > 25 ? "rgba(60,120,216,255)" :
-            value >= 0 ? "rgba(164,194,244,255)" : "#fff";
+      return value > 75 ? "#1D4586" :
+        value > 50 ? "#1156CC" :
+          value > 25 ? "#6D9FEB" :
+            value >= 0 ? "#C9DAF7" : "#fff";
     }
   }
 }

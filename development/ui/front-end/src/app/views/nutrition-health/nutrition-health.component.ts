@@ -31,9 +31,7 @@ export class NutritionHealthComponent implements OnInit {
     }
     this.getPmPoshanMetricsData();
     this.getPmPoshanStateData(this.filters1, this.levels1, this.metricFilter);
-    if(this.NVSK){
     this.getStateOnboardedData(this.filters2, this.levels2);
-    }
   }
 
   ngOnInit(): void {
