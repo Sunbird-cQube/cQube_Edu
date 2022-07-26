@@ -12,6 +12,9 @@
 </div>
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+        <mat-tab label="Implementation Status">
+            <app-implementation-status></app-implementation-status>
+        </mat-tab>
         <mat-tab label="State Wise Performance">
             <div class="grid grid-cols-1">
                 <div class="col-span-full">
