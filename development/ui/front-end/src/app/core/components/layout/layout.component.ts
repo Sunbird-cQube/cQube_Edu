@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, Renderer2, ViewChild } from '@angular/co
 import { Router } from '@angular/router';
 
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 import { IDashboardMenu } from '../../models/IDashboardCard';
 import { IMenuItem } from '../../models/IMenuItem';
 
@@ -12,6 +13,7 @@ import { IMenuItem } from '../../models/IMenuItem';
 })
 export class LayoutComponent implements OnInit {
   menu: IMenuItem[] | undefined;
+  NVSK: boolean = true;
 // Font Increase Decrease Variables
 fontSize: any;
 defaultFontSize = 16;
@@ -45,6 +47,9 @@ resetFontSize!: ElementRef;
   }
 
   ngOnInit(): void {
+    if(environment.config === 'VSK'){
+      this.NVSK = false;
+    }
   }
 
 
