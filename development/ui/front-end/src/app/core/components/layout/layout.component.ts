@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 import { IDashboardMenu } from '../../models/IDashboardCard';
 import { IMenuItem } from '../../models/IMenuItem';
 
@@ -11,6 +13,7 @@ import { IMenuItem } from '../../models/IMenuItem';
 })
 export class LayoutComponent implements OnInit {
   menu: IMenuItem[] | undefined;
+  NVSK: boolean = true;
 // Font Increase Decrease Variables
 fontSize: any;
 defaultFontSize = 16;
@@ -21,7 +24,7 @@ decreaseFontSize!: ElementRef;
 @ViewChild('resetFontSize')
 resetFontSize!: ElementRef;
 // @ViewChild('darkModeToggle') darkModeToggle: ElementRef;
-  constructor(private readonly _configService: ConfigService, private renderer: Renderer2) {
+  constructor(private readonly _configService: ConfigService, private renderer: Renderer2,private router:Router) {
     this._configService.getDashboardMetrics(true).subscribe(menuResult => {
       this.menu = [];
       let menuToDisplay: IMenuItem | any = {};
@@ -44,6 +47,9 @@ resetFontSize!: ElementRef;
   }
 
   ngOnInit(): void {
+    if(environment.config === 'VSK'){
+      this.NVSK = false;
+    }
   }
 
 
@@ -114,6 +120,10 @@ resetFontSize!: ElementRef;
         this.renderer.removeAttribute(this.decreaseFontSize.nativeElement, 'disabled');
         this.renderer.removeAttribute(this.resetFontSize.nativeElement, 'disabled');
       }
+    }
+    signOut(){
+      localStorage.removeItem('userId');
+      this.router.navigate(['/login']);
     }
 
 }
