@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="logo">
-               <p>State Vidya Samiksha Kendra</p>
+               <p *ngIf="!NVSK">State Vidya Samiksha Kendra</p>
+               <p *ngIf="NVSK">National Vidya Samiksha Kendra</p>
             </div>
         </div>
     </div>

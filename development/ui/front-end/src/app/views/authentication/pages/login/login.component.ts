@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { environment } from 'src/environments/environment';
 import { stateNames } from 'src/app/core/config/StateCodes';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { stateNames } from 'src/app/core/config/StateCodes';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
+  NVSK: boolean = true;
   stateName:any
   error: boolean= false;
   LoginForm = new FormGroup({
@@ -27,14 +28,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if(environment.config === 'VSK'){
+      this.NVSK = false
       // // this.stateName = false;
       // this.stateName=environment.stateCode
 
       let names: any = stateNames;
-        // this.stateName = names.filter((key:any) => {
-        //   return key.stateCode == environment.stateCode
-        //   // return key.name
-        // })
         names.every((state:any) => {
           if(state.stateCode == environment.stateCode){
             this.stateName = state.stateName;
@@ -42,19 +40,34 @@ export class LoginComponent implements OnInit {
           }
           return true;
         });
-        console.log(this.stateName)
 
+    }
+    else{
+      this.stateName = 'India'
     }
     
   }
 
+
+  encrypt(value : string) : string{
+    return CryptoJS.AES.encrypt(value, environment.secretKey.trim()).toString();
+  }
+
   onSubmit(){
-    if(this.LoginForm.controls.userId.value === 'admin' && this.LoginForm.controls.password.value === 'admin') {
-      localStorage.setItem('userId', this.LoginForm.controls.userId.value);
+    let password = this.encrypt(this.LoginForm.controls.password.value as string);
+    this._authenticationService.login(this.LoginForm.controls.userId.value, password).subscribe((res:any) => {
+      localStorage.setItem('userId', JSON.stringify(res));
       this.router.navigate(['/dashboard']);
-    } else {
+    },
+    err => {
       this.error = true;
-    }
+    })
+    // if(this.LoginForm.controls.userId.value === 'admin' && this.LoginForm.controls.password.value === 'admin') {
+    //   localStorage.setItem('userId', this.LoginForm.controls.userId.value);
+    //   this.router.navigate(['/dashboard']);
+    // } else {
+    //   this.error = true;
+    // }
   }
 
  
