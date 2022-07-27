@@ -29,7 +29,7 @@ const dataSourceInfo = {
                     name: "PTR",
                     property: "PTR",
                     tooltip: {
-                        name: "Outcome"
+                        name: "PTR"
                     },
                     includeAsMetricFilter: true,
                     aggegration: {
@@ -69,17 +69,17 @@ const dataSourceInfo = {
                         type: "AVG"
                     }
                 },
-                {
-                    name: "% schools having library",
-                    property: "% schools having library",
-                    tooltip: {
-                        name: "% schools having library"
-                    },
-                    includeAsMetricFilter: true,
-                    aggegration: {
-                        type: "AVG"
-                    }
-                },
+                // {
+                //     name: "% schools having library",
+                //     property: "% schools having library",
+                //     tooltip: {
+                //         name: "% schools having library"
+                //     },
+                //     includeAsMetricFilter: true,
+                //     aggegration: {
+                //         type: "AVG"
+                //     }
+                // },
                 {
                     name: "% govt aided schools received textbook",
                     property: "% govt aided schools received textbook",
