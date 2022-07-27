@@ -41,10 +41,16 @@ export class PerformanceComparisionByGradeSubjectComponent implements OnInit {
 
       this.options = {
         xAxis: {
-          max: 100
+          max: 100,
+          title: {
+            text: this.getAxisTitle(this.axisFilters[0])
+          }
         },
         yAxis: {
-          max: 100
+          max: 100,
+          title: {
+            text: this.getAxisTitle(this.axisFilters[1])
+          }
         },
         tooltip: {
           formatter: function() {
@@ -59,6 +65,17 @@ export class PerformanceComparisionByGradeSubjectComponent implements OnInit {
         }]
       };
     });
+  }
+
+  getAxisTitle(axisFilter: any): string {
+    if (axisFilter) {
+      let filterOption = axisFilter.options.find((option: any) => option.value === axisFilter.value)
+      if (filterOption) {
+        return filterOption.label;
+      }
+    }
+
+    return "";
   }
 
   scatterAxisFiltersUpdated(axisFilters: any): void {
