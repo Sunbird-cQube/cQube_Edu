@@ -87,7 +87,10 @@ const dataSourceInfo = {
             columns: [
                 {
                     name: "Indicator Code",
-                    property: "Indicator Code"
+                    property: "Indicator Code",
+                    tooltip: {
+                        property: "Indicator"
+                    }
                 },
                 {
                     name: "Grade",
