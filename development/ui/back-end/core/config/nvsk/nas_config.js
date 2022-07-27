@@ -47,11 +47,13 @@ const dataSourceInfo = {
                 },
                 {
                     name: 'Subject',
-                    column: 'Subject'
+                    column: 'Subject',
+                    defaultValue: true
                 },
                 {
                     name: 'Indicator Code',
-                    column: 'Indicator Code'
+                    column: 'Indicator Code',
+                    defaultValue: true
                 },
                 {
                     name: 'State/UT',
