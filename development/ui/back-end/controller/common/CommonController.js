@@ -446,13 +446,20 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		
 		let pivotMap = new Map();
 		let result = [];
+
 		rawData.forEach(data => {
 			let key = '';
 			let dataObj = {};
-		
+			
 			rows.forEach(col => {
 				key += key.length > 0 ? '_' + data[col.property] : data[col.property];
-				dataObj[col.name] = data[col.name];
+				dataObj[col.property] = {
+					value: data[col.property]
+				}
+
+				if (col.tooltip) {
+					dataObj[col.property].tooltip = col.tooltip.property ? data[col.tooltip.property] : data[col.property];
+				}
 			});
 		
 			if (!pivotMap.has(key)) {
@@ -489,7 +496,13 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 					rec[col.property] = rec[col.property] && rec[col.property].denominatorSum > 0 ? Number((rec[col.property].numeratorSum / rec[col.property].denominatorSum).toFixed(2)) : 0;
 				}
 		
-				rec[col.property] = rec[col.property] ? rec[col.property] : 0;
+				rec[col.property] = {
+					value: rec[col.property] ? rec[col.property] : 0
+				};
+
+				if (col.tooltip) {
+					dataObj[col.property].tooltip = col.tooltip.property ? data[col.tooltip.property] : rec[col.property];
+				}
 			});
 		
 			return rec;
@@ -502,11 +515,6 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		.map((objs, key) => {
 			let data = {};
 			columns.forEach(col => {
-				if (col.isLocationName) {
-					data.Location = key;
-					return;
-				}
-
 				if (col.weightedAverage) {
 					let numeratorSum = 0;
 					let denominatorSum = 0;
@@ -516,7 +524,13 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 						denominatorSum += obj[col.weightedAverage.against];
 					});
 
-					data[col.property] = Number((numeratorSum / denominatorSum).toFixed(2));
+					data[col.property] = {
+						value: Number((numeratorSum / denominatorSum).toFixed(2))
+					};
+
+					if (col.tooltip) {
+						data[col.property].tooltip = col.tooltip.property ? objs[0][col.tooltip.property] : data[col.property];
+					}
 					return;
 				}
 
@@ -528,12 +542,23 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 							sum += obj[col.property] ? obj[col.property] : 0;
 						});
 						
-						data[col.property] = Number(sum.toFixed(2));
+						data[col.property] = {
+							value: Number(sum.toFixed(2))
+						};
+
+						if (col.tooltip) {
+							data[col.property].tooltip = col.tooltip.property ? objs[0][col.tooltip.property] : data[col.property];
+						}
 						return;
 					}
 				}
 
-				data[col.property] = objs[0][col.property];
+				data[col.property] = {
+					value: objs[0][col.property]
+				};
+				if (col.tooltip) {
+					data[col.property].tooltip = col.tooltip.property ? objs[0][col.tooltip.property] : data[col.property];
+				}
 			});
 
 			return data;
@@ -543,7 +568,13 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		rawData = rawData.map(record => {
 			let data = {};
 			columns.forEach(col => {
-				data[col.property] = record[col.property];
+				data[col.property] = {
+					value: record[col.property]
+				};
+
+				if (col.tooltip) {
+					dataObj[col.property].tooltip = col.tooltip.property ? record[col.tooltip.property] : record[col.property];
+				}
 			});
 
 			if (gaugeChart) {
@@ -559,7 +590,7 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 
 	sortByProperty = sortByProperty ? sortByProperty : columns[0].property;
 	sortDirection = sortDirection ? sortDirection : 'asc';
-	rawData.sort((a,b) => compare(a[sortByProperty], b[sortByProperty], sortDirection));
+	rawData.sort((a,b) => compare(a[sortByProperty].value, b[sortByProperty].value, sortDirection));
 
 	if (gaugeChart) {
 		if (gaugeChart.aggegration && gaugeChart.aggegration.type === "AVG") {

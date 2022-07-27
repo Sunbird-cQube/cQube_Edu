@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { MultiBarChartComponent } from './components/charts/multi-bar-chart/multi-bar-chart.component';
 import { DashboardCardComponent } from './components/cards/dashboard-card/dashboard-card.component';
@@ -37,7 +38,8 @@ const IMPORTS: any[] = [
   TranslocoModule,
   NgxSpinnerModule,
   MatButtonModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  TooltipModule.forRoot()
 ];
 
 const DECLARATIONS = [

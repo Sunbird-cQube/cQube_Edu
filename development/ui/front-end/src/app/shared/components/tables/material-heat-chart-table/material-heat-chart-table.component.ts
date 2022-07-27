@@ -28,6 +28,11 @@ export class MaterialHeatChartTableComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     if (this.tableData) {
       this.dataSource = new MatTableDataSource(this.tableData.data);
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch(property) {
+          default: return item[property].value;
+        }
+      };
       this.dataSource.sort = this.sort;
       this.columns = this.tableData.columns;
       this.columnProperties = [...['id'], ...this.tableData.columns.map((column: any) => column.property)];

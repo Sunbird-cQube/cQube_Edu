@@ -25,7 +25,13 @@ export class FullScreenDirective implements OnInit {
   }
 
   fullscreen(): void {
-    this.element.nativeElement.requestFullscreen();
+    if (this.element.nativeElement.requestFullscreen) {
+      this.element.nativeElement.requestFullscreen();
+    } else if (this.element.nativeElement.webkitRequestFullscreen) {
+      this.element.nativeElement.webkitRequestFullscreen();
+    } else if ((this.element.nativeElement as any).mozRequestFullScreen) {
+      (this.element.nativeElement as any).mozRequestFullScreen();
+    }
   }
 
 }
