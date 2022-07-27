@@ -47,7 +47,12 @@ export class ScatterChartComponent implements OnInit, OnChanges {
             enabled: false
           },
           gridLineColor: 'transparent',
-          tickInterval: 10
+          tickInterval: 10,
+          labels: {
+            style: {
+              fontSize: '0.7rem'
+            }
+          }
       },
       yAxis: {
           min: 0,
@@ -55,7 +60,12 @@ export class ScatterChartComponent implements OnInit, OnChanges {
               text: null
           },
           gridLineColor: 'transparent',
-          tickInterval: 10
+          tickInterval: 10,
+          labels: {
+            style: {
+              fontSize: '0.7rem'
+            }
+          }
       },
       plotOptions: {
         scatter: {
@@ -79,6 +89,11 @@ export class ScatterChartComponent implements OnInit, OnChanges {
             legendItemClick: function (e) {
               e.preventDefault();
             }
+          },
+          dataLabels: {
+            style: {
+              fontSize: '0.7rem'
+            }
           }
         }
       },
@@ -88,7 +103,10 @@ export class ScatterChartComponent implements OnInit, OnChanges {
           verticalAlign: 'top',
           floating: true,
           borderWidth: 0,
-          shadow: false
+          shadow: false,
+          itemStyle: {
+            fontSize: '0.7rem'
+          }
       },
       credits: {
           enabled: false
