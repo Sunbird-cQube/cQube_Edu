@@ -70,6 +70,7 @@ const dataSourceInfo = {
     qrCodeCoverageAcrossStates: {
         map: {
             pathToFile: 'diksha_etb_qr-coverage.json',
+            mainFilter: 'State Code',
             locations: [
                 {
                     name: "Location",
