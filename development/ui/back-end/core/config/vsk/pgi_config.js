@@ -1,5 +1,5 @@
 const dataSourceInfo = {
-    pgi_performance: {
+    pgi_district_performance: {
         map: {
             pathToFile: 'pgi_all-dashboard.json',
             mainFilter: 'State Code',
@@ -76,7 +76,7 @@ const dataSourceInfo = {
             ],
             options: {
                 legend: {
-                    title: 'PGI Performance'
+                    title: 'PGI District Performance'
                 }
             }
         }

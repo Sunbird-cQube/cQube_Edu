@@ -2,22 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
-import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ETBService } from 'src/app/core/services/etb/etb.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-school-education',
-  templateUrl: './school-education.component.html',
-  styleUrls: ['./school-education.component.scss']
+  selector: 'app-state-wise-performance',
+  templateUrl: './state-wise-performance.component.html',
+  styleUrls: ['./state-wise-performance.component.scss']
 })
-export class SchoolEducationComponent implements OnInit {
+export class StateWisePerformanceComponent implements OnInit {
   filters: any;
   metricFilter: any;
   levels: any;
   isMapReportLoading = true;
   level: string = 'state';
-  NVSK: boolean = true;
 
   pgiMetricsData: any;
   pgiStateData: any;
@@ -25,22 +23,11 @@ export class SchoolEducationComponent implements OnInit {
   columns: any[] = [];
   options: Highcharts.Options | undefined;
 
-  constructor(private readonly _ETBService: ETBService, private readonly _commonService: CommonService, private readonly _spinner: NgxSpinnerService, private readonly _configService: ConfigService) {
-    this.getPGIMetricsData();
+  constructor(private readonly _commonService: CommonService, private readonly _spinner: NgxSpinnerService) {
     this.getPGIStateData(this.filters, this.levels, this.metricFilter);
-    this.getStateWisePGICoverageData();
   }
 
   ngOnInit(): void {
-    if(environment.config === 'VSK'){
-      this.NVSK = false;
-    }
-  }
-
-  getPGIMetricsData(): void {
-    this._configService.getVanityMetrics('pgi').subscribe(vanityMetricsRes => {
-      this.pgiMetricsData = vanityMetricsRes.result;
-    });
   }
 
   onTabChanged($event: any): void {
@@ -50,43 +37,11 @@ export class SchoolEducationComponent implements OnInit {
     }, 100);
   }
 
-  getStateWisePGICoverageData() {
-    return this._ETBService.getStateWiseETBCoverageData().subscribe(res => {
-      this.options = {
-        title: {
-          text: ""
-        },
-        yAxis: {
-          title: {
-            y: 60,
-            text: 'Overall PGI Coverage'
-          }
-        },
-        series: [{
-          type: 'solidgauge',
-          name: 'Speed',
-          data: [60.6],
-          innerRadius: '80%',
-          dataLabels: {
-            y: -20,
-            format:
-              '<div style="text-align:center">' +
-              '<span style="font-size:25px">{y}%</span><br/>' +
-              '</div>'
-          },
-          tooltip: {
-            valueSuffix: ' %'
-          }
-        }]
-      }
-    });
-  }
-
   getPGIStateData(filters:any, levels:any, metricFilter: any) {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
       dataSourceName: 'pgi',
-      reportName: 'pgi_district_performance',
+      reportName: 'pgi_state_performance',
       reportType: 'map',
       stateCode: environment.stateCode,
       filters,
@@ -116,5 +71,4 @@ export class SchoolEducationComponent implements OnInit {
   onSelectMetricFilter(metricFilter: any): void {
     this.getPGIStateData(this.filters, this.levels, metricFilter);
   }
-
 }
