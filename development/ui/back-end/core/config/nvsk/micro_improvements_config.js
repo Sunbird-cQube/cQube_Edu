@@ -19,7 +19,7 @@
           name: "Total Micro Improvements",
           property: "Total Micro Improvements Projects",
           tooltip: {
-            name: "Total Projects",
+            name: "Total Micro Improvements",
           },
           includeAsMetricFilter: true
         },
@@ -27,7 +27,7 @@
           name: "Micro Improvements Started",
           property: "Total Micro Improvements Started",
           tooltip: {
-            name: "Program Started",
+            name: "Micro Improvements Started",
           },
           includeAsMetricFilter: true
         },
@@ -35,7 +35,7 @@
           name: "Micro Improvements In progress",
           property: "Total Micro Improvements In progress",
           tooltip: {
-            name: "Program In progress",
+            name: "Micro Improvements In progress",
           },
           includeAsMetricFilter: true
         },
@@ -43,7 +43,7 @@
           name: "Micro Improvements Submitted",
           property: "Total Micro improvement submitted",
           tooltip: {
-            name: "Program Submitted",
+            name: "Micro Improvements Submitted",
           },
           includeAsMetricFilter: true
         },
@@ -51,7 +51,7 @@
           name: "Micro Improvements Submitted with Evidence",
           property: "Total Micro improvement submitted with evidence",
           tooltip: {
-            name: "Program Submitted with Evidence",
+            name: "Micro Improvements Submitted with Evidence",
           },
           includeAsMetricFilter: true
         },
