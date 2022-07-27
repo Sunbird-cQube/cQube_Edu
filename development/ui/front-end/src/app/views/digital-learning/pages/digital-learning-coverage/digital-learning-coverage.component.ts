@@ -43,7 +43,7 @@ export class DigitalLearningCoverageComponent implements OnInit {
           },
           yAxis: {
             title: {
-              y: 60,
+              y: 130,
               text: this.gaugeChartProperties.title
             }
           },
@@ -55,7 +55,7 @@ export class DigitalLearningCoverageComponent implements OnInit {
             dataLabels: {
                 y: -20,
                 format:
-                    '<div style="text-align:center">' +
+                    '<div style="text-align:center"><br>' +
                     '<span style="font-size:25px">{y}' + (this.gaugeChartProperties.valueSuffix ? this.gaugeChartProperties.valueSuffix : "") + '</span><br/>' +
                     '</div>'
             },
