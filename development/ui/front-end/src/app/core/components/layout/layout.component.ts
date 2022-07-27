@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { IDashboardMenu } from '../../models/IDashboardCard';
@@ -21,7 +22,7 @@ decreaseFontSize!: ElementRef;
 @ViewChild('resetFontSize')
 resetFontSize!: ElementRef;
 // @ViewChild('darkModeToggle') darkModeToggle: ElementRef;
-  constructor(private readonly _configService: ConfigService, private renderer: Renderer2) {
+  constructor(private readonly _configService: ConfigService, private renderer: Renderer2,private router:Router) {
     this._configService.getDashboardMetrics(true).subscribe(menuResult => {
       this.menu = [];
       let menuToDisplay: IMenuItem | any = {};
@@ -114,6 +115,10 @@ resetFontSize!: ElementRef;
         this.renderer.removeAttribute(this.decreaseFontSize.nativeElement, 'disabled');
         this.renderer.removeAttribute(this.resetFontSize.nativeElement, 'disabled');
       }
+    }
+    signOut(){
+      localStorage.removeItem('userId');
+      this.router.navigate(['/login']);
     }
 
 }
