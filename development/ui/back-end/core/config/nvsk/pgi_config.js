@@ -118,6 +118,7 @@ const dataSourceInfo = {
     pgi_state_performance: {
         map: {
             pathToFile: 'pgi_state-wise-performance.json',
+            overallMetricsOption: false,
             locations: [
                 {
                     name: "Location",
@@ -133,7 +134,7 @@ const dataSourceInfo = {
             ],
             dimensions: [
                 {
-                    name: "indicator",
+                    name: "Learning Outcomes & Quality",
                     property: "Learning Outcomes & Quality",
                     tooltip: {
                         name: "Learning Outcomes & Quality"
