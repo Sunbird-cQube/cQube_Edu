@@ -1,19 +1,8 @@
 const dataSourceInfo = {
-    pgi_performance: {
+    pgi_district_performance: {
         map: {
             pathToFile: 'pgi_all-dashboard.json',
             locations: [
-                {
-                    name: "Location",
-                    property: "state Name",
-                    level: "state",
-                    isState: true,
-                    tooltip: {
-                        name: "State/UT name"
-                        //valueAsName: true,
-                        //property: "Started"
-                    }
-                },
                 {
                     name: "Location",
                     property: "District Name",
@@ -114,11 +103,6 @@ const dataSourceInfo = {
             ],
             levels: [
                 {
-                    name: "State",
-                    value: "state",
-                    property: "state Name"
-                },
-                {
                     name: "District",
                     value: "district",
                     property: "District Name"
@@ -126,7 +110,105 @@ const dataSourceInfo = {
             ],
             options: {
                 legend: {
-                    title: 'PGI Performance'
+                    title: 'PGI District Performance'
+                }
+            }
+        }
+    },
+    pgi_state_performance: {
+        map: {
+            pathToFile: 'pgi_state-wise-performance.json',
+            locations: [
+                {
+                    name: "Location",
+                    property: "State",
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State/UT name"
+                        //valueAsName: true,
+                        //property: "Started"
+                    }
+                }
+            ],
+            dimensions: [
+                {
+                    name: "indicator",
+                    property: "Learning Outcomes & Quality",
+                    tooltip: {
+                        name: "Learning Outcomes & Quality"
+                    },
+                    includeAsMetricFilter: true,
+                    aggegration: {
+                        type: "AVG"
+                    }
+                },
+                {
+                    name: "Access",
+                    property: "Access",
+                    tooltip: {
+                        name: "Access"
+                    },
+                    includeAsMetricFilter: true,
+                    aggegration: {
+                        type: "AVG"
+                    }
+                },
+                {
+                    name: "Infrastructure & Facilities",
+                    property: "Infrastructure & Facilities",
+                    tooltip: {
+                        name: "Infrastructure & Facilities"
+                    },
+                    includeAsMetricFilter: true,
+                    aggegration: {
+                        type: "AVG"
+                    }
+                },
+                {
+                    name: "Equity",
+                    property: "Equity",
+                    tooltip: {
+                        name: "Equity"
+                    },
+                    includeAsMetricFilter: true,
+                    aggegration: {
+                        type: "AVG"
+                    }
+                },
+                {
+                    name: "Governance Processes",
+                    property: "Governance Processes",
+                    tooltip: {
+                        name: "Governance Processes"
+                    },
+                    includeAsMetricFilter: true,
+                    aggegration: {
+                        type: "AVG"
+                    }
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
+                }
+            ],
+            filters: [
+                {
+                    name: 'State/UT',
+                    column: 'State',
+                    optionValueColumn: "State Code"
+                }
+            ],
+            levels: [
+                {
+                    name: "State",
+                    value: "state",
+                    property: "State"
+                }
+            ],
+            options: {
+                legend: {
+                    title: 'PGI State Performance'
                 }
             }
         }

@@ -9,12 +9,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CqubeLibraryModule } from 'cqube-library';
 import { SchoolEducationComponent } from './school-education.component';
 import { ImplementationStatusComponent } from './pages/implementation-status/implementation-status.component';
+import { StateWisePerformanceComponent } from './pages/state-wise-performance/state-wise-performance.component';
 
 
 @NgModule({
   declarations: [
     SchoolEducationComponent,
-    ImplementationStatusComponent
+    ImplementationStatusComponent,
+    StateWisePerformanceComponent
   ],
   imports: [
     CommonModule,

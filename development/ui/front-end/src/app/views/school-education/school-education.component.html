@@ -15,7 +15,10 @@
         <mat-tab label="Implementation Status">
             <app-implementation-status></app-implementation-status>
         </mat-tab>
-        <mat-tab label="State Wise Performance">
+        <mat-tab label="State Wise Performance" *ngIf="NVSK">
+            <app-state-wise-performance></app-state-wise-performance>
+        </mat-tab>
+        <mat-tab label="District Wise Performance">
             <div class="grid grid-cols-1">
                 <div class="col-span-full">
                     <div class="col" *ngIf="isMapReportLoading">
@@ -25,7 +28,7 @@
                         <div class="col-span-full" appFullScreen>
                             <div class="grid grid-cols-12">
                                 <div class="xs:col-span-full xmd:col-span-6">
-                                    <app-level-n-metric-filter-panel [metricFilter]="metricFilter" [levels]="levels" (selectMetricFilter)="onSelectMetricFilter($event)" (selectLevel)="onSelectLevel($event)"></app-level-n-metric-filter-panel>
+                                    <app-level-n-metric-filter-panel [metricFilter]="metricFilter"  (selectMetricFilter)="onSelectMetricFilter($event)"></app-level-n-metric-filter-panel>
                                 </div>
                                 <div class="xs:col-span-full xmd:col-span-6">
                                     <app-filter-panel [filters]="filters" colSize="col-span-8" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
