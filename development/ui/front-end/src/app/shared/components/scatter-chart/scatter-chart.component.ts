@@ -33,7 +33,7 @@ export class ScatterChartComponent implements OnInit, OnChanges {
       chart: {
         type: 'scatter',
         zoomType: 'xy',
-        marginTop: 100
+        marginTop: 50
       },
       title: {
           text: ""
@@ -93,7 +93,186 @@ export class ScatterChartComponent implements OnInit, OnChanges {
       credits: {
           enabled: false
       },
-      series: []
+      series: [],
+      responsive: {
+        rules: [
+          {
+            chartOptions: {
+              xAxis: {
+                labels: {
+                  style: {
+                    fontSize: '0.9rem'
+                  }
+                }
+              },
+              yAxis: {
+                labels: {
+                  style: {
+                    fontSize: '0.9rem'
+                  }
+                }
+              },
+              tooltip: {
+                style: {
+                  fontSize: '1rem'
+                }
+              },
+              legend: {
+                itemStyle: {
+                  fontSize: '1rem'
+                }
+              },
+              plotOptions: {
+                series: {
+                  dataLabels: {
+                    style: {
+                      fontSize: '0.9rem'
+                    }
+                  }
+                }
+              }
+            },
+            condition: {
+              callback: function() {
+                return window.innerWidth >= 1920 && window.innerWidth < 2048;
+              },
+              minWidth: 1920,
+              maxWidth: 2048
+            }
+          },
+          {
+            chartOptions: {
+              xAxis: {
+                labels: {
+                  style: {
+                    fontSize: '1rem'
+                  }
+                }
+              },
+              yAxis: {
+                labels: {
+                  style: {
+                    fontSize: '1rem'
+                  }
+                }
+              },
+              tooltip: {
+                style: {
+                  fontSize: '1.5rem'
+                }
+              },
+              legend: {
+                itemStyle: {
+                  fontSize: '1.2rem'
+                }
+              },
+              plotOptions: {
+                series: {
+                  dataLabels: {
+                    style: {
+                      fontSize: '1rem'
+                    }
+                  }
+                }
+              }
+            },
+            condition: {
+              callback: function() {
+                return window.innerWidth >= 2048 && window.innerWidth < 2560;
+              },
+              minWidth: 2048,
+              maxWidth: 2560
+            }
+          },
+          {
+            chartOptions: {
+              xAxis: {
+                labels: {
+                  style: {
+                    fontSize: '1.2rem'
+                  }
+                }
+              },
+              yAxis: {
+                labels: {
+                  style: {
+                    fontSize: '1.2rem'
+                  }
+                }
+              },
+              tooltip: {
+                style: {
+                  fontSize: '2rem'
+                }
+              },
+              legend: {
+                itemStyle: {
+                  fontSize: '1.5rem'
+                }
+              },
+              plotOptions: {
+                series: {
+                  dataLabels: {
+                    style: {
+                      fontSize: '1.5rem'
+                    }
+                  }
+                }
+              }
+            },
+            condition: {
+              callback: function() {
+                return window.innerWidth >= 2560 && window.innerWidth < 3840;
+              },
+              minWidth: 2560,
+              maxWidth: 3840
+            }
+          },
+          {
+            chartOptions: {
+              xAxis: {
+                labels: {
+                  style: {
+                    fontSize: '1.8rem'
+                  }
+                }
+              },
+              yAxis: {
+                labels: {
+                  style: {
+                    fontSize: '1.8rem'
+                  }
+                }
+              },
+              tooltip: {
+                style: {
+                  fontSize: '2.5rem'
+                }
+              },
+              legend: {
+                itemStyle: {
+                  fontSize: '2rem'
+                }
+              },
+              plotOptions: {  
+                series: {
+                  dataLabels: {
+                    style: {
+                      fontSize: '1.8rem'
+                    }
+                  }
+                }
+              }
+            },
+            condition: {
+              callback: function() {
+                return window.innerWidth >= 3840;
+              },
+              minWidth: 3840
+            }
+          }
+        ]
+      }
     };
     this.chart = Highcharts.chart(this.container.nativeElement, Highcharts.merge(defaultOptions, options), function(this: any) {
     });

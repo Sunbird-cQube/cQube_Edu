@@ -42,7 +42,8 @@ const dataSourceInfo = {
             filters: [
                 {
                     name: 'Grade',
-                    column: 'Grade'
+                    column: 'Grade',
+                    defaultValue: true
                 },
                 {
                     name: 'Subject',
