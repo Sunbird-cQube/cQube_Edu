@@ -14,16 +14,21 @@
         <mat-tab label="Progress Status" class="tab-first">
             <div class="grid grid-cols-1" *ngIf="ncfProgressData">
                 <div class="col">
-                    <br>
-                    <div class="col" *ngIf="isMapReportLoading">
-                        <p class="mt-8">Loading...</p>
-                    </div>
-                    <div class="grid grid-cols-12">
-                        <div class="xs:col-span-full xmd:col-span-8">
-                            <app-level-n-metric-filter-panel [metricFilter]="metricFilter" (selectMetricFilter)="onSelectMetricFilter($event)"></app-level-n-metric-filter-panel>
+                    <div class="grid grid-cols-12" *ngIf="!isMapReportLoading; else loading">
+                        <div class="col-span-full">
+                            <div class="grid grid-cols-12" appFullScreen>
+                                <div class="xs:col-span-full xmd:col-span-8">
+                                    <app-level-n-metric-filter-panel [metricFilter]="metricFilter" (selectMetricFilter)="onSelectMetricFilter($event)"></app-level-n-metric-filter-panel>
+                                </div>
+                                <div class="col-span-full">
+                                    <app-leaflet-map [mapData]="ncfProgressData"></app-leaflet-map>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <app-leaflet-map [mapData]="ncfProgressData"></app-leaflet-map>
+                    <ng-template #loading>
+                        <p class="mt-8">Loading...</p>
+                    </ng-template>
                 </div>
             </div>
         </mat-tab>
