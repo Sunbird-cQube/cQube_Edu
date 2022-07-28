@@ -14,12 +14,12 @@ exports.validateUser = (req, res, next) => {
 			let userName = reqBody.userName;
 			//let password = 	CryptoJS.AES.decrypt(reqBody.password, process.env.SALT).toString();
 			let password = 	reqBody.password;
-            let user = users.find(user => user['User Name'].trim() === userName.trim() && password === user['Password'].trim());
+            let user = users.find(user => user['User_ID'].trim() === userName.trim() && password === user['Password'].trim());
 
 			if (user) {
 				res.status(200).send({
 					status: 200,
-					result: { userName: user['User Name'], email: user['Email'] }
+					result: { userName: user['User_ID'], email: user['Email'] }
 				});
 			} else {
 				res.status(401).send({

@@ -23,6 +23,14 @@ const dataSourceInfo = {
             ],
             dimensions: [
                 {
+                    name: "Indicator Name",
+                    property: "Indicator",
+                    tooltip: {
+                        name: "Indicator Name",
+                        property: "Indicator"
+                    }
+                },
+                {
                     name: "indicator",
                     property: "Performance",
                     weightedAverage: {

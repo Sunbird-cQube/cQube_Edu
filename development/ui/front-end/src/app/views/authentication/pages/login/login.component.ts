@@ -50,7 +50,8 @@ export class LoginComponent implements OnInit {
 
 
   encrypt(value : string) : string{
-    return CryptoJS.AES.encrypt(value, environment.secretKey.trim()).toString();
+    //return CryptoJS.AES.encrypt(value, environment.secretKey.trim()).toString();
+    return '';
   }
 
   onSubmit(){
