@@ -83,7 +83,7 @@ const dataSourceInfo = {
                     name: "indicator",
                     property: "Grand Total",
                     tooltip: {
-                        name: "Grand Total"
+                        name: "Overall"
                     },
                     aggegration: {
                         type: "AVG"

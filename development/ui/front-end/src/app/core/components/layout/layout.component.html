@@ -12,7 +12,7 @@
         <button [attr.aria-pressed]="false" type="button" tabindex="0" attr.aria-label="A+"
             class="fontResizeBtn fontResizeBtn_A+" title="Increase font size" (click)="changeFontSize('increase');"
             #increaseFontSize>A+</button>
-        <i class="fa fa-sign-out" aria-hidden="true" (click)="signOut()"></i>
+        <i class="fa fa-sign-out" aria-hidden="true" (click)="signOut()" *ngIf="!NVSK"></i>
         <!-- <button id="dark-mode-toggle" class="dark-mode-toggle" tabindex="0"
              title="{{resourceService?.frmelmnts?.lbl?.accessibilitytheme}}" (click)="changeTheme()"
              (keydown.enter)="changeTheme();" #darkModeToggle>

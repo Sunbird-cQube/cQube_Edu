@@ -275,17 +275,25 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 							value = Number((sum / objs.length).toFixed(2));
 						}
 
+						let isIndicator = false;
 						if (metricFilter && metricFilter.value === dimension.property) {
 							data['indicator'] = value;
+							isIndicator = true;
 						} else if (data['indicator'] && dimension.name === 'indicator') {
 							data[dimension.property] = value;
+							isIndicator = true;
 						} else {
 							data[dimension.name] = value;
 						}
 
 						if (dimension.tooltip) {
-							data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-							data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
+							if (isIndicator) {
+								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+								data.tooltip += dimension.tooltip.valueAsName ? `<b>${data[dimension.name]}</b>: <b>${objs[0][dimension.tooltip.property]}</b>` : `<b>${dimension.tooltip.name.trim()}</b>: <b>${value}</b>`;
+							} else {
+								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+								data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
+							}
 						}
 
 						return;
