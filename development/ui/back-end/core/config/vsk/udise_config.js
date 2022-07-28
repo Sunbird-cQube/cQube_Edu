@@ -47,14 +47,14 @@ const dataSourceInfo = {
                     },
                     includeAsMetricFilter: true
                 },
-                {
-                    name: "% schools having library",
-                    property: "% schools having library",
-                    tooltip: {
-                        name: "% schools having library"
-                    },
-                    includeAsMetricFilter: true
-                },
+                // {
+                //     name: "% schools having library",
+                //     property: "% schools having library",
+                //     tooltip: {
+                //         name: "% schools having library"
+                //     },
+                //     includeAsMetricFilter: true
+                // },
                 {
                     name: "% govt aided schools received textbook",
                     property: "% govt aided schools received textbook",
@@ -94,14 +94,14 @@ const dataSourceInfo = {
             series: {
                 x: {
                     name: "X-Axis",
-                    property: ["% schools having toilet", "% schools having drinking water", "% schools having electricity", "% schools having library", "% govt aided schools received textbook", "% schools with Ramp"],
+                    property: ["% schools having toilet", "% schools having drinking water", "% schools having electricity", "% govt aided schools received textbook", "% schools with Ramp"],
                     aggegration: {
                         type: "AVG"
                     }
                 },
                 y: {
                     name: "Y-Axis",
-                    property: ["% schools having toilet", "% schools having drinking water", "% schools having electricity", "% schools having library", "% govt aided schools received textbook", "% schools with Ramp"],
+                    property: ["% schools having toilet", "% schools having drinking water", "% schools having electricity", "% govt aided schools received textbook", "% schools with Ramp"],
                     aggegration: {
                         type: "AVG"
                     }
