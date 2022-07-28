@@ -279,8 +279,8 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 						if (metricFilter && metricFilter.value === dimension.property) {
 							data['indicator'] = value;
 							isIndicator = true;
-						} else if (data['indicator'] && dimension.name === 'indicator') {
-							data[dimension.property] = value;
+						} else if (!data['indicator'] && dimension.name === 'indicator') {
+							data['indicator'] = value;
 							isIndicator = true;
 						} else {
 							data[dimension.name] = value;
@@ -298,8 +298,6 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 
 						return;
 					}
-
-
 
 					if (dimension.tooltip) {
 						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
@@ -369,8 +367,8 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 				
 				if (metricFilter && metricFilter.value === dimension.property) {
 					data['indicator'] = value;
-				} else if (data['indicator'] && dimension.name === 'indicator') {
-					data[dimension.property] = value;
+				} else if (!data['indicator'] && dimension.name === 'indicator') {
+					data['indicator'] = value;
 				} else {
 					data[dimension.name] = value;
 				}
