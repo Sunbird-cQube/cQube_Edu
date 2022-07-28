@@ -29,7 +29,7 @@
     "@ngneat/transloco": "^4.1.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
-    "@project-sunbird/sb-themes": "^0.0.77",
+    "@project-sunbird/sb-themes": "^0.0.78",
     "color2k": "^2.0.0",
     "cqube-library": "^4.10.24",
     "crypto-js": "^4.1.1",
