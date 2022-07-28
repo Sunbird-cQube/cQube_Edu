@@ -30,6 +30,11 @@ body {
     font-size: 0.75rem;
 }
 
+.leaflet-tooltip {
+    width: 300px;
+    white-space: initial;
+}
+
 // .highcharts-tooltip text, .highcharts-tooltip text tspan {
 //     font-size: 2rem;
 // }

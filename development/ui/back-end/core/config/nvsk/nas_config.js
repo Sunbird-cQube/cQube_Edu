@@ -66,7 +66,8 @@ const dataSourceInfo = {
                 {
                     name: 'State/UT',
                     column: 'State',
-                    optionValueColumn: "State Code"
+                    optionValueColumn: "State Code",
+                    level: ["district"]
                 }
             ],
             levels: [
@@ -195,7 +196,8 @@ const dataSourceInfo = {
                 {
                     name: 'State/UT',
                     column: 'State',
-                    optionValueColumn: "State Code"
+                    optionValueColumn: "State Code",
+                    level: ["district"]
                 }
             ]
         }

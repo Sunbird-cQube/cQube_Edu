@@ -227,7 +227,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         
         this.countryGeoJSON = L.geoJSON(data['features'], {
           onEachFeature: function (feature: any, layer: any) {
-            layer.bindTooltip(getPopUp(feature), { sticky: true });
+            layer.bindTooltip(getPopUp(feature), { classname: "app-leaflet-tooltip", sticky: true });
           },
           style: styleStates,
           color: "#a0a1a3",

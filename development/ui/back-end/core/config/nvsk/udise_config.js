@@ -109,15 +109,15 @@ const dataSourceInfo = {
                 {
                     name: 'State/UT',
                     column: 'State Name',
-                    optionValueColumn: "State Code"
+                    optionValueColumn: "State Code",
+                    level: ["district"]
                 }
             ],
             levels: [
                 {
                     name: "State",
                     value: "state",
-                    property: "State Name",
-                    noStateFilter: true
+                    property: "State Name"
                 },
                 {
                     name: "District",
@@ -172,7 +172,8 @@ const dataSourceInfo = {
                 {
                     name: 'State/UT',
                     column: 'State Name',
-                    optionValueColumn: "State Code"
+                    optionValueColumn: "State Code",
+                    level: ["district"]
                 }
             ]
         }
