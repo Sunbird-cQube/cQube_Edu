@@ -8,24 +8,6 @@
 @import '~@project-sunbird/sb-themes/themes/theme-cqube.scss';
 html, body { height: 100%; }
 body { margin: 0; font-family: Arial, Helvetica, sans-serif;}
-sb-cqube-info-card .sb-cQ-card {
-    height: 8.25rem !important;
-}
-
-html[data-layout=cQubeDkR] {
-    .app-side-nav ul li {
-        padding:1rem 0.5rem 1rem 0.5rem !important;
-        height:4rem;
-        i {
-            background: white;
-            min-width: 3rem;
-        }
-    }
-    .sb-cQ-card_2 {
-        min-width: 13.75rem !important;
-    }
-}
-
 
 body {
     &:before {
