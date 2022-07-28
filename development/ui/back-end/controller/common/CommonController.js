@@ -8,6 +8,10 @@ const { getFileData, getAllFiles, getFileRawData, uploadFile } = require('../../
 const { states } = require('../../core/config/state-codes');
 const { isArray, property, filter } = require('lodash');
 
+Array.prototype.insert = function ( index, item ) {
+    this.splice( index, 0, item );
+};
+
 exports.getReportData = (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
 		let reqBody = req.body;
@@ -159,8 +163,20 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		}
 	}
 
-	if (reqBody.filters && reqBody.filters.length > 0) {
-		filters = reqBody.filters;
+	filters = filters.filter(filter => !filter.hasOwnProperty('level') || filter.level.indexOf(level) > -1);
+	if (reqBody.filters && reqBody.filters.length > 0) {		
+		filters = filters.map(filter => {
+			let existFilter = reqBody.filters.find(existFilter => existFilter.column === filter.column);
+			if (existFilter) {
+				return existFilter;
+			}
+
+			return {
+				...filter,
+				value: null,
+				options: []
+			}
+		});
 	} else {
 		filters = filters.map(filter => {
 			return {
@@ -289,7 +305,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 						if (dimension.tooltip) {
 							if (isIndicator) {
 								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-								data.tooltip += dimension.tooltip.valueAsName ? `<b>${data[dimension.name]}</b>: <b>${objs[0][dimension.tooltip.property]}</b>` : `<b>${dimension.tooltip.name.trim()}</b>: <b>${value}</b>`;
+								data.tooltip += dimension.tooltip.valueAsName ? `<b><i>${data[dimension.name]}</i></b>: <b>${objs[0][dimension.tooltip.property]}</b>` : `<b><i>${dimension.tooltip.name.trim()}</i></b>: <b>${value}</b>`;
 							} else {
 								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
 								data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
@@ -365,17 +381,25 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 			dimensions.forEach(dimension => {
 				let value = record[dimension.property] ? record[dimension.property] : 0;
 				
+				let isIndicator = false;
 				if (metricFilter && metricFilter.value === dimension.property) {
 					data['indicator'] = value;
+					isIndicator = true;
 				} else if (!data['indicator'] && dimension.name === 'indicator') {
 					data['indicator'] = value;
+					isIndicator = true;
 				} else {
 					data[dimension.name] = value;
 				}
 				
 				if (dimension.tooltip) {
-					data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-					data.tooltip += dimension.tooltip.valueAsName ? `${value}: <b>${record[dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
+					if (isIndicator) {
+						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+						data.tooltip += dimension.tooltip.valueAsName ? `<b><i>${value}</i></b>: <b>${record[dimension.tooltip.property]}</b>` : `<b><i>${dimension.tooltip.name.trim()}</i></b>: <b>${value}</b>`;
+					} else {
+						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
+						data.tooltip += dimension.tooltip.valueAsName ? `${value}: <b>${record[dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
+					}
 				}
 
 				data[dimension.name] = value;
@@ -383,13 +407,6 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 
 			return data;
 		});
-	}
-
-	if(currentLevel && currentLevel.noStateFilter){
-		console.log(currentLevel)
-		filters = filters.filter((filter) => {
-			return filter.name !== 'State/UT'
-		})
 	}
 
 	return {
@@ -667,15 +684,25 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 			}
 		});
 	}
-	
-	console.log(rawData.length);
 
 	let axisFilterRes = applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption);
 	axisFilters = axisFilterRes.axisFilters;
 	rawData = axisFilterRes.rawData;
 	
-	if (reqBody.filters && reqBody.filters.length > 0) {
-		filters = reqBody.filters;
+	filters = filters.filter(filter => !filter.hasOwnProperty('level') || filter.level.indexOf(level) > -1);
+	if (reqBody.filters && reqBody.filters.length > 0) {		
+		filters = filters.map(filter => {
+			let existFilter = reqBody.filters.find(existFilter => existFilter.column === filter.column);
+			if (existFilter) {
+				return existFilter;
+			}
+
+			return {
+				...filter,
+				value: null,
+				options: []
+			}
+		});
 	} else {
 		filters = filters.map(filter => {
 			return {
@@ -685,7 +712,7 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 			}
 		})
 	}
-
+	
 	filterRes = applyFilters(filters, rawData, groupByColumn, level);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
