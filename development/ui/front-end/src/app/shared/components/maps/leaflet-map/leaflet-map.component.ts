@@ -199,7 +199,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           }
 
           mapData?.data.forEach((state: any) => {
-
             if (state.state_code == feature.properties.state_code) {
               color = parent.getLayerColor(state.indicator ? (max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator) : -1);
             }
@@ -225,15 +224,16 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           });
           return popup;
         }
+        
         this.countryGeoJSON = L.geoJSON(data['features'], {
           onEachFeature: function (feature: any, layer: any) {
-            layer.bindTooltip(getPopUp(feature));
+            layer.bindTooltip(getPopUp(feature), { sticky: true });
           },
           style: styleStates,
           color: "#a0a1a3",
           weight: 1,
           fillOpacity: 0,
-          fontWeight: "bold",
+          fontWeight: "bold"
         }).addTo(this.map);
         this.fitBoundsToCountryBorder();
         if (this.level === 'state') {

@@ -34,17 +34,17 @@ const dataSourceInfo = {
                     },
                     includeAsMetricFilter: true,
                 },
-                {
-                    name: "Meal Served",
-                    property: "MealServed(02/July/2022)",
-                    tooltip: {
-                        name: "Meal Served"
-                    },
-                    aggegration: {
-                        type: "SUM"
-                    },
-                    includeAsMetricFilter: true,
-                },
+                // {
+                //     name: "Meal Served",
+                //     property: "MealServed(02/July/2022)",
+                //     tooltip: {
+                //         name: "Meal Served"
+                //     },
+                //     aggegration: {
+                //         type: "SUM"
+                //     },
+                //     includeAsMetricFilter: true,
+                // },
                 {
                     name: "Total Schools",
                     property: "Total Schools",

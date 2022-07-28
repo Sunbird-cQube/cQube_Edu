@@ -23,11 +23,11 @@ const dataSourceInfo = {
             ],
             dimensions: [
                 {
-                    name: "Indicator Name",
-                    property: "Indicator",
+                    name: "Learning Outcome",
+                    property: "Learning Outcome",
                     tooltip: {
-                        name: "Indicator Name",
-                        property: "Indicator"
+                        name: "Learning Outcome",
+                        property: "Learning Outcome"
                     }
                 },
                 {
@@ -59,8 +59,8 @@ const dataSourceInfo = {
                     defaultValue: true
                 },
                 {
-                    name: 'Indicator Code',
-                    column: 'Indicator Code',
+                    name: 'Learning Outcome Code',
+                    column: 'Learning Outcome Code',
                     defaultValue: true
                 },
                 {
@@ -94,10 +94,10 @@ const dataSourceInfo = {
             pathToFile: 'nas_all-dashboard.json',
             columns: [
                 {
-                    name: "Indicator Code",
-                    property: "Indicator Code",
+                    name: "Learning Outcome Code",
+                    property: "Learning Outcome Code",
                     tooltip: {
-                        property: "Indicator"
+                        property: "Learning Outcome"
                     }
                 },
                 {

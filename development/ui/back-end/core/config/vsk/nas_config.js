@@ -15,6 +15,14 @@ const dataSourceInfo = {
             ],
             dimensions: [
                 {
+                    name: "Learning Outcome",
+                    property: "Learning Outcome",
+                    tooltip: {
+                        name: "Learning Outcome",
+                        property: "Learning Outcome"
+                    }
+                },
+                {
                     name: "indicator",
                     property: "Performance",
                     weightedAverage: {
@@ -41,8 +49,8 @@ const dataSourceInfo = {
                     column: 'Subject'
                 },
                 {
-                    name: 'Indicator Code',
-                    column: 'Indicator Code'
+                    name: 'Learning Outcome Code',
+                    column: 'Learning Outcome Code'
                 }
             ],
             levels: [
@@ -66,8 +74,11 @@ const dataSourceInfo = {
             mainFilter: 'State Code',
             columns: [
                 {
-                    name: "Indicator Code",
-                    property: "Indicator Code"
+                    name: "Learning Outcome Code",
+                    property: "Learning Outcome Code",
+                    tooltip: {
+                        property: "Learning Outcome"
+                    }
                 },
                 {
                     name: "Grade",
