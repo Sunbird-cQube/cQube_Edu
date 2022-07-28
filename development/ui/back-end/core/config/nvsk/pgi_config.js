@@ -5,13 +5,11 @@ const dataSourceInfo = {
             locations: [
                 {
                     name: "Location",
-                    property: "State Name",
+                    property: "state Name",
                     level: "state",
                     isState: true,
                     tooltip: {
                         name: "State/UT name"
-                        //valueAsName: true,
-                        //property: "Started"
                     }
                 },
                 {
