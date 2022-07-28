@@ -251,6 +251,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 					}
 				}
 
+				data.tooltip += "<br>";
 				dimensions.forEach(dimension => {
 					if (dimension.weightedAverage) {
 						let numeratorSum = 0;
@@ -377,6 +378,8 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 					data.tooltip += location.tooltip.valueAsName ? `${record[location.property]}: <b>${record[location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${record[location.property]}</b>`;
 				}
 			}
+
+			data.tooltip += "<br>";
 
 			dimensions.forEach(dimension => {
 				let value = record[dimension.property] ? record[dimension.property] : 0;

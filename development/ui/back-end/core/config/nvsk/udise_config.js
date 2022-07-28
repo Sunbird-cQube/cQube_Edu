@@ -80,26 +80,26 @@ const dataSourceInfo = {
                 //         type: "AVG"
                 //     }
                 // },
-                {
-                    name: "% govt aided schools received textbook",
-                    property: "% govt aided schools received textbook",
-                    tooltip: {
-                        name: "% govt aided schools received textbook"
-                    },
-                    aggegration: {
-                        type: "AVG"
-                    }
-                },
-                {
-                    name: "% schools with Ramp",
-                    property: "% schools with Ramp",
-                    tooltip: {
-                        name: "% schools with Ramp"
-                    },
-                    aggegration: {
-                        type: "AVG"
-                    }
-                },
+                // {
+                //     name: "% govt aided schools received textbook",
+                //     property: "% govt aided schools received textbook",
+                //     tooltip: {
+                //         name: "% govt aided schools received textbook"
+                //     },
+                //     aggegration: {
+                //         type: "AVG"
+                //     }
+                // },
+                // {
+                //     name: "% schools with Ramp",
+                //     property: "% schools with Ramp",
+                //     tooltip: {
+                //         name: "% schools with Ramp"
+                //     },
+                //     aggegration: {
+                //         type: "AVG"
+                //     }
+                // },
                 {
                     name: "state_code",
                     property: "State Code"
