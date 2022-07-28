@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-    let password = this.encrypt(this.LoginForm.controls.password.value as string);
-    this._authenticationService.login(this.LoginForm.controls.userId.value, password).subscribe((res:any) => {
+    //let password = this.encrypt(this.LoginForm.controls.password.value as string);
+    this._authenticationService.login(this.LoginForm.controls.userId.value, this.LoginForm.controls.password.value).subscribe((res:any) => {
       localStorage.setItem('userId', JSON.stringify(res));
       this.router.navigate(['/dashboard']);
     },
