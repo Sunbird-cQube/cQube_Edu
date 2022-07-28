@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +10,11 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   title = 'cQube National';
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private titleService: Title) {
     translate.setDefaultLang('en');
     translate.use('en');
+    if(environment.config === 'VSK'){
+      this.titleService.setTitle('State VSK')
+    }
   }
 }
