@@ -72,7 +72,8 @@ const dataSourceInfo = {
                 {
                     name: "State",
                     value: "state",
-                    property: "State Name"
+                    property: "State Name",
+                    noStateFilter: true
                 },
                 {
                     name: "District",

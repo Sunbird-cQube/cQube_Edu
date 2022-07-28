@@ -193,13 +193,7 @@ const dataSourceInfo = {
                     property: "State Code"
                 }
             ],
-            filters: [
-                {
-                    name: 'State/UT',
-                    column: 'State',
-                    optionValueColumn: "State Code"
-                }
-            ],
+            filters: [],
             levels: [
                 {
                     name: "State",
