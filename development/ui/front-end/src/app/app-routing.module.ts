@@ -10,6 +10,10 @@ if (environment.config == 'NVSK') {
   routes = [
     {
       path: '',
+      loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
+    },
+    {
+      path: '',
       component: LayoutComponent,
       children: [
         {

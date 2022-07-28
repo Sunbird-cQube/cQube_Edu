@@ -13,7 +13,8 @@ const appNames = {
 }
 
 const configFiles = {
-    dashboardMenu: 'main_metrics.json'
+    dashboardMenu: 'main_metrics.json',
+    users: 'users.json'
 };
 
 module.exports = {

@@ -35,7 +35,8 @@ export class MaterialHeatChartTableComponent implements OnInit, OnChanges {
       };
       this.dataSource.sort = this.sort;
       this.columns = this.tableData.columns;
-      this.columnProperties = [...['id'], ...this.tableData.columns.map((column: any) => column.property)];
+      //this.columnProperties = [...['id'], ...this.tableData.columns.map((column: any) => column.property)];
+      this.columnProperties = this.tableData.columns.map((column: any) => column.property);
       this.matSortActive = this.tableData.sortByProperty;
       this.matSortDirection = this.tableData.sortDirection;      
     }
