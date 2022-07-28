@@ -385,6 +385,13 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		});
 	}
 
+	if(currentLevel && currentLevel.noStateFilter){
+		console.log(currentLevel)
+		filters = filters.filter((filter) => {
+			return filter.name !== 'State/UT'
+		})
+	}
+
 	return {
 		data: rawData,
 		filters: filters,
@@ -781,6 +788,7 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 			return data;
 		});
 	}
+	
 
 	return {
 		data: rawData,
