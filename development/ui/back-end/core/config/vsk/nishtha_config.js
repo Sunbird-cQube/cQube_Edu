@@ -46,11 +46,11 @@ const dataSourceInfo = {
         multiBarChart: {
             pathToFile: 'diksha_nishtha_consumption-by-district.json',
             mainFilter: 'State Code',
-            defaultLevel: "State",
+            defaultLevel: "District Code",
             columns: [
                 {
                     name: "Location",
-                    key: true
+                    key: "User District_Correct"
                 },
                 {
                     name: "Total Enrollments",

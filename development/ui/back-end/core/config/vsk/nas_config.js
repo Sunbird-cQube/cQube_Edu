@@ -46,15 +46,18 @@ const dataSourceInfo = {
             filters: [
                 {
                     name: 'Grade',
-                    column: 'Grade'
+                    column: 'Grade',
+                    defaultValue: true
                 },
                 {
                     name: 'Subject',
-                    column: 'Subject'
+                    column: 'Subject',
+                    defaultValue: true
                 },
                 {
                     name: 'Learning Outcome Code',
-                    column: 'Learning Outcome Code'
+                    column: 'Learning Outcome Code',
+                    defaultValue: true
                 }
             ],
             levels: [
