@@ -55,23 +55,27 @@ const dataSourceInfo = {
                 //     },
                 //     includeAsMetricFilter: true
                 // },
-                {
-                    name: "% govt aided schools received textbook",
-                    property: "% govt aided schools received textbook",
-                    tooltip: {
-                        name: "% govt aided schools received textbook"
-                    }
-                },
-                {
-                    name: "% schools with Ramp",
-                    property: "% schools with Ramp",
-                    tooltip: {
-                        name: "% schools with Ramp"
-                    }
-                },
+                // {
+                //     name: "% govt aided schools received textbook",
+                //     property: "% govt aided schools received textbook",
+                //     tooltip: {
+                //         name: "% govt aided schools received textbook"
+                //     }
+                // },
+                // {
+                //     name: "% schools with Ramp",
+                //     property: "% schools with Ramp",
+                //     tooltip: {
+                //         name: "% schools with Ramp"
+                //     }
+                // },
                 {
                     name: "state_code",
                     property: "State Code"
+                },
+                {
+                    name: "district_code",
+                    property: "District Code"
                 }
             ],
             filters: [],
