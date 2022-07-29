@@ -869,7 +869,7 @@ async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 				}
 
 				if (col.key) {
-					data[col.name] = key;
+					data[col.name] = objs[0][col.key];
 					return;
 				}
 
