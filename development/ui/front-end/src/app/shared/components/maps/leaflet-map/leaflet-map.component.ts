@@ -72,7 +72,9 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       // var imageUrl ='https://i.stack.imgur.com/khgzZ.png',
       // imageBounds = [[80.0, -350.0], [-40.0, 400.0]];
       // L.imageOverlay(imageUrl, imageBounds, {opacity: 0.3}).addTo(this.map);
-      this.createMarkers(this.mapData);
+      if(environment.config === 'NVSK' && this.level === 'district'){
+        this.createMarkers(this.mapData);
+      }
       this.map.on('resize', () => {
         this.fitBoundsToCountryBorder();
       });
@@ -99,7 +101,34 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   getLayerColor(e: any, legend?: boolean) {
-    if (this.level === 'state' || legend) {
+    // if (this.level === 'state' || legend) {
+    //   let reportTypeBoolean = false;
+    //   if (typeof e === 'string') {
+    //     reportTypeBoolean = true;
+    //   }
+    //   if (reportTypeBoolean) {
+    //     if (e.trim() == "Yes") {
+    //       return "#1D4586";
+    //     } else {
+    //       return "#FFFFFF";
+    //     }
+    //   }
+    //   else {
+    //     {
+    //       return e > 75 ? "#1D4586" :
+    //         e > 50 ? "#1156CC" :
+    //           e > 25 ? "#6D9FEB" :
+    //             e >= 0 ? "#C9DAF7" : "#fff";
+    //     }
+    //   }
+    // }
+    // else {
+    //   return "#fff"
+    // }
+    if(environment.config === 'NVSK' && this.level === 'district' && !legend){
+      return '#FFFFFF'
+    }
+    else{
       let reportTypeBoolean = false;
       if (typeof e === 'string') {
         reportTypeBoolean = true;
@@ -119,9 +148,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
                 e >= 0 ? "#C9DAF7" : "#fff";
         }
       }
-    }
-    else {
-      return "#fff"
     }
 
 
@@ -199,7 +225,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           }
 
           mapData?.data.forEach((state: any) => {
-            if (state.state_code == feature.properties.state_code) {
+            if (state.state_code == feature.properties.state_code && !state.district_code) {
+              color = parent.getLayerColor(state.indicator ? (max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator) : -1);
+            }
+            else if(state.district_code && state.district_code == feature.properties.dtcode11){
               color = parent.getLayerColor(state.indicator ? (max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator) : -1);
             }
           });
@@ -218,7 +247,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           let popup: any;
           mapData.data.forEach((state: any) => {
 
-            if (state.state_code == feature.properties.state_code) {
+            if (state.state_code == feature.properties.state_code && !state.district_code) {
+              popup = state.tooltip
+            }
+            else if(state.district_code && state.district_code == feature.properties.dtcode11){
               popup = state.tooltip
             }
           });
@@ -227,7 +259,11 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         
         this.countryGeoJSON = L.geoJSON(data['features'], {
           onEachFeature: function (feature: any, layer: any) {
-            layer.bindTooltip(getPopUp(feature), { classname: "app-leaflet-tooltip", sticky: true });
+            if(!(environment.config === 'NVSK' && parent.level === 'district')){
+              if(getPopUp(feature)){
+                layer.bindTooltip(getPopUp(feature), { classname: "app-leaflet-tooltip", sticky: true });
+              }
+            }
           },
           style: styleStates,
           color: "#a0a1a3",
@@ -236,7 +272,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           fontWeight: "bold"
         }).addTo(this.map);
         this.fitBoundsToCountryBorder();
-        if (this.level === 'state') {
+        if (this.level === 'state' || (environment.config === 'VSK' && this.level === 'district')) {
           this.createLegend(reportTypeBoolean ? 'boolean' : 'values', this.mapData.options, values);
         }
         resolve('India map borders plotted successfully');

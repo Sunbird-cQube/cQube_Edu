@@ -37,6 +37,10 @@ const dataSourceInfo = {
                 {
                     name: "state_code",
                     property: "State Code"
+                },
+                {
+                    name: "district_code",
+                    property: "District Code"
                 }
             ],
             filters: [

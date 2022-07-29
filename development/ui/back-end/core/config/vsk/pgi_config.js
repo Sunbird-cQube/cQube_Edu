@@ -55,6 +55,14 @@ const dataSourceInfo = {
                     includeAsMetricFilter: true
                 },
                 {
+                    name: "Governance Processes",
+                    property: "6.Governance Processes",
+                    tooltip: {
+                        name: "Governance Processes"
+                    },
+                    includeAsMetricFilter: true
+                },
+                {
                     name: "indicator",
                     property: "Grand Total",
                     tooltip: {
@@ -64,6 +72,10 @@ const dataSourceInfo = {
                 {
                     name: "state_code",
                     property: "State Code"
+                },
+                {
+                    name: "district_code",
+                    property: "District code"
                 }
             ],
             filters: [],
