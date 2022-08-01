@@ -52,7 +52,8 @@ const dataSourceInfo = {
             columns: [
                 {
                     name: "Location",
-                    key: true
+                    property: "State Name",
+                    isLocationName: true
                 },
                 {
                     name: "Total Enrollments",
