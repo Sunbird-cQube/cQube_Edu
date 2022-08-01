@@ -16,10 +16,10 @@ const dataSourceInfo = {
             ],
             dimensions: [
                 {
-                    name: "Outcome",
+                    name: "PTR",
                     property: "PTR",
                     tooltip: {
-                        name: "Outcome"
+                        name: "PTR"
                     },
                     includeAsMetricFilter: true
                 },
