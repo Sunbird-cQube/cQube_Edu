@@ -22,16 +22,25 @@ export class FilterPanelComponent implements OnInit, OnChanges {
   }
 
   onSelectOption(event: any, ind: number): void {
-    if (this.resetOthers) {
-      this.filters = this.filters.map((filter: any, filterInd: number) => {
-        if (filterInd > ind) {
-          filter.options = [];
-          filter.value = null;
-        }
+    // if (this.resetOthers) {
+    //   this.filters = this.filters.map((filter: any, filterInd: number) => {
+    //     if (filterInd > ind) {
+    //       filter.options = [];
+    //       filter.value = null;
+    //     }
 
-        return filter;
-      });
-    }
+    //     return filter;
+    //   });
+    // }
+
+    this.filtersUpdated.emit(this.filters);
+  }
+
+  clearFilters(): void {
+    this.filters = this.filters.map((filter: any) => {
+      filter.value = null;
+      return filter;
+    });
 
     this.filtersUpdated.emit(this.filters);
   }

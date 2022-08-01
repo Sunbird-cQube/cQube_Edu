@@ -908,6 +908,11 @@ async function getMultiBarChartData(reqBody, reportConfig, rawData) {
 					return;
 				}
 
+				if (col.key) {
+					data[col.name] = record[col.property];
+					return;
+				}
+
 				if (col.tooltipDesc) {
 					data[col.name] = col.tooltipDesc + ' ' + record[col.property];
 					return;
@@ -1150,6 +1155,13 @@ async function getBarChartData(reqBody, reportConfig, rawData) {
 }
 
 function compare(a, b, sortDirection) {
+	if (a && typeof a === 'string') {
+		return a.localeCompare(b, undefined, {
+			numeric: true,
+			sensitivity: 'base'
+		});
+	}
+
 	return (a < b ? -1 : 1) * (sortDirection === 'asc' ? 1 : -1);
 }
 
@@ -1186,25 +1198,23 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 
 function applyFilters(filters, rawData, groupByColumn, level = undefined) {
 	filters.map((filter, index) => {
-		let filterOptionMap = new Map();
-		let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+		if (filter && filter.options.length === 0) {
+			let filterOptionMap = new Map();
+			let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
 
-		if (index === 0 || filters[index - 1].includeAll || filters[index - 1].defaultValue || (filters[index - 1].value && filters[index - 1].value !== '')) {
-			if (filter.options.length === 0) {
-				filter.options = [];
-				rawData.forEach(record => {
-					if (!filterOptionMap.has(record[filterProperty])) {
-						filter.options.push({
-							label: record[filter.column],
-							value: record[filterProperty]
-						});
+			filter.options = [];
+			rawData.forEach(record => {
+				if (!filterOptionMap.has(record[filterProperty])) {
+					filter.options.push({
+						label: record[filter.column],
+						value: record[filterProperty]
+					});
 
-						filterOptionMap.set(record[filterProperty], true);
-					}
-				});
-			}
-
-			if (filter && filter.value === null) {
+					filterOptionMap.set(record[filterProperty], true);
+				}
+			});
+	
+			if (filter.value === null) {
 				if (filter.options.length > 1) {
 					filter.options.sort((a, b) => compare(a.label, b.label, 'asc'));
 				}
@@ -1221,25 +1231,35 @@ function applyFilters(filters, rawData, groupByColumn, level = undefined) {
 	
 					filter.value = 'overall';
 				}
-			} 
-			
-			if (filter && filter.value !== null) {
-				let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
-
-				if (filter.value && filter.value !== '' && filter.value !== 'overall') {
-					rawData = rawData.filter(record => {
-						return record[filterProperty] === filter.value;
-					});
-
-					if (filter.level) {
-						groupByColumn = filter.level.property;
-						level = filter.level.value;
-					}
+			}
+		} else if (filter && filter.options.length > 0) {
+			if (filter.value === null) {	
+				if (filter.defaultValue && filter.options.length > 0) {
+					filter.value = filter.options[0].value;
+				}
+	
+				if (filter.includeAll) {	
+					filter.value = 'overall';
 				}
 			}
 		}
 
 		return filter;
+	});
+
+	filters.forEach((filter, index) => {
+		if (filter && filter.value && filter.value !== null && filter.value !== '' && filter.value !== 'overall') {
+			let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+	
+			rawData = rawData.filter(record => {
+				return record[filterProperty] === filter.value;
+			});
+
+			if (filter.level) {
+				groupByColumn = filter.level.property;
+				level = filter.level.value;
+			}
+		}
 	});
 
 	return {
