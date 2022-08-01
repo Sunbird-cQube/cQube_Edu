@@ -72,7 +72,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       // var imageUrl ='https://i.stack.imgur.com/khgzZ.png',
       // imageBounds = [[80.0, -350.0], [-40.0, 400.0]];
       // L.imageOverlay(imageUrl, imageBounds, {opacity: 0.3}).addTo(this.map);
-      if(environment.config === 'NVSK' && this.level === 'district'){
+      if (environment.config === 'NVSK' && this.level === 'district') {
         this.createMarkers(this.mapData);
       }
       this.map.on('resize', () => {
@@ -125,10 +125,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     // else {
     //   return "#fff"
     // }
-    if(environment.config === 'NVSK' && this.level === 'district' && !legend){
+    if (environment.config === 'NVSK' && this.level === 'district' && !legend) {
       return '#FFFFFF'
     }
-    else{
+    else {
       let reportTypeBoolean = false;
       if (typeof e === 'string') {
         reportTypeBoolean = true;
@@ -189,32 +189,38 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           });
 
           let range = max - min;
-          // let partSize = (range / 10 % 1 === 0) ? range / 10 : Number((range / 10).toFixed(2));
-          let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
-          for (let i = 1; i <= 5; i++) {
-            if (i === 5) {
-              if(min === 0){
-                values.push(this.perCapitaReport ? 0.1 : 1);
+          if (range) {
+            let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
+            for (let i = 1; i <= 5; i++) {
+              if (i === 5) {
+                if (min === 0) {
+                  values.push(this.perCapitaReport ? 0.1 : 1);
+                }
+                else {
+                  values.push(this.perCapitaReport ? min : min.toFixed(0));
+                }
+                continue;
               }
-              else{
-                values.push(this.perCapitaReport ? min :min.toFixed(0));
+
+              if (i === 1) {
+                values.push(this.perCapitaReport ? max : max.toFixed(0));
+                continue;
               }
-              continue;
-            }
-  
-            if (i === 1) {
-              values.push(this.perCapitaReport ? max :max.toFixed(0));
-              continue;
-            }
-            if(this.perCapitaReport){
-              let value = Number((max - partSize * (i - 1)).toFixed(2))
-              values.push(value)
-            }
-            else{
-              let value = Number((max - partSize * (i - 1)).toFixed(0))
-              values.push(value >= 1 ? value : 1)
+              if (this.perCapitaReport) {
+                let value = Number((max - partSize * (i - 1)).toFixed(2))
+                values.push(value)
+              }
+              else {
+                let value = Number((max - partSize * (i - 1)).toFixed(0))
+                values.push(value >= 1 ? value : 1)
+              }
             }
           }
+          else{
+            values.push(min);
+          }
+          // let partSize = (range / 10 % 1 === 0) ? range / 10 : Number((range / 10).toFixed(2));
+
         }
 
         function styleStates(feature: any) {
@@ -228,7 +234,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
             if (state.state_code == feature.properties.state_code && !state.district_code) {
               color = parent.getLayerColor(state.indicator ? (max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator) : -1);
             }
-            else if(state.district_code && state.district_code == feature.properties.dtcode11){
+            else if (state.district_code && state.district_code == feature.properties.dtcode11) {
               color = parent.getLayerColor(state.indicator ? (max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator) : -1);
             }
           });
@@ -250,17 +256,17 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
             if (state.state_code == feature.properties.state_code && !state.district_code) {
               popup = state.tooltip
             }
-            else if(state.district_code && state.district_code == feature.properties.dtcode11){
+            else if (state.district_code && state.district_code == feature.properties.dtcode11) {
               popup = state.tooltip
             }
           });
           return popup;
         }
-        
+
         this.countryGeoJSON = L.geoJSON(data['features'], {
           onEachFeature: function (feature: any, layer: any) {
-            if(!(environment.config === 'NVSK' && parent.level === 'district')){
-              if(getPopUp(feature)){
+            if (!(environment.config === 'NVSK' && parent.level === 'district')) {
+              if (getPopUp(feature)) {
                 layer.bindTooltip(getPopUp(feature), { classname: "app-leaflet-tooltip", sticky: true });
               }
             }
@@ -309,10 +315,10 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
         for (let i = 1; i <= 5; i++) {
           if (i === 5) {
-            if(min === 0){
+            if (min === 0) {
               values.push(1);
             }
-            else{
+            else {
               values.push(min.toFixed(0));
             }
             // values.push(min);
@@ -377,9 +383,11 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       if (mapOptions.legend && mapOptions.legend.title) {
         labels.push(`<strong>${mapOptions.legend.title}:</strong>`)
       }
-      if (reportTypeIndicator === 'boolean') {
+      if(values.length <= 1 && reportTypeIndicator !== 'boolean'){
+        labels.push(`<i class="fa fa-square" style="color:${ref.getLayerColor(values[0])}"></i> ${values[0]}`);
+      }
+      else if (reportTypeIndicator === 'boolean') {
         values = ["Yes", "No"];
-
         for (let i = 0; i < values.length; i++) {
           labels.push(`<i class="fa fa-square" style="color:${ref.getLayerColor(values[i])}"></i> ${values[i]}`);
         }

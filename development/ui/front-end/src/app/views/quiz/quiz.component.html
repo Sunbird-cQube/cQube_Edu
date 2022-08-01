@@ -21,7 +21,7 @@
                 <div class="col">
                     <div class="grid grid-cols-12">
                         <div class="col-span-full" appFullScreen>
-                            <app-filter-panel [filters]="filters" colSize="md:col-span-3 xs:col-span-9 xmd:col-span-4" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                            <app-filter-panel [filters]="filters" colSize="md:col-span-3 xs:col-span-12 xmd:col-span-4" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
                             <app-leaflet-map [mapData]="quizzesStateData"></app-leaflet-map>
                         </div>
                     </div>
