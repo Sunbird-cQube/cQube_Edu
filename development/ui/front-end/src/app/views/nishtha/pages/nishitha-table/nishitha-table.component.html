@@ -1,6 +1,6 @@
 <div class="grid grid-cols-12" *ngIf="stateWiseEnrollmentData && options">
     <div class="col-span-full" appFullScreen>
-        <app-filter-panel [filters]="filters" colSize="col-span-3" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+        <app-filter-panel [filters]="filters" colSize="md:col-span-3 xs:col-span-6 xmd:col-span-4" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
         <app-multi-bar-chart [title]="title" [options]="options">
         </app-multi-bar-chart>
     </div>
