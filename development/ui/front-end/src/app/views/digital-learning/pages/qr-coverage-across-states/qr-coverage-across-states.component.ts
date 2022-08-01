@@ -103,7 +103,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
           },
           yAxis: {
             title: {
-              y: 110,
+              y: 120,
               text: this.gaugeChartProperties.title
             },
             labels: {
@@ -119,7 +119,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
                 format:
                     '<div style="text-align:center"><br>' +
                     '<span style="font-size:1rem">{y}' + (this.gaugeChartProperties.valueSuffix ? this.gaugeChartProperties.valueSuffix : "") + '</span><br/>' +
-                    '</div>'
+                    '</div><br><br><br>'
             },
             tooltip: {
                 valueSuffix: this.gaugeChartProperties.valueSuffix ? ` ${this.gaugeChartProperties.valueSuffix}` : ''
