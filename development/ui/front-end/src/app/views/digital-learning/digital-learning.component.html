@@ -15,7 +15,7 @@
 
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
-        <mat-tab label="Implementation Status" class="tab-first" >
+        <mat-tab label="Implementation Status" class="tab-first" *ngIf="NVSK">
             <div class="col">
                 <div class="grid grid-cols-12">
                     <div class="col-span-full" appFullScreen>

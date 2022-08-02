@@ -12,7 +12,7 @@
 </div>
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
-        <mat-tab label="Implementation Status">
+        <mat-tab label="Implementation Status" *ngIf="NVSK">
             <app-implementation-status></app-implementation-status>
         </mat-tab>
         <mat-tab label="State Wise Performance" *ngIf="NVSK">

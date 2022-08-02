@@ -54,7 +54,7 @@ const dataSourceInfo = {
                 },
                 {
                     name: "Total Energized Textbooks",
-                    property: "Total Energised (Live ETB)",
+                    property: "State energised (ETB)",
                     class: "text-center"
                 },
                 {
@@ -163,11 +163,11 @@ const dataSourceInfo = {
         barChart: {
             pathToFile: 'diksha_etb_learning-session.json',
             mainFilter: 'State Code',
-            defaultLevel: 'State Name',
+            defaultLevel: 'grade_new',
             columns: [
                 {
-                    name: "State/UT name",
-                    property: "State Name",
+                    name: "Grade",
+                    property: "grade_new",
                     isLocationName: true
                 },
                 {
@@ -182,10 +182,6 @@ const dataSourceInfo = {
                 {
                     name: 'Medium',
                     column: 'medium_new'
-                },
-                {
-                    name: 'Grade',
-                    column: 'grade_new'
                 },
                 {
                     name: 'Subject',

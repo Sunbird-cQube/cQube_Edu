@@ -11,6 +11,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./school-registry.component.scss']
 })
 export class SchoolRegistryComponent implements OnInit {
+  performanceLabel: string = 'State Wise Performance';
+  NVSK: boolean = true;
   udiseMetricsData: any;
   udiseStateData: any;
   filters: any;
@@ -23,6 +25,10 @@ export class SchoolRegistryComponent implements OnInit {
   levels1: any;
 
   constructor(private readonly _configService: ConfigService, private readonly _commonService: CommonService, private readonly _spinner: NgxSpinnerService) {
+    if(environment.config == 'VSK'){
+      this.performanceLabel = 'District Wise Performance';
+      this.NVSK = false;
+    }
     this.getUdiseMetricsData();
     this.getUdiseStateData(this.filters, this.levels, this.metricFilter);
     // this.getScatterData(this.filters, this.levels);

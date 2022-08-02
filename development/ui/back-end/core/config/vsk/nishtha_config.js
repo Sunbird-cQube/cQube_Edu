@@ -1,45 +1,24 @@
 const dataSourceInfo = {
-    programStatus: {
-        map: {
+    implementationStatus: {
+        loTable: {
             pathToFile: 'diksha_nishtha_program-started.json',
+            defaultLevel: 'Program',
+            sortByProperty: 'Program',
             mainFilter: 'State Code',
-            locations: [
+            columns: [
                 {
-                    name: "Location",
-                    property: "State",
-                    level: "district",
-                    isState: true,
-                    tooltip: {
-                        name: "State/UT name"
-                    }
-                }
-            ],
-            dimensions: [
-                {
-                    name: "Program",
+                    name: "Program Name",
                     property: "Program",
-                    tooltip: {
-                        valueAsName: true,
-                        property: "Started"
-                    }
+                    class: "text-center"
+                    
                 },
                 {
-                    name: "indicator",
-                    property: "Started"
+                    name: "NISHTHA Started",
+                    property: "Started",
+                    class: "text-center"
                 }
             ],
-            filters: [
-                {
-                    name: 'Program',
-                    column: 'Program',
-                    defaultValue: true
-                }
-            ],
-            options: {
-                legend: {
-                    title: 'NISHTHA started'
-                }
-            }
+            filters: []
         }
     },
     stateOrDistrictWiseEnrollments: {
@@ -115,12 +94,12 @@ const dataSourceInfo = {
     enrollmentAgainstTargets: {
         stackedBarChart: {
             pathToFile: 'diksha_nishtha_percentage-enrollment-certification.json',
-            defaultLevel: "State",
+            defaultLevel: "Program",
             mainFilter: 'State Code',
             columns: [
                 {
                     name: "Location",
-                    property: "State"
+                    property: "Program"
                 },
                 {
                     name: "% Target Achieved- Enrolment",
@@ -147,24 +126,18 @@ const dataSourceInfo = {
                     }
                 }
             ],
-            filters: [
-                {
-                    name: 'Program',
-                    column: 'Program',
-                    defaultValue: true
-                }
-            ]
+            filters: []
         }
     },
     certificationAgainstTargets: {
         stackedBarChart: {
             pathToFile: 'diksha_nishtha_percentage-enrollment-certification.json',
-            defaultLevel: "State",
+            defaultLevel: "Program",
             mainFilter: "State Code",
             columns: [
                 {
                     name: "Location",
-                    property: "State"
+                    property: "Program"
                 },
                 {
                     name: "% Target Achieved- Certificates",
@@ -191,13 +164,7 @@ const dataSourceInfo = {
                     }
                 }
             ],
-            filters: [
-                {
-                    name: 'Program',
-                    column: 'Program',
-                    defaultValue: true
-                }
-            ]
+            filters: []
         }
     },
     totalCoursesAndMedium:{

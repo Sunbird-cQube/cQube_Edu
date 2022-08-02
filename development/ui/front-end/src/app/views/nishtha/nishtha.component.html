@@ -15,8 +15,11 @@
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
         <mat-tab label="Implementation Status">
             <div class="grid grid-cols-1">
-                <div class="col">
+                <div class="col" *ngIf="NVSK">
                     <app-nishtha-program-detail></app-nishtha-program-detail>
+                </div>
+                <div class="col" *ngIf="!NVSK">
+                    <app-program-wise-implementation></app-program-wise-implementation>
                 </div>
             </div>
         </mat-tab>
