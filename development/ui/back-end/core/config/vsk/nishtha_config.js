@@ -134,7 +134,7 @@ const dataSourceInfo = {
                     name: "Total Enrolments",
                     property: "Total Enrolments",
                     tooltip: {
-                        name: "Actaul Enrolment",
+                        name: "Actual Enrolment",
                         localeString: 'en-IN'
                     }
                 },
