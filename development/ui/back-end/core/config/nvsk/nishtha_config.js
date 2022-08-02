@@ -142,7 +142,7 @@ const dataSourceInfo = {
                     name: "% Target Achieved- Enrolment",
                     property: "% Target Achieved- Enrolment",
                     tooltip: {
-                        name: "Target Acheived",
+                        name: "Target Achieved",
                         valueSuffix: '%'
                     }
                 },
@@ -185,7 +185,7 @@ const dataSourceInfo = {
                     name: "% Target Achieved- Certificates",
                     property: "% Target Achieved- Certificates",
                     tooltip: {
-                        name: "Target Acheived",
+                        name: "Target Achieved",
                         valueSuffix: '%'
                     }
                 },
