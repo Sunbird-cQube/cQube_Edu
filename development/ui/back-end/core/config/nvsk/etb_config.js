@@ -56,7 +56,7 @@ const dataSourceInfo = {
                 },
                 {
                     name: "Total Energized Textbooks",
-                    property: "Total Energised (Live ETB)",
+                    property: "State energised (ETB)",
                     class: "text-center"
                 },
                 {

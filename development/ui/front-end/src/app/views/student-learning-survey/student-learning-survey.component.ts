@@ -13,7 +13,7 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
   styleUrls: ['./student-learning-survey.component.scss']
 })
 export class StudentLearningSurveyComponent implements OnInit {
-
+  performanceLabel: string = 'State Wise Performance'
   level: string = 'state';
   NASMetrics: any[] | undefined;
   NASProgramStatsByLocation: any
@@ -30,6 +30,7 @@ export class StudentLearningSurveyComponent implements OnInit {
 
   ngOnInit(): void {
     if(environment.config === 'VSK'){
+      this.performanceLabel = 'District Wise Performance';
       this.NVSK = false;
     }
     this._spinner.show();

@@ -14,6 +14,7 @@ import { NishithaTableComponent } from './pages/nishitha-table/nishitha-table.co
 import { NisithaStackedBarComponent } from './pages/nisitha-stacked-bar/nisitha-stacked-bar.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TotalCoursesTableComponent } from './pages/total-courses-table/total-courses-table.component';
+import { ProgramWiseImplementationComponent } from './pages/program-wise-implementation/program-wise-implementation.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { TotalCoursesTableComponent } from './pages/total-courses-table/total-co
     NisithaBarComponent,
     NishithaTableComponent,
     NisithaStackedBarComponent,
-    TotalCoursesTableComponent
+    TotalCoursesTableComponent,
+    ProgramWiseImplementationComponent
   ],
   imports: [
     CommonModule,
