@@ -203,19 +203,19 @@ const dataSourceInfo = {
     totalCoursesAndMedium:{
         loTable: {
             pathToFile: 'diksha_nishtha_tot-courses-medium.json',
-            defaultLevel: 'State Name',
-            sortByProperty: 'Total Courses',
+            defaultLevel: 'Program Name',
+            sortByProperty: 'Program Name',
             mainFilter: 'State Code',
-            sortDirection: 'desc',
+            sortDirection: 'asc',
             columns: [
                 {
-                    name: "State/UT Name",
-                    property: "State Name",
+                    name: "Program Name",
+                    property: "Program Name",
                     class: "text-center"
                     
                 },
                 {
-                    name: "Count of courses launched",
+                    name: "Total Courses Launched",
                     property: "Total Courses",
                     class: "text-center",
                     aggegration: {
@@ -223,7 +223,7 @@ const dataSourceInfo = {
                     }
                 },
                 {
-                    name: "Count of course mediums",
+                    name: "Total Mediums",
                     property: "Total Medium",
                     class: "text-center",
                     aggegration: {
@@ -231,12 +231,7 @@ const dataSourceInfo = {
                     }
                 }
             ],
-            filters: [
-                {
-                    name: "Program",
-                    column: "Program Name"
-                }
-            ]
+            filters: []
         }
     }
 
