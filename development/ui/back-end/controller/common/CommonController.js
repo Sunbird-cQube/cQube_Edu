@@ -508,6 +508,15 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		
 					return;
 				}
+
+				if(transCol.pivotSum){
+					dataObj[data[transCol.property]] = {
+						pivotSum: data[transCol.pivotSum.property] ? data[transCol.pivotSum.property] : 0
+					}
+					result.push(dataObj);
+		
+					return;
+				}
 		
 				dataObj[data[transCol.property]] = dataObj[data[transCol.property]];
 			} else {
@@ -516,6 +525,11 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 					dataObj[data[transCol.property]] = dataObj[data[transCol.property]] ? dataObj[data[transCol.property]] : { numeratorSum: 0, denominatorSum: 0};
 					dataObj[data[transCol.property]].numeratorSum += data[transCol.weightedAverage.property] && data[transCol.weightedAverage.against] ? data[transCol.weightedAverage.property] * data[transCol.weightedAverage.against] : 0;
 					dataObj[data[transCol.property]].denominatorSum += data[transCol.weightedAverage.against] ? data[transCol.weightedAverage.against] : 0;
+					return;
+				}
+				if (transCol.pivotSum){
+					dataObj[data[transCol.property]] = dataObj[data[transCol.property]] ? dataObj[data[transCol.property]] : { pivotSum: 0};
+					dataObj[data[transCol.property]].pivotSum += data[transCol.pivotSum.property] ? data[transCol.pivotSum.property] : 0;
 					return;
 				}
 		
@@ -527,6 +541,9 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 			cols.forEach(col => {
 				if (transCol.weightedAverage) {
 					rec[col.property] = rec[col.property] && rec[col.property].denominatorSum > 0 ? Number((rec[col.property].numeratorSum / rec[col.property].denominatorSum).toFixed(2)) : 0;
+				}
+				if( transCol.pivotSum){
+					rec[col.property] = rec[col.property] ? rec[col.property].pivotSum : 0
 				}
 		
 				rec[col.property] = {
@@ -540,7 +557,8 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		
 			return rec;
 		});
-
+		if(transCol.colSortNeeded)
+				cols.sort((a,b) => compare(a.name, b.name));
 		columns = [...rows, ...cols];
 	} else if (isWeightedAverageNeeded) {
 		rawData = _.chain(rawData)
