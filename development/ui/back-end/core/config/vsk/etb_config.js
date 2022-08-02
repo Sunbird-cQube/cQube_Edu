@@ -68,64 +68,40 @@ const dataSourceInfo = {
         }
     },
     qrCodeCoverageAcrossStates: {
-        map: {
-            pathToFile: 'diksha_etb_qr-coverage.json',
-            mainFilter: 'State Code',
-            locations: [
-                {
-                    name: "Location",
-                    property: "State Name",
-                    level: "district",
-                    isState: true,
-                    tooltip: {
-                        name: "State/UT name"
-                    }
-                }
-            ],
-            dimensions: [
-                {
-                    name: "indicator",
-                    property: "QR Coverage",
-                    tooltip: {
-                        name: "Content Coverage on QR"
-                    },
-                }
-            ],
-            filters: [],
-            options: {
-                legend: {
-                    title: 'Content Coverage on QR'
-                },
-                tooltip: {
-                    reportTypeIndicator: 'percent'
-                }
-            }
-        },
-        barChart: {
-            pathToFile: 'diksha_etb_qr-coverage.json',
-            mainFilter: 'State Code',
+        loTable: {
+            pathToFile: 'vsk_diksha_etb_qr-coverage.json',
             gaugeChart: {
                 title: 'Content Coverage on QR',
                 aggegration: {
                     type: 'AVG',
-                    column: 'QR covered',
-                    against: "Total QR Count"
+                    column: 'Linked QR Count',
+                    against: "Resource Count"
                 },
                 valueSuffix: "%"
             },
             columns: [
                 {
-                    name: "State/UT name",
-                    property: "State Name",
-                    isLocationName: true
+                    name: "Subject",
+                    property: "Subject"
                 },
                 {
-                    name: "QR Coverage",
-                    property: "QR Coverage"
+                    name: "Grade",
+                    property: "Grade",
+                    transposeColumn: true,
+                    pivotSum: {
+                        property: "Linked QR Count",
+                    },
+                    colSortNeeded: true
+
                 }
             ],
-            filters: []
-        }
+            filters: [
+                {
+                    name: 'Medium',
+                    column: 'Medium'
+                }
+            ]
+        },
     },
     totalPlaysPerCapita: {
         map: {

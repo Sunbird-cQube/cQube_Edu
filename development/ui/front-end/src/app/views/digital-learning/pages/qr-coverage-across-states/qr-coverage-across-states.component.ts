@@ -10,18 +10,28 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./qr-coverage-across-states.component.scss']
 })
 export class QRCoverageAcrossStatesComponent implements OnInit {
+  NVSK: boolean = true;
   qrCoverageBarData: any;
   ETBProgramStatsByLocation: any;
   filters: any;
   barChartOptions: Highcharts.Options | undefined;
   gaugeChartOptions: Highcharts.Options | undefined;
   gaugeChartProperties: any | undefined;
+  tableData: any;
 
   @ViewChild(LeafletMapComponent) leafletComponent!: LeafletMapComponent;
 
   constructor(private readonly _commonService: CommonService) {
-    this.getStateWiseETBQRCoverageData(this.filters);
-    this.getStateWiseETBQRCoverageDataForBar(this.filters);
+    if(environment.config === 'VSK'){
+      this.NVSK = false;
+    }
+    if(this.NVSK){
+      this.getStateWiseETBQRCoverageData(this.filters);
+      this.getStateWiseETBQRCoverageDataForBar(this.filters);
+    }
+    else{
+      this.getQrVskData(this.filters)
+    }
   }
 
   ngOnInit(): void {
@@ -94,6 +104,59 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
         }]
       };
 
+      this.gaugeChartProperties = res.result.gaugeChart;
+
+      if (this.gaugeChartProperties) {
+        this.gaugeChartOptions = {
+          title: {
+            text: ""
+          },
+          yAxis: {
+            title: {
+              y: 120,
+              text: this.gaugeChartProperties.title
+            },
+            labels: {
+              distance: -10
+            }
+          },
+          series: [{
+            type: 'solidgauge',
+            name: 'Speed',
+            data: [this.gaugeChartProperties.percentage],
+            innerRadius: '80%',
+            dataLabels: {
+                format:
+                    '<div style="text-align:center"><br>' +
+                    '<span style="font-size:1rem">{y}' + (this.gaugeChartProperties.valueSuffix ? this.gaugeChartProperties.valueSuffix : "") + '</span><br/>' +
+                    '</div><br><br><br>'
+            },
+            tooltip: {
+                valueSuffix: this.gaugeChartProperties.valueSuffix ? ` ${this.gaugeChartProperties.valueSuffix}` : ''
+            }
+          }]
+        }
+      }
+    });
+  }
+
+  filtersUpdated(filters: any): void {
+    this.getQrVskData(filters);
+  }
+
+  getQrVskData(filters: any) {
+    let data: IReportDataPayload = {
+      appName: environment.config.toLowerCase(),
+      dataSourceName: 'etb',
+      reportName: 'qrCodeCoverageAcrossStates',
+      reportType: 'loTable',
+      stateCode: environment.stateCode,
+      filters
+    };
+
+    this._commonService.getReportData(data).subscribe(res => {
+      this.tableData = res.result;
+      this.filters = res.result.filters;
       this.gaugeChartProperties = res.result.gaugeChart;
 
       if (this.gaugeChartProperties) {
