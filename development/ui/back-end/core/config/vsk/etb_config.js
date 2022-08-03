@@ -88,11 +88,11 @@ const dataSourceInfo = {
                     name: "Grade",
                     property: "Grade",
                     transposeColumn: true,
-                    pivotSum: {
+                    aggegration: {
+                        type: "SUM",
                         property: "Linked QR Count",
                     },
                     colSortNeeded: true
-
                 }
             ],
             filters: [
@@ -102,6 +102,23 @@ const dataSourceInfo = {
                 }
             ]
         },
+        gaugeChart: {
+            pathToFile: 'diksha_etb_qr-coverage.json',
+            options: {
+                title: 'Content Coverage on QR',
+                valueSuffix: "%"
+            },
+            dimension: {
+                name: "QR covered",
+                property: "QR covered",
+                aggegration: {
+                    type: 'AVG',
+                    property: 'QR covered',
+                    against: "Total QR Count"
+                }
+            },
+            filters: []
+        }
     },
     totalPlaysPerCapita: {
         map: {
