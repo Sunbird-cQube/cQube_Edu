@@ -13,6 +13,7 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
   styleUrls: ['./student-learning-survey.component.scss']
 })
 export class StudentLearningSurveyComponent implements OnInit {
+  noData: boolean = true;
   performanceLabel: string = 'State Wise Performance'
   level: string = 'state';
   NASMetrics: any[] | undefined;
@@ -57,6 +58,7 @@ export class StudentLearningSurveyComponent implements OnInit {
       this._spinner.hide()
       this.isMapReportLoading = false;
       this.NasStateData = res.result;
+      this.noData = this.NasStateData.data ? false : true;
       this.filters = res.result.filters;
       this.levels = res.result.levels;
       this.levels.forEach((level:any) => {

@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
       let names: any = stateNames;
         names.every((state:any) => {
           if(state.stateCode == environment.stateCode){
-            this.stateName = state.stateName;
+            this.stateName = state.stateName.toUpperCase();
             return false;
           }
           return true;
