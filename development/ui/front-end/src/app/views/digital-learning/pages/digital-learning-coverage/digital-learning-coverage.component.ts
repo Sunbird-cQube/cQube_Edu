@@ -14,9 +14,19 @@ export class DigitalLearningCoverageComponent implements OnInit {
   gaugeChartOptions: Highcharts.Options | undefined;
   gaugeChartProperties: any | undefined;
   filters: any;
+  NVSK = true;
+  QRGaugeData: any;
 
   constructor(private readonly _commonService: CommonService) {
+    if(environment.config === 'VSK') {
+      this.NVSK = false;
+    }
+
     this.getStateWiseETBCoverageData(this.filters);
+
+    if (!this.NVSK) {
+      this.getQRGaugeData(this.filters);
+    }
   }
 
   ngOnInit(): void {
@@ -34,41 +44,62 @@ export class DigitalLearningCoverageComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(res => {
       this.tableData = res.result;
-      this.gaugeChartProperties = res.result.gaugeChart;
+      this.filters = res.result.filters;
+    });
+  }
 
-      if (this.gaugeChartProperties) {
+  filtersUpdated(filters: any): void {
+    this.getStateWiseETBCoverageData(filters);
+
+    if (!this.NVSK) {
+      this.getQRGaugeData(filters);
+    }
+  }
+
+  getQRGaugeData(filters: any): void {
+    let data: IReportDataPayload = {
+      appName: environment.config.toLowerCase(),
+      dataSourceName: 'etb',
+      reportName: 'statesEnergizedTextBooks',
+      reportType: 'gaugeChart',
+      stateCode: environment.stateCode,
+      filters
+    };
+
+    this._commonService.getReportData(data).subscribe(res => {
+      this.QRGaugeData = res.result.data;
+
+      if (this.QRGaugeData) {
         this.gaugeChartOptions = {
           title: {
             text: ""
           },
           yAxis: {
             title: {
-              y: 130,
-              text: this.gaugeChartProperties.title
+              y: 120,
+              text: this.QRGaugeData.options.title
+            },
+            labels: {
+              distance: -10
             }
           },
           series: [{
             type: 'solidgauge',
             name: 'Speed',
-            data: [this.gaugeChartProperties.percentage],
+            data: [this.QRGaugeData.percentage],
             innerRadius: '80%',
             dataLabels: {
-                y: -20,
                 format:
                     '<div style="text-align:center"><br>' +
-                    '<span style="font-size:25px">{y}' + (this.gaugeChartProperties.valueSuffix ? this.gaugeChartProperties.valueSuffix : "") + '</span><br/>' +
-                    '</div>'
+                    '<span style="font-size:1rem">{y}' + (this.QRGaugeData.options.valueSuffix ? this.QRGaugeData.options.valueSuffix : "") + '</span><br/>' +
+                    '</div><br><br><br>'
             },
             tooltip: {
-                valueSuffix: this.gaugeChartProperties.valueSuffix ? ` ${this.gaugeChartProperties.valueSuffix}` : ''
+                valueSuffix: this.QRGaugeData.options.valueSuffix ? ` ${this.QRGaugeData.options.valueSuffix}` : ''
             }
           }]
         }
       }
     });
-  }
-
-  filtersUpdated(filters: any): void {
-    this.getStateWiseETBCoverageData(filters);
   }
 }
