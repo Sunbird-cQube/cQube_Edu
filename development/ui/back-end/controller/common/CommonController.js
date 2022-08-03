@@ -98,6 +98,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 	let groupByColumn = groupByDefault;
 	let level = reqBody.appName === appNames.nvsk ? 'state' : 'district';
 	let currentLevel;
+	let selectedMetric;
 	levels = reqBody.levels ? reqBody.levels : levels;
 	latitude = latitude ? latitude : 'Latitude';
 	longitude = longitude ? longitude : "Longitude";
@@ -307,6 +308,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 							if (isIndicator) {
 								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
 								data.tooltip += dimension.tooltip.valueAsName ? `<b><i>${data[dimension.name]}</i></b>: <b>${objs[0][dimension.tooltip.property]}</b>` : `<b><i>${dimension.tooltip.name.trim()}</i></b>: <b>${value}</b>`;
+								selectedMetric = dimension.tooltip.valueAsName ? value : dimension.tooltip.name.trim();
 							} else {
 								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
 								data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
@@ -399,6 +401,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 					if (isIndicator) {
 						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
 						data.tooltip += dimension.tooltip.valueAsName ? `<b><i>${value}</i></b>: <b>${record[dimension.tooltip.property]}</b>` : `<b><i>${dimension.tooltip.name.trim()}</i></b>: <b>${value}</b>`;
+						selectedMetric = dimension.tooltip.valueAsName ? value : dimension.tooltip.name.trim();
 					} else {
 						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
 						data.tooltip += dimension.tooltip.valueAsName ? `${value}: <b>${record[dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
@@ -411,7 +414,9 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 			return data;
 		});
 	}
-
+	if(metricFilter.options.length > 1){
+		options.selectedMetric = selectedMetric
+	}
 	return {
 		data: rawData,
 		filters: filters,

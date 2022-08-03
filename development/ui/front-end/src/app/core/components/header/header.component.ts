@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { environment } from 'src/environments/environment';
+import { stateNames } from '../../config/StateCodes';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
@@ -22,7 +23,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
   ]
 })
 export class HeaderComponent implements OnInit {
-
+  stateName: any;
   config: string = environment.config
   NVSK: boolean = true;
 
@@ -35,8 +36,23 @@ export class HeaderComponent implements OnInit {
   constructor(private router:Router, private readonly _authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    if(this.config == 'VSK'){
-      this.NVSK = false;
+    if(environment.config === 'VSK'){
+      this.NVSK = false
+      // // this.stateName = false;
+      // this.stateName=environment.stateCode
+
+      let names: any = stateNames;
+        names.every((state:any) => {
+          if(state.stateCode == environment.stateCode){
+            this.stateName = state.stateName;
+            return false;
+          }
+          return true;
+        });
+
+    }
+    else{
+      this.stateName = 'India'
     }
   }
 
