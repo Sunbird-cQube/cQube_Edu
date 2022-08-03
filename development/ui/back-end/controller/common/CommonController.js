@@ -405,7 +405,6 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 						data.tooltip += dimension.tooltip.valueAsName ? `<b><i>${value}</i></b>: <b>${record[dimension.tooltip.property]}${record[dimension.tooltip.valueSuffix] ? record[dimension.tooltip.valueSuffix] : ''}</b>` : `<b><i>${dimension.tooltip.name.trim()}</i></b>: <b>${value}${dimension.tooltip.valueSuffix ? dimension.tooltip.valueSuffix : ''}</b>`;
 						selectedMetric = dimension.tooltip.valueAsName ? value : dimension.tooltip.name.trim();
 					} else {
-						console.log('here')
 						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
 						data.tooltip += dimension.tooltip.valueAsName ? `${value}: <b>${record[dimension.tooltip.property]}${record[dimension.tooltip.valueSuffix] ? record[dimension.tooltip.valueSuffix] : ''}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}${dimension.tooltip.valueSuffix ? dimension.tooltip.valueSuffix : ''}</b>`;
 					}
