@@ -88,7 +88,8 @@ const dataSourceInfo = {
                     name: "indicator",
                     property: "QR Coverage",
                     tooltip: {
-                        name: "Content Coverage on QR"
+                        name: "Content Coverage on QR",
+                        valueSuffix: '%'
                     },
                 },
                 {

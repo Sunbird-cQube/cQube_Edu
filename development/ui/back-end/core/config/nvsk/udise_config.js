@@ -139,14 +139,16 @@ const dataSourceInfo = {
                     property: ["% schools having toilet", "% schools having drinking water", "% schools having electricity", "% govt aided schools received textbook", "% schools with Ramp"],
                     aggegration: {
                         type: "AVG"
-                    }
+                    },
+                    valueSuffix: '%'
                 },
                 y: {
                     name: "Y-Axis",
                     property: ["% schools having toilet", "% schools having drinking water", "% schools having electricity", "% govt aided schools received textbook", "% schools with Ramp"],
                     aggegration: {
                         type: "AVG"
-                    }
+                    },
+                    valueSuffix: '%'
                 }
             },
             propertyAsOption: true,
