@@ -4,7 +4,8 @@ const reportTypes = {
     loTable: "loTable",
     scatterPlot: "scatterPlot",
     stackedBarChart: "stackedBarChart",
-    barChart: "barChart"
+    barChart: "barChart",
+    gaugeChart: "gaugeChart"
 }
 
 const appNames = {

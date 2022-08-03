@@ -16,7 +16,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
   filters: any;
   barChartOptions: Highcharts.Options | undefined;
   gaugeChartOptions: Highcharts.Options | undefined;
-  gaugeChartProperties: any | undefined;
+  QRGaugeData: any | undefined;
   tableData: any;
 
   @ViewChild(LeafletMapComponent) leafletComponent!: LeafletMapComponent;
@@ -30,7 +30,8 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
       this.getStateWiseETBQRCoverageDataForBar(this.filters);
     }
     else{
-      this.getQrVskData(this.filters)
+      this.getQrVskData(this.filters);
+      this.getQRGaugeData(this.filters);
     }
   }
 
@@ -104,9 +105,9 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
         }]
       };
 
-      this.gaugeChartProperties = res.result.gaugeChart;
+      this.QRGaugeData = res.result.gaugeChart;
 
-      if (this.gaugeChartProperties) {
+      if (this.QRGaugeData) {
         this.gaugeChartOptions = {
           title: {
             text: ""
@@ -114,7 +115,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
           yAxis: {
             title: {
               y: 120,
-              text: this.gaugeChartProperties.title
+              text: this.QRGaugeData.title
             },
             labels: {
               distance: -10
@@ -123,16 +124,16 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
           series: [{
             type: 'solidgauge',
             name: 'Speed',
-            data: [this.gaugeChartProperties.percentage],
+            data: [this.QRGaugeData.percentage],
             innerRadius: '80%',
             dataLabels: {
                 format:
                     '<div style="text-align:center"><br>' +
-                    '<span style="font-size:1rem">{y}' + (this.gaugeChartProperties.valueSuffix ? this.gaugeChartProperties.valueSuffix : "") + '</span><br/>' +
+                    '<span style="font-size:1rem">{y}' + (this.QRGaugeData.valueSuffix ? this.QRGaugeData.valueSuffix : "") + '</span><br/>' +
                     '</div><br><br><br>'
             },
             tooltip: {
-                valueSuffix: this.gaugeChartProperties.valueSuffix ? ` ${this.gaugeChartProperties.valueSuffix}` : ''
+                valueSuffix: this.QRGaugeData.valueSuffix ? ` ${this.QRGaugeData.valueSuffix}` : ''
             }
           }]
         }
@@ -142,6 +143,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
 
   filtersUpdated(filters: any): void {
     this.getQrVskData(filters);
+    this.getQRGaugeData(filters);
   }
 
   getQrVskData(filters: any) {
@@ -157,9 +159,23 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
     this._commonService.getReportData(data).subscribe(res => {
       this.tableData = res.result;
       this.filters = res.result.filters;
-      this.gaugeChartProperties = res.result.gaugeChart;
+    });
+  }
 
-      if (this.gaugeChartProperties) {
+  getQRGaugeData(filters: any): void {
+    let data: IReportDataPayload = {
+      appName: environment.config.toLowerCase(),
+      dataSourceName: 'etb',
+      reportName: 'qrCodeCoverageAcrossStates',
+      reportType: 'gaugeChart',
+      stateCode: environment.stateCode,
+      filters
+    };
+
+    this._commonService.getReportData(data).subscribe(res => {
+      this.QRGaugeData = res.result.data;
+
+      if (this.QRGaugeData) {
         this.gaugeChartOptions = {
           title: {
             text: ""
@@ -167,7 +183,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
           yAxis: {
             title: {
               y: 120,
-              text: this.gaugeChartProperties.title
+              text: this.QRGaugeData.options.title
             },
             labels: {
               distance: -10
@@ -176,16 +192,16 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
           series: [{
             type: 'solidgauge',
             name: 'Speed',
-            data: [this.gaugeChartProperties.percentage],
+            data: [this.QRGaugeData.percentage],
             innerRadius: '80%',
             dataLabels: {
                 format:
                     '<div style="text-align:center"><br>' +
-                    '<span style="font-size:1rem">{y}' + (this.gaugeChartProperties.valueSuffix ? this.gaugeChartProperties.valueSuffix : "") + '</span><br/>' +
+                    '<span style="font-size:1rem">{y}' + (this.QRGaugeData.options.valueSuffix ? this.QRGaugeData.options.valueSuffix : "") + '</span><br/>' +
                     '</div><br><br><br>'
             },
             tooltip: {
-                valueSuffix: this.gaugeChartProperties.valueSuffix ? ` ${this.gaugeChartProperties.valueSuffix}` : ''
+                valueSuffix: this.QRGaugeData.options.valueSuffix ? ` ${this.QRGaugeData.options.valueSuffix}` : ''
             }
           }]
         }

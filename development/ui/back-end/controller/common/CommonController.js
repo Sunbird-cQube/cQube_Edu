@@ -44,6 +44,8 @@ exports.getReportData = (req, res, next) => {
 				reportData = await getStackedBarChartData(reqBody, reportConfig, rawData);
 			} else if (reqBody.reportType === reportTypes.barChart) {
 				reportData = await getBarChartData(reqBody, reportConfig, rawData);
+			} else if (reqBody.reportType === reportTypes.gaugeChart) {
+				reportData = await getGaugeChartData(reqBody, reportConfig, rawData);
 			} else {
 				throw `Invalid report type: ${reqBody.reportType}`;
 			}
@@ -514,13 +516,15 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 					return;
 				}
 
-				if(transCol.pivotSum){
-					dataObj[data[transCol.property]] = {
-						pivotSum: data[transCol.pivotSum.property] ? data[transCol.pivotSum.property] : 0
+				if(transCol.aggegration) {
+					if (transCol.aggegration.type === 'SUM') {
+						dataObj[data[transCol.property]] = {
+							sum: data[transCol.aggegration.property] ? data[transCol.aggegration.property] : 0
+						}
+						result.push(dataObj);
+			
+						return;
 					}
-					result.push(dataObj);
-		
-					return;
 				}
 		
 				dataObj[data[transCol.property]] = dataObj[data[transCol.property]];
@@ -532,10 +536,12 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 					dataObj[data[transCol.property]].denominatorSum += data[transCol.weightedAverage.against] ? data[transCol.weightedAverage.against] : 0;
 					return;
 				}
-				if (transCol.pivotSum){
-					dataObj[data[transCol.property]] = dataObj[data[transCol.property]] ? dataObj[data[transCol.property]] : { pivotSum: 0};
-					dataObj[data[transCol.property]].pivotSum += data[transCol.pivotSum.property] ? data[transCol.pivotSum.property] : 0;
-					return;
+				if (transCol.aggegration){
+					if (transCol.aggegration.type === 'SUM') {
+						dataObj[data[transCol.property]] = dataObj[data[transCol.property]] ? dataObj[data[transCol.property]] : { sum: 0};
+						dataObj[data[transCol.property]].sum += data[transCol.aggegration.property] ? data[transCol.aggegration.property] : 0;
+						return;
+					}
 				}
 		
 				dataObj[data[transCol.property]] = dataObj[data[transCol.property]];
@@ -547,8 +553,10 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 				if (transCol.weightedAverage) {
 					rec[col.property] = rec[col.property] && rec[col.property].denominatorSum > 0 ? Number((rec[col.property].numeratorSum / rec[col.property].denominatorSum).toFixed(2)) : 0;
 				}
-				if( transCol.pivotSum){
-					rec[col.property] = rec[col.property] ? rec[col.property].pivotSum : 0
+				if( transCol.aggegration) {
+					if (transCol.aggegration.type === 'SUM') {
+						rec[col.property] = rec[col.property] ? rec[col.property].sum : 0
+					}
 				}
 		
 				rec[col.property] = {
@@ -1174,6 +1182,59 @@ async function getBarChartData(reqBody, reportConfig, rawData) {
 		data: rawData,
 		filters: filters,
 		gaugeChart: gaugeChart
+	};
+}
+
+async function getGaugeChartData(reqBody, reportConfig, rawData) {
+	console.log("process started");
+	let { dimension, filters, mainFilter, options } = reportConfig;
+	let groupByColumn = reportConfig.defaultLevel;
+	let level = reqBody.appName === appNames.nvsk ? 'state' : 'district';
+
+	if (mainFilter) {
+		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));
+	}
+
+	if (reqBody.filters && reqBody.filters.length > 0) {
+		filters = reqBody.filters;
+	} else {
+		filters = filters.map(filter => {
+			return {
+				...filter,
+				value: null,
+				options: []
+			}
+		})
+	}
+
+	filterRes = applyFilters(filters, rawData, groupByColumn, level);
+	filters = filterRes.filters;
+	rawData = filterRes.rawData;
+	groupByColumn = filterRes.groupByColumn;
+	level = filterRes.level ? filterRes.level : level;
+
+	let sum = 0, againstSum = 0;
+	rawData = rawData.map(record => {
+		if (dimension.aggegration) {
+			if (dimension.aggegration.type === 'AVG') {
+				sum += record[dimension.aggegration.property] ? record[dimension.aggegration.property] : 0;
+				againstSum += record[dimension.aggegration.against] ? record[dimension.aggegration.against] : 0;
+			}
+		}
+	});
+
+	if (dimension.aggegration) {
+		if (dimension.aggegration.type === "AVG") {
+			percentage = againstSum > 0 ? Number((sum / againstSum * 100).toFixed(2)) : 0;
+		}
+	}
+
+	return {
+		data: {
+			options,
+			percentage
+		},
+		filters: filters
 	};
 }
 

@@ -3,7 +3,7 @@ export interface IReportDataPayload {
     stateCode?: string;
     dataSourceName: string;
     reportName: string;
-    reportType: 'map' | 'multiBarChart' | 'loTable' | 'stackedBarChart' | 'barChart' | 'scatterPlot';
+    reportType: 'map' | 'multiBarChart' | 'loTable' | 'stackedBarChart' | 'barChart' | 'scatterPlot' | 'gaugeChart';
     filters?: any;
     levels?: any;
     metricFilter?: any;
