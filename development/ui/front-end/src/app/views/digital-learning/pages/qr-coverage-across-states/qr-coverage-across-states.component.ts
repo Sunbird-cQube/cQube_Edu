@@ -28,8 +28,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
     if(this.NVSK){
       this.getStateWiseETBQRCoverageData(this.filters);
       this.getStateWiseETBQRCoverageDataForBar(this.filters);
-    }
-    else{
+    } else {
       this.getQrVskData(this.filters);
       this.getQRGaugeData(this.filters);
     }

@@ -31,54 +31,7 @@ const dataSourceInfo = {
             }
         },
         loTable: {
-            mainFilter: 'State Code',
-            pathToFile: 'diksha_etb_etb-coverage.json',
-            gaugeChart: {
-                title: 'Overall ETB Coverage',
-                aggegration: {
-                    type: 'AVG',
-                    column: 'State energised (ETB)',
-                    against: "Total Physical textbooks excluding adopted (Curriculum+Supplementary)"
-                },
-                valueSuffix: "%"
-            },
-            columns: [
-                {
-                    name: "State/UT name",
-                    property: "State Name"
-                },
-                {
-                    name: "Total Curriculum Textbooks",
-                    property: "Total Physical textbooks excluding adopted (Curriculum+Supplementary)",
-                    class: "text-center"
-                },
-                {
-                    name: "Total Energized Textbooks",
-                    property: "State energised (ETB)",
-                    class: "text-center"
-                },
-                {
-                    name: "% Energized Textbooks",
-                    property: "ETB Coverage",
-                    isHeatMapRequired: true,
-				    color: '#002966'
-                }
-            ],
-            filters: []
-        }
-    },
-    qrCodeCoverageAcrossStates: {
-        loTable: {
-            pathToFile: 'vsk_diksha_etb_qr-coverage.json',
-            gaugeChart: {
-                title: 'Content Coverage on QR',
-                aggegration: {
-                    type: 'AVG',
-                    column: 'Linked QR Count',
-                    against: "Resource Count"
-                },
-                valueSuffix: "%"
-            },
+            pathToFile: 'vsk_diksha_etb_coverage-status.json',
             columns: [
                 {
                     name: "Subject",
@@ -103,7 +56,58 @@ const dataSourceInfo = {
             ]
         },
         gaugeChart: {
+            pathToFile: 'diksha_etb_etb-coverage.json',
+            mainFilter: 'State Code',
+            options: {
+                title: 'Overall ETB Coverage',
+                valueSuffix: "%"
+            },
+            dimension: {
+                name: "State energised (ETB)",
+                property: "State energised (ETB)",
+                aggegration: {
+                    type: 'AVG',
+                    property: 'State energised (ETB)',
+                    against: "Total Physical textbooks excluding adopted (Curriculum+Supplementary)"
+                }
+            },
+            filters: [
+                {
+                    name: 'Medium',
+                    column: 'Medium'
+                }
+            ]
+        }
+    },
+    qrCodeCoverageAcrossStates: {
+        loTable: {
+            pathToFile: 'vsk_diksha_etb_qr-coverage.json',
+            columns: [
+                {
+                    name: "Subject",
+                    property: "Subject"
+                },
+                {
+                    name: "Grade",
+                    property: "Grade",
+                    transposeColumn: true,
+                    aggegration: {
+                        type: "SUM",
+                        property: "Total QR Codes",
+                    },
+                    colSortNeeded: true
+                }
+            ],
+            filters: [
+                {
+                    name: 'Medium',
+                    column: 'Medium'
+                }
+            ]
+        },
+        gaugeChart: {
             pathToFile: 'diksha_etb_qr-coverage.json',
+            mainFilter: 'State Code',
             options: {
                 title: 'Content Coverage on QR',
                 valueSuffix: "%"
