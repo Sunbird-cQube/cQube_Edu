@@ -39,7 +39,8 @@ const dataSourceInfo = {
                     },
                     tooltip: {
                         name: "Performance",
-                        property: "Performance"
+                        property: "Performance",
+                        valueSuffix: '%'
                     }
                 },
                 {
