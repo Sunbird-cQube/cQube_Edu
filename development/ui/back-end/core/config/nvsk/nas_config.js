@@ -55,13 +55,11 @@ const dataSourceInfo = {
                 },
                 {
                     name: 'Subject',
-                    column: 'Subject',
-                    defaultValue: true
+                    column: 'Subject'
                 },
                 {
                     name: 'Learning Outcome Code',
-                    column: 'Learning Outcome Code',
-                    defaultValue: true
+                    column: 'Learning Outcome Code'
                 },
                 {
                     name: 'State/UT',
