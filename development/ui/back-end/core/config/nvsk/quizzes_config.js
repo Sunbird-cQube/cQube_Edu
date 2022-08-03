@@ -80,7 +80,8 @@ const dataSourceInfo = {
             columns: [
                 {
                     name: "Quiz Name",
-                    property: "Collection Name"
+                    property: "Collection Name",
+                    class: "text-center"
                 },
                 {
                     name: "Total Enrolments",
