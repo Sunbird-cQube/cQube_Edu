@@ -380,7 +380,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
     legend.onAdd = function (map: any) {
       let div = L.DomUtil.create('div', 'info legend');
-      console.log(mapOptions)
       if (mapOptions.legend && mapOptions.legend.title) {
         labels.push(`<strong>${mapOptions.selectedMetric ? mapOptions.selectedMetric : mapOptions.legend.title}:</strong>`)
       }
