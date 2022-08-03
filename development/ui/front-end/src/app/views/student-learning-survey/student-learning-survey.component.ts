@@ -58,7 +58,7 @@ export class StudentLearningSurveyComponent implements OnInit {
       this._spinner.hide()
       this.isMapReportLoading = false;
       this.NasStateData = res.result;
-      this.noData = this.NasStateData.data ? false : true;
+      this.noData = this.NasStateData.data.length === 0 ? true : false;
       this.filters = res.result.filters;
       this.levels = res.result.levels;
       this.levels.forEach((level:any) => {
