@@ -97,6 +97,11 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
           shadow: false,
           reversed: true
         },
+        plotOptions: {
+          bar: {
+            minPointLength: 0
+          }
+        },
         series: [{
           type: 'bar',
           name: 'Content Coverage on QR',
