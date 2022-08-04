@@ -269,7 +269,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 
 						if (dimension.tooltip) {
 							data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-							data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${data[dimension.name]}</b>`;
+							data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}${objs[0][dimension.tooltip.valueSuffix] ? objs[0][dimension.tooltip.valueSuffix] : ''}</b>` : `${dimension.tooltip.name.trim()}: <b>${data[dimension.name]}${dimension.tooltip.valueSuffix ? dimension.tooltip.valueSuffix : ''}</b>`;
 						}
 
 						return;
@@ -402,11 +402,11 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 				if (dimension.tooltip) {
 					if (isIndicator) {
 						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-						data.tooltip += dimension.tooltip.valueAsName ? `<b><i>${value}</i></b>: <b>${record[dimension.tooltip.property]}</b>` : `<b><i>${dimension.tooltip.name.trim()}</i></b>: <b>${value}</b>`;
+						data.tooltip += dimension.tooltip.valueAsName ? `<b><i>${value}</i></b>: <b>${record[dimension.tooltip.property]}${record[dimension.tooltip.valueSuffix] ? record[dimension.tooltip.valueSuffix] : ''}</b>` : `<b><i>${dimension.tooltip.name.trim()}</i></b>: <b>${value}${dimension.tooltip.valueSuffix ? dimension.tooltip.valueSuffix : ''}</b>`;
 						selectedMetric = dimension.tooltip.valueAsName ? value : dimension.tooltip.name.trim();
 					} else {
 						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-						data.tooltip += dimension.tooltip.valueAsName ? `${value}: <b>${record[dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
+						data.tooltip += dimension.tooltip.valueAsName ? `${value}: <b>${record[dimension.tooltip.property]}${record[dimension.tooltip.valueSuffix] ? record[dimension.tooltip.valueSuffix] : ''}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}${dimension.tooltip.valueSuffix ? dimension.tooltip.valueSuffix : ''}</b>`;
 					}
 				}
 
@@ -814,7 +814,7 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 					
 					data[axis] = denominatorSum > 0 ? Number((numeratorSum / denominatorSum).toFixed(2)) : 0;
 
-					data.data += `<br>${series[axis].name}: ${data[axis]}`;
+					data.data += `<br>${series[axis].name}: ${data[axis]}${series[axis].valueSuffix ? series[axis].valueSuffix : ''}`;
 				}
 
 				if (series[axis].aggegration) {
@@ -842,7 +842,7 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 					
 					data[axis] = Number((sum / objs.length).toFixed(2));
 
-					data.data += `<br>${series[axis].name}: ${data[axis]}`;
+					data.data += `<br>${series[axis].name}: ${data[axis]}${series[axis].valueSuffix ? series[axis].valueSuffix : ''}`;
 				}
 			});
 

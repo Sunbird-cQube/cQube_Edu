@@ -157,6 +157,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   async applyCountryBorder(mapData: any): Promise<any> {
+    let reportTypeIndicator = this.mapData.options && this.mapData.options.tooltip && this.mapData.options.tooltip.reportTypeIndicator ? this.mapData.options.tooltip.reportTypeIndicator : (typeof this.mapData.data[0].indicator === 'string') ? 'boolean' : 'value'
     let parent = this;
     return new Promise(async (resolve, reject) => {
       try {
@@ -279,7 +280,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         }).addTo(this.map);
         this.fitBoundsToCountryBorder();
         if (this.level === 'state' || (environment.config === 'VSK' && this.level === 'district')) {
-          this.createLegend(reportTypeBoolean ? 'boolean' : 'values', this.mapData.options, values);
+          this.createLegend(reportTypeIndicator, this.mapData.options, values);
         }
         resolve('India map borders plotted successfully');
       } catch (e) {

@@ -16,7 +16,7 @@ export class MaterialHeatChartTableComponent implements OnInit, OnChanges, After
   columns: any;
 
   @Input() tableData: any;
-
+  @Input() stickyColumns: Number = 1;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(TableHeatMapDirective) tableHeatMap!: TableHeatMapDirective;
 
