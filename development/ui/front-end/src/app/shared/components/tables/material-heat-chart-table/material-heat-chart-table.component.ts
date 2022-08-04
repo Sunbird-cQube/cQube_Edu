@@ -16,7 +16,7 @@ export class MaterialHeatChartTableComponent implements OnInit, OnChanges {
   columns: any;
 
   @Input() tableData: any;
-
+  @Input() stickyColumns: Number = 1;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(TableHeatMapDirective) tableHeatMap!: TableHeatMapDirective;
 
@@ -38,7 +38,7 @@ export class MaterialHeatChartTableComponent implements OnInit, OnChanges {
       //this.columnProperties = [...['id'], ...this.tableData.columns.map((column: any) => column.property)];
       this.columnProperties = this.tableData.columns.map((column: any) => column.property);
       this.matSortActive = this.tableData.sortByProperty;
-      this.matSortDirection = this.tableData.sortDirection;      
+      this.matSortDirection = this.tableData.sortDirection;
     }
   }
 

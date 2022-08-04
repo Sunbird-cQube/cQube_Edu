@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./student-learning-survey-program.component.scss']
 })
 export class StudentLearningSurveyProgramComponent implements OnInit {
+  stickyColumns: Number = 3;
   tableData: any;
   filters: any[] = [];
 
