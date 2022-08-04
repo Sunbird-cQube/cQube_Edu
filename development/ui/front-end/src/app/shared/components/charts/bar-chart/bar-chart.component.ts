@@ -108,7 +108,7 @@ export class BarChartComponent implements OnInit, OnChanges {
                 return new Intl.NumberFormat('en-IN').format(this.y);
               }
           },
-          minPointLength: 10
+          minPointLength: 0
         },
         series: {
           events: {
