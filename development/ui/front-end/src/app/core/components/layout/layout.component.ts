@@ -93,6 +93,9 @@ resetFontSize!: ElementRef;
         this.setLocalFontSize(this.defaultFontSize);
       }
   
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 500)
     }
   
     setLocalFontSize(value: any) {
