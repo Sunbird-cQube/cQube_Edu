@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { MatSort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TableHeatMapDirective } from 'src/app/shared/directives/table-heat-map/table-heat-map.directive';
@@ -8,7 +8,7 @@ import { TableHeatMapDirective } from 'src/app/shared/directives/table-heat-map/
   templateUrl: './material-heat-chart-table.component.html',
   styleUrls: ['./material-heat-chart-table.component.scss']
 })
-export class MaterialHeatChartTableComponent implements OnInit, OnChanges {
+export class MaterialHeatChartTableComponent implements OnInit, OnChanges, AfterViewInit {
   columnProperties: any[] = [];
   dataSource!: MatTableDataSource<any>;
   matSortActive = "";
@@ -25,20 +25,31 @@ export class MaterialHeatChartTableComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(): void {
+    this.constructTable();
+  }
+
   ngOnChanges(): void {
-    if (this.tableData) {
-      this.dataSource = new MatTableDataSource(this.tableData.data);
-      this.dataSource.sortingDataAccessor = (item, property) => {
-        switch(property) {
-          default: return item[property].value;
-        }
-      };
-      this.dataSource.sort = this.sort;
-      this.columns = this.tableData.columns;
-      //this.columnProperties = [...['id'], ...this.tableData.columns.map((column: any) => column.property)];
-      this.columnProperties = this.tableData.columns.map((column: any) => column.property);
-      this.matSortActive = this.tableData.sortByProperty;
-      this.matSortDirection = this.tableData.sortDirection;      
+    this.constructTable();
+  }
+
+  constructTable(): void {
+    if (this.tableData && this.sort) {
+      setTimeout(() => {
+        this.dataSource = new MatTableDataSource(this.tableData.data);
+        this.sort.sortChange.subscribe(v=> console.log(v) );
+        this.dataSource.sortingDataAccessor = (item, property) => {        
+          switch(property) {
+            default: return item[property].value;
+          }
+        };
+        this.dataSource.sort = this.sort;
+        this.columns = this.tableData.columns;
+        //this.columnProperties = [...['id'], ...this.tableData.columns.map((column: any) => column.property)];
+        this.columnProperties = this.tableData.columns.map((column: any) => column.property);
+        this.matSortActive = this.tableData.sortByProperty;
+        this.matSortDirection = this.tableData.sortDirection;  
+      });    
     }
   }
 
