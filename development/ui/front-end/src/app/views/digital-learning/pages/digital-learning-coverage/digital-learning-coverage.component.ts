@@ -45,6 +45,40 @@ export class DigitalLearningCoverageComponent implements OnInit {
     this._commonService.getReportData(data).subscribe(res => {
       this.tableData = res.result;
       this.filters = res.result.filters;
+
+      if (this.NVSK) {
+        this.gaugeChartProperties = res.result.gaugeChart;
+
+        if (this.gaugeChartProperties) {
+          this.gaugeChartOptions = {
+            title: {
+              text: ""
+            },
+            yAxis: {
+              title: {
+                y: 130,
+                text: this.gaugeChartProperties.title
+              }
+            },
+            series: [{
+              type: 'solidgauge',
+              name: 'Speed',
+              data: [this.gaugeChartProperties.percentage],
+              innerRadius: '80%',
+              dataLabels: {
+                  y: -20,
+                  format:
+                      '<div style="text-align:center"><br>' +
+                      '<span style="font-size:25px">{y}' + (this.gaugeChartProperties.valueSuffix ? this.gaugeChartProperties.valueSuffix : "") + '</span><br/>' +
+                      '</div>'
+              },
+              tooltip: {
+                  valueSuffix: this.gaugeChartProperties.valueSuffix ? ` ${this.gaugeChartProperties.valueSuffix}` : ''
+              }
+            }]
+          }
+        }
+      }
     });
   }
 
@@ -52,7 +86,7 @@ export class DigitalLearningCoverageComponent implements OnInit {
     this.getStateWiseETBCoverageData(filters);
 
     if (!this.NVSK) {
-      this.getQRGaugeData(filters);
+      //this.getQRGaugeData(filters);
     }
   }
 

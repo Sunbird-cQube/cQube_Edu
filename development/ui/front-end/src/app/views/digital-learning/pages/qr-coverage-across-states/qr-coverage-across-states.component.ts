@@ -142,7 +142,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
 
   filtersUpdated(filters: any): void {
     this.getQrVskData(filters);
-    this.getQRGaugeData(filters);
+    //this.getQRGaugeData(filters);
   }
 
   getQrVskData(filters: any) {
