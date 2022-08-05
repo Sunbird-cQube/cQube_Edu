@@ -26,19 +26,19 @@ check_sys_user(){
 }
 
 check_access_type(){
-if ! [[ $2 == "NVSK" || $2 == "VSK" ]]; then
+if ! [[ $2 == "national" || $2 == "state" ]]; then
     echo "Error - Please enter either NVSK or VSK for $1"; fail=1
 fi
 }
 
 check_state()
 {
-if [[ $access_type == "NVSK" ]]; then
+if [[ $access_type == "national" ]]; then
     if [[ ! $2 == "NA" ]]; then
-        echo "Error - Please provide state code as NA if you selected access_type as NVSK"; fail=1
+        echo "Error - Please provide state code as NA if you selected access_type as national"; fail=1
     fi
 fi
-if [[ $access_type == "VSK" ]]; then	
+if [[ $access_type == "state" ]]; then	
 state_found=0
 while read line; do
   if [[ $line == $2 ]] ; then
