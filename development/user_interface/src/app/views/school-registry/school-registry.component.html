@@ -1,0 +1,52 @@
+<div class="metric-card-wrapper">
+    <p class="h4">UDISE+</p>
+    <div class="grid gap-4 cQ-Grid">
+        <ng-container *ngIf="udiseMetricsData">
+            <div class="" *ngFor="let metric of udiseMetricsData">
+                <!--<app-metric-card [name]="metric?.name" [value]="metric?.value" [tooltipName]="metric?.tooltip">
+                </app-metric-card>-->
+                <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltipName]="metric?.tooltip"></sb-cqube-info-card>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="tab-group-wrapper">
+    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+        <mat-tab label="Implementation Status" *ngIf="national">
+            <app-implementationstatus></app-implementationstatus>
+        </mat-tab>
+        <mat-tab [label]="performanceLabel">
+            <div class="grid grid-cols-1">
+                <div class="col">
+                    <div class="col" *ngIf="isMapReportLoading">
+                        <p class="mt-8">Loading...</p>
+                    </div>
+                    <div class="grid grid-cols-12">
+                        <div class="col-span-full" appFullScreen>
+                            <div class="grid grid-cols-12">
+                                <div class="xs:col-span-full xmd:col-span-6">
+                                    <app-level-n-metric-filter-panel [metricFilter]="metricFilter" [levels]="levels" (selectMetricFilter)="onSelectMetricFilter($event)" (selectLevel)="onSelectLevel($event)"></app-level-n-metric-filter-panel>
+                                </div>
+                                <div class="xs:col-span-full xmd:col-span-6">
+                                    <app-filter-panel [filters]="filters" colSize="col-span-8" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-12">
+                                <div class="xs:col-span-full" *ngIf="metricFilter">
+                                    <app-leaflet-map [mapData]="udiseStateData" [level]="level"></app-leaflet-map>
+                                </div>
+                                <!-- <div class="xs:col-span-full xmd:col-span-4">
+                                    <app-gauge-chart [options]="options"></app-gauge-chart>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Correlation">
+            <app-school-facilities-comparision></app-school-facilities-comparision>
+        </mat-tab>
+    </mat-tab-group>
+</div>

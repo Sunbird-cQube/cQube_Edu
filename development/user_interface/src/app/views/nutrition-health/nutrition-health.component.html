@@ -1,0 +1,57 @@
+<div class="metric-card-wrapper">
+    <p class="h4">PM POSHAN</p>
+    <div class="grid gap-4 cQ-Grid">
+        <ng-container *ngIf="pmposhanMetricsData">
+            <div class="" *ngFor="let metric of pmposhanMetricsData">
+                <!-- <app-metric-card [name]="metric?.name" [value]="metric?.value" [tooltipName]="metric?.tooltip">
+                </app-metric-card> -->
+                <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltipName]="metric?.tooltip">
+                </sb-cqube-info-card>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="tab-group-wrapper">
+    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+        <mat-tab label="Implementation Status" *ngIf="national">
+            <div class="col" *ngIf="isMapReport1Loading">
+                <p class="mt-8">Loading...</p>
+            </div>
+            <div class="grid grid-cols-12">
+                <div class="col-span-full" appFullScreen>
+                    <app-leaflet-map [mapData]="pmPoshanStateOnboardedData"></app-leaflet-map>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Progress Status">
+            <div class="grid grid-cols-1">
+                <div class="col">
+                    <div class="col" *ngIf="isMapReport2Loading">
+                        <p class="mt-8">Loading...</p>
+                    </div>
+                    <div class="grid grid-cols-12">
+                        <div class="col-span-full" appFullScreen>
+                            <div class="grid grid-cols-12">
+                                <div class="xs:col-span-full xmd:col-span-5">
+                                    <app-level-n-metric-filter-panel [metricFilter]="metricFilter" [levels]="levels1" (selectMetricFilter)="onSelectMetricFilter($event)" (selectLevel)="onSelectLevel($event)"></app-level-n-metric-filter-panel>
+                                </div>
+                                <div class="xs:col-span-full xmd:col-span-7">
+                                    <app-filter-panel [filters]="filters1" colSize="col-span-6" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-12">
+                                <div class="xs:col-span-full" *ngIf="metricFilter">
+                                    <app-leaflet-map [mapData]="pmPoshanStateData" [level]="level"></app-leaflet-map>
+                                </div>
+                                <!-- <div class="xs:col-span-full xmd:col-span-4">
+                                    <app-gauge-chart [options]="options"></app-gauge-chart>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
