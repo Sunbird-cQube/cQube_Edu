@@ -17,6 +17,13 @@
 }
 
 ::ng-deep {
+    .ng-has-value .ng-placeholder, .ng-select-opened .ng-placeholder{
+        position:absolute !important;
+    }
+
+    .ng-placeholder{
+        position: relative !important;
+    }
     .ng-select{
         overflow: visible !important;
     }

@@ -74,7 +74,7 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
     let defaultOptions: Highcharts.Options = {
       chart: {
         type: 'bar',
-        marginTop: 75
+        marginTop: 90
       },
       title: {
         text: ""
