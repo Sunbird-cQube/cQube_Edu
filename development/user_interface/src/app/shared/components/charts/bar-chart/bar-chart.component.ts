@@ -36,7 +36,7 @@ export class BarChartComponent implements OnInit, OnChanges {
     let defaultOptions: Highcharts.Options = {
       chart: {
         type: 'bar',
-        marginTop: 100
+        marginTop: 200
       },
       title: {
           text: ""
