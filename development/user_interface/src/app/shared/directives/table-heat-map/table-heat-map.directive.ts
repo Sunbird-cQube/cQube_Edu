@@ -4,8 +4,6 @@ import {
   Directive,
   ElementRef,
   Input,
-  OnChanges,
-  OnDestroy,
   QueryList,
 } from '@angular/core';
 
@@ -36,7 +34,7 @@ export class TableHeatMapColumnDirective {
 @Directive({
   selector: '[tableHeatMap]',
 })
-export class TableHeatMapDirective implements AfterViewInit, OnDestroy {
+export class TableHeatMapDirective implements AfterViewInit {
   @ContentChildren(TableHeatMapCellDirective, { descendants: true }) tableHeatMapCells: QueryList<TableHeatMapCellDirective> | undefined;
   @ContentChildren(TableHeatMapColumnDirective, { descendants: true }) tableHeatMapColumns: QueryList<TableHeatMapColumnDirective> | undefined;
 
@@ -44,18 +42,31 @@ export class TableHeatMapDirective implements AfterViewInit, OnDestroy {
   cells: TableHeatMapCellDirective[] = [];
   columns: TableHeatMapColumnDirective[] = [];
   config: any = {};
-  observer: MutationObserver | undefined;
 
   constructor(private elRef: ElementRef) {}
 
   ngAfterViewInit() {
-    this.colorTheTable();
+    let timer: any;
+
+    this.tableHeatMapCells?.changes.subscribe(cells => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        this.colorTheTable();
+      }, 1000);
+    });
+
+    this.tableHeatMapColumns?.changes.subscribe(cells => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        this.colorTheTable();
+      }, 1000);
+    });
   }
 
-  colorTheTable(): void {
+  colorTheTable(): void {    
     setTimeout(()=> {
       if (this.tableHeatMapCells) {
-        this.cells = this.tableHeatMapCells.toArray();
+        this.cells = this.tableHeatMapCells.toArray();        
       }
   
       if (this.tableHeatMapColumns) {
@@ -65,9 +76,7 @@ export class TableHeatMapDirective implements AfterViewInit, OnDestroy {
       this.setOptions();
       this.calculateHighestValues();
       this.applyHeatMap();
-  
-      let ref: TableHeatMapDirective = this;
-    }, 500);
+    }, 100);
   } 
 
   private setOptions() {
@@ -139,12 +148,6 @@ export class TableHeatMapDirective implements AfterViewInit, OnDestroy {
     return {
       bgColor: rgba(r, g, b, 0.04),
       color: rgba(0, 0, 0, .87)
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.observer) {
-      this.observer.disconnect();
     }
   }
 }
