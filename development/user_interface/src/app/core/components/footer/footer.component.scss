@@ -1,5 +1,6 @@
 .app-footer-bar{
     background-color:rgba(19,36,93,255);
+    min-height: 100px;
  
 }
 
@@ -11,4 +12,10 @@ img {
 .data{
    position: absolute;
    margin-top: 25px;
+}
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 80%;
+
 }
