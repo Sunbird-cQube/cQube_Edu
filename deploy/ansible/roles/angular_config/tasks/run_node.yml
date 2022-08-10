@@ -17,3 +17,13 @@
   args:
     chdir: "{{ base_dir }}/cqube/dashboard/server_side"
   tags: install
+
+- name: Saving pm2 services
+  become: yes
+  shell: pm2 save
+  tags: install
+
+- name: configure auto start of pm2
+  become: yes
+  shell: pm2 startup
+  tags: install
