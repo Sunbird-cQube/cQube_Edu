@@ -1398,7 +1398,7 @@ function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
 		return axisFilter;
 	});
 
-	if (axisFilters && axisFilters.length > 0 && axisFilters[0].value === null) {
+	if (axisFilters && axisFilters.length > 0 && (axisFilters[0].value === null || axisFilters[1].value === null)) {
 		axisFilters.map((axisFilter, index) => {
 			if (axisFilter.options.length > 1) {
 				axisFilter.options.sort((a, b) => compare(a.label, b.label, 'asc'));
@@ -1408,7 +1408,7 @@ function applyScatterChartAxisFilters(axisFilters, rawData, propertyAsOption) {
 				axisFilter.options = axisFilters[index - 1].options.slice();
 			}
 	
-			if (axisFilter.options.length > 0) {
+			if (axisFilter.options.length > 0 && axisFilter.value === null) {
 				axisFilter.value = axisFilter.options[0].value;
 			}
 	
