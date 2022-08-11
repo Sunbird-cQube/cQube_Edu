@@ -95,7 +95,7 @@ exports.uploadSourceData = async (req, res, next) => {
 
 async function getMapReportData(reqBody, reportConfig, rawData) {
 	console.log("process started");
-	let { locations, latitude, longitude, dimensions, filters, levels, stateColumnFilter, groupByDefault, options, mainFilter } = reportConfig;
+	let { locations, latitude, longitude, dimensions, filters, levels, stateColumnFilter, groupByDefault, options, mainFilter, dependentFilters } = reportConfig;
 	let isWeightedAverageNeeded = dimensions.filter(dimension => dimension.weightedAverage || dimension.aggegration).length > 0;
 	let groupByColumn = groupByDefault;
 	let level = reqBody.appName === appNames.national ? 'state' : 'district';
@@ -190,7 +190,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 		})
 	}
 
-	filterRes = applyFilters(filters, rawData, groupByColumn, level);
+	filterRes = applyFilters(filters, rawData, groupByColumn, level, dependentFilters);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
 	groupByColumn = filterRes.groupByColumn;
@@ -429,7 +429,7 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 }
 
 async function getLOTableReportData(reqBody, reportConfig, rawData) {
-	let { columns, filters, mainFilter, gaugeChart, sortByProperty, sortDirection } = reportConfig;
+	let { columns, filters, mainFilter, gaugeChart, sortByProperty, sortDirection, dependentFilters } = reportConfig;
 	let isWeightedAverageNeeded = columns.filter(col => col.weightedAverage || col.aggegration).length > 0;
 	let groupByColumn = reportConfig.defaultLevel;
 	let isTransposeNeeded = columns.filter(col => col.transposeColumn).length > 0;
@@ -458,7 +458,7 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		});
 	}
 
-	filterRes = applyFilters(filters, rawData, groupByColumn, level);
+	filterRes = applyFilters(filters, rawData, groupByColumn, level, dependentFilters);
 	filters = filterRes.filters;
 	rawData = filterRes.rawData;
 	groupByColumn = filterRes.groupByColumn;
@@ -1280,71 +1280,165 @@ async function convertRawDataToJSONAndUploadToS3(fileContent, filePath) {
 	uploadFile(filePath, fileName, reportRawData);
 }
 
-function applyFilters(filters, rawData, groupByColumn, level = undefined) {
-	filters.map((filter, index) => {
-		if (filter && filter.options.length === 0) {
+function applyFilters(filters, rawData, groupByColumn, level = undefined, dependentFilters) {
+	if(dependentFilters){
+		filters.map((filter, index) => {
 			let filterOptionMap = new Map();
 			let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+	
+			if (index === 0 || filters[index - 1].includeAll || filters[index - 1].defaultValue || (filters[index - 1].value && filters[index - 1].value !== '')) {
 
-			filter.options = [];
-			rawData.forEach(record => {
-				if (!filterOptionMap.has(record[filterProperty])) {
-					filter.options.push({
-						label: record[filter.column],
-						value: record[filterProperty]
-					});
+				filter.options = [];
+				rawData.forEach(record => {
+					if (!filterOptionMap.has(record[filterProperty])) {
+						filter.options.push({
+							label: record[filter.column],
+							value: record[filterProperty]
+						});
 
-					filterOptionMap.set(record[filterProperty], true);
-				}
-			});
+						filterOptionMap.set(record[filterProperty], true);
+					}
+				});
+				// if (filter.options.length === 0) {
+				// 	console.log(filter)
+				// 	filter.options = [];
+				// 	rawData.forEach(record => {
+				// 		if (!filterOptionMap.has(record[filterProperty])) {
+				// 			filter.options.push({
+				// 				label: record[filter.column],
+				// 				value: record[filterProperty]
+				// 			});
 	
-			if (filter.value === null) {
-				if (filter.options.length > 1) {
-					filter.options.sort((a, b) => compare(a.label, b.label, 'asc'));
-				}
+				// 			filterOptionMap.set(record[filterProperty], true);
+				// 		}
+				// 	});
+				// }
 	
-				if (filter.defaultValue && filter.options.length > 0) {
-					filter.value = filter.options[0].value;
-				}
+				if (filter && filter.value === null) {
+					if (filter.options.length > 1) {
+						filter.options.sort((a, b) => compare(a.label, b.label, 'asc'));
+					}
+		
+					if (filter.defaultValue && filter.options.length > 0) {
+						filter.value = filter.options[0].value;
+					}
+		
+					if (filter.includeAll) {
+						filter.options.unshift({
+							label: 'Overall',
+							value: 'overall'
+						});
+		
+						filter.value = 'overall';
+					}
+				} 
+				
+				if (filter && filter.value !== null) {
+					let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+					
+					if (filter.options.length > 1) {
+						filter.options.sort((a, b) => compare(a.label, b.label, 'asc'));
+					}
+					// console.log(!(filter.options.find(item => item.value === filter.value) === undefined))
+					if(filter.options.find(item => item.value === filter.value) === undefined){
+
+						if(filter.defaultValue  && filter.options.length > 0){
+							filter.value = filter.options[0].value;
+						}
+						else if (filter.includeAll) {
+							filter.options.unshift({
+								label: 'Overall',
+								value: 'overall'
+							});
+			
+							filter.value = 'overall';
+						}
+						else{
+							filter.value = null;
+						}
+					}
+
+					if (filter.value && filter.value !== '' && filter.value !== 'overall') {
+						rawData = rawData.filter(record => {
+							return record[filterProperty] === filter.value;
+						});
 	
-				if (filter.includeAll) {
-					filter.options.unshift({
-						label: 'Overall',
-						value: 'overall'
-					});
-	
-					filter.value = 'overall';
+						if (filter.level) {
+							groupByColumn = filter.level.property;
+							level = filter.level.value;
+						}
+					}
 				}
 			}
-		} else if (filter && filter.options.length > 0) {
-			if (filter.value === null) {	
-				if (filter.defaultValue && filter.options.length > 0) {
-					filter.value = filter.options[0].value;
-				}
 	
-				if (filter.includeAll) {	
-					filter.value = 'overall';
+			return filter;
+		});
+	}
+	else{
+		filters.map((filter, index) => {
+			if (filter && filter.options.length === 0) {
+				let filterOptionMap = new Map();
+				let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+	
+				filter.options = [];
+				rawData.forEach(record => {
+					if (!filterOptionMap.has(record[filterProperty])) {
+						filter.options.push({
+							label: record[filter.column],
+							value: record[filterProperty]
+						});
+	
+						filterOptionMap.set(record[filterProperty], true);
+					}
+				});
+		
+				if (filter.value === null) {
+					if (filter.options.length > 1) {
+						filter.options.sort((a, b) => compare(a.label, b.label, 'asc'));
+					}
+		
+					if (filter.defaultValue && filter.options.length > 0) {
+						filter.value = filter.options[0].value;
+					}
+		
+					if (filter.includeAll) {
+						filter.options.unshift({
+							label: 'Overall',
+							value: 'overall'
+						});
+		
+						filter.value = 'overall';
+					}
+				}
+			} else if (filter && filter.options.length > 0) {
+				if (filter.value === null) {	
+					if (filter.defaultValue && filter.options.length > 0) {
+						filter.value = filter.options[0].value;
+					}
+		
+					if (filter.includeAll) {	
+						filter.value = 'overall';
+					}
 				}
 			}
-		}
-
-		return filter;
-	});
-
-	filters.forEach((filter, index) => {
-		if (filter && filter.value && filter.value !== null && filter.value !== '' && filter.value !== 'overall') {
-			let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
 	
-			rawData = rawData.filter(record => {
-				return record[filterProperty] === filter.value;
-			});
-
-			if (filter.level) {
-				groupByColumn = filter.level.property;
-				level = filter.level.value;
+			return filter;
+		});
+		filters.forEach((filter, index) => {
+			if (filter && filter.value && filter.value !== null && filter.value !== '' && filter.value !== 'overall') {
+				let filterProperty = filter.optionValueColumn ? filter.optionValueColumn : filter.column;
+		
+				rawData = rawData.filter(record => {
+					return record[filterProperty] === filter.value;
+				});
+	
+				if (filter.level) {
+					groupByColumn = filter.level.property;
+					level = filter.level.value;
+				}
 			}
-		}
-	});
+		});
+	}
 
 	return {
 		filters,
