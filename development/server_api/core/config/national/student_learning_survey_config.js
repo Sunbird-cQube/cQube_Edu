@@ -2,6 +2,7 @@ const dataSourceInfo = {
     studentPerformance: {
         map: {
             pathToFile: 'nas_all-dashboard.json',
+            dependentFilters: true,
             locations: [
                 {
                     name: "Location",
@@ -56,11 +57,13 @@ const dataSourceInfo = {
                 },
                 {
                     name: 'Subject',
-                    column: 'Subject'
+                    column: 'Subject',
+                    includeAll: true
                 },
                 {
                     name: 'Learning Outcome Code',
-                    column: 'Learning Outcome Code'
+                    column: 'Learning Outcome Code',
+                    includeAll: true
                 },
                 {
                     name: 'State/UT',
@@ -92,6 +95,7 @@ const dataSourceInfo = {
         },
         loTable: {
             pathToFile: 'nas_all-dashboard.json',
+            dependentFilters: true,
             columns: [
                 {
                     name: "Learning Outcome Code",
@@ -136,11 +140,13 @@ const dataSourceInfo = {
             filters: [
                 {
                     name: 'Grade',
-                    column: 'Grade'
+                    column: 'Grade',
+                    defaultValue: true
                 },
                 {
                     name: 'Subject',
-                    column: 'Subject'
+                    column: 'Subject',
+                    defaultValue: true
                 },
                 {
                     name: 'State/UT',
