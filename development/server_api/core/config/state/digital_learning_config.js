@@ -93,8 +93,8 @@ const dataSourceInfo = {
                     property: "Grade",
                     transposeColumn: true,
                     aggegration: {
-                        type: "SUM",
-                        property: "QR Codes linked to Content",
+                        type: "AVG",
+                        property: "QR Coverage",
                         nullValueHolder: "NA",
                         valueSuffix: '%'
                     },

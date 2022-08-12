@@ -525,6 +525,17 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 			
 						return;
 					}
+
+					if (transCol.aggegration.type === 'AVG') {
+						dataObj[data[transCol.property]] = {
+							sum: data[transCol.aggegration.property] ? data[transCol.aggegration.property] : 0,
+							count: 1
+						};
+						
+						result.push(dataObj);
+			
+						return;
+					}
 				}
 		
 				dataObj[data[transCol.property]] = dataObj[data[transCol.property]];
@@ -538,8 +549,15 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 				}
 				if (transCol.aggegration){
 					if (transCol.aggegration.type === 'SUM') {
-						dataObj[data[transCol.property]] = dataObj[data[transCol.property]] ? dataObj[data[transCol.property]] : { sum: 0};
+						dataObj[data[transCol.property]] = dataObj[data[transCol.property]] ? dataObj[data[transCol.property]] : { sum: 0 };
 						dataObj[data[transCol.property]].sum += data[transCol.aggegration.property] ? data[transCol.aggegration.property] : 0;
+						return;
+					}
+
+					if (transCol.aggegration.type === 'AVG') {
+						dataObj[data[transCol.property]] = dataObj[data[transCol.property]] ? dataObj[data[transCol.property]] : { sum: 0, count: 0 };
+						dataObj[data[transCol.property]].sum += data[transCol.aggegration.property] ? data[transCol.aggegration.property] : 0;
+						dataObj[data[transCol.property]].count++;
 						return;
 					}
 				}
@@ -553,9 +571,14 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 				if (transCol.weightedAverage) {
 					rec[col.property] = rec[col.property] && rec[col.property].denominatorSum > 0 ? Number((rec[col.property].numeratorSum / rec[col.property].denominatorSum).toFixed(2)) : 0;
 				}
+
 				if( transCol.aggegration) {
 					if (transCol.aggegration.type === 'SUM') {
 						rec[col.property] = rec[col.property] ? rec[col.property].sum + (transCol.aggegration.valueSuffix ? transCol.aggegration.valueSuffix : '') : transCol.aggegration.nullValueHolder ? transCol.aggegration.nullValueHolder : 0
+					}
+
+					if (transCol.aggegration.type === 'AVG') {
+						rec[col.property] = rec[col.property] ? (rec[col.property].sum / rec[col.property].count) + (transCol.aggegration.valueSuffix ? transCol.aggegration.valueSuffix : '') : transCol.aggegration.nullValueHolder ? transCol.aggegration.nullValueHolder : 0;
 					}
 				}
 		
