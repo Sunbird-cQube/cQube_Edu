@@ -14,6 +14,7 @@ export class MaterialHeatChartTableComponent implements OnInit, OnChanges, After
   matSortActive = "";
   matSortDirection: SortDirection = "asc";
   columns: any;
+  stickyCols: any;
 
   @Input() tableData: any;
   @Input() stickyColumns: Number = 1;
@@ -23,6 +24,7 @@ export class MaterialHeatChartTableComponent implements OnInit, OnChanges, After
   constructor() { }
 
   ngOnInit(): void {
+    this.stickyCols = this.stickyColumns
   }
 
   ngAfterViewInit(): void {
