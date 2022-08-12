@@ -54,12 +54,12 @@ const dataSourceInfo = {
                 {
                     name: 'Subject',
                     column: 'Subject',
-                    includeAll: true
+                    defaultValue: true
                 },
                 {
                     name: 'Learning Outcome Code',
                     column: 'Learning Outcome Code',
-                    includeAll: true
+                    defaultValue: true
                 }
             ],
             levels: [
