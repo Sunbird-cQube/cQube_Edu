@@ -44,8 +44,7 @@ const dataSourceInfo = {
                     aggegration: {
                         type: "SUM",
                         property: "Linked QR Count",
-                        nullValueHolder: "NA",
-                        valueSuffix: '%'
+                        nullValueHolder: "NA"
                     },
                     colSortNeeded: true
                 }
