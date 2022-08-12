@@ -44,6 +44,8 @@ const dataSourceInfo = {
                     aggegration: {
                         type: "SUM",
                         property: "Linked QR Count",
+                        nullValueHolder: "NA",
+                        valueSuffix: '%'
                     },
                     colSortNeeded: true
                 }
@@ -93,7 +95,9 @@ const dataSourceInfo = {
                     transposeColumn: true,
                     aggegration: {
                         type: "SUM",
-                        property: "Total QR Codes",
+                        property: "QR Codes linked to Content",
+                        nullValueHolder: "NA",
+                        valueSuffix: '%'
                     },
                     colSortNeeded: true
                 }

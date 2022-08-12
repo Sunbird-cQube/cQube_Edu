@@ -555,7 +555,7 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 				}
 				if( transCol.aggegration) {
 					if (transCol.aggegration.type === 'SUM') {
-						rec[col.property] = rec[col.property] ? rec[col.property].sum : 0
+						rec[col.property] = rec[col.property] ? rec[col.property].sum + (transCol.aggegration.valueSuffix ? transCol.aggegration.valueSuffix : '') : transCol.aggegration.nullValueHolder ? transCol.aggegration.nullValueHolder : 0
 					}
 				}
 		

@@ -28,7 +28,7 @@ export class NishithaTableComponent implements OnInit {
       this.title = 'Total Enrolments and Total Certifications'
     }
     else{
-      this.title = 'Total Enrolments and Total Completion'
+      this.title = 'Total Enrolments and Total Certifications'
     }
   }
 
@@ -65,12 +65,12 @@ export class NishithaTableComponent implements OnInit {
         //result = result.slice(0, 100);
         series = [{
           type: 'bar',
-          name: 'Enrolments',
+          name: 'Total Enrolments',
           data: result.map((record: any) => record['Enrollments'])
         }, {
           type: 'bar',
-          name: 'Completion',
-          data: result.map((record: any) => record['Completion'])
+          name: 'Total Certifications',
+          data: result.map((record: any) => record['Certifications'])
         }];
       }
 
