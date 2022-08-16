@@ -126,7 +126,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     //   return "#fff"
     // }
     if (environment.config === 'national' && this.level === 'district' && !legend) {
-      return '#FFFFFF'
+      return '#fff'
     }
     else {
       let reportTypeBoolean = false;
@@ -145,7 +145,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           return e > 75 ? "#1D4586" :
             e > 50 ? "#1156CC" :
               e > 25 ? "#6D9FEB" :
-                e >= 0 ? "#C9DAF7" : "#fff";
+                e > 0 ? "#C9DAF7" : "#fff";
         }
       }
     }
@@ -299,7 +299,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     let reportTypeIndicator = this.mapData.options && this.mapData.options.tooltip && this.mapData.options.tooltip.reportTypeIndicator ? this.mapData.options.tooltip.reportTypeIndicator : (typeof this.mapData.data[0].indicator === 'string') ? 'boolean' : 'value'
     if (mapData && this.level !== 'state') {
       let min!: number, max!: number, values: any[] = [];
-      if (reportTypeIndicator === 'value') {
+      if (reportTypeIndicator === 'value' || reportTypeIndicator === 'percent') {
         mapData.data.forEach((data: any, index: number) => {
           if (index === 0) {
             min = data.indicator;
@@ -312,26 +312,35 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         });
 
         let range = max - min;
-        // let partSize = (range / 10 % 1 === 0) ? range / 10 : Number((range / 10).toFixed(2));
-        let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
-        for (let i = 1; i <= 5; i++) {
-          if (i === 5) {
-            if (min === 0) {
-              values.push(1);
+        if (range) {
+          let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
+          for (let i = 1; i <= 5; i++) {
+            if (i === 5) {
+              if (min === 0) {
+                values.push(this.perCapitaReport ? 0.1 : 1);
+              }
+              else {
+                values.push(this.perCapitaReport ? min : min.toFixed(0));
+              }
+              continue;
+            }
+
+            if (i === 1) {
+              values.push(this.perCapitaReport ? max : max.toFixed(0));
+              continue;
+            }
+            if (this.perCapitaReport) {
+              let value = Number((max - partSize * (i - 1)).toFixed(2))
+              values.push(value)
             }
             else {
-              values.push(min.toFixed(0));
+              let value = Number((max - partSize * (i - 1)).toFixed(0))
+              values.push(value >= 1 ? value : 1)
             }
-            // values.push(min);
-            continue;
           }
-
-          if (i === 1) {
-            values.push(max.toFixed(0));
-            continue;
-          }
-          let value = Number((max - partSize * (i - 1)).toFixed(0))
-          values.push(value >= 1 ? value : 1)
+        }
+        else{
+          values.push(min);
         }
       }
 
@@ -385,7 +394,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         labels.push(`<strong>${mapOptions.selectedMetric ? mapOptions.selectedMetric : mapOptions.legend.title}:</strong>`)
       }
       if(values.length <= 1 && reportTypeIndicator !== 'boolean'){
-        labels.push(`<i class="fa fa-square" style="color:${ref.getLayerColor(values[0])}"></i> ${values[0]}`);
+        labels.push(`<i class="fa fa-square" style="color:${ref.getLayerColor(values[0], true)}"></i> ${values[0]}`);
       }
       else if (reportTypeIndicator === 'boolean') {
         values = ["Yes", "No"];
