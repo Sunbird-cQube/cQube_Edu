@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./total-learning-sessions.component.scss']
 })
 export class TotalLearningSessionsComponent implements OnInit {
+  noData: boolean = false;
   filters: any;
   barChartOptions: Highcharts.Options | undefined;
   isReportLoading = false;
@@ -33,6 +34,7 @@ export class TotalLearningSessionsComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(res => {
       let result = res.result.data;
+      this.noData = result.length === 0 ? true : false;
       this.filters = res.result.filters;
 
       this.barChartOptions = {

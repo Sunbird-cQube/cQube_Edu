@@ -147,7 +147,7 @@ const dataSourceInfo = {
                     name: "indicator",
                     property: "Plays per capita ( 1st April 2020)",
                     tooltip: {
-                        name: "Learning Sessions per Capita"
+                        name: "Learning Sessions on Potential Users"
                     },
                 }
             ],
