@@ -4,9 +4,9 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element; let i = index;">{{i + 1}}. </td>
         </ng-container> -->
-        <ng-container [matColumnDef]="column.property" [sticky]=" i === 0 || i === 1 || i === 2" *ngFor="let column of columns; let i = index">
+        <ng-container [matColumnDef]="column.property" [sticky]=" i < stickyColumns" *ngFor="let column of columns; let i = index">
             <ng-container *ngIf="column.isHeatMapRequired; else default">
-                <th [ngClass]="'heat-chart-column'" [style.position]="i < 3 ? 'sticky' : null" mat-header-cell *matHeaderCellDef mat-sort-header [tableHeatMapColumn]="{color: column.color}" [id]="i" class="text-center text-neutral-600 xmd:text-sm md:text-md">{{ column.name }}</th>
+                <th [ngClass]="'heat-chart-column'" mat-header-cell *matHeaderCellDef mat-sort-header [tableHeatMapColumn]="{color: column.color}" [id]="i" class="text-center text-neutral-600 xmd:text-sm md:text-md">{{ column.name }}</th>
                 <td mat-cell *matCellDef="let element" [tableHeatMapCell]="element[column.property].value" [id]="i" class="text-center xmd:text-sm md:text-md">{{element[column.property].value !== null || element[column.property].value !== undefined ? element[column.property].value : 'No data'}}</td>
             </ng-container>
             
