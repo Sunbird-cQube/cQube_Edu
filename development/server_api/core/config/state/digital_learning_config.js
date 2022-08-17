@@ -52,7 +52,8 @@ const dataSourceInfo = {
             filters: [
                 {
                     name: 'Medium',
-                    column: 'Medium'
+                    column: 'Medium',
+                    defaultValue: true
                 }
             ]
         },
@@ -104,7 +105,8 @@ const dataSourceInfo = {
             filters: [
                 {
                     name: 'Medium',
-                    column: 'Medium'
+                    column: 'Medium',
+                    defaultValue: true
                 }
             ]
         },
@@ -181,7 +183,8 @@ const dataSourceInfo = {
             filters: [
                 {
                     name: 'Medium',
-                    column: 'medium_new'
+                    column: 'medium_new',
+                    defaultValue: true
                 },
                 {
                     name: 'Subject',

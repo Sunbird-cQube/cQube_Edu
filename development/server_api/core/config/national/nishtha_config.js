@@ -229,7 +229,7 @@ const dataSourceInfo = {
                     
                 },
                 {
-                    name: "Count of courses launched",
+                    name: "Total Courses Launched",
                     property: "Total Courses",
                     class: "text-center",
                     aggegration: {
@@ -237,7 +237,7 @@ const dataSourceInfo = {
                     }
                 },
                 {
-                    name: "Count of course mediums",
+                    name: "Total Mediums",
                     property: "Total Medium",
                     class: "text-center",
                     aggegration: {
@@ -248,7 +248,8 @@ const dataSourceInfo = {
             filters: [
                 {
                     name: "Program",
-                    column: "Program Name"
+                    column: "Program Name",
+                    defaultValue: true
                 }
             ]
         }
