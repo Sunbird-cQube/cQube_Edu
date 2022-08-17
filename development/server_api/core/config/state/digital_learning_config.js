@@ -35,7 +35,8 @@ const dataSourceInfo = {
             columns: [
                 {
                     name: "Subject",
-                    property: "Subject"
+                    property: "Subject",
+                    class: "text-center"
                 },
                 {
                     name: "Grade",
@@ -46,7 +47,8 @@ const dataSourceInfo = {
                         property: "Linked QR Count",
                         nullValueHolder: "NA"
                     },
-                    colSortNeeded: true
+                    colSortNeeded: true,
+                    class: "text-center"
                 }
             ],
             filters: [
@@ -87,7 +89,8 @@ const dataSourceInfo = {
             columns: [
                 {
                     name: "Subject",
-                    property: "Subject"
+                    property: "Subject",
+                    class: "text-center"
                 },
                 {
                     name: "Grade",
@@ -99,7 +102,8 @@ const dataSourceInfo = {
                         nullValueHolder: "NA",
                         valueSuffix: '%'
                     },
-                    colSortNeeded: true
+                    colSortNeeded: true,
+                    class: "text-center"
                 }
             ],
             filters: [

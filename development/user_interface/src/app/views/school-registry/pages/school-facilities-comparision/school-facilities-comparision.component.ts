@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./school-facilities-comparision.component.scss']
 })
 export class SchoolFacilitiesComparisionComponent implements OnInit {
-
+  national: boolean = environment.config === 'national' ? true : false;
   filters: any;
   levels: any;
   axisFilters: any
