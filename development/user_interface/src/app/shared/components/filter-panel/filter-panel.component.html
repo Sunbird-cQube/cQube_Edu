@@ -4,7 +4,7 @@
             <div class="grid grid-cols-12">
                 <ng-container *ngFor="let filter of filters; let i = index">
                     <div class="filter-wrapper" [ngClass]="colSize">
-                        <ng-select class="mx-2" dropdownPosition="bottom" placeholder="Select {{filter.name}}" [clearable]="resetOthers" [(ngModel)]="filter.value" (change)="onSelectOption($event, i)">
+                        <ng-select class="mx-2" dropdownPosition="bottom" [id]="'filter-'+filter.name" [name]="'filter-'+filter.name" placeholder="Select {{filter.name}}" [clearable]="resetOthers" [(ngModel)]="filter.value" (change)="onSelectOption($event, i)">
                             <!-- <ng-option disabled="true">Select {{filter.name}}</ng-option> -->
                             <ng-option *ngFor="let option of filter.options" [value]="option.value">{{ option.label }}</ng-option>
                         </ng-select>
