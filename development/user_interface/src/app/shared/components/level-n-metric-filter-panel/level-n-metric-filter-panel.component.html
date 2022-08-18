@@ -3,7 +3,7 @@
         <app-material-button-group [buttons]="levels" (select)="onSelectLevel($event)"></app-material-button-group>
     </div>
     <div class="xmd:col-span-7 xs:col-span-12" *ngIf="metricFilter">
-        <ng-select class="mx-2" dropdownPosition="bottom" placeholder="{{metricFilter.name}}" [(ngModel)]="metricFilter.value" (change)="onSelectMetricFilter($event)">
+        <ng-select class="mx-2" dropdownPosition="bottom" placeholder="{{metricFilter.name}}" [id]="'metricFilter-'+metricFilter.name" [name]="'metricFilter-'+metricFilter.name" [(ngModel)]="metricFilter.value" (change)="onSelectMetricFilter($event)">
             <ng-option *ngFor="let option of metricFilter.options" [value]="option.value">{{ option.label }}</ng-option>
         </ng-select>
     </div>
