@@ -8,12 +8,12 @@
                             <app-material-button-group [buttons]="levels" (select)="onScatterSelectLevel($event)"></app-material-button-group>
                         </div>
                         <div class="col-span-9">
-                            <app-filter-panel [filters]="axisFilters" colSize="col-span-6" [resetOthers]="false" (filtersUpdated)="scatterAxisFiltersUpdated($event)"></app-filter-panel>
+                            <app-filter-panel [filters]="axisFilters" colSize="col-span-6 4k:col-span-3" [resetOthers]="false" (filtersUpdated)="scatterAxisFiltersUpdated($event)"></app-filter-panel>
                         </div>
                     </div>
                 </div>
                 <div class="col-span-5">
-                    <app-filter-panel [filters]="filters" colSize="col-span-9" [resetOthers]="false" (filtersUpdated)="scatterFiltersUpdated($event)"></app-filter-panel>
+                    <app-filter-panel [filters]="filters" colSize="col-span-9 4k:col-span-6" [resetOthers]="false" (filtersUpdated)="scatterFiltersUpdated($event)"></app-filter-panel>
                 </div>
             </div>
             <app-scatter-chart [options]="options" height="50vh"></app-scatter-chart>
