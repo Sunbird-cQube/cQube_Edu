@@ -121,3 +121,17 @@
     // border-radius: 50%;
     cursor: pointer;
 }
+
+@media (min-width: 2560px){
+    ::ng-deep{
+        .ng-select .ng-select-container {
+            min-height: 80px !important;
+        }
+        .ng-select .ng-placeholder{
+            font-size: 20px !important;
+        }
+        .ng-select .ng-value-container{
+            font-size: 25px;
+        }
+    }
+}
