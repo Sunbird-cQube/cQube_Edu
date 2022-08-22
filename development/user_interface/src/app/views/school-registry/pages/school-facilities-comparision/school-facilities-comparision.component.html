@@ -23,10 +23,10 @@
                     <app-material-button-group [buttons]="levels" (select)="onScatterSelectLevel($event)"></app-material-button-group>
                 </div>
                 <div class="md:col-span-6 xmd:col-span-9 xs:col-span-12">
-                    <app-filter-panel [filters]="axisFilters" colSize="md:col-span-6 xs:col-span-12 4k:col-span-3" [resetOthers]="true" (filtersUpdated)="scatterAxisFiltersUpdated($event)"></app-filter-panel>
+                    <app-filter-panel [filters]="axisFilters" colSize="md:col-span-6 xs:col-span-12" [resetOthers]="true" (filtersUpdated)="scatterAxisFiltersUpdated($event)"></app-filter-panel>
                 </div>
                 <div class="md:col-span-3 xmd:col-span-6 xs:col-span-12">
-                    <app-filter-panel [filters]="filters" colSize="col-span-12 4k:col-span-6" [resetOthers]="true" (filtersUpdated)="scatterFiltersUpdated($event)"></app-filter-panel>
+                    <app-filter-panel [filters]="filters" colSize="col-span-12" [resetOthers]="true" (filtersUpdated)="scatterFiltersUpdated($event)"></app-filter-panel>
                 </div>
             </div>
             <app-scatter-chart [options]="options" height="80vh"></app-scatter-chart>        

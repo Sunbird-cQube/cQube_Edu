@@ -85,6 +85,7 @@ export class ScatterChartComponent implements OnInit, OnChanges {
           }
         },
         series: {
+          stickyTracking: false,
           events: {
             legendItemClick: function (e) {
               e.preventDefault();

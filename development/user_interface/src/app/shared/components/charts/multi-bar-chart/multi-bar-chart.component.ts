@@ -150,6 +150,7 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
           pointPadding: 0.2
         },
         series: {
+          stickyTracking: false,
           events: {
             legendItemClick: function (e) {
               e.preventDefault();
@@ -307,6 +308,7 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
           {
             chartOptions: {
               chart: {
+                marginTop: 150,
                 events: {
                   load: function (this: any) {
                     let categoryHeight = 40;
@@ -363,7 +365,7 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
           {
             chartOptions: {
               chart: {
-                marginTop: 80,
+                marginTop: 200,
                 events: {
                   load: function(this: any) {
                     let categoryHeight = 50;
