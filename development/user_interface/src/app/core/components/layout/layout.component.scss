@@ -91,6 +91,9 @@
         border: solid 1px black;
         padding: 10px;
     }
+    .sb-cQ-card{
+        z-index: 100;
+    }
 }
 @media(min-width: 916px) and (max-width:1380px){
     ::ng-deep{
