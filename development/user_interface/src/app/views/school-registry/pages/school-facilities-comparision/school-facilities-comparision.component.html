@@ -19,7 +19,7 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="xmd:col-span-3 xs:col-span-12">
+                <div class="xmd:col-span-3 xs:col-span-12" *ngIf="national">
                     <app-material-button-group [buttons]="levels" (select)="onScatterSelectLevel($event)"></app-material-button-group>
                 </div>
                 <div class="md:col-span-6 xmd:col-span-9 xs:col-span-12">

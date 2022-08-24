@@ -22,3 +22,9 @@ table {
   margin-top: -10px;
   
 }
+
+::ng-deep{
+  .mat-sort-header-container{
+      justify-content: center !important;
+  }
+}

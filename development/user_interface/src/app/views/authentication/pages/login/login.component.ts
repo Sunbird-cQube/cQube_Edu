@@ -12,6 +12,7 @@ import * as CryptoJS from 'crypto-js';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  loginObj: any = environment.loginObj;
   national: boolean = true;
   stateName:any
   error: boolean= false;

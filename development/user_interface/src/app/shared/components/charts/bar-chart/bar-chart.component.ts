@@ -36,7 +36,7 @@ export class BarChartComponent implements OnInit, OnChanges {
     let defaultOptions: Highcharts.Options = {
       chart: {
         type: 'bar',
-        marginTop: 200
+        marginTop: 80
       },
       title: {
           text: ""
@@ -111,6 +111,7 @@ export class BarChartComponent implements OnInit, OnChanges {
           minPointLength: 0
         },
         series: {
+          stickyTracking: false,
           events: {
             legendItemClick: function (e) {
               e.preventDefault();
@@ -238,6 +239,9 @@ export class BarChartComponent implements OnInit, OnChanges {
           },
           {
             chartOptions: {
+              chart: {
+                marginTop: 120,
+              },
               xAxis: {
                 labels: {
                   style: {
@@ -282,6 +286,9 @@ export class BarChartComponent implements OnInit, OnChanges {
           },
           {
             chartOptions: {
+              chart: {
+                marginTop: 160,
+              },
               xAxis: {
                 labels: {
                   style: {

@@ -91,6 +91,9 @@
         border: solid 1px black;
         padding: 10px;
     }
+    .sb-cQ-card{
+        z-index: 100;
+    }
 }
 @media(min-width: 916px) and (max-width:1380px){
     ::ng-deep{
@@ -120,4 +123,18 @@
     // color: white;
     // border-radius: 50%;
     cursor: pointer;
+}
+
+@media (min-width: 2560px){
+    ::ng-deep{
+        .ng-select .ng-select-container {
+            min-height: 80px !important;
+        }
+        .ng-select .ng-placeholder{
+            font-size: 20px !important;
+        }
+        .ng-select .ng-value-container{
+            font-size: 25px;
+        }
+    }
 }

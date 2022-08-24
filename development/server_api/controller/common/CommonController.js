@@ -478,7 +478,8 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 					name: rec[transCol.property],
 					property: rec[transCol.property],
 					isHeatMapRequired: transCol.isHeatMapRequired,
-					color: transCol.color
+					color: transCol.color,
+					class: transCol.class
 				});
 				uniqueMap.set(rec[transCol.property], true)
 			}

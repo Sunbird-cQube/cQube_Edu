@@ -1,15 +1,15 @@
 <aside class="app-side-nav">
     <div class="RespMenuIcon">
-    <input type="checkbox"  class="openSidebarMenu" id="openSidebarMenu" (click)="toggleSideBar()">
+    <input type="checkbox"  class="openSidebarMenu" id="openSidebarMenu" (click)="toggleSideBar()" name="openSidebarMenu">
     <label for="openSidebarMenu" class="sidebarIconToggle">
       <div class="spinner diagonal part-1"></div>
       <div class="spinner horizontal"></div>
       <div class="spinner diagonal part-2"></div>
     </label>
     </div>
-    <ul class="menu" id="sidebarMenu">
-        <ng-container *ngFor="let menuItem of menu">
-        <li [routerLink]="menuItem.path" routerLinkActive="activeLink" class="menu-item" [ngClass]="menuItem.isSelected?'selectedMenu':''" (click)="setMenuLinkActive(menuItem)">
+    <ul class="menu" id="sidebarMenu" name="sidebarMenu">
+        <ng-container *ngFor="let menuItem of menu; let i = index;">
+        <li [routerLink]="menuItem.path" routerLinkActive="activeLink" class="menu-item" id="menu-item-{{i}}" name="menu-item" [ngClass]="menuItem.isSelected?'selectedMenu':''" (click)="setMenuLinkActive(menuItem)">
             <div class="btn active inside"  >
                 <i class="img"><img class="menuIcon" src="assets/images/{{menuItem.icon}}"></i>
                 <span>{{menuItem.label}}</span>

@@ -35,7 +35,8 @@ const dataSourceInfo = {
             columns: [
                 {
                     name: "Subject",
-                    property: "Subject"
+                    property: "Subject",
+                    class: "text-center"
                 },
                 {
                     name: "Grade",
@@ -46,13 +47,15 @@ const dataSourceInfo = {
                         property: "Linked QR Count",
                         nullValueHolder: "NA"
                     },
-                    colSortNeeded: true
+                    colSortNeeded: true,
+                    class: "text-center"
                 }
             ],
             filters: [
                 {
                     name: 'Medium',
-                    column: 'Medium'
+                    column: 'Medium',
+                    defaultValue: true
                 }
             ]
         },
@@ -86,7 +89,8 @@ const dataSourceInfo = {
             columns: [
                 {
                     name: "Subject",
-                    property: "Subject"
+                    property: "Subject",
+                    class: "text-center"
                 },
                 {
                     name: "Grade",
@@ -98,13 +102,15 @@ const dataSourceInfo = {
                         nullValueHolder: "NA",
                         valueSuffix: '%'
                     },
-                    colSortNeeded: true
+                    colSortNeeded: true,
+                    class: "text-center"
                 }
             ],
             filters: [
                 {
                     name: 'Medium',
-                    column: 'Medium'
+                    column: 'Medium',
+                    defaultValue: true
                 }
             ]
         },
@@ -181,7 +187,8 @@ const dataSourceInfo = {
             filters: [
                 {
                     name: 'Medium',
-                    column: 'medium_new'
+                    column: 'medium_new',
+                    defaultValue: true
                 },
                 {
                     name: 'Subject',
