@@ -1,0 +1,13 @@
+---
+- name: creating the parameter json files
+  template:
+    src: "{{ item }}.json.j2"
+    dest: "{{ base_dir }}/cqube/nifi/nifi_json_files/{{ item }}.json"
+    mode: "0644"
+  loop:
+    - cQube_data_storage_parameters
+    - static_data_parameters
+    - diksha_parameters
+    - transaction_and_aggregation_parameters
+    - validate_datasource_parameters
+  tags: [ install, update ]     

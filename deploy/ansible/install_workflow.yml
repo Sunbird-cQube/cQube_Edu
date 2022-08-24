@@ -7,15 +7,6 @@
     - ../config.yml
 
   roles:
-          - { role: java, tags: install }
-          - { role: python, tags: install }
-          - createdb
-          - python_flask
-          - prometheus
-          - { role: grafana, tags: install }
-          - nifi_install
-          - angular
-          - cqube_conf
 
           - workflow_createdb 
           - nifi_workflow_install

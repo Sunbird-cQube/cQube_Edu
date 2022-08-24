@@ -14,11 +14,9 @@
 system_user_name:                         # Non-root username with sudo privileges. To find the username run `whoami` in the same server terminal.
 
 base_dir: /opt                            # provide the absolute path where cqube needs to be installed and served. Eg. /opt  ( in this case cqube_nvsk will be installed under /opt/cqube)
-access_type:                              # Please enter national or state,                                                  
-state_code: NA                              # Please enter state code if you selected access_type as state ( refer to state_list ) 
-storage_type:                             # enter s3 or azure
-api_endpoint:                             # enter domain name ( Example: cqubeprojects.com )
-local_ipv4_address:                       # enter the private ip of this server. To find the ip address. Use `ip addr` or `ifconfig`
+access_type:                              # Please enter national or state or core                                                  
+state_code: NA                              # Please enter state code if you selected access_type as state or core ( refer to state_list ) 
+storage_type:                             # enter s3 or azure or local
 
 #Database variables naming convention, the variable length should be between [3-63] characters and should contain upper/lower characters, it should start with _ or lower or upper characters.
 
@@ -26,3 +24,40 @@ local_ipv4_address:                       # enter the private ip of this server.
 db_user: cqube_db_user                     # Create your own username for the cQube database
 db_name: cqube_db                          # Enter your own database name for the cQube database
 db_password:                               # Create your own password to for the cQube database, password should contain atleast 1 lower,upper,number,special character (only @!%^*? allowed) and minimum 8 characters
+read_only_db_user:                         # Create your own username for the read only access of cQube database
+read_only_db_password:                     # Create your own password for the read only user, password should contain atleast 1 lower,upper,number,special character (only @!%^*? allowed) and minimum 8 characters
+
+api_endpoint:                               # enter domain name if mode_of_installation is `public` ( Example: cqubeprojects.com ), if mode_of_installation is `localhost` then api_endpoint should be `localhost`
+local_ipv4_address:                         # enter the private ip of this server. To find the ip address. Use `ip addr` or `ifconfig`, if mode_of_installation is `public` then local_ipv4_address should be `private_ip`,, if mode_of_installation is `localhost` then local_ipv4_address should be `localhost`
+vpn_local_ipv4_address:                     # enter the private ip of vpn server. To find the ip address. Use `ip addr` or `ifconfig`
+proxy_host:                                 # enter the private ip of ngnix server. To find the ip address. Use `ip addr` or `ifconfig`
+
+
+# Diksha Columns
+
+#Enter the value as `true`,  if content_gradelevel & collection_gradelevel columns are available.
+#Enter the value as `false`, if content_gradelevel & collection_gradelevel columns are not available.
+
+diksha_columns: false                    # Enter true or false. 
+
+static_datasource:                       # Enter udise or state
+
+management:                              # Enter the management
+
+session_timeout: 7D                      # enter the value between 30 Minutes to 3650 Days. Eg. For minutes `60M`  Eg. For days `15D`. Make sure M and D should be mentioned upper case.
+
+map_name: leafletmap                     # Enter the map_name ( mapmyindia or googlemap or leafletmap or none)
+
+google_api_key: remove_this_key_value    # Enter the google_api_key  here (if you selected map_name as googlemap replace `remove_this_key_value` with the actual googlemaps api key )
+ 
+theme:                                    # Enter the theme ( theme1 or theme2 or theme3 )
+
+slab1:                                    #Enter slab1 value between 1-100 ( eg: slab1: 33  )
+
+slab2:                                    #Enter slab2 value range is greater than slab1 and between 1-100 ( eg: slab2: 33-60 ) 
+
+slab3:                                    #Enter slab3 value range is greater than slab2 and between 1-100 ( eg: slab3: 60-75 ) 
+
+slab4:                                    #Enter slab4 value is greater than or equal to slab3 last value between 1-100 ( eg: slab4 75 )
+
+auth_api:                                #Enter `cqube` for  local cqube authentication , Enter api url for other authentication api  

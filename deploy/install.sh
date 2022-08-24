@@ -56,6 +56,15 @@ if [[ $storage_type == "s3" ]]; then
    fi
 fi
 
+if [[ $storage_type == "local" ]]; then
+   if [[ -f local_storage_config.yml ]]; then
+    . "$INS_DIR/local_storage_validate.sh"
+    else
+            echo "ERROR: local_storage_config.yml is not available. Please copy local_storage_config.yml.template as local_storage_config.yml and fill all the details."
+            exit;
+   fi
+fi
+
 if [[ $storage_type == "azure" ]]; then
    if [[ -f azure_container_config.yml ]]; then
     . "$INS_DIR/azure_container_validate.sh"
@@ -82,12 +91,43 @@ ansible-playbook ansible/create_base.yml --tags "install" --extra-vars "@config.
 
 if [[ $storage_type == "s3" ]]; then
 ansible-playbook ansible/install.yml --tags "install" --extra-vars "@aws_s3_config.yml" \
-					        --extra-vars "@$base_dir/cqube/conf/azure_container_config.yml"
+					        --extra-vars "@$base_dir/cqube/conf/azure_container_config.yml" \
+						   --extra-vars "@$base_dir/cqube/conf/local_storage_config.yml"
 fi
 if [[ $storage_type == "azure" ]]; then
 ansible-playbook ansible/install.yml --tags "install" --extra-vars "@azure_container_config.yml" \
-						   --extra-vars "@$base_dir/cqube/conf/aws_s3_config.yml"
+						   --extra-vars "@$base_dir/cqube/conf/aws_s3_config.yml" \
+						   --extra-vars "@$base_dir/cqube/conf/local_storage_config.yml"
 fi
+if [[ $storage_type == "local" ]]; then
+ansible-playbook ansible/install.yml --tags "install" --extra-vars "@local_storage_config.yml" \
+                                                   --extra-vars "@$base_dir/cqube/conf/aws_s3_config.yml" \
+						         --extra-vars "@$base_dir/cqube/conf/azure_container_config.yml"
+fi
+
+mode_of_installation=$(awk ''/^mode_of_installation:' /{ if ($2 !~ /#.*/) {print $2}}' $base_dir/cqube/conf/base_config.yml)
+if [[ $mode_of_installation == "localhost" ]]; then
+ansible-playbook ../ansible/install_workflow.yml --tags "install" --extra-vars "@$base_dir/cqube/conf/base_config.yml" \
+                                                         --extra-vars "@config.yml" \
+							                            --extra-vars "@memory_config.yml" \
+                                                         --extra-vars "@.version" \
+                                                         --extra-vars "@$base_dir/cqube/conf/aws_s3_config.yml" \
+														 --extra-vars "@$base_dir/cqube/conf/azure_container_config.yml" \
+                                                         --extra-vars "@$base_dir/cqube/conf/local_storage_config.yml" \
+							                            --extra-vars "@datasource_config.yml" \
+                                                         --extra-vars "protocol=http"
+else
+ansible-playbook ../ansible/install_workflow.yml --tags "install" --extra-vars "@$base_dir/cqube/conf/base_config.yml" \
+                                                         --extra-vars "@config.yml" \
+							                             --extra-vars "@memory_config.yml" \
+                                                         --extra-vars "@.version" \
+                                                         --extra-vars "@$base_dir/cqube/conf/aws_s3_config.yml" \
+														 --extra-vars "@$base_dir/cqube/conf/azure_container_config.yml" \
+                                                         --extra-vars "@$base_dir/cqube/conf/local_storage_config.yml" \
+							                             --extra-vars "@datasource_config.yml" \
+fi
+
+
 
 if [ $? = 0 ]; then
 chmod u+x install_ui.sh
