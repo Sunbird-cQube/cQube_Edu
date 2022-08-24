@@ -146,7 +146,7 @@ export class MultiBarChartComponent implements OnInit, OnChanges, AfterViewInit 
                 return new Intl.NumberFormat('en-IN').format(this.y);
               }
           },
-          minPointLength: 10,
+          minPointLength: 0,
           pointPadding: 0.2
         },
         series: {
