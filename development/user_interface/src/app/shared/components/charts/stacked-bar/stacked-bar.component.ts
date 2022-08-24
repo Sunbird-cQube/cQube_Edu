@@ -79,7 +79,8 @@ export class StackedBarComponent implements OnInit, OnChanges {
             formatter: function(this: any) {
               return new Intl.NumberFormat('en-IN').format(this.y);
             }
-          }
+          },
+          minPointLength: 0
         },
         series: {
           stickyTracking: false,
