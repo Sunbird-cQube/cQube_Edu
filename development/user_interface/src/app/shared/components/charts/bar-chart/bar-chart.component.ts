@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges, OnInit, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild, SimpleChanges, HostListener } from '@angular/core';
 import * as Highcharts from "highcharts/highstock";
 import * as HighchartsMore from "highcharts/highcharts-more";
+import * as Highcharts2 from 'highcharts';
 
 const HighchartsMore2: any = HighchartsMore;
 HighchartsMore2(Highcharts);
@@ -15,8 +16,60 @@ export class BarChartComponent implements OnInit, OnChanges {
   @Input() height: number | string = 'auto';
   @Input() title!: string;
   @Input() options: Highcharts.Options | undefined;
+  @Input() marginTop: any = 80;
 
   @ViewChild('container') container: any;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+
+  // this.chart.redraw()
+  const elFontSize = window.getComputedStyle(document.documentElement).getPropertyValue('font-size');
+  
+  const localFontSize = localStorage.getItem('fontSize');
+  const currentFontSize = localFontSize ? localFontSize : elFontSize;
+  this.chart.update(
+    {
+      chart: {
+        // spacingBottom: 0,
+        // spacingTop: Number(currentFontSize) + 80,
+        marginTop: Number(currentFontSize) + Number(this.marginTop)
+      },
+      xAxis: {
+        labels: {
+          style: {
+            fontSize: currentFontSize
+          }
+        }
+      },
+      yAxis: {
+        labels: {
+          style: {
+            fontSize: currentFontSize
+          }
+        }
+      },
+      tooltip: {
+        style: {
+          fontSize: currentFontSize
+        }
+      },
+      legend: {
+        itemStyle: {
+          fontSize: currentFontSize
+        }
+      },
+      plotOptions: {  
+        series: {
+          dataLabels: {
+            style: {
+              fontSize: currentFontSize
+            }
+          }
+        }
+      },
+    }
+  )
+  }
 
   constructor() { }
 
@@ -240,7 +293,7 @@ export class BarChartComponent implements OnInit, OnChanges {
           {
             chartOptions: {
               chart: {
-                marginTop: 120,
+                marginTop: Number(this.marginTop) + 40,
               },
               xAxis: {
                 labels: {
@@ -287,7 +340,7 @@ export class BarChartComponent implements OnInit, OnChanges {
           {
             chartOptions: {
               chart: {
-                marginTop: 160,
+                marginTop: Number(this.marginTop) + 80,
               },
               xAxis: {
                 labels: {
