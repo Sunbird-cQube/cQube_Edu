@@ -28,6 +28,7 @@ export class MultiBarChartComponent
   @Input() title!: string;
   @Input() options: Highcharts.Options | undefined;
   @HostListener('window:resize', ['$event'])
+  @Input() marginTop: any = 90;
   onResize(event: any) {
     const elFontSize = window
       .getComputedStyle(document.documentElement)
@@ -36,7 +37,7 @@ export class MultiBarChartComponent
     const currentFontSize = localFontSize ? localFontSize : elFontSize;
     this.chart.update({
       chart: {
-        marginTop: Number(currentFontSize) + 80,
+        marginTop: Number(currentFontSize),
       },
       xAxis: {
         labels: {
@@ -389,7 +390,7 @@ export class MultiBarChartComponent
           {
             chartOptions: {
               chart: {
-                marginTop: 150,
+                marginTop: Number(this.marginTop) + 80,
                 events: {
                   load: function (this: any) {
                     let categoryHeight = 40;
@@ -448,7 +449,7 @@ export class MultiBarChartComponent
           {
             chartOptions: {
               chart: {
-                marginTop: 200,
+                marginTop: Number(this.marginTop) + 120,
                 events: {
                   load: function (this: any) {
                     let categoryHeight = 50;

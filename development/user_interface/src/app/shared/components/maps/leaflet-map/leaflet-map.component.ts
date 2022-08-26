@@ -395,7 +395,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         labels.push(`<strong>${mapOptions.selectedMetric ? mapOptions.selectedMetric : mapOptions.legend.title}:</strong>`)
       }
       if(values.length <= 1 && reportTypeIndicator !== 'boolean'){
-        labels.push(`<i class="fa fa-square" style="color:${ref.getLayerColor(values[0], true)}"></i> ${values[0]}`);
+        labels.push(`<i class="fa fa-square" style="color:${ref.getLayerColor(values[0] ? values[0] : -1, true)}"></i> ${values[0]}`);
       }
       else if (reportTypeIndicator === 'boolean') {
         values = ["Yes", "No"];

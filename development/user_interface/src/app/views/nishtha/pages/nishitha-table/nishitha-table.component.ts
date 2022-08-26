@@ -17,8 +17,10 @@ export class NishithaTableComponent implements OnInit {
   filters: any;
   title: any;
   chartHeight: any;
+  marginTop: any;
   
   @Input() lastLevel!: string;
+
 
   constructor(private readonly _activatedRoute: ActivatedRoute, private readonly _commonService: CommonService) { }
 
@@ -26,9 +28,11 @@ export class NishithaTableComponent implements OnInit {
     this.getData(this.filters);
     if(this.lastLevel === 'district'){
       this.title = 'Total Enrolments and Total Certifications'
+      this.marginTop = 100;
     }
     else{
       this.title = 'Total Enrolments and Total Certifications'
+      this.marginTop = 100;
     }
   }
 

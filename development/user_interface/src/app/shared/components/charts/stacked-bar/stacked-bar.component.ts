@@ -37,6 +37,7 @@ export class StackedBarComponent implements OnInit, OnChanges {
       },
       xAxis: {
         labels: {
+          step: 1,
           style: {
             fontSize: currentFontSize,
           },
@@ -103,6 +104,7 @@ export class StackedBarComponent implements OnInit, OnChanges {
         },
         gridLineColor: 'transparent',
         labels: {
+          step: 1,
           style: {
             fontSize: '0.7rem',
             width: 200,

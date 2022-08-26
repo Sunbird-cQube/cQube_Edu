@@ -16,7 +16,7 @@ export class BarChartComponent implements OnInit, OnChanges {
   @Input() height: number | string = 'auto';
   @Input() title!: string;
   @Input() options: Highcharts.Options | undefined;
-  @Input() marginTop: any = 80;
+  @Input() marginTop: any = 90;
 
   @ViewChild('container') container: any;
   @HostListener('window:resize', ['$event'])
@@ -36,6 +36,7 @@ export class BarChartComponent implements OnInit, OnChanges {
       },
       xAxis: {
         labels: {
+          step: 1,
           style: {
             fontSize: currentFontSize
           }
@@ -104,6 +105,7 @@ export class BarChartComponent implements OnInit, OnChanges {
           },
           gridLineColor: 'transparent',
           labels: {
+            step: 1,
             formatter: function(this: any) {
               if (typeof this.value === 'number') {
                 if (this.value < 1000) {
@@ -293,7 +295,7 @@ export class BarChartComponent implements OnInit, OnChanges {
           {
             chartOptions: {
               chart: {
-                marginTop: Number(this.marginTop) + 40,
+                marginTop: Number(this.marginTop) + 60,
               },
               xAxis: {
                 labels: {
@@ -340,7 +342,7 @@ export class BarChartComponent implements OnInit, OnChanges {
           {
             chartOptions: {
               chart: {
-                marginTop: Number(this.marginTop) + 80,
+                marginTop: Number(this.marginTop) + 120,
               },
               xAxis: {
                 labels: {
