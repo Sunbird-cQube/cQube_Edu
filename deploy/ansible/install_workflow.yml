@@ -8,10 +8,23 @@
 
   roles:
 
+          - datasource
           - workflow_createdb 
+          - workflow_python_flask
+          - { role: workflow_kong, tags: install }
           - nifi_workflow_install
           - { role: nifi_params, tags: install }
-            
+           
+          - role: cqube_data
+            tags: install
+  
+          - role: static
+            tags: install 
+          
+          - role: diksha
+            tags: install
+            when: diksha    
+
           - role: validate
             tags: install
 
@@ -20,4 +33,3 @@
 
           - role: transaction_and_aggregation
             tags: install
-

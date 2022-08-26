@@ -1,0 +1,82 @@
+---
+
+- name: Copying python files
+  copy:
+    src: "../../development/datasource/python"
+    dest: "{{ base_dir }}/cqube/emission_app/"
+    owner: "{{ system_user_name }}"
+    group: "{{ system_user_name }}"
+  tags: [ install, update ]
+ 
+- name: Copy static.txt files
+  copy:
+    src: "../../development/datasource/static/nifi/static_data_parameters.txt"
+    dest: "{{ base_dir }}/cqube/emission_app/python/"
+    owner: "{{ system_user_name }}"
+    group: "{{ system_user_name }}"
+  tags: [ install, update ]
+
+- name: Copy diksha.txt files
+  copy:
+    src: "../../development/datasource/diksha/nifi/diksha_parameters.txt"
+    dest: "{{ base_dir }}/cqube/emission_app/python/"
+    owner: "{{ system_user_name }}"
+    group: "{{ system_user_name }}"
+  tags: [ install, update ]
+
+- name: Copy validate_datasource_parameters.txt files
+  copy:
+    src: "../../development/datasource/validate_datasource/nifi/validate_datasource_parameters.txt"
+    dest: "{{ base_dir }}/cqube/emission_app/python/"
+    owner: "{{ system_user_name }}"
+    group: "{{ system_user_name }}"
+  tags: [ install, update ]
+
+- name: Copy transaction_and_aggregation.txt files
+  copy:
+    src: "../../development/datasource/transaction_and_aggregation/nifi/transaction_and_aggregation_parameters.txt"
+    dest: "{{ base_dir }}/cqube/emission_app/python/"
+    owner: "{{ system_user_name }}"
+    group: "{{ system_user_name }}"
+  tags: [ install, update ]   
+
+- name: Delete env.py
+  file:
+    path: "{{ base_dir }}/cqube/emission_app/python/env.py"
+    state: absent
+  tags: update
+
+- name: Updating env.py
+  template:
+    src: env.py.j2
+    dest: "{{ base_dir }}/cqube/emission_app/python/env.py"
+    mode: "0644"
+  tags: [ install, update ]
+
+- name: Delete properties_nifi_deploy file 
+  file:
+    path: "{{ base_dir }}/cqube/emission_app/python/properties_nifi_deploy.py"
+    state: absent
+  tags: update
+
+- name: Updating properties_nifi_deploy file
+  template:
+    src: properties_nifi_deploy.py.j2
+    dest: "{{ base_dir }}/cqube/emission_app/python/properties_nifi_deploy.py"
+    mode: "0644"
+  tags: [ install, update ]
+
+- name: Changing the permission of the directory
+  file:
+    path: "{{ base_dir }}/cqube/emission_app"
+    owner: "{{ system_user_name }}"
+    group: "{{ system_user_name }}"
+    recurse: yes
+  tags: [ install, update ]
+
+- name: Starting the emission_app service
+  service:
+    name: gunicorn
+    enabled: yes
+    state: restarted
+  tags: [ install, update ]

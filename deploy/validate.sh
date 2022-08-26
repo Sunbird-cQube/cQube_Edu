@@ -16,17 +16,63 @@ if [[ ! "$2" = /* ]] || [[ ! -d $2 ]]; then
 fi
 }
 
+check_mem(){
+mem_total_kb=`grep MemTotal /proc/meminfo | awk '{print $2}'`
+mem_total=$(($mem_total_kb/1024))
+
+if [[ $mode_of_installation == "localhost" ]]; then
+  if [ $(($mem_total / 1024)) -ge 7 ]; then
+    local_shared_mem=$(echo $mem_total*13/100 | bc)
+    local_work_mem=$(echo $mem_total*2/100 | bc)
+    local_java_arg_2=$(echo $mem_total*13/100 | bc)
+    local_java_arg_3=$(echo $mem_total*65/100 | bc)
+    echo """---
+shared_buffers: ${local_shared_mem}MB
+work_mem: ${local_work_mem}MB
+java_arg_2: -Xms${local_java_arg_2}m
+java_arg_3: -Xmx${local_java_arg_3}m""" > memory_config.yml
+  else
+    "Error - Minimum Memory requirement to install cQube in localhost/single machine is 8GB. Please increase the RAM size.";
+  fi
+fi
+
+if [[ $mode_of_installation == "public" ]]; then
+    if [ $(( $mem_total / 1024 )) -ge 15 ] && [ $(($mem_total / 1024)) -le 60 ] ; then
+        min_shared_mem=$(echo $mem_total*13/100 | bc)
+        min_work_mem=$(echo $mem_total*2/100 | bc)
+        min_java_arg_2=$(echo $mem_total*13/100 | bc)
+        min_java_arg_3=$(echo $mem_total*65/100 | bc)
+        echo """---
+shared_buffers: ${min_shared_mem}MB
+work_mem: ${min_work_mem}MB
+java_arg_2: -Xms${min_java_arg_2}m
+java_arg_3: -Xmx${min_java_arg_3}m""" > memory_config.yml
+    elif [ $(( $mem_total / 1024 )) -gt 60 ]; then
+        max_shared_mem=$(echo $mem_total*13/100 | bc)
+        max_work_mem=$(echo $mem_total*2/100 | bc)
+        max_java_arg_2=$(echo $mem_total*7/100 | bc)
+        max_java_arg_3=$(echo $mem_total*65/100 | bc)
+        echo """---
+shared_buffers: ${max_shared_mem}MB
+work_mem: ${max_work_mem}MB
+java_arg_2: -Xms${max_java_arg_2}m
+java_arg_3: -Xmx${max_java_arg_3}m""" > memory_config.yml
+    else
+        echo "Error - Minimum Memory requirement to install cQube is 32GB. Please increase the RAM size."; 
+        exit 1
+    fi
+fi
+}
 
 check_sys_user(){
-    result=`whoami | head -1 | awk '{print $1}'`
-    if [[ `egrep -i ^$2: /etc/passwd ; echo $?` != 0 && $result != $2 ]]; then
+    if [[ ! `compgen -u $2` ]]; then
         echo "Error - Please check the system_user_name."; fail=1
     fi
 }
 
 check_access_type(){
-if ! [[ $2 == "national" || $2 == "state" ]]; then
-    echo "Error - Please enter either NVSK or VSK for $1"; fail=1
+if ! [[ $2 == "national" || $2 == "state" || $2 == "cqube1" ]]; then
+    echo "Error - Please enter either NVSK or VSK or cqube1 for $1"; fail=1
 fi
 }
 
@@ -37,7 +83,7 @@ if [[ $access_type == "national" ]]; then
         echo "Error - Please provide state code as NA if you selected access_type as national"; fail=1
     fi
 fi
-if [[ $access_type == "state" ]]; then	
+if [[ $access_type == "state" || $access_type == "cqube1" ]]; then	
 state_found=0
 while read line; do
   if [[ $line == $2 ]] ; then
@@ -51,8 +97,8 @@ fi
 }
 
 check_storage_type(){
-if ! [[ $2 == "s3" || $2 == "azure" ]]; then
-     echo "Error - Please enter either s3 or azure for $1"; fail=1
+if ! [[ $2 == "s3" || $2 == "azure" || $2 == "local" ]]; then
+     echo "Error - Please enter either s3 or azure or local for $1"; fail=1
 fi
 }
 
@@ -134,35 +180,6 @@ if [ $temp == 0 ]; then
         echo "Done"
      fi
 fi
-}
-
-check_timeout()
-{
-  if [[ $2 =~ ^[0-9]+[M|D]$  ]] ; then
-        raw_value="$( echo "$2" | sed -e 's/[M|D]$//' )"
-        if [[ ! $raw_value == 0 ]]; then
-		    if [[ $2 =~ M$ ]] ; then
-		    	if [[ $raw_value -ge 30 && $raw_value -le 5256000 ]]; then 
-		    		timeout_value=$(($raw_value*60))
-		    	else
-		    		echo "Error - Minutes should be between 30 and 5256000"; fail=1
-		    	fi
-		    fi
-		    if [[ $2 =~ D$ ]] ; then
-		    	if [[ $raw_value -ge 1 && $raw_value -le 3650 ]]; then 
-		    		timeout_value=$(($raw_value*24*60*60))
-		    	else
-		    		echo "Error - Days should be between 1 and 3650"; fail=1
-		    	fi
-		    fi
-		else
-			echo "Error - Timeout should not be 0"; fail=1
-	    fi
-    else
-        echo "Error - please enter proper value as mentioned in comments"; fail=1
-    fi
-sed -i '/session_timeout_in_seconds:/d' ../ansible/roles/keycloak/vars/main.yml
-echo "session_timeout_in_seconds: $timeout_value" >> ../ansible/roles/keycloak/vars/main.yml
 }
 
 check_static_datasource(){
@@ -283,7 +300,7 @@ echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 
 
 # An array of mandatory values
-declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "storage_type" "api_endpoint" "local_ipv4_address" "db_user" "db_name" "db_password" "diksha_columns" "static_datasource" "management" "session_timeout" "map_name" "theme" "google_api_key" "slab1" "slab2" "slab3" "slab4" "auth_api" )
+declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "storage_type" "api_endpoint" "local_ipv4_address" "db_user" "db_name" "db_password" "diksha_columns" "static_datasource" "management" "map_name" "theme" "google_api_key" "slab1" "slab2" "slab3" "slab4" "auth_api" )
 
 declare -A vals
 
