@@ -46,6 +46,7 @@ if [[ $storage_type == "s3" ]]; then
 fi
 
 . "validate.sh"
+. "datasource_validation.sh"
 
 if [[ $storage_type == "s3" ]]; then
    if [[ -f aws_s3_config.yml ]]; then	
@@ -84,6 +85,8 @@ if [ ! $? = 0 ]; then
 tput setaf 1; echo "Error there is a problem installing Ansible"; tput sgr0
 exit
 fi
+
+#Base installation
 base_dir=$(awk ''/^base_dir:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 access_type=$(awk ''/^access_type:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 
@@ -105,6 +108,8 @@ ansible-playbook ansible/install.yml --tags "install" --extra-vars "@local_stora
 						         --extra-vars "@$base_dir/cqube/conf/azure_container_config.yml"
 fi
 
+
+#Workflow installation
 mode_of_installation=$(awk ''/^mode_of_installation:' /{ if ($2 !~ /#.*/) {print $2}}' $base_dir/cqube/conf/base_config.yml)
 if [[ $mode_of_installation == "localhost" ]]; then
 ansible-playbook ../ansible/install_workflow.yml --tags "install" --extra-vars "@$base_dir/cqube/conf/base_config.yml" \
@@ -136,3 +141,4 @@ chmod u+x install_ui.sh
         echo "cQube $access_type installed successfully!!"
     fi
 fi
+
