@@ -62,7 +62,7 @@ echo -e "\e[0;33m${bold}Validating the aws_s3_config file...${normal}"
 
 
 # An array of mandatory values
-declare -a arr=("s3_access_key" "s3_secret_key" "s3_input_bucket" "s3_output_bucket" "aws_default_region")
+declare -a arr=("s3_access_key" "s3_secret_key" "s3_input_bucket" "s3_output_bucket" "s3_emission_bucket" "aws_default_region")
 
 # Create and empty array which will store the key and value pair from config file
 declare -A vals
@@ -103,6 +103,13 @@ case $key in
        fi
        ;;
    s3_output_bucket)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_s3_bucket $key $value
+       fi
+       ;;
+   s3_emission_bucket)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else

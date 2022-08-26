@@ -129,7 +129,8 @@ ansible-playbook ansible/install_workflow.yml --tags "install" --extra-vars "@$b
                                                          --extra-vars "@$base_dir/cqube/conf/aws_s3_config.yml" \
 														 --extra-vars "@$base_dir/cqube/conf/azure_container_config.yml" \
                                                          --extra-vars "@$base_dir/cqube/conf/local_storage_config.yml" \
-							                             --extra-vars "@datasource_config.yml"
+							                             --extra-vars "@datasource_config.yml" \
+										     --extra-vars "protocol=http"
 fi
 
 
