@@ -300,7 +300,7 @@ echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 
 
 # An array of mandatory values
-declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "storage_type" "api_endpoint" "local_ipv4_address" "db_user" "db_name" "db_password" "diksha_columns" "static_datasource" "management" "map_name" "theme" "google_api_key" "slab1" "slab2" "slab3" "slab4" "auth_api" )
+declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "storage_type" "mode_of_installation" "api_endpoint" "local_ipv4_address" "db_user" "db_name" "db_password" "diksha_columns" "static_datasource" "management" "map_name" "theme" "google_api_key" "slab1" "slab2" "slab3" "slab4" "auth_api" )
 
 declare -A vals
 
