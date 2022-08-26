@@ -14,9 +14,10 @@
                 <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.property" class="text-neutral-600 xmd:text-sm md:text-md">{{ column.name }}</th>
                 <td mat-cell *matCellDef="let element" class="xmd:text-sm md:text-md" [ngClass]="column?.class">
                     <ng-container *ngIf="element[column.property].tooltip; else noTooltip" class="cellTooltip">
-                        <span placement="top" [tooltip]="element[column.property].tooltip">
+                        <span placement="right" [tooltip]="element[column.property].tooltip">
                             {{element[column.property].value}}
                         </span>
+                        
                         <!-- <span #tooltip="matTooltip"
                                 [matTooltip]="element[column.property].tooltip"
                                 [matTooltipPosition]="'right'"

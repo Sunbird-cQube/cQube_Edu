@@ -31,4 +31,11 @@ $light-grey: #eee;
     .mat-sort-header-container{
         justify-content: center !important;
     }
+    // th.mat-header-cell, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+    //     z-index: 102 !important;
+    // }
+    td.mat-cell:hover{
+        z-index: 9999 !important;
+    }
+    
  }

@@ -145,7 +145,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           return e > 75 ? "#1D4586" :
             e > 50 ? "#1156CC" :
               e > 25 ? "#6D9FEB" :
-                e > 0 ? "#C9DAF7" : "#fff";
+                e >= 0 ? "#C9DAF7" : "#fff";
         }
       }
     }
@@ -198,13 +198,14 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
                   values.push(this.perCapitaReport ? 0.1 : 1);
                 }
                 else {
-                  values.push(this.perCapitaReport ? min : min.toFixed(0));
+                  // values.push(this.perCapitaReport ? min : min.toFixed(0));
+                  values.push(this.perCapitaReport ? min : Math.floor(min))
                 }
                 continue;
               }
 
               if (i === 1) {
-                values.push(this.perCapitaReport ? max : max.toFixed(0));
+                values.push(this.perCapitaReport ? max : Math.ceil(max));
                 continue;
               }
               if (this.perCapitaReport) {
@@ -320,13 +321,13 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
                 values.push(this.perCapitaReport ? 0.1 : 1);
               }
               else {
-                values.push(this.perCapitaReport ? min : min.toFixed(0));
+                values.push(this.perCapitaReport ? min : Math.floor(min));
               }
               continue;
             }
 
             if (i === 1) {
-              values.push(this.perCapitaReport ? max : max.toFixed(0));
+              values.push(this.perCapitaReport ? max : Math.ceil(max));
               continue;
             }
             if (this.perCapitaReport) {
