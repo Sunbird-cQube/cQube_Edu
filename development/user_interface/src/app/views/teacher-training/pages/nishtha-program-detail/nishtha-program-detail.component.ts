@@ -8,7 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-nishtha-program-detail',
   templateUrl: './nishtha-program-detail.component.html',
-  styleUrls: ['./nishtha-program-detail.component.scss']
+  styleUrls: ['./nishtha-program-detail.component.scss'],
 })
 export class NishthaProgramDetailComponent implements OnInit, OnChanges {
   map: any;
@@ -16,13 +16,15 @@ export class NishthaProgramDetailComponent implements OnInit, OnChanges {
   filters: any;
   isMapReportLoading = true;
 
-  constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService) {
+  constructor(
+    private readonly _commonService: CommonService,
+    private readonly _spinner: NgxSpinnerService
+  ) {
     this.getNishithaData(this.filters);
     this._spinner.show();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(): void {
     this.map.remove();
@@ -31,21 +33,24 @@ export class NishthaProgramDetailComponent implements OnInit, OnChanges {
   getNishithaData(filters: any): void {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
-      dataSourceName: 'nishtha',
+      dataSourceName: 'teacher-training',
       reportName: 'programStatus',
       reportType: 'map',
       stateCode: environment.stateCode,
-      filters
+      filters,
     };
 
-    this._commonService.getReportData(data).subscribe(nishthaStateDataRes => {
-      this._spinner.hide()
-      this.isMapReportLoading = false;
-      this.nishithaStateData = nishthaStateDataRes.result;
-      this.filters = nishthaStateDataRes.result.filters;
-    }, err => {
-      this.isMapReportLoading = false;
-    });
+    this._commonService.getReportData(data).subscribe(
+      (nishthaStateDataRes) => {
+        this._spinner.hide();
+        this.isMapReportLoading = false;
+        this.nishithaStateData = nishthaStateDataRes.result;
+        this.filters = nishthaStateDataRes.result.filters;
+      },
+      (err) => {
+        this.isMapReportLoading = false;
+      }
+    );
   }
 
   filtersUpdated(filters: any): void {
