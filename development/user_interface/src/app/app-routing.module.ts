@@ -3,8 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { LayoutComponent } from './core/components/layout/layout.component';
 
-
-var routes: Routes = []
+var routes: Routes = [];
 
 if (environment.config == 'national') {
   routes = [
@@ -19,65 +18,103 @@ if (environment.config == 'national') {
         {
           path: '',
           redirectTo: 'dashboard',
-          pathMatch: 'full'
+          pathMatch: 'full',
         },
         {
           path: 'dashboard',
-          loadChildren: () => import('./views/dashboard/dashboard.module').then(module => module.DashboardModule)
+          loadChildren: () =>
+            import('./views/dashboard/dashboard.module').then(
+              (module) => module.DashboardModule
+            ),
         },
         {
           path: 'nishtha',
-          loadChildren: () => import('./views/nishtha/nishtha.module').then(module => module.NishthaModule)
+          loadChildren: () =>
+            import('./views/teacher-training/teacher-training.module').then(
+              (module) => module.TeacherTrainingModule
+            ),
         },
         {
           path: 'etb',
-          loadChildren: () => import('./views/digital-learning/digital-learning.module').then(module => module.DigitalLearningModule)
+          loadChildren: () =>
+            import('./views/digital-learning/digital-learning.module').then(
+              (module) => module.DigitalLearningModule
+            ),
         },
         {
           path: 'nas',
-          loadChildren: () => import('./views/student-learning-survey/student-learning-survey.module').then(module => module.StudentLearningSurveyModule)
+          loadChildren: () =>
+            import(
+              './views/student-learning-survey/student-learning-survey.module'
+            ).then((module) => module.StudentLearningSurveyModule),
         },
         {
           path: 'udise',
-          loadChildren: () => import('./views/school-registry/school-registry.module').then(module => module.SchoolRegistryModule)
+          loadChildren: () =>
+            import('./views/school-registry/school-registry.module').then(
+              (module) => module.SchoolRegistryModule
+            ),
         },
         {
           path: 'poshan',
-          loadChildren: () => import('./views/nutrition-health/nutrition-health.module').then(module => module.NutritionHealthModule)
+          loadChildren: () =>
+            import('./views/nutrition-health/nutrition-health.module').then(
+              (module) => module.NutritionHealthModule
+            ),
         },
         {
           path: 'pgi',
-          loadChildren: () => import('./views/school-education/school-education.module').then(module => module.SchoolEducationModule)
+          loadChildren: () =>
+            import('./views/school-education/school-education.module').then(
+              (module) => module.SchoolEducationModule
+            ),
         },
         {
           path: 'nipunbharath',
-          loadChildren: () => import('./views/foundational-literacy-numeracy/foundational-literacy-numeracy.module').then(module =>module.FoundationalLiteracyNumeracyModule)
+          loadChildren: () =>
+            import(
+              './views/foundational-literacy-numeracy/foundational-literacy-numeracy.module'
+            ).then((module) => module.FoundationalLiteracyNumeracyModule),
         },
         {
           path: 'vidyanjali',
-          loadChildren: () => import('./views/vidyanjali/vidyanjali.module').then(module => module.VidyanjaliModule)
+          loadChildren: () =>
+            import('./views/vidyanjali/vidyanjali.module').then(
+              (module) => module.VidyanjaliModule
+            ),
         },
         {
           path: 'quizzes',
-          loadChildren: () => import('./views/quiz/quiz.module').then(module => module.QuizModule)
+          loadChildren: () =>
+            import('./views/quiz/quiz.module').then(
+              (module) => module.QuizModule
+            ),
         },
         {
           path: 'microimprovement',
-          loadChildren: () => import('./views/improvement-program/improvement-program.module').then(module => module.MicroImprovementModule)
+          loadChildren: () =>
+            import(
+              './views/improvement-program/improvement-program.module'
+            ).then((module) => module.MicroImprovementModule),
         },
         {
           path: 'ncf',
-          loadChildren: () => import('./views/curriculum-framework/curriculum-framework.module').then(module => module.CurriculumFrameworkModule)
-        }
-      ]
-    }
+          loadChildren: () =>
+            import(
+              './views/curriculum-framework/curriculum-framework.module'
+            ).then((module) => module.CurriculumFrameworkModule),
+        },
+      ],
+    },
   ];
-}
-else {
+} else {
   routes = [
     {
       path: '',
-      loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
+      loadChildren: () =>
+        import('./views/authentication/authentication.module').then(
+          (module) => module.AuthenticationModule
+        ),
     },
     {
       path: '',
@@ -86,43 +123,64 @@ else {
         {
           path: '',
           redirectTo: 'dashboard',
-          pathMatch: 'full'
+          pathMatch: 'full',
         },
         {
           path: 'dashboard',
-          loadChildren: () => import('./views/dashboard/dashboard.module').then(module => module.DashboardModule)
+          loadChildren: () =>
+            import('./views/dashboard/dashboard.module').then(
+              (module) => module.DashboardModule
+            ),
         },
         {
           path: 'nishtha',
-          loadChildren: () => import('./views/nishtha/nishtha.module').then(module => module.NishthaModule)
+          loadChildren: () =>
+            import('./views/teacher-training/teacher-training.module').then(
+              (module) => module.TeacherTrainingModule
+            ),
         },
         {
           path: 'etb',
-          loadChildren: () => import('./views/digital-learning/digital-learning.module').then(module => module.DigitalLearningModule)
+          loadChildren: () =>
+            import('./views/digital-learning/digital-learning.module').then(
+              (module) => module.DigitalLearningModule
+            ),
         },
         {
           path: 'nas',
-          loadChildren: () => import('./views/student-learning-survey/student-learning-survey.module').then(module => module.StudentLearningSurveyModule)
+          loadChildren: () =>
+            import(
+              './views/student-learning-survey/student-learning-survey.module'
+            ).then((module) => module.StudentLearningSurveyModule),
         },
         {
           path: 'poshan',
-          loadChildren: () => import('./views/nutrition-health/nutrition-health.module').then(module => module.NutritionHealthModule)
+          loadChildren: () =>
+            import('./views/nutrition-health/nutrition-health.module').then(
+              (module) => module.NutritionHealthModule
+            ),
         },
         {
           path: 'pgi',
-          loadChildren: () => import('./views/school-education/school-education.module').then(module => module.SchoolEducationModule)
+          loadChildren: () =>
+            import('./views/school-education/school-education.module').then(
+              (module) => module.SchoolEducationModule
+            ),
         },
         {
           path: 'udise',
-          loadChildren: () => import('./views/school-registry/school-registry.module').then(module => module.SchoolRegistryModule)
-        }
-      ]
-    }
+          loadChildren: () =>
+            import('./views/school-registry/school-registry.module').then(
+              (module) => module.SchoolRegistryModule
+            ),
+        },
+      ],
+    },
   ];
 }
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

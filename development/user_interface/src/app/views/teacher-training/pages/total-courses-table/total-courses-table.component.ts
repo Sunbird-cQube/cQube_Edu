@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-total-courses-table',
   templateUrl: './total-courses-table.component.html',
-  styleUrls: ['./total-courses-table.component.scss']
+  styleUrls: ['./total-courses-table.component.scss'],
 })
 export class TotalCoursesTableComponent implements OnInit {
   tableData: any;
@@ -16,20 +16,19 @@ export class TotalCoursesTableComponent implements OnInit {
     this.gettotalCoursesAndMediumData(this.filters);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   gettotalCoursesAndMediumData(filters: any): void {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
-      dataSourceName: 'nishtha',
+      dataSourceName: 'teacher-training',
       reportName: 'totalCoursesAndMedium',
       reportType: 'loTable',
       stateCode: environment.stateCode,
-      filters
+      filters,
     };
 
-    this._commonService.getReportData(data).subscribe(res => {
+    this._commonService.getReportData(data).subscribe((res) => {
       this.tableData = res.result;
       this.filters = res.result.filters;
     });
@@ -38,6 +37,4 @@ export class TotalCoursesTableComponent implements OnInit {
   filtersUpdated(filters: any): void {
     this.gettotalCoursesAndMediumData(filters);
   }
-
-
 }
