@@ -33,3 +33,8 @@
 
           - role: transaction_and_aggregation
             tags: install
+
+          - role: dummy_connections
+            tags: install
+
+          - { role: nifi_scheduler, tags: install }
