@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { MatSort, SortDirection } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { TableHeatMapDirective } from 'src/app/shared/directives/table-heat-map/table-heat-map.directive';
 
 @Component({
@@ -8,23 +8,21 @@ import { TableHeatMapDirective } from 'src/app/shared/directives/table-heat-map/
   templateUrl: './material-heat-chart-table.component.html',
   styleUrls: ['./material-heat-chart-table.component.scss']
 })
-export class MaterialHeatChartTableComponent implements OnInit, OnChanges, AfterViewInit {
+export class MaterialHeatChartTableComponent implements OnInit, OnChanges, AfterViewInit, AfterViewChecked {
   columnProperties: any[] = [];
   dataSource!: MatTableDataSource<any>;
   matSortActive = "";
   matSortDirection: SortDirection = "asc";
   columns: any;
-  stickyCols: any;
 
   @Input() tableData: any;
-  @Input() stickyColumns: Number = 1;
+  @ViewChild(MatTable) table!: MatTable<any>;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(TableHeatMapDirective) tableHeatMap!: TableHeatMapDirective;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.stickyCols = this.stickyColumns
   }
 
   ngAfterViewInit(): void {
@@ -33,6 +31,12 @@ export class MaterialHeatChartTableComponent implements OnInit, OnChanges, After
 
   ngOnChanges(): void {
     this.constructTable();
+  }
+
+  ngAfterViewChecked(): void {
+      if (this.table) {
+        this.table.updateStickyColumnStyles();
+      }
   }
 
   constructTable(): void {
@@ -46,7 +50,20 @@ export class MaterialHeatChartTableComponent implements OnInit, OnChanges, After
           }
         };
         this.dataSource.sort = this.sort;
-        this.columns = this.tableData.columns;
+        let stickyColumns = [];
+
+        this.columns = this.tableData.columns.map((column: any) => {
+          if (window.innerWidth <= 480) {
+            if (stickyColumns.length === 0) {
+              stickyColumns.push(true);
+              column.sticky = true;
+            } else {
+              column.sticky = false;
+            }
+          }
+
+          return column;
+        });
         //this.columnProperties = [...['id'], ...this.tableData.columns.map((column: any) => column.property)];
         this.columnProperties = this.tableData.columns.map((column: any) => column.property);
         this.matSortActive = this.tableData.sortByProperty;
