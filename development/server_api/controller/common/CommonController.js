@@ -479,7 +479,8 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 					property: rec[transCol.property],
 					isHeatMapRequired: transCol.isHeatMapRequired,
 					color: transCol.color,
-					class: transCol.class
+					class: transCol.class,
+					sticky: transCol.sticky ? transCol.sticky : false
 				});
 				uniqueMap.set(rec[transCol.property], true)
 			}
@@ -594,8 +595,10 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		
 			return rec;
 		});
+
 		if(transCol.colSortNeeded)
-				cols.sort((a,b) => compare(a.name, b.name));
+			cols.sort((a,b) => compare(a.name, b.name));
+		
 		columns = [...rows, ...cols];
 	} else if (isWeightedAverageNeeded) {
 		rawData = _.chain(rawData)
