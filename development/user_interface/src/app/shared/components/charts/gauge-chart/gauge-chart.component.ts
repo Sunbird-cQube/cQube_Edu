@@ -71,7 +71,10 @@ export class GaugeChartComponent implements OnInit, OnChanges {
             tickAmount: 2,
             title: {
                 y: 85,
-                text: ''
+                text: '',
+                style:{
+                    fontSize: '1rem'
+                }
             },
             labels: {
                 y: 16
@@ -91,7 +94,29 @@ export class GaugeChartComponent implements OnInit, OnChanges {
         credits: {
             enabled: false
         },
-        series: []
+        series: [],
+        responsive:{
+          rules: [
+            {
+              chartOptions: {
+                yAxis: {
+                  title: {
+                    y: 140,
+                    style:{
+                        fontSize: '1.3rem'
+                    }
+                  }
+                }
+              },
+              condition: {
+                callback: function() {
+                  return window.innerWidth >= 2560
+                },
+                minWidth: 2560
+              }
+            }
+          ]
+        }
     };
     this.chart = Highcharts.chart(this.container.nativeElement, Highcharts.merge(defaultOptions, options),  function(this: any) {
 

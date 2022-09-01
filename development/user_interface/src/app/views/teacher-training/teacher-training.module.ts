@@ -5,8 +5,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CqubeLibraryModule } from 'cqube-library';
 
-import { NishthaRoutingModule } from './nishtha-routing.module';
-import { NishthaComponent } from './nishtha.component';
+import { TeacherTrainingRoutingModule } from './teacher-training-routing.module';
+import { TeacherTrainingComponent } from './teacher-training.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NishthaProgramDetailComponent } from './pages/nishtha-program-detail/nishtha-program-detail.component';
 import { NisithaBarComponent } from './pages/nisitha-bar/nisitha-bar.component';
@@ -18,22 +18,22 @@ import { ProgramWiseImplementationComponent } from './pages/program-wise-impleme
 
 @NgModule({
   declarations: [
-    NishthaComponent,
+    TeacherTrainingComponent,
     DashboardComponent,
     NishthaProgramDetailComponent,
     NisithaBarComponent,
     NishithaTableComponent,
     NisithaStackedBarComponent,
     TotalCoursesTableComponent,
-    ProgramWiseImplementationComponent
+    ProgramWiseImplementationComponent,
   ],
   imports: [
     CommonModule,
-    NishthaRoutingModule,
+    TeacherTrainingRoutingModule,
     SharedModule,
     MatTabsModule,
     CqubeLibraryModule,
-    NgxSpinnerModule
-  ]
+    NgxSpinnerModule,
+  ],
 })
-export class NishthaModule { }
+export class TeacherTrainingModule {}

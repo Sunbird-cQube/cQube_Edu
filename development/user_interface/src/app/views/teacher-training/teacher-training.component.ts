@@ -3,23 +3,25 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-nishtha',
-  templateUrl: './nishtha.component.html',
-  styleUrls: ['./nishtha.component.scss']
+  selector: 'app-teacher-training',
+  templateUrl: './teacher-training.component.html',
+  styleUrls: ['./teacher-training.component.scss'],
 })
-export class NishthaComponent implements OnInit {
-  config: string = environment.config
+export class TeacherTrainingComponent implements OnInit {
+  config: string = environment.config;
   national: boolean = true;
   nisithaMetrics: any;
-  
+
   constructor(private readonly _configService: ConfigService) {
-    this._configService.getVanityMetrics('nishtha').subscribe(vanityMetricsRes => {
-      this.nisithaMetrics = vanityMetricsRes.result;
-    });
+    this._configService
+      .getVanityMetrics('nishtha')
+      .subscribe((vanityMetricsRes) => {
+        this.nisithaMetrics = vanityMetricsRes.result;
+      });
   }
 
   ngOnInit(): void {
-    if(this.config == 'state'){
+    if (this.config == 'state') {
       this.national = false;
     }
   }
