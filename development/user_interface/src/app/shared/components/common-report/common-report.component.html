@@ -1,0 +1,37 @@
+<div class="grid grid-cols-1" *ngIf="reportsDetails">
+    <div class="col">
+        <div class="grid grid-cols-12" *ngIf="!isMapReportLoading; else loading">
+            <div class="col-span-full">
+                <div class="grid grid-cols-12" appFullScreen>
+                    <div class="xs:col-span-full xmd:col-span-8">
+                        <app-level-n-metric-filter-panel [metricFilter]="metricFilter"
+                            (selectMetricFilter)="onSelectMetricFilter($event)">
+                        </app-level-n-metric-filter-panel>
+                    </div>
+                    <div class="col-span-full">
+                        <div *ngFor="let report of reportsDetails">
+                            <div [ngSwitch]="report.reportType">
+                                <div *ngSwitchCase = "'map'">
+                                    <div *ngIf="reportData[report.reportType]">
+                                        <app-leaflet-map [mapData]="reportData[report.reportType]"></app-leaflet-map>
+                                        <app-line-chart></app-line-chart>
+                                        <app-pie-chart></app-pie-chart>
+                                        <app-area-chart></app-area-chart>
+                                    </div>
+                                </div>
+                                <div *ngSwitchCase="'bar'">
+                                    <div *ngIf="reportData[report.reportType]">
+                                        <app-bar-chart ></app-bar-chart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #loading>
+            <p class="mt-8">Loading...</p>
+        </ng-template>
+    </div>
+</div>

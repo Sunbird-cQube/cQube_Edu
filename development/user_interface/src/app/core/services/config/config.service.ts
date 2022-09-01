@@ -34,4 +34,7 @@ export class ConfigService {
     return this._http.get<ResponseType<any>>(`${environment.apiURL}/metrics/getVanityMetrics/${environment.config.toLowerCase()}/${programId}`);
   }
 
+  getMainMenuItem(): Observable<ResponseType<any[]>> {
+    return this._http.get<ResponseType<any>>(`${environment.apiURL}/config/getMainMenu/${environment.config.toLowerCase()}`);
+  }
 }
