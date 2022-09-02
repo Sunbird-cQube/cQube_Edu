@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { IDashboardMenu } from 'src/app/core/models/IDashboardCard';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
-import { DashboardMenu } from '../../core/config/nvsk/DashboardMenu';
 
 @Component({
   selector: 'app-dashboard',

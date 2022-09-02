@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, ViewChild, SimpleChanges, HostListener } from '@angular/core';
 import * as Highcharts from "highcharts/highstock";
 import * as HighchartsMore from "highcharts/highcharts-more";
-import * as Highcharts2 from 'highcharts';
+import { formatNumberForReport, numberLabelFormatForReport } from 'src/app/utilities/NumberFomatter';
 
 const HighchartsMore2: any = HighchartsMore;
 HighchartsMore2(Highcharts);
@@ -107,19 +107,7 @@ export class BarChartComponent implements OnInit, OnChanges {
           labels: {
             step: 1,
             formatter: function(this: any) {
-              if (typeof this.value === 'number') {
-                if (this.value < 1000) {
-                  return `${this.value}`;
-                } else if (this.value > 999 && this.value <= 9999) {
-                  return `${this.value / 1000}K`;
-                } else if (this.value > 9999 && this.value <= 9999999) {
-                  return `${this.value / 100000}L`;
-                } else {
-                  return `${this.value / 10000000}Cr`;
-                }
-              }
-              
-              return `${this.axis.defaultLabelFormatter.call(this)}`;
+              return numberLabelFormatForReport(this.value, this);
             },
             style: {
               fontSize: '0.7rem'
@@ -134,19 +122,7 @@ export class BarChartComponent implements OnInit, OnChanges {
           gridLineColor: 'transparent',
           labels: {
             formatter: function(this: any) {
-              if (typeof this.value === 'number') {
-                if (this.value < 1000) {
-                  return `${this.value}`;
-                } else if (this.value > 999 && this.value <= 9999) {
-                  return `${this.value / 1000}K`;
-                } else if (this.value > 9999 && this.value <= 9999999) {
-                  return `${this.value / 100000}L`;
-                } else {
-                  return `${this.value / 10000000}Cr`;
-                }
-              }
-              
-              return `${this.axis.defaultLabelFormatter.call(this)}`;
+              return numberLabelFormatForReport(this.value, this);
             },
             style: {
               fontSize: '0.7rem'
@@ -160,7 +136,7 @@ export class BarChartComponent implements OnInit, OnChanges {
               crop: false,
               allowOverlap: true,
               formatter: function(this: any) {
-                return new Intl.NumberFormat('en-IN').format(this.y);
+                return formatNumberForReport(this.y);
               }
           },
           minPointLength: 0

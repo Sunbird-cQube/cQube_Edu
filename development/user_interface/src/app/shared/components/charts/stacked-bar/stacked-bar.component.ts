@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import * as Highcharts from 'highcharts/highstock';
 import * as HighchartsMore from 'highcharts/highcharts-more';
+import { formatNumberForReport } from 'src/app/utilities/NumberFomatter';
 
 const HighchartsMore2: any = HighchartsMore;
 HighchartsMore2(Highcharts);
@@ -131,7 +132,7 @@ export class StackedBarComponent implements OnInit, OnChanges {
             crop: false,
             allowOverlap: true,
             formatter: function (this: any) {
-              return new Intl.NumberFormat('en-IN').format(this.y);
+              return formatNumberForReport(this.y);
             },
           },
           minPointLength: 0,
