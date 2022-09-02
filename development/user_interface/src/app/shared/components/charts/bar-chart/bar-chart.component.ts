@@ -16,7 +16,7 @@ export class BarChartComponent implements OnInit, OnChanges {
   @Input() height: number | string = 'auto';
   @Input() title!: string;
   @Input() options: Highcharts.Options | undefined;
-  @Input() marginTop: any = 90;
+  @Input() marginTop: any = 100;
 
   @ViewChild('container') container: any;
   @HostListener('window:resize', ['$event'])
@@ -26,7 +26,7 @@ export class BarChartComponent implements OnInit, OnChanges {
   const elFontSize = window.getComputedStyle(document.documentElement).getPropertyValue('font-size');
   
   const localFontSize = localStorage.getItem('fontSize');
-  const currentFontSize = localFontSize ? localFontSize : elFontSize;
+  const currentFontSize = localFontSize ? localFontSize.replace("px","").trim() : elFontSize.replace("px","").trim();
   this.chart.update(
     {
       chart: {

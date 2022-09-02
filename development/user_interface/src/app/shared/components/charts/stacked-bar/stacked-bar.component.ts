@@ -31,7 +31,7 @@ export class StackedBarComponent implements OnInit, OnChanges {
       .getComputedStyle(document.documentElement)
       .getPropertyValue('font-size');
     const localFontSize = localStorage.getItem('fontSize');
-    const currentFontSize = localFontSize ? localFontSize : elFontSize;
+    const currentFontSize = localFontSize ? localFontSize.replace("px","").trim() : elFontSize.replace("px","").trim();
     this.chart.update({
       chart: {
         marginTop: Number(currentFontSize) + 80,
