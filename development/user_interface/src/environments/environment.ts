@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiURL: 'http://localhost:3000/api',
-  config: "state",
+  config: "national",
   stateCode: "HR",
   secretKey: 'VSK_EKSTEP',
   loginObj: {
@@ -13,6 +13,20 @@ export const environment = {
     imageURL:"back_image.jpg",
     tagLine: "Shared seeing for coordinated action towards achieving outcomes and goals",
     logoURL: "cQube_logo.jpg"
+  },
+  numberFormat: {
+    reports: {
+      locale: 'en-IN',
+      format: 'long'
+    },
+    keyMetrics: {
+      locale: 'en-IN',
+      format: 'long'
+    },
+    vanityMetrics: {
+      locale: 'en-IN',
+      format: 'long'
+    }
   }
 };
 
