@@ -31,6 +31,8 @@ import { FullScreenDirective } from './directives/full-screen.directive';
 import { CommonReportComponent } from './components/common-report/common-report.component';
 import { AreaChartComponent } from './components/charts/area-chart/area-chart.component';
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
+import { AccessLevelPanelComponent } from './components/access-level-panel/access-level-panel.component';
+import { HeatChartComponent } from './components/charts/heat-chart/heat-chart.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -71,7 +73,9 @@ const DECLARATIONS = [
 
 @NgModule({
   declarations: [
-    DECLARATIONS
+    DECLARATIONS,
+    AccessLevelPanelComponent,
+    HeatChartComponent
   ],
   imports: [
     CommonModule,

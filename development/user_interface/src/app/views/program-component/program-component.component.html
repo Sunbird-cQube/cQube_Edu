@@ -13,7 +13,7 @@
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
         <mat-tab *ngFor="let tab of tabNames; let last = last;" [label]="tab" class="tab-first">
-            <app-common-report [reportsDetails]="reportsData[tab]"></app-common-report>
+            <app-common-report [reportsDetails]="reportsData[tab]" ></app-common-report>
             <!-- <app-common-report [reportsDetails]="reportsData[tab]"></app-common-report> -->
             <!-- <div class="grid grid-cols-1" *ngIf="ncfProgressData">
                 <div class="col">

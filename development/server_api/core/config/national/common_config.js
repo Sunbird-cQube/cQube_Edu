@@ -218,7 +218,94 @@ const dataSourceInfo = [{
             "property": "State"
         }
     ]
-}]
+},
+{
+    "data_source": "PM Poshan",
+    "IMAGE URL": "ETB & E-Content.png",
+    "IMAGE URL": "ETB & E-Content.png",
+    "section_name": "Progress",
+    "section_description": "des",
+    "report_name": "PM_poshan_access",
+    "report_type": "map",
+    "description": "This dashboard provides insights on student performance at the question level.",
+    pathToFile: 'pm-poshan_access-across-india.json',
+    overallMetricsOption: false,
+    locations: [
+        {
+            name: "Location",
+            property: "State Name",
+            level: "state",
+            isState: true,
+            tooltip: {
+                name: "State/UT name"
+            }
+        },
+        {
+            name: "Location",
+            property: "District Name",
+            level: "district",
+            tooltip: {
+                name: "District Name"
+            }
+        }
+    ],
+    dimensions: [
+        {
+            name: "Total Enrolled",
+            property: "Enrolled In July",
+            tooltip: {
+                name: "Total Enrolled"
+            },
+            aggegration: {
+                type: "SUM"
+            },
+            includeAsMetricFilter: true,
+        },
+        {
+            name: "Total Schools",
+            property: "Total Schools",
+            tooltip: {
+                name: "Total Schools"
+            },
+            aggegration: {
+                type: "SUM"
+            },
+            includeAsMetricFilter: true,
+        },
+        {
+            name: "state_code",
+            property: "State Code"
+        }
+    ],
+    filters: [
+        {
+            name: 'State/UT',
+            column: 'State Name',
+            optionValueColumn: "State Code",
+            level: ["district"],
+            hierarchyLevel: 1
+        }
+    ],
+    levels: [
+        {
+            name: "State",
+            value: "state",
+            property: "State Name",
+            noStateFilter: true
+        },
+        {
+            name: "District",
+            value: "district",
+            property: "District Name"
+        }
+    ],
+    options: {
+        legend: {
+            title: 'PM Poshan Access'
+        }
+    }
+}
+]
 
 
 module.exports = dataSourceInfo;

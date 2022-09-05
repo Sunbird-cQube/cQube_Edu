@@ -276,7 +276,93 @@ exports.getMenuConfig = async (req, res, next) => {
 					"filters_columns": "Grade",
 					"filter_xyz": "pqr"
 				}]
-			}]
+			},
+			{
+				"data_source": "PM Poshan",
+				"IMAGE URL": "ETB & E-Content.png",
+				"IMAGE URL": "ETB & E-Content.png",
+				"section_name": "Progress",
+				"section_description": "des",
+				"report_name": "PM_poshan_access",
+				"report_type": "map",
+				"description": "This dashboard provides insights on student performance at the question level.",
+				pathToFile: 'pm-poshan_access-across-india.json',
+				overallMetricsOption: false,
+				locations: [
+					{
+						name: "Location",
+						property: "State Name",
+						level: "state",
+						isState: true,
+						tooltip: {
+							name: "State/UT name"
+						}
+					},
+					{
+						name: "Location",
+						property: "District Name",
+						level: "district",
+						tooltip: {
+							name: "District Name"
+						}
+					}
+				],
+				dimensions: [
+					{
+						name: "Total Enrolled",
+						property: "Enrolled In July",
+						tooltip: {
+							name: "Total Enrolled"
+						},
+						aggegration: {
+							type: "SUM"
+						},
+						includeAsMetricFilter: true,
+					},
+					{
+						name: "Total Schools",
+						property: "Total Schools",
+						tooltip: {
+							name: "Total Schools"
+						},
+						aggegration: {
+							type: "SUM"
+						},
+						includeAsMetricFilter: true,
+					},
+					{
+						name: "state_code",
+						property: "State Code"
+					}
+				],
+				filters: [
+					{
+						name: 'State/UT',
+						column: 'State Name',
+						optionValueColumn: "State Code",
+						level: ["district"]
+					}
+				],
+				levels: [
+					{
+						name: "State",
+						value: "state",
+						property: "State Name",
+						noStateFilter: true
+					},
+					{
+						name: "District",
+						value: "district",
+						property: "District Name"
+					}
+				],
+				options: {
+					legend: {
+						title: 'PM Poshan Access'
+					}
+				}
+			}
+		]
 
 			metricsRes = _.chain(data)
 				.groupBy("data_source")
@@ -338,6 +424,7 @@ exports.getSubCAtegoryData = async (req, res, next) => {
 							dataSourceName: obj['data_source'],
 							reportName: obj['report_name'],
     						reportType: obj['report_type'],
+							tabName: obj['section_name']
 						};
 						if(data[obj['section_name']]){
 							let t = data[obj['section_name']];

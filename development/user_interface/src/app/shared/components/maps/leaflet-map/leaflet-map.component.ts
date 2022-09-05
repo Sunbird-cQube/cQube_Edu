@@ -3,6 +3,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import * as L from "leaflet";
 import * as R from "leaflet-responsive-popup";
+import { StateCodes } from 'src/app/core/config/StateCodes';
 import { environment } from 'src/environments/environment';
 import * as config from '../../../../../assets/data/config.json';
 
@@ -163,8 +164,15 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       try {
         let body;
         if (environment.config === 'national') {
-          const response = await fetch(`${environment.apiURL}/assets/geo-locations/IN.json`);
-          body = await response.json();
+          if(mapData.levels.findIndex((level: any) =>  level.selected && level.value === 'district') !== -1 && mapData.filters.findIndex((filter:any) => filter.level[0] === 'district' && filter.value !== null) ==! -1){
+            let value = mapData.filters.find((filter: any) => filter.name === 'State/UT').value;
+            const response = await fetch(`${environment.apiURL}/assets/geo-locations/${StateCodes[value]}.json`);
+            body = await response.json();
+          }
+          else{
+            const response = await fetch(`${environment.apiURL}/assets/geo-locations/IN.json`);
+            body = await response.json();
+          }
         }
         else {
           const response = await fetch(`${environment.apiURL}/assets/geo-locations/${environment.stateCode}.json`);

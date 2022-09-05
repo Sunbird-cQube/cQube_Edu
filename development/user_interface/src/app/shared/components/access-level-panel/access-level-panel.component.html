@@ -1,0 +1,10 @@
+<div> 
+    <span class="h5">{{reportName}} for : </span> 
+    <span (click)="onClick(0)" class="hyper-link h5">
+        <span *ngIf="national">India</span>
+        <span *ngIf="!national"> {{stateName}} </span>
+    </span>
+    <span *ngFor="let link of links">
+        <b class="h4">  |  </b> <span class="hyper-link h5" (click)="onClick(link.hierarchyLevel)"> {{ link.link }}</span>
+    </span>
+</div>
