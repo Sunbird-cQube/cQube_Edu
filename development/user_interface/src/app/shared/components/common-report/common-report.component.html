@@ -3,20 +3,32 @@
         <div class="grid grid-cols-12" *ngIf="!isMapReportLoading; else loading">
             <div class="col-span-full">
                 <div class="grid grid-cols-12" appFullScreen>
-                    <div class="xs:col-span-full xmd:col-span-8">
+                    <div class="xs:col-span-full mx-2 my-4">
+                        <app-access-level-panel [reportName]="reportsDetails[0].tabName" [filters]="filters" (hyperlinkClicked)="hyperlinkClicked($event)"></app-access-level-panel>
+                    </div>
+                    <!-- <div class="xs:col-span-full xmd:col-span-8">
                         <app-level-n-metric-filter-panel [metricFilter]="metricFilter"
                             (selectMetricFilter)="onSelectMetricFilter($event)">
                         </app-level-n-metric-filter-panel>
+                    </div> -->
+                    <div class="grid grid-cols-12 xs:col-span-full">
+                        <div class="xs:col-span-full xmd:col-span-5">
+                            <app-level-n-metric-filter-panel [metricFilter]="metricFilter" [levels]="levels" (selectMetricFilter)="onSelectMetricFilter($event)" (selectLevel)="onSelectLevel($event)"></app-level-n-metric-filter-panel>
+                        </div>
+                        <div class="xs:col-span-full xmd:col-span-7">
+                            <app-filter-panel [filters]="filters" colSize="col-span-6 4k:col-span-3" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                        </div>
                     </div>
                     <div class="col-span-full">
                         <div *ngFor="let report of reportsDetails">
                             <div [ngSwitch]="report.reportType">
                                 <div *ngSwitchCase = "'map'">
                                     <div *ngIf="reportData[report.reportType]">
-                                        <app-leaflet-map [mapData]="reportData[report.reportType]"></app-leaflet-map>
+                                        <app-leaflet-map [mapData]="reportData[report.reportType]" [level]="level"></app-leaflet-map>
                                         <app-line-chart></app-line-chart>
                                         <app-pie-chart></app-pie-chart>
                                         <app-area-chart></app-area-chart>
+                                        <app-heat-chart></app-heat-chart>
                                     </div>
                                 </div>
                                 <div *ngSwitchCase="'bar'">
