@@ -1184,7 +1184,101 @@ def install_datasource(arg1,arg2,arg3,arg4,arg5):
     logging.info('Successfully Connection done between PORTS.')
 
     # disable processor based on data storage type.
+    data_storage_type = arg5
     data_storage_disable_processor(processor_group_name, data_storage_type)
+
+def install_trans_aggre_datasources(arg1,arg2,arg3,arg4):
+    """sys arguments: 1. data_source name (student_attendance_transformer)
+                      2. parameter context name (student_attendance_parameters)
+                      3. data_storage (cQube_data_storage)
+                      4. distributed server port (4557)
+                      5. storage type (local)
+                      6. dataset ()
+                      7. emission_method (emission)"""
+
+    # deploy_nifi main
+
+    nifi_root_pg_id = ''
+    processor_group = ''
+    header = {"Content-Type": "application/json"}
+
+    processor_group_name = arg1
+    parameter_context_name = arg2
+    logging.info("Uploading Template to Nifi......")
+    # 1.  Upload nifi template  # sys arg 1 - template name
+    template_upload_status = upload_nifi_template(processor_group_name)
+    if template_upload_status == True:
+        logging.info("Successfully uploaded the template.")
+    else:
+        print(template_upload_status)
+
+    # 2. Instantiate template
+    logging.info("Instatiating the template.")
+    instantiate_template(processor_group_name)
+
+    #  3. Create parameters
+    params = get_json_file(prop.NIFI_STATIC_PARAMETER_DIRECTORY_PATH + 'parameters_files_static_list.json')
+
+    # read the parameter file created by Ansible using configuration
+    logging.info("Reading dynamic parameters from file %s.json", parameter_context_name)
+    f = open(f'{prop.NIFI_PARAMETER_DIRECTORY_PATH}{parameter_context_name}.json', "rb")
+    parameter_body = json.loads(f.read())
+
+    # Load parameters from file to Nifi parameters
+    if (params.get(parameter_context_name)) and (parameter_context_name != 'cQube_data_storage_parameters'):
+        logging.info("Reading static parameters from file %s.txt", parameter_context_name)
+        parameter_body = update_nifi_params.nifi_params_config(parameter_context_name,
+                                                               f'{prop.NIFI_STATIC_PARAMETER_DIRECTORY_PATH}{params.get(parameter_context_name)}',
+                                                               parameter_body)
+    create_parameter(parameter_context_name, parameter_body)
+
+    # Load dynamic Jolt spec from db to Nifi parameters
+    dynamic_jolt_params_pg = ['composite_parameters',
+                              'infra_parameters', 'udise_parameters']
+    if sys.argv[2] in dynamic_jolt_params_pg:
+        logging.info("Creating dynamic jolt parameters")
+        update_jolt_params.update_nifi_jolt_params(parameter_context_name)
+
+    # 4. Link parameter context to processor group
+    logging.info("Linking parameter context with processor group")
+    link_parameter_with_processor_group(processor_group_name, parameter_context_name)
+
+    # 5. Create controller services
+    if int(arg4) != 0:
+        logging.info("Creating distributed server")
+        print(create_controller_service(processor_group_name, arg4))
+
+    # 6. Add sensitive value to controller services
+    logging.info("Adding sensitive properties in controller services")
+    controller_list_all = get_json_file(prop.NIFI_STATIC_PARAMETER_DIRECTORY_PATH + 'controller_list.json')
+
+    if controller_list_all.get(processor_group_name):
+        for controller in controller_list_all.get(processor_group_name):
+            print(update_controller_service_property(processor_group_name, controller))
+
+    # 7. Enable controller service
+    logging.info("Enabling Controller services")
+    controller_service_enable(processor_group_name)
+    logging.info("***Successfully Loaded template and enabled controller services***")
+
+    # Connect_nifi_processors:
+    # Main.
+    """[summary]
+    sys arguments = 1. cQube_raw_data_fetch processor name 2. transformer processor group name.
+    Ex: python connect_nifi_processors.py cQube_raw_data_fetch_static static_data_processor
+    """
+    header = {"Content-Type": "application/json"}
+    source_pg = arg3.strip()
+    destination_pg = arg1.strip()
+
+    logging.info('Connection between PORTS started...')
+    if 'composite_transformer' in destination_pg or 'progress_card_transformer' in destination_pg:
+        logging.info("Processor group=", destination_pg)
+    else:
+        res_1 = connect_output_input_port(source_pg, destination_pg)
+
+    res_2 = connect_output_input_port(destination_pg, source_pg)
+    logging.info('Successfully Connection done between PORTS.')
 
 def install_cqube_datastorage(arg1,arg2,arg3):
     """
@@ -1295,7 +1389,14 @@ def dummy_connections(arg1,arg2,arg3):
 if __name__ == "__main__":
     header = {"Content-Type": "application/json"}
     print("length=", len(sys.argv))
-    if len(sys.argv) <=5 :
+    if len(sys.argv) <= 4:
+        data_source_name = sys.argv[1]
+        parameter_context_name = sys.argv[2]
+        data_storage = sys.argv[3]
+        distributed_server_port = sys.argv[4]
+        install_trans_aggre_datasources(data_source_name,parameter_context_name,data_storage,distributed_server_port)
+
+    if len(sys.argv) >= 5 :
         data_source_name = sys.argv[1]
         parameter_context_name = sys.argv[2]
         data_storage = sys.argv[3]
