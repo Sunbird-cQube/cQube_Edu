@@ -11,7 +11,7 @@
           - datasource
           - workflow_createdb 
           - workflow_python_flask
-          - { role: workflow_kong, tags: install }
+          - workflow_keycloak
           - nifi_workflow_install
           - { role: nifi_params, tags: install }
            

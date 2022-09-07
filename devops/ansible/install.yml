@@ -12,7 +12,7 @@
           - { role: python, tags: install }
           - createdb
           - python_flask
-          - { role: kong, tags: install }
+          - keycloak
           - prometheus
           - { role: grafana, tags: install }
           - nifi_install
