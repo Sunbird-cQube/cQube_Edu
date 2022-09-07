@@ -26,15 +26,8 @@ exports.getReportData = (req, res, next) => {
 				reqBody.stateCode = reqBody.stateCode;
 			}
 			
-			// let dataSourceConfig = require(path.join(__basedir, `core/config/${reqBody.appName}/${reqBody.dataSourceName}_config.js`));
-			// let reportConfig = dataSourceConfig[reqBody.reportName][reqBody.reportType];
-			let dataSourceConfig = require(path.join(__basedir, `core/config/${reqBody.appName}/common_config.js`));
-			let reportConfig;
-			dataSourceConfig.forEach(report => {
-				if(reqBody.reportName === report.report_name && reqBody.reportType === report.report_type && reqBody.dataSourceName === report.data_source.toLowerCase()){
-					reportConfig = report;
-				}
-			});
+			let dataSourceConfig = require(path.join(__basedir, `core/config/${reqBody.appName}/${reqBody.dataSourceName}_config.js`));
+			let reportConfig = dataSourceConfig[reqBody.reportName][reqBody.reportType];
 			let dataSourcePath = reportConfig.pathToFile;
 
 			let rawData = await getFileData(dataSourcePath);
@@ -485,7 +478,9 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 					name: rec[transCol.property],
 					property: rec[transCol.property],
 					isHeatMapRequired: transCol.isHeatMapRequired,
-					color: transCol.color
+					color: transCol.color,
+					class: transCol.class,
+					sticky: transCol.sticky ? transCol.sticky : false
 				});
 				uniqueMap.set(rec[transCol.property], true)
 			}
@@ -600,8 +595,10 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 		
 			return rec;
 		});
+
 		if(transCol.colSortNeeded)
-				cols.sort((a,b) => compare(a.name, b.name));
+			cols.sort((a,b) => compare(a.name, b.name));
+		
 		columns = [...rows, ...cols];
 	} else if (isWeightedAverageNeeded) {
 		rawData = _.chain(rawData)
