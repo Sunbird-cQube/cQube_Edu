@@ -146,7 +146,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           return e > 75 ? "#1D4586" :
             e > 50 ? "#1156CC" :
               e > 25 ? "#6D9FEB" :
-                e > 0 ? "#C9DAF7" : "#fff";
+                e >= 0 ? "#C9DAF7" : "#fff";
         }
       }
     }
@@ -157,19 +157,19 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
 
 
-  async applyCountryBorder(mapData: any): Promise<any> {
+  async applyCountryBorder(mapData: any, singleColor?: any): Promise<any> {
     let reportTypeIndicator = this.mapData.options && this.mapData.options.tooltip && this.mapData.options.tooltip.reportTypeIndicator ? this.mapData.options.tooltip.reportTypeIndicator : (typeof this.mapData.data[0].indicator === 'string') ? 'boolean' : 'value'
     let parent = this;
     return new Promise(async (resolve, reject) => {
       try {
         let body;
         if (environment.config === 'national') {
-          if(mapData.levels.findIndex((level: any) =>  level.selected && level.value === 'district') !== -1 && mapData.filters.findIndex((filter:any) => filter.level[0] === 'district' && filter.value !== null) ==! -1){
+          if (mapData.levels.findIndex((level: any) => level.selected && level.value === 'district') !== -1 && mapData.filters.findIndex((filter: any) => filter.level[0] === 'district' && filter.value !== null) == ! -1) {
             let value = mapData.filters.find((filter: any) => filter.name === 'State/UT').value;
             const response = await fetch(`${environment.apiURL}/assets/geo-locations/${StateCodes[value]}.json`);
             body = await response.json();
           }
-          else{
+          else {
             const response = await fetch(`${environment.apiURL}/assets/geo-locations/IN.json`);
             body = await response.json();
           }
@@ -225,7 +225,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
               }
             }
           }
-          else{
+          else {
             values.push(min);
           }
           // let partSize = (range / 10 % 1 === 0) ? range / 10 : Number((range / 10).toFixed(2));
@@ -238,7 +238,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           if (typeof mapData?.data[0]?.indicator === 'string') {
             reportTypeBoolean = true;
           }
-
           mapData?.data.forEach((state: any) => {
             if (state.state_code == feature.properties.state_code && !state.district_code) {
               color = parent.getLayerColor(state.indicator ? (max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator) : -1);
@@ -247,9 +246,9 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
               color = parent.getLayerColor(state.indicator ? (max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator) : -1);
             }
           });
-
+          console.log(color, feature.properties.state_code)
           return {
-            fillColor: color,
+            fillColor: singleColor ? (color==='#fff' ? color : singleColor) : color,
             weight: 1,
             opacity: 1,
             color: 'grey',
@@ -287,7 +286,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           fontWeight: "bold"
         }).addTo(this.map);
         this.fitBoundsToCountryBorder();
-        if (this.level === 'state' || (environment.config === 'state' && this.level === 'district')) {
+        if ((this.level === 'state' || (environment.config === 'state' && this.level === 'district')) && !singleColor) {
           this.createLegend(reportTypeIndicator, this.mapData.options, values);
         }
         resolve('India map borders plotted successfully');
@@ -303,8 +302,8 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     });
   }
 
-  createMarkers(mapData: any): void {
-    let reportTypeIndicator = this.mapData.options && this.mapData.options.tooltip && this.mapData.options.tooltip.reportTypeIndicator ? this.mapData.options.tooltip.reportTypeIndicator : (typeof this.mapData.data[0].indicator === 'string') ? 'boolean' : 'value'
+  createMarkers(mapData: any, singleColor?: any): void {
+    let reportTypeIndicator = mapData.options && mapData.options.tooltip && mapData.options.tooltip.reportTypeIndicator ? mapData.options.tooltip.reportTypeIndicator : (typeof mapData.data[0].indicator === 'string') ? 'boolean' : 'value'
     if (mapData && this.level !== 'state') {
       let min!: number, max!: number, values: any[] = [];
       if (reportTypeIndicator === 'value' || reportTypeIndicator === 'percent') {
@@ -347,7 +346,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
             }
           }
         }
-        else{
+        else {
           values.push(min);
         }
       }
@@ -355,7 +354,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       mapData.data.forEach((data: any) => {
         let markerIcon = L.circleMarker([data.Latitude, data.Longitude], {
           color: "gray",
-          fillColor: this.getZoneColor(reportTypeIndicator, data.indicator >= 1 ? (max - min ? (data.indicator - min) / (max - min) * 100 : data.indicator) : -1),
+          fillColor: singleColor ? singleColor : this.getZoneColor(reportTypeIndicator, data.indicator >= 1 ? (max - min ? (data.indicator - min) / (max - min) * 100 : data.indicator) : -1),
           fillOpacity: 1,
           strokeWeight: 0.01,
           weight: 1
@@ -385,8 +384,8 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       });
 
       this.map.addLayer(this.markers);
-      if (this.level === 'district') {
-        this.createLegend(reportTypeIndicator, this.mapData.options, values);
+      if (this.level === 'district' && !singleColor) {
+        this.createLegend(reportTypeIndicator, mapData.options, values);
       }
     }
   }
@@ -398,10 +397,11 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
     legend.onAdd = function (map: any) {
       let div = L.DomUtil.create('div', 'info legend');
+      let clickable = false;
       if (mapOptions.legend && mapOptions.legend.title) {
         labels.push(`<strong>${mapOptions.selectedMetric ? mapOptions.selectedMetric : mapOptions.legend.title}:</strong>`)
       }
-      if(values.length <= 1 && reportTypeIndicator !== 'boolean'){
+      if (values.length <= 1 && reportTypeIndicator !== 'boolean') {
         labels.push(`<i class="fa fa-square" style="color:${ref.getLayerColor(values[0], true)}"></i> ${values[0]}`);
       }
       else if (reportTypeIndicator === 'boolean') {
@@ -411,15 +411,21 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         }
       } else {
         values = values && values.length > 0 ? values : [100, 75, 50, 25, 0];
-        for (let i = values.length; i > 1; i--) {
-          labels.push(
-            `<i class="fa  fa-square" style="color: ${ref.getLayerColor(25 * (i - 1), true)}"></i> 
-              <span>${values[values.length - i + 1] ? values[values.length - i + 1] : 0} &dash; ${values[values.length - i]}${reportTypeIndicator === 'percent' ? '%' : ''}</span>`
-          );
-        }
+        div.innerHTML = labels[0] + '</br>';
+          for (let i = values.length; i > 1; i--) {
+            let span = L.DomUtil.create('span', 'clickable-range');
+            span.innerHTML = `<i class="fa  fa-square" style="color: ${ref.getLayerColor(25 * (i - 1), true)}"></i>
+            <button class="legend-range" style="border:2px solid  ${ref.getLayerColor(25 * (i - 1), true)};" > ${values[values.length - i + 1] ? values[values.length - i + 1] : 0} &dash; ${values[values.length - i]}${reportTypeIndicator === 'percent' ? '%' : ''}</button></br>`
+            L.DomEvent.addListener(span, 'click', () => {
+              ref.applyRange(Number(values[values.length - i + 1] ? values[values.length - i + 1] : 0), Number(values[values.length - i]), Number(values[values.length - 1]), ref.getLayerColor(25 * (i - 1), true))
+            })
+            div.appendChild(span)
+            clickable = true;
+          }
       }
-
-      div.innerHTML = labels.join('<br>');
+      if (!clickable) {
+        div.innerHTML = labels.join('<br>');
+      }
       return div;
     };
     legend.addTo(this.map);
@@ -440,4 +446,23 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
             value >= 0 ? "#C9DAF7" : "#fff";
     }
   }
+
+  applyRange(min: any, max: any, baseValue: any, rangeColour: any): void {
+    let temp = this.mapData.data.filter((obj: any) => {
+      return obj.indicator <= max && (min === baseValue ? obj.indicator >= min : obj.indicator > min)
+    })
+    let filteredData = {
+      ...this.mapData,
+      data: temp
+    }
+    if (environment.config === 'national' && this.level === 'district') {
+      this.markers.clearLayers();
+      this.createMarkers(filteredData, rangeColour);
+    }
+    else{
+      console.log(filteredData)
+      this.applyCountryBorder(filteredData, rangeColour);
+    }
+  }
 }
+
