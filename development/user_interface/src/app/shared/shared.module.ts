@@ -33,6 +33,7 @@ import { AreaChartComponent } from './components/charts/area-chart/area-chart.co
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
 import { AccessLevelPanelComponent } from './components/access-level-panel/access-level-panel.component';
 import { HeatChartComponent } from './components/charts/heat-chart/heat-chart.component';
+import { DownloadButtonComponent } from './components/buttons/download-button/download-button.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -68,14 +69,16 @@ const DECLARATIONS = [
   FullScreenDirective,
   CommonReportComponent,
   AreaChartComponent,
-  LineChartComponent   
+  LineChartComponent,
+  DownloadButtonComponent,
+  AccessLevelPanelComponent,
+  HeatChartComponent
 ];
 
 @NgModule({
   declarations: [
     DECLARATIONS,
-    AccessLevelPanelComponent,
-    HeatChartComponent
+
   ],
   imports: [
     CommonModule,
