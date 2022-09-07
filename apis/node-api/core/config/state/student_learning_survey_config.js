@@ -88,15 +88,18 @@ const dataSourceInfo = {
                     property: "Learning Outcome Code",
                     tooltip: {
                         property: "Learning Outcome"
-                    }
+                    },
+                    sticky: true
                 },
                 {
                     name: "Grade",
-                    property: "Grade"
+                    property: "Grade",
+                    sticky: true
                 },
                 {
                     name: "Subject",
-                    property: "Subject"
+                    property: "Subject",
+                    sticky: true
                 },
                 {
                     name: "District",
