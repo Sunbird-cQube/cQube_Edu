@@ -10,7 +10,7 @@
   roles:
           - { role: java, tags: install }
           - { role: python, tags: install }
-          - createdb
+          - postgres
           - python_flask
           - keycloak
           - prometheus

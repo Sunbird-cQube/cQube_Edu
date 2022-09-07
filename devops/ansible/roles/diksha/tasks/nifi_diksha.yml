@@ -1,17 +1,13 @@
 - name: Run diksha python code
-  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/deploy_nifi.py diksha_transformer diksha_parameters 4662"
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utililty.py diksha_transformer diksha_parameters cQube_data_storage 4662 {{ storage_type }}"
   tags: [ install, update ]
-
-- name: Connection of diksha to cqube data storage
-  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/connect_nifi_processors.py cQube_data_storage diksha_transformer"  
-  tags: [ install, update ]
-
-- name: run python code to disable the processors
-  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_disable_processor.py diksha_transformer {{ storage_type }}"
-  tags: [ install, update ]  
 
 - name: Enable diksha ETB API
-  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_disable_processor.py diksha_transformer {{ storage_type }} ETB API" 
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utililty.py diksha_transformer diksha_parameterscQube_data_storage 4557 {{ storage_type }} ETB API" 
+  tags: [ install, update ]
+
+- name: Enable diksha TPD API
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utililty.py diksha_transformer diksha_parameterscQube_data_storage 4557 {{ storage_type }} TPD API" 
   tags: [ install, update ]
 
 - name: Enable diksha TPD API
@@ -19,9 +15,5 @@
   tags: [ install, update ]
 
 - name: Run diksha custom python code
-  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/deploy_nifi.py diksha_transformer_custom diksha_parameters 0"
-  tags: [ install, update ]
-
-- name: Connection of diksha custom to cqube data storage
-  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/connect_nifi_processors.py cQube_data_storage diksha_transformer_custom"  
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/deploy_nifi.py diksha_transformer_custom diksha_parameters cQube_data_storage 0"
   tags: [ install, update ]

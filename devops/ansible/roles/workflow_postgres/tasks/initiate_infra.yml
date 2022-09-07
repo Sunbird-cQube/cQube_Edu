@@ -8,7 +8,7 @@
 
 - name: copy required files to /tmp/postgres
   copy:
-    src: "../../development/datasource/static/postgres/{{ item }}"
+    src: "../../processing/datasource/static/postgres/{{ item }}"
     dest: /tmp/postgres
     owner: postgres
     mode: "0644"
@@ -20,7 +20,7 @@
 
 - name: copy required files to /tmp/postgres
   copy:
-    src: "../../development/datasource/diksha/postgres/{{ item }}"
+    src: "../../processing/datasource/diksha/postgres/{{ item }}"
     dest: /tmp/postgres
     owner: postgres
     mode: "0644"
