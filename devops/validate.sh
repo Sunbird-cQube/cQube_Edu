@@ -16,6 +16,32 @@ if [[ ! "$2" = /* ]] || [[ ! -d $2 ]]; then
 fi
 }
 
+check_kc_config_otp(){
+if ! [[ $2 == "true" || $2 == "false" ]]; then
+    echo "Error - Please enter either true or false for $1"; fail=1
+fi
+}
+check_postgres(){
+echo "Checking for Postgres ..."
+temp=$(psql -V > /dev/null 2>&1; echo $?)
+
+if [ $temp == 0 ]; then
+    version=`psql -V | head -n1 | cut -d" " -f3`
+    if [[ $(echo "$version >= 10.12" | bc) == 1 ]]
+    then
+        echo "WARNING: Postgres found."
+        echo "Removing Postgres..."
+        sudo systemctl stop kong.service > /dev/null 2>&1
+        sleep 5
+        sudo systemctl stop keycloak.service > /dev/null 2>&1
+        sleep 5
+        sudo systemctl stop postgresql
+        sudo apt-get --purge remove postgresql* -y
+        echo "Done"
+     fi
+fi
+}
+
 check_mem(){
 mem_total_kb=`grep MemTotal /proc/meminfo | awk '{print $2}'`
 mem_total=$(($mem_total_kb/1024))
@@ -69,7 +95,95 @@ check_sys_user(){
         echo "Error - Please check the system_user_name."; fail=1
     fi
 }
+check_ip()
+{
+    local ip=$2
+    ip_stat=1
+    ip_pass=0
+if [[ $mode_of_installation == "localhost" ]]; then
+    if [[ ! $2 == "localhost" ]]; then
+        echo "Error - Please provide local ipv4 as localhost for localhost installation"; fail=1
+    fi
+fi
+if [[ $mode_of_installation == "public" ]]; then
+    if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+        OIFS=$IFS
+        IFS='.'
+        ip=($ip)
+        IFS=$OIFS
+        [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
+            && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+        ip_stat=$?
+        if [[ ! $ip_stat == 0 ]]; then
+            echo "Error - Invalid value for $key"; fail=1
+            ip_pass=0
+        fi
+        is_local_ip=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'` > /dev/null 2>&1
+        if [[ $ip_pass == 0 && $is_local_ip != *$2* ]]; then
+            echo "Error - Invalid value for $key. Please enter the local ip of this system."; fail=1
+        fi
+    else
+        echo "Error - Invalid value for $key"; fail=1
+   fi
+fi
+}
 
+check_proxy_ip()
+{
+    local ip=$2
+    ip_stat=1
+    ip_pass=0
+if [[ $mode_of_installation == "localhost" ]]; then
+    if [[ ! $2 == "127.0.0.1" ]]; then
+        echo "Error - Please provide proxy host ip as 127.0.0.1 for localhost installation"; fail=1
+    fi
+fi
+ if [[ $mode_of_installation == "public" ]]; then
+    if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+        OIFS=$IFS
+        IFS='.'
+        ip=($ip)
+        IFS=$OIFS
+        [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
+            && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+        ip_stat=$?
+        if [[ ! $ip_stat == 0 ]]; then
+            echo "Error - Invalid value for $key"; fail=1
+            ip_pass=0
+        fi
+    else
+        echo "Error - Invalid value for $key"; fail=1
+    fi
+ fi
+}
+check_vpn_ip()
+{
+    local ip=$2
+    ip_stat=1
+    ip_pass=0
+if [[ $mode_of_installation == "localhost" ]]; then
+    if [[ ! $2 == "127.0.0.1" ]]; then
+        echo "Error - Please provide local vpn ip as 127.0.0.1 for localhost installation"; fail=1
+    fi
+fi
+ if [[ $mode_of_installation == "public" ]]; then
+    if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+        OIFS=$IFS
+        IFS='.'
+        ip=($ip)
+        IFS=$OIFS
+        [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
+            && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+        ip_stat=$?
+        if [[ ! $ip_stat == 0 ]]; then
+            echo "Error - Invalid value for $key"; fail=1
+            ip_pass=0
+        fi
+    else
+        echo "Error - Invalid value for $key"; fail=1
+    fi
+ fi
+}
 check_access_type(){
 if ! [[ $2 == "national" || $2 == "state" || $2 == "cqube1" ]]; then
     echo "Error - Please enter either NVSK or VSK or cqube1 for $1"; fail=1
@@ -97,51 +211,38 @@ fi
 }
 
 check_storage_type(){
-if ! [[ $2 == "s3" || $2 == "azure" || $2 == "local" ]]; then
-     echo "Error - Please enter either s3 or azure or local for $1"; fail=1
+if [[ $mode_of_installation == "localhost" ]]; then
+    if [[ ! $2 == "local" ]]; then
+        echo "Error - Please provide storage type as local for localhost installation"; fail=1
+    fi
+fi
+if [[ $mode_of_installation == "public" ]]; then
+    if ! [[ $2 == "s3" || $2 == "local" || $2 == "azure" ]]; then
+        echo "Error - Please enter either s3 or local or azure for $1"; fail=1
+    fi
 fi
 }
-
-check_ip()
-{
-local ip=$2
-ip_stat=1
-ip_pass=0
-if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-   OIFS=$IFS
-   IFS='.'
-   ip=($ip)
-   IFS=$OIFS
-   [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
-       && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
-   ip_stat=$?
-   if [[ ! $ip_stat == 0 ]]; then
-      echo "Error - Invalid value for $key"; fail=1
-      ip_pass=0
-   fi
-   is_local_ip=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'` > /dev/null 2>&1
-   if [[ $ip_pass == 0 && $is_local_ip != *$2* ]]; then
-      echo "Error - Invalid value for $key. Please enter the local ip of this system."; fail=1
-   fi
- else
-    echo "Error - Invalid value for $key"; fail=1
+check_mode_of_installation(){
+if ! [[ $2 == "localhost" || $2 == "public" ]]; then
+    echo "Error - Please enter either localhost or public for $1"; fail=1
 fi
 }
 
 check_api_endpoint(){
-if [[ (( $2 =~ \-{2,} ))  ||  (( $2 =~ \.{2,} )) ]]; then
-     echo "Error - Please provide the proper api endpoint for $1"; fail=1
-else
-   if [[ $2 =~ ^[^-.@_][a-z0-9i.-]{2,}\.[a-z/]{2,}$ ]]; then
-       if ! [[ ${#2} -le 255 ]]; then
-       echo "Error - FQDN exceeding 255 characters. Please provide the proper api endpoint for $1"; fail=1
-       fi
-   else
-       echo "Error - Please provide the proper api endpoint for $1"; fail=1
-   fi
+if [[ $mode_of_installation == "public" ]]; then
+    if [[ (( $2 =~ \-{2,} ))  ||  (( $2 =~ \.{2,} )) ]]; then
+        echo "Error - Please provide the proper api endpoint for $1"; fail=1
+    else
+        if [[ $2 =~ ^[^-.@_][a-z0-9i.-]{2,}\.[a-z/]{2,}$ ]]; then
+            if ! [[ ${#2} -le 255 ]]; then
+            echo "Error - FQDN exceeding 255 characters. Please provide the proper api endpoint for $1"; fail=1
+            fi
+        else
+            echo "Error - Please provide the proper api endpoint for $1"; fail=1
+        fi
+    fi
 fi
 }
-
 check_db_naming(){
 check_length $2
 if [[ $? == 0 ]]; then
@@ -165,22 +266,6 @@ check_db_password(){
     fi
 }
 
-check_postgres(){
-echo "Checking for Postgres ..."
-temp=$(psql -V > /dev/null 2>&1; echo $?)
-
-if [ $temp == 0 ]; then
-    version=`psql -V | head -n1 | cut -d" " -f3`
-    if [[ $(echo "$version >= 10.12" | bc) == 1 ]]
-    then
-        echo "WARNING: Postgres found."
-        echo "Removing Postgres..."
-        sudo systemctl stop postgresql
-        sudo apt-get --purge remove postgresql* -y
-        echo "Done"
-     fi
-fi
-}
 
 check_static_datasource(){
 if ! [[ $2 == "udise" || $2 == "state" ]]; then
@@ -191,7 +276,7 @@ else
         current_datasource=$(cut -d "=" -f2 <<< "$static_datasource")
         if [[ ! $current_datasource == "" ]]; then
             if [[ ! $current_datasource == $2 ]]; then
-                sed -i '/datasource_status/c\datasource_status: unmatched' ../ansible/roles/createdb/vars/main.yml
+                sed -i '/datasource_status/c\datasource_status: unmatched' ../ansible/roles/workflow_postgres/vars/main.yml
                 echo "static_datasource value from config.yml is not matching with previous installation value. If continued with this option, it will truncate the tables from db and clear the objects from output bucket."
                 while true; do
                     read -p "yes to continue, no to cancel the installation (yes/no)? : " yn
@@ -203,10 +288,10 @@ else
                     esac
                 done
             else
-                sed -i '/datasource_status/c\datasource_status: matched' ../ansible/roles/createdb/vars/main.yml
+                sed -i '/datasource_status/c\datasource_status: matched' ../ansible/roles/workflow_postgres/vars/main.yml
              fi
         else
-            sed -i '/datasource_status/c\datasource_status: matched' ../ansible/roles/createdb/vars/main.yml
+            sed -i '/datasource_status/c\datasource_status: matched' ../ansible/roles/workflow_postgres/vars/main.yml
         fi
     fi
 fi
@@ -300,7 +385,8 @@ echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 
 
 # An array of mandatory values
-declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "storage_type" "mode_of_installation" "api_endpoint" "local_ipv4_address" "db_user" "db_name" "db_password" "diksha_columns" "static_datasource" "management" "map_name" "theme" "google_api_key" "slab1" "slab2" "slab3" "slab4" "auth_api" )
+declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "storage_type" "mode_of_installation" "api_endpoint" "local_ipv4_address" "vpn_local_ipv4_address" "proxy_host" "db_user" "db_name" "db_password" "keycloak_adm_passwd" "keycloak_adm_user" \
+        "report_viewer_config_otp" "diksha_columns" "static_datasource" "management" "map_name" "theme" "google_api_key" "slab1" "slab2" "slab3" "slab4" "auth_api" )
 
 declare -A vals
 
@@ -355,6 +441,20 @@ case $key in
           check_ip $key $value
        fi
        ;;
+   vpn_local_ipv4_address)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_vpn_ip $key $value
+       fi
+       ;;	   
+   proxy_host)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+         check_proxy_ip $key $value
+       fi
+       ;;	   
    state_code)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -369,6 +469,13 @@ case $key in
           check_storage_type $key $value
        fi
        ;;
+   mode_of_installation)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_mode_of_installation $key $value
+       fi
+       ;;	   
    api_endpoint)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -384,6 +491,13 @@ case $key in
           check_db_naming $key $value
        fi
        ;;
+   read_only_db_user)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_db_naming $key $value
+       fi
+       ;;	   
    db_name)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -398,6 +512,34 @@ case $key in
           check_db_password $key $value
        fi
        ;;
+   read_only_db_password)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_db_password $key $value
+       fi
+       ;;	   
+   keycloak_adm_user)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_db_naming $key $value
+       fi
+       ;;
+   keycloak_adm_passwd)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_db_password $key $value
+       fi
+       ;;
+   report_viewer_config_otp)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_kc_config_otp $key $value
+       fi
+       ;;	   
    diksha_columns)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
