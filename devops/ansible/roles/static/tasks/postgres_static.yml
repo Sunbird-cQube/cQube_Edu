@@ -14,4 +14,3 @@
     db: "{{ db_name }}"
     path_to_script: /tmp/postgres/static_queries.sql
   tags: [ install, update ]
-  
