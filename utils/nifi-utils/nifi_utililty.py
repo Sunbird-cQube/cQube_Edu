@@ -1442,6 +1442,10 @@ if __name__ == "__main__":
     header = {"Content-Type": "application/json"}
     print("length=", len(sys.argv))
     n = len(sys.argv)
+    if len(sys.argv) == 2:
+        processor_group_name = sys.argv[1]
+        # create dummy connection for un selection data source
+        dummy_connection_creator(processor_group_name)
     if len(sys.argv) == 5:
         if sys.argv[4] == 'API' or sys.argv[4] == 'EMISSION':
             data_source_name = sys.argv[1]
