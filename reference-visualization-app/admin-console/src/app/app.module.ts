@@ -27,9 +27,9 @@ import { DataReplayComponent } from './components/data-replay/data-replay.compon
 import { MultiSelectComponent } from './components/data-replay/multi-select/multi-select.component';
 import { DikshaConfigComponent } from './components/diksha-config/diksha-config.component';
 import { CookieService } from 'ngx-cookie-service';
-export function kcFactory(kcSecurity: KeycloakSecurityService) {
-  return () => kcSecurity.init();
-}
+// export function kcFactory(kcSecurity: KeycloakSecurityService) {
+//   return () => kcSecurity.init();
+// }
 
 
 @NgModule({
@@ -64,17 +64,7 @@ export function kcFactory(kcSecurity: KeycloakSecurityService) {
     DatepickerModule.forRoot()
   ],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      deps: [KeycloakSecurityService],
-      useFactory: kcFactory,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
+
     CookieService
   ],
   bootstrap: [AppComponent]

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { LayoutComponent } from './core/components/layout/layout.component';
+import { HomePageComponent } from './views/home-page/home-page.component';
 
 var routes: Routes = [];
 
@@ -11,6 +12,12 @@ if (environment.config == 'national') {
     //   path: '',
     //   loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
     // },
+    {
+      path: '', redirectTo: `home`, pathMatch: 'full'
+    },
+    {
+      path: 'home', component: HomePageComponent
+    },
     {
       path: '',
       component: LayoutComponent,

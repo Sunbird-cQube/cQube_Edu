@@ -14,10 +14,10 @@ export class AppService {
 
     constructor(public http: HttpClient, public keyCloakService: KeycloakSecurityService, public router: Router
     ) {
-        if (environment.auth_api === 'cqube') {
-            this.token = keyCloakService.kc.token;
-            localStorage.setItem('token', this.token);
-        }
+        // if (environment.auth_api === 'cqube') {
+        //     this.token = keyCloakService.kc.token;
+        //     localStorage.setItem('token', this.token);
+        // }
 
     }
 
@@ -29,25 +29,25 @@ export class AppService {
 
 
     logoutOnTokenExpire() {
-        if (environment.auth_api === 'cqube') {
-            if (this.keyCloakService.kc.isTokenExpired() == true) {
+        // if (environment.auth_api === 'cqube') {
+        //     if (this.keyCloakService.kc.isTokenExpired() == true) {
 
-                let options = {
-                    redirectUri: environment.appUrl
-                }
-                this.keyCloakService.kc.logout(options);
-            }
-        } else {
+        //         let options = {
+        //             redirectUri: environment.appUrl
+        //         }
+        //         this.keyCloakService.kc.logout(options);
+        //     }
+        // } else {
 
-            if (this.tokenExpired(localStorage.getItem('token'))) {
-                localStorage.removeItem("management");
-                localStorage.removeItem("category");
-                sessionStorage.clear();
-                localStorage.removeItem('roleName')
-                localStorage.removeItem('token')
+        // if (this.tokenExpired(localStorage.getItem('token'))) {
+        //     localStorage.removeItem("management");
+        //     localStorage.removeItem("category");
+        //     sessionStorage.clear();
+        //     localStorage.removeItem('roleName')
+        //     localStorage.removeItem('token')
 
-            }
-        }
+        // }
+        // }
 
     }
 
