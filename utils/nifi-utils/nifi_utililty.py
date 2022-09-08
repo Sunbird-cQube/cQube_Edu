@@ -1389,7 +1389,7 @@ def dummy_connections(arg1,arg2,arg3):
 if __name__ == "__main__":
     header = {"Content-Type": "application/json"}
     print("length=", len(sys.argv))
-    if len(sys.argv) <= 4:
+    if len(sys.argv) <= 4 and sys.argv[1] != 'cQube_data_storage':
         data_source_name = sys.argv[1]
         parameter_context_name = sys.argv[2]
         data_storage = sys.argv[3]
@@ -1412,10 +1412,10 @@ if __name__ == "__main__":
             install_datasource(data_source_name, parameter_context_name, parameter_context_name, distributed_server_port,
                                storage_type)
 
-    if sys.argv[6] == 'cQube_data_storage':
-        cQube_data_storage = sys.argv[6]
-        cQube_data_storage_parameters = sys.argv[7]
-        distributed_server_port_data = sys.argv[8]
+    if sys.argv[2] == 'cQube_data_storage_parameters':
+        cQube_data_storage = sys.argv[1]
+        cQube_data_storage_parameters = sys.argv[2]
+        distributed_server_port_data = sys.argv[3]
         install_cqube_datastorage(cQube_data_storage,cQube_data_storage_parameters,distributed_server_port_data)
     if sys.argv[1] == 'cQube_data_storage':
         cQube_data_storage_processor_name = sys.argv[1]
