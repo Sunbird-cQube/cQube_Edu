@@ -1,0 +1,18 @@
+.active:focus{
+    background-color: rgb(7 89 133);
+    color: white;
+    box-shadow: none;
+}
+
+.active:focus{
+    box-shadow: none;
+}
+.activeLink {
+    background-color: var(--cQ-theme-bg-shade);
+    border-radius: 2rem;
+}
+.menuIcon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}

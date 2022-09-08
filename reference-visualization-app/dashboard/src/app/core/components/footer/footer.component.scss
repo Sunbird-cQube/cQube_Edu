@@ -1,0 +1,35 @@
+@import './../../../../assets/styles/variables';
+.app-footer-bar{
+    background-color:rgba(19,36,93,255);
+    min-height: 7rem;
+    // min-height: 100%;
+}
+
+img {
+    align-self: center;
+    padding-top: 12px;
+    height: 43px;
+    width: 192px;
+}
+.footer{
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    width: calc(100vw - #{$app-side-nav-width} - 60px);
+}
+@media (max-width: 768px){
+    .data{
+        position: relative;
+        text-align: center;
+    }
+    .copyright{
+        text-align: center;
+    }
+}
+@media (max-width: 992px){
+    .footer{
+        width: 95%;
+    }
+}

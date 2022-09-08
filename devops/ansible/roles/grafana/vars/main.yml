@@ -1,0 +1,5 @@
+---
+grafana_dependencies:
+  - apt-transport-https
+  - software-properties-common
+  - wget

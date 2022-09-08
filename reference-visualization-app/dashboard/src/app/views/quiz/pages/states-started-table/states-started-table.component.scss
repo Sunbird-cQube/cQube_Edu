@@ -1,0 +1,8 @@
+::ng-deep{
+    .quizTable .mat-table{
+        min-width: stretch;
+    }
+    .mat-sort-header-container{
+        justify-content: center !important;
+    }
+}

@@ -1,0 +1,35 @@
+---
+- name: Installing cQube NVSK
+  hosts: localhost
+  gather_facts: true
+  remote_user: root
+  vars_files:
+    - ../config.yml
+
+  roles:
+
+          - datasource
+          - workflow_postgres 
+          - workflow_python_flask
+          - workflow_keycloak
+          - nifi_workflow_install
+          - { role: nifi_params, tags: install }
+           
+          - role: cqube_data
+            tags: install
+  
+          - role: static
+            tags: install 
+          
+          - role: diksha
+            tags: install
+            when: diksha    
+
+          - role: validate
+            tags: install
+
+          - role: configurable
+            tags: install
+
+          - role: transaction_and_aggregation
+            tags: install

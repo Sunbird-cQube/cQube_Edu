@@ -1,0 +1,7 @@
+<ng-container *ngIf="buttons && national">
+    <div class="button-group-container">
+        <ng-container *ngFor="let button of buttons; let i = index">
+            <button mat-flat-button [color]="button.selected ? 'primary' : 'basic'" id="button-{{i}}" name="button-{{i}}" (click)="onSelect(buttons, i)">{{button.name}}</button>
+        </ng-container>
+    </div>
+</ng-container>

@@ -1,0 +1,41 @@
+$light-grey: #eee;
+
+::ng-deep {
+    .mat-table {
+        border: 1px solid rgba(0,0,0,.12);
+    }
+
+    tr.mat-row, tr.mat-footer-row {
+        height: 40px !important;
+    }
+
+    tr.mat-header-row {
+        background-color: $light-grey;
+    }
+
+    th.mat-header-cell.heat-chart-column {
+        min-width: 100px;
+    }
+
+    th.mat-header-cell, td.mat-cell {
+        padding: 0 5px !important;
+    }
+
+    .tooltip-inner {
+        font-size: 0.7rem;
+        width: 200px;
+    }
+    .mat-table{
+        min-width: stretch;
+    }
+    .mat-sort-header-container{
+        justify-content: center !important;
+    }
+    // th.mat-header-cell, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+    //     z-index: 102 !important;
+    // }
+    td.mat-cell:hover{
+        z-index: 9999 !important;
+    }
+    
+ }

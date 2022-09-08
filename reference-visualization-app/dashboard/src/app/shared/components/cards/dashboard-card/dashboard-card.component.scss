@@ -1,0 +1,82 @@
+$sky-blue-800: rgb(7, 89, 133);
+$white: #fff;
+
+.dashboard-card {
+    cursor: pointer;
+    max-width: 350px;
+    box-shadow: 0 0 3px #aaa;
+    background: $white;
+    padding: 0 !important;
+
+    .fa-info-circle{
+        color: #004e9d;
+        cursor: pointer;
+        margin: 10px;
+        font-size: 1.5rem;
+    }
+
+    .dashboard-card-header {
+        .card-title{
+            color: #67bbe1;
+        }
+        margin: 16px;
+
+        img{
+            min-height: 64px;
+            margin-bottom: 10px;
+        }
+        .mg-0 {
+            margin: auto;
+        }
+    }
+
+    .dashboard-card-body {
+        padding-top: 25px !important;
+        padding: 16px;
+        min-height: 80px;
+
+        .metrics-wrapper {
+            display: flex;
+            justify-content: space-around;
+        }
+        .metrics-wrapper p{
+            // max-width: calc(#{$app}/2);
+        }
+        .metrics-wrapper .metric-value{
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .metrics-wrapper .metric-name{
+            font-size: 16px;
+        }
+        .metrics-wrapper-height {
+            display: flex;
+            justify-content: space-around;
+            max-height: 45px;
+        }
+
+        .text-wrapper {
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+        }
+        .text-wrapper-zoomin {
+            // white-space: nowrap;
+            overflow: hidden;
+            // text-overflow: ellipsis;
+            line-height: 1.2;
+        }
+    }
+
+    .dashboard-card-footer {
+        margin: 16px;
+        color: $white;
+        display: flex;
+        justify-content: space-between;
+        background-color: $sky-blue-800;
+
+        .pointer-icon {
+            height: 25px;
+        }
+    }
+}

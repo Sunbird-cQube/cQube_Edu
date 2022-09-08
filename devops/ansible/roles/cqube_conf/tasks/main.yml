@@ -1,0 +1,16 @@
+---
+- name: Creating config file
+  file:
+    path: "{{ base_dir }}/cqube/.config"
+    state: touch
+    mode: u+rw,g+rw,o+rw
+  tags: install
+     
+- name: Loading required data inside config file
+  blockinfile:
+        path: "{{ base_dir }}/cqube/.config"
+        block: |
+               CQUBE_HOME={{ base_dir }}/cqube
+               CQUBE_BASE_DIR={{ base_dir }}
+               CQUBE_API_ENDPOINT={{ api_endpoint }}
+  tags: install

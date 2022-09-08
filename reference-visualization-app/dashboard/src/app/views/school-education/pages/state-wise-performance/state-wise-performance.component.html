@@ -1,0 +1,25 @@
+<div class="col-span-full">
+    <div class="col" *ngIf="isMapReportLoading">
+        <p class="mt-8">Loading...</p>
+    </div>
+    <div class="grid grid-cols-12">
+        <div class="col-span-full" appFullScreen>
+            <div class="grid grid-cols-12">
+                <div class="xs:col-span-full xmd:col-span-6 4k:col-span-4">
+                    <app-level-n-metric-filter-panel [metricFilter]="metricFilter" (selectMetricFilter)="onSelectMetricFilter($event)"></app-level-n-metric-filter-panel>
+                </div>
+                <div class="xs:col-span-full xmd:col-span-6">
+                    <app-filter-panel [filters]="filters" colSize="col-span-8 4k:col-span-4" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                </div>
+            </div>
+            <div class="grid grid-cols-12">
+                <div class="xs:col-span-full" *ngIf="metricFilter">
+                    <app-leaflet-map [mapData]="pgiStateData" [level]="level"></app-leaflet-map>
+                </div>
+                <!-- <div class="xs:col-span-full xmd:col-span-4">
+                    <app-gauge-chart [options]="options"></app-gauge-chart>
+                </div> -->
+            </div>
+        </div>
+    </div>                    
+</div>
