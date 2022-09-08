@@ -1,12 +1,14 @@
-import requests as rq, json, sys, logging, shutil, os, zipfile, csv, boto3, psycopg2, time, ast,pandas
+import requests as rq, json, sys, logging, shutil, os, zipfile, csv, boto3, psycopg2, time, ast, pandas
 import properties_nifi_deploy as prop
 from env import *
 from nifi_env_db import db_name, db_pwd, db_user, nifi_port
 # from views import *
 from config import *
+
 # from views import app as application
 
 logging.basicConfig(level=logging.DEBUG)
+
 
 # Get nifi root processor group ID
 def get_nifi_root_pg():
@@ -19,6 +21,7 @@ def get_nifi_root_pg():
         return res.json()['component']['id']
     else:
         return res.text
+
 
 # Upload template to Nifi
 def upload_nifi_template(template):
@@ -39,6 +42,7 @@ def upload_nifi_template(template):
     else:
         return template_upload_res.text
 
+
 # create parameter
 def create_parameter(parameter_context, parameter_body):
     """
@@ -53,6 +57,7 @@ def create_parameter(parameter_context, parameter_body):
         return True
     else:
         return create_parameter_res.text
+
 
 # Instantiate Nifi Template
 def instantiate_template(template):
@@ -79,6 +84,7 @@ def instantiate_template(template):
     else:
         return template_list.text
 
+
 # Get the  processor group details
 def get_processor_group_info(processor_group_name):
     """
@@ -98,6 +104,7 @@ def get_processor_group_info(processor_group_name):
     else:
         return False
 
+
 # Get parameter context details
 def get_parameter_context(parameter_context):
     parameter_context_res = rq.get(
@@ -108,6 +115,7 @@ def get_parameter_context(parameter_context):
                 return i
     else:
         return False
+
 
 # Connection of processor groups to respective parameter contexts
 def link_parameter_with_processor_group(processor_group_name, parameter_context):
@@ -139,6 +147,7 @@ def link_parameter_with_processor_group(processor_group_name, parameter_context)
     else:
         return link_parameter_res.text
 
+
 # create distributed server
 def create_controller_service(processor_group_name, port):
     procesor_group = get_processor_group_info(
@@ -157,6 +166,7 @@ def create_controller_service(processor_group_name, port):
     else:
         return create_controller_service_res.text
 
+
 # List controller services
 def get_controller_list(processor_group_name):
     controller_list_res = rq.get(
@@ -165,6 +175,7 @@ def get_controller_list(processor_group_name):
         return controller_list_res.json()
     else:
         return controller_list_res.text
+
 
 # update controller service property # dynamic should be enabled
 def update_controller_service_property(processor_group_name, controller_name):
@@ -228,6 +239,7 @@ def update_controller_service_property(processor_group_name, controller_name):
             else:
                 return update_controller_res.text
 
+
 # start or stop controller services
 def controller_service_enable(processor_group_name):
     controller_details = get_controller_list(
@@ -251,6 +263,7 @@ def controller_service_enable(processor_group_name):
             else:
                 return controller_service_enable_res.text
 
+
 # Get JSON file
 def get_json_file(path):
     '''
@@ -263,6 +276,7 @@ def get_json_file(path):
         json_object = json.load(openfile)
     return json_object
 
+
 # Connect_nifi_processors:
 def get_processor_group_ports(processor_group_name):
     # Get processor group details
@@ -273,6 +287,7 @@ def get_processor_group_ports(processor_group_name):
         return pg_details.text
     else:
         return pg_details
+
 
 # create funnel
 
@@ -299,6 +314,7 @@ def create_funnel():
             else:
                 return False
         return pg_list.json()
+
 
 # connect [INPUT/OUTPUT PORT] between process groups
 def connect_output_input_port(source_processor_group, destination_processor_group):
@@ -371,6 +387,7 @@ def connect_output_input_port(source_processor_group, destination_processor_grou
                                     else:
                                         return connect_port_res.text
 
+
 # Diksha_enrolment_file_split:
 def creat_csv_file(list_of_items, filename):
     f_name = filename.lower()
@@ -400,6 +417,7 @@ def creat_csv_file(list_of_items, filename):
     if os.path.exists(filename_d):
         os.remove(filename_d)
 
+
 def emission_folder(local_path, destination_path, storage_type):
     if storage_type == 'local':
         src_files = os.listdir(local_path)
@@ -407,6 +425,7 @@ def emission_folder(local_path, destination_path, storage_type):
             full_file_name = os.path.join(local_path, file_name)
             if os.path.isfile(full_file_name):
                 shutil.copy(full_file_name, destination_path)
+
 
 def delete_files(local_path):
     folder = local_path
@@ -426,8 +445,10 @@ def delete_files(local_path):
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
+
 def count_number(local_path):
     return (len(os.listdir(local_path)))
+
 
 def upload_file_s3(file):
     PATH_IN_COMPUTER = file
@@ -443,6 +464,7 @@ def upload_file_s3(file):
         Key=KEY,
         Body=open(PATH_IN_COMPUTER, 'rb')
     )
+
 
 def separate_csv(filepath):
     file = open(filepath)
@@ -523,6 +545,7 @@ def separate_csv(filepath):
     else:
         print('please provide the arguement')
 
+
 # get_jolt_spec_db:
 def remove_special_characters(data):
     """
@@ -535,6 +558,7 @@ def remove_special_characters(data):
     data = data.replace("',)", "")
     data = data.replace("\\r", "")
     return data
+
 
 def get_jolt_spec(spec_type):
     """
@@ -563,6 +587,7 @@ def get_jolt_spec(spec_type):
             cursor.close()
             connection.close()
 
+
 # nifi_disable_processors:
 def data_storage_disable_processor(processor_group_name, data_storage_type):
     disable_processor_names = []
@@ -587,6 +612,7 @@ def data_storage_disable_processor(processor_group_name, data_storage_type):
             nifi_enable_disable_processor(processor_group_name, processor_name, "DISABLED")
             nifi_enable_disable_processor(processor_group_name, processor_name, "DISABLED")
 
+
 def nifi_enable_disable_processor(processor_group_name, processor_name, state):
     pg_source = get_processor_group_ports(processor_group_name)
     if pg_source.status_code == 200:
@@ -607,6 +633,7 @@ def nifi_enable_disable_processor(processor_group_name, processor_name, state):
                         return True
                 else:
                     return disable_response.text
+
 
 def diksha_enable_disable_processor(processor_group_name, storage_type, dataset, emission_method):
     # ETB
@@ -707,6 +734,7 @@ def diksha_enable_disable_processor(processor_group_name, storage_type, dataset,
                 # enable the nifi processor
                 nifi_enable_disable_processor(processor_group_name, i, "STOPPED")
 
+
 # nifi_dummy_connection_creator:
 
 # create dummy connection for the ports belonging to unselected data sources
@@ -790,6 +818,7 @@ def dummy_connection_creator(processor_group_name):
             return funnel_connect_res.text
     return "Successfully connected invalid ports with funnel"
 
+
 # nifi_schedular:
 def get_processor_groups(self):
     pg_resp = rq.get('http://localhost:{}/nifi-api/process-groups/root/process-groups'.format(nifi_port))
@@ -801,6 +830,7 @@ def get_processor_groups(self):
     else:
         logging.error("Unable to get the process group details, due to {}".format(pg_resp.text))
     return pg_list
+
 
 def schedule_processor_groups(pg_list):
     headers = {"Content-Type": "application/json"}
@@ -835,6 +865,7 @@ def schedule_processor_groups(pg_list):
     except Exception as err:
         logging.error("Unexpected error :{} while scheduling the processor group {}".format(err, x))
 
+
 # nifi_start_pg:
 def start_processor_group(processor_group_name, state):
     header = {"Content-Type": "application/json"}
@@ -849,6 +880,7 @@ def start_processor_group(processor_group_name, state):
         return True
     else:
         return start_response.text
+
 
 # update_batch_id:
 def update_parameter_ctx(pc_var, parameter_name, jolt_spec):
@@ -874,6 +906,7 @@ def update_parameter_ctx(pc_var, parameter_name, jolt_spec):
         logging.info("Successfully updated parameter")
     return par_data
 
+
 def nifi_params_config():
     params = {
         'diksha_parameters': 'diksha_progress_exhaust_batch_list.json'
@@ -886,6 +919,7 @@ def nifi_params_config():
         for parameter_name, value in parameter_dict.items():
             time.sleep(1)
             update_parameter_ctx(param_name, parameter_name, value)
+
 
 # update_jolt_params:
 def update_nifi_jolt_params(processor_group):
@@ -928,10 +962,11 @@ def update_nifi_jolt_params(processor_group):
     # updates the parameters
     if processor_group in jolt_params:
         for key, value in jolt_params[processor_group].items():
-            parameter_body = parameter_list_builder(key,get_jolt_spec(value))
+            parameter_body = parameter_list_builder(key, get_jolt_spec(value))
             par_data['component']['parameters'].append(parameter_body)
 
     update_parameter(par_data)
+
 
 # update_nifi_parameters_main:
 
@@ -946,6 +981,7 @@ def parameters_builder(name, sensitive, value="", description=""):
     parameter['parameter']['description'] = description
     return parameter
 
+
 def parameter_list_builder(parameter_name, config_parameters):
     """
     Function creates the parameter body
@@ -953,11 +989,12 @@ def parameter_list_builder(parameter_name, config_parameters):
     parameters_list = parameters_builder(parameter_name, False, config_parameters)
     return parameters_list
 
+
 def get_parameter_context(parameter_context):
     """
     Function will get the parameter context details
     """
-    res =rq.get('http://localhost:{}/nifi-api/flow/parameter-contexts'.format(nifi_port))
+    res = rq.get('http://localhost:{}/nifi-api/flow/parameter-contexts'.format(nifi_port))
     if res.status_code == 200:
         for i in res.json()['parameterContexts']:
             if i['component']['name'] == parameter_context:
@@ -966,14 +1003,15 @@ def get_parameter_context(parameter_context):
         logging.error("Failed to get parameter contexts")
         return {"Error": "Failed to get parameter contexts", "error": res.json()}
 
+
 def update_parameters(nifi_parameters):
     '''
     Function will update parameter context
     '''
     update_pr = rq.post("http://localhost:{}/nifi-api/parameter-contexts/{}/update-requests".format(nifi_port,
-                                                                                                          nifi_parameters[
-                                                                                                              'id']),
-                              json=nifi_parameters)
+                                                                                                    nifi_parameters[
+                                                                                                        'id']),
+                        json=nifi_parameters)
     if update_pr.status_code == 200:
         print("Successfully updated the parameter!!")
         return update_pr
@@ -981,12 +1019,14 @@ def update_parameters(nifi_parameters):
         logging.error("Error updating  parameter context details")
         return {"Error": "Failed to update parameter context ", "error": update_pr.json()}
 
+
 def update_parameter(par_data):
     # update the parameter into NiFi
     up_status = update_parameters(par_data)
     if up_status.status_code == 200:
         logging.info("Successfully updated parameter")
     return par_data
+
 
 # update_nifi_params:
 def nifi_params_config(param_name, filename, par_data):
@@ -1000,6 +1040,7 @@ def nifi_params_config(param_name, filename, par_data):
             par_data['component']['parameters'].append(parameter_body)
 
     return par_data
+
 
 # update_processor_property:
 def nifi_update_processor_property(processor_group_name, processor_name, properties):
@@ -1046,6 +1087,7 @@ def nifi_update_processor_property(processor_group_name, processor_name, propert
                 else:
                     return update_processor_res.text
 
+
 def nifi_update_processor_property(processor_group_name, processor_name, properties):
     """[Update the processor property in the processor group]
     Args:
@@ -1090,7 +1132,8 @@ def nifi_update_processor_property(processor_group_name, processor_name, propert
                 else:
                     return update_processor_res.text
 
-def install_datasource(arg1,arg2,arg4):
+
+def install_datasource(arg1, arg2, arg4):
     """sys arguments: 1. data_source name (student_attendance_transformer)
                       2. parameter context name (student_attendance_parameters)
                       3. data_storage (cQube_data_storage)
@@ -1131,8 +1174,8 @@ def install_datasource(arg1,arg2,arg4):
     if (params.get(parameter_context_name)) and (parameter_context_name != 'cQube_data_storage_parameters'):
         logging.info("Reading static parameters from file %s.txt", parameter_context_name)
         parameter_body = nifi_params_config(parameter_context_name,
-                                                               f'{prop.NIFI_STATIC_PARAMETER_DIRECTORY_PATH}{params.get(parameter_context_name)}',
-                                                               parameter_body)
+                                            f'{prop.NIFI_STATIC_PARAMETER_DIRECTORY_PATH}{params.get(parameter_context_name)}',
+                                            parameter_body)
     create_parameter(parameter_context_name, parameter_body)
 
     # Load dynamic Jolt spec from db to Nifi parameters
@@ -1164,7 +1207,8 @@ def install_datasource(arg1,arg2,arg4):
     controller_service_enable(processor_group_name)
     logging.info("***Successfully Loaded template and enabled controller services***")
 
-def connection(arg1,arg3,arg5):
+
+def connection(arg1, arg3, arg5):
     # Connect_nifi_processors:
     # Main.
     """[summary]
@@ -1189,7 +1233,8 @@ def connection(arg1,arg3,arg5):
     data_storage_type = arg5
     data_storage_disable_processor(processor_group_name, data_storage_type)
 
-def install_trans_aggre_datasources(arg1,arg2,arg3,arg4):
+
+def install_trans_aggre_datasources(arg1, arg2, arg3, arg4):
     """sys arguments: 1. data_source name (student_attendance_transformer)
                       2. parameter context name (student_attendance_parameters)
                       3. data_storage (cQube_data_storage)
@@ -1230,8 +1275,8 @@ def install_trans_aggre_datasources(arg1,arg2,arg3,arg4):
     if (params.get(parameter_context_name)) and (parameter_context_name != 'cQube_data_storage_parameters'):
         logging.info("Reading static parameters from file %s.txt", parameter_context_name)
         parameter_body = nifi_params_config(parameter_context_name,
-                                                               f'{prop.NIFI_STATIC_PARAMETER_DIRECTORY_PATH}{params.get(parameter_context_name)}',
-                                                               parameter_body)
+                                            f'{prop.NIFI_STATIC_PARAMETER_DIRECTORY_PATH}{params.get(parameter_context_name)}',
+                                            parameter_body)
     create_parameter(parameter_context_name, parameter_body)
 
     # Load dynamic Jolt spec from db to Nifi parameters
@@ -1263,7 +1308,8 @@ def install_trans_aggre_datasources(arg1,arg2,arg3,arg4):
     controller_service_enable(processor_group_name)
     logging.info("***Successfully Loaded template and enabled controller services***")
 
-def trans_aggre_connection(arg1,arg3):
+
+def trans_aggre_connection(arg1, arg3):
     # Connect_nifi_processors:
     # Main.
     """[summary]
@@ -1283,7 +1329,8 @@ def trans_aggre_connection(arg1,arg3):
     res_2 = connect_output_input_port(destination_pg, source_pg)
     logging.info('Successfully Connection done between PORTS.')
 
-def install_cqube_datastorage(arg1,arg2,arg3):
+
+def install_cqube_datastorage(arg1, arg2, arg3):
     """
     sys_arguments 1.cQube_data_storage
                   2.cQube_data_storage_parameters
@@ -1322,8 +1369,8 @@ def install_cqube_datastorage(arg1,arg2,arg3):
     if (params.get(parameter_context_name)) and (parameter_context_name != 'cQube_data_storage_parameters'):
         logging.info("Reading static parameters from file %s.txt", parameter_context_name)
         parameter_body = nifi_params_config(parameter_context_name,
-                                                               f'{prop.NIFI_STATIC_PARAMETER_DIRECTORY_PATH}{params.get(parameter_context_name)}',
-                                                               parameter_body)
+                                            f'{prop.NIFI_STATIC_PARAMETER_DIRECTORY_PATH}{params.get(parameter_context_name)}',
+                                            parameter_body)
     create_parameter(parameter_context_name, parameter_body)
 
     # Load dynamic Jolt spec from db to Nifi parameters
@@ -1355,7 +1402,8 @@ def install_cqube_datastorage(arg1,arg2,arg3):
     controller_service_enable(processor_group_name)
     logging.info("***Successfully Loaded template and enabled controller services***")
 
-def dummy_connections(arg1,arg2,arg3):
+
+def dummy_connections(arg1, arg2, arg3):
     """
     sys arguments 1. cQube_data_storage processor name
                   2. processor name (cqube_telemetry_transformer)
@@ -1389,38 +1437,54 @@ def dummy_connections(arg1,arg2,arg3):
     # enable/disable/start/stop the processor group
     start_processor_group(processor_group_name, state)
 
+
 if __name__ == "__main__":
     header = {"Content-Type": "application/json"}
     print("length=", len(sys.argv))
-    if len(sys.argv) <= 4 and sys.argv[1] != 'cQube_data_storage':
-        data_source_name = sys.argv[1]
-        parameter_context_name = sys.argv[2]
-        data_storage = sys.argv[3]
-        distributed_server_port = sys.argv[4]
-        install_trans_aggre_datasources(data_source_name,parameter_context_name,data_storage,distributed_server_port)
-        trans_aggre_connection(data_source_name,data_storage)
-    if len(sys.argv) >= 5 :
-        data_source_name = sys.argv[1]
-        parameter_context_name = sys.argv[2]
-        data_storage = sys.argv[3]
-        distributed_server_port = sys.argv[4]
-        storage_type = sys.argv[5]
-        install_datasource(data_source_name, parameter_context_name, distributed_server_port)
-        connection(data_source_name,data_storage,storage_type)
-        if sys.argv[1] == 'diksha_transformer' and sys.argv[7] == 'API':
-            data_set = sys.argv[6]
-            emission_method = sys.argv[7]
+    n = len(sys.argv)
+    if len(sys.argv) == 5:
+        if sys.argv[4] == 'API' or sys.argv[4] == 'EMISSION':
+            data_source_name = sys.argv[1]
+            storage_type = sys.argv[2]
+            dataset = sys.argv[3]
+            emission_method = sys.argv[4]
             # disable processor based on emission method.
-            diksha_enable_disable_processor(processor_group_name.lower(), storage_type.lower(), dataset.lower(),
-                                                emission_method.lower())
-
-    if sys.argv[2] == 'cQube_data_storage_parameters':
-        cQube_data_storage = sys.argv[1]
-        cQube_data_storage_parameters = sys.argv[2]
-        distributed_server_port_data = sys.argv[3]
-        install_cqube_datastorage(cQube_data_storage,cQube_data_storage_parameters,distributed_server_port_data)
-    if sys.argv[1] == 'cQube_data_storage'and sys.argv[3] == 'RUNNING':
+            diksha_enable_disable_processor(data_source_name.lower(), storage_type.lower(), dataset.lower(),
+                                            emission_method.lower())
+        else:
+            data_source_name = sys.argv[1]
+            parameter_context_name = sys.argv[2]
+            data_storage = sys.argv[3]
+            distributed_server_port = sys.argv[4]
+            install_trans_aggre_datasources(data_source_name, parameter_context_name, data_storage,
+                                            distributed_server_port)
+            trans_aggre_connection(data_source_name, data_storage)
+    if len(sys.argv) == 6:
+        if sys.argv[4] != 'API' or sys.argv[4] != 'EMISSION':
+            data_source_name = sys.argv[1]
+            parameter_context_name = sys.argv[2]
+            data_storage = sys.argv[3]
+            distributed_server_port = sys.argv[4]
+            storage_type = sys.argv[5]
+            install_datasource(data_source_name, parameter_context_name, distributed_server_port)
+            connection(data_source_name, data_storage, storage_type)
+    if len(sys.argv) == 4:
+        if sys.argv[2] == 'cQube_data_storage_parameters':
+            cQube_data_storage = sys.argv[1]
+            cQube_data_storage_parameters = sys.argv[2]
+            distributed_server_port_data = sys.argv[3]
+            install_cqube_datastorage(cQube_data_storage, cQube_data_storage_parameters, distributed_server_port_data)
+    if len(sys.argv) == 5:
+        if sys.argv[4] == 'API' or sys.argv[4] == 'API':
+            data_source_name = sys.argv[1]
+            storage_type = sys.argv[2]
+            dataset = sys.argv[3]
+            emission_method = sys.argv[4]
+            # disable processor based on emission method.
+            diksha_enable_disable_processor(data_source_name.lower(), storage_type.lower(), dataset.lower(),
+                                            emission_method.lower())
+    if sys.argv[1] == 'cQube_data_storage' and sys.argv[3] == 'RUNNING':
         cQube_data_storage_processor_name = sys.argv[1]
         processor_name = sys.argv[2]
-        state= sys.argv[3]
-        dummy_connections(cQube_data_storage_processor_name,processor_name,state)
+        state = sys.argv[3]
+        dummy_connections(cQube_data_storage_processor_name, processor_name, state)
