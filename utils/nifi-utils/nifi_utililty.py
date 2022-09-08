@@ -1090,7 +1090,7 @@ def nifi_update_processor_property(processor_group_name, processor_name, propert
                 else:
                     return update_processor_res.text
 
-def install_datasource(arg1,arg2,arg3,arg4,arg5):
+def install_datasource(arg1,arg2,arg4):
     """sys arguments: 1. data_source name (student_attendance_transformer)
                       2. parameter context name (student_attendance_parameters)
                       3. data_storage (cQube_data_storage)
@@ -1130,7 +1130,7 @@ def install_datasource(arg1,arg2,arg3,arg4,arg5):
     # Load parameters from file to Nifi parameters
     if (params.get(parameter_context_name)) and (parameter_context_name != 'cQube_data_storage_parameters'):
         logging.info("Reading static parameters from file %s.txt", parameter_context_name)
-        parameter_body = update_nifi_params.nifi_params_config(parameter_context_name,
+        parameter_body = nifi_params_config(parameter_context_name,
                                                                f'{prop.NIFI_STATIC_PARAMETER_DIRECTORY_PATH}{params.get(parameter_context_name)}',
                                                                parameter_body)
     create_parameter(parameter_context_name, parameter_body)
@@ -1140,7 +1140,7 @@ def install_datasource(arg1,arg2,arg3,arg4,arg5):
                               'infra_parameters', 'udise_parameters']
     if sys.argv[2] in dynamic_jolt_params_pg:
         logging.info("Creating dynamic jolt parameters")
-        update_jolt_params.update_nifi_jolt_params(parameter_context_name)
+        update_nifi_jolt_params(parameter_context_name)
 
     # 4. Link parameter context to processor group
     logging.info("Linking parameter context with processor group")
@@ -1164,6 +1164,7 @@ def install_datasource(arg1,arg2,arg3,arg4,arg5):
     controller_service_enable(processor_group_name)
     logging.info("***Successfully Loaded template and enabled controller services***")
 
+def connection(arg1,arg3,arg5):
     # Connect_nifi_processors:
     # Main.
     """[summary]
@@ -1173,6 +1174,7 @@ def install_datasource(arg1,arg2,arg3,arg4,arg5):
     header = {"Content-Type": "application/json"}
     source_pg = arg3.strip()
     destination_pg = arg1.strip()
+    processor_group_name = arg1
 
     logging.info('Connection between PORTS started...')
     if 'composite_transformer' in destination_pg or 'progress_card_transformer' in destination_pg:
@@ -1227,7 +1229,7 @@ def install_trans_aggre_datasources(arg1,arg2,arg3,arg4):
     # Load parameters from file to Nifi parameters
     if (params.get(parameter_context_name)) and (parameter_context_name != 'cQube_data_storage_parameters'):
         logging.info("Reading static parameters from file %s.txt", parameter_context_name)
-        parameter_body = update_nifi_params.nifi_params_config(parameter_context_name,
+        parameter_body = nifi_params_config(parameter_context_name,
                                                                f'{prop.NIFI_STATIC_PARAMETER_DIRECTORY_PATH}{params.get(parameter_context_name)}',
                                                                parameter_body)
     create_parameter(parameter_context_name, parameter_body)
@@ -1261,6 +1263,7 @@ def install_trans_aggre_datasources(arg1,arg2,arg3,arg4):
     controller_service_enable(processor_group_name)
     logging.info("***Successfully Loaded template and enabled controller services***")
 
+def trans_aggre_connection(arg1,arg3):
     # Connect_nifi_processors:
     # Main.
     """[summary]
@@ -1318,7 +1321,7 @@ def install_cqube_datastorage(arg1,arg2,arg3):
     # Load parameters from file to Nifi parameters
     if (params.get(parameter_context_name)) and (parameter_context_name != 'cQube_data_storage_parameters'):
         logging.info("Reading static parameters from file %s.txt", parameter_context_name)
-        parameter_body = update_nifi_params.nifi_params_config(parameter_context_name,
+        parameter_body = nifi_params_config(parameter_context_name,
                                                                f'{prop.NIFI_STATIC_PARAMETER_DIRECTORY_PATH}{params.get(parameter_context_name)}',
                                                                parameter_body)
     create_parameter(parameter_context_name, parameter_body)
@@ -1389,35 +1392,34 @@ def dummy_connections(arg1,arg2,arg3):
 if __name__ == "__main__":
     header = {"Content-Type": "application/json"}
     print("length=", len(sys.argv))
-    if len(sys.argv) <= 4:
+    if len(sys.argv) <= 4 and sys.argv[1] != 'cQube_data_storage':
         data_source_name = sys.argv[1]
         parameter_context_name = sys.argv[2]
         data_storage = sys.argv[3]
         distributed_server_port = sys.argv[4]
         install_trans_aggre_datasources(data_source_name,parameter_context_name,data_storage,distributed_server_port)
-
+        trans_aggre_connection(data_source_name,data_storage)
     if len(sys.argv) >= 5 :
         data_source_name = sys.argv[1]
         parameter_context_name = sys.argv[2]
         data_storage = sys.argv[3]
         distributed_server_port = sys.argv[4]
         storage_type = sys.argv[5]
-        if sys.argv[6] != 'cQube_data_storage':
+        install_datasource(data_source_name, parameter_context_name, distributed_server_port)
+        connection(data_source_name,data_storage,storage_type)
+        if sys.argv[1] == 'diksha_transformer' and sys.argv[7] == 'API':
             data_set = sys.argv[6]
             emission_method = sys.argv[7]
             # disable processor based on emission method.
             diksha_enable_disable_processor(processor_group_name.lower(), storage_type.lower(), dataset.lower(),
                                                 emission_method.lower())
-        else:
-            install_datasource(data_source_name, parameter_context_name, parameter_context_name, distributed_server_port,
-                               storage_type)
 
-    if sys.argv[6] == 'cQube_data_storage':
-        cQube_data_storage = sys.argv[6]
-        cQube_data_storage_parameters = sys.argv[7]
-        distributed_server_port_data = sys.argv[8]
+    if sys.argv[2] == 'cQube_data_storage_parameters':
+        cQube_data_storage = sys.argv[1]
+        cQube_data_storage_parameters = sys.argv[2]
+        distributed_server_port_data = sys.argv[3]
         install_cqube_datastorage(cQube_data_storage,cQube_data_storage_parameters,distributed_server_port_data)
-    if sys.argv[1] == 'cQube_data_storage':
+    if sys.argv[1] == 'cQube_data_storage'and sys.argv[3] == 'RUNNING':
         cQube_data_storage_processor_name = sys.argv[1]
         processor_name = sys.argv[2]
         state= sys.argv[3]
