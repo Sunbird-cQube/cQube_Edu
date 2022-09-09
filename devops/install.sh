@@ -91,7 +91,7 @@ base_dir=$(awk ''/^base_dir:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 access_type=$(awk ''/^access_type:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 
 ansible-playbook ansible/create_base.yml --tags "install" --extra-vars "@config.yml"
-
+set -e
 if [[ $storage_type == "s3" ]]; then
 ansible-playbook ansible/install.yml --tags "install" --extra-vars "@aws_s3_config.yml" \
 					        --extra-vars "@$base_dir/cqube/conf/azure_container_config.yml" \
@@ -130,7 +130,6 @@ ansible-playbook ansible/install_workflow.yml --tags "install" --extra-vars "@$b
 														 --extra-vars "@$base_dir/cqube/conf/azure_container_config.yml" \
                                                          --extra-vars "@$base_dir/cqube/conf/local_storage_config.yml" \
 							                             --extra-vars "@datasource_config.yml" \
-										     --extra-vars "protocol=http"
 fi
 
 

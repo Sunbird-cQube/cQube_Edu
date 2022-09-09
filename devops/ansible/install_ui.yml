@@ -1,11 +1,11 @@
 ---
-- name: Installing cQube
+- name: Configuring cQube user interface
   hosts: localhost
   gather_facts: true
   become: true
   remote_user: root
   vars_files:
-    - ../config.yml
+    - constants.yml
   roles:
           - angular_config
           - angular_admin_config

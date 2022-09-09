@@ -30,6 +30,10 @@
   blockinfile:
     path: "{{base_dir}}/cqube/dashboard/server_side/.env"
     block: |
+      STORAGE_SERVICE = "AZURE_DATA_LAKE"
+      AZURE_STORAGE_CONNECTION_STRING = "{{ azure_storage_connection_string }}"
+      OUTPUT_CONTAINER = "{{ azure_output_container }}"
+      INPUT_CONTAINER = "{{ azure_input_container }}"
       PORT = 3000
       ACCESS_KEY_ID = "{{ s3_access_key }}"
       SECRET_ACCESS_KEY  = "{{ s3_secret_key }}"
@@ -64,6 +68,10 @@
   blockinfile:
     path: "{{base_dir}}/cqube/dashboard/server_side/.env"
     block: |
+      STORAGE_SERVICE = "AZURE_DATA_LAKE"
+      AZURE_STORAGE_CONNECTION_STRING = "{{ azure_storage_connection_string }}"
+      OUTPUT_CONTAINER = "{{ azure_output_container }}"
+      INPUT_CONTAINER = "{{ azure_input_container }}"
       PORT = 3000
       ACCESS_KEY_ID = "{{ s3_access_key }}"
       SECRET_ACCESS_KEY  = "{{ s3_secret_key }}"

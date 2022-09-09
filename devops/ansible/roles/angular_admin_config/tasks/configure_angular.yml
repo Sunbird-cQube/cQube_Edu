@@ -8,7 +8,7 @@
     state: directory
   tags: [ install, update ]
 
-- name: copying server-side script
+- name: copying client-side script
   copy:
     src: "../../reference-visualization-app/admin-console/"
     dest: "{{base_dir}}/cqube/admin_dashboard/client_side"
