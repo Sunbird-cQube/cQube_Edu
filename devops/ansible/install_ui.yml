@@ -8,3 +8,4 @@
     - ../config.yml
   roles:
           - angular_config
+          - angular_admin_config

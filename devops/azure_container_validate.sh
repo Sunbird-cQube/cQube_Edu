@@ -77,8 +77,10 @@ declare -a arr=("azure_input_container" "azure_output_container" "azure_emission
 # Create and empty array which will store the key and value pair from config file
 declare -A vals
 
-# Getting aws keys
+# Getting azure keys
 azure_storage_connection_string=$(awk ''/^azure_storage_connection_string:' /{ if ($2 !~ /#.*/) {print $2}}' azure_container_config.yml)
+azure_account_name=$(awk ''/^azure_account_name:' /{ if ($2 !~ /#.*/) {print $2}}' azure_container_config.yml)
+azure_account_key=$(awk ''/^azure_account_key:' /{ if ($2 !~ /#.*/) {print $2}}' azure_container_config.yml)
 
 # Iterate the array and retrieve values for mandatory fields from config file
 for i in ${arr[@]}
