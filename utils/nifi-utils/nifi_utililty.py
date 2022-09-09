@@ -1402,42 +1402,6 @@ def install_cqube_datastorage(arg1, arg2, arg3):
     controller_service_enable(processor_group_name)
     logging.info("***Successfully Loaded template and enabled controller services***")
 
-
-def dummy_connections(arg1, arg2, arg3):
-    """
-    sys arguments 1. cQube_data_storage processor name
-                  2. processor name (cqube_telemetry_transformer)
-                  3. state (Running)
-    """
-    # nifi_dummy_connection_creator:
-    # Main.
-    """[summary]
-
-    sys arguments = 1. cQube_data_storage processor name . Run this code after installing required data sources.
-    Ex: python nifi_dummy_connection_creator.py cQube_data_storage
-    """
-    header = {"Content-Type": "application/json"}
-    data_storage_proccesor_name = arg1
-
-    # create dummy connection for un selection data source
-    dummy_connection_creator(data_storage_proccesor_name)
-    logging.info('Successfully completed all the connections between processor groups')
-
-    # nifi_start_pg:
-    # Main.
-    """[summary]
-    sys arguments = 1.  processor group name .  Run this code after installing required data sources, 
-    starts the processor group
-    Ex: python nifi_start_pg.py cqube_telemetry_transformer 
-    """
-    header = {"Content-Type": "application/json"}
-    processor_group_name = arg2
-    state = arg3
-
-    # enable/disable/start/stop the processor group
-    start_processor_group(processor_group_name, state)
-
-
 if __name__ == "__main__":
     header = {"Content-Type": "application/json"}
     print("length=", len(sys.argv))
@@ -1487,8 +1451,11 @@ if __name__ == "__main__":
             # disable processor based on emission method.
             diksha_enable_disable_processor(data_source_name.lower(), storage_type.lower(), dataset.lower(),
                                             emission_method.lower())
-    if sys.argv[1] == 'cQube_data_storage' and sys.argv[3] == 'RUNNING':
-        cQube_data_storage_processor_name = sys.argv[1]
-        processor_name = sys.argv[2]
-        state = sys.argv[3]
-        dummy_connections(cQube_data_storage_processor_name, processor_name, state)
+    if len(sys.argv) == 4:
+        if sys.argv[1] == 'cQube_data_storage' and sys.argv[3] == 'RUNNING':
+            cQube_data_storage_processor_name = sys.argv[1]
+            processor_name = sys.argv[2]
+            state = sys.argv[3]
+            dummy_connection_creator(cQube_data_storage_processor_name)
+            start_processor_group(processor_name, state)
+
