@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: "http://localhost:3001/api",
+  apiEndpoint: "http://localhost:3001/admin_dashboard",
   appUrl: "http://localhost:4200",
   grafanaEndPoint: "http://localhost:9000",
   keycloakUrl: "http://localhost:8080/auth",
