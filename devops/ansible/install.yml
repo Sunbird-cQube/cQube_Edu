@@ -12,6 +12,7 @@
           - { role: python, tags: install }
           - postgres
           - python_flask
+          - { role: kong, tags: install }
           - keycloak
           - prometheus
           - { role: grafana, tags: install }

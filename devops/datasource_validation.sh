@@ -10,7 +10,7 @@ fi
 while read line; do
   ext_ds=`echo "$line" | cut -d ":" -f1`  
   if [[ $ext_ds == $1 ]] ; then
-     if ! [[ -d ../../development/datasource/$1 ]]; then
+     if ! [[ -d ../processing/datasource/$1 ]]; then
 	echo "Error- $1  directory not found"       
      fi	
   fi
