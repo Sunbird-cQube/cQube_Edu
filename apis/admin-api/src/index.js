@@ -29,7 +29,7 @@ app.use(function (req, res, next) {
 app.disable('x-powered-by');
 
 const router = require('./api/router');
-app.use('/api', router);
+app.use('/admin_dashboard', router);
 const sessionRouter = require('./api/sessionRouter');
 app.use('/admin_api', sessionRouter);
 
