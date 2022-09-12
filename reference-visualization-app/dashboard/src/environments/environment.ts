@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   apiURL: 'http://localhost:3000/api',
-  adminUrl: "http://localhost:4201",
+  adminUrl: "http://localhost:4201/admin",
   config: "national",
   stateCode: "HR",
   secretKey: 'VSK_EKSTEP',
   loginObj: {
     title: "State Vidya Samiksha Kendra",
-    imageURL:"back_image.jpg",
+    imageURL: "back_image.jpg",
     tagLine: "Shared seeing for coordinated action towards achieving outcomes and goals",
     logoURL: "cQube_logo.jpg"
   },
