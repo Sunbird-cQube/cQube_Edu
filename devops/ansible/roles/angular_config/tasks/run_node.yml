@@ -1,11 +1,11 @@
 - name: checking process of pm2 server_side
   become: yes
-  shell: pm2 id server_side
+  shell: pm2 id dashboard-api
   register: pm2_output
   tags: install
 
 - name: checking the existing pm2 processes if running
-  shell: pm2 delete server_side
+  shell: pm2 delete dashboard-api
   when: pm2_output.stdout != "[]"
   ignore_errors: True
   become: yes
@@ -13,9 +13,9 @@
 
 - name: Starting NodeJS application
   become: yes
-  shell: pm2 start node --name server_side -- . &
+  shell: pm2 start node --name dashboard-api -- . &
   args:
-    chdir: "{{ base_dir }}/cqube/dashboard/server_side"
+    chdir: "{{ base_dir }}/cqube/apis/node-api"
   tags: install
 
 - name: Saving pm2 services

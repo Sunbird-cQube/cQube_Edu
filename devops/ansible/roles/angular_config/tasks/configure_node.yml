@@ -1,7 +1,7 @@
 ---
 - name: Creating the server_side Directory for the installation
   file:
-    path: "{{ base_dir }}/cqube/dashboard/server_side"
+    path: "{{ base_dir }}/cqube/apis/node-api"
     owner: "{{ system_user_name }}"
     group: "{{ system_user_name }}"
     recurse: yes
@@ -11,24 +11,24 @@
 - name: copying server-side script
   copy:
     src: "../../apis/node-api/"
-    dest: "{{base_dir}}/cqube/dashboard/server_side"
+    dest: "{{base_dir}}/cqube/apis/node-api"
   tags: [ install, update ]
 
 - name: NodeJS dependencies install
   npm:
-    path: "{{base_dir}}/cqube/dashboard/server_side"
+    path: "{{base_dir}}/cqube/apis/node-api"
   tags: [ install, update ]
 
 - name: Creating environmental variables
   file:
-    path: "{{base_dir}}/cqube/dashboard/server_side/.env"
+    path: "{{base_dir}}/cqube/apis/node-api/.env"
     state: touch
     mode: u+rw,g+rw,o+rw
   tags: [ install, update ]
 
 - name: Loading required data inside .env file
   blockinfile:
-    path: "{{base_dir}}/cqube/dashboard/server_side/.env"
+    path: "{{base_dir}}/cqube/apis/node-api/.env"
     block: |
       STORAGE_SERVICE = "AZURE_DATA_LAKE"
       AZURE_STORAGE_CONNECTION_STRING = "{{ azure_storage_connection_string }}"
@@ -66,7 +66,7 @@
 
 - name: Loading required data inside .env file (localhost)
   blockinfile:
-    path: "{{base_dir}}/cqube/dashboard/server_side/.env"
+    path: "{{base_dir}}/cqube/apis/node-api/.env"
     block: |
       STORAGE_SERVICE = "AZURE_DATA_LAKE"
       AZURE_STORAGE_CONNECTION_STRING = "{{ azure_storage_connection_string }}"

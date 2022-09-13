@@ -32,7 +32,7 @@ else
    core_install="NA"
 fi
 
-echo "Validating the Datasource_config.yml file..."
+echo "Validating the datasource_config.yml file..."
 
 # An array of mandatory values
 declare -a arr=("diksha")
