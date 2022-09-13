@@ -1,12 +1,12 @@
 ---
 - name: checking process of pm2 admin_server_side
   become: yes
-  shell: pm2 id admin_server_side
+  shell: pm2 id admin-api
   register: pm2_output
   tags: install
 
 - name: checking the existing pm2 processes if running
-  shell: pm2 delete admin_server_side
+  shell: pm2 delete admin-api
   when: pm2_output.stdout != "[]"
   ignore_errors: True
   become: yes
@@ -14,16 +14,16 @@
 
 - name: Starting NodeJS application
   become: yes
-  shell: pm2 start npm --name admin_server_side -- start
+  shell: pm2 start npm --name admin-api -- start
   args:
-    chdir: "{{ base_dir }}/cqube/admin_dashboard/server_side"
+    chdir: "{{ base_dir }}/cqube/apis/admin-api"
   notify: 
     - restart keycloak
   tags: install
 
 - name: Starting the admin_server_side app
   become: yes
-  shell: pm2 start admin_server_side
+  shell: pm2 start admin-api
   notify: 
     - restart keycloak
   tags: update
