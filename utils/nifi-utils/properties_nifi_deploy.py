@@ -1,10 +1,10 @@
-NIFI_IP =               # Nifi url
-NIFI_PORT =             # Nifi Port number
+NIFI_IP = 'http://localhost'              # Nifi url
+NIFI_PORT = '8096'             # Nifi Port number
 # Nifi templates local directory path ending with /
-NIFI_TEMPLATE_PATH = 
+NIFI_TEMPLATE_PATH = '{{ base_dir }}/cqube/nifi/nifi_templates/'
 # Nifi parameters[created by ansible using config file] local directory path ending with /
-NIFI_PARAMETER_DIRECTORY_PATH =
-NIFI_STATIC_PARAMETER_DIRECTORY_PATH =
+NIFI_PARAMETER_DIRECTORY_PATH = '{{ base_dir }}/cqube/nifi/nifi_json_files/'
+NIFI_STATIC_PARAMETER_DIRECTORY_PATH = '{{ base_dir }}/cqube/emission_app/python/'
 NIFI_INPUT_OUTPUT_PORTS = {
     'static_data_transformer':[
                                {'OUTPUT_PORT': 'static_split_file_wait','INPUT_PORT': 'split_wait'},
@@ -136,10 +136,10 @@ NIFI_INPUT_OUTPUT_PORTS = {
                             ],
 'transaction_and_aggregation': [
     {'OUTPUT_PORT': 'S3_on_premise-config_partition_output_port','INPUT_PORT': 'S3_on_premise-config_partition_input_port'},
+	{'OUTPUT_PORT': 'S3-config_datasource_output_port','INPUT_PORT': 'config_datsource_S3_input_port'},
     {'OUTPUT_PORT': 'grade_config_output_port','INPUT_PORT': 'grade_config_input_port'},
     {'OUTPUT_PORT': 'Config_datasource_save-s3-log_summary_output_port','INPUT_PORT': 'config_datasource_save-s3-log_summary_input_port'},
-    {'OUTPUT_PORT': 'config_datasource_management_output_port','INPUT_PORT': 'config_datasource_management_input_port'}],
-
+    {'OUTPUT_PORT': 'config_datasource_management_output_port','INPUT_PORT': 'config_datasource_management_input_port'}],							
     'cQube_data_storage': {
                            'static_data_transformer': [{'OUTPUT_PORT': 'static_files', 'INPUT_PORT': 'static_data_input'}
                                                       ],
@@ -207,3 +207,6 @@ NIFI_INPUT_OUTPUT_PORTS = {
                                                         {'OUTPUT_PORT': 'configure_datasource_S3-success_output_port', 'INPUT_PORT': 'configure_datasource_S3-success_input_port'}]
                           }
     }
+
+
+

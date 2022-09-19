@@ -1,61 +1,61 @@
 ---
-- name: Making sure {{ base_dir }}/cqube/admin_dashboard/client_side directory is present
+- name: Making sure {{ base_dir }}/cqube/reference-visualization-app/admin-console directory is present
   file:
-    path: "{{ base_dir }}/cqube/admin_dashboard/client_side"
+    path: "{{ base_dir }}/cqube/reference-visualization-app/admin-console"
     owner: "{{ system_user_name }}"
     group: "{{ system_user_name }}"
     recurse: yes
     state: directory
   tags: [ install, update ]
 
-- name: copying server-side script
+- name: copying client-side script
   copy:
     src: "../../reference-visualization-app/admin-console/"
-    dest: "{{base_dir}}/cqube/admin_dashboard/client_side"
+    dest: "{{base_dir}}/cqube/reference-visualization-app/admin-console"
   tags: [ install, update ]  
 
 - name: Configure the environment.ts
   template:
     src: environment.ts.j2
-    dest: "{{ base_dir }}/cqube/admin_dashboard/client_side/src/environments/environment.ts"
+    dest: "{{ base_dir }}/cqube/reference-visualization-app/admin-console/src/environments/environment.ts"
   when: mode_of_installation != "localhost"
   tags: [ install, update ]
 
 - name: Configure the environment.prod.ts
   template:
     src: environment.prod.ts.j2
-    dest: "{{ base_dir }}/cqube/admin_dashboard/client_side/src/environments/environment.prod.ts"
+    dest: "{{ base_dir }}/cqube/reference-visualization-app/admin-console/src/environments/environment.prod.ts"
   when: mode_of_installation != "localhost"
   tags: [ install, update ]   
 
 - name: Configure the environment.ts (localhost)
   template:
     src: environment_local.ts.j2
-    dest: "{{ base_dir }}/cqube/admin_dashboard/client_side/src/environments/environment.ts"
+    dest: "{{ base_dir }}/cqube/reference-visualization-app/admin-console/src/environments/environment.ts"
   when: mode_of_installation == "localhost"
   tags: [ install, update ]
 
 - name: Configure the environment.prod.ts (localhost)
   template:
     src: environment.prod_local.ts.j2
-    dest: "{{ base_dir }}/cqube/admin_dashboard/client_side/src/environments/environment.prod.ts"
+    dest: "{{ base_dir }}/cqube/reference-visualization-app/admin-console/src/environments/environment.prod.ts"
   when: mode_of_installation == "localhost"
   tags: [ install, update ] 
 
 - name: Install Angular packages based on package.json.
   npm:
-    path: "{{ base_dir }}/cqube/admin_dashboard/client_side"
+    path: "{{ base_dir }}/cqube/reference-visualization-app/admin-console"
   tags: [ install, update ]
 
 - name: Building Angular client-side code
-  command: ng build --prod
+  command: ng build --configuration production --output-path dist/admin --baseHref=/admin/
   args:
-    chdir: "{{ base_dir }}/cqube/admin_dashboard/client_side"
+    chdir: "{{ base_dir }}/cqube/reference-visualization-app/admin-console"
   tags: [ install, update ]
 
 - name: changing ownership
   file:
-    path: "{{ base_dir }}/cqube/admin_dashboard/client_side"
+    path: "{{ base_dir }}/cqube/reference-visualization-app/admin-console"
     owner: "{{ system_user_name }}"
     group: "{{ system_user_name }}"
     recurse: yes
