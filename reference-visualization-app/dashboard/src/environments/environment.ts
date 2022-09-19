@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   apiURL: 'http://localhost:3000/api',
   adminUrl: "http://localhost:4201/admin",
-  config: "national",
+  config: "state",
   stateCode: "HR",
   secretKey: 'VSK_EKSTEP',
   loginObj: {
@@ -28,7 +28,24 @@ export const environment = {
       locale: 'en-IN',
       format: 'long'
     }
-  }
+  },
+  apiEndpoint: "http://localhost:3000/api",
+  adminApiEndPoint: "http://localhost:3001/admin_api",
+  adminUrl2: "http://localhost:4201",
+  appUrl: "http://localhost:4200",
+  keycloakUrl: "http://localhost:8080/auth",
+  realm: "cQube",
+  clientId: "cQube_Application",
+  stateName: "UP",
+  useCase: "education_usecase",
+  diksha_columns: false,
+  // theme: "theme2",
+  mapName: "leafletmap",
+  progressCardConfig: ['33', '33-60', '60-75', '75'],
+  report_viewer_config_otp: true,
+  auth_api: 'cqube',
+  // keycloak_adm_user: 'admin',
+  water_mark: "false"
 };
 
 /*
