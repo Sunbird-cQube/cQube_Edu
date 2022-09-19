@@ -8,10 +8,10 @@ var routes: Routes = [];
 
 if (environment.config == 'national') {
   routes = [
-    // {
-    //   path: '',
-    //   loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
-    // },
+    {
+      path: '',
+      loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
+    },
     {
       path: '', redirectTo: `home`, pathMatch: 'full'
     },
@@ -190,4 +190,4 @@ if (environment.config == 'national') {
   imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

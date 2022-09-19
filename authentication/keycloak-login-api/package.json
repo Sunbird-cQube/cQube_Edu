@@ -1,0 +1,23 @@
+{
+  "name": "keycloak-login",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@keycloak/keycloak-admin-client": "^19.0.2",
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19",
+    "swagger-ui-express": "^4.5.0",
+    "yamljs": "^0.3.0"
+  }
+}
