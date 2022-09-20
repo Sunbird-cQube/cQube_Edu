@@ -20,7 +20,7 @@ export class AuthenticationService {
     this._router.navigate(['/login']);
   }
 
-  login(userName: any, password: any): Observable<any> {
-    return this._http.post(`${environment.apiURL}/login`,{userName, password})
+  login(email: any, password: any): Observable<any> {
+    return this._http.post(`${environment.loginUrl}/login`,{email, password})
   }
 }
