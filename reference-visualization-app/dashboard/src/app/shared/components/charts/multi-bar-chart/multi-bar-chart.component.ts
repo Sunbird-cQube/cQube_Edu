@@ -19,14 +19,14 @@ export class MultiBarChartComponent
   @Input() height: number | string = 'auto';
   @Input() title!: string;
   @Input() options: Highcharts.Options | undefined;
-  @HostListener('window:resize', ['$event'])
   @Input() marginTop: any = 90;
+  @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     const elFontSize = window
       .getComputedStyle(document.documentElement)
       .getPropertyValue('font-size');
     const localFontSize = localStorage.getItem('fontSize');
-    const currentFontSize = localFontSize ? localFontSize : elFontSize;
+    const currentFontSize = localFontSize ? localFontSize.replace("px","").trim() : elFontSize.replace("px","").trim();
     this.chart.update({
       chart: {
         marginTop: Number(currentFontSize),

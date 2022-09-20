@@ -1,333 +1,298 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import * as config from '../../../../assets/data/config.json';
-import { NgxSpinnerService } from 'ngx-spinner';
+import * as config from '../../../../assets/data/config.json'
+import * as mapData from '../../../../assets/data/map.json';
+import * as  googleMapData from "../../../../assets/data/googleMap.json";
 
+declare var MapmyIndia: any;
 declare var L: any;
-// export var globalMap: any;
+export var globalMap;
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class MapService {
-    national: boolean = true;
-    parentThis = this
+  mapName = environment.mapName;
+  mapCenterLatlng = config.default[`${environment.stateName}`];
+  zoomLevel = this.mapCenterLatlng.zoomLevel;
 
-    width = window.innerWidth;
-    // mapName = environment.mapName;
-    mapCenterLatlng: any;
-    latitude: any;
-    longitude: any;
-    zoomLevel: any;
+  latitude;
+  longitude;
 
-    constructor(private readonly _spinner:NgxSpinnerService) {
-        if (environment.config == 'state') {
-            this.national = false
-            this.mapCenterLatlng = config.default['GJ'];
-        }
-        else {
-            this.mapCenterLatlng = config.default['IN'];
-        }
-        
-        this.zoomLevel = this.width > 3820 ? this.mapCenterLatlng.zoomLevel + 0.85 : this.width < 3820 && this.width >= 2500 ? this.mapCenterLatlng.zoomLevel + 0.3 : this.width < 2500 && this.width > 1920 ? this.mapCenterLatlng.zoomLevel : this.width > 1500 ? this.mapCenterLatlng.zoomLevel - 0.4 : this.width > 1336 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.width > 1200 ? this.mapCenterLatlng.zoomLevel - 0.75 : this.width > 700 ? this.mapCenterLatlng.zoomLevel - 0.3 : this.width > 76 ? this.mapCenterLatlng.zoomLevel - 0.5 : this.width > 400 ? this.mapCenterLatlng.zoomLevel - 0.6 : this.width > 320 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.mapCenterLatlng.zoomLevel;
+  constructor() { }
+
+  width = window.innerWidth;
+  onResize(level) {
+    this.width = window.innerWidth;
+    this.zoomLevel = this.width > 3820 ? this.mapCenterLatlng.zoomLevel + 2 : this.width < 3820 && this.width >= 2500 ? this.mapCenterLatlng.zoomLevel + 1 : this.width < 2500 && this.width > 1920 ? this.mapCenterLatlng.zoomLevel + 1 : this.mapCenterLatlng.zoomLevel;
+    this.setZoomLevel(level);
+    this.setMarkerRadius(level);
+  }
+
+  //Initialisation of Map  
+  initMap(map, maxBounds) {
+    if (environment.mapName !== 'none') {
+      console.log(map)
+      if (this.mapName == 'leafletmap') {
+        globalMap = L.map(map, { zoomSnap: 0.25, zoomControl: false, touchZoom: false, maxBounds: maxBounds, dragging: environment.stateName == 'UP' ? false : true }).setView([maxBounds[0][0], maxBounds[0][1]], this.mapCenterLatlng.zoomLevel);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+          {
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+            maxZoom: this.mapCenterLatlng.zoomLevel + 10,
+          }
+        ).addTo(globalMap);
+      } else {
+        globalMap = new MapmyIndia.Map(map, { hasTip: false, touchZoom: false, autoPan: false, offset: [15, 20], dragging: environment.stateName == 'UP' ? false : true }, {
+          zoomControl: false,
+          hybrid: false,
+        }).setView([maxBounds[0][0], maxBounds[0][1]], this.mapCenterLatlng.zoomLevel);
+      }
+      var data = mapData.default;
+      function applyCountryBorder(map) {
+        L.geoJSON(data[`${environment.stateName}`]['features'], {
+          color: "#6e6d6d",
+          weight: 2,
+          fillOpacity: 0,
+          fontWeight: "bold"
+        }).addTo(map);
+      }
+      applyCountryBorder(globalMap);
+    }
+  }
+
+  restrictZoom(globalMap) {
+    globalMap.touchZoom.disable();
+    globalMap.boxZoom.disable();
+    globalMap.keyboard.disable();
+  }
+
+  //Initialise markers.....
+  markersIcons = [];
+  public initMarkers1(lat, lng, color, strokeWeight, weight, levelWise) {
+    if (lat !== undefined && lng !== undefined) {
+      var markerIcon;
+      markerIcon = L.circleMarker([lat, lng], {
+        color: "gray",
+        fillColor: color,
+        fillOpacity: 1,
+        strokeWeight: strokeWeight,
+        weight: weight
+      }).addTo(globalMap);
+      this.markersIcons.push(markerIcon);
+      return markerIcon;
     }
 
+    return undefined;
+  }
 
 
-    onResize() {
-        this.width = window.innerWidth;
-        this.zoomLevel = this.width > 3820 ? this.mapCenterLatlng.zoomLevel + 0.85 : this.width < 3820 && this.width >= 2500 ? this.mapCenterLatlng.zoomLevel + 0.3 : this.width < 2500 && this.width > 1920 ? this.mapCenterLatlng.zoomLevel : this.width > 1500 ? this.mapCenterLatlng.zoomLevel - 0.4 : this.width > 1336 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.width > 1200 ? this.mapCenterLatlng.zoomLevel - 0.75 : this.width > 700 ? this.mapCenterLatlng.zoomLevel - 0.3 : this.width > 76 ? this.mapCenterLatlng.zoomLevel - 0.5 : this.width > 400 ? this.mapCenterLatlng.zoomLevel - 0.6 : this.width > 320 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.mapCenterLatlng.zoomLevel;
-        this.setMarkerRadius();
+  setMarkerRadius(level) {
+
+    if (this.mapName != 'googlemap') {
+      this.markersIcons.map(markerIcon => {
+        if (level === "District") {
+          markerIcon.setRadius(this.getMarkerRadius(18, 14, 10, 6));
+        }
+        if (level === "Block") {
+          markerIcon.setRadius(this.getMarkerRadius(12, 10, 8, 5));
+        }
+        if (level === "Cluster") {
+          markerIcon.setRadius(this.getMarkerRadius(5, 4, 3, 2));
+        }
+        if (level === "School") {
+          markerIcon.setRadius(this.getMarkerRadius(3, 2.5, 2, 1));
+        }
+        if (level === "commonSchool") {
+          markerIcon.setRadius(this.getMarkerRadius(10, 9, 6, 3));
+        }
+        if (level === "blockPerDistrict" || level === "clusterPerBlock" || level === "schoolPerCluster") {
+          markerIcon.setRadius(this.getMarkerRadius(18, 14, 10, 5));
+        }
+        if (level === "longSchoolPerCluster") {
+          markerIcon.setRadius(this.getMarkerRadius(18, 14, 10, 4));
+        }
+        if (level === "allCluster") {
+          markerIcon.setRadius(this.getMarkerRadius(14, 11, 6, 3));
+        }
+      })
     }
+  }
 
-    public map: any
-    //Initialisation of Map  
-    async initMap(map: any, maxBounds: any, markers: any, state: any, newMap: any) {
-        this._spinner.show()
-        if (environment.config == 'state') {
-            this.national = false;
-            this.mapCenterLatlng = config.default[`${environment.stateCode}`]
-        }
-        else if(state) {
-            this.mapCenterLatlng = config.default[`${state}`]
-        }
-        this.zoomLevel = this.width > 3820 ? this.mapCenterLatlng.zoomLevel + 0.85 : this.width < 3820 && this.width >= 2500 ? this.mapCenterLatlng.zoomLevel + 0.3 : this.width < 2500 && this.width > 1920 ? this.mapCenterLatlng.zoomLevel : this.width > 1500 ? this.mapCenterLatlng.zoomLevel - 0.4 : this.width > 1336 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.width > 1200 ? this.mapCenterLatlng.zoomLevel - 0.75 : this.width > 700 ? this.mapCenterLatlng.zoomLevel - 0.3 : this.width > 76 ? this.mapCenterLatlng.zoomLevel - 0.5 : this.width > 400 ? this.mapCenterLatlng.zoomLevel - 0.6 : this.width > 320 ? this.mapCenterLatlng.zoomLevel - 0.8 : this.mapCenterLatlng.zoomLevel;
+  getMarkerRadius(rad1, rad2, rad3, rad4) {
+    let radius = this.width > 3820 ? rad1 : this.width > 2500 && this.width < 3820 ? rad2 : this.width < 2500 && this.width > 1920 ? rad3 : rad4;
+    return radius;
+  }
 
-        let reportTypeETB: any;
-        let national = this.national;
+  setZoomLevel(level) {
+    var zoomLevel;
+    if (level === "District" || level === "Block" || level === "Cluster" || level === "School" || level === "commonSchool") {
+      zoomLevel = this.zoomLevel
+    }
+    if (level === "blockPerDistrict") {
+      zoomLevel = this.zoomLevel + 1;
+    }
+    if (level === "clusterPerBlock") {
+      zoomLevel = this.zoomLevel + 3;
+    }
+    if (level === "schoolPerCluster") {
+      zoomLevel = this.zoomLevel + 5;
+    }
+    if (level === "longSchoolPerCluster") {
+      zoomLevel = this.zoomLevel + 1;
+    }
+    if (level === "allCluster") {
+      zoomLevel = this.zoomLevel + 2.3;
+    }
+    globalMap.options.minZoom = zoomLevel;
+    if (this.latitude !== null && this.longitude !== null)
+      globalMap.setView(new L.LatLng(this.latitude, this.longitude), zoomLevel);
+  }
 
-        // if (globalMap) {
-        //     globalMap.remove();
-        //     console.log('removed');
-        // }
+  //map tooltip automation
+  public getInfoFrom(object, value, levelWise, reportType, infraName, colorText) {
 
-        if (markers[0].perfomance || markers[0].Performance) {
-            reportTypeETB = false;
-        }
-        else {
-            reportTypeETB = true;
-        }
-        // markers[0]
-        console.log('initializing');
-
-        function getZoneColor(e: any) {
-            if (reportTypeETB) {
-                console.log(e);
-                if (e == "Yes") {
-                    return "#36a732"
+    var popupFood = [];
+    var stringLine;
+    var selected = '<span>';
+    for (var key in object) {
+      if (object[key] && typeof object[key] != 'number' && typeof object[key] == 'string' && object[key].includes('%')) {
+        var split = object[key].split("% ");
+        object[`${key}`] = parseFloat(split[0].replace(` `, '')).toFixed(1) + ' % ' + split[1];
+      }
+      if (key == 'school_management_type' || key == 'school_category') {
+        object[`${key}`] = this.changeingStringCases(object[key].replace(/_/g, ' '));
+      }
+      if (object.hasOwnProperty(key)) {
+        if (key == value) {
+          if (reportType == "infra-map" || reportType == "patReport") {
+            selected = `<span ${infraName == key.trim() ? colorText : ''}>`
+          }
+          stringLine = selected + "<b>" +
+            key.replace(
+              /\w\S*/g,
+              function (txt) {
+                txt = txt.replace("ETB", "Etb")
+                txt = txt.replace('Id', '_id');
+                txt = txt.replace('Name', '_name');
+                txt = txt.replace(/_/g, ' ');
+                if (txt.includes('percent') && txt != 'percentage schools with missing data') {
+                  txt = txt.replace('percent', '(%)');
+                }
+                txt = txt == 'students count' ? 'student count' : txt;
+                if (txt.includes('id')) {
+                  return txt.charAt(0).toUpperCase();
                 } else {
-                    return "red"
+                  return toTitleCase(txt);
                 }
-            }
-            else {
-                return e > 90 ? "#002966" :
-                    e > 80 ? "#003d99" :
-                        e > 70 ? "#0052cc" :
-                            e > 50 ? "#0066ff" :
-                                e > 40 ? "#1a75ff" :
-                                    e > 30 ? "#4d94ff" :
-                                        e > 20 ? "#80b3ff" :
-                                            e > 10 ? "#b3d1ff" :
-                                                e > 0 ? "#cce0ff" :
-                                                    "#e6f0ff";
-            }
+              })
+            + "</b>" + ": " + object[key] + " %" + `</span>`;
+        } else {
+          if (reportType == "infra-map" || reportType == "patReport") {
+            selected = `<span ${infraName == key.trim() ? colorText : ''}>`
+          }
+          stringLine = selected + "<b>" +
+            key.replace(
+              /\w\S*/g,
+              function (txt) {
+                txt = txt.replace("ETB", "ETB")
+                if (txt.includes('expected_ETB_users')) {
+                  return txt = txt.replace('expected_ETB_users', 'Expected ETB Users')
+                }
+                if (txt.includes('actual_ETB_users')) {
+                  return txt = txt.replace('actual_ETB_users', 'Actual_ETB_Users')
+                }
+                txt = txt.replace('Id', '_id');
+                txt = txt.replace('Name', '_name');
+                txt = txt.replace(/_/g, ' ');
+                if (txt.includes('percent') && txt != 'percentage schools with missing data') {
+                  txt = txt.replace('percent', '(%)');
+                }
+                txt = txt == 'students count' ? 'student count' : txt;
+                if (txt.includes('id')) {
+                  txt = txt.replace('id', 'ID');
+                  return txt.charAt(0).toUpperCase() + txt.substr(1);
+                } else {
+                  return toTitleCase(txt);
+                }
 
+              })
+
+            + "</b>" + ": " + object[key] + `</span>`;
         }
-
-        function style_states1(feature: any) {
-            let check: any = '';
-            if (reportTypeETB) {
-                if (national && state == 'IN') {
-                    markers.forEach((states: any) => {
-                        if (states['Location Code']) {
-                            if (states['Location Code'] == (typeof feature?.properties?.ID_0 === 'number' ? feature?.properties?.ID_0 : feature?.properties?.ID_0?.trim())) {
-                                check = states?.status?.split(':')[1]?.trim()
-                                if (feature.properties) {
-                                    feature.properties['popUpContent'] = feature?.properties?.st_nm + ' : ' + check;
-                                }
-                            }
-                        } else {
-                            if (states?.Location?.trim().toLowerCase() == feature?.properties?.st_nm?.trim().toLowerCase()) {
-                                check = states?.status?.split(':')[1]?.trim()
-                                if (feature.properties) {
-                                    feature.properties['popUpContent'] = feature?.properties?.st_nm + ' : ' + check;
-                                }
-                            }
-                        }
-                    })
-                }
-                else {
-                    markers.forEach((district: any) => {
-                        if (district['Location Code']) {
-                            if (district['Location Code'] == (typeof feature?.properties?.ID_0 === 'number' ? feature?.properties?.ID_0 : feature?.properties?.ID_0?.trim())) {
-                                check = district?.status?.split(':')[1]?.trim()
-                                if (feature.properties) {
-                                    feature.properties['popUpContent'] = feature?.properties?.NAME_2 + ' : ' + check;
-                                }
-                            }
-                        }else {
-                        if (district?.Location?.trim().toLowerCase() == feature?.properties?.NAME_2?.trim().toLowerCase()) {
-                            check = district?.status?.split(':')[1]?.trim()
-                            if (feature.properties) {
-                                feature.properties['popUpContent'] = feature?.properties?.NAME_2 + ' : ' + check;
-                            }
-                        }
-                    }
-                    })
-                }
-            }
-            else {
-                if (national && state == 'IN') {
-                    markers.forEach((states: any) => {
-                        if (states['Location Code']) {
-                            if (states['Location Code'] == (typeof feature?.properties?.ID_0 === 'number' ? feature?.properties?.ID_0 : feature?.properties?.ID_0?.trim())) {
-                                let performance = states.perfomance ? states.perfomance : states.Performance;
-                                check = typeof performance === 'string' ? Number(states?.perfomance?.split(':')[1]?.trim()) : performance;
-                                if (feature.properties) {
-                                    feature.properties['popUpContent'] = 'Performance of ' + feature?.properties?.st_nm + ' is ' + check + '%';
-                                }
-                            }
-                        } else {
-                            if (states?.Location?.trim().toLowerCase() == feature?.properties?.NAME_2?.trim().toLowerCase()) {
-                                let performance = states.perfomance ? states.perfomance : states.Performance;
-                                check = typeof performance === 'string' ? Number(states?.perfomance?.split(':')[1]?.trim()) : performance;
-                                if (feature.properties) {
-                                    feature.properties['popUpContent'] = 'Performance of ' + feature?.properties?.st_nm + ' is ' + check + '%';
-                                }
-                            }
-                        }
-                    })
-                }
-                else {
-                    markers.forEach((district: any) => {
-                        if (district['Location Code']) {
-                            if (district['Location Code'] == (typeof feature?.properties?.ID_0 === 'number' ? feature?.properties?.ID_0 : feature?.properties?.ID_0?.trim())) {
-                                let performance = district.perfomance ? district.perfomance : district.Performance;
-                                check = typeof performance === 'string' ? Number(district?.perfomance?.split(':')[1]?.trim()) : performance;
-                                if (feature.properties) {
-                                    feature.properties['popUpContent'] = 'Performance of ' + feature?.properties?.NAME_2 + ' is ' + check + '%';
-                                }
-                            }
-                        } else {
-                            if (district?.Location?.trim().toLowerCase() == feature?.properties?.NAME_2?.trim().toLowerCase()) {
-                                let performance = district.perfomance ? district.perfomance : district.Performance;
-                                check = typeof performance === 'string' ? Number(district?.perfomance?.split(':')[1]?.trim()) : performance;
-                                if (feature.properties) {
-                                    feature.properties['popUpContent'] = 'Performance of ' + feature?.properties?.NAME_2 + ' is ' + check + '%';
-                                }
-                            }
-                        }
-                    })
-                }
-            }
-
-            return {
-                fillColor: '#fff',
-                weight: 1,
-                opacity: 1,
-                color: 'grey',
-                dashArray: '0',
-                fillOpacity: 1
-            };
-        }
-
-        if (this.national && !state) {
-            const response = await fetch(`${environment.apiURL}/assets/geo-locations/IN.json`);
-            const body = await response.json();
-            var data = body;
-        }
-        else if(this.national && state){
-            const response = await fetch(`${environment.apiURL}/assets/geo-locations/${state}.json`);
-            const body = await response.json();
-            var data = body;
-        }
-        else {
-            const response = await fetch(`${environment.apiURL}/assets/geo-locations/${environment.stateCode}.json`);
-            const body = await response.json();
-            var data = body;
-        }
-
-        function applyCountryBorder(map: any, national: any) {
-            var addedGeoJSON = L.geoJSON(data['features'], {
-                style: style_states1,
-                color: "#a0a1a3",
-                weight: 1,
-                fillOpacity: 0,
-                fontWeight: "bold",
-                onEachFeature: function (feature: any, layer: any) {
-                    //layer.bindTooltip('<h3>' + feature?.properties?.popUpContent + '</h3>', { closeButton: false, offset: L.point(0, -20) });
-                }
-            }).addTo(map);
-
-            // map.fitBounds(addedGeoJSON.getBounds(), {
-            //     padding: [20, 20]
-            // });
-        }
-
-        var legend = L.control({ position: 'topright' });
-        legend.onAdd = function (map: any) {
-
-            let labels: any[] = [];
-            let values: any[] = [];
-
-            var div = L.DomUtil.create('div', 'info legend');
-            if (reportTypeETB) {
-                labels = ['<strong>State & NCERT adopted:</strong>'];
-                values = ["Yes", "No"];
-                for (var i = 0; i < values.length; i++) {
-
-                    div.innerHTML +=
-                        labels.push('<i class="fa fa-square" style="color:' + getZoneColor(values[i]) + '"></i> ' + values[i]);
-
-                }
-            }
-            else {
-                labels = ['<strong>Performance</strong>'];
-                values = ['100', '90', '80', '70', '60', '50', '40', '30', '20', '10'];
-                for (var i = 0; i < values.length; i++) {
-
-                    div.innerHTML +=
-                        labels.push(
-                            '<i class="fa  fa-square" style="color:' + getZoneColor(Number(values[i]) - 1) + '"></i><span class="h6">' +
-                            ' ' + (values[i + 1] ? values[i + 1] + '&ndash;' : '0 &ndash;') + values[i] + ' %' + '</span>');
-
-                }
-            }
-
-
-
-            div.innerHTML = labels.join('<br>');
-            return div;
-        };
-        legend.addTo(newMap);
-        applyCountryBorder(newMap, this.national);
-        this.map = newMap
-        this._spinner.hide()
-        console.log(this.mapCenterLatlng);
+      }
+      popupFood.push(stringLine);
     }
-
-    restrictZoom(newMap: any) {
-        newMap.touchZoom.disable();
-        newMap.boxZoom.disable();
-        newMap.keyboard.disable();
-        newMap.doubleClickZoom.disable();
+    function toTitleCase(phrase) {
+      var key = phrase
+        .toLowerCase()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+      key = key.replace("Nsqf", "NSQF");
+      key = key.replace("Ict", "ICT");
+      key = key.replace("Crc", "CRC");
+      key = key.replace("Cctv", "CCTV");
+      key = key.replace("Cwsn", "CWSN");
+      key = key.replace("Ff Uuid", "UUID");
+      return key;
     }
+    return popupFood;
+  }
 
-    //Initialise markers.....
-    markersIcons: any = [];
-    public initMarkers1(lat: any, lng: any, color: any, strokeWeight: any, weight: any, newMap: any) {
-        if (lat !== undefined && lng !== undefined) {
-            var markerIcon: any;
-            markerIcon = L.circleMarker([lat, lng], {
-                color: "gray",
-                fillColor: color,
-                fillOpacity: 1,
-                strokeWeight: strokeWeight,
-                weight: weight
-            }).addTo(newMap);
+  changeingStringCases(str) {
+    return str.replace(
+      /\w\S*/g,
+      function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
+  }
 
-            this.markersIcons.push(markerIcon);
+  // google marker initialsation
+  // public markerRadius;
+  public circleIcon
+//   initGoogleMapMarker(color, scale, stroke) {
+//     this.circleIcon = {
+//     //   path: google.maps.SymbolPath.CIRCLE,
+//       fillColor: color,
+//       fillOpacity: 1,
+//       scale: scale,
+//       strokeColor: 'gray',
+//       strokeWeight: stroke,
+//     };
+//     return this.circleIcon;
+//   }
 
-            return markerIcon;
+  //goog
+  jsonMapData: any = googleMapData.default;
+  public geoJson = environment.mapName === 'googlemap' ? {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        properties: {
+          color: "transparent",
+          ascii: "111"
+        },
+        geometry: {
+          type: "Polygon",
+          coordinates: [
+            this.jsonMapData[`${environment.stateName}`]['features'][0].geometry.coordinates[0]
+          ]
+
         }
-
-        return undefined;
-    }
-    getMarkerRadius(rad1: any, rad2: any, rad3: any, rad4: any) {
-        let radius = this.width > 3820 ? rad1 : this.width > 2500 && this.width < 3820 ? rad2 : this.width < 2500 && this.width > 1920 ? rad3 : rad4;
-        return radius;
-    }
-
-    setMarkerRadius() {
-        this.markersIcons.map((markerIcon: any) => {
-            markerIcon.setRadius(this.getMarkerRadius(18, 14, 10, 4));
-        })
-    }
+      }
+    ]
+  } : {};
 
 
-    public getInfoFrom(object: any, value: any, levelWise: any, reportType: any,) {
-        var popup = [];
-        var stringLine;
-        var selected = '<span>';
-        for (var key in object) {
-            if (object.hasOwnProperty(key)) {
-                stringLine = selected
-                    + object[key] + `</span> <br>`;
-            }
-            popup.push(stringLine);
-        }
-        function toTitleCase(phrase: any) {
-            var key = phrase
-                .toLowerCase()
-                .split(' ')
-                .map((word: any) => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ');
 
-            return key;
-        }
-        return popup;
-    }
+  public visualizePeakFactor(feature) {
+    const color = feature.getProperty("color");
+    return {
+      fillColor: color,
+      strokeWeight: 3,
+      strokeColor: "#6e6d6d"
+    };
+  }
 }
-
-
-

@@ -181,6 +181,13 @@ if (environment.config == 'national') {
               (module) => module.SchoolRegistryModule
             ),
         },
+        {
+          path: 'infra',
+          loadChildren: () =>
+          import('./views/school-infrastructure/school-infrastructure.module').then(
+            (module) => module.SchoolInfrastructureModule
+          ),
+        }
       ],
     },
   ];
