@@ -87,29 +87,11 @@
             </button>
           </div>
 
-          <!-- <select id="choose_infra" [(ngModel)]="infraData" (change)="oninfraSelect(infraData)">
-              <option [value]="infraData" disabled selected="selected">
-                Choose a Infrastructure
-              </option>
-              <option *ngFor="let infra of infraFilter" [(ngValue)]="infra.key">
-                {{ infra.value }}
-              </option>
-            </select> -->
           <div class="lg:col-span-9 col-span-12 grid grid-cols-4 gap-4">
             <ng-select class="col-span-2 sm:col-span-1" id="choose_infra" dropdownPosition="bottom" [clearable]="false"
               placeholder="Choose a Infrastructure" (change)="oninfraSelect($event)" [(ngModel)]="infraData">
               <ng-option *ngFor="let infra of infraFilter" [value]="infra.key">{{ infra.value }}</ng-option>
             </ng-select>
-
-            <!-- <select id="choose_dist" [hidden]="hideDist" [disabled]="selDist" [(ngModel)]="districtId"
-              (change)="onDistrictSelect(districtId)">
-              <option [value]="districtId" disabled selected="selected">
-                Choose a District
-              </option>
-              <option *ngFor="let dist of districtMarkers" [(ngValue)]="dist.details.district_id">
-                {{ dist.details.district_name }}
-              </option>
-            </select> -->
 
             <ng-select class="col-span-2 sm:col-span-1" id="choose_dist" [hidden]="hideDist" [(ngModel)]="districtId" [clearable]="false"
               (change)="onDistrictSelect($event)" dropdownPosition="bottom" placeholder="Choose a District">
@@ -117,34 +99,11 @@
                 {{dist.details.district_name}}</ng-option>
             </ng-select>
 
-            <!-- <select [hidden]="blockHidden" id="choose_block" [disabled]="selBlock" [(ngModel)]="blockId"
-              (change)="onBlockSelect(blockId)">
-              <option [value]="blockId" disabled selected="selected">
-                Choose a Block
-              </option>
-              <option *ngFor="let block of blockMarkers" [(ngValue)]="block.details.block_id">
-                {{ block.details.block_name }}
-              </option>
-            </select> -->
-
             <ng-select class="col-span-2 sm:col-span-1" [hidden]="blockHidden" id="choose_block" (change)="onBlockSelect($event)" [clearable]="false"
               dropdownPosition="bottom" placeholder="Choose a Block" [(ngModel)]="blockId">
               <ng-option *ngFor="let block of blockMarkers" [value]="block.details.block_id">{{ block.details.block_name
                 }}</ng-option>
             </ng-select>
-
-            <!-- <select [hidden]="clusterHidden" id="choose_cluster" [disabled]="selCluster" [(ngModel)]="clusterId"
-            (change)="onClusterSelect(clusterId)">
-            <option [value]="clusterId" disabled selected="selected">
-              Choose a Cluster
-            </option>
-            <option *ngFor="let cluster of clusterMarkers" [(ngValue)]="cluster.details.cluster_id" [ngStyle]="{
-                  color:
-                    cluster.clusterName !== 'NO NAME FOUND' ? 'white' : '#ff3333'
-                }">
-                {{ cluster.details.cluster_name }}
-              </option>
-          </select> -->
 
             <ng-select class="col-span-2 sm:col-span-1" [hidden]="clusterHidden" id="choose_cluster" (change)="onClusterSelect($event)"
               [clearable]="false" dropdownPosition="bottom" placeholder="Choose a Cluster" [(ngModel)]="clusterId">
@@ -174,25 +133,6 @@
 
       </div>
 
-      <!-- google map =============================-->
-      <!-- <div *ngIf="mapName == 'googlemap'" style="float: left;"
-          [ngStyle]="{'width' : selected == 'absolute' ? '90%' : '100%'}">
-          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="googleMapZoom" [disableDoubleClickZoom]="true"
-            [ngStyle]="{height: height > 1760 ? '83vh': height > 1160 && height < 1760 ? '80vh': height > 667 && height < 1160 ? '74vh':'70vh'}"
-            [disableDefaultUI]="true">
-            <agm-data-layer [geoJson]="geoJson" [style]="globalService.visualizePeakFactor">
-            </agm-data-layer>
-            <agm-marker *ngFor="let marker of markers; let index=i" [latitude]="marker.details.latitude"
-              [longitude]="marker.details.longitude" (mouseOver)="mouseOverOnmaker(infoWindow, $event)"
-              (mouseOut)="mouseOutOnmaker(infoWindow, $event)" (markerClick)="onClick_AgmMarker($event, marker)"
-              [iconUrl]="marker.icon">
-              <agm-info-window [disableAutoPan]="false" #infoWindow>
-                <div class='agm-info-window-content' [innerHTML]="marker.label">
-                </div>
-              </agm-info-window>
-            </agm-marker>
-          </agm-map>
-        </div> -->
       <!--Marker legends ======================-->
       <div *ngIf="selected == 'absolute'" style="float: right; width: 9%; margin-left: 1%; margin-top: 1%">
         <h5 id="legend" style="margin-left: 15%">
@@ -219,7 +159,7 @@
       </div>
     </div>
   </div>
-  <!-- <div class="row" id="footer">
+  <div class="row" id="footer">
       <div [hidden] = "hideFooter" class="col-sm-3">
         <div id="outer">
           <div id="absolute" (click)="getColor('absolute')" [ngStyle]="{
@@ -244,7 +184,7 @@
       <div [hidden] = "hideFooter" class="col-sm-5" *ngIf="!valueRange || valueRange == '0-100'">
         <span id="schools" class="note" style="text-align: center">Number of Schools: {{ schoolCount }}</span>
       </div>
-    </div> -->
+    </div>
 </div>
 <div id="spinner">
   <div id="loader" class="loading">Loading&#8230;</div>
