@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   ViewEncapsulation,
   AfterViewInit,
+  AfterContentInit,
 } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { SchoolInfraService } from "src/app/core/services/school-infra.service";
@@ -20,7 +21,7 @@ import { AppServiceComponent } from "src/app/app.service";
   templateUrl: './infra-map.component.html',
   styleUrls: ['./infra-map.component.scss']
 })
-export class InfraMapComponent implements OnInit, AfterViewInit {
+export class InfraMapComponent implements OnInit {
   
     public title: string = "";
     public titleName: string = "";
@@ -136,13 +137,10 @@ export class InfraMapComponent implements OnInit, AfterViewInit {
     public hideAccessBtn: boolean = false
   
     ngOnInit() {
-      // setTimeout(() => {
-      //   this.initMap();
-      // }, 100);
-    }
-
-    ngAfterViewInit(): void {
-      this.initMap();
+      setTimeout(() => {
+        globalMap
+        this.initMap();
+      }, 100);
     }
 
     initMap(){
@@ -355,10 +353,10 @@ export class InfraMapComponent implements OnInit, AfterViewInit {
           };
           this.dataOptions = options;
           this.globalService.restrictZoom(globalMap);
-          globalMap.setMaxBounds([
-            [options.centerLat - 4.5, options.centerLng - 6],
-            [options.centerLat + 3.5, options.centerLng + 6],
-          ]);
+          // globalMap.setMaxBounds([
+          //   [options.centerLat - 4.5, options.centerLng - 6],
+          //   [options.centerLat + 3.5, options.centerLng + 6],
+          // ]);
   
           //schoolCount
           this.schoolCount = this.myDistData["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");

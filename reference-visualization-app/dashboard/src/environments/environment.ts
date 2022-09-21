@@ -30,7 +30,7 @@ export const environment = {
       format: 'long'
     }
   },
-  apiEndpoint: "http://localhost:3000/api",
+  apiEndpoint: "http://localhost:3004/api",
   adminApiEndPoint: "http://localhost:3001/admin_api",
   adminUrl2: "http://localhost:4201",
   appUrl: "http://localhost:4200",

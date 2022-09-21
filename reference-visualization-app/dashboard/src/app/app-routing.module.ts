@@ -116,13 +116,13 @@ if (environment.config == 'national') {
   ];
 } else {
   routes = [
-    {
-      path: '',
-      loadChildren: () =>
-        import('./views/authentication/authentication.module').then(
-          (module) => module.AuthenticationModule
-        ),
-    },
+    // {
+    //   path: '',
+    //   loadChildren: () =>
+    //     import('./views/authentication/authentication.module').then(
+    //       (module) => module.AuthenticationModule
+    //     ),
+    // },
     {
       path: '',
       component: LayoutComponent,
