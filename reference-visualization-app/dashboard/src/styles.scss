@@ -16,6 +16,15 @@ body {
 }
 }
 
+.button-grp, #download1{
+    align-items: center;
+}
+
+.container-fluid{
+    overflow-y: hidden !important;
+}
+
+
 .legends {
     width: 85%;
     height: 4.5vh;
@@ -163,7 +172,7 @@ body {
     font-weight: bold;
     color: #727374;
     padding: 2px;
-    position: fixed;
+    // position: fixed;
     bottom: 0;
     left: 14px;
     z-index: 999 !important;
@@ -215,4 +224,24 @@ body {
         width: auto;
         min-width: 100%;
     }
+}
+
+#dist, #block, #cluster, #school, .note{
+    margin-bottom: 20px;
+}
+
+#absolute {
+    border-radius: 15px;
+    height: 21px;
+    width: 50%;
+    float: left;
+    cursor: pointer;
+}
+
+#relative {
+    border-radius: 15px;
+    height: 21px;
+    width: 50%;
+    float: left;
+    cursor: pointer;
 }
