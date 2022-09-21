@@ -18,6 +18,7 @@ export class MapService {
 
   latitude;
   longitude;
+  geoJSON;
 
   constructor() { }
 
@@ -31,16 +32,16 @@ export class MapService {
 
   //Initialisation of Map  
   initMap(map, maxBounds) {
+    let ref = this;
     if (environment.mapName !== 'none') {
       console.log(map)
       if (this.mapName == 'leafletmap') {
         globalMap = L.map(map, { zoomSnap: 0.25, zoomControl: false, touchZoom: false, maxBounds: maxBounds, dragging: environment.stateName == 'UP' ? false : true }).setView([maxBounds[0][0], maxBounds[0][1]], this.mapCenterLatlng.zoomLevel);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
           {
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-            maxZoom: this.mapCenterLatlng.zoomLevel + 10,
-          }
-        ).addTo(globalMap);
+          subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }
+      ).addTo(globalMap);
       } else {
         globalMap = new MapmyIndia.Map(map, { hasTip: false, touchZoom: false, autoPan: false, offset: [15, 20], dragging: environment.stateName == 'UP' ? false : true }, {
           zoomControl: false,
@@ -49,14 +50,25 @@ export class MapService {
       }
       var data = mapData.default;
       function applyCountryBorder(map) {
-        L.geoJSON(data[`${environment.stateName}`]['features'], {
+        ref.geoJSON = L.geoJSON(data[`${environment.stateName}`]['features'], {
+          // style: {
+          //   fillColor: '#fff',
+          //   weight: 1,
+          //   opacity: 1,
+          //   color: 'grey',
+          //   dashArray: '0',
+          //   fillOpacity: 1
+          // },
           color: "#6e6d6d",
           weight: 2,
           fillOpacity: 0,
           fontWeight: "bold"
-        }).addTo(map);
+        })
+        ref.geoJSON.addTo(map);
       }
+      globalMap.attributionControl.setPrefix(false);
       applyCountryBorder(globalMap);
+      this.fitBoundsToCountryBorder(globalMap);
     }
   }
 
@@ -64,6 +76,12 @@ export class MapService {
     globalMap.touchZoom.disable();
     globalMap.boxZoom.disable();
     globalMap.keyboard.disable();
+  }
+
+  fitBoundsToCountryBorder(globalMap): void {
+    globalMap.fitBounds(this.geoJSON.getBounds(), {
+      padding: [10, 10]
+    });
   }
 
   //Initialise markers.....

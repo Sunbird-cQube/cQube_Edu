@@ -10,13 +10,14 @@
 </div>
 
 <div class="tab-group-wrapper">
-    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
         <mat-tab label="Infrastructure Access by Location">
-            <app-infra-map></app-infra-map>
+            <app-infra-map *ngIf="tabIndex === 0"></app-infra-map>
         </mat-tab>
         <mat-tab label="Infrastructure Composite Report">
         </mat-tab>
         <mat-tab label="UDISE Report">
+            <app-udise-report *ngIf="tabIndex === 2"></app-udise-report>
         </mat-tab>
     </mat-tab-group>
 </div>
