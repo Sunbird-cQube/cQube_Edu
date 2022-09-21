@@ -6,7 +6,7 @@ import * as L from "leaflet";
 import * as R from "leaflet-responsive-popup";
 
 import { environment } from 'src/environments/environment';
-import { UdiseReportService } from 'src/app/core/services/udise-report-service';
+import { UdiseReportService } from 'src/app/core/services/udise-report.service';
 import { MapService, globalMap } from 'src/app/core/services/mapservices/maps.services';
 
 @Component({

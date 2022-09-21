@@ -187,6 +187,13 @@ if (environment.config == 'national') {
           import('./views/school-infrastructure/school-infrastructure.module').then(
             (module) => module.SchoolInfrastructureModule
           ),
+        },
+        {
+          path: 'stperformance',
+          loadChildren: () => 
+            import('./views/student-performance/student-performance.module').then(
+              (module) => module.StudentPerformanceModule
+            )
         }
       ],
     },
