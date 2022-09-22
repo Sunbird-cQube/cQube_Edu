@@ -194,6 +194,13 @@ if (environment.config == 'national') {
             import('./views/student-performance/student-performance.module').then(
               (module) => module.StudentPerformanceModule
             )
+        },
+        {
+          path: 'education-official',
+          loadChildren: () =>
+            import('./views/education-official/education-official.module').then(
+              (module) => module.EducationOfficialModule
+            )
         }
       ],
     },
