@@ -196,6 +196,13 @@ if (environment.config == 'national') {
             )
         },
         {
+          path: 'education-official',
+          loadChildren: () =>
+            import('./views/education-official/education-official.module').then(
+              (module) => module.EducationOfficialModule
+            )
+        },
+        {
           path: 'attendance',
           loadChildren: () => 
             import('./views/attendance/attendance.module').then(
