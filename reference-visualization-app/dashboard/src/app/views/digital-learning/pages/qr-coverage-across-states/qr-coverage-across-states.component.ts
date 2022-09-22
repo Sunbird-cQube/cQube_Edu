@@ -19,6 +19,17 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
   QRGaugeData: any | undefined;
   tableData: any;
 
+  config = {
+    labelExpr: 'Location',
+    datasets: [
+      { dataExpr: 'QR Coverage', label: 'Content Coverage on QR' }
+    ],
+    options: {
+      height: '700'
+    }
+  };
+  data;
+
   @ViewChild(LeafletMapComponent) leafletComponent!: LeafletMapComponent;
 
   constructor(private readonly _commonService: CommonService) {
@@ -66,48 +77,8 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
     this._commonService.getReportData(data).subscribe(res => {
       let result = res.result.data;
       this.filters = res.result.filters;
-
-      this.barChartOptions = {
-        chart: {
-          // events: {
-          //   load: function(this: any) {
-          //     let categoryHeight = 20;
-          //     this.update({
-          //       chart: {
-          //         height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
-          //       }
-          //     })
-          //   }
-          // }
-        },
-        xAxis: {
-          categories: result.map((record: any) => {
-            return record['Location'];
-          })
-        },
-        yAxis: {
-          opposite: true
-        },
-        legend: {
-          layout: 'horizontal',
-          align: 'center',
-          verticalAlign: 'top',
-          floating: false,
-          borderWidth: 0,
-          shadow: false,
-          reversed: true
-        },
-        plotOptions: {
-          bar: {
-            minPointLength: 0
-          }
-        },
-        series: [{
-          type: 'bar',
-          name: 'Content Coverage on QR',
-          data: result.map((record: any) => record['QR Coverage'])
-        }]
-      };
+      this.config.options.height = (result.length * 15 + 150).toString();
+      this.data = { values: result };
 
       this.QRGaugeData = res.result.gaugeChart;
 

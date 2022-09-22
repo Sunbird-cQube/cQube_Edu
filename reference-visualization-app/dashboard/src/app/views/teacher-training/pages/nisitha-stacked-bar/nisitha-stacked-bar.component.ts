@@ -18,6 +18,45 @@ export class NisithaStackedBarComponent implements OnInit {
   enrollmentTargetChartOptions: Highcharts.Options | undefined;
   certificateTargetChartOptions: Highcharts.Options | undefined;
   filters: any;
+  config = {
+    labelExpr: 'Location',
+    datasets: [
+      { dataExpr: '% Target Achieved- Enrolment', label: '% Target Achieved-Enrolment' },
+      { dataExpr: '% Total Target-Enrolment', label: '% Total Target-Enrolment' }
+    ],
+    options: {
+      height: '400',
+      scales: {
+        xAxes: [{
+          stacked: true // this should be set to make the bars stacked
+       }],
+       yAxes: [{
+          stacked: true // this also..
+        }]
+      }
+    }
+  };
+  data;
+
+  config2 = {
+    labelExpr: 'Location',
+    datasets: [
+      { dataExpr: '% Target Achieved- Certificates', label: '% Target Achieved-Certificates' },
+      { dataExpr: '% Total Target-Certificates', label: '% Total Target-Certificates' }
+    ],
+    options: {
+      height: '400',
+      scales: {
+        xAxes: [{
+          stacked: true // this should be set to make the bars stacked
+       }],
+       yAxes: [{
+          stacked: true // this also..
+       }]
+      }
+    }
+  };
+  data2;
 
   constructor(private readonly _commonService: CommonService) {
     this.getEnrollmentTarget(this.filters);
@@ -39,79 +78,17 @@ export class NisithaStackedBarComponent implements OnInit {
     this._commonService.getReportData(data).subscribe((res) => {
       let result = res.result.data;
       this.filters = res.result.filters;
-      this.enrollmentTargetChartOptions = {
-        chart: {
-          marginTop: 50,
-          events: {
-            load: function (this: any) {
-              let categoryHeight = 15;
-              this.update({
-                chart: {
-                  height:
-                    categoryHeight * this.pointCount +
-                    (this.chartHeight - this.plotHeight),
-                },
-              });
-            },
-          },
-        },
-        xAxis: {
-          categories: result.map((record: any) => {
-            return record['Location'];
-          }),
-        },
-        plotOptions: {
-          bar: {
-            dataLabels: {
-              enabled: false,
-            },
-          },
-        },
-        legend: {
-          layout: 'horizontal',
-          align: 'center',
-          verticalAlign: 'top',
-          floating: false,
-          borderWidth: 0,
-          shadow: false,
-          reversed: true,
-        },
-        tooltip: {
-          shared: true,
-          formatter: function (this: any) {
-            return `<p style="font-weight: 700">${this.x}</p><br><br>${this.points[0].point.data}`;
-          },
-          style: {
-            opacity: 1,
-            backgroundColor: '#fff',
-          },
-        },
-        series: [
-          {
-            type: 'bar',
-            color: 'rgb(239,243,255)',
-            name: '% Total Target-Enrolment',
-            data: result.map((record: any) => {
-              return {
-                y: Number(
-                  Number(100 - record['% Target Achieved- Enrolment']).toFixed(
-                    2
-                  )
-                ),
-                data: record.tooltip,
-              };
-            }),
-          },
-          {
-            type: 'bar',
-            color: 'rgb(33,113,181)',
-            name: '% Target Achieved-Enrolment',
-            data: result.map((record: any) => {
-              return record['% Target Achieved- Enrolment'];
-            }),
-          },
-        ],
+
+      this.config.options.height = (result.length * 15 + 150).toString();
+      result = result.map(rec => {
+        rec['% Total Target-Enrolment'] = Number(Number(100 - rec['% Target Achieved- Enrolment']).toFixed(2));
+        return rec;
+      });
+      this.data = {
+        values: result
       };
+
+      console.log(this.config, this.data);
     });
   }
 
@@ -127,78 +104,13 @@ export class NisithaStackedBarComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe((res) => {
       let result = res.result.data;
-      this.certificateTargetChartOptions = {
-        chart: {
-          marginTop: 50,
-          events: {
-            load: function (this: any) {
-              let categoryHeight = 15;
-              this.update({
-                chart: {
-                  height:
-                    categoryHeight * this.pointCount +
-                    (this.chartHeight - this.plotHeight),
-                },
-              });
-            },
-          },
-        },
-        xAxis: {
-          categories: result.map((record: any) => {
-            return record['Location'];
-          }),
-        },
-        plotOptions: {
-          bar: {
-            dataLabels: {
-              enabled: false,
-            },
-          },
-        },
-        legend: {
-          layout: 'horizontal',
-          align: 'center',
-          verticalAlign: 'top',
-          floating: false,
-          borderWidth: 0,
-          shadow: false,
-          reversed: true,
-        },
-        tooltip: {
-          shared: true,
-          formatter: function (this: any) {
-            return `<p style="font-weight: 700">${this.x}</p><br><br>${this.points[0].point.data}`;
-          },
-          style: {
-            opacity: 1,
-            backgroundColor: '#fff',
-          },
-        },
-        series: [
-          {
-            type: 'bar',
-            color: 'rgb(239,243,255)',
-            name: '% Total Target-Certificates',
-            data: result.map((record: any) => {
-              return {
-                y: Number(
-                  Number(
-                    100 - record['% Target Achieved- Certificates']
-                  ).toFixed(2)
-                ),
-                data: record.tooltip,
-              };
-            }),
-          },
-          {
-            type: 'bar',
-            color: 'rgb(33,113,181)',
-            name: '% Target Achieved-Certificates',
-            data: result.map((record: any) => {
-              return record['% Target Achieved- Certificates'];
-            }),
-          },
-        ],
+      this.config2.options.height = (result.length * 15 + 150).toString();
+      result = result.map(rec => {
+        rec['% Total Target-Certificates'] = Number(Number(100 - rec['% Target Achieved- Certificates']).toFixed(2));
+        return rec;
+      });
+      this.data2 = {
+        values: result
       };
     });
   }

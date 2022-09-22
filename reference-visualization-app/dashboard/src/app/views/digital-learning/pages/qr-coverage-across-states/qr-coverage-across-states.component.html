@@ -7,7 +7,10 @@
             <div class="xs:col-span-full xmd:col-span-7 md:col-span-7 xl:col-span-8">
                 <div class="grid gap-2 grid-cols-3">
                     <div class="col-span-2">
-                        <app-bar-chart title="" [options]="barChartOptions" height="90vh"></app-bar-chart>
+                        <!-- <app-bar-chart title="" [options]="barChartOptions" height="90vh"></app-bar-chart> -->
+                        <ng-container *ngIf="data">
+                            <sb-dashlet type="horizontalBar" [data]="data" [config]="config"></sb-dashlet>
+                        </ng-container>
                     </div>
                     <div class="col-span-1">
                         <app-gauge-chart [options]="gaugeChartOptions"></app-gauge-chart>

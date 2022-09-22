@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CqubeLibraryModule } from 'cqube-library';
+import { DashletModule } from '@project-sunbird/sb-dashlet-v14';
 
 import { TeacherTrainingRoutingModule } from './teacher-training-routing.module';
 import { TeacherTrainingComponent } from './teacher-training.component';
@@ -15,6 +16,7 @@ import { NisithaStackedBarComponent } from './pages/nisitha-stacked-bar/nisitha-
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TotalCoursesTableComponent } from './pages/total-courses-table/total-courses-table.component';
 import { ProgramWiseImplementationComponent } from './pages/program-wise-implementation/program-wise-implementation.component';
+import { DataService } from 'src/app/core/services/data.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,9 @@ import { ProgramWiseImplementationComponent } from './pages/program-wise-impleme
     MatTabsModule,
     CqubeLibraryModule,
     NgxSpinnerModule,
+    DashletModule.forRoot({
+      dataService: DataService
+    })
   ],
 })
 export class TeacherTrainingModule {}
