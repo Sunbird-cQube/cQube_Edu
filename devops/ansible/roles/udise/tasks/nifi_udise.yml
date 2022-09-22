@@ -1,0 +1,5 @@
+---
+- name: Run udise python code
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utililty.py udise_transformer udise_parameters cQube_data_storage 4664 {{ storage_type }}"
+  tags: [ install, update ]
+

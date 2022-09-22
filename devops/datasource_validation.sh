@@ -35,7 +35,7 @@ fi
 echo "Validating the datasource_config.yml file..."
 
 # An array of mandatory values
-declare -a arr=("diksha")
+declare -a arr=("crc" "attendance" "infra" "diksha" "telemetry" "udise" "pat" "composite" "progresscard" "teacher_attendance" "data_replay" "sat")
 
 # Create and empty array which will store the key and value pair from config file
 declare -A vals
@@ -52,6 +52,27 @@ do
 key=$i
 value=${vals[$key]}
 case $key in
+  crc)
+       if [[ $value == "" ]]; then
+          echo "Error - Value for $key cannot be empty. Please fill this value"; fail=1
+       else
+          check_datasource $key $value
+       fi
+       ;;
+  attendance)
+       if [[ $value == "" ]]; then
+          echo "Error - Value for $key cannot be empty. Please fill this value"; fail=1
+       else
+          check_datasource $key $value
+       fi
+       ;;
+  infra)
+       if [[ $value == "" ]]; then
+          echo "Error - Value for $key cannot be empty. Please fill this value"; fail=1
+       else
+          check_datasource $key $value
+       fi
+       ;;
   diksha)
        if [[ $value == "" ]]; then
           echo "Error - Value for $key cannot be empty. Please fill this value"; fail=1
@@ -59,7 +80,63 @@ case $key in
           check_datasource $key $value
        fi
        ;;
-   *)
+  telemetry)
+       if [[ $value == "" ]]; then
+          echo "Error - Value for $key cannot be empty. Please fill this value"; fail=1
+       else
+          check_datasource $key $value
+       fi
+       ;;
+  udise)
+       if [[ $value == "" ]]; then
+          echo "Error - Value for $key cannot be empty. Please fill this value"; fail=1
+       else
+          check_datasource $key $value
+       fi
+       ;;
+  pat)
+       if [[ $value == "" ]]; then
+          echo "Error - Value for $key cannot be empty. Please fill this value"; fail=1
+       else
+          check_datasource $key $value
+       fi
+       ;;
+  composite)
+       if [[ $value == "" ]]; then
+          echo "Error - Value for $key cannot be empty. Please fill this value"; fail=1
+       else
+          check_datasource $key $value
+       fi
+       ;;
+  progresscard)
+       if [[ $value == "" ]]; then
+          echo "Error - Value for $key cannot be empty. Please fill this value"; fail=1
+       else
+          check_datasource $key $value
+       fi
+       ;;
+  teacher_attendance)
+       if [[ $value == "" ]]; then
+          echo "Error - Value for $key cannot be empty. Please fill this value"; fail=1
+       else
+          check_datasource $key $value
+       fi
+       ;;
+  data_replay)
+       if [[ $value == "" ]]; then
+          echo "Error - Value for $key cannot be empty. Please fill this value"; fail=1
+       else
+          check_datasource $key $value
+       fi
+       ;;
+  sat)
+       if [[ $value == "" ]]; then
+          echo "Error - Value for $key cannot be empty. Please fill this value"; fail=1
+       else
+          check_datasource $key $value
+       fi
+       ;;
+  *)	   
         if [[ $value == "" ]]; then
           echo -e "\e[0;31m${bold}Error - Value for $key cannot be empty. Please fill this value${normal}"; fail=1
        fi
@@ -73,4 +150,3 @@ if [[ $fail -eq 1 ]]; then
 else
    echo -e "\e[0;32m${bold}datasource_config.yml file successfully validated${normal}"
 fi
-
