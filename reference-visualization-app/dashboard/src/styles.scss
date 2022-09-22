@@ -226,6 +226,34 @@ body {
     }
 }
 
+.dataTableCustom .dataTables_wrapper .dataTables_scrollBody {
+    max-height: 50vh !important;
+    font-size: 12px !important;
+}
+
+.dataTableCustom .dataTables_wrapper .dataTables_scrollHead {
+    font-size: 12px !important;
+}
+
+.dataTableCustom .dataTables_wrapper .dataTables_scrollHead .dataTables_scrollHeadInner table thead tr .rank {
+    height: 70px !important;
+}
+
+.dataTableCustom .dataTables_wrapper .dataTables_scrollHead .dataTables_scrollHeadInner table thead tr .indicator {
+    min-width: 150px !important;
+}
+
+.dataTableCustom .dataTables_wrapper .dataTables_scrollHead .dataTables_scrollHeadInner table thead tr th {
+    min-width: 30px !important;
+}
+
+.dataTableCustom .dataTables_wrapper .dataTables_scrollBody .indicator {
+    min-width: 150px !important;
+}
+
+.dataTableCustom .dataTables_wrapper .dataTables_scrollHead table thead .sorting {
+    background-size: 15px 15px !important;
+}
 #dist, #block, #cluster, #school, .note{
     margin-bottom: 20px;
 }
