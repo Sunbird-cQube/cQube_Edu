@@ -79,6 +79,36 @@ body {
     border: 0;
 }
 
+.header-center{
+    display: flex;
+    align-items: center;
+}
+
+:root {
+    /* Colors */
+  
+    --theme-bg-header-color:#fff;
+    --theme-bg-sidenav-color:#FFC400;
+    --theme-bg-container-color: #ffebcc;
+    --theme-text-color: #000;
+    --theme-dark-button-color: #0C54C6;
+    --theme-button-border-color: #0C54C6;
+    --theme-back-button-color: #dcdcdc;
+    --theme-back-button-border-color: #dcdcdc;
+    --theme-report-button-color: rgb(152, 160, 163);
+    --theme-bg-sidenav-user-info:#FFE07B;
+    --theme-report-heading-color: #000;
+    --theme-access-progress-card-btn-color: #0545a5;
+    --theme-download-btn-color: #0545a5;
+    --theme-report-selected-level-color: #777;
+    --theme-icon-color: #000;
+    --theme-report-header-bg-color : #ffebcd;
+  }
+
+  .selected-level{
+    color: var(--theme-report-selected-level-color) !important;
+}
+
 .loading:not(:required):after {
     content: "";
     display: block;
@@ -166,13 +196,10 @@ body {
 
 #footer {
     width: 100%;
-    border-top: 1px solid #cdccc8;
-    background-color: #F5F5F5;
     font-size: 13px;
     font-weight: bold;
     color: #727374;
     padding: 2px;
-    // position: fixed;
     bottom: 0;
     left: 14px;
     z-index: 999 !important;
@@ -226,8 +253,73 @@ body {
     }
 }
 
+.dataTableCustom .dataTables_wrapper .dataTables_scrollBody {
+    max-height: 50vh !important;
+    font-size: 12px !important;
+}
+
+.dataTableCustom .dataTables_wrapper .dataTables_scrollHead {
+    font-size: 12px !important;
+}
+
+.dataTableCustom .dataTables_wrapper .dataTables_scrollHead .dataTables_scrollHeadInner table thead tr .rank {
+    height: 70px !important;
+}
+
+.dataTableCustom .dataTables_wrapper .dataTables_scrollHead .dataTables_scrollHeadInner table thead tr .indicator {
+    min-width: 150px !important;
+}
+
+.dataTableCustom .dataTables_wrapper .dataTables_scrollHead .dataTables_scrollHeadInner table thead tr th {
+    min-width: 30px !important;
+}
+
+.dataTableCustom .dataTables_wrapper .dataTables_scrollBody .indicator {
+    min-width: 150px !important;
+}
+
+.dataTableCustom .dataTables_wrapper .dataTables_scrollHead table thead .sorting {
+    background-size: 15px 15px !important;
+}
 #dist, #block, #cluster, #school, .note{
     margin-bottom: 20px;
+}
+
+#dist,
+#block,
+#cluster,
+#school,
+#heading {
+    color: var(--theme-report-heading-color);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.2em;
+    margin-top: 5px;
+}
+
+#errMsg {
+    text-align: center;
+    line-height: 1.2em;
+    font-size: 12px;
+    margin-top: 3%;
+}
+
+#download {
+    cursor: pointer;
+    float: right;
+    margin: .5vh 0px 0px 8px;
+    height: 30px;
+    width: 30px;
+}
+
+#outer {
+    border-radius: 15px;
+    background-color: #f5f6fb;
+    height: 23px;
+    width: 150px;
+    border: 1px solid gray;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 #absolute {
