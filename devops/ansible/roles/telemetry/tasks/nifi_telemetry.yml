@@ -1,0 +1,5 @@
+---
+- name: Run telemetry python code
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utililty.py cqube_telemetry_transformer cqube_telemetry_parameters cQube_data_storage 0 {{ storage_type }}"
+  tags: [ install, update ]
+

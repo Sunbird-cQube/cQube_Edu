@@ -201,7 +201,21 @@ if (environment.config == 'national') {
             import('./views/education-official/education-official.module').then(
               (module) => module.EducationOfficialModule
             )
-        }
+        },
+        {
+          path: 'attendance',
+          loadChildren: () => 
+            import('./views/attendance/attendance.module').then(
+              (module) => module.AttendanceModule
+            )
+        },
+        {
+          path: 'exception',
+          loadChildren: () => 
+            import('./views/exception-list/exception-list.module').then(
+              (module) => module.ExceptionListModule
+            )
+        },
       ],
     },
   ];

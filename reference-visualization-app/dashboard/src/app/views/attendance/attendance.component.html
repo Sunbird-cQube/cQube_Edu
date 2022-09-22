@@ -1,0 +1,20 @@
+
+<div class="metric-card-wrapper">
+    <p class="h4">School Infrastructure</p>
+    <div class="grid gap-4 cQ-Grid">
+    </div>
+</div>
+
+<div class="tab-group-wrapper">
+    <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
+        <mat-tab label="Student Attendance">
+            <app-student-attendance *ngIf="tabIndex === 0" (switchToTrends)="switchToTrends()"></app-student-attendance>
+        </mat-tab>
+        <mat-tab label="Teacher Attendance">
+            <app-teacher-attendance *ngIf="tabIndex === 1"></app-teacher-attendance>
+        </mat-tab>
+        <mat-tab label="Trends Chart" *ngIf="tabIndex === 2">
+            <app-sat-trends-report *ngIf="tabIndex === 2" (switchToAttendance)="switchToAttendance()"></app-sat-trends-report>
+        </mat-tab>
+    </mat-tab-group>
+</div>
