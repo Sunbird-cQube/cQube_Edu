@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   apiURL: 'http://localhost:3000/api',
   adminUrl: "http://localhost:4201/admin",
-  loginUrl: "http://localhost:4001/api",
+  loginUrl: "http://localhost:4001/login-api",
   config: "state",
   stateCode: "HR",
   secretKey: 'VSK_EKSTEP',

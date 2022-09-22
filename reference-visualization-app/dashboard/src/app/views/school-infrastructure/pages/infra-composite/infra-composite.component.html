@@ -118,7 +118,7 @@
                         <ng-option *ngFor="let yaxis of yAxisFilter" [value]="yaxis.key">{{ yaxis.value }}</ng-option>
                     </ng-select>
 
-                   
+
                 </div>
             </div>
             <p class="note" style="padding-top: 10px !important;">
@@ -131,7 +131,7 @@
             </div>
         </div>
         <div class="col-span-1 mt-3">
-           
+
             <div class="grid grid-cols-3 gap-4 ">
                 <ng-select class="col-span-3 sm:col-span-1" id="choose_dist" dropdownPosition="bottom"
                     [clearable]="false" [hidden]="distHidden" [disabled]="selDist" placeholder="Choose a District"
@@ -139,7 +139,7 @@
                     <ng-option *ngFor="let dist of SchoolInfrastructureDistrictsNames" [value]="dist.district.id">{{
                         dist.district.value }}</ng-option>
                 </ng-select>
-              
+
                 <ng-select [hidden]="blockHidden" [disabled]="selBlock" class="col-span-3 sm:col-span-1"
                     id="choose_block" dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Block"
                     (change)="myBlockData(myBlock)" [(ngModel)]="myBlock">
@@ -147,7 +147,7 @@
                         {{block.block.value}}
                     </ng-option>
                 </ng-select>
-              
+
                 <ng-select [hidden]="clusterHidden" [disabled]="selCluster" id="choose_cluster" [(ngModel)]="myCluster"
                     class="col-span-3 sm:col-span-1" name="myCluster" (change)="myClusterData(myCluster)"
                     [clearable]="false" placeholder="Choose a Cluster">
@@ -156,8 +156,8 @@
                         {{cluster.cluster.value}}
                     </ng-option>
                 </ng-select>
-              
-          
+
+            </div>
             <p class="note" style="padding-top: 10px !important;">
                 <strong> NOTE:</strong> The table provides information about the various metrics. You can sort the
                 entire table based on any metrics available in this table.
@@ -167,10 +167,8 @@
                 </table>
             </div>
         </div>
-      
+
     </div>
-   
-</div>
-<div id="spinner" style="display: block;">
-    <div id="loader" class="loading">Loading&#8230;</div>
-</div>
+    <div id="spinner" style="display: block;">
+        <div id="loader" class="loading">Loading&#8230;</div>
+    </div>
