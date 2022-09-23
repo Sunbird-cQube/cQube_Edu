@@ -108,9 +108,6 @@ export class UsageByTextBookComponent implements OnInit {
     this.data = {
       values: this.result.data
     };
-
-    console.log(this.config, this.data);
-    
   }
 
   async getAllData() {
