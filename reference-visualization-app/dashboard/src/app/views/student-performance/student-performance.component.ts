@@ -14,7 +14,6 @@ export class StudentPerformanceComponent implements OnInit {
   }
 
   onTabChanged($event: any): void {
-    console.log($event.index)
     this.tabIndex = $event.index;
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));

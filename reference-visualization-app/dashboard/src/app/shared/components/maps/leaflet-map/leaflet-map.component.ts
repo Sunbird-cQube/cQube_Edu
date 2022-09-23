@@ -3,6 +3,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import * as L from "leaflet";
 import * as R from "leaflet-responsive-popup";
+import { StateCodes } from 'src/app/core/config/StateCodes';
 import { environment } from 'src/environments/environment';
 import * as config from '../../../../../assets/data/config.json';
 
@@ -353,6 +354,8 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           strokeWeight: 0.01,
           weight: 1
         }).addTo(this.map);
+
+        markerIcon._path.id = StateCodes[Number(data.state_code)];
 
         markerIcon.setRadius(5);
 

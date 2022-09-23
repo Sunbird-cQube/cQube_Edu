@@ -230,6 +230,13 @@ if (environment.config == 'national') {
               (module) => module.ExceptionListModule
             )
         },
+        {
+          path: 'telemetry',
+          loadChildren: () => 
+            import('./views/telemetry/telemetry.module').then(
+              (module) => module.TelemetryModule
+            )
+        }
       ],
     },
   ];
