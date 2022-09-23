@@ -13,12 +13,22 @@ import { CoursesComponent } from './courses.component';
 import { CoursesBarChartComponent } from './pages/courses-bar-chart/courses-bar-chart.component';
 import { DataService } from 'src/app/core/services/data.service';
 import { AverageTimeSpendBarComponent } from './pages/average-time-spend-bar/average-time-spend-bar.component';
+import { UsageByCourseContentComponent } from './pages/usage-by-course-content/usage-by-course-content.component';
+import { CourseProgressComponent } from './pages/course-progress/course-progress.component';
+import { UserProgressComponent } from './pages/user-progress/user-progress.component';
+import { GpsOfLearningComponent } from './pages/gps-of-learning/gps-of-learning.component';
+import { UserOnboardingComponent } from './pages/user-onboarding/user-onboarding.component';
 
 @NgModule({
   declarations: [
     CoursesComponent,
     CoursesBarChartComponent,
-    AverageTimeSpendBarComponent
+    AverageTimeSpendBarComponent,
+    UsageByCourseContentComponent,
+    CourseProgressComponent,
+    UserProgressComponent,
+    GpsOfLearningComponent,
+    UserOnboardingComponent
   ],
   imports: [
     CommonModule,

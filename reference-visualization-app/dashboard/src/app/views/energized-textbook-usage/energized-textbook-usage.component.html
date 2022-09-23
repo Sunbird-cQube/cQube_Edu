@@ -16,11 +16,12 @@
         </mat-tab>
         <mat-tab label="Usage by Textbook Content">
         </mat-tab>
-        <mat-tab label="GPS of learning- ETB">
+        <mat-tab label="GPS of learning">
         </mat-tab>
         <mat-tab label="Usage Per Capita">
         </mat-tab>
         <mat-tab label="Heartbeat of the Nation Learning">
+            <app-total-content-play-over-years *ngIf="tabIndex === 4"></app-total-content-play-over-years>
         </mat-tab>
     </mat-tab-group>
 </div>

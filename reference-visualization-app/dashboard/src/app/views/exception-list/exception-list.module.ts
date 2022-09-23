@@ -11,12 +11,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SatExceptionComponent } from './pages/sat-exception/sat-exception.component';
 import { PatExceptionComponent } from './pages/pat-exception/pat-exception.component';
+import { StudentAttendanceExceptionComponent } from './pages/student-attendance-exception/student-attendance-exception.component';
+import { TeacherAttendanceExceptionComponent } from './pages/teacher-attendance-exception/teacher-attendance-exception.component';
 
 @NgModule({
   declarations: [
     ExceptionListComponent,
     SatExceptionComponent,
-    PatExceptionComponent
+    PatExceptionComponent,
+    StudentAttendanceExceptionComponent,
+    TeacherAttendanceExceptionComponent
   ],
   imports: [
     SharedModule,
