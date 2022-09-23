@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DashletModule } from '@project-sunbird/sb-dashlet-v14';
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -12,7 +13,7 @@ import { CqubeLibraryModule } from 'cqube-library';
 import { FoundationalLiteracyNumeracyComponent } from './foundational-literacy-numeracy.component';
 import { FoundationalLiteracyNumeracyRoutingModule } from './foundational-literacy-numeracy-routing.module';
 import { FoundationalLiteracyBarPieComponent } from './pages/foundational-literacy-bar-pie/foundational-literacy-bar-pie.component';
-
+import { DataService } from 'src/app/core/services/data.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,10 @@ import { FoundationalLiteracyBarPieComponent } from './pages/foundational-litera
     FoundationalLiteracyNumeracyRoutingModule,
     SharedModule,
     MatTabsModule,
-    CqubeLibraryModule
+    CqubeLibraryModule,
+    DashletModule.forRoot({
+      dataService: DataService
+    })
   ]
 })
 export class FoundationalLiteracyNumeracyModule { }

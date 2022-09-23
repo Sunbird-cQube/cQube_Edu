@@ -8,10 +8,10 @@ var routes: Routes = [];
 
 if (environment.config == 'national') {
   routes = [
-    {
-      path: '',
-      loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
-    },
+    // {
+    //   path: '',
+    //   loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
+    // },
     {
       path: '', redirectTo: `home`, pathMatch: 'full'
     },
@@ -207,6 +207,20 @@ if (environment.config == 'national') {
           loadChildren: () => 
             import('./views/attendance/attendance.module').then(
               (module) => module.AttendanceModule
+            )
+        },
+        {
+          path: 'courses',
+          loadChildren: () => 
+            import('./views/courses/courses.module').then(
+              (module) => module.CoursesModule
+            )
+        },
+        {
+          path: 'etb-usage',
+          loadChildren: () => 
+            import('./views/energized-textbook-usage/energized-textbook-usage.module').then(
+              (module) => module.EnergizedTextbookUsageModule
             )
         },
         {

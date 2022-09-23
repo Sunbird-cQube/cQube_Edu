@@ -13,6 +13,17 @@ export class GradeWiseBarAndPieComponent implements OnInit {
   filters: any;
   barChartOptions: Highcharts.Options | undefined;
   isReportLoading = false;
+  config = {
+    labelExpr: 'Textbook Name',
+    datasets: [
+      { dataExpr: '% LOs covered', label: '% LOs covered' }
+    ],
+    options: {
+      height: '700'
+    }
+  };
+  data;
+
   constructor(private readonly _commonService: CommonService) {
     this.getBarData(this.filters);
   }
@@ -34,43 +45,9 @@ export class GradeWiseBarAndPieComponent implements OnInit {
     this._commonService.getReportData(data).subscribe(res => {
       let result = res.result.data;
       this.filters = res.result.filters;
-
-      this.barChartOptions = {
-        chart: {
-          events: {
-            load: function (this: any) {
-              let categoryHeight = 30;
-              this.update({
-                chart: {
-                  height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
-                }
-              })
-            }
-          }
-        },
-        xAxis: {
-          categories: result.map((record: any) => {
-            return record['Textbook Name'];
-          })
-        },
-        yAxis: {
-          max: 100,
-          opposite: true
-        },
-        legend: {
-          layout: 'horizontal',
-          align: 'center',
-          verticalAlign: 'top',
-          floating: false,
-          borderWidth: 0,
-          shadow: false,
-          reversed: true
-        },
-        series: [{
-          type: 'bar',
-          name: '% LOs covered',
-          data: result.map((record: any) => record['% LOs covered'])
-        }]
+      this.config.options.height = (result.length * 15 + 150).toString();
+      this.data = {
+        values: result
       };
       this.isReportLoading = false;
     }, err => {

@@ -3,10 +3,14 @@
       <app-filter-panel [filters]="filters" colSize="md:col-span-3 xs:col-span-12 xmd:col-span-4 4k:col-span-2" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
       <div class="grid gap-4 grid-cols-12">
          <div class="xs:col-span-full xmd:col-span-6">
-            <app-stacked-bar title="" [options]="enrollmentTargetChartOptions"></app-stacked-bar>
+            <ng-container *ngIf="data">
+               <sb-dashlet type="horizontalBar" [data]="data" [config]="config"></sb-dashlet>
+           </ng-container>
          </div>
          <div class="xs:col-span-full xmd:col-span-6">
-            <app-stacked-bar title="" [options]="certificateTargetChartOptions"></app-stacked-bar>
+            <ng-container *ngIf="data2">
+               <sb-dashlet type="horizontalBar" [data]="data2" [config]="config2"></sb-dashlet>
+           </ng-container>
          </div>
       </div>
    </div>
