@@ -13,7 +13,7 @@ const routes: Routes = [
         },
         {
             path: '',
-            redirectTo: '/stperformance/dashboard',
+            redirectTo: '/telemetry/dashboard',
             pathMatch: 'full'
         }
     ]
