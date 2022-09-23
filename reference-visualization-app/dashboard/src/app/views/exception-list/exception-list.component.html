@@ -7,12 +7,16 @@
 <div class="tab-group-wrapper">
     <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
         <mat-tab label="Semester Assesment Test Exception">
+            <app-sat-exception *ngIf="tabIndex === 0"></app-sat-exception>
         </mat-tab>
         <mat-tab label="Periodic Assesment Test Exception">
+            <app-pat-exception *ngIf="tabIndex === 1"></app-pat-exception>
         </mat-tab>
         <mat-tab label="Student Attendance Report Exception">
+            <app-student-attendance-exception *ngIf="tabIndex === 2"></app-student-attendance-exception>
         </mat-tab>
         <mat-tab label="Teacher Attendance Report Exception">
+            <app-teacher-attendance-exception *ngIf="tabIndex === 3"></app-teacher-attendance-exception>
         </mat-tab>
         <mat-tab label="Download Exception List">
         </mat-tab>
