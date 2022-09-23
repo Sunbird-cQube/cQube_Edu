@@ -11,11 +11,14 @@ import { EnergizedTextbookUsageRoutingModule } from './energized-textbook-usage-
 import { EnergizedTextbookUsageComponent } from './energized-textbook-usage.component';
 import { UsageByTextBookComponent } from './usage-by-text-book/usage-by-text-book.component';
 import { DataService } from 'src/app/core/services/data.service';
+import { TotalContentPlayOverYearsComponent } from './total-content-play-over-years/total-content-play-over-years.component';
+
 
 @NgModule({
   declarations: [
     EnergizedTextbookUsageComponent,
-    UsageByTextBookComponent
+    UsageByTextBookComponent,
+    TotalContentPlayOverYearsComponent
   ],
   imports: [
     CommonModule,
