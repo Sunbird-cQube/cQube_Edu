@@ -13,6 +13,7 @@ import { SatExceptionComponent } from './pages/sat-exception/sat-exception.compo
 import { PatExceptionComponent } from './pages/pat-exception/pat-exception.component';
 import { StudentAttendanceExceptionComponent } from './pages/student-attendance-exception/student-attendance-exception.component';
 import { TeacherAttendanceExceptionComponent } from './pages/teacher-attendance-exception/teacher-attendance-exception.component';
+import { DownloadExceptionListComponent } from './pages/download-exception-list/download-exception-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TeacherAttendanceExceptionComponent } from './pages/teacher-attendance-
     SatExceptionComponent,
     PatExceptionComponent,
     StudentAttendanceExceptionComponent,
-    TeacherAttendanceExceptionComponent
+    TeacherAttendanceExceptionComponent,
+    DownloadExceptionListComponent
   ],
   imports: [
     SharedModule,

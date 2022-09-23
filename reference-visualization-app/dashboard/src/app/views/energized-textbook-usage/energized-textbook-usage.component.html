@@ -10,15 +10,17 @@
 </div>
 
 <div class="tab-group-wrapper">
-    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
+    <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
         <mat-tab label="Usage by Textbook">
             <app-usage-by-text-book *ngIf="tabIndex === 0"></app-usage-by-text-book>
         </mat-tab>
         <mat-tab label="Usage by Textbook Content">
         </mat-tab>
         <mat-tab label="GPS of learning">
+            <app-gps-of-learning *ngIf="tabIndex === 2"></app-gps-of-learning>
         </mat-tab>
         <mat-tab label="Usage Per Capita">
+            <app-usage-per-capita *ngIf="tabIndex === 3"></app-usage-per-capita>
         </mat-tab>
         <mat-tab label="Heartbeat of the Nation Learning">
             <app-total-content-play-over-years *ngIf="tabIndex === 4"></app-total-content-play-over-years>

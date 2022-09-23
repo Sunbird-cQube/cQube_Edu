@@ -10,7 +10,7 @@
 </div>
 
 <div class="tab-group-wrapper">
-    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
+    <mat-tab-group mat-align-tabs="start" [selectedIndex]="tabIndex" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
         <mat-tab label="Usage by Course">
             <app-courses-bar-chart *ngIf="tabIndex === 0"></app-courses-bar-chart>
         </mat-tab>
@@ -21,6 +21,7 @@
         <mat-tab label="User Progress">
         </mat-tab>
         <mat-tab label="GPS of learning">
+            <app-gps-of-learning *ngIf="tabIndex === 4"></app-gps-of-learning>
         </mat-tab>
         <mat-tab label="User Engagement">
             <app-average-time-spend-bar *ngIf="tabIndex === 5"></app-average-time-spend-bar>
