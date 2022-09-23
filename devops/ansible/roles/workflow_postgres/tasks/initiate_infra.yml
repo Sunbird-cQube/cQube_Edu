@@ -20,6 +20,93 @@
 
 - name: copy required files to /tmp/postgres
   copy:
+    src: "../../development/datasource/crc/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - crc_queries.sql
+    - crc.sql
+  tags: [ install, update ]
+  when: crc
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../development/datasource/attendance/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - attendance_queries.sql
+    - attendance.sql
+  tags: [ install, update ]
+  when: attendance
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../development/datasource/infra/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - infra_queries.sql
+    - infra.sql
+    - infrastructure_master.csv
+    - infra_queries_no_lat_lng.sql
+  tags: [ install, update ]
+  when: infra
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../development/datasource/udise/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - udise_queries.sql
+    - udise.sql
+    - udise_config.csv
+  tags: [ install, update ]
+  when: udise
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../development/datasource/pat/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - pat_queries.sql
+    - pat.sql
+  tags: [ install, update ]
+  when: pat
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../development/datasource/teacher_attendance/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - teacher_attendance_queries.sql
+    - teacher_attendance.sql
+  tags: [ install, update ]
+  when: teacher_attendance
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../development/datasource/sat/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - sat_queries.sql
+    - sat.sql
+  tags: [ install, update ]
+  when: sat
+
+- name: copy required files to /tmp/postgres
+  copy:
     src: "../../processing/datasource/diksha/postgres/{{ item }}"
     dest: /tmp/postgres
     owner: postgres
@@ -29,6 +116,47 @@
     - diksha.sql
   tags: [ install, update ]
   when: diksha
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../development/datasource/composite/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop: 
+    - composite_queries.sql
+    - composite.sql  
+  tags: [ install, update ]
+  when: composite
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../development/datasource/progresscard/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop: 
+    - progress_card_queries.sql
+  tags: [ install, update ]
+  when: progresscard 
+
+- name: copy template file to /tmp/postgres
+  template:
+    src: keycloak_users_table.sql.j2
+    dest: /tmp/postgres/keycloak_users_table.sql
+    owner: postgres
+    mode: "0644"
+  when: auth_api != "cqube"	
+  tags: [ install, update ]
+
+- name: Run keycloak user queries from SQL script
+  become: true
+  become_user: postgres
+  postgresql_query:
+    db: "{{ db_name }}"
+    path_to_script: /tmp/postgres/keycloak_users_table.sql
+  when: auth_api != "cqube"
+  tags: [ install, update ]
 
 - name: Truncating previous tables
   shell: psql "host=localhost dbname={{ db_name }} user={{ db_user }} password={{ db_password }}" -a -q -f "/tmp/postgres/truncate_tables.sql"

@@ -1,0 +1,28 @@
+---
+- name: checking process of pm2 core-api
+  become: yes
+  shell: pm2 id core-api
+  register: pm2_output
+  tags: [ install, update ]
+
+- name: checking the existing pm2 processes if running
+  shell: pm2 delete core-api
+  when: pm2_output.stdout != "[]"
+  ignore_errors: True
+  become: yes
+  tags: [ install, update ]
+
+- name: Starting NodeJS application
+  become: yes
+  shell: pm2 start npm --name core-api -- start
+  args:
+    chdir: "{{ base_dir }}/cqube/apis/core-api"
+  notify: 
+    - restart keycloak
+  tags: [ install, update ]
+
+- name: Starting the core api
+  become: yes
+  shell: pm2 start core-api
+  notify: 
+    - restart keycloak

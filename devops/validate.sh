@@ -67,8 +67,8 @@ fi
 }
 
 check_access_type(){
-if ! [[ $2 == "national" || $2 == "state" || $2 == "cqube1" ]]; then
-    echo "Error - Please enter either national or state or cqube1 for $1"; fail=1
+if ! [[ $2 == "national" || $2 == "state" ]]; then
+    echo "Error - Please enter either national or state for $1"; fail=1
 fi
 }
 
@@ -79,7 +79,7 @@ if [[ $access_type == "national" ]]; then
         echo "Error - Please provide state code as NA if you selected access_type as national"; fail=1
     fi
 fi
-if [[ $access_type == "state" || $access_type == "cqube1" ]]; then
+if [[ $access_type == "state" ]]; then
 state_found=0
 while read line; do
   if [[ $line == $2 ]] ; then
@@ -336,23 +336,14 @@ echo "session_timeout_in_seconds: $timeout_value" >> ansible/roles/workflow_keyc
 }
 
 check_map_name(){
-if ! [[ $2 == "mapmyindia" || $2 == "googlemap" || $2 == "leafletmap" || $2 == "none" ]]; then
-    echo "Error - Please enter either mapmyindia or googlemap or leafletmap or none for $1"; fail=1
+if ! [[ $2 == "leafletmap" ]]; then
+    echo "Error - Please enter leafletmap for $1"; fail=1
 fi
 }
 
-check_google_api_key(){
-if [[ $map_name == "googlemap" ]]; then
-    if [[ -z $2 ]]; then
-        echo "Error - Please enter google_api_key value it should not be empty $1"; fail=1
-    else
-    google_api_status=`curl -X POST https://language.googleapis.com/v1/documents:analyzeEntities\?key\=$2 -o /dev/null -s -w "%{http_code}\n"`
-
-    if [[ $google_api_status == 400 ]]; then
-         echo "Error - Invalid google api key. Please check the $1 value." ; fail=1
-    fi
-
-   fi
+check_auth_api(){
+if ! [[ $2 == "cqube" ]]; then
+    echo "Error - Please enter leafletmap for $1"; fail=1
 fi
 }
 
@@ -607,9 +598,6 @@ case $key in
           check_map_name $key $value
        fi
        ;;
-   google_api_key)
-          check_google_api_key $key $value
-       ;;
    theme)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -648,6 +636,8 @@ case $key in
    auth_api)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+	   check_auth_api $key $value
        fi
        ;;
    *)

@@ -1,0 +1,4 @@
+---
+
+- include_tasks: nifi_aggregate.yml
+  tags: [ install, update ]

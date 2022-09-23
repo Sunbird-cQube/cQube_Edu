@@ -3,8 +3,8 @@ Description=prometheus daemon
 After=network.target
 
 [Service]
-WorkingDirectory={{ base_dir }}/cqube/admin_dashboard/prometheus/
-ExecStart={{ base_dir }}/cqube/admin_dashboard/prometheus/prometheus --config.file=prometheus.yml
+WorkingDirectory={{ base_dir }}/cqube/reference-visualization-app/prometheus/
+ExecStart={{ base_dir }}/cqube/reference-visualization-app/prometheus/prometheus --config.file=prometheus.yml
 
 [Install]
 WantedBy=multi-user.target
