@@ -28,6 +28,8 @@ import { BarChartComponent } from './components/charts/bar-chart/bar-chart.compo
 import { MaterialButtonGroupComponent } from './components/buttons/material-button-group/material-button-group.component';
 import { LevelNMetricFilterPanelComponent } from './components/level-n-metric-filter-panel/level-n-metric-filter-panel.component';
 import { FullScreenDirective } from './directives/full-screen.directive';
+import { MultiSelectComponent } from './components/core-components/multi-select/multi-select.component';
+import { LineChartComponent } from './components/core-components/line-chart/line-chart.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -60,12 +62,14 @@ const DECLARATIONS = [
   BarChartComponent,
   MaterialButtonGroupComponent,
   LevelNMetricFilterPanelComponent,
-  FullScreenDirective
+  FullScreenDirective,
+  MultiSelectComponent,
+  LineChartComponent
 ];
 
 @NgModule({
   declarations: [
-    DECLARATIONS    
+    DECLARATIONS,  
   ],
   imports: [
     CommonModule,

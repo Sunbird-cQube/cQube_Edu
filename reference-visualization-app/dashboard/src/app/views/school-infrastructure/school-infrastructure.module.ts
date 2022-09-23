@@ -11,13 +11,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatButtonModule } from '@angular/material/button';
 import { UdiseReportComponent } from './pages/udise-report/udise-report.component';
+import { InfraCompositeComponent } from './pages/infra-composite/infra-composite.component';
 
 
 @NgModule({
   declarations: [
     SchoolInfrastructureComponent,
     InfraMapComponent,
-    UdiseReportComponent
+    UdiseReportComponent,
+    InfraCompositeComponent
   ],
   imports: [
     FormsModule,

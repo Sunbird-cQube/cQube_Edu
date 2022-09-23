@@ -8,13 +8,14 @@ import {
   AfterContentInit,
 } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { SchoolInfraService } from "src/app/core/services/school-infra.service";
 import { Router } from "@angular/router";
 import * as L from "leaflet";
 import * as R from "leaflet-responsive-popup";
 import { MapService, globalMap } from "src/app/core/services/mapservices/maps.services";
 import { environment } from "src/environments/environment";
 import { AppServiceComponent } from "src/app/app.service";
+import { SchoolInfraService } from "src/app/core/services/core-apis/school-infra.service";
+
 
 @Component({
   selector: 'app-infra-map',

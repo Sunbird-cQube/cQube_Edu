@@ -142,8 +142,10 @@ export class AppServiceComponent {
     document.getElementById("errMsg")
       ? (document.getElementById("errMsg").style.display = "none")
       : "";
-    document.getElementById("spinner").style.display = "block";
-    document.getElementById("spinner").style.marginTop = "3%";
+    if (document.getElementById("spinner")) {
+      document.getElementById("spinner").style.display = "block";
+      document.getElementById("spinner").style.marginTop = "3%";
+    }
   }
 
   capitalize(key) {

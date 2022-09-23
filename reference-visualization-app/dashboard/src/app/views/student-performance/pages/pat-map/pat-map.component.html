@@ -143,9 +143,9 @@
                         </ng-option>
                     </ng-select>
 
-                    <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_dist" [(ngModel)]="districtId"
+                    <ng-select id="choose_dist" [(ngModel)]="districtId"
                         [hidden]='hideDist' [disabled]="selDist" (change)="ondistLinkClick(districtId)"
-                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose a District">
+                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose a District" class="col-span-6 xmd:col-span-3 lg:col-span-2" >
                         <ng-option *ngFor="let dist of allDistricts" [value]="dist.Details.district_id">
                             {{ dist.Details.district_name }}
                         </ng-option>

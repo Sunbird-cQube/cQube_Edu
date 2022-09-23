@@ -8,10 +8,10 @@ var routes: Routes = [];
 
 if (environment.config == 'national') {
   routes = [
-    {
-      path: '',
-      loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
-    },
+    // {
+    //   path: '',
+    //   loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
+    // },
     {
       path: '', redirectTo: `home`, pathMatch: 'full'
     },
@@ -194,7 +194,42 @@ if (environment.config == 'national') {
             import('./views/student-performance/student-performance.module').then(
               (module) => module.StudentPerformanceModule
             )
-        }
+        },
+        {
+          path: 'education-official',
+          loadChildren: () =>
+            import('./views/education-official/education-official.module').then(
+              (module) => module.EducationOfficialModule
+            )
+        },
+        {
+          path: 'attendance',
+          loadChildren: () => 
+            import('./views/attendance/attendance.module').then(
+              (module) => module.AttendanceModule
+            )
+        },
+        {
+          path: 'courses',
+          loadChildren: () => 
+            import('./views/courses/courses.module').then(
+              (module) => module.CoursesModule
+            )
+        },
+        {
+          path: 'etb-usage',
+          loadChildren: () => 
+            import('./views/energized-textbook-usage/energized-textbook-usage.module').then(
+              (module) => module.EnergizedTextbookUsageModule
+            )
+        },
+        {
+          path: 'exception',
+          loadChildren: () => 
+            import('./views/exception-list/exception-list.module').then(
+              (module) => module.ExceptionListModule
+            )
+        },
       ],
     },
   ];
