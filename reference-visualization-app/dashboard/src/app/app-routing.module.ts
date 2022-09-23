@@ -231,6 +231,13 @@ if (environment.config == 'national') {
             )
         },
         {
+          path: 'composite',
+          loadChildren: () =>
+            import('./views/composite/composite.module').then(
+              (module) => module.CompositeModule
+            )
+        },
+        {
           path: 'telemetry',
           loadChildren: () => 
             import('./views/telemetry/telemetry.module').then(
