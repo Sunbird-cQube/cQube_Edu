@@ -230,6 +230,13 @@ if (environment.config == 'national') {
               (module) => module.ExceptionListModule
             )
         },
+        {
+          path: 'composite',
+          loadChildren: () =>
+            import('./views/composite/composite.module').then(
+              (module) => module.CompositeModule
+            )
+        },
       ],
     },
   ];

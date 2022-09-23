@@ -22,7 +22,6 @@ import { EduOfficialReportComponent } from './page/edu-official-report/edu-offic
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,
     CqubeLibraryModule,
     MatTabsModule
   ]
