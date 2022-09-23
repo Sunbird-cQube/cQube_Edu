@@ -269,6 +269,124 @@ java_arg_3: -Xmx${max_java_arg_3}m""" > memory_config.yml
 fi
 }
 
+check_timeout()
+{
+  if [[ $2 =~ ^[0-9]+[M|D]$  ]] ; then
+        raw_value="$( echo "$2" | sed -e 's/[M|D]$//' )"
+        if [[ ! $raw_value == 0 ]]; then
+                    if [[ $2 =~ M$ ]] ; then
+                        if [[ $raw_value -ge 30 && $raw_value -le 5256000 ]]; then
+                                timeout_value=$(($raw_value*60))
+                        else
+                                echo "Error - Minutes should be between 30 and 5256000"; fail=1
+                        fi
+                    fi
+                    if [[ $2 =~ D$ ]] ; then
+                        if [[ $raw_value -ge 1 && $raw_value -le 3650 ]]; then
+                                timeout_value=$(($raw_value*24*60*60))
+                        else
+                                echo "Error - Days should be between 1 and 3650"; fail=1
+                        fi
+                    fi
+                else
+                        echo "Error - Timeout should not be 0"; fail=1
+            fi
+    else
+        echo "Error - please enter proper value as mentioned in comments"; fail=1
+    fi
+sed -i '/session_timeout_in_seconds:/d' ../ansible/roles/keycloak/vars/main.yml
+echo "session_timeout_in_seconds: $timeout_value" >> ../ansible/roles/keycloak/vars/main.yml
+}
+
+check_state()
+{
+sc=$(cat $base_dir/cqube/.cqube_config | grep CQUBE_STATE_CODE )
+installed_state_code=$(cut -d "=" -f2 <<< "$sc")
+if [[ ! "$2" == "$installed_state_code" ]]; then
+    echo "Error - State code should be same as previous installation. Please refer the state_list file and enter the correct value."; fail=1
+fi
+}
+
+check_static_datasource(){
+if ! [[ $2 == "udise" || $2 == "state" ]]; then
+    echo "Error - Please enter either udise or state for $1"; fail=1
+else
+    if [[ -e "$base_dir/cqube/.cqube_config" ]] ; then
+        static_dts=$(grep CQUBE_STATIC_DATASOURCE $base_dir/cqube/.cqube_config )
+        dts=$(cut -d "=" -f2 <<< "$static_dts")
+        if [[ ! "$2" == "$dts" ]]; then
+            echo "Error - Static_datasource should be same as previous installation static_datasource"; fail=1
+        fi
+        sed -i '/datasource_status/c\datasource_status: matched' ../ansible/roles/createdb/vars/main.yml
+    fi
+fi
+}
+
+check_theme(){
+if ! [[ $2 == "theme1" || $2 == "theme2" || $2 == "theme3" ]]; then
+    echo "Error - Please enter either theme1 or theme2 or theme3 for $1"; fail=1
+fi
+}
+
+check_map_name(){
+if ! [[ $2 == "mapmyindia" || $2 == "googlemap" || $2 == "leafletmap" || $2 == "none" ]]; then
+    echo "Error - Please enter either mapmyindia or googlemap or leafletmap or none for $1"; fail=1
+fi
+}
+
+check_google_api_key(){
+if [[ $map_name == "googlemap" ]]; then
+    if [[ -z $2 ]]; then
+        echo "Error - Please enter google_api_key value it should not be empty $1"; fail=1
+    else
+    google_api_status=`curl -X POST https://language.googleapis.com/v1/documents:analyzeEntities\?key\=$2 -o /dev/null -s -w "%{http_code}\n"`
+
+    if [[ $google_api_status == 400 ]]; then
+         echo "Error - Invalid google api key. Please check the $1 value." ; fail=1
+    fi
+
+   fi
+fi
+}
+
+check_slab(){
+if [[ $slab1 =~ ^[0-9]{,2}$ && $slab2 =~ ^[0-9]{,2}\-[0-9]{,2}$ && $slab3 =~ ^[0-9]{,2}\-[0-9]{,2}$ && $slab4 =~ ^[0-9]{,2}$ ]]; then
+
+if ! [[ $slab1 -ge 1 && $slab1 -le 100 ]]; then
+ echo "Error - Incorrect slab1 value please refer the slab1 comment in config.yml" ; fail=1
+fi
+
+slab21=`echo $slab2 | cut -d- -f1`
+slab22=`echo $slab2 | cut -d- -f2`
+
+if ! [[ $slab21 -eq $slab1 && $slab21 -le 100 ]]; then
+ echo "Error - Incorrect slab2 value please refer the slab2 comment in config.yml" ; fail=1
+fi
+
+if ! [[ $slab22 -gt $slab21 && $slab22 -le 100 ]]; then
+ echo "Error - Incorrect slab2 value please refer the slab2 comment in config.yml" ; fail=1
+fi
+
+slab31=`echo $slab3 | cut -d- -f1`
+slab32=`echo $slab3 | cut -d- -f2`
+
+if ! [[ $slab31 -eq $slab22 && $slab31 -le 100 ]]; then
+echo "Error - Incorrect slab3 value please refer the slab3 comment in config.yml" ; fail=1
+fi
+
+if ! [[ $slab32 -gt $slab31 && $slab32 -le 100 ]]; then
+echo "Error - Incorrect slab3 value please refer the slab3 comment in config.yml" ; fail=1
+fi
+
+if ! [[ $slab4 -eq $slab32 && $slab4 -le 100 ]]; then
+echo "Error - Incorrect slab4 value please refer the slab4 comment in config.yml" ; fail=1
+fi
+
+else
+        echo "Error - Incorrect slab value please refer the slab comments in config.yml" ; fail=1
+fi
+
+}
 get_config_values(){
 key=$1
 vals[$key]=$(awk ''/^$key:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
@@ -289,7 +407,8 @@ echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 # An array of mandatory values
 declare -a arr=("system_user_name" "base_dir" "db_user" "db_name" "db_password" "storage_type" "mode_of_installation"  \
 	        "local_ipv4_address" "vpn_local_ipv4_address" "proxy_host" "api_endpoint" "keycloak_adm_passwd" "keycloak_adm_user" \
-		"report_viewer_config_otp")
+		"report_viewer_config_otp" "state_code" "diksha_columns" "static_datasource" "management"  "session_timeout" \
+		"map_name" "theme" "google_api_key" "slab1" "slab2" "slab3" "slab4" "auth_api")
 
 # Create and empty array which will store the key and value pair from config file
 declare -A vals
@@ -311,9 +430,16 @@ db_name=$(awk ''/^db_name:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 db_password=$(awk ''/^db_password:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 storage_type=$(awk ''/^storage_type:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 
+map_name=$(awk ''/^map_name:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
+base_dir=$(awk ''/^base_dir:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
+slab1=$(awk ''/^slab1:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
+slab2=$(awk ''/^slab2:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
+slab3=$(awk ''/^slab3:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
+slab4=$(awk ''/^slab4:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
+
 check_mem
 # Check the version before starting validation
-version_upgradable_from=3.6
+version_upgradable_from=3.7
 check_version
 
 # Iterate the array and retrieve values for mandatory fields from config file
@@ -425,6 +551,91 @@ case $key in
           check_api_endpoint $key $value
        fi
        ;;
+
+   diksha_columns)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_kc_config_otp $key $value
+       fi
+       ;;
+   state_code)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_state $key $value
+       fi
+       ;;
+   static_datasource)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_static_datasource $key $value
+       fi
+       ;;
+   management)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       fi
+       ;;
+   session_timeout)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_timeout $key $value
+       fi
+       ;;
+   map_name)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_map_name $key $value
+       fi
+       ;;
+   theme)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_theme $key $value
+       fi
+       ;;
+   google_api_key)
+          check_google_api_key $key $value
+       ;; 
+   slab1)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_slab $key $value
+       fi
+       ;;
+   slab2)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_slab $key $value
+       fi
+       ;;
+   slab3)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_slab $key $value
+       fi
+       ;;
+   slab4)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_slab $key $value
+       fi
+       ;;
+   auth_api)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       fi
+       ;;
+
    *)
        if [[ $value == "" ]]; then
           echo -e "\e[0;31m${bold}Error - Value for $key cannot be empty. Please fill this value${normal}"; fail=1
