@@ -1,7 +1,7 @@
 import logging
 import re
 import time
-from PageObjects.Cqube_UI.dashboard import Dashboard
+from PageObjects.CqubeUI.dashboard import Dashboard
 from TestCases.conftest import ConfTest
 from Utilities import CustomLogger
 from Utilities.ReadProperties import ReadConfig

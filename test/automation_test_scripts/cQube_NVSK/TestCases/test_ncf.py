@@ -2,7 +2,7 @@ import logging
 
 import time
 
-from PageObjects.Cqube_UI.ncf import NCF
+from PageObjects.CqubeUI.ncf import Ncf
 from TestCases.conftest import ConfTest
 from Utilities import CustomLogger
 from Utilities.ReadProperties import ReadConfig
@@ -15,7 +15,7 @@ class TestNcf:
     @classmethod
     def setup(cls):
         cls.driver = ConfTest.get_driver()
-        cls.ncf = NCF(cls.driver)
+        cls.ncf = Ncf(cls.driver)
         cls.ncf.open_cqube_application()
         cls.logger = CustomLogger.setup_logger('Program_NCF', ReadConfig.get_logs_directory() + "/Program.log",
                                                level=logging.DEBUG)

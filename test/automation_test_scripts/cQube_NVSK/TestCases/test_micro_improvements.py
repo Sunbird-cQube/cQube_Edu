@@ -1,20 +1,20 @@
 import logging
 import time
 
-from PageObjects.Cqube_UI.micro_improvements import micro_improvements
+from PageObjects.CqubeUI.micro_improvements import MicroImprovements
 from TestCases.conftest import ConfTest
 from Utilities import CustomLogger
 from Utilities.ReadProperties import ReadConfig
 
 
-class TestMicroimprovements:
+class TestMicroImprovements:
     micro_improvements = None
     driver = None
 
     @classmethod
     def setup(cls):
         cls.driver = ConfTest.get_driver()
-        cls.micro_improvements = micro_improvements(cls.driver)
+        cls.micro_improvements = MicroImprovements(cls.driver)
         cls.micro_improvements.open_cqube_application()
         cls.logger = CustomLogger.setup_logger('Program_micro_improvements', ReadConfig.get_logs_directory() +
                                                "/Program.log", level=logging.DEBUG)
@@ -132,7 +132,8 @@ class TestMicroimprovements:
             assert False
         self.logger.info("*************** Tc_cQube_micro_improvements_005 Testing ended *****************")
 
-    """Check whether info button, Value and text are displaying in the microimprovement submitted with evidence vanity card"""
+    """Check whether info button, Value and text are displaying in the microimprovement submitted with evidence 
+    vanity card """
 
     def test_validate_micro_improvements_submitted_with_evidence_card_metrics(self):
         self.logger.info("*************** Tc_cQube_micro_improvements_006 Testing started *****************")

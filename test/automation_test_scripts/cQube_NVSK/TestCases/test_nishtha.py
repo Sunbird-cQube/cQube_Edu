@@ -1,6 +1,6 @@
 import logging
 import time
-from PageObjects.Cqube_UI.nistha import Nishtha
+from PageObjects.CqubeUI.nistha import Nishtha
 from TestCases.conftest import ConfTest
 from Utilities import CustomLogger
 from Utilities.ReadProperties import ReadConfig

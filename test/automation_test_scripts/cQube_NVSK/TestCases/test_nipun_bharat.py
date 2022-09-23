@@ -1,6 +1,6 @@
 import logging
 import re
-from PageObjects.Cqube_UI.nipun_bharat import NipunBharat
+from PageObjects.CqubeUI.nipun_bharat import NipunBharat
 from TestCases.conftest import ConfTest
 from Utilities import CustomLogger
 from Utilities.ReadProperties import ReadConfig

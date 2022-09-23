@@ -1,7 +1,7 @@
 import logging
 import time
 
-from PageObjects.Cqube_UI.ncert_quiz import ncert_quiz
+from PageObjects.CqubeUI.ncert_quiz import NcertQuiz
 from TestCases.conftest import ConfTest
 from Utilities import CustomLogger
 from Utilities.ReadProperties import ReadConfig
@@ -14,7 +14,7 @@ class TestNcertQuiz:
     @classmethod
     def setup(cls):
         cls.driver = ConfTest.get_driver()
-        cls.ncert_quiz = ncert_quiz(cls.driver)
+        cls.ncert_quiz = NcertQuiz(cls.driver)
         cls.ncert_quiz.open_cqube_application()
         cls.logger = CustomLogger.setup_logger('Program_ncert_quiz', ReadConfig.get_logs_directory() + "/Program.log",
                                                level=logging.DEBUG)

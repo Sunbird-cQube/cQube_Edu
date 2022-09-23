@@ -1,7 +1,7 @@
 import logging
 import time
 
-from PageObjects.Cqube_UI.diksha_etb import Diksha
+from PageObjects.CqubeUI.diksha_etb import Diksha
 from TestCases.conftest import ConfTest
 from Utilities import CustomLogger
 from Utilities.ReadProperties import ReadConfig

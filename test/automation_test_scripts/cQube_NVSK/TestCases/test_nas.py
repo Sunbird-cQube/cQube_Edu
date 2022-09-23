@@ -5,7 +5,7 @@ from selenium.common import NoSuchElementException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
-from PageObjects.Cqube_UI.nas import nas
+from PageObjects.CqubeUI.nas import Nas
 from TestCases.conftest import ConfTest
 from Utilities import CustomLogger
 from Utilities.ReadProperties import ReadConfig
@@ -18,7 +18,7 @@ class TestNas:
     @classmethod
     def setup(cls):
         cls.driver = ConfTest.get_driver()
-        cls.nas = nas(cls.driver)
+        cls.nas = Nas(cls.driver)
         cls.nas.open_cqube_application()
         cls.logger = CustomLogger.setup_logger('Program_nas', ReadConfig.get_logs_directory() + "/Program.log",
                                                level=logging.DEBUG)

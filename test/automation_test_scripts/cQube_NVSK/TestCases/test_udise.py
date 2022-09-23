@@ -5,7 +5,7 @@ from selenium.common import NoSuchElementException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
-from PageObjects.Cqube_UI.udise import Udise
+from PageObjects.CqubeUI.udise import Udise
 from TestCases.conftest import ConfTest
 from Utilities import CustomLogger
 from Utilities.ReadProperties import ReadConfig

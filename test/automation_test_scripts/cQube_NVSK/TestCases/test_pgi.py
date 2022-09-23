@@ -1,6 +1,6 @@
 import logging
 import time
-from PageObjects.Cqube_UI.pgi import Pgi
+from PageObjects.CqubeUI.pgi import Pgi
 from TestCases.conftest import ConfTest
 from Utilities import CustomLogger
 from Utilities.ReadProperties import ReadConfig

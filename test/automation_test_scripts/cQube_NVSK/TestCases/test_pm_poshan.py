@@ -1,7 +1,7 @@
 import logging
 import time
 
-from PageObjects.Cqube_UI.pm_poshan import PmPoshan
+from PageObjects.CqubeUI.pm_poshan import PmPoshan
 from TestCases.conftest import ConfTest
 from Utilities import CustomLogger
 from Utilities.ReadProperties import ReadConfig
