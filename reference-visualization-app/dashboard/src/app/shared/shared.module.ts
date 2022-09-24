@@ -18,6 +18,7 @@ import { MapMyIndiaComponent } from './components/maps/map-my-india/map-my-india
 import { TableHeatMapDirective, TableHeatMapCellDirective, TableHeatMapColumnDirective } from './directives/table-heat-map/table-heat-map.directive';
 import { MaterialHeatChartTableComponent } from './components/tables/material-heat-chart-table/material-heat-chart-table.component';
 import { GaugeChartComponent } from './components/charts/gauge-chart/gauge-chart.component';
+import { GaugeComponent } from './components/charts/gauge/gauge.component';
 import { ScatterChartComponent } from './components/scatter-chart/scatter-chart.component';
 import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
 import { StackedBarComponent } from './components/charts/stacked-bar/stacked-bar.component';
@@ -30,6 +31,8 @@ import { LevelNMetricFilterPanelComponent } from './components/level-n-metric-fi
 import { FullScreenDirective } from './directives/full-screen.directive';
 import { MultiSelectComponent } from './components/core-components/multi-select/multi-select.component';
 import { LineChartComponent } from './components/core-components/line-chart/line-chart.component';
+import { NgApexchartsModule } from "ng-apexcharts";
+
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -41,6 +44,7 @@ const IMPORTS: any[] = [
   NgxSpinnerModule,
   MatButtonModule,
   MatPaginatorModule,
+  NgApexchartsModule,
   TooltipModule.forRoot()
 ];
 
@@ -54,6 +58,7 @@ const DECLARATIONS = [
   TableHeatMapCellDirective,
   TableHeatMapColumnDirective,
   GaugeChartComponent,
+  GaugeComponent,
   ScatterChartComponent,
   FilterPanelComponent,
   StackedBarComponent,
@@ -69,7 +74,7 @@ const DECLARATIONS = [
 
 @NgModule({
   declarations: [
-    DECLARATIONS,  
+    DECLARATIONS
   ],
   imports: [
     CommonModule,
