@@ -1284,7 +1284,7 @@ def install_trans_aggre_datasources(arg1, arg2, arg3, arg4):
                               'infra_parameters', 'udise_parameters']
     if sys.argv[2] in dynamic_jolt_params_pg:
         logging.info("Creating dynamic jolt parameters")
-        update_jolt_params.update_nifi_jolt_params(parameter_context_name)
+        update_nifi_jolt_params(parameter_context_name)
 
     # 4. Link parameter context to processor group
     logging.info("Linking parameter context with processor group")
@@ -1378,7 +1378,7 @@ def install_cqube_datastorage(arg1, arg2, arg3):
                               'infra_parameters', 'udise_parameters']
     if arg2 in dynamic_jolt_params_pg:
         logging.info("Creating dynamic jolt parameters")
-        update_jolt_params.update_nifi_jolt_params(parameter_context_name)
+        update_nifi_jolt_params(parameter_context_name)
 
     # 4. Link parameter context to processor group
     logging.info("Linking parameter context with processor group")
@@ -1402,10 +1402,19 @@ def install_cqube_datastorage(arg1, arg2, arg3):
     controller_service_enable(processor_group_name)
     logging.info("***Successfully Loaded template and enabled controller services***")
 
+
 if __name__ == "__main__":
     header = {"Content-Type": "application/json"}
     print("length=", len(sys.argv))
     n = len(sys.argv)
+    if sys.argv[1] == 'progress_card_transformer' or sys.argv[1] == 'composite_transformer':
+        data_source_name = sys.argv[1]
+        parameter_context_name = sys.argv[2]
+        data_storage = sys.argv[3]
+        distributed_server_port = sys.argv[4]
+        install_datasource(data_source_name, parameter_context_name, distributed_server_port)
+        trans_aggre_connection(data_source_name, data_storage)
+
     if len(sys.argv) == 2:
         processor_group_name = sys.argv[1]
         # create dummy connection for un selection data source
@@ -1458,4 +1467,3 @@ if __name__ == "__main__":
             state = sys.argv[3]
             dummy_connection_creator(cQube_data_storage_processor_name)
             start_processor_group(processor_name, state)
-
