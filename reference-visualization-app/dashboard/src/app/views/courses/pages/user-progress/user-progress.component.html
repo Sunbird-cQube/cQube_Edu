@@ -1,1 +1,161 @@
-<p>user-progress works!</p>
+<div class="container-fluid">
+    <div class="row reportHeader">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="row">
+                <div class="col-lg-7 col-md-9 col-sm-12 ">
+                    <div *ngIf='skul'>
+                        <p id="dist">
+                            Report on User Progress: <span (click)="homeClick()"
+                                style="cursor: pointer;text-decoration: underline;"
+                                class="selected-level">{{state}}</span></p>
+                    </div>
+                    <div *ngIf='dist'>
+                        <p id="block">
+                            Report on User Progress: <span (click)="homeClick()"
+                                style="cursor: pointer;text-decoration: underline;">{{state}}</span> <span> |
+                            </span><span (click)="distLinkClick(districtHierarchy.distId)"
+                                style="cursor: pointer;text-decoration: underline;" class="selected-level">
+                                {{districtHierarchy.districtName}}</span> </p>
+                    </div>
+                    <div *ngIf="blok">
+                        <p id="cluster">
+                            Report on User Progress: <span (click)="homeClick()"
+                                style="cursor: pointer;text-decoration: underline;">{{state}}</span><span> |
+                            </span><span (click)="!selDist ? distLinkClick(blockHierarchy.distId): ''"
+                                style="cursor: pointer;text-decoration: underline;">
+                                {{blockHierarchy.districtName}}</span><span> | </span><span
+                                (click)="blockLinkClick(blockHierarchy.blockId)"
+                                style="cursor: pointer;text-decoration: underline;" class="selected-level">
+                                {{blockHierarchy.blockName}}</span></p>
+                    </div>
+                    <div *ngIf="clust">
+                        <p id="school">
+                            Report on User Progress: <span (click)="homeClick()"
+                                style="cursor: pointer;text-decoration: underline;">{{state}}</span><span> |
+                            </span><span (click)="!selDist? distLinkClick(clusterHierarchy.distId):''"
+                                style="cursor: pointer;text-decoration: underline;">
+                                {{clusterHierarchy.districtName}}</span><span> | </span><span
+                                (click)="!selCluster? blockLinkClick(clusterHierarchy.blockId):''"
+                                style="cursor: pointer;text-decoration: underline;">
+                                {{clusterHierarchy.blockName}}</span><span> | </span><span
+                                (click)="clusterLinkClick(clusterHierarchy.clusterId)"
+                                style="cursor: pointer;text-decoration: underline;" class="selected-level">
+                                {{clusterHierarchy.clusterName}}</span></p>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-7" style="display: none;">
+                            <p id="errMsg" class="note">
+                            </p>
+                        </div>
+                        <div class="col sm-5">
+                            <button *ngIf="reportData.length>0" class="btn btn-primary" title="Download Report"
+                                id="download1" (click)="downloadReport()">Download Report &nbsp; <i
+                                    class="fa fa-arrow-down" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="note">
+                        <strong> About the dashboard:</strong> The dashboard provides insights on user progress
+                        completion and certification across various courses for {{state}}.
+                    </p>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px;">
+                <div class="col-sm-12 d-flex">
+                    <ng-select id="time_range" [(ngModel)]="timePeriod" name="timePeriod"
+                        placeholder="Choose Time Range" [clearable]="false" dropdownPosition="bottom"
+                        (change)="chooseTimeRange()">
+                        <ng-option *ngFor="let time of timeDetails" [value]="time.id">
+                            {{time.name}}
+                        </ng-option>
+                    </ng-select>
+
+                    <ng-select id="choose_dist" [(ngModel)]="selectedProgram" name="selectedProgram"
+                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Program"
+                        (change)="onProgramSelect(selectedProgram)">
+
+                        <!-- <ng-option [value]="selectedProgram" disabled selected="selected">Choose a Program</ng-option> -->
+                        <ng-option *ngFor="let program of uniqePrograms" [value]="program.program_id">
+                            {{program.program_name}}
+                        </ng-option>
+                    </ng-select>
+
+                    <ng-select [items]="collectionNames" id="SearchDropDown" class="col-3" [hideSelected]="true"
+                        placeholder=" Search Course" notFoundText="no courses found" bindLabel="collection_name"
+                        [(ngModel)]="selectedCourse" bindValue="collection_id" clearAllText="Clear"
+                        (change)="getDataBasedOnCollections($event)" (clear)="onClear()">
+                    </ng-select>
+
+
+                    <ng-select id="choose_dist" [hidden]="hideDist" [(ngModel)]="districtId" [disabled]="selDist"
+                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose a District"
+                        (change)="distLinkClick(districtId)">
+                        <!-- <ng-option [value]="districtId" disabled selected="selected">Choose a District</ng-option> -->
+                        <ng-option *ngFor="let dist of districts" [value]="dist.district_id">
+                            {{dist.district_name}}
+                        </ng-option>
+                    </ng-select>
+
+                    <ng-select [hidden]="blockHidden" id="choose_block" [(ngModel)]="blockId" [disabled]="selBlock"
+                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Block"
+                        (change)="blockLinkClick(blockId)">
+
+                        <!-- <ng-option [value]="blockId" disabled selected="selected">Choose a Block</ng-option> -->
+                        <ng-option *ngFor="let block of blocks" [value]="block.block_id">
+                            {{block.block_name}}
+                        </ng-option>
+                    </ng-select>
+
+                    <ng-select [hidden]="clusterHidden" id="choose_cluster" [(ngModel)]="clusterId"
+                        dropdownPosition="bottom" [clearable]="false" placeholder="choose_cluster"
+                        [disabled]="selCluster" (change)="clusterLinkClick(clusterId)">
+                        <!-- <ng-option [value]="clusterId" disabled selected="selected">Choose a Cluster</ng-option> -->
+                        <ng-option *ngFor="let cluster of clusters" [value]="cluster.cluster_id"
+                            [ngStyle]="{'color': cluster.clusterName !== 'NO NAME FOUND'? 'white' : '#ff3333'}">
+                            {{cluster.cluster_name}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row reportContainer" style="width: 100%" id="chart">
+        <div class="col-lg-1">
+
+        </div>
+        <div class="col-lg-10" id="r1" style="position: relative;">
+
+            <!-- <app-multi-bar-chart *ngIf="enrollChartData.length > 0" [category]="category" [data]="expectedEnrolled"
+                [enrolData]="enrollChartData" [compData]="compliChartData" [perData]="pecentChartData"
+                [xData]="completion" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [reportName]="report"
+                [level]="level" [type]="type" [courseSelected]="courseSelected" [programSelected]="programSeleted">
+            </app-multi-bar-chart> -->
+            <ng-container *ngIf="data">
+                <sb-dashlet type="horizontalBar" [data]="data" [config]="config"></sb-dashlet>
+            </ng-container>
+            <div *ngIf="data.length === 0" style="position: absolute; left: 40%; top: 120px;color: red;">
+                No Data Available
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+    </div>
+    <div id="spinner">
+        <div class="loading">Loading&#8230;</div>
+    </div>
+
+    <div *ngIf="waterMark === 'true'" id='demoLogoConatiner'>
+        <span><span>Test Data, Not Representative</span>
+            <span style="margin-left:50px">Test Data, Not Representative</span></span><br>
+
+    </div>
