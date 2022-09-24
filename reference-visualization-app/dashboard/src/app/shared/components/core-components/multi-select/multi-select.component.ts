@@ -14,7 +14,6 @@ export class MultiSelectComponent implements OnInit {
   @Input() from: string = '';
 
   @Output() shareCheckedList = new EventEmitter();
-  @Output() shareIndividualCheckedList = new EventEmitter();
   @Output() clearSuccessors = new EventEmitter();
 
   status;
@@ -70,8 +69,14 @@ export class MultiSelectComponent implements OnInit {
     this.shareCheckedlist();
   }
   shareCheckedlist() {
+    console.log(this.checkedList)
     this.shareCheckedList.emit(this.checkedList);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    setTimeout(() => {
+      console.log(this.list)
+    }, 2000
+    );
+  }
 }
