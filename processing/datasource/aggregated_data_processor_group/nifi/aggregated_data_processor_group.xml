@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <template encoding-version="1.3">
     <description></description>
-    <groupId>8c4ef165-0182-1000-a00f-02b78ffb9ded</groupId>
+    <groupId>6fc879e3-0183-1000-63e0-ab4980781e55</groupId>
     <name>aggregated_data_processor_group</name>
     <snippet>
         <processGroups>
-            <id>14b1834a-c78b-3d29-0000-000000000000</id>
-            <parentGroupId>3faaf9fb-131e-313a-0000-000000000000</parentGroupId>
+            <id>25b457b0-ae3a-3897-0000-000000000000</id>
+            <parentGroupId>daaa96d3-3994-348a-0000-000000000000</parentGroupId>
             <position>
                 <x>0.0</x>
                 <y>0.0</y>
@@ -14,17 +14,96 @@
             <comments></comments>
             <contents>
                 <connections>
-                    <id>7013d9ab-0b38-3ac2-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <id>763cce45-bc03-3332-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>4 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <destination>
-                        <groupId>14b1834a-c78b-3d29-0000-000000000000</groupId>
-                        <id>6c29d774-f4ae-331b-0000-000000000000</id>
+                        <groupId>25b457b0-ae3a-3897-0000-000000000000</groupId>
+                        <id>e3cb1399-d836-3a62-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
                     <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>25b457b0-ae3a-3897-0000-000000000000</groupId>
+                        <id>620ef08f-f176-313d-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>aada77a3-5a9e-3181-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>4 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>25b457b0-ae3a-3897-0000-000000000000</groupId>
+                        <id>e3cb1399-d836-3a62-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>25b457b0-ae3a-3897-0000-000000000000</groupId>
+                        <id>f200716d-acf9-36b3-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>d5479970-1233-35ee-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>25b457b0-ae3a-3897-0000-000000000000</groupId>
+                        <id>e3cb1399-d836-3a62-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>25b457b0-ae3a-3897-0000-000000000000</groupId>
+                        <id>65f363e0-505f-36e0-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>efbe8f61-971d-333f-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <bends>
+                        <x>672.0</x>
+                        <y>584.0</y>
+                    </bends>
+                    <destination>
+                        <groupId>25b457b0-ae3a-3897-0000-000000000000</groupId>
+                        <id>54ba1ebe-f429-36b0-0000-000000000000</id>
+                        <type>OUTPUT_PORT</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>0</labelIndex>
                     <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
                     <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
                     <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
@@ -32,169 +111,15 @@
                     <name></name>
                     <selectedRelationships>aggregated_files</selectedRelationships>
                     <source>
-                        <groupId>14b1834a-c78b-3d29-0000-000000000000</groupId>
-                        <id>9fc5cc99-afc3-3b2a-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>77b3b730-96ad-3452-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>4 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <destination>
-                        <groupId>14b1834a-c78b-3d29-0000-000000000000</groupId>
-                        <id>9fc5cc99-afc3-3b2a-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>success</selectedRelationships>
-                    <source>
-                        <groupId>14b1834a-c78b-3d29-0000-000000000000</groupId>
-                        <id>dff50b06-cdbc-37dc-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>7d7af971-05bb-39d4-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>4 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <destination>
-                        <groupId>14b1834a-c78b-3d29-0000-000000000000</groupId>
-                        <id>9fc5cc99-afc3-3b2a-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>success</selectedRelationships>
-                    <source>
-                        <groupId>14b1834a-c78b-3d29-0000-000000000000</groupId>
-                        <id>3309a3cf-fb5f-3029-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>856266e5-d75b-34ee-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <destination>
-                        <groupId>14b1834a-c78b-3d29-0000-000000000000</groupId>
-                        <id>7badae92-ed2a-3376-0000-000000000000</id>
-                        <type>OUTPUT_PORT</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>success</selectedRelationships>
-                    <source>
-                        <groupId>14b1834a-c78b-3d29-0000-000000000000</groupId>
-                        <id>6c29d774-f4ae-331b-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>cf2afe85-b2f8-32c6-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <destination>
-                        <groupId>14b1834a-c78b-3d29-0000-000000000000</groupId>
-                        <id>9fc5cc99-afc3-3b2a-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>success</selectedRelationships>
-                    <source>
-                        <groupId>14b1834a-c78b-3d29-0000-000000000000</groupId>
-                        <id>33a61aef-1d03-3c37-0000-000000000000</id>
+                        <groupId>25b457b0-ae3a-3897-0000-000000000000</groupId>
+                        <id>e3cb1399-d836-3a62-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
                 <controllerServices>
-                    <id>0b2370e0-8251-3197-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
-                    <bundle>
-                        <artifact>nifi-azure-nar</artifact>
-                        <group>org.apache.nifi</group>
-                        <version>1.12.1</version>
-                    </bundle>
-                    <comments></comments>
-                    <descriptors>
-                        <entry>
-                            <key>storage-account-name</key>
-                            <value>
-<name>storage-account-name</name>
-                            </value>
-                        </entry>
-                        <entry>
-                            <key>storage-account-key</key>
-                            <value>
-<name>storage-account-key</name>
-                            </value>
-                        </entry>
-                        <entry>
-                            <key>storage-sas-token</key>
-                            <value>
-<name>storage-sas-token</name>
-                            </value>
-                        </entry>
-                        <entry>
-                            <key>storage-endpoint-suffix</key>
-                            <value>
-<name>storage-endpoint-suffix</name>
-                            </value>
-                        </entry>
-                    </descriptors>
-                    <name>AzureStorageCredentialsControllerService</name>
-                    <persistsState>false</persistsState>
-                    <properties>
-                        <entry>
-                            <key>storage-account-name</key>
-                        </entry>
-                        <entry>
-                            <key>storage-account-key</key>
-                        </entry>
-                        <entry>
-                            <key>storage-sas-token</key>
-                        </entry>
-                        <entry>
-                            <key>storage-endpoint-suffix</key>
-                        </entry>
-                    </properties>
-                    <state>ENABLED</state>
-                    <type>org.apache.nifi.services.azure.storage.AzureStorageCredentialsControllerService</type>
-                </controllerServices>
-                <controllerServices>
-                    <id>51a8069d-36ae-398d-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
+                    <id>bf1a4eb4-ef17-3318-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
                     <bundle>
                         <artifact>nifi-aws-nar</artifact>
                         <group>org.apache.nifi</group>
@@ -330,9 +255,63 @@
                     <state>ENABLED</state>
                     <type>org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService</type>
                 </controllerServices>
+                <controllerServices>
+                    <id>c2bf1eb8-3121-337c-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
+                    <bundle>
+                        <artifact>nifi-azure-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.12.1</version>
+                    </bundle>
+                    <comments></comments>
+                    <descriptors>
+                        <entry>
+                            <key>storage-account-name</key>
+                            <value>
+<name>storage-account-name</name>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>storage-account-key</key>
+                            <value>
+<name>storage-account-key</name>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>storage-sas-token</key>
+                            <value>
+<name>storage-sas-token</name>
+                            </value>
+                        </entry>
+                        <entry>
+                            <key>storage-endpoint-suffix</key>
+                            <value>
+<name>storage-endpoint-suffix</name>
+                            </value>
+                        </entry>
+                    </descriptors>
+                    <name>AzureStorageCredentialsControllerService</name>
+                    <persistsState>false</persistsState>
+                    <properties>
+                        <entry>
+                            <key>storage-account-name</key>
+                        </entry>
+                        <entry>
+                            <key>storage-account-key</key>
+                        </entry>
+                        <entry>
+                            <key>storage-sas-token</key>
+                        </entry>
+                        <entry>
+                            <key>storage-endpoint-suffix</key>
+                        </entry>
+                    </properties>
+                    <state>ENABLED</state>
+                    <type>org.apache.nifi.services.azure.storage.AzureStorageCredentialsControllerService</type>
+                </controllerServices>
                 <labels>
-                    <id>07e7daf0-f61f-3bb3-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
+                    <id>0481d3bf-d0ee-3579-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
                     <position>
                         <x>928.0000819248553</x>
                         <y>-28.4999896770164</y>
@@ -352,29 +331,8 @@
                     <width>400.0</width>
                 </labels>
                 <labels>
-                    <id>3e2aca9c-cba2-3a34-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
-                    <position>
-                        <x>528.0000819248553</x>
-                        <y>-188.4999896770164</y>
-                    </position>
-                    <height>48.0</height>
-                    <label>AGGREGATED DATA </label>
-                    <style>
-                        <entry>
-                            <key>background-color</key>
-                            <value>#3d81ff</value>
-                        </entry>
-                        <entry>
-                            <key>font-size</key>
-                            <value>24px</value>
-                        </entry>
-                    </style>
-                    <width>256.0</width>
-                </labels>
-                <labels>
-                    <id>90bc9bcf-79a4-3161-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
+                    <id>785e6b0c-a3e8-3ec6-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
                     <position>
                         <x>448.0000819248553</x>
                         <y>-28.4999896770164</y>
@@ -394,8 +352,29 @@
                     <width>416.0</width>
                 </labels>
                 <labels>
-                    <id>af5e596c-5a22-3b66-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
+                    <id>ca0daf00-8140-3ce6-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>528.0000819248553</x>
+                        <y>-188.4999896770164</y>
+                    </position>
+                    <height>48.0</height>
+                    <label>AGGREGATED DATA </label>
+                    <style>
+                        <entry>
+                            <key>background-color</key>
+                            <value>#3d81ff</value>
+                        </entry>
+                        <entry>
+                            <key>font-size</key>
+                            <value>24px</value>
+                        </entry>
+                    </style>
+                    <width>256.0</width>
+                </labels>
+                <labels>
+                    <id>fbb86e9e-f5dd-3490-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
                     <position>
                         <x>-95.9999180751447</x>
                         <y>-28.4999896770164</y>
@@ -415,8 +394,8 @@
                     <width>416.0</width>
                 </labels>
                 <outputPorts>
-                    <id>7badae92-ed2a-3376-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
+                    <id>54ba1ebe-f429-36b0-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
                     <position>
                         <x>1112.0000819248553</x>
                         <y>555.5000103229836</y>
@@ -428,8 +407,8 @@
                     <type>OUTPUT_PORT</type>
                 </outputPorts>
                 <processors>
-                    <id>3309a3cf-fb5f-3029-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
+                    <id>620ef08f-f176-313d-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
                     <position>
                         <x>-55.999918075144706</x>
                         <y>3.5000103229835986</y>
@@ -683,8 +662,8 @@
                     <type>org.apache.nifi.processors.standard.ListFile</type>
                 </processors>
                 <processors>
-                    <id>33a61aef-1d03-3c37-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
+                    <id>65f363e0-505f-36e0-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
                     <position>
                         <x>960.0000819248553</x>
                         <y>3.5000103229835986</y>
@@ -799,7 +778,7 @@
                             </entry>
                             <entry>
 <key>storage-credentials-service</key>
-<value>0b2370e0-8251-3197-0000-000000000000</value>
+<value>c2bf1eb8-3121-337c-0000-000000000000</value>
                             </entry>
                             <entry>
 <key>storage-account-name</key>
@@ -847,94 +826,8 @@
                     <type>org.apache.nifi.processors.azure.storage.ListAzureBlobStorage</type>
                 </processors>
                 <processors>
-                    <id>6c29d774-f4ae-331b-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
-                    <position>
-                        <x>488.0000819248553</x>
-                        <y>515.5000103229836</y>
-                    </position>
-                    <bundle>
-                        <artifact>nifi-update-attribute-nar</artifact>
-                        <group>org.apache.nifi</group>
-                        <version>1.12.1</version>
-                    </bundle>
-                    <config>
-                        <bulletinLevel>WARN</bulletinLevel>
-                        <comments></comments>
-                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
-                        <descriptors>
-                            <entry>
-<key>Delete Attributes Expression</key>
-<value>
-    <name>Delete Attributes Expression</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Store State</key>
-<value>
-    <name>Store State</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Stateful Variables Initial Value</key>
-<value>
-    <name>Stateful Variables Initial Value</name>
-</value>
-                            </entry>
-                            <entry>
-<key>canonical-value-lookup-cache-size</key>
-<value>
-    <name>canonical-value-lookup-cache-size</name>
-</value>
-                            </entry>
-                            <entry>
-<key>datasource_name</key>
-<value>
-    <name>datasource_name</name>
-</value>
-                            </entry>
-                        </descriptors>
-                        <executionNode>ALL</executionNode>
-                        <lossTolerant>false</lossTolerant>
-                        <penaltyDuration>30 sec</penaltyDuration>
-                        <properties>
-                            <entry>
-<key>Delete Attributes Expression</key>
-                            </entry>
-                            <entry>
-<key>Store State</key>
-<value>Do not store state</value>
-                            </entry>
-                            <entry>
-<key>Stateful Variables Initial Value</key>
-                            </entry>
-                            <entry>
-<key>canonical-value-lookup-cache-size</key>
-<value>100</value>
-                            </entry>
-                            <entry>
-<key>datasource_name</key>
-<value>#{datasource_name}</value>
-                            </entry>
-                        </properties>
-                        <runDurationMillis>0</runDurationMillis>
-                        <schedulingPeriod>0 sec</schedulingPeriod>
-                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
-                        <yieldDuration>1 sec</yieldDuration>
-                    </config>
-                    <executionNodeRestricted>false</executionNodeRestricted>
-                    <name>get_datasource_name</name>
-                    <relationships>
-                        <autoTerminate>false</autoTerminate>
-                        <name>success</name>
-                    </relationships>
-                    <state>STOPPED</state>
-                    <style/>
-                    <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
-                </processors>
-                <processors>
-                    <id>9fc5cc99-afc3-3b2a-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
+                    <id>e3cb1399-d836-3a62-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
                     <position>
                         <x>496.0000819248553</x>
                         <y>323.5000103229836</y>
@@ -995,8 +888,8 @@
                     <type>org.apache.nifi.processors.standard.RouteOnAttribute</type>
                 </processors>
                 <processors>
-                    <id>dff50b06-cdbc-37dc-0000-000000000000</id>
-                    <parentGroupId>14b1834a-c78b-3d29-0000-000000000000</parentGroupId>
+                    <id>f200716d-acf9-36b3-0000-000000000000</id>
+                    <parentGroupId>25b457b0-ae3a-3897-0000-000000000000</parentGroupId>
                     <position>
                         <x>504.0000819248553</x>
                         <y>3.5000103229835986</y>
@@ -1198,7 +1091,7 @@
                             </entry>
                             <entry>
 <key>AWS Credentials Provider service</key>
-<value>51a8069d-36ae-398d-0000-000000000000</value>
+<value>bf1a4eb4-ef17-3318-0000-000000000000</value>
                             </entry>
                             <entry>
 <key>Communications Timeout</key>
@@ -1270,5 +1163,5 @@
             <variables/>
         </processGroups>
     </snippet>
-    <timestamp>09/20/2022 13:03:25 IST</timestamp>
+    <timestamp>09/24/2022 21:16:06 IST</timestamp>
 </template>
