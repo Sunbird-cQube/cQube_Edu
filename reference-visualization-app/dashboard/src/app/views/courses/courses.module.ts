@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatButtonModule } from '@angular/material/button';
 import { DashletModule } from '@project-sunbird/sb-dashlet-v14';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoursesRoutingModule } from './courses-routing.module';
 
@@ -18,6 +19,7 @@ import { CourseProgressComponent } from './pages/course-progress/course-progress
 import { UserProgressComponent } from './pages/user-progress/user-progress.component';
 import { GpsOfLearningComponent } from './pages/gps-of-learning/gps-of-learning.component';
 import { UserOnboardingComponent } from './pages/user-onboarding/user-onboarding.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { UserOnboardingComponent } from './pages/user-onboarding/user-onboarding
     NgSelectModule,
     ReactiveFormsModule,
     CqubeLibraryModule,
+    SharedModule,
+    NgbModule,
     MatTabsModule,
     DashletModule.forRoot({
       dataService: DataService
