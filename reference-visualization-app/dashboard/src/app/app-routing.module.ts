@@ -243,7 +243,14 @@ if (environment.config == 'national') {
             import('./views/telemetry/telemetry.module').then(
               (module) => module.TelemetryModule
             )
-        }
+        },
+        {
+          path: 'other-diksha-metrics',
+          loadChildren: () => 
+            import('./views/other-digital-learning-metrics/other-digital-learning-metrics.module').then(
+              (module) => module.OtherDigitalLearningMetricsModule
+            )
+        },
       ],
     },
   ];

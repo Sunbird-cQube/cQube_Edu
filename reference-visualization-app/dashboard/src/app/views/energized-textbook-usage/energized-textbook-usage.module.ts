@@ -9,9 +9,9 @@ import { DashletModule } from '@project-sunbird/sb-dashlet-v14';
 
 import { EnergizedTextbookUsageRoutingModule } from './energized-textbook-usage-routing.module';
 import { EnergizedTextbookUsageComponent } from './energized-textbook-usage.component';
-import { UsageByTextBookComponent } from './usage-by-text-book/usage-by-text-book.component';
+import { UsageByTextBookComponent } from './pages/usage-by-text-book/usage-by-text-book.component';
 import { DataService } from 'src/app/core/services/data.service';
-import { TotalContentPlayOverYearsComponent } from './total-content-play-over-years/total-content-play-over-years.component';
+import { TotalContentPlayOverYearsComponent } from './pages/total-content-play-over-years/total-content-play-over-years.component';
 
 import { UsageByTextbookContentComponent } from './pages/usage-by-textbook-content/usage-by-textbook-content.component';
 import { GpsOfLearningComponent } from './pages/gps-of-learning/gps-of-learning.component';

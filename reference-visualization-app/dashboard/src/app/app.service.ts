@@ -124,9 +124,9 @@ export class AppServiceComponent {
   // to load and hide the spinner
   loaderAndErr(data) {
     if (data.length !== 0) {
-      document.getElementById("spinner").style.display = "none";
+      document.getElementById("spinner") ? document.getElementById("spinner").style.display = "none" : "";
     } else {
-      document.getElementById("spinner").style.display = "none";
+      document.getElementById("spinner") ? document.getElementById("spinner").style.display = "none" : "";
       document.getElementById("errMsg")
         ? (document.getElementById("errMsg").style.color = "red")
         : "";
