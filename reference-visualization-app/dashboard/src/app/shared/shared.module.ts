@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
+
 import { MultiBarChartComponent } from './components/charts/multi-bar-chart/multi-bar-chart.component';
 import { DashboardCardComponent } from './components/cards/dashboard-card/dashboard-card.component';
 import { RouterModule } from '@angular/router';
@@ -30,6 +31,9 @@ import { LevelNMetricFilterPanelComponent } from './components/level-n-metric-fi
 import { FullScreenDirective } from './directives/full-screen.directive';
 import { MultiSelectComponent } from './components/core-components/multi-select/multi-select.component';
 import { LineChartComponent } from './components/core-components/line-chart/line-chart.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { BubblesComponent } from './components/core-components/bubbles/bubbles.component';
+import { ProgressCircleComponent } from './components/core-components/progress-circle/progress-circle.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -41,7 +45,8 @@ const IMPORTS: any[] = [
   NgxSpinnerModule,
   MatButtonModule,
   MatPaginatorModule,
-  TooltipModule.forRoot()
+  TooltipModule.forRoot(),
+  NgCircleProgressModule.forRoot(),
 ];
 
 const DECLARATIONS = [
@@ -64,12 +69,15 @@ const DECLARATIONS = [
   LevelNMetricFilterPanelComponent,
   FullScreenDirective,
   MultiSelectComponent,
-  LineChartComponent
+  LineChartComponent,
+  BubblesComponent,
+  ProgressCircleComponent
 ];
 
 @NgModule({
   declarations: [
-    DECLARATIONS,  
+    DECLARATIONS,
+
   ],
   imports: [
     CommonModule,

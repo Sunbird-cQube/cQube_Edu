@@ -116,13 +116,13 @@ if (environment.config == 'national') {
   ];
 } else {
   routes = [
-    // {
-    //   path: '',
-    //   loadChildren: () =>
-    //     import('./views/authentication/authentication.module').then(
-    //       (module) => module.AuthenticationModule
-    //     ),
-    // },
+    {
+      path: '',
+      loadChildren: () =>
+        import('./views/authentication/authentication.module').then(
+          (module) => module.AuthenticationModule
+        ),
+    },
     {
       path: '',
       component: LayoutComponent,
@@ -184,13 +184,13 @@ if (environment.config == 'national') {
         {
           path: 'infra',
           loadChildren: () =>
-          import('./views/school-infrastructure/school-infrastructure.module').then(
-            (module) => module.SchoolInfrastructureModule
-          ),
+            import('./views/school-infrastructure/school-infrastructure.module').then(
+              (module) => module.SchoolInfrastructureModule
+            ),
         },
         {
           path: 'stperformance',
-          loadChildren: () => 
+          loadChildren: () =>
             import('./views/student-performance/student-performance.module').then(
               (module) => module.StudentPerformanceModule
             )
@@ -204,28 +204,28 @@ if (environment.config == 'national') {
         },
         {
           path: 'attendance',
-          loadChildren: () => 
+          loadChildren: () =>
             import('./views/attendance/attendance.module').then(
               (module) => module.AttendanceModule
             )
         },
         {
           path: 'courses',
-          loadChildren: () => 
+          loadChildren: () =>
             import('./views/courses/courses.module').then(
               (module) => module.CoursesModule
             )
         },
         {
           path: 'etb-usage',
-          loadChildren: () => 
+          loadChildren: () =>
             import('./views/energized-textbook-usage/energized-textbook-usage.module').then(
               (module) => module.EnergizedTextbookUsageModule
             )
         },
         {
           path: 'exception',
-          loadChildren: () => 
+          loadChildren: () =>
             import('./views/exception-list/exception-list.module').then(
               (module) => module.ExceptionListModule
             )
@@ -239,9 +239,16 @@ if (environment.config == 'national') {
         },
         {
           path: 'telemetry',
-          loadChildren: () => 
+          loadChildren: () =>
             import('./views/telemetry/telemetry.module').then(
               (module) => module.TelemetryModule
+            )
+        },
+        {
+          path: 'progress-card',
+          loadChildren: () =>
+            import('./views/progress/progress.module').then(
+              (module) => module.ProgressModule
             )
         }
       ],

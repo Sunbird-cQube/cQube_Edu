@@ -10,7 +10,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { CqubeLibraryModule } from 'cqube-library';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
@@ -18,10 +17,12 @@ import { MatSortModule } from '@angular/material/sort';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HomePageComponent } from './views/home-page/home-page.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+   
   ],
   imports: [
     BrowserModule,

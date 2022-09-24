@@ -10,13 +10,16 @@
 </div>
 
 <div class="tab-group-wrapper">
-    <mat-tab-group mat-align-tabs="start" [selectedIndex]="tabIndex" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
+    <mat-tab-group mat-align-tabs="start" [selectedIndex]="tabIndex" animationDuration="0ms"
+        (selectedTabChange)="onTabChanged($event)">
         <mat-tab label="Usage by Course">
             <app-courses-bar-chart *ngIf="tabIndex === 0"></app-courses-bar-chart>
         </mat-tab>
         <mat-tab label="Usage by Course Content">
+            <app-usage-by-course-content *ngIf="tabIndex === 1"></app-usage-by-course-content>
         </mat-tab>
         <mat-tab label="Course Progress">
+            <app-course-progress *ngIf="tabIndex === 2"></app-course-progress>
         </mat-tab>
         <mat-tab label="User Progress">
         </mat-tab>
