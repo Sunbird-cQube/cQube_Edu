@@ -6,7 +6,7 @@ import _ from "lodash";
 import HC_exportData from "highcharts/modules/export-data";
 import { AppServiceComponent } from "src/app/app.service";
 import { environment } from "src/environments/environment";
-import { TotalContentPlayLineCahrtService } from "src/app/core/services/total-content-play-line-cahrt.service";
+import { TotalContentPlayLineCahrtService } from "src/app/core/services/total-content-play-line-chart.service";
 import { ContentUsagePieService } from "src/app/core/services/content-usage-pie.service";
 
 HC_exportData(Highcharts);
