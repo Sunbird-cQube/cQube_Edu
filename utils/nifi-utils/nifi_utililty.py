@@ -1234,6 +1234,28 @@ def connection(arg1, arg3, arg5):
     data_storage_disable_processor(processor_group_name, data_storage_type)
 
 
+def aggre_connection(arg1, arg3, arg5):
+    # Connect_nifi_processors:
+    # Main.
+    """[summary]
+    sys arguments = 1. cQube_raw_data_fetch processor name 2. transformer processor group name.
+    Ex: python connect_nifi_processors.py cQube_raw_data_fetch_static static_data_processor
+    """
+    header = {"Content-Type": "application/json"}
+    source_pg = arg3.strip()
+    destination_pg = arg1.strip()
+    processor_group_name = arg1
+
+    logging.info('Connection between PORTS started...')
+
+    res_2 = connect_output_input_port(destination_pg, source_pg)
+    logging.info('Successfully Connection done between PORTS.')
+
+    # disable processor based on data storage type.
+    data_storage_type = arg5
+    data_storage_disable_processor(processor_group_name, data_storage_type)
+
+
 def install_trans_aggre_datasources(arg1, arg2, arg3, arg4):
     """sys arguments: 1. data_source name (student_attendance_transformer)
                       2. parameter context name (student_attendance_parameters)
@@ -1444,7 +1466,10 @@ if __name__ == "__main__":
             distributed_server_port = sys.argv[4]
             storage_type = sys.argv[5]
             install_datasource(data_source_name, parameter_context_name, distributed_server_port)
-            connection(data_source_name, data_storage, storage_type)
+            if data_source_name == 'aggregated_data_processor_group':
+                aggre_connection(data_source_name, data_storage, storage_type)
+            else:
+                connection(data_source_name, data_storage, storage_type)
     if len(sys.argv) == 4:
         if sys.argv[2] == 'cQube_data_storage_parameters':
             cQube_data_storage = sys.argv[1]
