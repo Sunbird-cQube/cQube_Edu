@@ -10,7 +10,6 @@
   apt: name=curl
   tags: install
 
-#1.12
 - name: Download NiFi
   get_url:
     url: https://archive.apache.org/dist/nifi/{{ nifi_version }}/nifi-{{ nifi_version }}-bin.tar.gz
@@ -58,9 +57,7 @@
     dest: "{{ base_dir }}/cqube/nifi/nifi/jars"
     mode: "0644"
   tags: install
-#1.12 end
 
-#1.12
 - name: configure the webserver in nifi.properties file
   replace:
     dest: "{{ base_dir }}/cqube/nifi/nifi/conf/nifi.properties"
@@ -74,12 +71,20 @@
     regexp: 'nifi.web.http.port=8080'
     replace: 'nifi.web.http.port={{ nifi_port }}'
   tags: install
+
 #constant
 - name: Increase nifi memory
   lineinfile:
     path: "{{ base_dir }}/cqube/nifi/nifi/conf/bootstrap.conf"
     regexp: '^java.arg.2='
     line: "java.arg.2={{ java_arg_2 }}"
+  tags: [ install, update ]
+
+- name: Increase nifi memory
+  lineinfile:
+    path: "{{ base_dir }}/cqube/nifi/nifi/conf/bootstrap.conf"
+    regexp: '^java.arg.3='
+    line: "java.arg.3={{ java_arg_3 }}"
   tags: [ install, update ]
 
 - name: Add time zone to nifi
@@ -89,13 +94,6 @@
                java.arg.8=-Duser.timezone=Asia/Kolkata
   tags: install
 #constant
-- name: Increase nifi memory
-  lineinfile:
-    path: "{{ base_dir }}/cqube/nifi/nifi/conf/bootstrap.conf"
-    regexp: '^java.arg.3='
-    line: "java.arg.3={{ java_arg_3 }}"
-  tags: [ install, update ]
-#1.12 end
 
 - name: start NiFi
   shell: "nohup {{ base_dir }}/cqube/nifi/nifi/bin/nifi.sh start"

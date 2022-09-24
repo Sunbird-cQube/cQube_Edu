@@ -250,7 +250,14 @@ if (environment.config == 'national') {
             import('./views/progress/progress.module').then(
               (module) => module.ProgressModule
             )
-        }
+        },
+        {
+          path: 'other-diksha-metrics',
+          loadChildren: () => 
+            import('./views/other-digital-learning-metrics/other-digital-learning-metrics.module').then(
+              (module) => module.OtherDigitalLearningMetricsModule
+            )
+        },
       ],
     },
   ];

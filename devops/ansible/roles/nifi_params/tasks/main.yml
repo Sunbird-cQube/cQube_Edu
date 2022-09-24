@@ -7,7 +7,18 @@
   loop:
     - cQube_data_storage_parameters
     - static_data_parameters
+    - crc_parameters
+    - student_attendance_parameters
+    - infra_parameters
     - diksha_parameters
+    - cqube_telemetry_parameters
+    - udise_parameters
+    - pat_parameters
+    - composite_parameters
+    - progress_card_parameters
+    - teacher_attendance_parameters
+    - data_replay_parameters
+    - sat_parameters
     - transaction_and_aggregation_parameters
     - validate_datasource_parameters
   tags: [ install, update ]     

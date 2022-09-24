@@ -19,6 +19,7 @@ import { MapMyIndiaComponent } from './components/maps/map-my-india/map-my-india
 import { TableHeatMapDirective, TableHeatMapCellDirective, TableHeatMapColumnDirective } from './directives/table-heat-map/table-heat-map.directive';
 import { MaterialHeatChartTableComponent } from './components/tables/material-heat-chart-table/material-heat-chart-table.component';
 import { GaugeChartComponent } from './components/charts/gauge-chart/gauge-chart.component';
+import { GaugeComponent } from './components/charts/gauge/gauge.component';
 import { ScatterChartComponent } from './components/scatter-chart/scatter-chart.component';
 import { FilterPanelComponent } from './components/filter-panel/filter-panel.component';
 import { StackedBarComponent } from './components/charts/stacked-bar/stacked-bar.component';
@@ -34,6 +35,8 @@ import { LineChartComponent } from './components/core-components/line-chart/line
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { BubblesComponent } from './components/core-components/bubbles/bubbles.component';
 import { ProgressCircleComponent } from './components/core-components/progress-circle/progress-circle.component';
+import { NgApexchartsModule } from "ng-apexcharts";
+
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -47,6 +50,8 @@ const IMPORTS: any[] = [
   MatPaginatorModule,
   TooltipModule.forRoot(),
   NgCircleProgressModule.forRoot(),
+  NgApexchartsModule,
+  TooltipModule.forRoot()
 ];
 
 const DECLARATIONS = [
@@ -59,6 +64,7 @@ const DECLARATIONS = [
   TableHeatMapCellDirective,
   TableHeatMapColumnDirective,
   GaugeChartComponent,
+  GaugeComponent,
   ScatterChartComponent,
   FilterPanelComponent,
   StackedBarComponent,
@@ -77,7 +83,6 @@ const DECLARATIONS = [
 @NgModule({
   declarations: [
     DECLARATIONS,
-
   ],
   imports: [
     CommonModule,

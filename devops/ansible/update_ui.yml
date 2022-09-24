@@ -6,5 +6,5 @@
   vars_files:
     - constants.yml
   roles:
-          - angular_config
-          - angular_admin_config
+          - reference-visualization
+          - api
