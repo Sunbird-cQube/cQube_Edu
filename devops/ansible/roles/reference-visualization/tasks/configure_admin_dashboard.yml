@@ -1,0 +1,74 @@
+---
+- name: Stoping the admin_client_side app
+  become: yes
+  shell: pm2 stop admin_client_side
+  tags: update
+
+# for release 4.0
+- name: Delete admin_client_side directory
+  file:
+    path: "{{ base_dir }}/cqube/admin_dashboard"
+    state: absent
+  tags: update
+
+- name: Making sure {{ base_dir }}/cqube/reference-visualization-app/admin-console directory is present
+  file:
+    path: "{{ base_dir }}/cqube/reference-visualization-app/admin-console"
+    owner: "{{ system_user_name }}"
+    group: "{{ system_user_name }}"
+    recurse: yes
+    state: directory
+  tags: [ install, update ]
+
+- name: copying client-side script
+  copy:
+    src: "../../reference-visualization-app/admin-console/"
+    dest: "{{base_dir}}/cqube/reference-visualization-app/admin-console"
+  tags: [ install, update ]  
+
+- name: Configure the environment.ts
+  template:
+    src: admin_dashboard_environment.ts.j2
+    dest: "{{ base_dir }}/cqube/reference-visualization-app/admin-console/src/environments/environment.ts"
+  when: mode_of_installation != "localhost"
+  tags: [ install, update ]
+
+- name: Configure the environment.prod.ts
+  template:
+    src: admin_dashboard_environment.prod.ts.j2
+    dest: "{{ base_dir }}/cqube/reference-visualization-app/admin-console/src/environments/environment.prod.ts"
+  when: mode_of_installation != "localhost"
+  tags: [ install, update ]   
+
+- name: Configure the environment.ts (localhost)
+  template:
+    src: admin_dashboard_environment_local.ts.j2
+    dest: "{{ base_dir }}/cqube/reference-visualization-app/admin-console/src/environments/environment.ts"
+  when: mode_of_installation == "localhost"
+  tags: [ install, update ]
+
+- name: Configure the environment.prod.ts (localhost)
+  template:
+    src: admin_dashboard_environment.prod_local.ts.j2
+    dest: "{{ base_dir }}/cqube/reference-visualization-app/admin-console/src/environments/environment.prod.ts"
+  when: mode_of_installation == "localhost"
+  tags: [ install, update ] 
+
+- name: Install Angular packages based on package.json.
+  npm:
+    path: "{{ base_dir }}/cqube/reference-visualization-app/admin-console"
+  tags: [ install, update ]
+
+- name: Building Angular client-side code
+  command: ng build --prod
+  args:
+    chdir: "{{ base_dir }}/cqube/reference-visualization-app/admin-console"
+  tags: [ install, update ]
+
+- name: changing ownership
+  file:
+    path: "{{ base_dir }}/cqube/reference-visualization-app/admin-console"
+    owner: "{{ system_user_name }}"
+    group: "{{ system_user_name }}"
+    recurse: yes
+  tags: [ install, update ]

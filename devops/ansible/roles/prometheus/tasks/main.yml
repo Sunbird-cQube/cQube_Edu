@@ -12,31 +12,31 @@
 
 - name: Creating Directory
   file:
-    path: "{{ base_dir }}/cqube/admin_dashboard/"
+    path: "{{ base_dir }}/cqube/reference-visualization-app/"
     state: directory
   tags: install 
 
 - name: Extract prometheus 
   unarchive:
     src: "/tmp/prometheus-2.19.2.linux-amd64.tar.gz"
-    dest: "{{ base_dir }}/cqube/admin_dashboard/"
+    dest: "{{ base_dir }}/cqube/reference-visualization-app/"
     remote_src: yes
   tags: install
 
 - name: Remove prometheus directory, if exists
   file: 
-    path: "{{ base_dir }}/cqube/admin_dashboard/prometheus"
+    path: "{{ base_dir }}/cqube/reference-visualization-app/prometheus"
     state: absent
   tags: install
 
 - name: Rename the extracted folder
-  shell: mv {{ base_dir }}/cqube/admin_dashboard/prometheus* {{ base_dir }}/cqube/admin_dashboard/prometheus
+  shell: mv {{ base_dir }}/cqube/reference-visualization-app/prometheus* {{ base_dir }}/cqube/reference-visualization-app/prometheus
   tags: install
 
 - name: Configuring the prometheus.yml
   template:
     src: prometheus.yml.j2
-    dest: "{{ base_dir }}/cqube/admin_dashboard/prometheus/prometheus.yml"
+    dest: "{{ base_dir }}/cqube/reference-visualization-app/prometheus/prometheus.yml"
   tags: install
 
 - name: Downloading node_exporter
@@ -49,23 +49,23 @@
 - name: Extract node_exporter 
   unarchive:
     src: "/tmp/node_exporter-1.0.1.linux-amd64.tar.gz"
-    dest: "{{ base_dir }}/cqube/admin_dashboard/"
+    dest: "{{ base_dir }}/cqube/reference-visualization-app/"
     remote_src: yes
   tags: install
 
 - name: Remove node_exported directory, if exists
   file:
-    path: "{{ base_dir }}/cqube/admin_dashboard/node_exporter"
+    path: "{{ base_dir }}/cqube/reference-visualization-app/node_exporter"
     state: absent
   tags: install
 
 - name: Rename the extracted folder
-  shell: mv {{ base_dir }}/cqube/admin_dashboard/node_exporter* {{ base_dir }}/cqube/admin_dashboard/node_exporter
+  shell: mv {{ base_dir }}/cqube/reference-visualization-app/node_exporter* {{ base_dir }}/cqube/reference-visualization-app/node_exporter
   tags: install
 
 - name: changing ownership
   file:
-    path: "{{ base_dir }}/cqube/admin_dashboard"
+    path: "{{ base_dir }}/cqube/reference-visualization-app"
     owner: "{{ system_user_name }}"
     group: "{{ system_user_name }}"
     recurse: yes

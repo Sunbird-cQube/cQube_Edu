@@ -1,0 +1,27 @@
+---
+- include_tasks: configure_node_api.yml
+  tags: [ install, update ]
+
+- include_tasks: run_node_api.yml
+  tags: [ install, update ]
+
+- include_tasks: configure_admin_api.yml
+  tags: [ install, update ]
+
+- include_tasks: run_admin_api.yml
+  tags: [ install, update ]
+
+- include_tasks: configure_core_api.yml
+  tags: [ install, update ]
+
+- include_tasks: run_core_api.yml
+  tags: [ install, update ]
+
+- include_tasks: configure_auth_api.yml
+  tags: [ install, update ]
+
+- include_tasks: run_auth_api.yml
+  tags: [ install, update ]
+
+- include_tasks: run_auth_api.yml
+  tags: [ install, update ]
