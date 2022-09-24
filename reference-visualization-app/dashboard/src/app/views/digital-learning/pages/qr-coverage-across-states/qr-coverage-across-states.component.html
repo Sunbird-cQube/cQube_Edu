@@ -26,7 +26,7 @@
 <div class="grid grid-cols-12" *ngIf="!national">
     <div class="col-span-full" appFullScreen>
         <div class="grid gap-2 grid-cols-12 bg-white">
-            <div class="xs:col-span-full xmd:col-span-9 md:col-span-9 xl:col-span-8">
+            <div class="xs:col-span-full xmd:col-span-8 md:col-span-8 xl:col-span-8">
                 <ng-container *ngIf="tableData; else loading">
                     <div class="grid grid-cols-12">
                         <div class="col-span-full">
@@ -40,8 +40,8 @@
                     <p class="p-2">Loading...</p>
                 </ng-template>
             </div>
-            <div class="xs:col-span-full xmd:col-span-3 md:col-span-3 xl:col-span-4">
-                <app-gauge-chart [options]="gaugeChartOptions"></app-gauge-chart>
+            <div class="xs:col-span-full xmd:col-span-4 md:col-span-4 xl:col-span-4">
+                <app-gauge [gaugeData]="QRGaugeData"></app-gauge>
             </div>
         </div>        
     </div>
