@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatButtonModule } from '@angular/material/button';
 import { EduOfficialReportComponent } from './page/edu-official-report/edu-official-report.component';
+import { DashletModule, DataService } from '@project-sunbird/sb-dashlet-v14';
 @NgModule({
   declarations: [
     EducationOfficialComponent,
@@ -23,7 +24,10 @@ import { EduOfficialReportComponent } from './page/edu-official-report/edu-offic
     FormsModule,
     ReactiveFormsModule,
     CqubeLibraryModule,
-    MatTabsModule
+    MatTabsModule,
+    DashletModule.forRoot({
+      dataService: DataService
+    })
   ]
 })
 export class EducationOfficialModule { }

@@ -126,8 +126,11 @@
                 dropdown above. You can
                 alter the metrics to update the scatter plot.
             </p>
-            <div class="row">
-                <canvas id="myChart" width="100vw"></canvas>
+            <div class="row" class="fullW">
+                <!-- <canvas id="myChart" width="100vw"></canvas> -->
+                <ng-container *ngIf="dashletData?.values?.length > 0">
+                  <sb-dashlet type="scatter" [data]="dashletData" [config]="config"></sb-dashlet>
+                </ng-container>
             </div>
         </div>
         <div class="lg:col-span-1 col-span-2 mt-3">

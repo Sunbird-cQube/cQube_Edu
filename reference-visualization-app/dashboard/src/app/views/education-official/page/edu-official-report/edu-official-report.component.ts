@@ -92,6 +92,9 @@ export class EduOfficialReportComponent implements OnInit {
   public fileName: any;
   public reportData: any = [];
 
+  dashletData: any;
+  config: any;
+
   public xAxisFilter = [
     { key: "visit_0", value: "% Schools (No Visit)" },
     { key: "visit_1_2", value: "% Schools (1 to 2 Visits)" },
@@ -179,9 +182,13 @@ export class EduOfficialReportComponent implements OnInit {
   height = window.innerHeight;
   public h = "44vh";
   onResize() {
-    this.height = window.innerHeight;
-    this.h = this.height > 1760 ? "60vh" : this.height > 1160 && this.height < 1760 ? "60vh" : this.height > 667 && this.height < 1160 ? "52vh" : "44vh";
-    this.createChart(this.labels, this.chartData, this.tableHead, this.obj);
+    if (this.chartData.length !== 0) {
+      this.dashletData = {};
+      this.changeDetection.detectChanges();
+      this.height = window.innerHeight;
+      this.h = this.height > 1760 ? "60vh" : this.height > 1160 && this.height < 1760 ? "60vh" : this.height > 667 && this.height < 1160 ? "52vh" : "44vh";
+      this.createChart(this.labels, this.chartData, this.tableHead, this.obj);
+    }
   }
 
   public userAccessLevel = localStorage.getItem("userLevel");
@@ -502,7 +509,7 @@ export class EduOfficialReportComponent implements OnInit {
       month: this.monthNames.indexOf(this.month.trim()) + 1,
       year: this.year,
     };
-    
+
     this.levelWiseFilter();
   }
 
@@ -1298,73 +1305,52 @@ export class EduOfficialReportComponent implements OnInit {
   }
 
   createChart(labels, chartData, name, obj) {
-    if (this.scatterChart) {
-      this.scatterChart.destroy();
-    }
-    var ctx = $("#myChart");
-    ctx.attr("height", this.h);
-    this.scatterChart = new Chart("myChart", {
-      type: "scatter",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            data: chartData,
-            pointBackgroundColor: "#4890b5",
-            pointBorderColor: "#7cd6cc",
-            pointBorderWidth: 0.5,
-            pointRadius:
-              this.height > 1760
-                ? 16
-                : this.height > 1160 && this.height < 1760
-                  ? 12
-                  : this.height > 667 && this.height < 1160
-                    ? 8
-                    : 5,
-            pointHoverRadius:
-              this.height > 1760
-                ? 18
-                : this.height > 1160 && this.height < 1760
-                  ? 14
-                  : this.height > 667 && this.height < 1160
-                    ? 9
-                    : 6,
-          },
-        ],
-      },
+    // console.log(JSON.stringify(chartData));
+    // console.log(obj);
+    this.dashletData = {};
+    this.changeDetection.detectChanges();
+
+    this.dashletData = { values: chartData };
+    this.config = {
+      labelExpr: obj.xAxis,
+      datasets: [{
+        label: obj.xAxis,
+        data: chartData,
+        pointBackgroundColor: "#4890b5",
+        pointBorderColor: "#7cd6cc",
+        pointBorderWidth: 0.5,
+        pointRadius:
+          this.height > 1760
+            ? 16
+            : this.height > 1160 && this.height < 1760
+              ? 12
+              : this.height > 667 && this.height < 1160
+                ? 8
+                : 5,
+        pointHoverRadius:
+          this.height > 1760
+            ? 18
+            : this.height > 1160 && this.height < 1760
+              ? 14
+              : this.height > 667 && this.height < 1160
+                ? 9
+                : 6,
+      }],
       options: {
+        height: "300",
         legend: {
-          display: false,
+          display: false
         },
+
         responsive: true,
+        maintainAspectRatio: false,
         tooltips: {
           mode: 'index',
           titleFontSize: 16,
           cornerRadius: 10,
-          xPadding:
-            this.height > 1760
-              ? 30
-              : this.height > 1160 && this.height < 1760
-                ? 20
-                : this.height > 667 && this.height < 1160
-                  ? 10
-                  : 7,
-          yPadding:
-            this.height > 1760
-              ? 30
-              : this.height > 1160 && this.height < 1760
-                ? 20
-                : this.height > 667 && this.height < 1160
-                  ? 10
-                  : 7,
-          bodyFontSize:
-            this.height > 1760
-              ? 32
-              : this.height > 1160 && this.height < 1760
-                ? 22
-                : this.height > 667 && this.height < 1160
-                  ? 12
-                  : 10,
+          xPadding: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 20 : this.height > 667 && this.height < 1160 ? 10 : 7,
+          yPadding: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 20 : this.height > 667 && this.height < 1160 ? 10 : 7,
+          bodyFontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 22 : this.height > 667 && this.height < 1160 ? 12 : 10,
           displayColors: false,
           custom: function (tooltip) {
             if (!tooltip) return;
@@ -1373,13 +1359,13 @@ export class EduOfficialReportComponent implements OnInit {
           },
           callbacks: {
             label: function (tooltipItem, data) {
-              var label = data.labels[tooltipItem.index];
-              var multistringText = [name + ":" + label];
-              multistringText.push(obj.xAxis + ": " + tooltipItem.xLabel);
-              multistringText.push(obj.yAxis + ": " + tooltipItem.yLabel);
+              var label = labels[tooltipItem.index];
+              var multistringText = [name + " : " + label];
+              multistringText.push(obj.xAxis + " : " + tooltipItem.xLabel.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,"));
+              multistringText.push(obj.yAxis + " : " + tooltipItem.yLabel.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,"));
               return multistringText;
-            },
-          },
+            }
+          }
         },
 
         scales: {
@@ -1448,8 +1434,165 @@ export class EduOfficialReportComponent implements OnInit {
             },
           ],
         },
-      },
-    });
+      }
+    }
+
+    // console.log('config', this.config);
+     this.changeDetection.detectChanges();
+
+
+    // if (this.scatterChart) {
+    //   this.scatterChart.destroy();
+    // }
+    // var ctx = $("#myChart");
+    // ctx.attr("height", this.h);
+    // this.scatterChart = new Chart("myChart", {
+    //   type: "scatter",
+    //   data: {
+    //     labels: labels,
+    //     datasets: [
+    //       {
+    //         data: chartData,
+    //         pointBackgroundColor: "#4890b5",
+    //         pointBorderColor: "#7cd6cc",
+    //         pointBorderWidth: 0.5,
+    //         pointRadius:
+    //           this.height > 1760
+    //             ? 16
+    //             : this.height > 1160 && this.height < 1760
+    //               ? 12
+    //               : this.height > 667 && this.height < 1160
+    //                 ? 8
+    //                 : 5,
+    //         pointHoverRadius:
+    //           this.height > 1760
+    //             ? 18
+    //             : this.height > 1160 && this.height < 1760
+    //               ? 14
+    //               : this.height > 667 && this.height < 1160
+    //                 ? 9
+    //                 : 6,
+    //       },
+    //     ],
+    //   },
+    //   options: {
+    //     legend: {
+    //       display: false,
+    //     },
+    //     responsive: true,
+    //     tooltips: {
+    //       mode: 'index',
+    //       titleFontSize: 16,
+    //       cornerRadius: 10,
+    //       xPadding:
+    //         this.height > 1760
+    //           ? 30
+    //           : this.height > 1160 && this.height < 1760
+    //             ? 20
+    //             : this.height > 667 && this.height < 1160
+    //               ? 10
+    //               : 7,
+    //       yPadding:
+    //         this.height > 1760
+    //           ? 30
+    //           : this.height > 1160 && this.height < 1760
+    //             ? 20
+    //             : this.height > 667 && this.height < 1160
+    //               ? 10
+    //               : 7,
+    //       bodyFontSize:
+    //         this.height > 1760
+    //           ? 32
+    //           : this.height > 1160 && this.height < 1760
+    //             ? 22
+    //             : this.height > 667 && this.height < 1160
+    //               ? 12
+    //               : 10,
+    //       displayColors: false,
+    //       custom: function (tooltip) {
+    //         if (!tooltip) return;
+    //         // disable displaying the color box;
+    //         tooltip.displayColors = false;
+    //       },
+    //       callbacks: {
+    //         label: function (tooltipItem, data) {
+    //           var label = data.labels[tooltipItem.index];
+    //           var multistringText = [name + ":" + label];
+    //           multistringText.push(obj.xAxis + ": " + tooltipItem.xLabel);
+    //           multistringText.push(obj.yAxis + ": " + tooltipItem.yLabel);
+    //           return multistringText;
+    //         },
+    //       },
+    //     },
+
+    //     scales: {
+    //       xAxes: [
+    //         {
+    //           gridLines: {
+    //             color: "rgba(252, 239, 252)",
+    //           },
+    //           ticks: {
+    //             fontColor: "black",
+    //             min: 0,
+    //             fontSize:
+    //               this.height > 1760
+    //                 ? 30
+    //                 : this.height > 1160 && this.height < 1760
+    //                   ? 25
+    //                   : this.height > 667 && this.height < 1160
+    //                     ? 15
+    //                     : 10,
+    //           },
+    //           scaleLabel: {
+    //             fontColor: "black",
+    //             display: true,
+    //             labelString: obj.xAxis,
+    //             fontSize:
+    //               this.height > 1760
+    //                 ? 32
+    //                 : this.height > 1160 && this.height < 1760
+    //                   ? 24
+    //                   : this.height > 667 && this.height < 1160
+    //                     ? 14
+    //                     : 10,
+    //           },
+    //         },
+    //       ],
+    //       yAxes: [
+    //         {
+    //           gridLines: {
+    //             color: "rgba(252, 239, 252)",
+    //           },
+    //           ticks: {
+    //             fontColor: "black",
+    //             min: 0,
+    //             fontSize:
+    //               this.height > 1760
+    //                 ? 30
+    //                 : this.height > 1160 && this.height < 1760
+    //                   ? 25
+    //                   : this.height > 667 && this.height < 1160
+    //                     ? 15
+    //                     : 10,
+    //           },
+    //           scaleLabel: {
+    //             fontColor: "black",
+    //             display: true,
+    //             labelString: obj.yAxis,
+    //             fontSize:
+    //               this.height > 1760
+    //                 ? 32
+    //                 : this.height > 1160 && this.height < 1760
+    //                   ? 24
+    //                   : this.height > 667 && this.height < 1160
+    //                     ? 14
+    //                     : 10,
+    //           },
+    //         },
+    //       ],
+    //     },
+    //   },
+    // });
   }
 
   public downloadType: string;
