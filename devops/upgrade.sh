@@ -104,9 +104,8 @@ fi
 . "$INS_DIR/validation_scripts/backup_postgres.sh" config.yml
 
 mode_of_installation=$(awk ''/^mode_of_installation:' /{ if ($2 !~ /#.*/) {print $2}}' $base_dir/cqube/conf/base_config.yml)
-installation_host_ip=$(awk ''/^installation_host_ip:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 if [[ $mode_of_installation == "localhost" ]]; then
-ansible-playbook ansible/upgrade.yml --tags "update" --extra-vars "@$base_dir/cqube/conf/base_config.yml" \
+ansible-playbook ansible/upgrade_workflow.yml --tags "update" --extra-vars "@$base_dir/cqube/conf/base_config.yml" \
                                                          --extra-vars "@config.yml" \
                                                          --extra-vars "@.version" \
                                                          --extra-vars "@$base_dir/cqube/conf/aws_s3_config.yml" \
@@ -116,7 +115,7 @@ ansible-playbook ansible/upgrade.yml --tags "update" --extra-vars "@$base_dir/cq
                                                          --extra-vars "usecase_name=education_usecase" \
                                                          --extra-vars "protocol=http"
 else
-ansible-playbook ansible/upgrade.yml --tags "update" --extra-vars "@$base_dir/cqube/conf/base_config.yml" \
+ansible-playbook ansible/upgrade_workflow.yml --tags "update" --extra-vars "@$base_dir/cqube/conf/base_config.yml" \
                                                          --extra-vars "@config.yml" \
                                                          --extra-vars "@.version" \
                                                          --extra-vars "@$base_dir/cqube/conf/aws_s3_config.yml" \
