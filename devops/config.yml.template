@@ -16,6 +16,7 @@ system_user_name:                         # Non-root username with sudo privileg
 base_dir: /opt                            # provide the absolute path where cqube needs to be installed and served. Eg. /opt  ( in this case cqube_nvsk will be installed under /opt/cqube)
 access_type:                              # Please enter national or state                                                  
 state_code: NA                              # Please enter state code if you selected access_type as state ( refer to state_list )
+state_name:                               # enter state code ( used in core )
 mode_of_installation:                       # enter `localhost` for demo installation in a single local machine, or `public` for installation in a server 
 storage_type:                             # enter s3 or azure or local
 
