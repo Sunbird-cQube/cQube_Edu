@@ -11,7 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from 'src/app/shared/shared.module';
-
+import { DashletModule } from '@project-sunbird/sb-dashlet-v14';
+import { DataService } from 'src/app/core/services/data.service';
 @NgModule({
   declarations: [
     CompositeComponent,
@@ -26,6 +27,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ReactiveFormsModule,
     NgSelectModule,
     MatButtonModule,
+    DashletModule.forRoot({
+      dataService: DataService
+    })
   ]
 })
 export class CompositeModule { }

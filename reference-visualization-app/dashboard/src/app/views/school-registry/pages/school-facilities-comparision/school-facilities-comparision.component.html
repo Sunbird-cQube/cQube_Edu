@@ -1,5 +1,5 @@
 <ng-container *ngIf="options; else loading">
-    <div class="grid grid-cols-12">
+    <div class="grid grid-cols-12" (window:resize)="onResize()">
         <div class="col-span-full" appFullScreen>
             <div class="grid grid-cols-12">
                 <!-- <div class="col-span-full">
@@ -20,16 +20,29 @@
                     </div>
                 </div> -->
                 <div class="xmd:col-span-3 xs:col-span-12" *ngIf="national">
-                    <app-material-button-group [buttons]="levels" (select)="onScatterSelectLevel($event)"></app-material-button-group>
+                    <app-material-button-group [buttons]="levels" (select)="onScatterSelectLevel($event)">
+                    </app-material-button-group>
                 </div>
                 <div class="md:col-span-6 xmd:col-span-9 xs:col-span-12">
-                    <app-filter-panel [filters]="axisFilters" colSize="md:col-span-6 xs:col-span-12" [resetOthers]="true" (filtersUpdated)="scatterAxisFiltersUpdated($event)"></app-filter-panel>
+                    <app-filter-panel [filters]="axisFilters" colSize="md:col-span-6 xs:col-span-12"
+                        [resetOthers]="true" (filtersUpdated)="scatterAxisFiltersUpdated($event)"></app-filter-panel>
                 </div>
                 <div class="md:col-span-3 xmd:col-span-6 xs:col-span-12">
-                    <app-filter-panel [filters]="filters" colSize="col-span-12" [resetOthers]="true" (filtersUpdated)="scatterFiltersUpdated($event)"></app-filter-panel>
+                    <app-filter-panel [filters]="filters" colSize="col-span-12" [resetOthers]="true"
+                        (filtersUpdated)="scatterFiltersUpdated($event)"></app-filter-panel>
                 </div>
             </div>
-            <app-scatter-chart [options]="options" height="80vh"></app-scatter-chart>        
+            <!-- <app-scatter-chart [options]="options" height="80vh"></app-scatter-chart> -->
+            <div class="col-lg-9 col-md-12 col-sm-12">
+                <div style="padding: 0%; margin-top: 2vh;">
+                    <ng-container *ngIf="dashletData?.values?.length > 0">
+                        <sb-dashlet [type]="'scatter'" [data]="dashletData" [config]="config"></sb-dashlet>
+                    </ng-container>
+                </div>
+            </div>
+            <div *ngIf="chartData.length === 0" class="text-center" style="color: red;">
+                No Data Available
+            </div>
         </div>
     </div>
 </ng-container>

@@ -90,9 +90,9 @@
             </div>
             <div class="row" id="fourth" style="margin-bottom: 0px !important;">
                 <div class="col-lg-4 col-md-6 col-sm-12">
-                    <span class="chooseLevel">X-Axis:</span> <br> <ng-select id="x_axis" [(ngModel)]="xAxis" name="xAxis"
-                        (change)="selectAxis()" dropdownPosition="bottom" [clearable]="false"
-                        placeholder="  Choose x-axis">
+                    <span class="chooseLevel">X-Axis:</span> <br>
+                    <ng-select id="x_axis" [(ngModel)]="xAxis" name="xAxis" (change)="selectAxis()"
+                        dropdownPosition="bottom" [clearable]="false" placeholder="  Choose x-axis">
                         <!-- <ng-option [value]="xAxis" disabled selected="selected">choose
                             x-axis
                         </ng-option> -->
@@ -102,9 +102,9 @@
                     </ng-select>
                 </div>
                 <div class=" col-lg-4 col-md-6 col-sm-12">
-                    <span class="chooseLevel"> Y-Axis:</span> <br><ng-select id="y_axis" [(ngModel)]="yAxis" name="yAxis"
-                        (change)="selectAxis()" dropdownPosition="bottom" [clearable]="false"
-                        placeholder="  Choose y-axis">
+                    <span class="chooseLevel"> Y-Axis:</span> <br>
+                    <ng-select id="y_axis" [(ngModel)]="yAxis" name="yAxis" (change)="selectAxis()"
+                        dropdownPosition="bottom" [clearable]="false" placeholder="  Choose y-axis">
                         <!-- <ng-option [value]="yAxis" disabled selected="selected">choose
                             y-axis
                         </ng-option> -->
@@ -117,7 +117,10 @@
             <div class="row" id="second">
                 <div class="col-lg-9 col-md-12 col-sm-12">
                     <div style="padding: 0%; margin-top: 2vh;">
-                        <canvas id="myChart" width=" 100%"></canvas>
+                        <!-- <canvas id="myChart" width=" 100%"></canvas> -->
+                        <ng-container *ngIf="dashletData?.values?.length > 0">
+                            <sb-dashlet [type]="'scatter'" [data]="dashletData" [config]="config"></sb-dashlet>
+                        </ng-container>
                     </div>
                 </div>
             </div>
@@ -151,8 +154,8 @@
                 <div class="col-sm-12">
                     <span class="chooseLevel" [hidden]="hideDist">Choose District</span>
                     <ng-select id="choose_district1" [(ngModel)]="myDistrict" name="myDistrict" [hidden]="hideDist"
-                        [disabled]="selDist" (change)="myDistData(myDistrict)" dropdownPosition="bottom" [clearable]="false"
-                        placeholder=" Choose a District">
+                        [disabled]="selDist" (change)="myDistData(myDistrict)" dropdownPosition="bottom"
+                        [clearable]="false" placeholder=" Choose a District">
                         <!-- <ng-option [value]="myDistrict" disabled selected="selected">Choose a District
                         </ng-option> -->
                         <ng-option *ngFor="let dist of SchoolInfrastructureDistrictsNames" [value]="dist.district.id">
@@ -167,8 +170,8 @@
                     <span class="chooseLevel" [hidden]="blockHidden">Choose
                         Block</span>
                     <ng-select [hidden]="blockHidden" id="choose_blok" [(ngModel)]="myBlock" name="myBlock"
-                        [disabled]="selBlock" (change)="myBlockData(myBlock)" dropdownPosition="bottom" [clearable]="false"
-                        placeholder=" Choose a Block">
+                        [disabled]="selBlock" (change)="myBlockData(myBlock)" dropdownPosition="bottom"
+                        [clearable]="false" placeholder=" Choose a Block">
                         <!-- <ng-option [value]="myBlock" disabled selected="selected">Choose a Block
                         </ng-option> -->
                         <ng-option *ngFor="let block of SchoolInfrastructureBlocksNames" [value]="block.block.id">
@@ -182,12 +185,11 @@
                 <div class="col-sm-12">
                     <span class="chooseLevel" [hidden]="clusterHidden">Choose Cluster</span>
                     <ng-select [hidden]="clusterHidden" id="choose_clust" [(ngModel)]="myCluster" name="myCluster"
-                        [disabled]="selCluster" (change)="myClusterData(myCluster)" dropdownPosition="bottom" [clearable]="false"
-                        placeholder=" Choose a Cluster">
+                        [disabled]="selCluster" (change)="myClusterData(myCluster)" dropdownPosition="bottom"
+                        [clearable]="false" placeholder=" Choose a Cluster">
                         <!-- <ng-option [value]="myCluster" disabled selected="selected">Choose a Cluster
                         </ng-option> -->
-                        <ng-option *ngFor="let cluster of SchoolInfrastructureClusterNames"
-                            [value]="cluster.cluster.id"
+                        <ng-option *ngFor="let cluster of SchoolInfrastructureClusterNames" [value]="cluster.cluster.id"
                             [ngStyle]="{'color': cluster.cluster.value !== 'NO NAME FOUND'? 'black' : '#ff3333'}">
                             {{cluster.cluster.value}}
                         </ng-option>
