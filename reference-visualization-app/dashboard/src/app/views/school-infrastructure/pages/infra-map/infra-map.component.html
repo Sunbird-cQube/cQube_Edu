@@ -2,7 +2,7 @@
   <div class="row reportHeader">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="row" (window:resize)="globalService.onResize(level); onResize()">
-        <div class="col-lg-9 col-md-9 col-sm-12">
+        <div class="col-xl-7 col-md-12 col-sm-12">
           <div *ngIf="skul">
             <p id="dist">
               Report on Infrastructure access by location for:
@@ -46,14 +46,14 @@
             </p>
           </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="col-xl-5 col-md-12 col-sm-12">
           <div class="row">
             <div class="col-sm-5">
               <p id="errMsg" class="note"></p>
             </div>
-            <div class="col-sm-7">
+            <div class="col-sm-7 mb-4">
               <button *ngIf="reportData.length > 0" class="btn btn-primary" title="Download Report" id="download1"
-                (click)="downloadReport()">
+                (click)="downloadReport()" style="float:right">
                 Download Report &nbsp;
                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
               </button>
@@ -70,49 +70,49 @@
           </p>
         </div>
       </div>
-      <div class="row" style="margin-bottom: 10px; margin-top: 10px">
-        <div class="grid grid-cols-12 gap-4">
-          <div class="button-grp lg:col-span-3 col-span-12 xmd:col-span-6 grid grid-cols-3 gap-4">
-            <button class="col-span-1" mat-flat-button [hidden]="hideIfAccessLevel" color="primary" [disabled]="hideAllBlockBtn"
-              id="blockbtn" (click)="blockWise()">
-              &nbsp;<strong>Blocks</strong>
-            </button>
-            <button class="col-span-1" mat-flat-button [hidden]="hideIfAccessLevel" color="primary" id="clusterbtn"
-              [disabled]="hideAllCLusterBtn" (click)="clusterWise()">
-              &nbsp;<strong>Clusters</strong>
-            </button>
-            <button class="col-span-1" mat-flat-button [hidden]="hideIfAccessLevel" color="primary" id="schoolbtn"
-              [disabled]="hideAllSchoolBtn" (click)="schoolWise()">
-              &nbsp;<strong>Schools</strong>
-            </button>
-          </div>
-
-          <div class="lg:col-span-9 col-span-12 grid grid-cols-4 gap-4">
-            <ng-select class="col-span-2 sm:col-span-1" id="choose_infra" dropdownPosition="bottom" [clearable]="false"
-              placeholder="Choose a Infrastructure" (change)="oninfraSelect($event)" [(ngModel)]="infraData">
-              <ng-option *ngFor="let infra of infraFilter" [value]="infra.key">{{ infra.value }}</ng-option>
-            </ng-select>
-
-            <ng-select class="col-span-2 sm:col-span-1" id="choose_dist" [hidden]="hideDist" [(ngModel)]="districtId" [clearable]="false"
-              (change)="onDistrictSelect($event)" dropdownPosition="bottom" placeholder="Choose a District">
-              <ng-option *ngFor="let dist of districtMarkers" [value]="dist.details.district_id">
-                {{dist.details.district_name}}</ng-option>
-            </ng-select>
-
-            <ng-select class="col-span-2 sm:col-span-1" [hidden]="blockHidden" id="choose_block" (change)="onBlockSelect($event)" [clearable]="false"
-              dropdownPosition="bottom" placeholder="Choose a Block" [(ngModel)]="blockId">
-              <ng-option *ngFor="let block of blockMarkers" [value]="block.details.block_id">{{ block.details.block_name
-                }}</ng-option>
-            </ng-select>
-
-            <ng-select class="col-span-2 sm:col-span-1" [hidden]="clusterHidden" id="choose_cluster" (change)="onClusterSelect($event)"
-              [clearable]="false" dropdownPosition="bottom" placeholder="Choose a Cluster" [(ngModel)]="clusterId">
-              <ng-option *ngFor="let cluster of clusterMarkers" [value]="cluster.details.cluster_id"
-                [ngStyle]="{color:cluster.clusterName !== 'NO NAME FOUND' ? 'white' : '#ff3333'}">{{
-                cluster.details.cluster_name }}</ng-option>
-            </ng-select>
-          </div>
+      <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-12" style="margin-bottom: 10px">
+        <div class="button-grp lg:col-span-4 col-span-12 xmd:col-span-6 grid grid-cols-3 gap-4">
+          <button class="col-span-1" mat-flat-button [hidden]="hideIfAccessLevel" color="primary"
+            [disabled]="hideAllBlockBtn" id="blockbtn" (click)="blockWise()">
+            &nbsp;<strong>Blocks</strong>
+          </button>
+          <button class="col-span-1" mat-flat-button [hidden]="hideIfAccessLevel" color="primary" id="clusterbtn"
+            [disabled]="hideAllCLusterBtn" (click)="clusterWise()">
+            &nbsp;<strong>Clusters</strong>
+          </button>
+          <button class="col-span-1" mat-flat-button [hidden]="hideIfAccessLevel" color="primary" id="schoolbtn"
+            [disabled]="hideAllSchoolBtn" (click)="schoolWise()">
+            &nbsp;<strong>Schools</strong>
+          </button>
         </div>
+
+        <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_infra" dropdownPosition="bottom"
+          [clearable]="false" placeholder="Choose a Infrastructure" (change)="oninfraSelect($event)"
+          [(ngModel)]="infraData">
+          <ng-option *ngFor="let infra of infraFilter" [value]="infra.key">{{ infra.value }}</ng-option>
+        </ng-select>
+
+        <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_dist" [hidden]="hideDist"
+          [(ngModel)]="districtId" [clearable]="false" (change)="onDistrictSelect($event)" dropdownPosition="bottom"
+          placeholder="Choose a District">
+          <ng-option *ngFor="let dist of districtMarkers" [value]="dist.details.district_id">
+            {{dist.details.district_name}}</ng-option>
+        </ng-select>
+
+        <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="blockHidden" id="choose_block"
+          (change)="onBlockSelect($event)" [clearable]="false" dropdownPosition="bottom" placeholder="Choose a Block"
+          [(ngModel)]="blockId">
+          <ng-option *ngFor="let block of blockMarkers" [value]="block.details.block_id">{{ block.details.block_name
+            }}</ng-option>
+        </ng-select>
+
+        <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="clusterHidden" id="choose_cluster"
+          (change)="onClusterSelect($event)" [clearable]="false" dropdownPosition="bottom"
+          placeholder="Choose a Cluster" [(ngModel)]="clusterId">
+          <ng-option *ngFor="let cluster of clusterMarkers" [value]="cluster.details.cluster_id"
+            [ngStyle]="{color:cluster.clusterName !== 'NO NAME FOUND' ? 'white' : '#ff3333'}">{{
+            cluster.details.cluster_name }}</ng-option>
+        </ng-select>
       </div>
     </div>
   </div>
@@ -160,31 +160,31 @@
     </div>
   </div>
   <div class="row" id="footer">
-      <div [hidden] = "hideFooter" class="col-sm-3">
-        <div id="outer">
-          <div id="absolute" (click)="getColor('absolute')" [ngStyle]="{
+    <div [hidden]="hideFooter" class="col-sm-3">
+      <div id="outer">
+        <div id="absolute" (click)="getColor('absolute')" [ngStyle]="{
               'background-color': selected == 'absolute' ? '#3100cc' : '#f5f6fb'
             }">
-            <p [ngStyle]="{ color: selected == 'absolute' ? 'white' : 'black' }" style="text-align: center; padding: 2%">
-              Absolute
-            </p>
-          </div>
-          <div id="relative" (click)="getColor('relative')" [ngStyle]="{
+          <p [ngStyle]="{ color: selected == 'absolute' ? 'white' : 'black' }" style="text-align: center; padding: 2%">
+            Absolute
+          </p>
+        </div>
+        <div id="relative" (click)="getColor('relative')" [ngStyle]="{
               'background-color': selected == 'relative' ? '#3100cc' : '#f5f6fb'
             }">
-            <p [ngStyle]="{ color: selected == 'relative' ? 'white' : 'black' }" style="text-align: center; padding: 2%">
-              Relative
-            </p>
-          </div>
+          <p [ngStyle]="{ color: selected == 'relative' ? 'white' : 'black' }" style="text-align: center; padding: 2%">
+            Relative
+          </p>
         </div>
       </div>
-      <div class="col-sm-4">
-        <span id="name" class="note" style="text-align: center">Management Type: {{ managementName }}</span>
-      </div>
-      <div [hidden] = "hideFooter" class="col-sm-5" *ngIf="!valueRange || valueRange == '0-100'">
-        <span id="schools" class="note" style="text-align: center">Number of Schools: {{ schoolCount }}</span>
-      </div>
     </div>
+    <div class="col-sm-4">
+      <span id="name" class="note" style="text-align: center">Management Type: {{ managementName }}</span>
+    </div>
+    <div [hidden]="hideFooter" class="col-sm-5" *ngIf="!valueRange || valueRange == '0-100'">
+      <span id="schools" class="note" style="text-align: center">Number of Schools: {{ schoolCount }}</span>
+    </div>
+  </div>
 </div>
 <div id="spinner">
   <div id="loader" class="loading">Loading&#8230;</div>
