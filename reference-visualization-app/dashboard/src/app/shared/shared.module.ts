@@ -37,6 +37,7 @@ import { BubblesComponent } from './components/core-components/bubbles/bubbles.c
 import { ProgressCircleComponent } from './components/core-components/progress-circle/progress-circle.component';
 import { NgApexchartsModule } from "ng-apexcharts";
 
+import { ManagementSelectorComponent } from './components/core-components/management-selector/management-selector.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -77,12 +78,13 @@ const DECLARATIONS = [
   MultiSelectComponent,
   LineChartComponent,
   BubblesComponent,
-  ProgressCircleComponent
+  ProgressCircleComponent,
+  ManagementSelectorComponent,  
 ];
 
 @NgModule({
   declarations: [
-    DECLARATIONS,
+    DECLARATIONS
   ],
   imports: [
     CommonModule,

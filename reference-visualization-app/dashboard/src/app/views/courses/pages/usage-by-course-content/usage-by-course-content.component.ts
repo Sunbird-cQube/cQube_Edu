@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-// import { DikshaReportService } from '../../../services/diksha-report.service';
 import { Router } from '@angular/router';
 import { AppServiceComponent } from 'src/app/app.service';
 import { environment } from 'src/environments/environment';
@@ -13,8 +12,9 @@ declare const $;
 })
 export class UsageByCourseContentComponent implements OnInit {
 
+  //table data variables:::::::::::::::::
   public result: any = [];
-  public districtId: any = '';
+  public districtId: any = null;
   public timePeriod: any = 'all';
   public collectionType = 'course';
   public allCollections = [];
@@ -66,25 +66,25 @@ export class UsageByCourseContentComponent implements OnInit {
   public userAccessLevel = localStorage.getItem("userLevel");
   public hideIfAccessLevel: boolean = false
   public hideAccessBtn: boolean = false
-  showError = false
+showError = false
   ngOnInit(): void {
     this.state = this.commonService.state;
-    document.getElementById('accessProgressCard') ? document.getElementById('accessProgressCard').style.display = 'none' : '';
-    document.getElementById('backBtn') ? document.getElementById('backBtn').style.display = 'none' : "";
+    // document.getElementById('accessProgressCard').style.display = 'none';
+    // document.getElementById('backBtn') ? document.getElementById('backBtn').style.display = 'none' : "";
     if (environment.auth_api === 'cqube' || this.userAccessLevel === "") {
       this.collectionWise();
 
-    } else {
-      if (this.userAccessLevel === "District") {
+    }else{
+      if ( this.userAccessLevel === "District"){
         this.getview()
-      } else {
+      }else{
         document.getElementById('spinner').style.display = 'none';
         this.showError = true
       }
     }
-    this.onResize();
+        this.onResize();
 
-
+    
 
     this.hideAccessBtn = (environment.auth_api === 'cqube' || this.userAccessLevel === "" || undefined) ? true : false;
 
@@ -93,7 +93,7 @@ export class UsageByCourseContentComponent implements OnInit {
 
   }
 
-  getview() {
+  getview(){
     this.timeDetails = [];
     this.service.dikshaTableMetaData().subscribe(async result => {
       this.districtsDetails = result['districtDetails']
@@ -107,7 +107,7 @@ export class UsageByCourseContentComponent implements OnInit {
       let distId = localStorage.getItem('userLocation')
       await this.districtWise(distId);
     })
-
+  
   }
 
   //Loader and error message:::::
@@ -115,17 +115,17 @@ export class UsageByCourseContentComponent implements OnInit {
     if (this.result.length !== 0) {
       document.getElementById('spinner').style.display = 'none';
     } else {
-      document.getElementById('spinner').style.display = 'none';
-      document.getElementById('errMsg') ? document.getElementById('errMsg').style.color = 'red' : "";
-      document.getElementById('errMsg') ? document.getElementById('errMsg').style.display = 'block' : "";
-      document.getElementById('errMsg') ? document.getElementById('errMsg').innerHTML = 'No data found' : "";
+      // document.getElementById('spinner').style.display = 'none';
+      // document.getElementById('errMsg') ? document.getElementById('errMsg').style.color = 'red' : "";
+      // document.getElementById('errMsg') ? document.getElementById('errMsg').style.display = 'block' : "";
+      // document.getElementById('errMsg') ? document.getElementById('errMsg').innerHTML = 'No data found' : "";
     }
   }
 
   errMsg() {
-    document.getElementById('errMsg') ? document.getElementById('errMsg').style.display = 'none' : "";
-    document.getElementById('spinner').style.display = 'block';
-    document.getElementById('spinner').style.marginTop = '3%';
+    // document.getElementById('errMsg') ? document.getElementById('errMsg').style.display = 'none' : "";
+    // document.getElementById('spinner').style.display = 'block';
+    // document.getElementById('spinner').style.marginTop = '3%';
   }
 
   //default page
@@ -133,24 +133,24 @@ export class UsageByCourseContentComponent implements OnInit {
     this.currentPage = 1;
     if (environment.auth_api === 'cqube' || this.userAccessLevel === "") {
       this.collectionWise();
-    } else {
+    }else{
       this.getview()
     }
-
+   
   }
 
   //show data based on selected collection:::::::::
   collectionWise(distId?) {
 
     this.errMsg();
-    this.districtId = '';
+    this.districtId = null;
     this.timePeriod = 'all';
     this.all = true
     this.dist = false;
     this.timeDetails = [];
     this.service.dikshaTableMetaData().subscribe(async result => {
       this.districtsDetails = result['districtDetails']
-
+      
       await result['timeRange'].forEach((element) => {
         var obj = { timeRange: element, name: this.changeingStringCases(element.replace(/_/g, ' ')) }
         this.timeDetails.push(obj);
@@ -159,8 +159,8 @@ export class UsageByCourseContentComponent implements OnInit {
       await this.timeDetails.reverse();
     })
 
-
-
+    
+    
     if (this.result.length! > 0) {
       $('#table').DataTable().destroy();
       $('#table').empty();
@@ -211,7 +211,7 @@ export class UsageByCourseContentComponent implements OnInit {
 
     this.districtId = districtId
     var period = this.timePeriod == 'all' ? '' : this.timePeriod;
-    if (period != '' && districtId != '') {
+    if (period != '' && districtId != null) {
       this.all = false
       this.dist = true
       let d = this.districtsDetails.filter(item => {
@@ -221,7 +221,7 @@ export class UsageByCourseContentComponent implements OnInit {
       this.hierName = d[0].district_name
       this.timeRange(this.timePeriod)
     } else {
-      if (districtId == '') {
+      if (districtId == null) {
         this.all = true
         this.dist = false
       } else {
@@ -262,7 +262,7 @@ export class UsageByCourseContentComponent implements OnInit {
     this.time = timePeriod == 'all' ? 'overall' : timePeriod;
     this.fileToDownload = `diksha_raw_data/table_reports/course/${this.time}/${this.time}.csv`;
 
-    if (this.districtId == '') {
+    if (this.districtId == null) {
       this.districtId = undefined
     }
     var myTime = timePeriod == 'all' ? undefined : timePeriod;
@@ -339,7 +339,7 @@ export class UsageByCourseContentComponent implements OnInit {
         var col = (column.data.replace(/_/g, ' ')).replace(/\w\S*/g, (txt) => {
           return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
         });
-        headers += `<th style="font-size: 14px; text-align: center"> ${col}</th>`;
+        headers += `<th style="font-size: 14px"> ${col}</th>`;
       });
 
       let newArr = [];
@@ -370,7 +370,7 @@ export class UsageByCourseContentComponent implements OnInit {
       var obj = {
         destroy: true, bLengthChange: false, bInfo: false,
         bPaginate: false, scrollY: "56vh", scrollX: true,
-        scrollCollapse: true, searching: true, paging: true, pageLength: 100,
+        scrollCollapse: true, searching: true, paging: true, pageLength: 500,
         fixedColumns: {
           leftColumns: 1
         }
@@ -424,5 +424,4 @@ export class UsageByCourseContentComponent implements OnInit {
     this.result = temp;
     this.onChangePage();
   }
-
 }

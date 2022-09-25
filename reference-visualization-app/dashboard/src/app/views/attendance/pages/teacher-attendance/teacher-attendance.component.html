@@ -2,7 +2,7 @@
     <div class="row reportHeader">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row" (window:resize)="globalService.onResize(levelWise); onResize($event)">
-                <div class="col-lg-6 col-md-12 col-sm-12 header-center">
+                <div class="col-xl-6 col-md-12 col-sm-12 header-center">
                     <div *ngIf="skul">
                         <p id="dist">
                             Teacher Attendance Report for:
@@ -52,38 +52,8 @@
                         </p>
                     </div>
                 </div>
-                <!-- <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <select [disabled]="markers.length == 0" id="academicYear" style="margin-top: 0.5vh"
-                                [(ngModel)]="academicYear">
-                                <option [value]="academicYear" disabled selected="selected">
-                                    Choose Year
-                                </option>
-                                <option *ngFor="let year of academicYears; let i = index"
-                                    [(ngValue)]="academicYears[i]">
-                                    {{ academicYears[i] }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-sm-4">
-                            <a *ngIf="academicYear" href="javascript: void(0)" id="downloadRaw"
-                                (click)="downloadRaw()">Download
-                                Academic Year Data</a>
-                            <p *ngIf="!academicYear" id="errMsg" class="note"></p>
 
-                        </div>
-                        <div class="col-sm-4">
-                            <button *ngIf="reportData.length > 0" class="btn btn-primary" title="Download Report"
-                                id="download1" (click)="downloadReport($event)">
-                                Download Report &nbsp;
-                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div> -->
-
-                <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="col-xl-6 col-md-12 col-sm-12">
                     <div class="row header-center">
                         <div class="col-sm-4">
                             <ng-select [disabled]="markers.length == 0" id="academicYear" style="margin-top:0.5vh"
@@ -125,7 +95,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-11" style="margin-bottom: 10px">
+                <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-12" style="margin-bottom: 10px">
                     <div class="button-grp lg:col-span-4 col-span-12 xmd:col-span-6 grid grid-cols-3 gap-4">
                         <button class="col-span-1" mat-flat-button color="primary" id="blockbtn" name="block"
                             [hidden]="hideIfAccessLevel" [disabled]="hideAllBlockBtn"
