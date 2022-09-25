@@ -193,6 +193,12 @@ else
 fi
 }
 
+check_access_type(){
+if ! [[ $2 == "national" || $2 == "state" ]]; then
+    echo "Error - Please enter either national or state for $1"; fail=1
+fi
+}
+
 # Only for release 1.9
 check_length(){
     len_status=1
