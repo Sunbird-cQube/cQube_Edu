@@ -20,7 +20,7 @@
 
 - name: copy required files to /tmp/postgres
   copy:
-    src: "../../development/datasource/crc/postgres/{{ item }}"
+    src: "../../processing/datasource/crc/postgres/{{ item }}"
     dest: /tmp/postgres
     owner: postgres
     mode: "0644"
@@ -32,7 +32,7 @@
 
 - name: copy required files to /tmp/postgres
   copy:
-    src: "../../development/datasource/attendance/postgres/{{ item }}"
+    src: "../../processing/datasource/attendance/postgres/{{ item }}"
     dest: /tmp/postgres
     owner: postgres
     mode: "0644"
@@ -44,7 +44,7 @@
 
 - name: copy required files to /tmp/postgres
   copy:
-    src: "../../development/datasource/infra/postgres/{{ item }}"
+    src: "../../processing/datasource/infra/postgres/{{ item }}"
     dest: /tmp/postgres
     owner: postgres
     mode: "0644"
@@ -58,7 +58,7 @@
 
 - name: copy required files to /tmp/postgres
   copy:
-    src: "../../development/datasource/udise/postgres/{{ item }}"
+    src: "../../processing/datasource/udise/postgres/{{ item }}"
     dest: /tmp/postgres
     owner: postgres
     mode: "0644"
@@ -71,7 +71,7 @@
 
 - name: copy required files to /tmp/postgres
   copy:
-    src: "../../development/datasource/pat/postgres/{{ item }}"
+    src: "../../processing/datasource/pat/postgres/{{ item }}"
     dest: /tmp/postgres
     owner: postgres
     mode: "0644"
@@ -83,7 +83,7 @@
 
 - name: copy required files to /tmp/postgres
   copy:
-    src: "../../development/datasource/teacher_attendance/postgres/{{ item }}"
+    src: "../../processing/datasource/teacher_attendance/postgres/{{ item }}"
     dest: /tmp/postgres
     owner: postgres
     mode: "0644"
@@ -95,7 +95,7 @@
 
 - name: copy required files to /tmp/postgres
   copy:
-    src: "../../development/datasource/sat/postgres/{{ item }}"
+    src: "../../processing/datasource/sat/postgres/{{ item }}"
     dest: /tmp/postgres
     owner: postgres
     mode: "0644"
@@ -119,7 +119,7 @@
 
 - name: copy required files to /tmp/postgres
   copy:
-    src: "../../development/datasource/composite/postgres/{{ item }}"
+    src: "../../processing/datasource/composite/postgres/{{ item }}"
     dest: /tmp/postgres
     owner: postgres
     mode: "0644"
@@ -131,7 +131,7 @@
 
 - name: copy required files to /tmp/postgres
   copy:
-    src: "../../development/datasource/progresscard/postgres/{{ item }}"
+    src: "../../processing/datasource/progresscard/postgres/{{ item }}"
     dest: /tmp/postgres
     owner: postgres
     mode: "0644"

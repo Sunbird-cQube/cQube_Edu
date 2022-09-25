@@ -10,5 +10,5 @@ composite: true
 progresscard: true
 teacher_attendance: true
 data_replay: true
-Sat: true
+sat: true
 
