@@ -181,10 +181,9 @@
                 <div class="col-sm-6">
                     <span class="chooseLevel">X-Axis: &nbsp;</span>
                     <ng-select id="x-axis" class="col-span-2 sm:col-span-1" [(ngModel)]="xAxis" name="xAxis"
-                        (change)="selectAxis()">
-                        <ng-option [value]="xAxis" disabled selected="selected">
-                            choose x-axis
-                        </ng-option>
+                        (change)="selectAxis()" dropdownPosition="bottom"
+                    [clearable]="false" placeholder=" choose x-axis">
+                       
                         <ng-option *ngFor="let xaxis of xAxisFilter" [value]="xaxis.key">
                             {{ xaxis.value }}
                         </ng-option>
@@ -193,10 +192,9 @@
                 <div class="col-sm-6">
                     <span class="chooseLevel">Y-Axis: &nbsp;</span>
                     <ng-select id="y-axis" class="col-span-2 sm:col-span-1" [(ngModel)]="yAxis" name="yAxis"
-                        (change)="selectAxis()">
-                        <ng-option [value]="yAxis" disabled selected="selected">
-                            choose y-axis
-                        </ng-option>
+                        (change)="selectAxis()" ropdownPosition="bottom"
+                    [clearable]="false" placeholder="choose y-axis">
+                      
                         <ng-option *ngFor="let yaxis of yAxisFilter" [value]="yaxis.key">
                             {{ yaxis.value }}
                         </ng-option>

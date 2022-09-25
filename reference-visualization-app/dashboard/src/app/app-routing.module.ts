@@ -116,13 +116,13 @@ if (environment.config == 'national') {
   ];
 } else {
   routes = [
-    {
-      path: '',
-      loadChildren: () =>
-        import('./views/authentication/authentication.module').then(
-          (module) => module.AuthenticationModule
-        ),
-    },
+    // {
+    //   path: '',
+    //   loadChildren: () =>
+    //     import('./views/authentication/authentication.module').then(
+    //       (module) => module.AuthenticationModule
+    //     ),
+    // },
     {
       path: '',
       component: LayoutComponent,
@@ -253,11 +253,18 @@ if (environment.config == 'national') {
         },
         {
           path: 'other-diksha-metrics',
-          loadChildren: () => 
+          loadChildren: () =>
             import('./views/other-digital-learning-metrics/other-digital-learning-metrics.module').then(
               (module) => module.OtherDigitalLearningMetricsModule
             )
         },
+        {
+          path: 'textbook-distribution',
+          loadChildren: () =>
+            import('./views/text-book/text-book.module').then(
+              (module) => module.TextBookModule
+            )
+        }
       ],
     },
   ];
