@@ -62,6 +62,8 @@ export class InfraCompositeComponent implements OnInit {
   public myData;
   state: string;
 
+  config;
+
   managementName;
   management;
   category;
@@ -78,7 +80,7 @@ export class InfraCompositeComponent implements OnInit {
 
   ngOnInit() {
     this.state = this.commonService.state;
-   
+
     // this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
     // this.category = JSON.parse(localStorage.getItem('category')).id;
     // this.managementName = this.commonService.changeingStringCases(
@@ -90,7 +92,7 @@ export class InfraCompositeComponent implements OnInit {
       this.getView1()
       this.getView()
     }
-   
+
     this.hideAccessBtn = (environment.auth_api === 'cqube' || this.userAccessLevel === "" || undefined) ? true : false;
     this.distHidden = !this.hideAccessBtn
     if (environment.auth_api !== 'cqube') {
@@ -126,7 +128,7 @@ export class InfraCompositeComponent implements OnInit {
     if (level === "School") {
       this.hideFooter = true
       this.downloadLevel = 'cluster';
-      
+
       this.districtWise(districtid, blockid, clusterid)
       this.selCluster = true;
       this.selBlock = true;
@@ -140,7 +142,7 @@ export class InfraCompositeComponent implements OnInit {
       this.downloadLevel = 'cluster';
       document.getElementById('spinner').style.display = 'block'
       this.districtWise(districtid, blockid, clusterid)
-    
+
       this.selCluster = true;
       this.selBlock = true;
       this.selDist = true;
@@ -152,7 +154,7 @@ export class InfraCompositeComponent implements OnInit {
 
       this.downloadLevel = 'block';
       this.districtWise(districtid, blockid)
-     
+
       this.selCluster = false;
       this.selBlock = true;
       this.selDist = true;
@@ -167,7 +169,7 @@ export class InfraCompositeComponent implements OnInit {
       })
 
       this.districtWise(districtid)
-      
+
       this.distHidden = true
       this.myDistrict = Number(districtid)
 
@@ -194,9 +196,13 @@ export class InfraCompositeComponent implements OnInit {
   height = window.innerHeight;
   public h;
   onResize() {
-    this.height = window.innerHeight;
-    this.h = this.height > 1760 ? "62vh" : this.height > 1160 && this.height < 1760 ? "60vh" : this.height > 667 && this.height < 1160 ? "55vh" : "50vh";
-    this.createChart(this.labels, this.chartData, this.tableHead, this.obj);
+    if (this.chartData.length !== 0) {
+      this.dashletData = {};
+      this.changeDetection.detectChanges();
+        this.height = window.innerHeight;
+        this.h = this.height > 1760 ? "62vh" : this.height > 1160 && this.height < 1760 ? "60vh" : this.height > 667 && this.height < 1160 ? "55vh" : "50vh";
+        this.createChart(this.labels, this.chartData, this.tableHead, this.obj);
+    }
   }
 
   public tableHead: any;
@@ -221,7 +227,7 @@ export class InfraCompositeComponent implements OnInit {
     this.blok = false;
     this.clust = false;
     this.skul = true;
-   
+
     this.blockHidden = true;
     this.clusterHidden = true;
     this.reportData = [];
@@ -237,7 +243,7 @@ export class InfraCompositeComponent implements OnInit {
       this.showChart(this.result, this.downloadLevel);
       //====================================
 
-      // for table 
+      // for table
       var dataSet = this.result;
       this.createTable(dataSet, this.height);
       //========================
@@ -249,6 +255,8 @@ export class InfraCompositeComponent implements OnInit {
       }
     }, err => {
       this.result = [];
+      this.dashletData = {};
+      this.changeDetection.detectChanges();
       this.createChart(["clg"], [], '', {});
       $('#table').empty();
       this.commonService.loaderAndErr(this.result);
@@ -267,7 +275,7 @@ export class InfraCompositeComponent implements OnInit {
     this.blok = false;
     this.clust = false;
     this.skul = false;
-  
+
     this.myBlock = '';
     this.downloadType = '';
     this.modes = [];
@@ -311,6 +319,8 @@ export class InfraCompositeComponent implements OnInit {
 
     }, err => {
       this.result = [];
+      this.dashletData = {};
+      this.changeDetection.detectChanges();
       this.createChart(["clg"], [], '', {});
       $('#table').empty();
       this.commonService.loaderAndErr(this.result);
@@ -324,7 +334,7 @@ export class InfraCompositeComponent implements OnInit {
     this.downloadLevel = 'cluster';
     this.tableHead = "Cluster Name";
     this.fileName = `${this.reportName}_${this.downloadLevel}s_of_block_${data}_${this.commonService.dateAndTime}`;
-    
+
     this.dist = false;
     this.blok = true;
     this.clust = false;
@@ -373,7 +383,10 @@ export class InfraCompositeComponent implements OnInit {
 
     }, err => {
       this.result = [];
+      this.dashletData = {};
+      this.changeDetection.detectChanges();
       this.createChart(["clg"], [], '', {});
+
       $('#table').empty();
       this.commonService.loaderAndErr(this.result);
     });
@@ -390,7 +403,7 @@ export class InfraCompositeComponent implements OnInit {
     this.blok = false;
     this.clust = true;
     this.skul = false;
-    
+
     this.modes = [];
     this.reportData = [];
     this.chartData = []
@@ -453,7 +466,10 @@ export class InfraCompositeComponent implements OnInit {
       this.changeDetection.markForCheck();
     }, err => {
       this.result = [];
+      this.dashletData = {};
+      this.changeDetection.detectChanges();
       this.createChart(["clg"], [], '', {});
+
       $('#table').empty();
       this.commonService.loaderAndErr(this.result);
     });
@@ -461,7 +477,7 @@ export class InfraCompositeComponent implements OnInit {
 
   distWise() {
     this.reportData = [];
-    
+
     var element1: any = document.getElementsByClassName('dwnld');
     this.fileName = `${this.reportName}_allDistricts_${this.commonService.dateAndTime}`;
     if (this.myData) {
@@ -505,7 +521,7 @@ export class InfraCompositeComponent implements OnInit {
 
   clusterWise() {
     this.reportData = [];
-  
+
     var element1: any = document.getElementsByClassName('dwnld');
     this.fileName = `${this.reportName}_allClusters_${this.commonService.dateAndTime}`;
     if (this.myData) {
@@ -527,9 +543,9 @@ export class InfraCompositeComponent implements OnInit {
 
   schoolWise() {
     this.reportData = [];
-  
+
     var element1: any = document.getElementsByClassName('dwnld');
-    
+
     this.fileName = `${this.reportName}_allSchools_${this.commonService.dateAndTime}`;
     if (this.myData) {
       this.myData.unsubscribe();
@@ -609,7 +625,8 @@ export class InfraCompositeComponent implements OnInit {
     }
     this.labels = labels;
     this.obj = obj;
-
+    this.dashletData = {};
+    this.changeDetection.detectChanges();
     this.createChart(labels, this.chartData, this.tableHead, obj);
   }
 
@@ -714,36 +731,37 @@ export class InfraCompositeComponent implements OnInit {
         scrollCollapse: true, paging: false, searching: false,
         responsive: true
       });
-    
+
     });
 
   }
 
   labels: any;
   obj: any;
+  dashletData;
   createChart(labels, chartData, name, obj) {
-    if (this.scatterChart) {
-      this.scatterChart.destroy();
-    }
-    var ctx = $("#myChart");
-    ctx.attr("height", this.h);
-    this.scatterChart = new Chart("myChart", {
-      type: 'scatter',
-      data: {
-        labels: labels,
-        datasets: [{
-          data: chartData,
-          pointBackgroundColor: "#4890b5",
-          pointBorderColor: '#7cd6cc',
-          pointBorderWidth: 0.5,
-          pointRadius: this.height > 1760 ? 16 : this.height > 1160 && this.height < 1760 ? 10 : this.height > 667 && this.height < 1160 ? 10 : 5,
-          pointHoverRadius: this.height > 1760 ? 18 : this.height > 1160 && this.height < 1760 ? 12 : this.height > 667 && this.height < 1160 ? 11 : 6,
-        }]
-      },
+    // console.log('labels', labels);
+    // console.log(obj);
+   // console.log('chartData', chartData);
+   // console.log(JSON.stringify(chartData));
+    this.dashletData = { values: chartData };
+    this.config = {
+      labelExpr: obj ? obj.xAxis : "",
+      datasets: [{
+        label: obj ? obj.xAxis : "",
+        data: chartData,
+        pointBackgroundColor: "#4890b5",
+        pointBorderColor: '#7cd6cc',
+        pointBorderWidth: 0.5,
+        pointRadius: this.height > 1760 ? 16 : this.height > 1160 && this.height < 1760 ? 10 : this.height > 667 && this.height < 1160 ? 10 : 5,
+        pointHoverRadius: this.height > 1760 ? 18 : this.height > 1160 && this.height < 1760 ? 12 : this.height > 667 && this.height < 1160 ? 11 : 6,
+      }],
       options: {
+
         legend: {
           display: false
         },
+        maintainAspectRatio: false,
         responsive: true,
         tooltips: {
           mode: 'index',
@@ -760,18 +778,10 @@ export class InfraCompositeComponent implements OnInit {
           },
           callbacks: {
             label: function (tooltipItem, data) {
-              var label = data.labels[tooltipItem.index];
-              var multistringText = [name + ": " + label];
-              if (obj.xAxis == "INFRA_SCORE") {
-                multistringText.push(obj.xAxis + ": " + tooltipItem.xLabel);
-              } else {
-                multistringText.push(obj.xAxis + ": " + tooltipItem.xLabel + " %");
-              }
-              if (obj.yAxis == "INFRA_SCORE") {
-                multistringText.push(obj.yAxis + ": " + tooltipItem.yLabel);
-              } else {
-                multistringText.push(obj.yAxis + ": " + tooltipItem.yLabel + " %");
-              }
+              var label = labels[tooltipItem.index];
+              var multistringText = [name + " : " + label];
+              multistringText.push(obj.xAxis + " : " + tooltipItem.xLabel.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,"));
+              multistringText.push(obj.yAxis + " : " + tooltipItem.yLabel.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,"));
               return multistringText;
             }
           }
@@ -786,13 +796,13 @@ export class InfraCompositeComponent implements OnInit {
               fontColor: 'black',
               min: 0,
               max: 100,
-              fontSize: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 23 : this.height > 667 && this.height < 1160 ? 15 : 10,
+              fontSize: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 25 : this.height > 667 && this.height < 1160 ? 15 : 10,
             },
             scaleLabel: {
               fontColor: "black",
               display: true,
               labelString: obj ? obj.xAxis : "",
-              fontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 22 : this.height > 667 && this.height < 1160 ? 14 : 10,
+              fontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 24 : this.height > 667 && this.height < 1160 ? 15 : 10,
             }
           }],
           yAxes: [{
@@ -814,7 +824,102 @@ export class InfraCompositeComponent implements OnInit {
           }]
         }
       }
-    });
+    }
+    this.changeDetection.detectChanges();
+
+    // if (this.scatterChart) {
+    //   this.scatterChart.destroy();
+    // }
+    // var ctx = $("#myChart");
+    // ctx.attr("height", this.h);
+    // this.scatterChart = new Chart("myChart", {
+    //   type: 'scatter',
+    //   data: {
+    //     labels: labels,
+    //     datasets: [{
+    //       data: chartData,
+    //       pointBackgroundColor: "#4890b5",
+    //       pointBorderColor: '#7cd6cc',
+    //       pointBorderWidth: 0.5,
+    //       pointRadius: this.height > 1760 ? 16 : this.height > 1160 && this.height < 1760 ? 10 : this.height > 667 && this.height < 1160 ? 10 : 5,
+    //       pointHoverRadius: this.height > 1760 ? 18 : this.height > 1160 && this.height < 1760 ? 12 : this.height > 667 && this.height < 1160 ? 11 : 6,
+    //     }]
+    //   },
+    //   options: {
+    //     legend: {
+    //       display: false
+    //     },
+    //     responsive: true,
+    //     tooltips: {
+    //       mode: 'index',
+    //       titleFontSize: 16,
+    //       cornerRadius: 10,
+    //       xPadding: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 20 : this.height > 667 && this.height < 1160 ? 10 : 7,
+    //       yPadding: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 20 : this.height > 667 && this.height < 1160 ? 10 : 7,
+    //       bodyFontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 22 : this.height > 667 && this.height < 1160 ? 12 : 10,
+    //       displayColors: false,
+    //       custom: function (tooltip) {
+    //         if (!tooltip) return;
+    //         // disable displaying the color box;
+    //         tooltip.displayColors = false;
+    //       },
+    //       callbacks: {
+    //         label: function (tooltipItem, data) {
+    //           var label = data.labels[tooltipItem.index];
+    //           var multistringText = [name + ": " + label];
+    //           if (obj.xAxis == "INFRA_SCORE") {
+    //             multistringText.push(obj.xAxis + ": " + tooltipItem.xLabel);
+    //           } else {
+    //             multistringText.push(obj.xAxis + ": " + tooltipItem.xLabel + " %");
+    //           }
+    //           if (obj.yAxis == "INFRA_SCORE") {
+    //             multistringText.push(obj.yAxis + ": " + tooltipItem.yLabel);
+    //           } else {
+    //             multistringText.push(obj.yAxis + ": " + tooltipItem.yLabel + " %");
+    //           }
+    //           return multistringText;
+    //         }
+    //       }
+    //     },
+
+    //     scales: {
+    //       xAxes: [{
+    //         gridLines: {
+    //           color: "rgba(252, 239, 252)",
+    //         },
+    //         ticks: {
+    //           fontColor: 'black',
+    //           min: 0,
+    //           max: 100,
+    //           fontSize: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 23 : this.height > 667 && this.height < 1160 ? 15 : 10,
+    //         },
+    //         scaleLabel: {
+    //           fontColor: "black",
+    //           display: true,
+    //           labelString: obj ? obj.xAxis : "",
+    //           fontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 22 : this.height > 667 && this.height < 1160 ? 14 : 10,
+    //         }
+    //       }],
+    //       yAxes: [{
+    //         gridLines: {
+    //           color: "rgba(252, 239, 252)",
+    //         },
+    //         ticks: {
+    //           fontColor: 'black',
+    //           min: 0,
+    //           max: 100,
+    //           fontSize: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 23 : this.height > 667 && this.height < 1160 ? 15 : 10,
+    //         },
+    //         scaleLabel: {
+    //           fontColor: "black",
+    //           display: true,
+    //           labelString: obj ? obj.yAxis : "",
+    //           fontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 22 : this.height > 667 && this.height < 1160 ? 14 : 10,
+    //         }
+    //       }]
+    //     }
+    //   }
+    // });
   }
 
   funToDownload(reportData) {

@@ -12,6 +12,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MatButtonModule } from '@angular/material/button';
 import { UdiseReportComponent } from './pages/udise-report/udise-report.component';
 import { InfraCompositeComponent } from './pages/infra-composite/infra-composite.component';
+import { DashletModule } from '@project-sunbird/sb-dashlet-v14';
+import { DataService } from 'src/app/core/services/data.service';
 
 
 @NgModule({
@@ -29,7 +31,10 @@ import { InfraCompositeComponent } from './pages/infra-composite/infra-composite
     CommonModule,
     SchoolInfrastructureRoutingModule,
     CqubeLibraryModule,
-    MatTabsModule
+    MatTabsModule,
+    DashletModule.forRoot({
+      dataService: DataService
+    })
   ]
 })
 export class SchoolInfrastructureModule { }

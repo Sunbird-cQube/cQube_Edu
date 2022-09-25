@@ -1234,6 +1234,28 @@ def connection(arg1, arg3, arg5):
     data_storage_disable_processor(processor_group_name, data_storage_type)
 
 
+def aggre_connection(arg1, arg3, arg5):
+    # Connect_nifi_processors:
+    # Main.
+    """[summary]
+    sys arguments = 1. cQube_raw_data_fetch processor name 2. transformer processor group name.
+    Ex: python connect_nifi_processors.py cQube_raw_data_fetch_static static_data_processor
+    """
+    header = {"Content-Type": "application/json"}
+    source_pg = arg3.strip()
+    destination_pg = arg1.strip()
+    processor_group_name = arg1
+
+    logging.info('Connection between PORTS started...')
+
+    res_2 = connect_output_input_port(destination_pg, source_pg)
+    logging.info('Successfully Connection done between PORTS.')
+
+    # disable processor based on data storage type.
+    data_storage_type = arg5
+    data_storage_disable_processor(processor_group_name, data_storage_type)
+
+
 def install_trans_aggre_datasources(arg1, arg2, arg3, arg4):
     """sys arguments: 1. data_source name (student_attendance_transformer)
                       2. parameter context name (student_attendance_parameters)
@@ -1284,7 +1306,7 @@ def install_trans_aggre_datasources(arg1, arg2, arg3, arg4):
                               'infra_parameters', 'udise_parameters']
     if sys.argv[2] in dynamic_jolt_params_pg:
         logging.info("Creating dynamic jolt parameters")
-        update_jolt_params.update_nifi_jolt_params(parameter_context_name)
+        update_nifi_jolt_params(parameter_context_name)
 
     # 4. Link parameter context to processor group
     logging.info("Linking parameter context with processor group")
@@ -1378,7 +1400,7 @@ def install_cqube_datastorage(arg1, arg2, arg3):
                               'infra_parameters', 'udise_parameters']
     if arg2 in dynamic_jolt_params_pg:
         logging.info("Creating dynamic jolt parameters")
-        update_jolt_params.update_nifi_jolt_params(parameter_context_name)
+        update_nifi_jolt_params(parameter_context_name)
 
     # 4. Link parameter context to processor group
     logging.info("Linking parameter context with processor group")
@@ -1402,10 +1424,19 @@ def install_cqube_datastorage(arg1, arg2, arg3):
     controller_service_enable(processor_group_name)
     logging.info("***Successfully Loaded template and enabled controller services***")
 
+
 if __name__ == "__main__":
     header = {"Content-Type": "application/json"}
     print("length=", len(sys.argv))
     n = len(sys.argv)
+    if sys.argv[1] == 'progress_card_transformer' or sys.argv[1] == 'composite_transformer':
+        data_source_name = sys.argv[1]
+        parameter_context_name = sys.argv[2]
+        data_storage = sys.argv[3]
+        distributed_server_port = sys.argv[4]
+        install_datasource(data_source_name, parameter_context_name, distributed_server_port)
+        trans_aggre_connection(data_source_name, data_storage)
+
     if len(sys.argv) == 2:
         processor_group_name = sys.argv[1]
         # create dummy connection for un selection data source
@@ -1435,7 +1466,10 @@ if __name__ == "__main__":
             distributed_server_port = sys.argv[4]
             storage_type = sys.argv[5]
             install_datasource(data_source_name, parameter_context_name, distributed_server_port)
-            connection(data_source_name, data_storage, storage_type)
+            if data_source_name == 'aggregated_data_processor_group':
+                aggre_connection(data_source_name, data_storage, storage_type)
+            else:
+                connection(data_source_name, data_storage, storage_type)
     if len(sys.argv) == 4:
         if sys.argv[2] == 'cQube_data_storage_parameters':
             cQube_data_storage = sys.argv[1]
@@ -1458,4 +1492,3 @@ if __name__ == "__main__":
             state = sys.argv[3]
             dummy_connection_creator(cQube_data_storage_processor_name)
             start_processor_group(processor_name, state)
-

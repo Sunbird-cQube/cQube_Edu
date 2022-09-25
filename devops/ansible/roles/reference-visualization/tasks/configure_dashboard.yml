@@ -1,5 +1,4 @@
 ---
----
 - name: Stopping the client_side app
   become: yes
   shell: pm2 stop client_side
@@ -40,13 +39,13 @@
 
 - name: copying maps script
   copy:
-    src: "../../reference-visualization-app/dashboard/maps/{{state_code}}.json" 
+    src: "../../reference-visualization-app/maps/{{state_code}}.json" 
     dest: "../../reference-visualization-app/dashboard/src/assets/map.json"
     owner: "{{ system_user_name }}"
     group: "{{ system_user_name }}"
     mode: "0644"
   delegate_to: 127.0.0.1
-  tags: [ install, update 
+  tags: [ install, update ] 
 
 - name: copying dashboard script
   copy:

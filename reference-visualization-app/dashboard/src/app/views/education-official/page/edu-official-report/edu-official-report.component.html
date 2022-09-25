@@ -87,7 +87,7 @@
                                 </button>
                             </ng-template>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -208,8 +208,11 @@
                 (calculated from the CRC App) to update the scatter plot.
             </p>
             <br />
-            <div class="row">
-                <canvas id="myChart" width="100vw" height="44vh"></canvas>
+            <div class="row" class="fullW">
+                <!-- <canvas id="myChart" width="100vw" height="44vh"></canvas> -->
+                <ng-container *ngIf="dashletData?.values?.length > 0">
+                  <sb-dashlet type="scatter" [data]="dashletData" [config]="config"></sb-dashlet>
+                </ng-container>
             </div>
         </div>
         <div class="col-span-2 mb-5 mt-5">

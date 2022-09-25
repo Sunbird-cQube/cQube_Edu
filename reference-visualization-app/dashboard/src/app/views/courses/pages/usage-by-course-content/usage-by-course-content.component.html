@@ -26,12 +26,12 @@
                     <div class="row">
                         <div *ngIf="reportData.length == 0" class="col-sm-4">
                             <p id="errMsg" class="note" style="
-                  display: none;
-                  text-align: center;
-                  line-height: 1.2em;
-                  font-size: 12px;
-                  margin-top: 3%;
-                "></p>
+                    display: none;
+                    text-align: center;
+                    line-height: 1.2em;
+                    font-size: 12px;
+                    margin-top: 3%;
+                  "></p>
                         </div>
 
                         <span id="rawDownload" class="note"
@@ -58,41 +58,40 @@
                 </div>
             </div>
 
-            <div class="row" style="margin-top: 5px">
-                <div class="col-sm-12 grid grid-cols-12 gap-4">
-                    <ng-select id="time_range" class="select-control col-span-2" [(ngModel)]="timePeriod"
-                        name="timePeriod" (change)="timeRange(timePeriod)" dropdownPosition="bottom" [clearable]="false"
-                        placeholder=" Choose Time Range">
+            <div class="grid grid-cols-12 gap-2">
+                <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-11" style="margin-bottom: 10px">
 
+                    <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="time_range"
+                        [(ngModel)]="timePeriod" name="timePeriod" (change)="timeRange(timePeriod)"
+                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose Time Range">
                         <ng-option *ngFor="let time of timeDetails" [value]="time.timeRange" style="font-size: 11px">
                             {{ time.name }}
                         </ng-option>
                     </ng-select>
-                    <ng-select id="choose_dist" class="select-control col-span-2" [(ngModel)]="districtId"
-                        [hidden]="!hideAccessBtn" (change)="districtWise(districtId)" dropdownPosition="bottom"
-                        [clearable]="false" placeholder=" Choose District">
 
+                    <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_dist"
+                        [(ngModel)]="districtId" [hidden]="!hideAccessBtn" (change)="districtWise(districtId)"
+                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose a District">
                         <ng-option *ngFor="let dist of districtsDetails" [value]="dist.district_id"
                             style="font-size: 11px">
                             {{ dist.district_name }}
                         </ng-option>
                     </ng-select>
-
                 </div>
             </div>
         </div>
     </div>
     <div *ngIf="!showError" class="row reportContainer">
         <div class="col-sm-12 dataTableCustom" [ngStyle]="{
-        fontSize:
-          height > 1760
-            ? '34px'
-            : height > 1160 && height < 1760
-            ? '25px'
-            : height > 667 && height < 1160
-            ? '14px'
-            : '11px'
-      }">
+          fontSize:
+            height > 1760
+              ? '34px'
+              : height > 1160 && height < 1760
+              ? '25px'
+              : height > 667 && height < 1160
+              ? '14px'
+              : '11px'
+        }">
             <table #DataTable id="table" class="display nowrap" width="100%" style="text-align: center"></table>
         </div>
 

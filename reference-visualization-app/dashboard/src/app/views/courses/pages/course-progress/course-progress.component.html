@@ -68,15 +68,12 @@
                 </div>
             </div>
             <div class="">
-                <div class="grid grid-cols-12">
+                <div class="grid grid-cols-12 gap-4 " style="margin-bottom: 10px;">
                     <div class="col-span-6">
                         <app-multi-select #multiSelect [list]="scousesTOShow" [text]="'Course'" [width1]="'100px auto'"
                             [width2]="'100px auto'" (shareCheckedList)="shareCheckedList($event)">
                         </app-multi-select>
                     </div>
-
-                </div>
-                <div class="grid grid-cols-12 gap-4 " style="margin-bottom: 10px;">
 
                     <ng-select id="timePeriod" class="select-control col-span-2" [(ngModel)]="timePeriod"
                         (change)="selectedTimePeriod()" dropdownPosition="bottom" [clearable]="false"

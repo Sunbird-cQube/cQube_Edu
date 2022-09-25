@@ -2,7 +2,7 @@
     <div class="row reportHeader">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row" (window:resize)="globalService.onResize(level);onResize()">
-                <div class="col-sm-7">
+                <div class="col-xl-7">
                     <div *ngIf='skul'>
                         <p id="dist">
                             Semester Assessment Test Exception Report for: <span (click)="homeClick()"
@@ -42,7 +42,7 @@
                                 {{clusterHierarchy.clusterName}}</span></p>
                     </div>
                 </div>
-                <div class="col-lg-5 col-md-3 col-sm-12">
+                <div class="col-xl-5 pb-4">
                     <div class="row">
                         <div class="col-lg-6">
                             <p id="errMsg" class="note"></p>
@@ -52,7 +52,7 @@
                             <div class="level-headerbuttons label-header-button">
 
                                 <button *ngIf="reportData.length > 0" class="btn btn-primary" title="Download Report"
-                                    id="download1" (click)="downloadReport()">
+                                    id="download1" (click)="downloadReport()" style="float: right;">
                                     Download Report &nbsp;
                                     <i class="fa fa-arrow-down" aria-hidden="true"></i>
                                 </button>
