@@ -20,6 +20,9 @@
                CQUBE_S3_INPUT={{ s3_input_bucket }}
                CQUBE_S3_OUTPUT={{ s3_output_bucket }}
                CQUBE_S3_EMISSION={{ s3_emission_bucket }}
+               CQUBE_AZURE_INPUT={{ azure_input_container }}
+               CQUBE_AZURE_OUTPUT={{ azure_output_container }}
+               CQUBE_AZURE_EMISSION={{ azure_emission_container }}
                CQUBE_INPUT_DIRECTORY={{ input_directory }}
                CQUBE_OUTPUT_DIRECTORY={{ output_directory }}
                CQUBE_EMISSION_DIRECTORY={{ emission_directory }}
