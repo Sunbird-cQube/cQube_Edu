@@ -18,4 +18,3 @@
           - { role: grafana, tags: install }
           - nifi_install
           - angular
-          - cqube_conf
