@@ -1,15 +1,13 @@
-
-
 export const environment = {
   production: false,
   apiEndpoint: "{{ protocol }}://{{ api_endpoint }}:3000/api",
   appUrl: "{{ protocol }}://{{ api_endpoint }}:4200",
   adminUrl: "http://{{ proxy_host }}:4201",
-  loginUrl: "{{ protocol }}://{{ api_endpoint }}:4002/login-api"
   keycloakUrl: "{{ protocol }}://{{ api_endpoint }}:8080/auth",
   realm: "{{ realm_name }}",
   clientId: "{{ angular_app_client_id }}",
-  stateName: "{{ state_code }}",
+  stateCode: "{{ state_code }}",
+  stateName: "{{ state_name }}",
   diksha_columns: {% if diksha_columns == True %}true{% endif %}{% if diksha_columns == False %}false{% endif %},
   useCase: "{{ usecase_name }}",
   mapName: "{{ map_name }}",
@@ -17,8 +15,10 @@ export const environment = {
   report_viewer_config_otp: {% if report_viewer_config_otp == True %}true{% endif %}{% if report_viewer_config_otp == False %}false{% endif %},
   progressCardConfig: ['{{ slab1 }}', '{{ slab2 }}', '{{ slab3 }}', '{{ slab4 }}'],
   auth_api: "{{ auth_api }}",
-#keycloak_adm_user: "{{ keycloak_adm_user }}",
+  keycloak_adm_user: "{{ keycloak_adm_user }}",
   adminApiEndPoint: "http://{{ api_endpoint }}:3001/admin_api",
+  apiEndpoint: "http://{{ api_endpoint }}:3004/core_api",
+  water_mark: "false",
   secretKey: 'VSK_EKSTEP',
   loginObj: {
     title: "State Vidya Samiksha Kendra",

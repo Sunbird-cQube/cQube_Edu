@@ -319,6 +319,15 @@ else
 fi
 }
 
+check_state_name()
+{
+sc=$(cat $base_dir/cqube/.cqube_config | grep CQUBE_STATE_CODE )
+installed_state_code=$(cut -d "=" -f2 <<< "$sc")
+if [[ ! "$2" == "$installed_state_code" ]]; then
+    echo "Error - State code should be same as previous installation. Please refer the state_list file and enter the correct value."; fail=1
+fi
+}
+
 check_static_datasource(){
 if ! [[ $2 == "udise" || $2 == "state" ]]; then
     echo "Error - Please enter either udise or state for $1"; fail=1
@@ -419,7 +428,7 @@ echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 # An array of mandatory values
 declare -a arr=("system_user_name" "base_dir" "db_user" "db_name" "db_password" "storage_type" "mode_of_installation" "access_type" \
 	        "local_ipv4_address" "vpn_local_ipv4_address" "proxy_host" "api_endpoint" "keycloak_adm_passwd" "keycloak_adm_user" \
-		"report_viewer_config_otp" "state_code" "diksha_columns" "static_datasource" "management"  "session_timeout" \
+		"report_viewer_config_otp" "state_code" "state_name" "diksha_columns" "static_datasource" "management"  "session_timeout" \
 		"map_name" "theme" "google_api_key" "slab1" "slab2" "slab3" "slab4" "auth_api")
 
 # Create and empty array which will store the key and value pair from config file
@@ -582,6 +591,13 @@ case $key in
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
           check_state $key $value
+       fi
+       ;;
+   state_name)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_state_name $key $value
        fi
        ;;
    static_datasource)

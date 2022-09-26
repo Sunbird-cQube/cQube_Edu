@@ -130,4 +130,3 @@ if [ $? = 0 ]; then
        echo "cQube Workflow upgraded successfully!!"
     fi
 fi
-

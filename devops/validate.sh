@@ -92,6 +92,19 @@ done < validation_scripts/state_codes
 fi
 }
 
+check_state_name()
+{
+state_found=0
+while read line; do
+  if [[ $line == $2 ]] ; then
+   state_found=1
+  fi
+done < validation_scripts/state_codes
+  if [[ $state_found == 0 ]] ; then
+    echo "Error - Invalid State code. Please refer the state_list file and enter the correct value."; fail=1
+  fi
+}
+
 check_mode_of_installation(){
 if ! [[ $2 == "localhost" || $2 == "public" ]]; then
     echo "Error - Please enter either localhost or public for $1"; fail=1
@@ -404,10 +417,10 @@ fi
 echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 
 # An array of mandatory values
-declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "mode_of_installation" "storage_type" "db_user" "db_name" "db_password" \
-	              "read_only_db_user" "read_only_db_password" "api_endpoint" "local_ipv4_address" "vpn_local_ipv4_address" "proxy_host" \
+declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "state_name" "mode_of_installation" "storage_type" "db_user" "db_name" \
+	"db_password" "read_only_db_user" "read_only_db_password" "api_endpoint" "local_ipv4_address" "vpn_local_ipv4_address" "proxy_host" \
 		           "keycloak_adm_user" "keycloak_adm_passwd" "report_viewer_config_otp" "diksha_columns" "static_datasource" \ 
-			         "management" "session_timeout" "map_name" "google_api_key" "theme" "slab1" "slab2" "slab3" "slab4" "auth_api")
+			         "management" "session_timeout" "map_name" "theme" "slab1" "slab2" "slab3" "slab4" "auth_api")
 
 # Create and empty array which will store the key and value pair from config file
 declare -A vals
@@ -464,6 +477,13 @@ case $key in
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
           check_state $key $value
+       fi
+       ;;
+   state_name)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_state_name $key $value
        fi
        ;;
    mode_of_installation)
