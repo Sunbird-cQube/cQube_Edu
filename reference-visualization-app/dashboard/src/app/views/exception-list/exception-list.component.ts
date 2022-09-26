@@ -23,4 +23,13 @@ export class ExceptionListComponent implements OnInit {
     }, 100);
   }
 
+  selected() {
+
+    let tempIndex = this.tabIndex;
+    this.tabIndex = undefined;
+    setTimeout(() => {
+      this.tabIndex = tempIndex
+    }, 200);
+  }
+
 }

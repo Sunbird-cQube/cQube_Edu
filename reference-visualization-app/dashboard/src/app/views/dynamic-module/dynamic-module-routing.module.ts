@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TextBookComponent } from './text-book.component';
+import { DynamicModuleComponent } from './dynamic-module.component';
+
 
 const routes: Routes = [
   {
     path: '',
-    component: TextBookComponent,
+    component: DynamicModuleComponent,
     children: [
       {
         path: 'dashboard',
-        component: TextBookComponent
+        component: DynamicModuleComponent,
+
       },
       {
         path: '',
-        redirectTo: '/textbook-distribution/dashboard',
+        redirectTo: 'dynamic',
         pathMatch: 'full'
       }
     ]
@@ -24,4 +26,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TextBookRoutingModule { }
+export class DynamicModuleRoutingModule { }

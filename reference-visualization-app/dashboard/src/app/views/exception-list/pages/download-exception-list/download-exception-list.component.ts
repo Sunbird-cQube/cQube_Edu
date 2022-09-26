@@ -25,11 +25,11 @@ export class DownloadExceptionListComponent implements OnInit {
   ngOnInit(): void {
     // document.getElementById('accessProgressCard').style.display = 'none';
     // document.getElementById('backBtn') ? document.getElementById('backBtn').style.display = 'none' : "";
-    // this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
-    // this.category = JSON.parse(localStorage.getItem('category')).id;
-    // this.managementName = this.commonService.changeingStringCases(
-    //   this.managementName.replace(/_/g, " ")
-    // );
+    this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
+    this.category = JSON.parse(localStorage.getItem('category')).id;
+    this.managementName = this.commonService.changeingStringCases(
+      this.managementName.replace(/_/g, " ")
+    );
     $(document).ready(function () {
       $('#table').DataTable({
         destroy: true, bLengthChange: false, bInfo: false,

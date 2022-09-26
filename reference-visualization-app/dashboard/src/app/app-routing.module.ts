@@ -116,13 +116,19 @@ if (environment.config == 'national') {
   ];
 } else {
   routes = [
-    // {
-    //   path: '',
-    //   loadChildren: () =>
-    //     import('./views/authentication/authentication.module').then(
-    //       (module) => module.AuthenticationModule
-    //     ),
-    // },
+    {
+      path: '',
+      loadChildren: () =>
+        import('./views/authentication/authentication.module').then(
+          (module) => module.AuthenticationModule
+        ),
+    },
+    {
+      path: '', redirectTo: `home`, pathMatch: 'full'
+    },
+    {
+      path: 'home', component: HomePageComponent
+    },
     {
       path: '',
       component: LayoutComponent,
@@ -258,11 +264,18 @@ if (environment.config == 'national') {
               (module) => module.OtherDigitalLearningMetricsModule
             )
         },
+        // {
+        //   path: ':id',
+        //   loadChildren: () =>
+        //     import('./views/text-book/text-book.module').then(
+        //       (module) => module.TextBookModule
+        //     )
+        // },
         {
-          path: 'textbook-distribution',
+          path: ':id',
           loadChildren: () =>
-            import('./views/text-book/text-book.module').then(
-              (module) => module.TextBookModule
+            import('./views/dynamic-module/dynamic-module.module').then(
+              (module) => module.DynamicModuleModule
             )
         }
       ],

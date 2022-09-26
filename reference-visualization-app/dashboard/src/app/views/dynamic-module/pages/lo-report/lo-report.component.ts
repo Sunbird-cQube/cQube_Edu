@@ -12,12 +12,12 @@ import { dynamicReportService } from "src/app/core/services/core-apis/dynamic-re
 declare const $;
 
 @Component({
-  selector: 'app-lo-table',
-  templateUrl: './lo-table.component.html',
-  styleUrls: ['./lo-table.component.scss']
+  selector: 'app-lo-report',
+  templateUrl: './lo-report.component.html',
+  styleUrls: ['./lo-report.component.scss']
 })
-export class LoTableComponent implements OnInit {
-  
+export class LoReportComponent implements OnInit {
+
 
   level = "";
   @Input() public datasourse: any;
@@ -95,13 +95,13 @@ export class LoTableComponent implements OnInit {
   hideDay: boolean = true
   category = 'overall'
   constructor(public http: HttpClient,
-    
+
     public service1: dynamicReportService,
     public commonService: AppServiceComponent,
     public router: Router,
     public aRoute: ActivatedRoute) {
 
-    
+
     setTimeout(() => {
       this.getTimelineMeta()
       service1.configurableMetaData({ dataSource: this.datasourse }).subscribe(
@@ -149,7 +149,7 @@ export class LoTableComponent implements OnInit {
         }
       );
     }, 1000);
-   
+
   }
 
   public userAccessLevel = localStorage.getItem("userLevel");
@@ -166,12 +166,12 @@ export class LoTableComponent implements OnInit {
     // this.managementName = this.commonService.changeingStringCases(
     //   this.managementName.replace(/_/g, " ")
     // );
-   setTimeout(() => {
-     this.init()
-   }, 1500);
+    setTimeout(() => {
+      this.init()
+    }, 1500);
   }
 
-  init(){
+  init() {
     this.state = this.commonService.state;
     document.getElementById("accessProgressCard") ? document.getElementById("accessProgressCard").style.display = "none" : "";
     document.getElementById("backBtn") ? document.getElementById("backBtn").style.display = "none" : "";
@@ -1373,5 +1373,4 @@ export class LoTableComponent implements OnInit {
   ];
 
   public values = []
-
 }

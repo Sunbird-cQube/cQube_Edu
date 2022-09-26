@@ -1,32 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TextBookRoutingModule } from './text-book-routing.module';
-import { TextBookComponent } from './text-book.component';
-
+import { DynamicModuleRoutingModule } from './dynamic-module-routing.module';
+import { DynamicModuleComponent } from './dynamic-module.component';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatButtonModule } from '@angular/material/button';
 import { MapReportComponent } from './pages/map-report/map-report.component';
-import { LoTableComponent } from './pages/lo-table/lo-table.component';
+import { LoReportComponent } from './pages/lo-report/lo-report.component';
+
 
 @NgModule({
   declarations: [
-    TextBookComponent,
+    DynamicModuleComponent,
     MapReportComponent,
-    LoTableComponent
+    LoReportComponent
   ],
   imports: [
     CommonModule,
-    TextBookRoutingModule,
+    DynamicModuleRoutingModule,
     MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
     MatButtonModule,
-    
   ]
 })
-export class TextBookModule { }
+export class DynamicModuleModule { }

@@ -11,6 +11,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MatButtonModule } from '@angular/material/button';
 import { EduOfficialReportComponent } from './page/edu-official-report/edu-official-report.component';
 import { DashletModule, DataService } from '@project-sunbird/sb-dashlet-v14';
+import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
   declarations: [
     EducationOfficialComponent,
@@ -24,6 +25,7 @@ import { DashletModule, DataService } from '@project-sunbird/sb-dashlet-v14';
     FormsModule,
     ReactiveFormsModule,
     CqubeLibraryModule,
+    SharedModule,
     MatTabsModule,
     DashletModule.forRoot({
       dataService: DataService

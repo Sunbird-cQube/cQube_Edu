@@ -168,11 +168,11 @@ progressBar = document.querySelector('.progress-bar');
 
     this.state = this.commonService.state;
 
-    // this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
-    // this.category = JSON.parse(localStorage.getItem('category')).id;
-    // this.managementName = this.commonService.changeingStringCases(
-    //   this.managementName.replace(/_/g, " ")
-    // );
+    this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
+    this.category = JSON.parse(localStorage.getItem('category')).id;
+    this.managementName = this.commonService.changeingStringCases(
+      this.managementName.replace(/_/g, " ")
+    );
 
     this.params = JSON.parse(sessionStorage.getItem('progress-card-info'));
 

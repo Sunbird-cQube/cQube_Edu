@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextBookComponent } from './text-book.component';
+import { DynamicModuleComponent } from './dynamic-module.component';
 
-describe('TextBookComponent', () => {
-  let component: TextBookComponent;
-  let fixture: ComponentFixture<TextBookComponent>;
+describe('DynamicModuleComponent', () => {
+  let component: DynamicModuleComponent;
+  let fixture: ComponentFixture<DynamicModuleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TextBookComponent ]
+      declarations: [ DynamicModuleComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TextBookComponent);
+    fixture = TestBed.createComponent(DynamicModuleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

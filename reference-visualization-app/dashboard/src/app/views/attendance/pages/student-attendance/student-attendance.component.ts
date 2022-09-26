@@ -154,8 +154,8 @@ export class StudentAttendanceComponent implements OnInit {
 
   //to select management and category
   managementName;
-  management = 'overall';
-  category = 'overall';
+  management;
+  category;
 
   //the order of academic year months to sort options accordingly
   public allMonths: any = ['June', 'July', 'August', 'September', 'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May'];
@@ -204,11 +204,11 @@ export class StudentAttendanceComponent implements OnInit {
     };
     this.mapName = this.commonService.mapName;
     //setting management-category values
-    // this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
-    // this.category = JSON.parse(localStorage.getItem('category')).id;
-    // this.managementName = this.commonService.changeingStringCases(
-    //   this.managementName.replace(/_/g, " ")
-    // );
+    this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
+    this.category = JSON.parse(localStorage.getItem('category')).id;
+    this.managementName = this.commonService.changeingStringCases(
+      this.managementName.replace(/_/g, " ")
+    );
 
     //setting year-month options:::::
     this.service.getDateRange().subscribe(
@@ -946,7 +946,7 @@ export class StudentAttendanceComponent implements OnInit {
                     distId: this.markers[i]["dist"],
                   });
 
-                  
+
                   //initialize markers with its latitude and longitude
                   var markerIcon = this.globalService.initMarkers1(
                     this.markers[i].lat,
@@ -1115,7 +1115,7 @@ export class StudentAttendanceComponent implements OnInit {
                       distId: this.markers[i]["district_id"],
                     });
 
-                    
+
 
                     //initialize markers with its latitude and longitude
                     var markerIcon = this.globalService.initMarkers1(
@@ -1584,7 +1584,7 @@ export class StudentAttendanceComponent implements OnInit {
                       "attendance"
                     );
                     this.districtsIds.push(sorted[i]["district_id"]);
-                    
+
 
 
 

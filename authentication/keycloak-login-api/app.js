@@ -15,7 +15,7 @@ app.use(bodyParser.json({ limit: '1024mb' }));
 app.use(cors());
 // app.use(compression());
 
-app.use("/api", router);
+app.use("/login-api", router);
 
 
 app.use((req, res, next) => {

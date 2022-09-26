@@ -86,13 +86,13 @@ export class SatTrendsReportComponent implements OnInit {
 
   initChart() {
     // document.getElementById('accessProgressCard').style.display = 'none';
-    // document.getElementById('backBtn') ? document.getElementById('backBtn').style.display = 'none' : "";
+    document.getElementById('backBtn') ? document.getElementById('backBtn').style.display = 'none' : "";
     this.state = this.commonService.state;
-    // this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
-    // this.category = JSON.parse(localStorage.getItem('category')).id;
-    // this.managementName = this.commonService.changeingStringCases(
-    //   this.managementName.replace(/_/g, " ")
-    // );
+    this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
+    this.category = JSON.parse(localStorage.getItem('category')).id;
+    this.managementName = this.commonService.changeingStringCases(
+      this.managementName.replace(/_/g, " ")
+    );
     this.service.getYears().subscribe(res => {
       this.years = Object.keys(res);
       this.selectedYear = this.years[0];

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoTableComponent } from './lo-table.component';
+import { LoReportComponent } from './lo-report.component';
 
-describe('LoTableComponent', () => {
-  let component: LoTableComponent;
-  let fixture: ComponentFixture<LoTableComponent>;
+describe('LoReportComponent', () => {
+  let component: LoReportComponent;
+  let fixture: ComponentFixture<LoReportComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoTableComponent ]
+      declarations: [ LoReportComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LoTableComponent);
+    fixture = TestBed.createComponent(LoReportComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

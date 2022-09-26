@@ -66,7 +66,7 @@
                     <ng-select id="period" [(ngModel)]="period" class="col-span-6 xmd:col-span-3 lg:col-span-2"
                         (change)=" selectedTimeRange()" dropdownPosition="bottom" [clearable]="false"
                         placeholder="Choose TimeRange">
-                        
+
                         <ng-option *ngFor="let periods of timeRange,  let i =index" style="width: 100px;"
                             [value]="periods.value">
                             {{periods.value}}
@@ -92,7 +92,7 @@
                     <ng-select id="month" required class="col-span-6 xmd:col-span-3 lg:col-span-2" *ngIf="!hideWeek"
                         [(ngModel)]="week" (change)="selectedWeek()" dropdownPosition="bottom" [clearable]="false"
                         placeholder="Choose Week">
-                      
+
                         <ng-option *ngFor="let week of weeks; let i =index" [value]="week.week">
                             {{week.week}}
                         </ng-option>
@@ -101,7 +101,7 @@
                     <ng-select id="examDate" class="col-span-6 xmd:col-span-3 lg:col-span-2" *ngIf="!hideDay"
                         [(ngModel)]="examDate" (change)="selectedExamDate()" dropdownPosition="bottom"
                         [clearable]="false" placeholder="Choose Date">
-                      
+
                         <ng-option *ngFor="let day of date, let i =index" [value]="day">
                             {{day}}
                         </ng-option>
@@ -110,7 +110,7 @@
                     <ng-select id="grade" class="col-span-6 xmd:col-span-3 lg:col-span-2" [(ngModel)]="grade"
                         (change)="selectedGrade()" dropdownPosition="bottom" [clearable]="false"
                         placeholder="Choose Grade">
-                 
+
                         <ng-option *ngFor="let grade of grades, let i =index" [value]="grade.grade">
                             <span *ngIf="grade.grade == 'all'; else other_content">
                                 All Grades
@@ -122,7 +122,7 @@
                     <ng-select *ngIf="gradeSelected" id="subject" class="col-span-6 xmd:col-span-3 lg:col-span-2"
                         [(ngModel)]="subject" (change)="selectedSubject()" dropdownPosition="bottom" [clearable]="false"
                         placeholder="Choose Subject">
-                     
+
                         <ng-option *ngFor="let subject of subjects, let i =index" [value]="subjects[i]">
                             <span *ngIf="subjects[i] == 'all'; else other_content">
                                 All Subjects
@@ -134,7 +134,7 @@
                     <ng-select id="district" class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]='hideDist'
                         [(ngModel)]="district" [disabled]="selDist" (change)="selectedDistrict(district)"
                         dropdownPosition="bottom" [clearable]="false" placeholder="Choose District">
-                      
+
                         <ng-option *ngFor="let district of districtNames, let i =index" [value]="district.district_id">
                             {{district.district_name | titlecase}}
                         </ng-option>
@@ -144,7 +144,7 @@
                     <ng-select [hidden]="blockHidden" id="block" class="col-span-6 xmd:col-span-3 lg:col-span-2"
                         [(ngModel)]="block" [disabled]="selBlock" (change)="selectedBlock(block)"
                         dropdownPosition="bottom" [clearable]="false" placeholder="Choose Block">
-                   
+
                         <ng-option *ngFor="let block of blockNames, let i =index" [value]="block.block_id">
                             {{block.block_name | titlecase}}
                         </ng-option>
@@ -152,7 +152,7 @@
                     <ng-select [hidden]="clusterHidden" id="cluster" class="col-span-6 xmd:col-span-3 lg:col-span-2"
                         [(ngModel)]="cluster" [disabled]="selCluster" (change)="selectedCluster(cluster)"
                         dropdownPosition="bottom" [clearable]="false" placeholder="Choose Cluster">
-                      
+
                         <ng-option *ngFor="let cluster of clusterNames, let i =index" [value]="cluster.cluster_id">
                             {{cluster.cluster_name | titlecase}}
                         </ng-option>
@@ -183,7 +183,7 @@
         </div>
         <div class="col-sm-2">
             <div style="position: relative; bottom: 0px; float: right; margin: 0px auto;">
-                
+
             </div>
         </div>
     </div>

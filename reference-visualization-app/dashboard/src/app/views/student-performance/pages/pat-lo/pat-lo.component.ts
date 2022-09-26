@@ -156,7 +156,7 @@ export class PatLoComponent implements OnInit {
     // document.getElementById("accessProgressCard").style.display = "none";
     // document.getElementById("backBtn") ? document.getElementById("backBtn").style.display = "none" : "";
 
-
+   
     this.hideAccessBtn = (environment.auth_api === 'cqube' || this.userAccessLevel === '') ? true : false;
     this.hideDist = (environment.auth_api === 'cqube' || this.userAccessLevel === '' || undefined) ? false : true;
 
@@ -403,34 +403,34 @@ export class PatLoComponent implements OnInit {
       }
 
       this.table = $(`#LOtable`).DataTable(obj);
-// setTimeout(() => {
-  // $('#loTooltip').tooltip({
+      // setTimeout(() => {
+      // $('#loTooltip').tooltip({
 
-  //       placement: 'right',
+      //       placement: 'right',
 
-  //       container: 'body'
-  //     }
-  //     ).on('inserted.bs.tooltip', function () {
-  //       $("body div.tooltip-inner").css({
-  //         "min-width": `${innerWidth < 2540 ? "200px" : '300px'}`,
-  //         "max-width": `${innerWidth < 2540 ? "600px" : '900px'}`,
-  //         "padding": `${innerWidth < 2540 ? '10px' : '15px'}`,
-  //         "text-align": "auto",
-  //         "border-radius": `${innerWidth < 2540 ? '20px' : '30px'}`,
-  //         "background-color": "black",
-  //         "color": "white",
-  //         "font-family": "Arial",
-  //         "font-size": `${innerWidth < 2540 ? '11px' : '26px'}`,
-  //         "border": "1px solid gray",
-  //         "z-index": 900
-  //       });
-  //     });
-  // $('#loTooltip').click(function () {
-  //   $('#loTooltip').tooltip("hide");
-  //     });
+      //       container: 'body'
+      //     }
+      //     ).on('inserted.bs.tooltip', function () {
+      //       $("body div.tooltip-inner").css({
+      //         "min-width": `${innerWidth < 2540 ? "200px" : '300px'}`,
+      //         "max-width": `${innerWidth < 2540 ? "600px" : '900px'}`,
+      //         "padding": `${innerWidth < 2540 ? '10px' : '15px'}`,
+      //         "text-align": "auto",
+      //         "border-radius": `${innerWidth < 2540 ? '20px' : '30px'}`,
+      //         "background-color": "black",
+      //         "color": "white",
+      //         "font-family": "Arial",
+      //         "font-size": `${innerWidth < 2540 ? '11px' : '26px'}`,
+      //         "border": "1px solid gray",
+      //         "z-index": 900
+      //       });
+      //     });
+      // $('#loTooltip').click(function () {
+      //   $('#loTooltip').tooltip("hide");
+      //     });
 
-// }, 300);
-     
+      // }, 300);
+
       $(document).ready(function () {
         $('#LOtable').on('page.dt', function () {
           $('.dataTables_scrollBody').scrollTop(0);

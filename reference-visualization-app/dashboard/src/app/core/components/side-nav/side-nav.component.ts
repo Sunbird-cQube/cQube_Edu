@@ -13,6 +13,10 @@ export class SideNavComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      console.log('side', this.menu)
+    }, 200);
+   
   }
   setMenuLinkActive(menuItemSelected: IMenuItem): void {
     this.menu?.forEach(menuItem => {

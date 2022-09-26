@@ -18,7 +18,6 @@ import { MapService, globalMap } from 'src/app/core/services/mapservices/maps.se
 })
 export class MapReportComponent implements OnInit {
 
-
   @Input() public header: any;
   @Input() public description: String;
   @Input() public reportName1: String;
@@ -124,7 +123,7 @@ export class MapReportComponent implements OnInit {
 
   public metaData
   googleMapZoom;
- 
+
   constructor(public http: HttpClient,
     // public service: SchoolInfraService,
     public service1: dynamicReportService,
@@ -134,8 +133,8 @@ export class MapReportComponent implements OnInit {
     private readonly _router: Router,
     private aRoute: ActivatedRoute,
     public globalService: MapService,) {
-      setTimeout(() => {
-      
+    setTimeout(() => {
+
       this.getTimelineMeta()
 
       this.getMetricMeta()
@@ -194,7 +193,7 @@ export class MapReportComponent implements OnInit {
     }
     document.getElementById("accessProgressCard") ? document.getElementById("accessProgressCard").style.display = "block" : '';
     document.getElementById("backBtn") ? document.getElementById("backBtn").style.display = "none" : "";
-   
+
     this.getMetaData()
 
     let params = JSON.parse(sessionStorage.getItem("report-level-info"));
@@ -779,7 +778,7 @@ export class MapReportComponent implements OnInit {
 
             })
             this.markers = this.data = marker;
-          
+
             let options = {
               radius: 4,
               mapZoom: this.globalService.zoomLevel,
@@ -813,7 +812,7 @@ export class MapReportComponent implements OnInit {
                     );
                   }
 
-              
+
 
                   var markerIcon = this.globalService.initMarkers1(
                     this.blockMarkers[i].block_latitude,
@@ -895,7 +894,7 @@ export class MapReportComponent implements OnInit {
                     );
                   }
 
-                 
+
 
                   var markerIcon = this.globalService.initMarkers1(
                     this.blockMarkers[i].lat,
@@ -942,7 +941,7 @@ export class MapReportComponent implements OnInit {
 
             })
             this.markers = this.data = marker;
-          
+
             let options = {
               radius: 4,
               mapZoom: this.globalService.zoomLevel,
@@ -976,7 +975,7 @@ export class MapReportComponent implements OnInit {
                     );
                   }
 
-                  
+
                   var markerIcon = this.globalService.initMarkers1(
                     this.blockMarkers[i].lat,
                     this.blockMarkers[i].long,
@@ -1160,7 +1159,7 @@ export class MapReportComponent implements OnInit {
                 for (let i = 0; i < this.clusterMarkers.length; i++) {
                   var color;
 
-                 
+
 
                   var markerIcon = this.globalService.initMarkers1(
                     this.clusterMarkers[i].lat,
@@ -1236,7 +1235,7 @@ export class MapReportComponent implements OnInit {
                       colors
                     );
                   }
-              
+
 
                   var markerIcon = this.globalService.initMarkers1(
                     this.clusterMarkers[i].lat,
@@ -1315,7 +1314,7 @@ export class MapReportComponent implements OnInit {
                       colors
                     );
                   }
-               
+
 
                   var markerIcon = this.globalService.initMarkers1(
                     this.clusterMarkers[i].lat,
@@ -1333,7 +1332,7 @@ export class MapReportComponent implements OnInit {
                     "latitude",
                     "longitude"
                   );
-                 
+
                 }
 
                 //schoolCount
@@ -1371,7 +1370,7 @@ export class MapReportComponent implements OnInit {
               if (this.clusterMarkers.length !== 0) {
                 for (let i = 0; i < this.clusterMarkers.length; i++) {
 
-                 
+
 
                   var markerIcon = this.globalService.initMarkers1(
                     this.clusterMarkers[i].cluster_latitude,
@@ -1653,7 +1652,7 @@ export class MapReportComponent implements OnInit {
                     for (let i = 0; i < this.schoolMarkers.length; i++) {
                       var color;
 
-                      
+
 
                       var markerIcon = this.globalService.initMarkers1(
                         this.schoolMarkers[i].lat,
