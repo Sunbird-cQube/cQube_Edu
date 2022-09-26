@@ -1429,13 +1429,6 @@ if __name__ == "__main__":
     header = {"Content-Type": "application/json"}
     print("length=", len(sys.argv))
     n = len(sys.argv)
-    if sys.argv[1] == 'progress_card_transformer' or sys.argv[1] == 'composite_transformer':
-        data_source_name = sys.argv[1]
-        parameter_context_name = sys.argv[2]
-        data_storage = sys.argv[3]
-        distributed_server_port = sys.argv[4]
-        install_datasource(data_source_name, parameter_context_name, distributed_server_port)
-        trans_aggre_connection(data_source_name, data_storage)
 
     if len(sys.argv) == 2:
         processor_group_name = sys.argv[1]
@@ -1455,9 +1448,17 @@ if __name__ == "__main__":
             parameter_context_name = sys.argv[2]
             data_storage = sys.argv[3]
             distributed_server_port = sys.argv[4]
-            install_trans_aggre_datasources(data_source_name, parameter_context_name, data_storage,
+            if sys.argv[1] == 'progress_card_transformer' or sys.argv[1] == 'composite_transformer':
+                data_source_name = sys.argv[1]
+                parameter_context_name = sys.argv[2]
+                data_storage = sys.argv[3]
+                distributed_server_port = sys.argv[4]
+                install_datasource(data_source_name, parameter_context_name, distributed_server_port)
+                trans_aggre_connection(data_source_name, data_storage)
+            else:
+                install_trans_aggre_datasources(data_source_name, parameter_context_name, data_storage,
                                             distributed_server_port)
-            trans_aggre_connection(data_source_name, data_storage)
+                trans_aggre_connection(data_source_name, data_storage)
     if len(sys.argv) == 6:
         if sys.argv[4] != 'API' or sys.argv[4] != 'EMISSION':
             data_source_name = sys.argv[1]
