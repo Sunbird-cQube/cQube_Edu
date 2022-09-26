@@ -38,17 +38,17 @@
     state: directory
   tags: [ install, update ]
 
-- name: Converting the OTP option to boolean
-  set_fact: 
-    temp_config_otp: true 
-  when: auth_api == "cqube"
-  tags: [ install, update ]
+    #- name: Converting the OTP option to boolean
+    #set_fact: 
+    # temp_config_otp: true 
+    #when: auth_api == "cqube"
+    #tags: [ install, update ]
 
-- name: Converting the OTP option to boolean
-  set_fact:
-    temp_config_otp: false
-  when: auth_api != "cqube"
-  tags: [ install, update ]
+    #- name: Converting the OTP option to boolean
+    # set_fact:
+    # temp_config_otp: false
+    #when: auth_api != "cqube"
+    #tags: [ install, update ]
 
 # updating the config_otp
 
@@ -218,13 +218,10 @@
     owner: "{{ system_user_name }}"
     group: "{{ system_user_name }}"
     mode: '0644'
-  when: auth_api != "cqube"	
   tags: [ install, update ]
 
 - name: Updating the update password option to realm
   shell: "{{ base_dir }}/cqube/keycloak/bin/kcadm.sh update 'authentication/required-actions/UPDATE_PASSWORD' -r {{ realm_name }} -f {{ cQube_realm_update_password_json }} --no-config --server http://localhost:8080/auth --realm master --user {{ keycloak_adm_user }} --password {{ keycloak_adm_passwd }}"
   args:
     executable: /bin/bash
-  when: auth_api != "cqube"	
   tags: [ install, update ]
-
