@@ -2,7 +2,7 @@
     <div class="row reportHeader">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row" (window:resize)="globalService.onResize(level); onResize()">
-                <div class="col-lg-9 col-md-9 col-sm-12">
+                <div class="col-xl-7 col-md-12 col-sm-12">
                     <div>
                         <p id="dist">
                             Report on GPS of Learning- Courses:
@@ -12,14 +12,14 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-12">
+                <div class="col-xl-5 col-md-12 col-sm-12">
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-2">
                             <p id="errMsg" class="note"></p>
                         </div>
-                        <div class="col-sm-7">
+                        <div class="col-sm-10 mb-4">
                             <button class="btn btn-primary" title="Download Report" id="download1"
-                                (click)="downloadReport()">
+                                (click)="downloadReport()" style="float: right">
                                 Download Report &nbsp;
                                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
                             </button>
@@ -51,9 +51,9 @@
         </div>
     </div>
 
-    <div class="row reportContainer">
-        <div *ngIf="!showError" class="col-lg-12 col-md-12 col-sm-12">
-            <div id="leafletmap" style="float: left" [ngStyle]="{ width: selected == 'absolute' ? '82%' : '100%' }">
+    <div class="legend-wrapper reportContainer">
+        <div *ngIf="!showError" class="col-lg-12 col-md-12 col-sm-12 report-wrapper">
+            <div id="leafletmap" class="col-xl-10" style="float: left">
                 <div #mapContainer id="tpdMap" class="active" [ngStyle]="{
                   height:
                     height > 1760
@@ -66,9 +66,9 @@
                 }"></div>
 
             </div>
-
-            <div *ngIf="selected == 'absolute'"
-                style="float: right; width: 17%; margin-left: 1%; margin-top: 1%; z-index: 100;">
+            <div class="legend-wrapper col-xl-2">
+                <div *ngIf="selected == 'absolute'"
+                style="float: right;margin-left: 1%; margin-top: 1%; z-index: 100; width:100%">
                 <h5 id="legend" style="margin-left: 1%">
                     <span *ngIf="selectedType == 'total_content_plays'">{{legandName}}</span>
                     <span *ngIf="selectedType == 'avg_time_spent'">{{legandName}} &#40; Minutes &#41;</span>
@@ -96,7 +96,7 @@
                     </span>
                 </div>
             </div>
-            <div style="float: right; width: 17%; margin-left: 1%; margin-top: 3%; z-index: 100;">
+            <div style="float: right; margin-left: 1%; margin-top: 3%; z-index: 100; width: 100%">
                 <h5 style="margin-left: 1%;  font-weight: 900;" [ngStyle]="{
             fontSize:
               height > 1760
@@ -115,6 +115,7 @@
                 <span class="legends" style="text-align: center; font-size: 12px;">Avg Time Spent:
                     {{otherStateAvgTime}}
                 </span>
+            </div>
             </div>
         </div>
         <div class="row">

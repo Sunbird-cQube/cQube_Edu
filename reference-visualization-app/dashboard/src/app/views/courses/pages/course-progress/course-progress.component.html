@@ -2,7 +2,7 @@
     <div class="row reportHeader">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row">
-                <div class="col-sm-8 ">
+                <div class="col-xl-7 ">
                     <div *ngIf='skul'>
                         <p id="dist">
                             Diksha Course Progress Report for: <span (click)="resetToInitPage()"
@@ -43,14 +43,14 @@
                     </div>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-xl-5">
                     <div class="row justify-content-around">
-                        <div class="col-sm-0" style="display: none;">
+                        <div class="col-sm-2" style="display: none;">
                             <p id="errMsg" class="note"
                                 style="display: none; text-align: center;line-height: 1.2em; font-size: 12px; margin-top: 3%; ">
                             </p>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-10 mb-4">
                             <button *ngIf="reportData.length>0" class="btn btn-primary" title="Download Report"
                                 style="float: right;" id="download1" (click)="downloadReport()">Download Report &nbsp;
                                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
@@ -68,14 +68,14 @@
                 </div>
             </div>
             <div class="">
-                <div class="grid grid-cols-12 gap-4 " style="margin-bottom: 10px;">
-                    <div class="col-span-6">
+                <div class="grid grid-cols-12 gap-4" style="margin-bottom: 10px;">
+                    <div class="lg:col-span-4">
                         <app-multi-select #multiSelect [list]="scousesTOShow" [text]="'Course'" [width1]="'100px auto'"
                             [width2]="'100px auto'" (shareCheckedList)="shareCheckedList($event)">
                         </app-multi-select>
                     </div>
 
-                    <ng-select id="timePeriod" class="select-control col-span-2" [(ngModel)]="timePeriod"
+                    <ng-select id="timePeriod" class="select-control lg:col-span-2" [(ngModel)]="timePeriod"
                         (change)="selectedTimePeriod()" dropdownPosition="bottom" [clearable]="false"
                         placeholder=" Choose time period">
                         <!-- <ng-option [value]="timePeriod" disabled selected="selected">Choose time period</ng-option> -->
@@ -86,7 +86,7 @@
 
 
 
-                    <ng-select id="district" class=" col-span-2" [disabled]="selDist" [hidden]="disHidden"
+                    <ng-select id="district" class="lg:col-span-2" [disabled]="selDist" [hidden]="disHidden"
                         [(ngModel)]="district" (change)="selectedDistrict(district)" dropdownPosition="bottom"
                         [clearable]="false" placeholder=" Choose time period">
                         <ng-option [value]="district" disabled selected="selected">Choose a District</ng-option>
@@ -96,7 +96,7 @@
                     </ng-select>
 
 
-                    <ng-select [hidden]="blockHidden" class=" col-span-2" [disabled]="selBlock" [(ngModel)]="block"
+                    <ng-select [hidden]="blockHidden" class="lg:col-span-2" [disabled]="selBlock" [(ngModel)]="block"
                         (change)="selectedBlock(block)" dropdownPosition="bottom" [clearable]="false"
                         placeholder="Choose a Block">
 
@@ -104,7 +104,7 @@
                             {{block.block_name}}
                         </ng-option>
                     </ng-select>
-                    <ng-select [hidden]="clusterHidden" class=" col-span-2" [disabled]="selCluster"
+                    <ng-select [hidden]="clusterHidden" class="lg:col-span-2" [disabled]="selCluster"
                         [(ngModel)]="cluster" (change)="selectedCluster(cluster)" dropdownPosition="bottom"
                         [clearable]="false" placeholder=" Choose a Cluster">
 

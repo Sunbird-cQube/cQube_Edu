@@ -2,7 +2,7 @@
     <div class="row reportHeader">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row" (window:resize)="globalService.onResize(level); onResize()">
-                <div class="col-lg-9 col-md-9 col-sm-12">
+                <div class="col-xl-7 col-md-12 col-sm-12">
                     <div>
                         <p id="dist">
                             Report on GPS of learning- ETB:
@@ -12,14 +12,14 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-12">
+                <div class="col-xl-5 col-md-12 col-sm-12">
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <p id="errMsg" class="note"></p>
                         </div>
-                        <div class="col-sm-7">
+                        <div class="col-sm-8 mb-4">
                             <button class="btn btn-primary" title="Download Report" id="download1"
-                                (click)="downloadReport()">
+                                (click)="downloadReport()" style="float:right">
                                 Download Report &nbsp;
                                 <i class="fa fa-arrow-down" aria-hidden="true"></i>
                             </button>
@@ -40,7 +40,7 @@
                 <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-11" style="margin-bottom: 10px">
 
 
-                    <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_type"
+                    <ng-select class="col-span-12 xmd:col-span-4 lg:col-span-3" id="choose_type"
                         [(ngModel)]="selectedType" (change)="onSelectType(selectedType)" dropdownPosition="bottom"
                         [clearable]="false" placeholder="Choose TimeRange">
                         <ng-option *ngFor="let selected of selectionType" [value]="selected.id">
@@ -53,8 +53,8 @@
     </div>
 
     <div class="row reportContainer">
-        <div *ngIf="!showError" class="col-sm-12">
-            <div id="leafletmap" style="float: left" [ngStyle]="{ width: selected == 'absolute' ? '83%' : '100%' }">
+        <div *ngIf="!showError" class="col-sm-12 report-wrapper">
+            <div id="leafletmap" class="col-xl-10" style="float: left">
                 <div #mapContainer id="etbMap" class="active" [ngStyle]="{
                   height:
                     height > 1760
@@ -68,14 +68,15 @@
 
             </div>
 
-            <div *ngIf="selected == 'absolute'"
-                style="float: right; width: 16%; margin-left: 1%; margin-top: 1%; z-index: 100;">
-                <h5 id="legend" style="margin-left: 1%">
-                    <span *ngIf="selectedType == 'total_content_plays'">{{legandName}}</span>
-                    <span *ngIf="selectedType == 'avg_time_spent'">{{legandName}} &#40; Minutes &#41;</span>
-                    <span *ngIf="selectedType == 'total_time_spent'">{{legandName}} &#40; Hours &#41;</span>
-                    <img *ngIf="valueRange != -1 && valueRange !== undefined" id="resetImg"
-                        src="../../../../assets/images/reset.png" alt="reset" title="Reset to all" style="
+            <div class="legend-wrapper col-xl-2">
+                <div *ngIf="selected == 'absolute'"
+                    style="float: right; margin-left: 1%; margin-top: 1%; z-index: 100;">
+                    <h5 id="legend" style="margin-left: 1%">
+                        <span *ngIf="selectedType == 'total_content_plays'">{{legandName}}</span>
+                        <span *ngIf="selectedType == 'avg_time_spent'">{{legandName}} &#40; Minutes &#41;</span>
+                        <span *ngIf="selectedType == 'total_time_spent'">{{legandName}} &#40; Hours &#41;</span>
+                        <img *ngIf="valueRange != -1 && valueRange !== undefined" id="resetImg"
+                            src="../../../../assets/images/reset.png" alt="reset" title="Reset to all" style="
                 cursor: pointer;
                 height: 20px;
                 width: 20px;
@@ -85,17 +86,17 @@
                 padding: 5px;
                 margin-top: -5px;
               " (click)="reset('0-100')" />
-                </h5>
-                <div *ngFor="let value of values; let i = index">
-                    <span id="{{ i }}" class="legends" style="float: left; cursor: pointer"
-                        [ngStyle]="{ color: i > 2 ? 'white':'black'}" (click)="selectRange(value, i); select(i)"
-                        [style.background-color]="legendColors[i]">
-                        {{ values[i] }}
-                    </span>
+                    </h5>
+                    <div *ngFor="let value of values; let i = index">
+                        <span id="{{ i }}" class="legends" style="float: left; cursor: pointer"
+                            [ngStyle]="{ color: i > 2 ? 'white':'black'}" (click)="selectRange(value, i); select(i)"
+                            [style.background-color]="legendColors[i]">
+                            {{ values[i] }}
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div style="float: right; width: 16%; margin-left: 1%; margin-top: 3%; z-index: 100;">
-                <h5 style="margin-left: 1%;  font-weight: 900;" [ngStyle]="{
+                <div style="float: right; margin-left: 1%; margin-top: 3%; z-index: 100;">
+                    <h5 style="margin-left: 1%;  font-weight: 900;" [ngStyle]="{
             fontSize:
               height > 1760
                 ? '33px'
@@ -105,14 +106,15 @@
                 ? '16px'
                 : '16px'
           }"> <u>Usage Outside State:-</u></h5>
-                <span class="legends" style="text-align: center; font-size: 12px;">Total Content Play:
-                    {{otherStateContentPlays}} {{othersStatePercentage}} </span><br>
-                <span class="legends" style="text-align: center; font-size: 12px;">Total Time Spent:
-                    {{otherStateTotalTime}} Hrs
-                </span><br>
-                <span class="legends" style="text-align: center; font-size: 12px;">Avg Time Spent:
-                    {{otherStateAvgTime}}
-                </span>
+                    <span class="legends" style="text-align: center; font-size: 12px;">Total Content Play:
+                        {{otherStateContentPlays}} {{othersStatePercentage}} </span><br>
+                    <span class="legends" style="text-align: center; font-size: 12px;">Total Time Spent:
+                        {{otherStateTotalTime}} Hrs
+                    </span><br>
+                    <span class="legends" style="text-align: center; font-size: 12px;">Avg Time Spent:
+                        {{otherStateAvgTime}}
+                    </span>
+                </div>
             </div>
         </div>
         <div class="row">
