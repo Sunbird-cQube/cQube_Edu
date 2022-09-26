@@ -39,7 +39,7 @@
 
 - name: copying maps script
   copy:
-    src: "../../reference-visualization-app/maps/{{state_code}}.json" 
+    src: "../../reference-visualization-app/maps/{{state_name}}.json" 
     dest: "../../reference-visualization-app/dashboard/src/assets/map.json"
     owner: "{{ system_user_name }}"
     group: "{{ system_user_name }}"
