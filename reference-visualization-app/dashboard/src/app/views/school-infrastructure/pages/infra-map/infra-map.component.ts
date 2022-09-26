@@ -156,11 +156,11 @@ export class InfraMapComponent implements OnInit {
       }
       // document.getElementById("accessProgressCard").style.display = "block";
       document.getElementById("backBtn") ? document.getElementById("backBtn").style.display = "none" : "";
-      // this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
-      // this.category = JSON.parse(localStorage.getItem('category')).id;
-      // this.managementName = this.commonService.changeingStringCases(
-      //   this.managementName.replace(/_/g, " ")
-      // );
+      this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
+      this.category = JSON.parse(localStorage.getItem('category')).id;
+      this.managementName = this.commonService.changeingStringCases(
+        this.managementName.replace(/_/g, " ")
+      );
       let params = JSON.parse(sessionStorage.getItem("report-level-info"));
       if (environment.auth_api === 'cqube' || this.userAccessLevel === "") {
         if (params && params.level) {

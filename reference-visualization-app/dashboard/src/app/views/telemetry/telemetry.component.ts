@@ -22,4 +22,5 @@ export class TelemetryComponent implements OnInit {
     }, 100);
   }
 
+
 }

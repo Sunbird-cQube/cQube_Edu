@@ -173,11 +173,11 @@ export class SatMapComponent implements OnInit {
     // document.getElementById("backBtn") ? document.getElementById("backBtn").style.display = "none" : "";
     let params = JSON.parse(sessionStorage.getItem("report-level-info"));
     this.params = params;
-    // this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
-    // this.category = JSON.parse(localStorage.getItem('category')).id;
-    // this.managementName = this.commonService.changeingStringCases(
-    //   this.managementName.replace(/_/g, " ")
-    // );
+    this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
+    this.category = JSON.parse(localStorage.getItem('category')).id;
+    this.managementName = this.commonService.changeingStringCases(
+      this.managementName.replace(/_/g, " ")
+    );
 
 
     if (params && params.level) {

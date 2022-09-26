@@ -124,6 +124,12 @@ if (environment.config == 'national') {
         ),
     },
     {
+      path: '', redirectTo: `home`, pathMatch: 'full'
+    },
+    {
+      path: 'home', component: HomePageComponent
+    },
+    {
       path: '',
       component: LayoutComponent,
       children: [
@@ -253,11 +259,25 @@ if (environment.config == 'national') {
         },
         {
           path: 'other-diksha-metrics',
-          loadChildren: () => 
+          loadChildren: () =>
             import('./views/other-digital-learning-metrics/other-digital-learning-metrics.module').then(
               (module) => module.OtherDigitalLearningMetricsModule
             )
         },
+        // {
+        //   path: ':id',
+        //   loadChildren: () =>
+        //     import('./views/text-book/text-book.module').then(
+        //       (module) => module.TextBookModule
+        //     )
+        // },
+        {
+          path: ':id',
+          loadChildren: () =>
+            import('./views/dynamic-module/dynamic-module.module').then(
+              (module) => module.DynamicModuleModule
+            )
+        }
       ],
     },
   ];

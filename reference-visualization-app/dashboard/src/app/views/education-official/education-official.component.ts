@@ -22,4 +22,13 @@ export class EducationOfficialComponent implements OnInit {
       console.log('resize');
     }, 100);
   }
+
+
+  selected() {
+    let tempIndex = this.tabIndex;
+    this.tabIndex = undefined;
+    setTimeout(() => {
+      this.tabIndex = tempIndex
+    }, 200);
+  }
 }

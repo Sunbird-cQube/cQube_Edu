@@ -1,24 +1,26 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import * as Highcharts from "highcharts/highstock";
 import HeatmapModule from "highcharts/modules/heatmap";
 HeatmapModule(Highcharts);
-
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
-
 import { environment } from "src/environments/environment";
-import { PatReportService } from "src/app/core/services/pat-report.service";
+import { PatReportService } from "src/app/services/pat-report.service";
 import { AppServiceComponent } from "src/app/app.service";
+import { dynamicReportService } from "src/app/core/services/core-apis/dynamic-report.service";
+
 declare const $;
 
 @Component({
-  selector: 'app-pat-lo',
-  templateUrl: './pat-lo.component.html',
-  styleUrls: ['./pat-lo.component.scss']
+  selector: 'app-lo-report',
+  templateUrl: './lo-report.component.html',
+  styleUrls: ['./lo-report.component.scss']
 })
-export class PatLoComponent implements OnInit {
+export class LoReportComponent implements OnInit {
+
 
   level = "";
+  @Input() public datasourse: any;
 
   // For filter implementation
   districtNames = [];
@@ -36,14 +38,15 @@ export class PatLoComponent implements OnInit {
   years = [];
   grades = [];
   subjects = [];
-  examDates = [];
+  date = [];
   allViews = [];
-
+  months = []
   public year = "";
   public grade = "all";
   public subject = "all";
   public examDate = "all";
   public viewBy = "indicator";
+  public weeks = []
 
   //to set hierarchy level
   skul = true;
@@ -56,7 +59,6 @@ export class PatLoComponent implements OnInit {
   blockHierarchy: any;
   clusterHierarchy: any;
 
-  data;
 
   // to download the excel report
   public fileName: any = ``;
@@ -65,13 +67,17 @@ export class PatLoComponent implements OnInit {
   public metaData: any;
   myData;
   state: string;
-  months: string[];
   month: string = "";
+  week: string = "";
+  day: string = "";
 
-  reportName = "periodic_assesment_test_loTable";
+
+
+
+  reportName = `lo_Table`;
   managementName;
   management;
-  category;
+  // category;
 
   //For pagination.....
   pageSize = 200;
@@ -82,101 +88,166 @@ export class PatLoComponent implements OnInit {
   table: any = undefined;
   updatedTable: any = [];
   gradeSelected: boolean;
+  reportType = "lotable"
+  hideYear: boolean = true
+  hideMonth: boolean = true
+  hideWeek: boolean = true
+  hideDay: boolean = true
+  category = 'overall'
+  constructor(public http: HttpClient,
 
-  constructor(
-    public http: HttpClient,
-    public service: PatReportService,
+    public service1: dynamicReportService,
     public commonService: AppServiceComponent,
-    public router: Router
-  ) {
-    service.PATHeatMapMetaData({ report: "pat" }).subscribe(
-      (res) => {
-        try {
-          this.metaData = res["data"];
-          for (let i = 0; i < this.metaData.length; i++) {
-            this.years.push(this.metaData[i]["academic_year"]);
-          }
-          this.year = this.years[this.years.length - 1];
-          let i;
-          for (i = 0; i < this.metaData.length; i++) {
-            if (this.metaData[i]["academic_year"] == this.year) {
-              this.months = Object.keys(res["data"][i].data.months);
-              this.grades = this.metaData[i].data["grades"];
-              this.allViews = this.metaData[i].data["viewBy"];
-              break;
+    public router: Router,
+    public aRoute: ActivatedRoute) {
+
+
+    setTimeout(() => {
+      this.getTimelineMeta()
+      service1.configurableMetaData({ dataSource: this.datasourse }).subscribe(
+        (res) => {
+          try {
+            this.metaData = res
+
+            for (let i = 0; i < this.metaData.length; i++) {
+              this.years.push(this.metaData[i]["academic_year"]);
             }
+
+            this.year = this.years[this.years.length - 1];
+            let i;
+            for (i = 0; i < this.metaData.length; i++) {
+              if (this.metaData[i]["academic_year"] == this.year) {
+                this.months = this.metaData[i].data["months"];
+                this.grades = this.metaData[i].data["grades"];
+                break;
+              }
+            }
+
+
+            this.grades = [
+              { grade: "all" },
+              ...this.grades.filter((item) => item.grade !== "all"),
+            ];
+
+
+            this.fileName = `${this.datasourse}_overall_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
+            if (environment.auth_api === 'cqube' || this.userAccessLevel === "") {
+              this.commonFunc();
+            } else {
+              this.getView()
+            }
+
+          } catch (e) {
+            this.metaData = [];
+            this.commonService.loaderAndErr(this.metaData);
           }
-          this.month = this.months[this.months.length - 1];
-          this.examDates = this.metaData[i].data["months"][`${this.month}`][
-            "examDate"
-          ];
-          this.grades = [
-            { grade: "all" },
-            ...this.grades.filter((item) => item.grade !== "all"),
-          ];
-          this.examDates = [
-            { exam_date: "all" },
-            ...this.examDates.filter((item) => item.exam_date !== "all"),
-          ];
 
-          this.fileName = `${this.reportName}_overall_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
-          if (environment.auth_api === 'cqube' || this.userAccessLevel === "") {
-
-            this.commonFunc();
-          } else {
-
-            this.getView()
-          }
-
-        } catch (e) {
+        },
+        (err) => {
           this.metaData = [];
           this.commonService.loaderAndErr(this.metaData);
         }
+      );
+    }, 1000);
 
-      },
-      (err) => {
-        this.metaData = [];
-        this.commonService.loaderAndErr(this.metaData);
-      }
-    );
   }
 
   public userAccessLevel = localStorage.getItem("userLevel");
   public hideIfAccessLevel: boolean = false
-  public hideAccessBtn: boolean = false
-
+  public hideAccessBtn: boolean = false;
+  // public datasourse
+  public header
+  public description
 
   ngOnInit(): void {
-    this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
-    this.category = JSON.parse(localStorage.getItem('category')).id;
-    this.managementName = this.commonService.changeingStringCases(
-      this.managementName.replace(/_/g, " ")
-    );
-    this.state = this.commonService.state;
-    // document.getElementById("accessProgressCard").style.display = "none";
-    // document.getElementById("backBtn") ? document.getElementById("backBtn").style.display = "none" : "";
 
-   
+    // this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
+    // this.category = JSON.parse(localStorage.getItem('category')).id;
+    // this.managementName = this.commonService.changeingStringCases(
+    //   this.managementName.replace(/_/g, " ")
+    // );
+    setTimeout(() => {
+      this.init()
+    }, 1500);
+  }
+
+  init() {
+    this.state = this.commonService.state;
+    document.getElementById("accessProgressCard") ? document.getElementById("accessProgressCard").style.display = "none" : "";
+    document.getElementById("backBtn") ? document.getElementById("backBtn").style.display = "none" : "";
+
     this.hideAccessBtn = (environment.auth_api === 'cqube' || this.userAccessLevel === '') ? true : false;
     this.hideDist = (environment.auth_api === 'cqube' || this.userAccessLevel === '' || undefined) ? false : true;
 
     if (environment.auth_api !== 'cqube') {
-
       if (this.userAccessLevel !== "" || undefined) {
         this.hideIfAccessLevel = true;
       }
-
     }
 
 
-
+    this.header = `Report on ${this.datasourse.replace(/_+/g, ' ')} access by location for`
+    this.description = `The ${this.datasourse.replace(/_+/g, ' ')} dashboard visualises the data on ${this.datasourse.replace(/_+/g, ' ')} metrics for ${this.state}`
   }
-
   hideDist = true;
   height = window.innerHeight;
   onResize() {
     this.height = window.innerHeight;
   }
+
+
+  getMetaData() {
+    this.years = []
+
+    this.service1.configurableMetaData({ dataSource: this.datasourse }).subscribe(res => {
+
+      this.metaData = res
+
+      if (this.period === "year and month") {
+
+        for (let i = 0; i < this.metaData.length; i++) {
+          if (this.metaData[i]["academic_year"] !== 'overall') {
+            this.years.push(this.metaData[i]["academic_year"]);
+          }
+
+        }
+        this.year = this.years[this.years.length - 1];
+        let i;
+        for (i = 0; i < this.metaData.length; i++) {
+          if (this.metaData[i]["academic_year"] == this.year) {
+            this.months = this.metaData[i].data["months"];
+            this.grades = this.metaData[i].data["grades"];
+            break;
+          }
+        }
+
+      } else {
+        this.grades = this.metaData.filter(meta => meta.academic_year === 'overall')
+        this.grades = this.grades[0].data['grades']
+
+      }
+
+
+      this.grades = [
+        { grade: "all" },
+        ...this.grades.filter((item) => item.grade !== "all"),
+      ];
+    }, err => {
+      document.getElementById('spinner').style.display = "none"
+    })
+  }
+  public timeRange
+  getTimelineMeta() {
+    this.service1.configurableTimePeriodMeta({ dataSource: this.datasourse }).subscribe(res => {
+      this.timeRange = res
+      const key = 'value';
+      this.timeRange = [...new Map(this.timeRange.map(item =>
+        [item[key], item])).values()];
+
+    })
+  }
+
+  period = "overall";
 
   onChangePage() {
     document.getElementById('spinner').style.display = 'block';
@@ -184,55 +255,41 @@ export class PatLoComponent implements OnInit {
   }
 
   pageChange() {
+
     this.filteredData = this.reportData.slice(((this.currentPage - 1) * this.pageSize), ((this.currentPage - 1) * this.pageSize + this.pageSize));
     this.createTable(this.filteredData);
   }
 
-  fetchFilters(metaData) {
-    let i;
-    for (i = 0; i < metaData.length; i++) {
-      if (metaData[i]["academic_year"] == this.year) {
-        this.months = Object.keys(this.metaData[i].data.months);
-        this.grades = metaData[i].data["grades"];
-        this.allViews = metaData[i].data["viewBy"];
-        break;
-      }
-    }
-    if (!this.months.includes(this.month)) {
-      this.month = this.months[this.months.length - 1];
-    }
-    this.examDates = metaData[i].data["months"][`${this.month}`]["examDate"];
-    this.examDates = [
-      { exam_date: "all" },
-      ...this.examDates.filter((item) => item.exam_date !== "all"),
-    ];
 
-    this.grades = [
-      { grade: "all" },
-      ...this.grades.filter((item) => item.grade !== "all"),
-    ];
-  }
 
   resetToInitPage() {
     this.resetTable();
-    this.fileName = `${this.reportName}_overall_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
+    this.fileName = `${this.datasourse}_overall_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
     this.skul = true;
     this.dist = false;
     this.blok = false;
     this.clust = false;
+    this.hideYear = true
+    this.hideMonth = true
+    this.hideWeek = true
+    this.hideDay = true
+    this.gradeSelected = false;
+    this.dateSelected = false;
+    this.month = ""
+    this.period = "overall"
     this.grade = "all";
     this.examDate = "all";
     this.subject = "all";
+    this.week = ""
     this.viewBy = "indicator";
     this.district = undefined;
     this.block = undefined;
     this.cluster = undefined;
     this.blockHidden = true;
     this.clusterHidden = true;
-    this.year = this.years[this.years.length - 1];
-    this.gradeSelected = false;
+    this.weekSeletced = false;
     if (this.hideAccessBtn) {
-
+      document.getElementById("initTable").style.display = "block";
       this.commonFunc();
     } else {
       this.getView()
@@ -241,27 +298,35 @@ export class PatLoComponent implements OnInit {
   }
 
   commonFunc = () => {
+
     this.commonService.errMsg();
+
     this.level = "district";
-    this.fetchFilters(this.metaData);
+    this.values = []
+
     let a = {
+      dataSource: this.datasourse,
+      reportType: this.reportType,
       year: this.year,
       month: this.month,
+      week: this.week,
       grade: this.grade == "all" ? "" : this.grade,
       subject_name: this.subject == "all" ? "" : this.subject,
       exam_date: this.examDate == "all" ? "" : this.examDate,
-      viewBy: this.viewBy == "indicator" ? "indicator" : this.viewBy,
       management: this.management,
       category: this.category,
+      period: this.period
     };
-    this.month = a.month;
+
     if (this.myData) {
       this.myData.unsubscribe();
     }
-    this.myData = this.service.patLOTableDistData(a).subscribe(
+    this.myData = this.service1.dynamicDistData(a).subscribe(
       (response) => {
+
         this.resetTable();
         this.updatedTable = this.reportData = response["tableData"];
+
         var districtNames = response["districtDetails"];
         this.districtNames = districtNames.sort((a, b) =>
           a.district_name > b.district_name
@@ -270,6 +335,31 @@ export class PatLoComponent implements OnInit {
               ? -1
               : 0
         );
+
+        let Arr1 = []
+
+
+        $.each(this.reportData, function (a, b) {
+          $.each(b, function (key, value) {
+            if (key !== 'subject' && key !== 'grade') {
+              if (typeof (value.percentage) == "number") {
+                Arr1.push(value.percentage)
+              }
+
+            }
+          });
+        });
+
+        Arr1 = Arr1.sort(function (a, b) {
+          return parseFloat(a) - parseFloat(b);
+        });
+
+        const min = Math.min(...Arr1);
+        const max = Math.max(...Arr1);
+        let n = max >= 10 ? 10 : max
+
+        n >= 10 ? this.getRangeArray(min, max, n) : this.generateArrayMinMax2(min, max, n)
+
         this.onChangePage();
       },
       (err) => {
@@ -279,8 +369,10 @@ export class PatLoComponent implements OnInit {
   };
 
   columns = [];
+  colorRange = []
   createTable(dataSet) {
-
+    let weekSelct = this.weekSeletced;
+    let dateSelct = this.dateSelected;
     var level = this.level.charAt(0).toUpperCase() + this.level.substr(1);
     var my_columns = this.columns = this.commonService.getColumns(dataSet);
 
@@ -296,44 +388,100 @@ export class PatLoComponent implements OnInit {
         if (col.length > 10) {
           col = col.slice(0, 10) + "..."
         }
-        if (i > 3) {
-          headers += `<th class="rank text-wrap" style ="text-align: center" ><div style="transform: rotate(270deg); vertical-align: middle; text-align: center;">${col}</div></th>`;
-        } else {
-          if (col == 'Indicator') {
-            headers += `<th class="indicator">${col}</th>`;
+        if (weekSelct) {
+          if (i > 3) {
+            headers += `<th class="rank text-wrap" style ="text-align: center" ><div style="transform: rotate(270deg); vertical-align: middle; text-align: center;">${col}</div></th>`;
           } else {
-            headers += `<th>${col}</th>`;
+            headers += `<th style ="text-align: center" >${col}</th>`;
+          }
+
+        } else {
+          if (i > 1) {
+            headers += `<th class="rank text-wrap" style ="text-align: center" ><div style="transform: rotate(270deg); vertical-align: middle; text-align: center;">${col}</div></th>`;
+          } else {
+            headers += `<th style ="text-align: center">${col}</th>`;
           }
         }
+
       });
 
       let newArr = [];
+
       $.each(dataSet, function (a, b) {
         let temp = [];
         $.each(b, function (key, value) {
-          var new_item = {};
+
+          let new_item = {};
           new_item["data"] = key;
           new_item["value"] = typeof (value) != 'object' ? value : value.percentage;
-          new_item["mark"] = typeof (value) != 'object' ? '' : value.mark;
+
           temp.push(new_item);
         });
         newArr.push(temp);
       });
 
+      let Arr1 = []
+
+      $.each(dataSet, function (a, b) {
+
+        $.each(b, function (key, value) {
+
+          if (key !== 'subject' && key !== 'grade') {
+
+            if (typeof (value.percentage) == "number") {
+
+              Arr1.push(value.percentage)
+            }
+          }
+
+        });
+      });
+
+      Arr1 = Arr1.sort(function (a, b) {
+        return parseFloat(a) - parseFloat(b);
+      });
+
+      const min = Math.min(...Arr1);
+      const max = Math.max(...Arr1);
+      let n = max >= 10 ? 10 : max
+
+      function generateArrayMinMax(min, max, n) {
+        let list = [min],
+          interval = (max - min) / (n - 1);
+
+        for (let i = 1; i < n - 1; i++) {
+          list.push(min + interval * i);
+        }
+        list.push(max);
+        return list;
+      }
+
+
+      function generateArrayMinMax1(min, max, n) {
+        let list = [min]
+
+
+        if (max !== min) {
+          let interval = (max - min);
+          for (let i = 1; i < interval; i++) {
+            list.push(min + i);
+          }
+          list.push(max);
+        }
+
+
+        return list;
+      }
+
+      const rangeArrayIn10Parts = n >= 10 ? generateArrayMinMax(min, max, 10) : generateArrayMinMax1(min, max, n);
 
       function tableCellColor(data) {
-        var colors = {
-          10: '#a50026',
-          20: '#d73027',
-          30: '#f46d43',
-          40: '#fdae61',
-          50: '#fee08b',
-          60: '#d9ef8b',
-          70: '#a6d96a',
-          80: '#66bd63',
-          90: '#1a9850',
-          100: '#006837'
-        }
+        let colors = {}
+        let color = ['#a50026', '#d73027', '#f46d43', '#fdae61', '#fee08b', '#d9ef8b', '#a6d96a', '#66bd63', '#1a9850', '#006837']
+        rangeArrayIn10Parts.forEach((value, i) => {
+          colors[value] = color[i]
+        })
+
         var keys = Object.keys(colors);
         var setColor = '';
         for (let i = 0; i < keys.length; i++) {
@@ -355,17 +503,65 @@ export class PatLoComponent implements OnInit {
           .join(' ');
         return key;
       }
+
       newArr.forEach((columns, i1) => {
-        body += "<tr>";
-        columns.forEach((column, i2) => {
-          if (i2 > 3 && column.value || i2 > 3 && String(column.value) == String(0)) {
-            let title = `${level} Name: ${column.data}<br/> Date: ${columns[0].value} <br/> Grade: ${columns[1].value[columns[1].value.length - 1]} <br/> Subject: ${columns[2].value} <br/> ${toTitleCase(columns[3].data.replace('_', ' '))}: ${columns[3].value} <br/>Marks: ${column.mark}`;
-            body += `<td class="numberData" id="loTooltip" data-toggle="tooltip" data-html="true" data-placement="auto" style='background-color: ${tableCellColor(column.value)}' title="${title}">${column.value}</td>`;
-          }
-          else {
-            if (column.data == 'indicator') {
-              body += `<td class="indicator" style="min-width: 170px">${column.value.substring(0, 30)}</td>`;
-            } else {
+        if (weekSelct === true && dateSelct === false) {
+
+          body += "<tr>";
+          columns.forEach((column, i2) => {
+
+            if (i2 > 1 && column.value || i2 > 1 && String(column.value) == String(0)) {
+              let title = `${level} Name: ${columns.data}<br/> Grade:${columns[0].value[columns[0].value.length - 1]} <br/> Subject: ${columns[1].value} <br/> Total Count: ${column.value}`;
+              body += `<td class="numberData" data-toggle="tooltip" data-html="true" data-placement="auto" style='background-color: ${tableCellColor(column.value)}' title="${title}">${column.value}</td>`;
+
+            }
+            else {
+              if (column.data == 'date') {
+                var date = column.value.split("-");
+                body += `<td>${date[0]}</td>`;
+              } else if (column.data == 'grade') {
+                body += `<td>${column.value[column.value.length - 1]}</td>`;
+              } else {
+                body += `<td>${column.value}</td>`;
+              }
+
+            }
+          });
+          body += "</tr>";
+        } else if (weekSelct === true && dateSelct === true) {
+
+          body += "<tr>";
+          columns.forEach((column, i2) => {
+
+            if (i2 > 2 && column.value || i2 > 2 && String(column.value) == String(0)) {
+              let title = `${level} Name: ${column.data}<br/> Grade:${columns[0].value[columns[0].value.length - 1]} <br/> Subject: ${columns[1].value} <br/> Total Count: ${column.value}`;
+              body += `<td class="numberData" data-toggle="tooltip" data-html="true" data-placement="auto" style='background-color: ${tableCellColor(column.value)}' title="${title}">${column.value}</td>`;
+
+            }
+            else {
+              if (column.data == 'date') {
+                var date = column.value.split("-");
+                body += `<td>${date[0]}</td>`;
+              } else if (column.data == 'grade') {
+                body += `<td>${column.value[column.value.length - 1]}</td>`;
+              } else {
+                body += `<td>${column.value}</td>`;
+              }
+
+            }
+          });
+          body += "</tr>";
+        } else {
+          body += "<tr>";
+          columns.forEach((column, i2) => {
+
+            if (i2 > 1 && column.value || i2 > 1 && String(column.value) == String(0)) {
+              let title = `${level} Name: ${column.data}<br/> Grade: ${columns[0].value[columns[0].value.length - 1]} <br/> Subject: ${columns[1].value} <br/> Total Count: ${column.value}`;
+              body += `<td class="numberData" data-toggle="tooltip" data-html="true" data-placement="auto" style='background-color: ${tableCellColor(column.value)}' title="${title}">${column.value}</td>`;
+
+            }
+            else {
+
               if (column.data == 'date') {
                 var date = column.value.split("-");
                 body += `<td>${date[0]}</td>`;
@@ -375,9 +571,11 @@ export class PatLoComponent implements OnInit {
                 body += `<td>${column.value}</td>`;
               }
             }
-          }
-        });
-        body += "</tr>";
+
+          });
+          body += "</tr>";
+        }
+
       });
 
       headers += `</tr></thead>`;
@@ -403,33 +601,28 @@ export class PatLoComponent implements OnInit {
       }
 
       this.table = $(`#LOtable`).DataTable(obj);
-      // setTimeout(() => {
-      // $('#loTooltip').tooltip({
-
-      //       placement: 'right',
-
-      //       container: 'body'
-      //     }
-      //     ).on('inserted.bs.tooltip', function () {
-      //       $("body div.tooltip-inner").css({
-      //         "min-width": `${innerWidth < 2540 ? "200px" : '300px'}`,
-      //         "max-width": `${innerWidth < 2540 ? "600px" : '900px'}`,
-      //         "padding": `${innerWidth < 2540 ? '10px' : '15px'}`,
-      //         "text-align": "auto",
-      //         "border-radius": `${innerWidth < 2540 ? '20px' : '30px'}`,
-      //         "background-color": "black",
-      //         "color": "white",
-      //         "font-family": "Arial",
-      //         "font-size": `${innerWidth < 2540 ? '11px' : '26px'}`,
-      //         "border": "1px solid gray",
-      //         "z-index": 900
-      //       });
-      //     });
-      // $('#loTooltip').click(function () {
-      //   $('#loTooltip').tooltip("hide");
-      //     });
-
-      // }, 300);
+      $('[data-toggle="tooltip"]').tooltip({
+        placement: 'right',
+        container: 'body'
+      }
+      ).on('inserted.bs.tooltip', function () {
+        $("body div.tooltip-inner").css({
+          "min-width": `${innerWidth < 2540 ? "200px" : '300px'}`,
+          "max-width": `${innerWidth < 2540 ? "600px" : '900px'}`,
+          "padding": `${innerWidth < 2540 ? '10px' : '15px'}`,
+          "text-align": "auto",
+          "border-radius": `${innerWidth < 2540 ? '20px' : '30px'}`,
+          "background-color": "black",
+          "color": "white",
+          "font-family": "Arial",
+          "font-size": `${innerWidth < 2540 ? '11px' : '26px'}`,
+          "border": "1px solid gray",
+          "z-index": 900
+        });
+      });
+      $('[data-toggle="tooltip"]').click(function () {
+        $('[data-toggle="tooltip"]').tooltip("hide");
+      });
 
       $(document).ready(function () {
         $('#LOtable').on('page.dt', function () {
@@ -448,13 +641,66 @@ export class PatLoComponent implements OnInit {
     this.showPagination = true;
   }
 
-  selectedYear() {
+  selectedTimeRange() {
+    document.getElementById('spinner').style.display = "block"
+    this.getMetaData()
 
-    this.month = "";
+
+    this.hideYear = this.period === "year and month" ? false : true;
+    this.hideMonth = this.period === "year and month" ? false : true;
+    this.hideWeek = this.period === "year and month" ? false : true;
+
+    setTimeout(() => {
+      this.month = this.period === "year and month" ? this.months[this.months.length - 1]['months'] : '';
+      this.weeks = this.period === "year and month" ? this.months.find(a => { return a.months == this.month }).weeks : "";
+      this.week = this.period === "year and month" ? this.week : "";
+    }, 1000);
+
     this.grade = "all";
     this.examDate = "all";
     this.subject = "all";
-    this.fetchFilters(this.metaData);
+    this.week = "";
+    if (this.hideAccessBtn) {
+      setTimeout(() => {
+        document.getElementById('spinner').style.display = "none"
+        this.levelWiseFilter();
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        document.getElementById('spinner').style.display = "none"
+        this.getView()
+      }, 1000);
+    }
+  }
+
+  selectedYear(event) {
+    this.hideYear = this.period === "year and month" ? false : true;
+    this.hideMonth = this.period === "year and month" ? false : true;
+    this.hideWeek = this.period === "year and month" ? false : true;
+    this.hideDay = this.period === "year and month" ? true : false;
+    if (event) {
+      let i;
+      for (i = 0; i < this.metaData.length; i++) {
+        if (this.metaData[i]["academic_year"] == this.year) {
+          this.months = this.metaData[i].data["months"];
+          this.grades = this.metaData[i].data["grades"];
+          break;
+        }
+      }
+      this.month = this.period === "year and month" ? this.months[this.months.length - 1]['months'] : '';
+
+    } else {
+      this.month = this.period === "year and month" ? this.months[this.months.length - 1]['months'] : '';
+
+      this.weeks = this.period === "year and month" ? this.months.find(a => { return a.months == this.month }).weeks : "";
+      this.week = this.period === "year and month" ? this.week : "";
+
+    }
+
+    this.grade = "all";
+    this.examDate = "all";
+    this.subject = "all";
+    this.week = "";
     if (this.hideAccessBtn) {
       this.levelWiseFilter();
 
@@ -463,9 +709,24 @@ export class PatLoComponent implements OnInit {
     }
   }
 
-  selectedMonth() {
-    this.fileName = `${this.reportName}_${this.grade}_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
-    this.fetchFilters(this.metaData);
+  selectedMonth(event) {
+    this.fileName = `${this.datasourse}_${this.grade}_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
+
+    this.hideYear = this.period === "year and month" ? false : true;
+    this.hideMonth = this.period === "year and month" ? false : true;
+    this.hideDay = true
+    this.hideWeek = this.period === "year and month" ? false : true;
+    this.week = ""
+    if (event) {
+      this.weeks = this.period === "year and month" ? this.months.find(a => { return a.months == this.month })?.weeks : "";
+    } else {
+      this.month = this.period === "year and month" ? this.months[this.months.length - 1]['months'] : '';
+      this.month = this.period === "year and month" ? this.months[this.months.length - 1]['months'] : '';
+      this.year = this.period === "year and month" ? this.year = this.years[this.years.length - 1] : "";
+      this.weeks = this.period === "year and month" ? this.months.find(a => { return a.months == this.month }).weeks : "";
+    }
+
+
     this.grade = "all";
     this.examDate = "all";
     this.subject = "all";
@@ -478,36 +739,46 @@ export class PatLoComponent implements OnInit {
       this.getView()
     }
   }
-
-  selectedGrade() {
-    if (!this.month && this.month === '') {
-      alert("Please select month!");
-      return;
-    } else {
-      this.fileName = `${this.reportName}_${this.grade}_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
-      if (this.grade !== "all") {
-        this.subjects = this.grades.find(a => { return a.grade == this.grade }).subjects;
-        this.subjects = ["all", ...this.subjects.filter((item) => item !== "all")];
-        this.gradeSelected = true;
-      } else {
-        this.grade = "all";
-
-        this.resetToInitPage();
-      }
-
+  public weekSeletced = false
+  selectedWeek() {
+    this.weekSeletced = true;
+    this.dateSelected = false;
+    this.hideDay = false;
+    this.fileName = `${this.reportName}_${this.grade}_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
+    this.date = this.weeks.find(a => { return a.week == this.week }).days;
+    this.grade = "all";
+    this.examDate = "all";
+    this.subject = "all";
+    if (this.hideAccessBtn) {
       this.levelWiseFilter();
 
-
+    } else {
+      this.resetTable();
+      this.getView()
     }
+  }
+
+
+  selectedGrade() {
+    this.subject = "all"
+    this.fileName = `${this.datasourse}_${this.grade}_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
+    if (this.grade !== "all") {
+      this.subjects = this.grades.find(a => { return a.grade == this.grade }).subjects;
+      this.subjects = ["all", ...this.subjects.filter((item) => item !== "all")];
+      this.gradeSelected = true;
+    } else {
+      this.grade = "all";
+
+      this.resetToInitPage();
+    }
+
+    this.levelWiseFilter();
+
   }
 
   selectedSubject() {
-    if (!this.month && this.month === '') {
-      alert("Please select month!");
-      return;
-    }
 
-    this.fileName = `${this.reportName}_${this.grade}_${this.subject}_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
+    this.fileName = `${this.datasourse}_${this.grade}_${this.subject}_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
     if (this.hideAccessBtn) {
       this.levelWiseFilter();
 
@@ -516,69 +787,51 @@ export class PatLoComponent implements OnInit {
     }
   }
 
+  public dateSelected = false
   selectedExamDate() {
-    if (!this.month && this.month === '') {
-      alert("Please select month!");
-      return;
-    }
-
-    this.fileName = `${this.reportName}_${this.grade}_${this.examDate}_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
+    this.dateSelected = true
+    this.grade = "all";
+    this.subject = "all";
+    this.fileName = `${this.datasourse}_${this.grade}_${this.examDate}_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
     if (this.hideAccessBtn) {
       this.levelWiseFilter();
-
     } else {
       this.getView()
     }
   }
 
-  selectedViewBy() {
-    if (!this.month && this.month === '') {
-      alert("Please select month!");
-      return;
-    }
 
-    this.fileName = `${this.reportName}_${this.grade}_${this.viewBy}_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
-    if (this.hideAccessBtn) {
-      this.levelWiseFilter();
-
-    } else {
-      this.getView()
-    }
-  }
 
   selectedDistrict(districtId, blockId?) {
-    if (!this.month && this.month === '') {
-      alert("Please select month!");
-      this.district = '';
-      this.dist = false;
-      $('#district').val('');
-      return;
-    }
 
     this.resetTable();
     this.level = "block";
-    this.fileName = `${this.reportName}_${this.grade}_${this.level}s_of_district_${districtId}_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
+    this.fileName = `${this.datasourse}_${this.grade}_${this.level}s_of_district_${districtId}_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
     this.block = undefined;
     this.cluster = undefined;
     this.blockHidden = false;
     this.clusterHidden = true;
-
+    this.blockNames = []
     this.commonService.errMsg();
 
     let a = {
+      dataSource: this.datasourse,
+      reportType: this.reportType,
       year: this.year,
+      week: this.week,
       month: this.month,
       grade: this.grade == "all" ? "" : this.grade,
       subject_name: this.subject == "all" ? "" : this.subject,
       exam_date: this.examDate == "all" ? "" : this.examDate,
-      viewBy: this.viewBy == "indicator" ? "indicator" : this.viewBy,
       districtId: districtId,
       management: this.management,
       category: this.category,
+      period: this.period
     };
 
-    this.service.patLOTableBlockData(a).subscribe(
+    this.service1.dynamicBlockData(a).subscribe(
       (response) => {
+        document.getElementById("initTable").style.display = "block";
         this.updatedTable = this.reportData = response["tableData"];
         var blockNames = response["blockDetails"];
         this.blockNames = blockNames.sort((a, b) =>
@@ -607,17 +860,10 @@ export class PatLoComponent implements OnInit {
   }
 
   selectedBlock(blockId) {
-    if (!this.month && this.month === '') {
-      alert("Please select month!");
-      this.block = '';
-      this.blok = false;
-      $('#block').val('');
-      return;
-    }
 
     this.resetTable();
     this.level = "cluster";
-    this.fileName = `${this.reportName}_${this.grade}_${this.level}s_of_block_${blockId}_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
+    this.fileName = `${this.datasourse}_${this.grade}_${this.level}s_of_block_${blockId}_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
     this.cluster = undefined;
     this.blockHidden = this.selBlock ? true : false;
     this.clusterHidden = false;
@@ -625,19 +871,22 @@ export class PatLoComponent implements OnInit {
     this.commonService.errMsg();
 
     let a = {
+      dataSource: this.datasourse,
+      reportType: this.reportType,
+      period: this.period,
+      week: this.week,
       year: this.year,
       month: this.month,
       grade: this.grade == "all" ? "" : this.grade,
       subject_name: this.subject == "all" ? "" : this.subject,
       exam_date: this.examDate == "all" ? "" : this.examDate,
-      viewBy: this.viewBy == "indicator" ? "indicator" : this.viewBy,
       districtId: this.district,
       blockId: blockId,
       management: this.management,
       category: this.category,
     };
 
-    this.service.patLOTableClusterData(a).subscribe(
+    this.service1.dynamicClusterData(a).subscribe(
       (response) => {
         this.updatedTable = this.reportData = response["tableData"];
         var clusterNames = response["clusterDetails"];
@@ -671,26 +920,22 @@ export class PatLoComponent implements OnInit {
   }
 
   selectedCluster(clusterId) {
-    if (!this.month && this.month === '') {
-      alert("Please select month!");
-      this.cluster = '';
-      this.clust = false;
-      $('#cluster').val('');
-      return;
-    }
-
+    this.weekSeletced = false
     this.resetTable();
     this.level = "school";
-    this.fileName = `${this.reportName}_${this.grade}_${this.level}s_of_cluster_${clusterId}_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
+    this.fileName = `${this.datasourse}_${this.grade}_${this.level}s_of_cluster_${clusterId}_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
 
     this.commonService.errMsg();
     let a = {
+      dataSource: this.datasourse,
+      reportType: this.reportType,
+      period: this.period,
       year: this.year,
+      week: this.week,
       month: this.month,
       grade: this.grade == "all" ? "" : this.grade,
       subject_name: this.subject == "all" ? "" : this.subject,
       exam_date: this.examDate == "all" ? "" : this.examDate,
-      viewBy: this.viewBy == "indicator" ? "indicator" : this.viewBy,
       districtId: this.district,
       blockId: this.block,
       clusterId: clusterId,
@@ -700,7 +945,7 @@ export class PatLoComponent implements OnInit {
       schoolId: Number(localStorage.getItem('schoolId'))
     };
 
-    this.service.patLOTableSchoolData(a).subscribe(
+    this.service1.dynamicSchoolData(a).subscribe(
       (response) => {
 
         this.updatedTable = this.reportData = response["tableData"];
@@ -807,7 +1052,7 @@ export class PatLoComponent implements OnInit {
         category: this.category,
       };
 
-      this.service.patLOTableClusterData(a).subscribe(
+      this.service1.dynamicClusterData(a).subscribe(
         (response) => {
           this.updatedTable = this.reportData = response["tableData"];
           var clusterNames = response["clusterDetails"];
@@ -836,19 +1081,22 @@ export class PatLoComponent implements OnInit {
       this.cluster = clusterid;
 
       let a = {
+        dataSource: this.datasourse,
+        reportType: this.reportType,
+        period: this.period,
+        week: this.week,
         year: this.year,
         month: this.month,
         grade: this.grade == "all" ? "" : this.grade,
         subject_name: this.subject == "all" ? "" : this.subject,
         exam_date: this.examDate == "all" ? "" : this.examDate,
-        viewBy: this.viewBy == "indicator" ? "indicator" : this.viewBy,
         districtId: this.district,
         blockId: blockid,
         management: this.management,
         category: this.category,
       };
 
-      this.service.patLOTableClusterData(a).subscribe(
+      this.service1.dynamicClusterData(a).subscribe(
         (response) => {
           this.updatedTable = this.reportData = response["tableData"];
           var clusterNames = response["clusterDetails"];
@@ -876,17 +1124,20 @@ export class PatLoComponent implements OnInit {
       this.hideblock = true
 
       let a = {
+        dataSource: this.datasourse,
+        reportType: this.reportType,
         year: this.year,
+        week: this.week,
         month: this.month,
         grade: this.grade == "all" ? "" : this.grade,
         subject_name: this.subject == "all" ? "" : this.subject,
         exam_date: this.examDate == "all" ? "" : this.examDate,
-        viewBy: this.viewBy == "indicator" ? "indicator" : this.viewBy,
         districtId: districtid,
         management: this.management,
         category: this.category,
+        period: this.period
       };
-      this.service.patLOTableBlockData(a).subscribe(
+      this.service1.dynamicBlockData(a).subscribe(
         (response) => {
           this.updatedTable = this.reportData = response["tableData"];
           var blockNames = response["blockDetails"];
@@ -906,20 +1157,23 @@ export class PatLoComponent implements OnInit {
     } else if (level === "District") {
       this.district = districtid;
       let a = {
+        dataSource: this.datasourse,
+        reportType: this.reportType,
         year: this.year,
         month: this.month,
+        week: this.week,
         grade: this.grade == "all" ? "" : this.grade,
         subject_name: this.subject == "all" ? "" : this.subject,
         exam_date: this.examDate == "all" ? "" : this.examDate,
-        viewBy: this.viewBy == "indicator" ? "indicator" : this.viewBy,
         management: this.management,
         category: this.category,
+        period: this.period
       };
       this.month = a.month;
       if (this.myData) {
         this.myData.unsubscribe();
       }
-      this.myData = this.service.patLOTableDistData(a).subscribe(
+      this.myData = this.service1.dynamicDistData(a).subscribe(
         (response) => {
           this.resetTable();
           this.updatedTable = this.reportData = response["tableData"];
@@ -1071,6 +1325,40 @@ export class PatLoComponent implements OnInit {
     this.pageChange();
   }
 
+  getRangeArray = (min, max, n) => {
+    let delta = (max - min) / n;
+
+    const ranges = [];
+    let range1 = min;
+    for (let i = 0; i < n; i += 1) {
+      const range2 = range1 + delta;
+      this.values.push(
+        `${Math.round(Number(range1)).toLocaleString("en-IN")}-${Math.round(Number(
+          range2
+        )).toLocaleString("en-IN")}`
+      );
+      ranges.push([range1, range2]);
+      range1 = range2;
+    }
+
+    return ranges;
+  }
+
+  generateArrayMinMax2(min, max, n) {
+
+    this.values = [min]
+    if (max !== min) {
+      let interval = (max - min);
+
+      for (let i = 1; i < interval; i++) {
+        this.values.push(min + i);
+      }
+      this.values.push(max);
+    }
+
+    return this.values;
+  }
+
   public legendColors: any = [
     "#a50026",
     "#d73027",
@@ -1083,17 +1371,6 @@ export class PatLoComponent implements OnInit {
     "#1a9850",
     "#006837",
   ];
-  public values = [
-    "0-10",
-    "11-20",
-    "21-30",
-    "31-40",
-    "41-50",
-    "51-60",
-    "61-70",
-    "71-80",
-    "81-90",
-    "91-100"
-  ];
 
+  public values = []
 }

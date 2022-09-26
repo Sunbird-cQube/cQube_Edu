@@ -22,4 +22,12 @@ export class SchoolInfrastructureComponent implements OnInit {
     }, 100);
   }
   
+  selected() {
+
+    let tempIndex = this.tabIndex;
+    this.tabIndex = undefined;
+    setTimeout(() => {
+      this.tabIndex = tempIndex
+    }, 500);
+  }
 }

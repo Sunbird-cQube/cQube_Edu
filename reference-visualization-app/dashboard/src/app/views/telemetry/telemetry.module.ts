@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatButtonModule } from '@angular/material/button';
 import { TelemetryReportComponent } from './pages/telemetry-report/telemetry-report.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { TelemetryReportComponent } from './pages/telemetry-report/telemetry-rep
     ReactiveFormsModule,
     NgSelectModule,
     MatButtonModule,
+    SharedModule,
     CommonModule,
     TelemetryRoutingModule
   ]

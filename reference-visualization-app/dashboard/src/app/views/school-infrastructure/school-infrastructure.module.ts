@@ -14,6 +14,7 @@ import { UdiseReportComponent } from './pages/udise-report/udise-report.componen
 import { InfraCompositeComponent } from './pages/infra-composite/infra-composite.component';
 import { DashletModule } from '@project-sunbird/sb-dashlet-v14';
 import { DataService } from 'src/app/core/services/data.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { DataService } from 'src/app/core/services/data.service';
     FormsModule,
     MatButtonModule,
     NgSelectModule,
+    SharedModule,
     ReactiveFormsModule,
     CommonModule,
     SchoolInfrastructureRoutingModule,

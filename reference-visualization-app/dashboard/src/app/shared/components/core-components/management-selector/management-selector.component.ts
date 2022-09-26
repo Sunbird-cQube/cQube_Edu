@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppServiceComponent } from 'src/app/app.service';
 
 @Component({
@@ -10,6 +10,7 @@ export class ManagementSelectorComponent implements OnInit {
   managementType;
   categoryType;
   @Input() reportGroup: string;
+  @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(public service: AppServiceComponent, public changeDetection: ChangeDetectorRef) { }
 
@@ -25,6 +26,7 @@ export class ManagementSelectorComponent implements OnInit {
     }
     localStorage.setItem("management", JSON.stringify(obj));
     this.changeDetection.detectChanges();
+    this.onSelect.emit();
   }
   onSelectCategory() {
     var obj = {

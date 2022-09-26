@@ -1,0 +1,15 @@
+<div class="metric-card-wrapper">
+    <p class="h4">{{title | titlecase}}</p>
+    <div class="grid gap-4 cQ-Grid">
+    </div>
+</div>
+
+<div class="tab-group-wrapper">
+    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
+        <mat-tab *ngFor="let tab of tabNames; let last = last;" [label]="tab.report_name " class="tab-first">  
+            <app-map-report [datasourse]="datasourse" *ngIf="tabIndex === 0"></app-map-report>
+            <app-lo-report [datasourse]="datasourse" *ngIf="tabIndex === 1"></app-lo-report>
+        </mat-tab>
+
+    </mat-tab-group>
+</div>

@@ -14,6 +14,7 @@ import { PatMapComponent } from './pages/pat-map/pat-map.component';
 import { PatHeatmapComponent } from './pages/pat-heatmap/pat-heatmap.component';
 import { SatHeatmapComponent } from './pages/sat-heatmap/sat-heatmap.component';
 import { PatLoComponent } from './pages/pat-lo/pat-lo.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { PatLoComponent } from './pages/pat-lo/pat-lo.component';
     ReactiveFormsModule,
     NgSelectModule,
     MatButtonModule,
+    SharedModule,
     CommonModule,
     StudentPerformanceRoutingModule,
     NgbModule

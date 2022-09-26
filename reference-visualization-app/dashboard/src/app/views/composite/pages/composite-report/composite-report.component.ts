@@ -90,11 +90,11 @@ export class CompositeReportComponent implements OnInit {
     this.state = this.commonService.state;
     // document.getElementById('accessProgressCard').style.display = 'none';
 
-    // this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
-    // this.category = JSON.parse(localStorage.getItem('category')).id;
-    // this.managementName = this.commonService.changeingStringCases(
-    //   this.managementName.replace(/_/g, " ")
-    // );
+    this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
+    this.category = JSON.parse(localStorage.getItem('category')).id;
+    this.managementName = this.commonService.changeingStringCases(
+      this.managementName.replace(/_/g, " ")
+    );
 
 
     if (this.myData) {

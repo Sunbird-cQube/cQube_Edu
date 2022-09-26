@@ -14,6 +14,7 @@ import { Chart } from "chart.js";
 import { environment } from "src/environments/environment";
 import { AppServiceComponent } from "src/app/app.service";
 import { CrcReportService } from "src/app/core/services/core-apis/crc-report.service";
+// import { Chart } from "highcharts";
 declare const $;
 
 @Component({
@@ -80,7 +81,7 @@ export class EduOfficialReportComponent implements OnInit {
   public mylatlngData: any = [];
   public result: any = [];
 
-  public scatterChart: any;
+  public scatterChart: Chart;
   public xAxis: any = "visit_0";
   public yAxis: any = "visit_1_2";
 
@@ -197,6 +198,12 @@ export class EduOfficialReportComponent implements OnInit {
 
   ngOnInit() {
     this.state = this.commonService.state;
+
+    this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
+    this.category = JSON.parse(localStorage.getItem('category')).id;
+    this.managementName = this.commonService.changeingStringCases(
+      this.managementName.replace(/_/g, " ")
+    );
     let params = JSON.parse(sessionStorage.getItem("report-level-info"));
     this.service.getMonthYear().subscribe((res) => {
       this.getMonthYear = res;

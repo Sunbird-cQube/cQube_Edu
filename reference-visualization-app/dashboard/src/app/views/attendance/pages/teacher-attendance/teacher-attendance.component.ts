@@ -149,8 +149,8 @@ export class TeacherAttendanceComponent implements OnInit {
 
   //to select management and category
   managementName;
-  management = 'overall';
-  category = 'overall';
+  management ;
+  category ;
 
   public userAccessLevel = localStorage.getItem("userLevel");
   public hideIfAccessLevel: boolean = false
@@ -173,19 +173,19 @@ export class TeacherAttendanceComponent implements OnInit {
     if (this.mapName == 'googlemap') {
       document.getElementById('leafletmap').style.display = "none";
     }
-    // document.getElementById("accessProgressCard").style.display = "none";
-    // document.getElementById("backBtn") ? document.getElementById("backBtn").style.display = "none" : "";
+    // document.getElementById("accessProgressCard") ?document.getElementById("accessProgressCard").style.display = "none":'';
+    document.getElementById("backBtn") ? document.getElementById("backBtn").style.display = "none" : "";
     this.skul = true;
     this.timePeriod = {
       period: "overall",
     };
 
-    //setting management-category values
-    // this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
-    // this.category = JSON.parse(localStorage.getItem('category')).id;
-    // this.managementName = this.commonService.changeingStringCases(
-    //   this.managementName.replace(/_/g, " ")
-    // );
+    // setting management-category values
+    this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
+    this.category = JSON.parse(localStorage.getItem('category')).id;
+    this.managementName = this.commonService.changeingStringCases(
+      this.managementName.replace(/_/g, " ")
+    );
 
     //setting year-month options:::::
     this.service.getDateRange().subscribe(
