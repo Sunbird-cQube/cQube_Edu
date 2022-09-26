@@ -86,3 +86,5 @@
             tags: install
 
           - { role: nifi_scheduler, tags: install }
+
+          - cqube_version
