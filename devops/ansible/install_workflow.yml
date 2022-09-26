@@ -5,6 +5,7 @@
   remote_user: root
   vars_files:
     - constants.yml
+    - ../.version
 
   roles:
 
@@ -86,3 +87,5 @@
             tags: install
 
           - { role: nifi_scheduler, tags: install }
+
+          - cqube_version
