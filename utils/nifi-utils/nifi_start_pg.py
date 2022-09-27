@@ -1,4 +1,4 @@
-from deploy_nifi import get_nifi_root_pg, get_processor_group_info, rq, prop, logging, sys
+from nifi_utililty import get_nifi_root_pg, get_processor_group_info, rq, prop, logging, sys
 
 
 def start_processor_group(processor_group_name,state):
