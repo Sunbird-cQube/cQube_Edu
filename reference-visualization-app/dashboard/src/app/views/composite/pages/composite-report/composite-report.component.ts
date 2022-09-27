@@ -73,8 +73,6 @@ export class CompositeReportComponent implements OnInit {
     this.height = window.innerHeight;
     if (this.chartData.length !== 0) {
       /* this.scatterChart.destroy(); */
-      this.dashletData = {};
-      this.createChart(this.labels, this.chartData, this.tableHead, this.obj);
     }
   }
 
@@ -831,7 +829,6 @@ export class CompositeReportComponent implements OnInit {
   labels: any;
   obj: any;
   createChart(labels, chartData, name, obj) {
-
     this.dashletData = { values: chartData };
     this.config = {
       labelExpr: 'composite_report',
@@ -870,6 +867,18 @@ export class CompositeReportComponent implements OnInit {
               multistringText.push(obj.yAxis + " : " + tooltipItem.yLabel.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,"));
             }
           }
+        },
+        scales: {
+          xAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+          }],
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true
+              }
+          }]
         }
       }
     };
