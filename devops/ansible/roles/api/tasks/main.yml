@@ -23,5 +23,5 @@
 - include_tasks: run_auth_api.yml
   tags: [ install, update ]
 
-- include_tasks: run_auth_api.yml
+- include_tasks: link_logs.yml
   tags: [ install, update ]
