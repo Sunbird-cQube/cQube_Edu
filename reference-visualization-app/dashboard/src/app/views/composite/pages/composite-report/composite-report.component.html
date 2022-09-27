@@ -160,7 +160,7 @@
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                     <span class="chooseLevel">X-Axis:</span> <br>
                     <ng-select id="x_axis" [(ngModel)]="xAxis" name="xAxis" (change)="selectAxis()"
-                        dropdownPosition="bottom" [clearable]="false" placeholder="  Choose x-axis">
+                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose x-axis">
                         <!-- <ng-option [value]="xAxis" disabled selected="selected">choose
                             x-axis
                         </ng-option> -->
@@ -172,7 +172,7 @@
                 <div class=" col-xl-3 col-lg-4 col-md-6 col-sm-12">
                     <span class="chooseLevel"> Y-Axis:</span> <br>
                     <ng-select id="y_axis" [(ngModel)]="yAxis" name="yAxis" (change)="selectAxis()"
-                        dropdownPosition="bottom" [clearable]="false" placeholder="  Choose y-axis">
+                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose y-axis">
                         <!-- <ng-option [value]="yAxis" disabled selected="selected">choose
                             y-axis
                         </ng-option> -->
@@ -185,7 +185,9 @@
             <div class="row" id="second">
                 <div class="col-md-12 col-sm-12">
                     <div style="padding: 0%; margin-top: 2vh;">
-                        <canvas id="myChart" width=" 100%"></canvas>
+                        <ng-container *ngIf="dashletData?.values?.length > 0">
+                            <sb-dashlet [type]="'scatter'" [data]="dashletData" [config]="config"></sb-dashlet>
+                        </ng-container>
                     </div>
                 </div>
             </div>

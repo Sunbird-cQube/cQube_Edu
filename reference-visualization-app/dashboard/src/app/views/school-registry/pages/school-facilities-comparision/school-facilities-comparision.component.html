@@ -1,4 +1,4 @@
-<ng-container *ngIf="options; else loading">
+<ng-container *ngIf="!isLoading; else loading">
     <div class="grid grid-cols-12">
         <div class="col-span-full" appFullScreen>
             <div class="grid grid-cols-12">
@@ -29,7 +29,17 @@
                     <app-filter-panel [filters]="filters" colSize="col-span-12" [resetOthers]="true" (filtersUpdated)="scatterFiltersUpdated($event)"></app-filter-panel>
                 </div>
             </div>
-            <app-scatter-chart [options]="options" height="80vh"></app-scatter-chart>        
+            <!-- <app-scatter-chart [options]="options" height="80vh"></app-scatter-chart> -->
+            <div class="col-lg-9 col-md-12 col-sm-12">
+                <div style="padding: 0%; margin-top: 2vh;">
+                    <ng-container *ngIf="dashletData">
+                        <sb-dashlet [type]="'scatter'" [data]="dashletData" [config]="config"></sb-dashlet>
+                    </ng-container>
+                </div>
+            </div>
+            <div *ngIf="showError" class="text-center" style="color: red;">
+                No Data Available
+            </div>      
         </div>
     </div>
 </ng-container>
