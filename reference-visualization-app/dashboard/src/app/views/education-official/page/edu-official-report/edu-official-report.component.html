@@ -2,7 +2,7 @@
     <div class="row reportHeader2">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row" (window:resize)="onResize()" id="reportHeader">
-                <div class="col-sm-7">
+                <div class="col-xl-6">
                     <div *ngIf="skul">
                         <p id="dist">
                             CRC Report for:
@@ -49,13 +49,13 @@
                     </div>
                 </div>
 
-                <div class="col-sm-5">
+                <div class="col-xl-6">
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-2">
                             <p id="errMsg" class="note"></p>
                         </div>
-                        <div class="col-sm-8">
-                            <div *ngIf="skul; else ng_else" style="float: left" id="select"
+                        <div class="col-sm-10">
+                            <div *ngIf="skul; else ng_else" id="select"
                                 class="grid grid-cols-2 gap-4">
                                 <div class="col-span-1">
                                     <ng-select *ngIf="reportData.length > 0" class="dwnld" id="downloader"
@@ -67,9 +67,9 @@
                                         </ng-option>
                                     </ng-select>
                                 </div>
-                                <div class="col-span-1">
+                                <div class="col-span-1 mb-4">
                                     <button *ngIf="reportData.length > 0" class="btn btn-primary"
-                                        title="Download Report" id="download1"
+                                        title="Download Report" id="download1" style="float:right"
                                         (click)="downloadReportofState(downloadType)">
                                         Download Report &nbsp;
                                         <i class="fa fa-arrow-down" aria-hidden="true"></i>
@@ -80,8 +80,8 @@
                             </div>
 
                             <ng-template #ng_else>
-                                <button *ngIf="reportData.length > 0" class="btn btn-primary" title="Download Report"
-                                    id="download1" (click)="downloadReport()">
+                                <button *ngIf="reportData.length > 0" class="btn btn-primary mb-4" title="Download Report"
+                                    id="download1" (click)="downloadReport()" style="float:right">
                                     Download Report &nbsp;
                                     <i class="fa fa-arrow-down" aria-hidden="true"></i>
                                 </button>
@@ -169,6 +169,30 @@
                             {{ cluster.clusterName }}
                         </ng-option>
                     </ng-select>
+                    <div class="col-span-6 xmd:col-span-3 lg:col-span-2">
+                        <span class="chooseLevel">X-Axis: &nbsp;</span>
+                        <ng-select id="x-axis" class="col-span-2 sm:col-span-1" [(ngModel)]="xAxis" name="xAxis"
+                            (change)="selectAxis()">
+                            <ng-option [value]="xAxis" disabled selected="selected">
+                                choose x-axis
+                            </ng-option>
+                            <ng-option *ngFor="let xaxis of xAxisFilter" [value]="xaxis.key">
+                                {{ xaxis.value }}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                    <div class="col-span-6 xmd:col-span-3 lg:col-span-2">
+                        <span class="chooseLevel">Y-Axis: &nbsp;</span>
+                        <ng-select id="y-axis" class="col-span-2 sm:col-span-1" [(ngModel)]="yAxis" name="yAxis"
+                            (change)="selectAxis()">
+                            <ng-option [value]="yAxis" disabled selected="selected">
+                                choose y-axis
+                            </ng-option>
+                            <ng-option *ngFor="let yaxis of yAxisFilter" [value]="yaxis.key">
+                                {{ yaxis.value }}
+                            </ng-option>
+                        </ng-select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -177,30 +201,6 @@
     <div class="row reportContainer2 grid grid-cols-2 gap-4">
 
         <div class="col-span-2 scatter-div">
-            <div class="row">
-                <div class="col-sm-6">
-                    <span class="chooseLevel">X-Axis: &nbsp;</span>
-                    <ng-select id="x-axis" class="col-span-2 sm:col-span-1" [(ngModel)]="xAxis" name="xAxis"
-                        (change)="selectAxis()" dropdownPosition="bottom"
-                    [clearable]="false" placeholder=" choose x-axis">
-                       
-                        <ng-option *ngFor="let xaxis of xAxisFilter" [value]="xaxis.key">
-                            {{ xaxis.value }}
-                        </ng-option>
-                    </ng-select>
-                </div>
-                <div class="col-sm-6">
-                    <span class="chooseLevel">Y-Axis: &nbsp;</span>
-                    <ng-select id="y-axis" class="col-span-2 sm:col-span-1" [(ngModel)]="yAxis" name="yAxis"
-                        (change)="selectAxis()" ropdownPosition="bottom"
-                    [clearable]="false" placeholder="choose y-axis">
-                      
-                        <ng-option *ngFor="let yaxis of yAxisFilter" [value]="yaxis.key">
-                            {{ yaxis.value }}
-                        </ng-option>
-                    </ng-select>
-                </div>
-            </div>
 
             <p class="note" style="margin-top: 5px">
                 <strong> NOTE:</strong> The scatter plot below provides information for
