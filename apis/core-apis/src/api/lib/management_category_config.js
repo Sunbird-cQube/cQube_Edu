@@ -6,7 +6,7 @@ const csv = require('csvtojson')
 router.get('/', async function(req, res) {
     try {
         logger.info('---management-category default api ---');
-        var csvFilePath = `${process.env.BASE_DIR}/cqube/dashboard/default_management_category/default_management_category.csv`;
+        var csvFilePath = `${process.env.BASE_DIR}/cqube/reference-visualization-app/default_management_category/default_management_category.csv`;
         var jsonArray;
         if (fs.existsSync(csvFilePath)) {
             jsonArray = await csv().fromFile(csvFilePath);
