@@ -84,7 +84,13 @@
         "cQube_s3_transaction_and_aggregation_template",
         "postgres_transaction_and_aggregation_template",
         "cQube_azure_transaction_and_aggregation_template"
-    ]
+    ],
+
+    "aggregated_data_processor_group": [
+        "s3_aggregated_controll",
+        "azure_aggregated_controll"
+        ]
+
 }
 
 
