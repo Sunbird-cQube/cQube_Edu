@@ -30,7 +30,7 @@
   blockinfile:
     path: "{{base_dir}}/cqube/apis/core-api/.env"
     block: |
-      PORT = 3001
+      PORT = 3004
       ACCESS_KEY_ID = "{{ s3_access_key }}"
       SECRET_ACCESS_KEY  = "{{ s3_secret_key }}"
       OUTPUT_BUCKET = "{{ s3_output_bucket }}"

@@ -1,4 +1,4 @@
 ---
 - name: Run sat python code
-  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utililty.py sat_transformer sat_parameters cQube_data_storage 4668 {{ storage_type }}"
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utility.py sat_transformer sat_parameters cQube_data_storage 4668 {{ storage_type }}"
   tags: [ install, update ]

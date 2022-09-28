@@ -1,8 +1,9 @@
 export const environment = {
   production: false,
-  apiEndpoint: "{{ protocol }}://{{ api_endpoint }}:3000/api",
+  apiURL: "{{ protocol }}://{{ api_endpoint }}:3000/api",
   appUrl: "{{ protocol }}://{{ api_endpoint }}:4200",
-  adminUrl: "http://{{ proxy_host }}:4201",
+  adminUrl: "{{ protocol }}://{{ proxy_host }}:4201",
+  loginUrl: "{{ protocol }}://{{ api_endpoint }}:4001/login-api",
   keycloakUrl: "{{ protocol }}://{{ api_endpoint }}:8080/auth",
   realm: "{{ realm_name }}",
   config: "{{ access_type }}",

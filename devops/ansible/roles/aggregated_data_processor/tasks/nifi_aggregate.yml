@@ -1,4 +1,4 @@
 ---
 - name: Run aggregated data processor python code
-  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utililty.py aggregated_data_processor_group static_data_parameters  cQube_data_storage 0 {{ storage_type }}"
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utility.py aggregated_data_processor_group static_data_parameters  cQube_data_storage 0 {{ storage_type }}"
   tags: [ install, update ]
