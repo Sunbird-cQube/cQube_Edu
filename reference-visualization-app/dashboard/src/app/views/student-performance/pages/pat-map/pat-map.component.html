@@ -143,9 +143,9 @@
                         </ng-option>
                     </ng-select>
 
-                    <ng-select id="choose_dist" [(ngModel)]="districtId"
-                        [hidden]='hideDist' [disabled]="selDist" (change)="ondistLinkClick(districtId)"
-                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose a District" class="col-span-6 xmd:col-span-3 lg:col-span-2" >
+                    <ng-select id="choose_dist" [(ngModel)]="districtId" [hidden]='hideDist' [disabled]="selDist"
+                        (change)="ondistLinkClick(districtId)" dropdownPosition="bottom" [clearable]="false"
+                        placeholder="Choose a District" class="col-span-6 xmd:col-span-3 lg:col-span-2">
                         <ng-option *ngFor="let dist of allDistricts" [value]="dist.Details.district_id">
                             {{ dist.Details.district_name }}
                         </ng-option>
@@ -173,9 +173,8 @@
         </div>
     </div>
     <div class="row reportContainer">
-        <div class="col-sm-12">
-            <div id="leafletmap" style="float: left" [ngStyle]="{ width: selected == 'absolute' ? '90%' : '100%' }">
-                <div #mapContainer id="patMap" class="active" style="width: 100%" [ngStyle]="{
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="leafletmap" style="float: left;width: 100%;">
+            <div #mapContainer id="patMap" class="active" style="width: 100%" [ngStyle]="{
               height:
                 height > 1760
                   ? '83vh'
@@ -186,12 +185,12 @@
                   : '69vh'
             }"></div>
 
-            </div>
-            <div *ngIf="selected == 'absolute'" style="float: left; width: 9%; margin-left: 1%; margin-top: 1%">
-                <h5 id="legend" style="margin-left: 15%">
-                    Legend
-                    <img *ngIf="valueRange && valueRange != '0-100'" id="resetImg"
-                        src="../../../../assets/images/reset.png" alt="reset" title="Reset to all" style="
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12" *ngIf="selected == 'absolute'">
+            <h5 id="legend" style="margin-left: 15%">
+                Legend
+                <img *ngIf="valueRange && valueRange != '0-100'" id="resetImg" src="../../../../assets/images/reset.png"
+                    alt="reset" title="Reset to all" style="
                 cursor: pointer;
                 height: 20px;
                 width: 20px;
@@ -201,19 +200,18 @@
                 padding: 5px;
                 margin-top: -5px;
               " (click)="reset('0-100')" />
-                </h5>
-                <div *ngFor="let value of values; let i = index">
-                    <span id="{{ i }}" class="legends" style="float: left; cursor: pointer"
-                        [ngStyle]="{ color: i > 1 ? 'black' : 'white' }" (click)="selectRange(value); select(i)"
-                        [style.background-color]="legendColors[i]">
-                        {{ values[i] }}
-                    </span>
-                </div>
+            </h5>
+            <div *ngFor="let value of values; let i = index">
+                <span id="{{ i }}" class="legends" style="float: left; cursor: pointer"
+                    [ngStyle]="{ color: i > 1 ? 'black' : 'white' }" (click)="selectRange(value); select(i)"
+                    [style.background-color]="legendColors[i]">
+                    {{ values[i] }}
+                </span>
             </div>
         </div>
     </div>
     <div class="row" id="footer">
-        <div class="col-sm-2">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <div id="outer">
                 <div id="absolute" (click)="getColor('absolute')" [ngStyle]="{
               'background-color': selected == 'absolute' ? '#3100cc' : '#f5f6fb'
@@ -233,19 +231,19 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
             <span id="name" class="note" style="text-align: center">Management Type: {{ managementName }}</span>
         </div>
-        <div class="col-sm-2" *ngIf="period != 'all'">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12" *ngIf="period != 'all'">
             <span id="schools" [hidden]="hideFooter" class="note" style="text-align: center">Number of Schools: {{
                 schoolCount
                 }}</span>
         </div>
-        <div class="col-sm-2" *ngIf="period != 'all'">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12" *ngIf="period != 'all'">
             <span id="students" [hidden]="hideFooter" class="note" style="text-align: center">Number of Students: {{
                 studentCount }}</span>
         </div>
-        <div class="col-sm-3" *ngIf="period != 'all'">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12" *ngIf="period != 'all'">
             <span id="studentsAttended" [hidden]="hideFooter" class="note" style="text-align: center">Number of Students
                 Attended: {{
                 studentAttended }}</span>

@@ -129,9 +129,9 @@
         </div>
     </div>
     <div class="row reportContainer">
-        <div class="col-sm-12">
-            <div id="leafletmap" style="float: left" [ngStyle]="{ width: selected == 'absolute' ? '90%' : '100%' }">
-                <div #mapContainer id="udisemap" class="active" style="width: 100%" [ngStyle]="{
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="leafletmap" style="float: left"
+        style="width: 100% ">
+            <div #mapContainer id="udisemap" class="active" style="width: 100%" [ngStyle]="{
               height:
                 height > 1760
                   ? '82vh'
@@ -142,14 +142,14 @@
                   : '69vh'
             }"></div>
 
-            </div>
+        </div>
 
-            <!--Marker legends ======================-->
-            <div *ngIf="selected == 'absolute'" style="float: left; width: 9%; margin-left: 1%; margin-top: 1%">
-                <h5 id="legend" style="margin-left: 15%">
-                    Legend
-                    <img *ngIf="valueRange && valueRange != '0-100'" id="resetImg"
-                        src="../../../../assets/images/reset.png" alt="reset" title="Reset to all" style="
+        <!--Marker legends ======================-->
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12" *ngIf="selected == 'absolute'">
+            <h5 id="legend" style="margin-left: 15%">
+                Legend
+                <img *ngIf="valueRange && valueRange != '0-100'" id="resetImg" src="../../../../assets/images/reset.png"
+                    alt="reset" title="Reset to all" style="
                 cursor: pointer;
                 height: 20px;
                 width: 20px;
@@ -159,19 +159,18 @@
                 padding: 5px;
                 margin-top: -5px;
               " (click)="reset('0-100')" />
-                </h5>
-                <div *ngFor="let value of values; let i = index">
-                    <span id="{{ i }}" class="legends" style="float: left; cursor: pointer"
-                        [ngStyle]="{ color: i > 1 ? 'black' : 'white' }" (click)="selectRange(value); select(i)"
-                        [style.background-color]="legendColors[i]">
-                        {{ values[i] }}
-                    </span>
-                </div>
+            </h5>
+            <div *ngFor="let value of values; let i = index">
+                <span id="{{ i }}" class="legends" style="float: left; cursor: pointer"
+                    [ngStyle]="{ color: i > 1 ? 'black' : 'white' }" (click)="selectRange(value); select(i)"
+                    [style.background-color]="legendColors[i]">
+                    {{ values[i] }}
+                </span>
             </div>
         </div>
     </div>
     <div class="row" id="footer">
-        <div [hidden]="hideFooter" class="col-sm-3">
+        <div [hidden]="hideFooter" class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <div id="outer">
                 <div id="absolute" (click)="getColor('absolute')" [ngStyle]="{
               'background-color': selected == 'absolute' ? '#3100cc' : '#f5f6fb'
@@ -191,10 +190,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <span id="name" class="note" style="text-align: center">Management Type: {{ managementName }}</span>
         </div>
-        <div class="col-sm-5" *ngIf="!valueRange || valueRange == '0-100'">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12" *ngIf="!valueRange || valueRange == '0-100'">
             <span class="note" [hidden]="hideFooter" style="text-align: center">Number of Schools: {{ schoolCount
                 }}</span>
         </div>
