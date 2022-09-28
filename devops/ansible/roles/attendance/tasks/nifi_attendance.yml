@@ -1,5 +1,5 @@
 ---
 - name: Run student attendance python code
-  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utililty.py student_attendance_transformer student_attendance_parameters cQube_data_storage 4557 {{ storage_type }}"
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utility.py student_attendance_transformer student_attendance_parameters cQube_data_storage 4557 {{ storage_type }}"
   tags: [ install, update ]
 

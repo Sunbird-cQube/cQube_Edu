@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./attendance.component.scss']
 })
 export class AttendanceComponent implements OnInit {
+  loadTabs = false;
 
   tabIndex = 0;
   
@@ -30,13 +31,16 @@ export class AttendanceComponent implements OnInit {
   switchToAttendance() {
     this.tabIndex = 0;
   }
-  selected(){
-    
-    let tempIndex = this.tabIndex;
-    this.tabIndex = undefined;
-    setTimeout(() => {
-      this.tabIndex = tempIndex
-    }, 500);
+  selected() {
+    if (this.loadTabs) {
+      let tempIndex = this.tabIndex;
+      this.tabIndex = undefined;
+      setTimeout(() => {
+        this.tabIndex = tempIndex
+      }, 500);
+    } else {
+      this.loadTabs = true;
+    }
   }
 
 }

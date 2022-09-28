@@ -300,8 +300,8 @@ check_timeout()
     else
         echo "Error - please enter proper value as mentioned in comments"; fail=1
     fi
-sed -i '/session_timeout_in_seconds:/d' ansible/roles/keycloak/vars/main.yml
-echo "session_timeout_in_seconds: $timeout_value" >> ansible/roles/keycloak/vars/main.yml
+sed -i '/session_timeout_in_seconds:/d' ansible/roles/workflow_keycloak/vars/main.yml
+echo "session_timeout_in_seconds: $timeout_value" >> ansible/roles/workflow_keycloak/vars/main.yml
 }
 
 check_state()
@@ -309,7 +309,7 @@ check_state()
 if ! [[ $access_type == "national" ]]; then	
 sc=$(cat $base_dir/cqube/.cqube_config | grep CQUBE_STATE_CODE )
 installed_state_code=$(cut -d "=" -f2 <<< "$sc")
-if [[ ! "$2" == "$installed_state_code" ]]; then
+if [[ ! "$state_name" == "$installed_state_code" ]]; then
     echo "Error - State code should be same as previous installation. Please refer the state_list file and enter the correct value."; fail=1
 fi
 else
@@ -338,7 +338,7 @@ else
         if [[ ! "$2" == "$dts" ]]; then
             echo "Error - Static_datasource should be same as previous installation static_datasource"; fail=1
         fi
-        sed -i '/datasource_status/c\datasource_status: matched' ansible/roles/createdb/vars/main.yml
+        sed -i '/datasource_status/c\datasource_status: matched' ansible/roles/postgres/vars/main.yml
     fi
 fi
 }
@@ -450,7 +450,7 @@ db_user=$(awk ''/^db_user:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 db_name=$(awk ''/^db_name:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 db_password=$(awk ''/^db_password:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 storage_type=$(awk ''/^storage_type:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
-
+state_name=$(awk ''/^state_name:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 map_name=$(awk ''/^map_name:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 base_dir=$(awk ''/^base_dir:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 slab1=$(awk ''/^slab1:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)

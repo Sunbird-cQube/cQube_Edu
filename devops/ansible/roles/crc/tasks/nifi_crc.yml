@@ -1,5 +1,5 @@
 ---
 - name: Run crc python code
-  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utililty.py crc_transformer crc_parameters cQube_data_storage 4660 {{ storage_type }}"
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utility.py crc_transformer crc_parameters cQube_data_storage 4660 {{ storage_type }}"
   tags: [ install, update ]
 

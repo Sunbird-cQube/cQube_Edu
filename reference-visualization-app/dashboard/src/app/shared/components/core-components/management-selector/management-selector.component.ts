@@ -77,6 +77,7 @@ export class ManagementSelectorComponent implements OnInit {
       this.managementType = res[0]['name'];
       this.categoryType = res[1]['name'];
       this.setDefault();
+      this.onSelect.emit();
     });
   }
 

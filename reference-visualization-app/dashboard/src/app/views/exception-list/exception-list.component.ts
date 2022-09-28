@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExceptionListComponent implements OnInit {
 
+  loadTabs = false;
   tabIndex = 0;
 
   constructor() { }
@@ -24,12 +25,15 @@ export class ExceptionListComponent implements OnInit {
   }
 
   selected() {
-
-    let tempIndex = this.tabIndex;
-    this.tabIndex = undefined;
-    setTimeout(() => {
-      this.tabIndex = tempIndex
-    }, 200);
+    if (this.loadTabs) {
+      let tempIndex = this.tabIndex;
+      this.tabIndex = undefined;
+      setTimeout(() => {
+        this.tabIndex = tempIndex
+      }, 500);
+    } else {
+      this.loadTabs = true;
+    }
   }
 
 }

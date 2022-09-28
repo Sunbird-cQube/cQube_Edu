@@ -2,15 +2,16 @@
     <div class="row reportHeader">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row">
-                <div class="col-lg-9 col-md-9 col-sm-12 ">
+                <div class="col-xl-7 col-md-12 col-sm-12 ">
                     <div *ngIf='all'>
                         <p id="dist">
                             {{header}} Content Usage: <span (click)="homeClick()"
-                                style="cursor: pointer;text-decoration: underline;" class="selected-level">{{state}}</span></p>
+                                style="cursor: pointer;text-decoration: underline;"
+                                class="selected-level">{{state}}</span></p>
                     </div>
 
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-12">
+                <div class="col-xl-5 col-md-12 col-sm-12">
                     <div class="row">
                         <div *ngIf="reportData.length==0" class="col-sm-4" style="display: none;">
                             <p id="errMsg" class="note">
@@ -22,9 +23,9 @@
                             *ngIf="reportData.length > 0" (click)="downloadRawFile()"><strong>Download Raw
                                 File</strong></span>
 
-                        <div class="col sm-6">
+                        <div class="col-sm-6 col-xl-8 mb-4">
                             <button *ngIf="reportData.length>0" class="btn btn-primary" title="Download Report"
-                                id="download1" (click)="downloadReport()">Download Report &nbsp; <i
+                                id="download1" (click)="downloadReport()" style="float:right">Download Report &nbsp; <i
                                     class="fa fa-arrow-down" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -41,14 +42,40 @@
                     </p>
                 </div>
             </div>
-            <div class="row">
+            <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-11" style="margin-bottom: 10px">
+
+                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="time_range" [(ngModel)]="timePeriod"
+                    name="timePeriod" (change)="chooseTimeRange()" dropdownPosition="bottom" [clearable]="false"
+                    placeholder="Choose Time Range">
+                    <ng-option *ngFor="let time of timeDetails" [value]="time.id">
+                        {{time.name}}
+                    </ng-option>
+                   
+                </ng-select>
+
+                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2"id="coll_name" [(ngModel)]="collectionName" name="collectionName"
+                (change)="getDataBasedOnCollections()" dropdownPosition="bottom" [clearable]="false"
+                    placeholder="Choose Textbook Name">
+                    <ng-option *ngFor="let collectionName of collectionNames; let i = index"
+                    [value]="collectionNames[i]">
+                    {{collectionNames[i]}}
+                </ng-option>
+                </ng-select>
+                <div class="lg:col-start-11 lg:col-end-13 xmd:col-start-7 col-span-12">
+                    <span id="totalCount" ><strong>Total Content
+                            Plays:</strong>
+                        {{footer}}</span>
+                </div>
+
+
+
+            </div>
+            <!-- <div class="row">
                 <div class="col-sm-9 ">
-                    <select id="time_range" [(ngModel)]="timePeriod" name="timePeriod" (change)="chooseTimeRange()">
+                    <select >
                         <option [value]="timePeriod" disabled selected="selected">Choose Time Range
                         </option>
-                        <option *ngFor="let time of timeDetails" [ngValue]="time.id">
-                            {{time.name}}
-                        </option>
+                       
                     </select>
 
                     <select id="coll_name" [(ngModel)]="collectionName" name="collectionName"
@@ -66,7 +93,7 @@
                             Plays:</strong>
                         {{footer}}</span>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="row reportContainer" id="chart">

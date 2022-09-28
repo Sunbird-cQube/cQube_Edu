@@ -1,6 +1,6 @@
-<div class="container-fluid">
-    <div class="row" (window:resize)="onResize()">
-        <div class="col-xl-6 ">
+<div class="container-fluid" (window:resize)="onResize()">
+    <div class="grid gap-3 grid-cols-12">
+        <div class="col-span-full xmd:col-span-6">
             <div *ngIf='skul'>
                 <p id="dist">
                     Composite Report Across Metrics for: <span (click)="onHomeClick()"
@@ -23,7 +23,6 @@
                         style="cursor: pointer;text-decoration: underline;" class="selected-level">
                         {{hierName}}</span></p>
             </div>
-
             <div *ngIf="clust">
                 <p id="school">
                     Composite Report Across Metrics for: <span (click)="onHomeClick()"
@@ -35,157 +34,148 @@
                         {{hierName}}</span></p>
             </div>
         </div>
-
-
-        <div class="col-xl-6">
-            <div class="row">
-                <div class="col-sm-4">
+        <div class="col-span-full xmd:col-span-6">
+            <div class="grid grid-cols-12">
+                <div class="col-span-full xmd:col-span-4">
                     <p id="errMsg" class="note"
                         style="display: none; text-align: center;line-height: 1.2em; font-size: 13px; margin-top: 3%; ">
                     </p>
                 </div>
-                <div class="col-sm-8 mb-4">
+                <div class="col-span-full xmd:col-span-8">
                     <button *ngIf="reportData && reportData.length>0" class="btn btn-primary" title="Download Report"
                         id="download1" (click)="downloadReport()" style="float:right">Download Report &nbsp; <i
                             class="fa fa-arrow-down" aria-hidden="true"></i>
                     </button>
-
                 </div>
             </div>
         </div>
     </div>
-    <div class="row flex-column-reverse flex-lg-row">
-        <div class="col-md-12 col-sm-12">
-            <div class="row" id="third">
-                <div class="col-xl-6 col-md-12 col-sm-12">
-                    <div class="note">
-                        <strong> About the dashboard:</strong>
-                        <p>The dashboard here brings together metrics from other
-                            dashboards
-                            in order for you to correlate metrics with each other. The data here can be viewed across
-                            the
-                            district,
-                            block and cluster level.
-                        </p>
-                    </div>
+
+    <div class="grid gap-3 grid-cols-12">
+        <div class="col-span-full xmd:col-span-8">
+            <div class="note">
+                <strong> About the dashboard:</strong>
+                <p>The dashboard here brings together metrics from other
+                    dashboards
+                    in order for you to correlate metrics with each other. The data here can be viewed across
+                    the
+                    district,
+                    block and cluster level.
+                </p>
+            </div>
+        </div>
+        <div class="col-span-full xmd:col-span-4">
+            <div id="selected">
+                <div id="districtSelect"
+                    [ngStyle]="{'background-color' : selected == 'district' ? '#3100cc' : '#f5f6fb'}">
+                    <p [ngStyle]="{'color' : selected == 'district' ? 'white' : 'black'}"
+                        style="text-align: center; padding: 6px;">
+                        District</p>
                 </div>
-                <div class="col-xl-3 col-md-12 col-sm-12" style="margin-top: 1vh;">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6">
-                            <button class="btn btn-secondary botton" [hidden]="hideIfAccessLevel" id="allBlock"
+                <div id="blockSelect"
+                    [ngStyle]="{'background-color' : selected == 'block' ? '#3100cc' : '#f5f6fb'}">
+                    <p [ngStyle]="{'color' : selected == 'block' ? 'white' : 'black'}"
+                        style="text-align: center; padding: 6px;">
+                        Block</p>
+                </div>
+                <div id="clusterSelect"
+                    [ngStyle]="{'background-color' : selected == 'cluster' ? '#3100cc' : '#f5f6fb'}">
+                    <p [ngStyle]="{'color' : selected == 'cluster' ? 'white' : 'black'}"
+                        style="text-align: center; padding: 6px;">
+                        Cluster</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid gap-3 grid-cols-12">
+        <div class="col-span-full xmd:col-span-4">
+            <div class="d-flex">
+                <button class="btn btn-secondary botton" [hidden]="hideIfAccessLevel" id="allBlock"
                                 [disabled]="hideAllBlockBtn" name="block" (click)="blockWise()">&nbsp;<strong
                                     id="allBlock">Blocks</strong>
                             </button>
-                        </div>
-                        <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6">
-                            <button class="btn btn-secondary botton" id="allCluster" [hidden]="hideIfAccessLevel"
+            <button class="btn btn-secondary botton" id="allCluster" [hidden]="hideIfAccessLevel"
                                 [disabled]="hideAllCLusterBtn" (click)="clusterWise()">&nbsp;<strong
                                     id="allCluster">Clusters</strong>
                             </button>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-span-full xmd:col-span-8">
+            <div class="grid gap-3 grid-cols-12">
+                <div class="col-span-full xmd:col-span-4">
+                    <ng-select id="choose_district1" [(ngModel)]="myDistrict" name="myDistrict"
+                        [hidden]="hideDist" [disabled]="selDist" (change)="myDistData(myDistrict)"
+                        dropdownPosition="bottom" [clearable]="false" placeholder=" Choose a District">
+                        <!-- <ng-option [value]="myDistrict" disabled selected="selected">Choose a District
+                        </ng-option> -->
+                        <ng-option *ngFor="let dist of SchoolInfrastructureDistrictsNames"
+                            [value]="dist.district.id">
+                            {{dist.district.value}}
+                        </ng-option>
+                    </ng-select>
                 </div>
-                <div class="col-xl-3 col-md-12 col-sm-12" id="first" style="margin-top: 1vh;">
-                    <div class="row">
-                        <div class="col col-sm-12">
-                            <div id="selected">
-                                <div id="districtSelect"
-                                    [ngStyle]="{'background-color' : selected == 'district' ? '#3100cc' : '#f5f6fb'}">
-                                    <p [ngStyle]="{'color' : selected == 'district' ? 'white' : 'black'}"
-                                        style="text-align: center; padding: 6px;">
-                                        District</p>
-                                </div>
-                                <div id="blockSelect"
-                                    [ngStyle]="{'background-color' : selected == 'block' ? '#3100cc' : '#f5f6fb'}">
-                                    <p [ngStyle]="{'color' : selected == 'block' ? 'white' : 'black'}"
-                                        style="text-align: center; padding: 6px;">
-                                        Block</p>
-                                </div>
-                                <div id="clusterSelect"
-                                    [ngStyle]="{'background-color' : selected == 'cluster' ? '#3100cc' : '#f5f6fb'}">
-                                    <p [ngStyle]="{'color' : selected == 'cluster' ? 'white' : 'black'}"
-                                        style="text-align: center; padding: 6px;">
-                                        Cluster</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-4 col-md-6 col-sm-6">
-                            <span class="chooseLevel" [hidden]="hideDist">Choose District</span>
-                            <ng-select id="choose_district1" [(ngModel)]="myDistrict" name="myDistrict"
-                                [hidden]="hideDist" [disabled]="selDist" (change)="myDistData(myDistrict)"
-                                dropdownPosition="bottom" [clearable]="false" placeholder=" Choose a District">
-                                <!-- <ng-option [value]="myDistrict" disabled selected="selected">Choose a District
-                                </ng-option> -->
-                                <ng-option *ngFor="let dist of SchoolInfrastructureDistrictsNames"
-                                    [value]="dist.district.id">
-                                    {{dist.district.value}}
-                                </ng-option>
-                            </ng-select>
-                        </div>
-                        <div class="col-xl-12 col-lg-4 col-md-6 col-sm-6">
-                            <span class="chooseLevel" [hidden]="blockHidden">Choose
-                                Block</span>
-                            <ng-select [hidden]="blockHidden" id="choose_blok" [(ngModel)]="myBlock" name="myBlock"
-                                [disabled]="selBlock" (change)="myBlockData(myBlock)" dropdownPosition="bottom"
-                                [clearable]="false" placeholder=" Choose a Block">
-                                <!-- <ng-option [value]="myBlock" disabled selected="selected">Choose a Block
-                                </ng-option> -->
-                                <ng-option *ngFor="let block of SchoolInfrastructureBlocksNames"
-                                    [value]="block.block.id">
-                                    {{block.block.value}}
-                                </ng-option>
-                            </ng-select>
-                        </div>
-                        <div class="col-xl-12 col-lg-4 col-md-6 col-sm-6">
-                            <span class="chooseLevel" [hidden]="clusterHidden">Choose Cluster</span>
-                            <ng-select [hidden]="clusterHidden" id="choose_clust" [(ngModel)]="myCluster"
-                                name="myCluster" [disabled]="selCluster" (change)="myClusterData(myCluster)"
-                                dropdownPosition="bottom" [clearable]="false" placeholder=" Choose a Cluster">
-                                <!-- <ng-option [value]="myCluster" disabled selected="selected">Choose a Cluster
-                                </ng-option> -->
-                                <ng-option *ngFor="let cluster of SchoolInfrastructureClusterNames"
-                                    [value]="cluster.cluster.id"
-                                    [ngStyle]="{'color': cluster.cluster.value !== 'NO NAME FOUND'? 'black' : '#ff3333'}">
-                                    {{cluster.cluster.value}}
-                                </ng-option>
-                            </ng-select>
-                        </div>
-                    </div>
+                <div class="col-span-full xmd:col-span-4">
+                    <ng-select [hidden]="blockHidden" id="choose_blok" [(ngModel)]="myBlock" name="myBlock"
+                        [disabled]="selBlock" (change)="myBlockData(myBlock)" dropdownPosition="bottom"
+                        [clearable]="false" placeholder=" Choose a Block">
+                        <!-- <ng-option [value]="myBlock" disabled selected="selected">Choose a Block
+                        </ng-option> -->
+                        <ng-option *ngFor="let block of SchoolInfrastructureBlocksNames"
+                            [value]="block.block.id">
+                            {{block.block.value}}
+                        </ng-option>
+                    </ng-select>
                 </div>
+                <div class="col-span-full xmd:col-span-4">
+                    <ng-select [hidden]="clusterHidden" id="choose_clust" [(ngModel)]="myCluster"
+                        name="myCluster" [disabled]="selCluster" (change)="myClusterData(myCluster)"
+                        dropdownPosition="bottom" [clearable]="false" placeholder=" Choose a Cluster">
+                        <!-- <ng-option [value]="myCluster" disabled selected="selected">Choose a Cluster
+                        </ng-option> -->
+                        <ng-option *ngFor="let cluster of SchoolInfrastructureClusterNames"
+                            [value]="cluster.cluster.id"
+                            [ngStyle]="{'color': cluster.cluster.value !== 'NO NAME FOUND'? 'black' : '#ff3333'}">
+                            {{cluster.cluster.value}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            </div>
-            <div class="row" id="fourth" style="margin-bottom: 0px !important;">
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                    <span class="chooseLevel">X-Axis:</span> <br>
-                    <ng-select id="x_axis" [(ngModel)]="xAxis" name="xAxis" (change)="selectAxis()"
-                        dropdownPosition="bottom" [clearable]="false" placeholder="  Choose x-axis">
-                        <!-- <ng-option [value]="xAxis" disabled selected="selected">choose
-                            x-axis
-                        </ng-option> -->
-                        <ng-option *ngFor="let xaxis of xAxisFilter" [value]="xaxis.key">
-                            {{xaxis.value}}
-                        </ng-option>
-                    </ng-select>
-                </div>
-                <div class=" col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                    <span class="chooseLevel"> Y-Axis:</span> <br>
-                    <ng-select id="y_axis" [(ngModel)]="yAxis" name="yAxis" (change)="selectAxis()"
-                        dropdownPosition="bottom" [clearable]="false" placeholder="  Choose y-axis">
-                        <!-- <ng-option [value]="yAxis" disabled selected="selected">choose
-                            y-axis
-                        </ng-option> -->
-                        <ng-option *ngFor="let yaxis of yAxisFilter" [value]="yaxis.key">
-                            {{yaxis.value}}
-                        </ng-option>
-                    </ng-select>
-                </div>
-            </div>
+    <div class="grid gap-3 grid-cols-12">
+        <div class="col-span-full xmd:col-span-4">
+            <ng-select id="x_axis" [(ngModel)]="xAxis" name="xAxis" (change)="selectAxis()"
+                dropdownPosition="bottom" [clearable]="false" placeholder="Choose x-axis">
+                <!-- <ng-option [value]="xAxis" disabled selected="selected">choose
+                    x-axis
+                </ng-option> -->
+                <ng-option *ngFor="let xaxis of xAxisFilter" [value]="xaxis.key">
+                    {{xaxis.value}}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="col-span-full xmd:col-span-4">
+            <ng-select id="y_axis" [(ngModel)]="yAxis" name="yAxis" (change)="selectAxis()"
+                dropdownPosition="bottom" [clearable]="false" placeholder="Choose y-axis">
+                <!-- <ng-option [value]="yAxis" disabled selected="selected">choose
+                    y-axis
+                </ng-option> -->
+                <ng-option *ngFor="let yaxis of yAxisFilter" [value]="yaxis.key">
+                    {{yaxis.value}}
+                </ng-option>
+            </ng-select>
+        </div>
+    </div>
+    <div class="row flex-column-reverse flex-lg-row">
+        <div class="col-md-12 col-sm-12">
             <div class="row" id="second">
                 <div class="col-md-12 col-sm-12">
                     <div style="padding: 0%; margin-top: 2vh;">
-                        <canvas id="myChart" width=" 100%"></canvas>
+                        <ng-container *ngIf="dashletData?.values?.length > 0">
+                            <sb-dashlet [type]="'scatter'" [data]="dashletData" [config]="config"></sb-dashlet>
+                        </ng-container>
                     </div>
                 </div>
             </div>

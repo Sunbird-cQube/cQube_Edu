@@ -1,12 +1,17 @@
 const { reject } = require("lodash");
-const AwsConfig = require("../core/config/aws-config");
-const { blobServiceClient, inputContainerName, outputContainerName } = require("../core/config/azure-config");
+let blobServiceClient, inputContainerName, outputContainerName, AwsConfig;
 
 const storageServices = {
     AZURE_DATA_LAKE: "AZURE_DATA_LAKE",
     AWS_S3: "AWS_S3"
 };
 const storageServiceType = process.env.STORAGE_SERVICE;
+if(storageServiceType === storageServices.AZURE_DATA_LAKE){
+    blobServiceClient, inputContainerName, outputContainerName = require("../core/config/azure-config");
+}
+else if(storageServiceType === storageServices.AWS_S3){
+    AwsConfig = require("../core/config/aws-config");
+}
 
 const getAllFiles = async () => {
     return new Promise(async function (resolve, reject) {

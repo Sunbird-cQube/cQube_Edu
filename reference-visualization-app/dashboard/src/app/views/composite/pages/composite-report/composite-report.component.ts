@@ -66,13 +66,13 @@ export class CompositeReportComponent implements OnInit {
   managementName;
   management;
   category;
-
+  config;
+  dashletData;
   height = window.innerHeight;
   onResize() {
     this.height = window.innerHeight;
     if (this.chartData.length !== 0) {
-      this.scatterChart.destroy();
-      this.createChart(this.labels, this.chartData, this.tableHead, this.obj);
+      /* this.scatterChart.destroy(); */
     }
   }
 
@@ -90,12 +90,13 @@ export class CompositeReportComponent implements OnInit {
     this.state = this.commonService.state;
     // document.getElementById('accessProgressCard').style.display = 'none';
 
-    this.managementName = this.management = JSON.parse(localStorage.getItem('management')).id;
-    this.category = JSON.parse(localStorage.getItem('category')).id;
-    this.managementName = this.commonService.changeingStringCases(
-      this.managementName.replace(/_/g, " ")
-    );
-
+    this.managementName = this.management = JSON.parse(localStorage.getItem('management'))?.id;
+    this.category = JSON.parse(localStorage.getItem('category'))?.id;
+    if (this.managementName) {
+      this.managementName = this.commonService.changeingStringCases(
+        this.managementName.replace(/_/g, " ")
+      );
+    }
 
     if (this.myData) {
       this.myData.unsubscribe();
@@ -154,7 +155,8 @@ export class CompositeReportComponent implements OnInit {
     this.hideAllCLusterBtn = false;
     this.hideAllSchoolBtn = false
     if (this.chartData.length !== 0) {
-      this.scatterChart.destroy();
+      /* this.scatterChart.destroy(); */
+      this.dashletData = {};
     }
 
     this.xAxisFilter = [];
@@ -213,7 +215,8 @@ export class CompositeReportComponent implements OnInit {
     this.hideAllCLusterBtn = false;
     this.hideAllSchoolBtn = false;
     if (this.chartData.length !== 0) {
-      this.scatterChart.destroy();
+      /* this.scatterChart.destroy(); */
+      this.dashletData = {};
     }
     this.xAxisFilter = [];
     this.yAxisFilter = [];
@@ -279,7 +282,8 @@ export class CompositeReportComponent implements OnInit {
     this.hideAllCLusterBtn = true;
     this.hideAllSchoolBtn = false;
     if (this.chartData.length !== 0) {
-      this.scatterChart.destroy();
+      /* this.scatterChart.destroy(); */
+      this.dashletData = {};
     }
     this.xAxisFilter = [];
     this.yAxisFilter = [];
@@ -356,7 +360,8 @@ export class CompositeReportComponent implements OnInit {
     this.hideAllSchoolBtn = true;
     this.selectedCLusterId = data
     if (this.chartData.length !== 0) {
-      this.scatterChart.destroy();
+      /* this.scatterChart.destroy(); */
+      this.dashletData = {};
     }
 
     this.xAxisFilter = [];
@@ -453,7 +458,8 @@ export class CompositeReportComponent implements OnInit {
 
   blockWise() {
     if (this.chartData.length !== 0) {
-      this.scatterChart.destroy();
+      /* this.scatterChart.destroy(); */
+      this.dashletData = {};
     }
     this.xAxisFilter = [];
     this.yAxisFilter = [];
@@ -529,7 +535,8 @@ export class CompositeReportComponent implements OnInit {
   clusterWise() {
 
     if (this.chartData.length !== 0) {
-      this.scatterChart.destroy();
+      /* this.scatterChart.destroy(); */
+      this.dashletData = {};
     }
     this.xAxisFilter = [];
     this.yAxisFilter = [];
@@ -822,30 +829,22 @@ export class CompositeReportComponent implements OnInit {
   labels: any;
   obj: any;
   createChart(labels, chartData, name, obj) {
-
-    var ctx = $('#myChart');
-
-    // ctx.attr('height', this.height > 1760 ? '58vh' : this.height > 1160 && this.height < 1760 ? '54vh' : this.height > 667 && this.height < 1160 ? '50vh' : '46vh');
-    this.scatterChart = new Chart(ctx, {
-      type: 'scatter',
-
-      data: {
-        labels: labels,
-        datasets: [{
-          data: chartData,
-          pointBackgroundColor: "#0850b8",
-          pointBorderColor: '#7cd6cc',
-          pointBorderWidth: 0.5,
-          pointRadius: this.height > 1760 ? 16 : this.height > 1160 && this.height < 1760 ? 10 : this.height > 667 && this.height < 1160 ? 8 : 5,
-          pointHoverRadius: this.height > 1760 ? 18 : this.height > 1160 && this.height < 1760 ? 12 : this.height > 667 && this.height < 1160 ? 9 : 6,
-        }]
-      },
+    this.dashletData = { values: chartData };
+    this.config = {
+      labelExpr: 'composite_report',
+      datasets: [{
+        label: 'Composite Report',
+        data: chartData,
+        pointBackgroundColor: "#0850b8",
+        pointBorderColor: '#7cd6cc',
+        pointBorderWidth: 0.5,
+        pointRadius: this.height > 1760 ? 16 : this.height > 1160 && this.height < 1760 ? 10 : this.height > 667 && this.height < 1160 ? 8 : 5,
+        pointHoverRadius: this.height > 1760 ? 18 : this.height > 1160 && this.height < 1760 ? 12 : this.height > 667 && this.height < 1160 ? 9 : 6,
+      }],
       options: {
-
         legend: {
           display: false
         },
-
         responsive: true,
         tooltips: {
           mode: 'index',
@@ -862,52 +861,27 @@ export class CompositeReportComponent implements OnInit {
           },
           callbacks: {
             label: function (tooltipItem, data) {
-              var label = data.labels[tooltipItem.index];
+              var label = labels[tooltipItem.index];
               var multistringText = [name + " : " + label];
               multistringText.push(obj.xAxis + " : " + tooltipItem.xLabel.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,"));
               multistringText.push(obj.yAxis + " : " + tooltipItem.yLabel.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,"));
-              return multistringText;
             }
           }
         },
-
         scales: {
           xAxes: [{
-            gridLines: {
-              color: "rgba(252, 239, 252)",
-            },
             ticks: {
-              fontColor: 'black',
-              min: 0,
-              fontSize: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 25 : this.height > 667 && this.height < 1160 ? 15 : 10,
-            },
-            scaleLabel: {
-              fontColor: "black",
-              display: true,
-              labelString: obj ? obj.xAxis : "",
-              fontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 24 : this.height > 667 && this.height < 1160 ? 15 : 10,
+                beginAtZero: true
             }
           }],
           yAxes: [{
-            gridLines: {
-              color: "rgba(252, 239, 252)",
-            },
-            ticks: {
-              fontColor: 'black',
-              min: 0,
-              fontSize: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 25 : this.height > 667 && this.height < 1160 ? 15 : 10,
-            },
-            scaleLabel: {
-              fontColor: "black",
-              display: true,
-              labelString: obj ? obj.yAxis : "",
-              fontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 24 : this.height > 667 && this.height < 1160 ? 15 : 10,
-            }
+              ticks: {
+                  beginAtZero: true
+              }
           }]
         }
       }
-    });
-
+    };
   }
 
   funToDownload(data) {

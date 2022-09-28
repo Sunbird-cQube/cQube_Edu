@@ -8,7 +8,7 @@ let s3 = new aws.S3({ 'accessKeyId': accessKeyId, 'secretAccessKey': secretAcces
 
 let params = {
     InputBucket: process.env.INPUT_BUCKET_NAME, //replace example bucket with your s3 bucket name
-    OutputBucket: process.env.OUTPUT_BUCKET_NAME, //replace example bucket with your s3 bucket name
+    OutputBucket: process.env.OUTPUT_BUCKET, //replace example bucket with your s3 bucket name
     Key: '', // replace file location with your s3 file location
 };
 

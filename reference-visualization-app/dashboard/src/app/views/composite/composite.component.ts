@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./composite.component.scss']
 })
 export class CompositeComponent implements OnInit {
-
   tabIndex = 0;
+  loadTabs = false;
 
   constructor() { }
 
@@ -15,7 +15,6 @@ export class CompositeComponent implements OnInit {
   }
 
   onTabChanged($event: any): void {
-    console.log($event.index)
     this.tabIndex = $event.index;
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
@@ -24,12 +23,15 @@ export class CompositeComponent implements OnInit {
   }
 
   selected() {
-
-    let tempIndex = this.tabIndex;
-    this.tabIndex = undefined;
-    setTimeout(() => {
-      this.tabIndex = tempIndex
-    }, 500);
+    if (this.loadTabs) {
+      let tempIndex = this.tabIndex;
+      this.tabIndex = undefined;
+      setTimeout(() => {
+        this.tabIndex = tempIndex
+      }, 500);
+    } else {
+      this.loadTabs = true;
+    }
   }
 
 }

@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./student-performance.component.scss']
 })
 export class StudentPerformanceComponent implements OnInit {
+  loadTabs = false;
   tabIndex = 0;
 
   constructor() { }
@@ -22,11 +23,14 @@ export class StudentPerformanceComponent implements OnInit {
   }
 
   selected() {
-
-    let tempIndex = this.tabIndex;
-    this.tabIndex = undefined;
-    setTimeout(() => {
-      this.tabIndex = tempIndex
-    }, 200);
+    if (this.loadTabs) {
+      let tempIndex = this.tabIndex;
+      this.tabIndex = undefined;
+      setTimeout(() => {
+        this.tabIndex = tempIndex
+      }, 500);
+    } else {
+      this.loadTabs = true;
+    }
   }
 }

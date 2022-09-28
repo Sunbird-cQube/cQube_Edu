@@ -1478,7 +1478,7 @@ if __name__ == "__main__":
             distributed_server_port_data = sys.argv[3]
             install_cqube_datastorage(cQube_data_storage, cQube_data_storage_parameters, distributed_server_port_data)
     if len(sys.argv) == 5:
-        if sys.argv[4] == 'API' or sys.argv[4] == 'API':
+        if sys.argv[4] == 'API' or sys.argv[4] == 'EMISSION':
             data_source_name = sys.argv[1]
             storage_type = sys.argv[2]
             dataset = sys.argv[3]
@@ -1493,3 +1493,13 @@ if __name__ == "__main__":
             state = sys.argv[3]
             dummy_connection_creator(cQube_data_storage_processor_name)
             start_processor_group(processor_name, state)
+
+    if len(sys.argv) == 3:
+        if sys.argv[1] == 'cqube_telemetry_transformer' and sys.argv[2] == 'RUNNING':
+            header = {"Content-Type": "application/json"}
+            processor_group_name = sys.argv[1]
+            state = sys.argv[2]
+            # enable/disable/start/stop the processor group
+            start_processor_group(processor_group_name, state)
+
+
