@@ -27,9 +27,7 @@ import { DataReplayComponent } from './components/data-replay/data-replay.compon
 import { MultiSelectComponent } from './components/data-replay/multi-select/multi-select.component';
 import { DikshaConfigComponent } from './components/diksha-config/diksha-config.component';
 import { CookieService } from 'ngx-cookie-service';
-// export function kcFactory(kcSecurity: KeycloakSecurityService) {
-//   return () => kcSecurity.init();
-// }
+
 
 
 @NgModule({
@@ -65,6 +63,11 @@ import { CookieService } from 'ngx-cookie-service';
   ],
   providers: [
 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
     CookieService
   ],
   bootstrap: [AppComponent]

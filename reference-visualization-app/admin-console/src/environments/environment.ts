@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   apiEndpoint: "http://localhost:3001/admin_dashboard",
-  appUrl: "http://localhost:4200",
+  appUrl: "http://localhost:4201",
   grafanaEndPoint: "http://localhost:9000",
   keycloakUrl: "http://localhost:8080/auth",
   realm: "cQube",
   clientId: "cQube_Admin",
   storageType: "s3",
   report_viewer_config_otp: true,
-  auth_api: "cqube"
+  auth_api: "state"
 };
 
 /*

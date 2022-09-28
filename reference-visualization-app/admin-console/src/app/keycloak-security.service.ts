@@ -12,7 +12,7 @@ declare var Keycloak: any;
 export class KeycloakSecurityService {
   public kc: KeycloakInstance;
   public baseUrl = environment.apiEndpoint;
-  constructor(public router: Router, public activtedRoute: ActivatedRoute, public http: HttpClient ) { }
+  constructor(public router: Router, public activtedRoute: ActivatedRoute, public http: HttpClient) { }
 
   async init() {
     if (environment.auth_api === 'cqube') {
@@ -26,28 +26,8 @@ export class KeycloakSecurityService {
         onLoad: 'login-required',
         checkLoginIframe: false
       });
-      localStorage.setItem('user_id', this.kc.tokenParsed.sub);
-      localStorage.setItem('userName', this.kc.tokenParsed['preferred_username']);
     } else {
-      this.activtedRoute.queryParams.subscribe( async params => {
-        
-        if (params['userid']) {
-           
-          let userifoResponse = await this.http.get(`${this.baseUrl}/getUserdetails/${params['userid']}`).toPromise();
-         
-         
-          if (userifoResponse['status'] === 200 && userifoResponse['userObj']) {
-            localStorage.setItem('user_id', userifoResponse['userObj'].userid);
-              localStorage.setItem('roleName', userifoResponse['userObj'].roleName);
-              localStorage.setItem('userName', userifoResponse['userObj'].userName);
-              localStorage.setItem('token', userifoResponse['userObj'].token);
-
-            } 
-           this.router.navigate(['admin-dashboard'])
-          
-        }
-      })
-     
+    
     }
   }
 
