@@ -1,14 +1,5 @@
 <div class="container-fluid" style=" height: 100%;">
-    <!-- <div class="row">
-        <mat-toolbar id="header" color="primary" style="background-color: rgb(245, 245, 245);">
-            <img src="../../assets/images/dashboard.png" alt="">
-            <span style="flex: 1 1 auto;"></span>
-            <span id="logout" class="headerBtn" (click)="logout()">
-                <em class="fa fa-sign-out fa-rotate-180" style="font-size: 20px;"></em><strong>
-                    Logout</strong>
-            </span>
-        </mat-toolbar>
-    </div> -->
+  
     <div class="row" class="outer">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row">
@@ -22,12 +13,10 @@
             <div class="row" style="margin-top: 5px;">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div id="admin_console_outer">
-                        <a type="button" id="admin_console" href="{{adminUrl}}" class="btn btn-light">
+                     
+                        <a type="button" id="admin_console" (click)="submit()" class="btn btn-deafult">
                             Admin Console
                         </a>
-                        <!-- <a type="button" id="admin_console" (click)="test()" class="btn btn-deafult">
-                            Admin Console
-                        </a> -->
 
                     </div>
                 </div>

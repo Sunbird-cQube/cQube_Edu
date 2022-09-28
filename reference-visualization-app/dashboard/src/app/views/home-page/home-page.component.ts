@@ -1,29 +1,66 @@
-import { Component, OnInit } from '@angular/core';
+
+
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { KeycloakSecurityService } from '../keycloak-security.service';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+
+import { CookieService } from 'ngx-cookie-service';
+
+import { AppServiceComponent } from 'src/app/app.service';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class HomePageComponent implements OnInit {
-  adminUrl = environment.adminUrl
-  constructor() { }
+  adminUrl;
+  adminDashUrl;
+  role;
+  storage
+  hideAdmin
+  constructor(public router: Router, public service: AppServiceComponent, public logInservice: AuthenticationService) {
+  
+  }
 
   ngOnInit(): void {
+    this.adminUrl = environment.adminUrl;
+    this.storage = window.localStorage;
+    this.hideAdmin = environment.auth_api === 'cqube' ? true : false;
+    if (localStorage.getItem('roleName') != 'admin') {
+      this.router.navigate(['/home']);
+    }
+    
+  }
+
+  logout() {
+        localStorage.clear();
+        this.router.navigate(['/signin'])
+      
   }
 
 
-  test() {
+  submit() {
 
     let obj = {
-      'userid': 1,
-      'roleName': "admin",
-      'userName': "admin",
-      'token': "ajsdasbdas das dsajdbuasdbu1"
+      'userid': localStorage.getItem('user_id'),
+      'roleName': localStorage.getItem('roleName'),
+      'userName': localStorage.getItem('userName'),
+      'token': localStorage.getItem('token')
     }
 
-    window.location.href = `${environment.adminUrl}/#/admin-dashboard?userid=${obj.userid}`;
+    console.log('obje', obj)
+
+    this.logInservice.postUserDetails(obj).subscribe(res => {
+      try {
+        window.location.href = `${environment.adminUrl}/#/admin-dashboard?userid=${obj.userid}`;
+      } catch (error) {
+        console.log(error)
+      }
+    })
 
   }
 }

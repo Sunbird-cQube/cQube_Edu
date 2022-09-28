@@ -16,11 +16,15 @@ export class AuthenticationService {
   }
 
   logout(): void {
-    localStorage.removeItem('userId');
+    localStorage.clear();
     this._router.navigate(['/login']);
   }
 
   login(email: any, password: any): Observable<any> {
-    return this._http.post(`${environment.loginUrl}/login`,{email, password})
+    return this._http.post(`${environment.loginUrl}/login`, { email, password })
+  }
+
+  postUserDetails(data) {
+    return this._http.post(`${environment.adminUrl2}/userdetails`, data)
   }
 }

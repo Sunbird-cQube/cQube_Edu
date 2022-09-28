@@ -30,7 +30,7 @@ app.use((err, req, res, next) => {
     next();
 });
 const router = require('./api/router');
-app.use('/api', router);
+app.use('/core_api', router);
 
 app.listen(port, '0.0.0.0', () => {
     console.log("Server started at port: ", port);

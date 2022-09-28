@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiURL: 'http://localhost:3000/api',
-  adminUrl: "http://localhost:4201/admin",
+  adminUrl: "http://localhost:4201",
   loginUrl: "http://localhost:4001/login-api",
   config: "state",
   stateCode: "HR",
@@ -30,9 +30,9 @@ export const environment = {
       format: 'long'
     }
   },
-  apiEndpoint: "http://localhost:3004/api",
+  apiEndpoint: "http://localhost:3004/core_api",
   adminApiEndPoint: "http://localhost:3001/admin_api",
-  adminUrl2: "http://localhost:4201",
+  adminUrl2: "http://localhost:3001/session",
   appUrl: "http://localhost:4200",
   keycloakUrl: "http://localhost:8080/auth",
   realm: "cQube",

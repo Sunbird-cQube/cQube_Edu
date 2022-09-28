@@ -58,19 +58,18 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     //let password = this.encrypt(this.LoginForm.controls.password.value as string);
     this._authenticationService.login(this.LoginForm.controls.userId.value, this.LoginForm.controls.password.value).subscribe((res:any) => {
-      console.log('sucess', res)
-      localStorage.setItem('userId', JSON.stringify(res));
+ 
+      localStorage.setItem('token', res.token )
+      localStorage.setItem('userName', res.username)
+      localStorage.setItem('roleName', res.role)
+      localStorage.setItem('user_id', res.userId)
+     
       this.router.navigate(['/home']);
     },
     err => {
       this.error = true;
     })
-    // if(this.LoginForm.controls.userId.value === 'admin' && this.LoginForm.controls.password.value === 'admin') {
-    //   localStorage.setItem('userId', this.LoginForm.controls.userId.value);
-    //   this.router.navigate(['/dashboard']);
-    // } else {
-    //   this.error = true;
-    // }
+   
   }
 
  
