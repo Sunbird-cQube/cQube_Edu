@@ -239,7 +239,7 @@ if [[ $mode_of_installation == "public" ]]; then
             echo "Error - Invalid value for $key"; fail=1
             ip_pass=0
         fi
-        is_local_ip=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'` > /dev/null 2>&1
+        is_local_ip=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | cut -d ' ' -f 2` > /dev/null 2>&1
         if [[ $ip_pass == 0 && $is_local_ip != *$2* ]]; then
             echo "Error - Invalid value for $key. Please enter the local ip of this system."; fail=1 
         fi
@@ -298,7 +298,7 @@ else
         current_datasource=$(cut -d "=" -f2 <<< "$static_datasource")
         if [[ ! $current_datasource == "" ]]; then
             if [[ ! $current_datasource == $2 ]]; then
-                sed -i '/datasource_status/c\datasource_status: unmatched' ../ansible/roles/createdb/vars/main.yml
+                sed -i '/datasource_status/c\datasource_status: unmatched' ansible/roles/postgres/vars/main.yml
                 echo "static_datasource value from config.yml is not matching with previous installation value. If continued with this option, it will truncate the tables from db and clear the objects from output bucket."
                 while true; do
                     read -p "yes to continue, no to cancel the installation (yes/no)? : " yn
@@ -310,10 +310,10 @@ else
                     esac
                 done
             else
-                sed -i '/datasource_status/c\datasource_status: matched' ../ansible/roles/createdb/vars/main.yml
+                sed -i '/datasource_status/c\datasource_status: matched' ansible/roles/postgres/vars/main.yml
              fi
         else
-            sed -i '/datasource_status/c\datasource_status: matched' ../ansible/roles/createdb/vars/main.yml
+            sed -i '/datasource_status/c\datasource_status: matched' ansible/roles/postgres/vars/main.yml
         fi
     fi
 fi
