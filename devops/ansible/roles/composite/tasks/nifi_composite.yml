@@ -1,4 +1,4 @@
 ---
 - name: Run composite python code
-  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utililty.py composite_transformer composite_parameters cQube_data_storage 0"
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utility.py composite_transformer composite_parameters cQube_data_storage 0"
   tags: [ install, update ]

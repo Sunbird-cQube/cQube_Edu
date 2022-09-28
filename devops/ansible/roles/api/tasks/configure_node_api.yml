@@ -36,7 +36,7 @@
   blockinfile:
     path: "{{base_dir}}/cqube/apis/node-api/.env"
     block: |
-      STORAGE_SERVICE = {% if storage_type == "azure" %}AZURE_DATA_LAKE{% endif %}{% if storage_type == "s3" %}AWS_S3{% endif %}
+      STORAGE_SERVICE = "{% if storage_type == 'azure' %}AZURE_DATA_LAKE{% endif %}{% if storage_type == 's3' %}AWS_S3{% endif %}"
       AZURE_STORAGE_CONNECTION_STRING = "{{ azure_storage_connection_string }}"
       OUTPUT_CONTAINER = "{{ azure_output_container }}"
       INPUT_CONTAINER = "{{ azure_input_container }}"
