@@ -1,12 +1,13 @@
 <div class="metric-card-wrapper">
-    <div class="grid grid-cols-12">
-        <div class="col-span-full xmd:col-span-6">
+    <div class="grid gap-4 grid-cols-6 xmd:grid-cols-12">
+        <div class="col-span-6">
             <p class="h4">Composite Report</p>
         </div>
-        <div class="col-span-full xmd:col-span-6">
+        <div class="col-span-6 lg:col-start-10 lg:col-end-13">
             <app-management-selector (onSelect)="selected()"></app-management-selector>
         </div>
     </div>
+    
 </div>
 
 <div class="tab-group-wrapper" *ngIf="loadTabs">
