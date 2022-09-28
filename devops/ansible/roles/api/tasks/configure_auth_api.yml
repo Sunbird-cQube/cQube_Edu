@@ -30,6 +30,7 @@
   blockinfile:
     path: "{{base_dir}}/cqube/apis/auth-api/.env"
     block: |
+      PORT: 4001
       KEYCLOAK_HOST = "{{ protocol }}://{{ api_endpoint }}"
       KEYCLOAK_REALM = "{{ realm_name }}"
       KEYCLOAK_CLIENT = "{{ angular_app_client_id }}"
@@ -37,4 +38,20 @@
       KEYCLOAK_USER= "{{ keycloak_adm_user }}"
       PASSWORD= "{{ keycloak_adm_passwd }}"
       GRANT_TYPE= "password"
+  when: mode_of_installation != "localhost"
+  tags: [ install, update ]
+
+- name: Loading required data inside .env file
+  blockinfile:
+    path: "{{base_dir}}/cqube/apis/auth-api/.env"
+    block: |
+      PORT: 4001
+      KEYCLOAK_HOST = "{{ protocol }}://{{ api_endpoint }}:8080"
+      KEYCLOAK_REALM = "{{ realm_name }}"
+      KEYCLOAK_CLIENT = "{{ angular_app_client_id }}"
+
+      KEYCLOAK_USER= "{{ keycloak_adm_user }}"
+      PASSWORD= "{{ keycloak_adm_passwd }}"
+      GRANT_TYPE= "password"
+  when: mode_of_installation == "localhost"
   tags: [ install, update ]
