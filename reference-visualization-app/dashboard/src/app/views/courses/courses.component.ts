@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  tabIndex = 4;
+  tabIndex = 0;
 
   constructor() { }
 

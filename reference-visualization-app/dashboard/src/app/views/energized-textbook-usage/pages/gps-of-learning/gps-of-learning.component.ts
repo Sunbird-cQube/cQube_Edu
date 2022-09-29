@@ -228,10 +228,6 @@ export class GpsOfLearningComponent implements OnInit {
         };
         this.dataOptions = options;
         this.globalService.restrictZoom(globalMap);
-        globalMap.setMaxBounds([
-          [options.centerLat - 4.5, options.centerLng - 6],
-          [options.centerLat + 3.5, options.centerLng + 6],
-        ]);
         this.changeDetection.detectChanges();
 
         this.genericFun(this.districtMarkers, options, this.fileName);
@@ -327,10 +323,6 @@ export class GpsOfLearningComponent implements OnInit {
             };
             this.dataOptions = options;
             this.globalService.restrictZoom(globalMap);
-            globalMap.setMaxBounds([
-              [options.centerLat - 4.5, options.centerLng - 6],
-              [options.centerLat + 3.5, options.centerLng + 6],
-            ]);
             this.changeDetection.detectChanges();
 
             this.genericFun(this.districtMarkers, options, this.fileName);
@@ -374,6 +366,7 @@ export class GpsOfLearningComponent implements OnInit {
         value: this.selectedType,
         report: "reports",
       });
+      this.globalService.featureGrp.clearLayers();
       // attach values to markers
       for (let i = 0; i < this.markers.length; i++) {
         var color;
@@ -417,6 +410,7 @@ export class GpsOfLearningComponent implements OnInit {
       }
       this.commonService.loaderAndErr(data);
       this.changeDetection.detectChanges();
+      this.globalService.getBoundsByMarkers();
     } catch (e) {
       data = [];
       this.commonService.loaderAndErr(data);

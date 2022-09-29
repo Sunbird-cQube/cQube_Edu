@@ -2,7 +2,7 @@
     <div class="row reportHeader">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row">
-                <div class="col-lg-7 col-md-9 col-sm-12 ">
+                <div class="col-xl-7 col-md-12 col-sm-12 ">
                     <div *ngIf='skul'>
                         <p id="dist">
                             Report on User Progress: <span (click)="homeClick()"
@@ -45,15 +45,15 @@
 
                 </div>
 
-                <div class="col-lg-3 col-md-3 col-sm-12">
+                <div class="col-xl-3 col-md-12 col-sm-12">
                     <div class="row">
-                        <div class="col-sm-7" style="display: none;">
+                        <div class="col-sm-4" style="display: none;">
                             <p id="errMsg" class="note">
                             </p>
                         </div>
-                        <div class="col sm-5">
+                        <div class="col sm-8 mb-4">
                             <button *ngIf="reportData.length>0" class="btn btn-primary" title="Download Report"
-                                id="download1" (click)="downloadReport()">Download Report &nbsp; <i
+                                id="download1" (click)="downloadReport()" style="float: right">Download Report &nbsp; <i
                                     class="fa fa-arrow-down" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -69,62 +69,60 @@
                     </p>
                 </div>
             </div>
-            <div class="row" style="margin-top: 5px;">
-                <div class="col-sm-12 d-flex">
-                    <ng-select id="time_range" [(ngModel)]="timePeriod" name="timePeriod"
-                        placeholder="Choose Time Range" [clearable]="false" dropdownPosition="bottom"
-                        (change)="chooseTimeRange()">
-                        <ng-option *ngFor="let time of timeDetails" [value]="time.id">
-                            {{time.name}}
-                        </ng-option>
-                    </ng-select>
 
-                    <ng-select id="choose_dist" [(ngModel)]="selectedProgram" name="selectedProgram"
-                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Program"
-                        (change)="onProgramSelect(selectedProgram)">
+            <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-12" style="margin-bottom: 10px">
+                <ng-select id="time_range" class="col-span-6 xmd:col-span-3 lg:col-span-2" [(ngModel)]="timePeriod" name="timePeriod" placeholder="Choose Time Range"
+                    [clearable]="false" dropdownPosition="bottom" (change)="chooseTimeRange()">
+                    <ng-option *ngFor="let time of timeDetails" [value]="time.id">
+                        {{time.name}}
+                    </ng-option>
+                </ng-select>
 
-                        <!-- <ng-option [value]="selectedProgram" disabled selected="selected">Choose a Program</ng-option> -->
-                        <ng-option *ngFor="let program of uniqePrograms" [value]="program.program_id">
-                            {{program.program_name}}
-                        </ng-option>
-                    </ng-select>
+                <ng-select id="choose_dist" class="col-span-6 xmd:col-span-3 lg:col-span-2" [(ngModel)]="selectedProgram" name="selectedProgram"
+                    dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Program"
+                    (change)="onProgramSelect(selectedProgram)">
 
-                    <ng-select [items]="collectionNames" id="SearchDropDown" class="col-3" [hideSelected]="true"
-                        placeholder=" Search Course" notFoundText="no courses found" bindLabel="collection_name"
-                        [(ngModel)]="selectedCourse" bindValue="collection_id" clearAllText="Clear"
-                        (change)="getDataBasedOnCollections($event)" (clear)="onClear()">
-                    </ng-select>
+                    <!-- <ng-option [value]="selectedProgram" disabled selected="selected">Choose a Program</ng-option> -->
+                    <ng-option *ngFor="let program of uniqePrograms" [value]="program.program_id">
+                        {{program.program_name}}
+                    </ng-option>
+                </ng-select>
+
+                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [items]="collectionNames" id="SearchDropDown" [hideSelected]="true"
+                    placeholder="Search Course" notFoundText="no courses found" bindLabel="collection_name"
+                    [(ngModel)]="selectedCourse" bindValue="collection_id" clearAllText="Clear"
+                    (change)="getDataBasedOnCollections($event)" (clear)="onClear()">
+                </ng-select>
 
 
-                    <ng-select id="choose_dist" [hidden]="hideDist" [(ngModel)]="districtId" [disabled]="selDist"
-                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose a District"
-                        (change)="distLinkClick(districtId)">
-                        <!-- <ng-option [value]="districtId" disabled selected="selected">Choose a District</ng-option> -->
-                        <ng-option *ngFor="let dist of districts" [value]="dist.district_id">
-                            {{dist.district_name}}
-                        </ng-option>
-                    </ng-select>
+                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_dist" [hidden]="hideDist" [(ngModel)]="districtId" [disabled]="selDist"
+                    dropdownPosition="bottom" [clearable]="false" placeholder="Choose a District"
+                    (change)="distLinkClick(districtId)">
+                    <!-- <ng-option [value]="districtId" disabled selected="selected">Choose a District</ng-option> -->
+                    <ng-option *ngFor="let dist of districts" [value]="dist.district_id">
+                        {{dist.district_name}}
+                    </ng-option>
+                </ng-select>
 
-                    <ng-select [hidden]="blockHidden" id="choose_block" [(ngModel)]="blockId" [disabled]="selBlock"
-                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Block"
-                        (change)="blockLinkClick(blockId)">
+                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="blockHidden" id="choose_block" [(ngModel)]="blockId" [disabled]="selBlock"
+                    dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Block"
+                    (change)="blockLinkClick(blockId)">
 
-                        <!-- <ng-option [value]="blockId" disabled selected="selected">Choose a Block</ng-option> -->
-                        <ng-option *ngFor="let block of blocks" [value]="block.block_id">
-                            {{block.block_name}}
-                        </ng-option>
-                    </ng-select>
+                    <!-- <ng-option [value]="blockId" disabled selected="selected">Choose a Block</ng-option> -->
+                    <ng-option *ngFor="let block of blocks" [value]="block.block_id">
+                        {{block.block_name}}
+                    </ng-option>
+                </ng-select>
 
-                    <ng-select [hidden]="clusterHidden" id="choose_cluster" [(ngModel)]="clusterId"
-                        dropdownPosition="bottom" [clearable]="false" placeholder="choose_cluster"
-                        [disabled]="selCluster" (change)="clusterLinkClick(clusterId)">
-                        <!-- <ng-option [value]="clusterId" disabled selected="selected">Choose a Cluster</ng-option> -->
-                        <ng-option *ngFor="let cluster of clusters" [value]="cluster.cluster_id"
-                            [ngStyle]="{'color': cluster.clusterName !== 'NO NAME FOUND'? 'white' : '#ff3333'}">
-                            {{cluster.cluster_name}}
-                        </ng-option>
-                    </ng-select>
-                </div>
+                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="clusterHidden" id="choose_cluster" [(ngModel)]="clusterId"
+                    dropdownPosition="bottom" [clearable]="false" placeholder="choose_cluster" [disabled]="selCluster"
+                    (change)="clusterLinkClick(clusterId)">
+                    <!-- <ng-option [value]="clusterId" disabled selected="selected">Choose a Cluster</ng-option> -->
+                    <ng-option *ngFor="let cluster of clusters" [value]="cluster.cluster_id"
+                        [ngStyle]="{'color': cluster.clusterName !== 'NO NAME FOUND'? 'white' : '#ff3333'}">
+                        {{cluster.cluster_name}}
+                    </ng-option>
+                </ng-select>
             </div>
         </div>
     </div>

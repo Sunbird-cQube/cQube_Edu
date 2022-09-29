@@ -661,10 +661,6 @@ export class SatMapComponent implements OnInit {
                   };
                   this.dataOptions = options;
                   this.globalService.restrictZoom(globalMap);
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 4.5, options.centerLng - 6],
-                    [options.centerLat + 3.5, options.centerLng + 6],
-                  ]);
                   this.changeDetection.detectChanges();
                   this.genericFun(this.data, options, this.fileName);
                   this.globalService.onResize(this.level);
@@ -880,10 +876,7 @@ export class SatMapComponent implements OnInit {
                         }
 
                         this.globalService.restrictZoom(globalMap);
-                        globalMap.setMaxBounds([
-                          [options.centerLat - 4.5, options.centerLng - 6],
-                          [options.centerLat + 3.5, options.centerLng + 6],
-                        ]);
+
                         this.globalService.onResize(this.level);
 
                         this.schoolCount = res['footer'] && res['footer'].total_schools != null ? res['footer'].total_schools.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,") : null;
@@ -998,10 +991,7 @@ export class SatMapComponent implements OnInit {
                         }
 
                         this.globalService.restrictZoom(globalMap);
-                        globalMap.setMaxBounds([
-                          [options.centerLat - 4.5, options.centerLng - 6],
-                          [options.centerLat + 3.5, options.centerLng + 6],
-                        ]);
+
                         this.globalService.onResize(this.level);
 
                         this.schoolCount = res['footer'] && res['footer'].total_schools != null ? res['footer'].total_schools.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,") : null;
@@ -1114,10 +1104,7 @@ export class SatMapComponent implements OnInit {
                         }
 
                         this.globalService.restrictZoom(globalMap);
-                        globalMap.setMaxBounds([
-                          [options.centerLat - 4.5, options.centerLng - 6],
-                          [options.centerLat + 3.5, options.centerLng + 6],
-                        ]);
+
                         this.globalService.onResize(this.level);
 
                         this.schoolCount = res['footer'] && res['footer'].total_schools != null ? res['footer'].total_schools.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,") : null;
@@ -1223,10 +1210,7 @@ export class SatMapComponent implements OnInit {
                         }
 
                         this.globalService.restrictZoom(globalMap);
-                        globalMap.setMaxBounds([
-                          [options.centerLat - 4.5, options.centerLng - 6],
-                          [options.centerLat + 3.5, options.centerLng + 6],
-                        ]);
+                        
                         this.globalService.onResize(this.level);
 
                         this.schoolCount = res['footer'] && res['footer'].total_schools != null ? res['footer'].total_schools.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,") : null;
@@ -1452,10 +1436,7 @@ export class SatMapComponent implements OnInit {
                         }
 
                         this.globalService.restrictZoom(globalMap);
-                        globalMap.setMaxBounds([
-                          [options.centerLat - 4.5, options.centerLng - 6],
-                          [options.centerLat + 3.5, options.centerLng + 6],
-                        ]);
+                        
                         this.globalService.onResize(this.level);
 
                         //schoolCount
@@ -1581,10 +1562,7 @@ export class SatMapComponent implements OnInit {
                         }
 
                         this.globalService.restrictZoom(globalMap);
-                        globalMap.setMaxBounds([
-                          [options.centerLat - 4.5, options.centerLng - 6],
-                          [options.centerLat + 3.5, options.centerLng + 6],
-                        ]);
+                
                         this.globalService.onResize(this.level);
 
                         //schoolCount
@@ -1700,10 +1678,7 @@ export class SatMapComponent implements OnInit {
                         }
 
                         this.globalService.restrictZoom(globalMap);
-                        globalMap.setMaxBounds([
-                          [options.centerLat - 4.5, options.centerLng - 6],
-                          [options.centerLat + 3.5, options.centerLng + 6],
-                        ]);
+                       
                         this.globalService.onResize(this.level);
 
                         //schoolCount
@@ -1808,10 +1783,7 @@ export class SatMapComponent implements OnInit {
                         }
 
                         this.globalService.restrictZoom(globalMap);
-                        globalMap.setMaxBounds([
-                          [options.centerLat - 4.5, options.centerLng - 6],
-                          [options.centerLat + 3.5, options.centerLng + 6],
-                        ]);
+                      
                         this.globalService.onResize(this.level);
 
                         //schoolCount
@@ -2041,10 +2013,7 @@ export class SatMapComponent implements OnInit {
 
                         globalMap.doubleClickZoom.enable();
                         globalMap.scrollWheelZoom.enable();
-                        globalMap.setMaxBounds([
-                          [options.centerLat - 4.5, options.centerLng - 6],
-                          [options.centerLat + 3.5, options.centerLng + 6],
-                        ]);
+                       
                         this.globalService.onResize(this.level);
 
                         ///schoolCount
@@ -2174,10 +2143,7 @@ export class SatMapComponent implements OnInit {
 
                         globalMap.doubleClickZoom.enable();
                         globalMap.scrollWheelZoom.enable();
-                        globalMap.setMaxBounds([
-                          [options.centerLat - 4.5, options.centerLng - 6],
-                          [options.centerLat + 3.5, options.centerLng + 6],
-                        ]);
+                        
                         this.globalService.onResize(this.level);
 
                         ///schoolCount
@@ -2290,10 +2256,7 @@ export class SatMapComponent implements OnInit {
 
                         globalMap.doubleClickZoom.enable();
                         globalMap.scrollWheelZoom.enable();
-                        globalMap.setMaxBounds([
-                          [options.centerLat - 4.5, options.centerLng - 6],
-                          [options.centerLat + 3.5, options.centerLng + 6],
-                        ]);
+                        
                         this.globalService.onResize(this.level);
 
                         ///schoolCount
@@ -2396,10 +2359,7 @@ export class SatMapComponent implements OnInit {
 
                         globalMap.doubleClickZoom.enable();
                         globalMap.scrollWheelZoom.enable();
-                        globalMap.setMaxBounds([
-                          [options.centerLat - 4.5, options.centerLng - 6],
-                          [options.centerLat + 3.5, options.centerLng + 6],
-                        ]);
+                        
                         this.globalService.onResize(this.level);
 
                         ///schoolCount
@@ -2534,10 +2494,7 @@ export class SatMapComponent implements OnInit {
           this.globalService.longitude = this.lng = options.centerLng;
 
           this.globalService.restrictZoom(globalMap);
-          globalMap.setMaxBounds([
-            [options.centerLat - 1.5, options.centerLng - 3],
-            [options.centerLat + 1.5, options.centerLng + 2],
-          ]);
+          
 
           this.genericFun(this.data, options, this.fileName);
           this.globalService.onResize(this.level);
@@ -2679,10 +2636,7 @@ export class SatMapComponent implements OnInit {
           this.globalService.longitude = this.lng = options.centerLng;
 
           this.globalService.restrictZoom(globalMap);
-          globalMap.setMaxBounds([
-            [options.centerLat - 1.5, options.centerLng - 3],
-            [options.centerLat + 1.5, options.centerLng + 2],
-          ]);
+          
 
           this.genericFun(this.data, options, this.fileName);
           this.globalService.onResize(this.level);
@@ -2888,10 +2842,7 @@ export class SatMapComponent implements OnInit {
 
                 globalMap.doubleClickZoom.enable();
                 globalMap.scrollWheelZoom.enable();
-                globalMap.setMaxBounds([
-                  [options.centerLat - 1.5, options.centerLng - 3],
-                  [options.centerLat + 1.5, options.centerLng + 2],
-                ]);
+               
 
                 this.genericFun(this.data, options, this.fileName);
                 this.globalService.onResize(this.level);
@@ -2925,6 +2876,7 @@ export class SatMapComponent implements OnInit {
         })
         this.markers = filtererSubData;
       }
+      this.globalService.featureGrp.clearLayers();
       if (this.markers.length) {
         for (let i = 0; i < this.markers.length; i++) {
           if (!this.valueRange) {
@@ -3008,6 +2960,7 @@ export class SatMapComponent implements OnInit {
         }
         this.commonService.loaderAndErr(this.markers);
         this.changeDetection.detectChanges();
+        this.globalService.getBoundsByMarkers();
       } else {
         this.errorHandling();
       }

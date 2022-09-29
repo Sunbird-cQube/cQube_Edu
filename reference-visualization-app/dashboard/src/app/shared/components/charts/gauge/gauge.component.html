@@ -5,8 +5,8 @@
 
 <div id="card">
     <div id="apexChart">
-      <apx-chart
-        [series]="chartOptions.series"
+      <apx-chart *ngIf="gaugeData"
+        [series]="chartOptions?.series"
         [chart]="chartOptions.chart"
         [plotOptions]="chartOptions.plotOptions"
         [labels]="chartOptions.labels"
