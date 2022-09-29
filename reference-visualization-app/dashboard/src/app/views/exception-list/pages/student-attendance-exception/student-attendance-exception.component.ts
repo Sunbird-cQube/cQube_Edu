@@ -135,10 +135,6 @@ export class StudentAttendanceExceptionComponent implements OnInit {
     this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
     this.changeDetection.detectChanges();
     this.globalService.initMap("sarExpMap", [[this.lat, this.lng]]);
-    globalMap.setMaxBounds([
-      [this.lat - 4.5, this.lng - 6],
-      [this.lat + 3.5, this.lng + 6],
-    ]);
     this.managementName = this.management = JSON.parse(localStorage.getItem('management'))?.id;
     this.category = JSON.parse(localStorage.getItem('category')).id;
     this.managementName = this.commonService.changeingStringCases(
@@ -547,6 +543,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
               value: "percentage_schools_with_missing_data",
               report: "exception",
             });
+            this.globalService.featureGrp.clearLayers();
             if (this.markers.length > 0) {
               for (var i = 0; i < this.markers.length; i++) {
                 this.districtsIds.push(this.markers[i]["district_id"]);
@@ -589,10 +586,6 @@ export class StudentAttendanceExceptionComponent implements OnInit {
               return
             }
             this.globalService.restrictZoom(globalMap);
-            globalMap.setMaxBounds([
-              [this.lat - 4.5, this.lng - 6],
-              [this.lat + 3.5, this.lng + 6],
-            ]);
             this.globalService.onResize(this.level);
             this.schoolCount = this.schoolCount
               .toString()
@@ -606,6 +599,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
               this.distSelect({ type: "click" }, distristID, bid, cid);
               return
             }
+            this.globalService.getBoundsByMarkers();
           },
           (err) => {
             this.dateRange = "";
@@ -671,6 +665,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 value: "percentage_schools_with_missing_data",
                 report: "exception",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   this.blocksIds.push(this.markers[i]["block_id"]);
@@ -708,10 +703,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 this.blocksNames = blockNames;
 
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
+                
                 this.globalService.onResize(this.level);
                 this.schoolCount = this.schoolCount
                   .toString()
@@ -743,6 +735,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 value: "percentage_schools_with_missing_data",
                 report: "exception",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   this.blocksIds.push(this.markers[i]["block_id"]);
@@ -780,10 +773,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 this.blocksNames = blockNames;
 
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
+                
                 this.globalService.onResize(this.level);
                 this.schoolCount = this.schoolCount
                   .toString()
@@ -814,6 +804,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 value: "percentage_schools_with_missing_data",
                 report: "exception",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   this.blocksIds.push(this.markers[i]["block_id"]);
@@ -851,10 +842,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 this.blocksNames = blockNames;
 
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
+                
                 this.globalService.onResize(this.level);
                 this.schoolCount = this.schoolCount
                   .toString()
@@ -878,6 +866,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 value: "percentage_schools_with_missing_data",
                 report: "exception",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   this.blocksIds.push(this.markers[i]["block_id"]);
@@ -915,10 +904,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 this.blocksNames = blockNames;
 
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
+                
                 this.globalService.onResize(this.level);
                 this.schoolCount = this.schoolCount
                   .toString()
@@ -930,6 +916,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 this.changeDetection.markForCheck();
               }
             }
+            this.globalService.getBoundsByMarkers();
 
           },
           (err) => {
@@ -1002,6 +989,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 value: "percentage_schools_with_missing_data",
                 report: "exception",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   this.clusterIds.push(this.markers[i]["cluster_id"]);
@@ -1058,10 +1046,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 this.blocksNames = blockNames;
 
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
+                
                 this.globalService.onResize(this.level);
                 this.schoolCount = this.schoolCount
                   .toString()
@@ -1104,6 +1089,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 value: "percentage_schools_with_missing_data",
                 report: "exception",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   this.clusterIds.push(this.markers[i]["cluster_id"]);
@@ -1160,10 +1146,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
 
 
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
+                
                 this.globalService.onResize(this.level);
                 this.schoolCount = this.schoolCount
                   .toString()
@@ -1196,6 +1179,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 value: "percentage_schools_with_missing_data",
                 report: "exception",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   this.clusterIds.push(this.markers[i]["cluster_id"]);
@@ -1252,10 +1236,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 this.blocksNames = blockNames;
 
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
+                
                 this.globalService.onResize(this.level);
                 this.schoolCount = this.schoolCount
                   .toString()
@@ -1280,6 +1261,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 value: "percentage_schools_with_missing_data",
                 report: "exception",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   this.clusterIds.push(this.markers[i]["cluster_id"]);
@@ -1336,10 +1318,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 this.blocksNames = blockNames;
 
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
+                
                 this.globalService.onResize(this.level);
                 this.schoolCount = this.schoolCount
                   .toString()
@@ -1351,7 +1330,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 this.changeDetection.markForCheck();
               }
             }
-
+            this.globalService.getBoundsByMarkers();
 
           },
           (err) => {
@@ -1421,6 +1400,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
               this.schoolsWithMissingData = res["missingSchoolsCount"];
 
               this.markers = sorted;
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   this.districtsIds.push(sorted[i]["district_id"]);
@@ -1444,10 +1424,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
 
                 globalMap.doubleClickZoom.enable();
                 globalMap.scrollWheelZoom.enable();
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
+                
                 this.globalService.onResize(this.level);
                 this.schoolCount = this.markers.length
                   .toString()
@@ -1484,6 +1461,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
               this.schoolsWithMissingData = res["missingSchoolsCount"];
 
               this.markers = sorted;
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   this.districtsIds.push(sorted[i]["district_id"]);
@@ -1507,10 +1485,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
 
                 globalMap.doubleClickZoom.enable();
                 globalMap.scrollWheelZoom.enable();
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
+                
                 this.globalService.onResize(this.level);
                 this.schoolCount = this.markers.length
                   .toString()
@@ -1536,6 +1511,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
               this.schoolsWithMissingData = res["missingSchoolsCount"];
 
               this.markers = sorted;
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   this.districtsIds.push(sorted[i]["district_id"]);
@@ -1559,10 +1535,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
 
                 globalMap.doubleClickZoom.enable();
                 globalMap.scrollWheelZoom.enable();
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
+                
                 this.globalService.onResize(this.level);
                 this.schoolCount = this.markers.length
                   .toString()
@@ -1581,6 +1554,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
               this.schoolsWithMissingData = res["missingSchoolsCount"];
 
               this.markers = sorted;
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   this.districtsIds.push(sorted[i]["district_id"]);
@@ -1604,10 +1578,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
 
                 globalMap.doubleClickZoom.enable();
                 globalMap.scrollWheelZoom.enable();
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
+                
                 this.globalService.onResize(this.level);
                 this.schoolCount = this.markers.length
                   .toString()
@@ -1619,7 +1590,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
                 this.changeDetection.markForCheck();
               }
             }
-
+            this.globalService.getBoundsByMarkers();
           },
           (err) => {
             this.dateRange = "";
@@ -1658,10 +1629,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
     this.clustName = "";
     this.globalService.latitude = this.lat = this.globalService.mapCenterLatlng.lat;
     this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
-    globalMap.setMaxBounds([
-      [this.lat - 4.5, this.lng - 6],
-      [this.lat + 3.5, this.lng + 6],
-    ]);
+    
     this.markerData = {};
     this.myDistrict = null;
   }
@@ -1897,6 +1865,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
               value: "percentage_schools_with_missing_data",
               report: "exception",
             });
+            this.globalService.featureGrp.clearLayers();
             for (var i = 0; i < this.markers.length; i++) {
               this.blocksIds.push(this.markers[i]["block_id"]);
               blokName.push({
@@ -1936,10 +1905,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
             this.blocksNames = blokName;
 
             this.globalService.restrictZoom(globalMap);
-            globalMap.setMaxBounds([
-              [this.lat - 1.5, this.lng - 3],
-              [this.lat + 1.5, this.lng + 2],
-            ]);
+            
             this.globalService.onResize(this.level);
             this.schoolCount = this.schoolCount
               .toString()
@@ -1952,6 +1918,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
             if (blockid) {
               this.blockSelect({ type: "click" }, blockid, clusterid);
             }
+            this.globalService.getBoundsByMarkers();
           },
           (err) => {
             this.skul = false;
@@ -2109,6 +2076,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
               report: "exception",
             });
             this.markers = sorted;
+            this.globalService.featureGrp.clearLayers();
             for (var i = 0; i < sorted.length; i++) {
               this.clusterIds.push(sorted[i]["cluster_id"]);
               if (sorted[i]["name"] !== null) {
@@ -2156,10 +2124,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
             this.clusterNames = clustNames;
 
             this.globalService.restrictZoom(globalMap);
-            globalMap.setMaxBounds([
-              [this.lat - 1.5, this.lng - 3],
-              [this.lat + 1.5, this.lng + 2],
-            ]);
+            
             this.globalService.onResize(this.level);
             this.schoolCount = this.schoolCount
               .toString()
@@ -2172,6 +2137,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
             if (clusterid) {
               this.clusterSelect({ type: 'clicked' }, clusterid)
             }
+            this.globalService.getBoundsByMarkers();
           },
           (err) => {
             this.skul = false;
@@ -2377,6 +2343,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
             });
             this.markers = sorted;
 
+            this.globalService.featureGrp.clearLayers();
             for (var i = 0; i < sorted.length; i++) {
               // marker init
               var markerIcon = this.globalService.initMarkers1(
@@ -2404,10 +2371,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
             }
             globalMap.doubleClickZoom.enable();
             globalMap.scrollWheelZoom.enable();
-            globalMap.setMaxBounds([
-              [this.lat - 1.5, this.lng - 3],
-              [this.lat + 1.5, this.lng + 2],
-            ]);
+            
             this.globalService.onResize(this.level);
             this.schoolCount = this.markers.length
               .toString()
@@ -2417,6 +2381,7 @@ export class StudentAttendanceExceptionComponent implements OnInit {
               .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
             this.commonService.loaderAndErr(this.markers);
             this.changeDetection.markForCheck();
+            this.globalService.getBoundsByMarkers();
           },
           (err) => {
             this.skul = false;

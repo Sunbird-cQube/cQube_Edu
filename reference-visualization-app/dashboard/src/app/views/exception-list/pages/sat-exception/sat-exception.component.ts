@@ -436,7 +436,6 @@ export class SatExceptionComponent implements OnInit {
           }
 
           this.globalService.restrictZoom(globalMap);
-          globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
           this.fileName = `${this.reportName}_${this.period}_${this.grade != 'all' ? this.grade : 'allGrades'}_${this.subject ? this.subject : ''}_allDistricts_${this.commonService.dateAndTime}`;
           this.genericFun(this.data, options, this.fileName);
           this.globalService.onResize(this.level);
@@ -535,7 +534,6 @@ export class SatExceptionComponent implements OnInit {
                 });
               }
               this.globalService.restrictZoom(globalMap);
-              globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
               this.genericFun(markers, options, this.fileName);
               this.globalService.onResize(this.level);
             } else if (this.blockSelected) {
@@ -560,7 +558,6 @@ export class SatExceptionComponent implements OnInit {
                 });
               }
               this.globalService.restrictZoom(globalMap);
-              globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
               this.genericFun(markers, options, this.fileName);
               this.globalService.onResize(this.level);
             } else if (this.selectedCluster) {
@@ -585,7 +582,6 @@ export class SatExceptionComponent implements OnInit {
                 });
               }
               this.globalService.restrictZoom(globalMap);
-              globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
               this.genericFun(markers, options, this.fileName);
               this.globalService.onResize(this.level);
             } else {
@@ -602,7 +598,6 @@ export class SatExceptionComponent implements OnInit {
                 });
               }
               this.globalService.restrictZoom(globalMap);
-              globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
               this.genericFun(this.data, options, this.fileName);
               this.globalService.onResize(this.level);
             }
@@ -716,7 +711,6 @@ export class SatExceptionComponent implements OnInit {
                 });
               }
               this.globalService.restrictZoom(globalMap);
-              globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
               this.genericFun(markers, options, this.fileName);
               // this.schoolCount = this.data['footer'].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
               this.globalService.onResize(this.level);
@@ -745,7 +739,6 @@ export class SatExceptionComponent implements OnInit {
                 });
               }
               this.globalService.restrictZoom(globalMap);
-              globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
               this.genericFun(markers, options, this.fileName);
               // this.schoolCount = this.data['footer'].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
               this.globalService.onResize(this.level);
@@ -771,7 +764,6 @@ export class SatExceptionComponent implements OnInit {
                 });
               }
               this.globalService.restrictZoom(globalMap);
-              globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
               this.genericFun(markers, options, this.fileName);
             
               this.globalService.onResize(this.level);
@@ -790,7 +782,6 @@ export class SatExceptionComponent implements OnInit {
                 });
               }
               this.globalService.restrictZoom(globalMap);
-              globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
               this.genericFun(this.data, options, this.fileName);
             
               this.globalService.onResize(this.level);
@@ -900,7 +891,6 @@ export class SatExceptionComponent implements OnInit {
               }
               globalMap.doubleClickZoom.enable();
               globalMap.scrollWheelZoom.enable();
-              globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
               this.genericFun(markers, options, this.fileName);
              
               this.globalService.onResize(this.level);
@@ -944,7 +934,6 @@ export class SatExceptionComponent implements OnInit {
               }
               globalMap.doubleClickZoom.enable();
               globalMap.scrollWheelZoom.enable();
-              globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
               this.genericFun(markers, options, this.fileName);
              
               this.globalService.onResize(this.level);
@@ -970,7 +959,6 @@ export class SatExceptionComponent implements OnInit {
               }
               globalMap.doubleClickZoom.enable();
               globalMap.scrollWheelZoom.enable();
-              globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
               this.genericFun(markers, options, this.fileName);
               
               this.globalService.onResize(this.level);
@@ -987,7 +975,6 @@ export class SatExceptionComponent implements OnInit {
               }
               globalMap.doubleClickZoom.enable();
               globalMap.scrollWheelZoom.enable();
-              globalMap.setMaxBounds([[options.centerLat - 4.5, options.centerLng - 6], [options.centerLat + 3.5, options.centerLng + 6]]);
               this.genericFun(this.data, options, this.fileName);
             
               this.globalService.onResize(this.level);
@@ -1078,7 +1065,6 @@ export class SatExceptionComponent implements OnInit {
       this.globalService.longitude = this.lng = options.centerLng;
 
       this.globalService.restrictZoom(globalMap);
-      globalMap.setMaxBounds([[options.centerLat - 1.5, options.centerLng - 3], [options.centerLat + 1.5, options.centerLng + 2]]);
       this.fileName = `${this.reportName}_${this.period}_${this.grade != 'all' ? this.grade : 'allGrades'}_${this.subject ? this.subject : ''}_${options.level}s_of_district_${districtId}_${this.commonService.dateAndTime}`;
       this.genericFun(this.data, options, this.fileName);
       this.globalService.onResize(this.level);
@@ -1171,7 +1157,6 @@ export class SatExceptionComponent implements OnInit {
       this.globalService.longitude = this.lng = options.centerLng;
 
       this.globalService.restrictZoom(globalMap);
-      globalMap.setMaxBounds([[options.centerLat - 1.5, options.centerLng - 3], [options.centerLat + 1.5, options.centerLng + 2]]);
       this.fileName = `${this.reportName}_${this.period}_${this.grade != 'all' ? this.grade : 'allGrades'}_${this.subject ? this.subject : ''}_${options.level}s_of_block_${blockId}_${this.commonService.dateAndTime}`;
       this.genericFun(this.data, options, this.fileName);
       this.globalService.onResize(this.level);
@@ -1299,7 +1284,6 @@ export class SatExceptionComponent implements OnInit {
 
         globalMap.doubleClickZoom.enable();
         globalMap.scrollWheelZoom.enable();
-        globalMap.setMaxBounds([[options.centerLat - 1.5, options.centerLng - 3], [options.centerLat + 1.5, options.centerLng + 2]]);
         this.fileName = `${this.reportName}_${this.period}_${this.grade != 'all' ? this.grade : 'allGrades'}_${this.subject ? this.subject : ''}_${options.level}s_of_cluster_${clusterId}_${this.commonService.dateAndTime}`;
         this.genericFun(this.data, options, this.fileName);
         this.globalService.onResize(this.level);
@@ -1319,6 +1303,7 @@ export class SatExceptionComponent implements OnInit {
   genericFun(data, options, fileName) {
     try {
       this.reportData = [];
+      this.globalService.featureGrp.clearLayers();
       if (data['data'].length > 0) {
         this.markers = [];
         this.markers = data['data']
@@ -1342,6 +1327,7 @@ export class SatExceptionComponent implements OnInit {
         this.fileName = fileName;
         this.commonService.loaderAndErr(this.data);
         this.changeDetection.markForCheck();
+        this.globalService.getBoundsByMarkers();
       }
       this.schoolCount = this.schoolCount.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
     } catch (e) {

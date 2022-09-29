@@ -725,10 +725,6 @@ export class PatMapComponent implements OnInit {
                     };
                     this.dataOptions = options;
                     this.globalService.restrictZoom(globalMap);
-                    globalMap.setMaxBounds([
-                      [options.centerLat - 4.5, options.centerLng - 6],
-                      [options.centerLat + 3.5, options.centerLng + 6],
-                    ]);
                     this.changeDetection.detectChanges();
                     this.genericFun(this.data, options, this.fileName);
                     //schoolCount
@@ -945,10 +941,7 @@ export class PatMapComponent implements OnInit {
                           }
 
                           this.globalService.restrictZoom(globalMap);
-                          globalMap.setMaxBounds([
-                            [options.centerLat - 4.5, options.centerLng - 6],
-                            [options.centerLat + 3.5, options.centerLng + 6],
-                          ]);
+
                           this.changeDetection.detectChanges();
                           this.globalService.onResize(this.level);
 
@@ -1080,10 +1073,7 @@ export class PatMapComponent implements OnInit {
                           }
 
                           this.globalService.restrictZoom(globalMap);
-                          globalMap.setMaxBounds([
-                            [options.centerLat - 4.5, options.centerLng - 6],
-                            [options.centerLat + 3.5, options.centerLng + 6],
-                          ]);
+
                           this.changeDetection.detectChanges();
                           this.globalService.onResize(this.level);
 
@@ -1199,10 +1189,7 @@ export class PatMapComponent implements OnInit {
                           }
 
                           this.globalService.restrictZoom(globalMap);
-                          globalMap.setMaxBounds([
-                            [options.centerLat - 4.5, options.centerLng - 6],
-                            [options.centerLat + 3.5, options.centerLng + 6],
-                          ]);
+  
                           this.changeDetection.detectChanges();
                           this.globalService.onResize(this.level);
 
@@ -1312,10 +1299,7 @@ export class PatMapComponent implements OnInit {
                           }
 
                           this.globalService.restrictZoom(globalMap);
-                          globalMap.setMaxBounds([
-                            [options.centerLat - 4.5, options.centerLng - 6],
-                            [options.centerLat + 3.5, options.centerLng + 6],
-                          ]);
+
                           this.changeDetection.detectChanges();
                           this.globalService.onResize(this.level);
 
@@ -1548,10 +1532,7 @@ export class PatMapComponent implements OnInit {
                           this.studentAttended = res['footer'] && res['footer'].students_attended != null ? res['footer'].students_attended.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,") : null;
 
                           this.globalService.restrictZoom(globalMap);
-                          globalMap.setMaxBounds([
-                            [options.centerLat - 4.5, options.centerLng - 6],
-                            [options.centerLat + 3.5, options.centerLng + 6],
-                          ]);
+
                           this.changeDetection.detectChanges();
                           this.globalService.onResize(this.level);
 
@@ -1687,10 +1668,7 @@ export class PatMapComponent implements OnInit {
                           this.studentAttended = res['footer'] && res['footer'].students_attended != null ? res['footer'].students_attended.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,") : null;
 
                           this.globalService.restrictZoom(globalMap);
-                          globalMap.setMaxBounds([
-                            [options.centerLat - 4.5, options.centerLng - 6],
-                            [options.centerLat + 3.5, options.centerLng + 6],
-                          ]);
+                    
                           this.changeDetection.detectChanges();
                           this.globalService.onResize(this.level);
 
@@ -1806,10 +1784,7 @@ export class PatMapComponent implements OnInit {
                           this.studentAttended = res['footer'] && res['footer'].students_attended != null ? res['footer'].students_attended.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,") : null;
 
                           this.globalService.restrictZoom(globalMap);
-                          globalMap.setMaxBounds([
-                            [options.centerLat - 4.5, options.centerLng - 6],
-                            [options.centerLat + 3.5, options.centerLng + 6],
-                          ]);
+                          
                           this.changeDetection.detectChanges();
                           this.globalService.onResize(this.level);
 
@@ -1918,10 +1893,7 @@ export class PatMapComponent implements OnInit {
                           this.studentAttended = res['footer'] && res['footer'].students_attended != null ? res['footer'].students_attended.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,") : null;
 
                           this.globalService.restrictZoom(globalMap);
-                          globalMap.setMaxBounds([
-                            [options.centerLat - 4.5, options.centerLng - 6],
-                            [options.centerLat + 3.5, options.centerLng + 6],
-                          ]);
+                          
                           this.changeDetection.detectChanges();
                           this.globalService.onResize(this.level);
 
@@ -2145,10 +2117,7 @@ export class PatMapComponent implements OnInit {
 
                           globalMap.doubleClickZoom.enable();
                           globalMap.scrollWheelZoom.enable();
-                          globalMap.setMaxBounds([
-                            [options.centerLat - 4.5, options.centerLng - 6],
-                            [options.centerLat + 3.5, options.centerLng + 6],
-                          ]);
+                          
                           this.changeDetection.detectChanges();
                           this.globalService.onResize(this.level);
 
@@ -2287,10 +2256,7 @@ export class PatMapComponent implements OnInit {
 
                           globalMap.doubleClickZoom.enable();
                           globalMap.scrollWheelZoom.enable();
-                          globalMap.setMaxBounds([
-                            [options.centerLat - 4.5, options.centerLng - 6],
-                            [options.centerLat + 3.5, options.centerLng + 6],
-                          ]);
+                          
                           this.changeDetection.detectChanges();
                           this.globalService.onResize(this.level);
 
@@ -2406,10 +2372,7 @@ export class PatMapComponent implements OnInit {
 
                           globalMap.doubleClickZoom.enable();
                           globalMap.scrollWheelZoom.enable();
-                          globalMap.setMaxBounds([
-                            [options.centerLat - 4.5, options.centerLng - 6],
-                            [options.centerLat + 3.5, options.centerLng + 6],
-                          ]);
+                          
                           this.changeDetection.detectChanges();
                           this.globalService.onResize(this.level);
 
@@ -2518,10 +2481,7 @@ export class PatMapComponent implements OnInit {
 
                           globalMap.doubleClickZoom.enable();
                           globalMap.scrollWheelZoom.enable();
-                          globalMap.setMaxBounds([
-                            [options.centerLat - 4.5, options.centerLng - 6],
-                            [options.centerLat + 3.5, options.centerLng + 6],
-                          ]);
+                         
                           this.changeDetection.detectChanges();
                           this.globalService.onResize(this.level);
 
@@ -2659,10 +2619,7 @@ export class PatMapComponent implements OnInit {
             this.globalService.longitude = this.lng = options.centerLng;
 
             this.globalService.restrictZoom(globalMap);
-            globalMap.setMaxBounds([
-              [options.centerLat - 1.5, options.centerLng - 3],
-              [options.centerLat + 1.5, options.centerLng + 2],
-            ]);
+            
             this.changeDetection.detectChanges();
 
             this.allBlocks.sort((a, b) =>
@@ -2807,10 +2764,7 @@ export class PatMapComponent implements OnInit {
             this.globalService.longitude = this.lng = options.centerLng;
 
             this.globalService.restrictZoom(globalMap);
-            globalMap.setMaxBounds([
-              [options.centerLat - 1.5, options.centerLng - 3],
-              [options.centerLat + 1.5, options.centerLng + 2],
-            ]);
+            
             this.changeDetection.detectChanges();
 
             this.genericFun(this.data, options, this.fileName);
@@ -3001,10 +2955,7 @@ export class PatMapComponent implements OnInit {
 
                   globalMap.doubleClickZoom.enable();
                   globalMap.scrollWheelZoom.enable();
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 1.5, options.centerLng - 2],
-                    [options.centerLat + 1.5, options.centerLng + 3],
-                  ]);
+                  
                   this.changeDetection.detectChanges();
 
                   this.genericFun(this.data, options, this.fileName);
@@ -3045,6 +2996,7 @@ export class PatMapComponent implements OnInit {
         })
         this.markers = filtererSubData;
       }
+      this.globalService.featureGrp.clearLayers();
       if (this.markers.length) {
         for (let i = 0; i < this.markers.length; i++) {
           if (this.period != 'all' && !this.valueRange) {
@@ -3126,6 +3078,7 @@ export class PatMapComponent implements OnInit {
         }
         this.commonService.loaderAndErr(this.markers);
         this.changeDetection.detectChanges();
+        this.globalService.getBoundsByMarkers();
       } else {
         this.errorHandling();
       }

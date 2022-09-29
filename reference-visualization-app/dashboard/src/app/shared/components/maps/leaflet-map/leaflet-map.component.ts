@@ -16,7 +16,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
   map: any;
   error = false;
   mapCenterLatlng: any;
-  markers = new L.layerGroup();
+  markers = new L.FeatureGroup();
   legend: any;
   countryGeoJSON: any;
 
@@ -381,6 +381,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       });
 
       this.map.addLayer(this.markers);
+      this.map.fitBounds(this.markers.getBounds())
       if (this.level === 'district') {
         this.createLegend(reportTypeIndicator, this.mapData.options, values);
       }
