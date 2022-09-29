@@ -492,7 +492,8 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 					isHeatMapRequired: transCol.isHeatMapRequired,
 					color: transCol.color,
 					class: transCol.class,
-					sticky: transCol.sticky ? transCol.sticky : false
+					sticky: transCol.sticky ? transCol.sticky : false,
+					tooltip: transCol.tooltip
 				});
 				uniqueMap.set(rec[transCol.property], true)
 			}
@@ -551,6 +552,14 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 						return;
 					}
 				}
+
+				if (transCol.valueColumn) {
+					dataObj[data[transCol.property]] = data[transCol.valueColumn];
+					
+					result.push(dataObj);
+		
+					return;
+				}
 		
 				dataObj[data[transCol.property]] = dataObj[data[transCol.property]];
 			} else {
@@ -575,6 +584,11 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 						return;
 					}
 				}
+
+				if (transCol.valueColumn) {
+					dataObj[data[transCol.property]] = data[transCol.valueColumn];
+					return;
+				}
 		
 				dataObj[data[transCol.property]] = dataObj[data[transCol.property]];
 			}
@@ -586,7 +600,7 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 					rec[col.property] = rec[col.property] && rec[col.property].denominatorSum > 0 ? Number((rec[col.property].numeratorSum / rec[col.property].denominatorSum).toFixed(2)) : 0;
 				}
 
-				if( transCol.aggegration) {
+				if (transCol.aggegration) {
 					if (transCol.aggegration.type === 'SUM') {
 						rec[col.property] = rec[col.property] ? rec[col.property].sum + (transCol.aggegration.valueSuffix ? transCol.aggegration.valueSuffix : '') : transCol.aggegration.nullValueHolder ? transCol.aggegration.nullValueHolder : 0
 					}
@@ -601,7 +615,7 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 				};
 
 				if (col.tooltip) {
-					dataObj[col.property].tooltip = col.tooltip.property ? data[col.tooltip.property] : rec[col.property];
+					rec[col.property].tooltip = col.tooltip.property && rec[col.tooltip.property] ? rec[col.tooltip.property] : rec[col.property].value;
 				}
 			});
 		
