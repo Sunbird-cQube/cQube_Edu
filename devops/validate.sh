@@ -55,10 +55,12 @@ fi
 }
 
 check_sys_user(){
-if [[ ! `compgen -u $2` ]]; then
-   echo "Error - Please check the system_user_name."; fail=1
-fi
+	result=`whoami`
+	if [[ ! $result = $2 ]]; then
+        echo "Error - Please check the system_user_name."; fail=1
+    fi
 }
+
 
 check_base_dir(){
 if [[ ! "$2" = /* ]] || [[ ! -d $2 ]]; then
@@ -356,7 +358,7 @@ fi
 
 check_auth_api(){
 if ! [[ $2 == "cqube" ]]; then
-    echo "Error - Please enter leafletmap for $1"; fail=1
+    echo "Error - Please enter cqube for $1"; fail=1
 fi
 }
 
