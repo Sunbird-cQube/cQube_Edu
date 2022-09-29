@@ -40,5 +40,8 @@
         <mat-tab label="Learning Sessions on Potential Users" >
             <app-total-plays-per-capita></app-total-plays-per-capita>
         </mat-tab>
+        <mat-tab label="Entry Status" *ngIf="config === 'national'">
+            <app-entry-status></app-entry-status>
+        </mat-tab>
     </mat-tab-group>
 </div>
