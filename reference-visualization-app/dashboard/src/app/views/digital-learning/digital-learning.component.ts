@@ -36,50 +36,11 @@ export class DigitalLearningComponent implements OnInit {
   @ViewChild(TotalPlaysPerCapitaComponent) totalPlaysPerCapitaComponent!: TotalPlaysPerCapitaComponent;
 
   constructor(private readonly _ETBService: ETBService,private readonly _nishthaService: NishthaService, private readonly _commonService: CommonService, private readonly _configService: ConfigService) {
-    let params: any = {
-      "version": "1.0"
-    }
     if(environment.config === 'state') {
       this.national = false;
     }
 
     this.getETBMetrics();
-    // this.getETBProgramStatsByLocation();
-    this._nishthaService.getStateWiseEnrollmentData(params['version']).subscribe(res => {
-      this.options = {
-        chart: {
-          events: {
-            load: function (this: any) {
-              let categoryHeight = 20;
-              this.update({
-                chart: {
-                  height: categoryHeight * this.pointCount + (this.chartHeight - this.plotHeight)
-                }
-              })
-            }
-          }
-        },
-        xAxis: {
-          categories: res.result.map((record: any) => {
-            return record['State'];
-          })
-        },
-        yAxis: {
-          opposite: true
-        },
-        series: [{
-          type: 'bar',
-          name: 'Total Enrollments',
-          data: res.result.map((record: any) => record['Total Enrollments'])
-        }, {
-          type: 'bar',
-          name: 'Total Certifications',
-          data: res.result.map((record: any) => record['Total Certifications'])
-        }]
-      };
-
-      this.stateWiseEnrollmentData = res.result;
-    });
     this.getETBData(this.filters);
   }
 
