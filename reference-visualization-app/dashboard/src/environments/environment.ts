@@ -31,7 +31,7 @@ export const environment = {
     }
   },
   apiEndpoint: "http://localhost:3004/core_api",
-  adminApiEndPoint: "http://localhost:3001/admin_api",
+  adminApiEndPoint: "http://localhost:3001/admin_dashboard",
   adminUrl2: "http://localhost:3001/session",
   appUrl: "http://localhost:4200",
   keycloakUrl: "http://localhost:8080/auth",

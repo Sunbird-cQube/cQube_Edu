@@ -287,9 +287,9 @@ export class InfraMapComponent implements OnInit {
       this.districtSelected = false;
       this.selectedCluster = false;
       this.blockSelected = false;
-      this.hideAllBlockBtn = false;
-      this.hideAllCLusterBtn = false;
-      this.hideAllSchoolBtn = false;
+      this.hideAllBlockBtn = true;
+      this.hideAllCLusterBtn = true;
+      this.hideAllSchoolBtn = true;
       if (environment.auth_api === 'cqube' || this.userAccessLevel === "") {
         this.districtWise();
       } else {
@@ -1857,9 +1857,9 @@ export class InfraMapComponent implements OnInit {
     // to load all the schools for selected cluster for state data on the map
     public selectedCluster: boolean = false;
     public selectedCLusterId
-    public hideAllBlockBtn: boolean = false;
-    public hideAllCLusterBtn: boolean = false
-    public hideAllSchoolBtn: boolean = false
+    public hideAllBlockBtn: boolean = true;
+    public hideAllCLusterBtn: boolean = true
+    public hideAllSchoolBtn: boolean = true
     onClusterSelect(clusterId) {
       this.hideAllBlockBtn = true
       this.hideAllCLusterBtn = true;
