@@ -7,7 +7,7 @@ fi
   dir_owner=`stat -c '%U' $2` 
 
   if ! [[ $dir_owner == $system_user_name ]]; then
-    echo "Error - $1 directory owner not matchiing."; fail=1
+    echo "Error - $1  owner not matching."; fail=1
   fi	 
    if ! [[ -r "$2" ]];  then
         echo "Error - '$1' please give read permission to directory."; fail=1
