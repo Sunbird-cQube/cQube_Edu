@@ -2688,9 +2688,9 @@ export class TeacherAttendanceComponent implements OnInit {
 
   public selectedCluster: boolean = false;
   public selectedCLusterId
-  public hideAllBlockBtn: boolean = false
-  public hideAllCLusterBtn: boolean = false
-  public hideAllSchoolBtn: boolean = false
+  public hideAllBlockBtn: boolean = true
+  public hideAllCLusterBtn: boolean = true
+  public hideAllSchoolBtn: boolean = true
   myClusterData(data) {
     this.hideAllBlockBtn = true
     this.blockSelected = false
