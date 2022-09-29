@@ -8377,7 +8377,7 @@
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
+                    <labelIndex>0</labelIndex>
                     <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
                     <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
                     <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
@@ -20149,7 +20149,7 @@
                     <id>cb1ce7be-963e-394b-0000-000000000000</id>
                     <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
                     <position>
-                        <x>4424.0</x>
+                        <x>4408.0</x>
                         <y>-2000.0</y>
                     </position>
                     <height>1000.0</height>
@@ -24096,7 +24096,7 @@ ${query_type:startsWith('school_management_footer_grade_subject_last_30'):ifElse
                         <properties>
                             <entry>
 <key>Object Key</key>
-<value>log_summary/log_summary_book_distribution.json</value>
+<value>log_summary/log_summary_textbook_distribution.json</value>
                             </entry>
                             <entry>
 <key>Bucket</key>
@@ -26728,7 +26728,7 @@ ${query_type:startsWith('stud_att_management_category_school_overall'):ifElse('a
                             </entry>
                             <entry>
 <key>filename</key>
-<value>aggregated_config_datasource_update_filename</value>
+<value>${filename:substringBefore('.')}.json</value>
                             </entry>
                         </properties>
                         <runDurationMillis>0</runDurationMillis>
@@ -28166,7 +28166,7 @@ ${query_type:startsWith('stud_att_management_category_school_by_month_year'):ifE
                             </entry>
                             <entry>
 <key>configure_file</key>
-<value>${emission_filename:startsWith('book_distribution')}</value>
+<value>${emission_filename:startsWith('textbook_distribution')}</value>
                             </entry>
                             <entry>
 <key>configure_file_aggre</key>
@@ -37674,7 +37674,7 @@ ${query_type:startsWith('stud_att_management_category_school_overall'):ifElse('a
                         <properties>
                             <entry>
 <key>Object Key</key>
-<value>aggregated_output/${filename:substringBefore('.')}.json</value>
+<value>${filename:substringBefore('.')}.json</value>
                             </entry>
                             <entry>
 <key>Bucket</key>
@@ -38621,7 +38621,7 @@ ${query_type:startsWith('stud_att_management_category_school_overall'):ifElse('a
                             </entry>
                             <entry>
 <key>blob</key>
-<value>${filename}</value>
+<value>${filename:substringBefore('.')}.json</value>
                             </entry>
                             <entry>
 <key>azure-create-container</key>
@@ -42316,7 +42316,7 @@ where ff_uuid= '${ff_uuid}'</value>
                             </entry>
                             <entry>
 <key>configure_file</key>
-<value>${filename:startsWith('book_distribution'):and(${path:startsWith("config"):or(${filename:startsWith("config"):or(${azure.blobname:startsWith("config")})}):not()})}</value>
+<value>${filename:startsWith('textbook_distribution'):and(${path:startsWith("config"):or(${filename:startsWith("config"):or(${azure.blobname:startsWith("config")})}):not()})}</value>
                             </entry>
                             <entry>
 <key>crc</key>
@@ -43651,7 +43651,7 @@ ${query_type:startsWith('stud_att_management_category_school_by_month_year'):ifE
                             </entry>
                             <entry>
 <key>filename</key>
-<value>log_summary_book_distribution.json</value>
+<value>log_summary_textbook_distribution.json</value>
                             </entry>
                         </properties>
                         <runDurationMillis>0</runDurationMillis>
@@ -77916,7 +77916,7 @@ and(${filename:startsWith('diksha_tpd_api'):or(${filename:contains('diksha_tpd_m
                             </entry>
                             <entry>
 <key>configure_file</key>
-<value>${filename:startsWith('book_distribution'):and(${path:startsWith("config"):or(${filename:startsWith("config"):or(${azure.blobname:startsWith("config")})}):not()})}</value>
+<value>${filename:startsWith('textbook_distribution'):and(${path:startsWith("config"):or(${filename:startsWith("config"):or(${azure.blobname:startsWith("config")})}):not()})}</value>
                             </entry>
                             <entry>
 <key>cqube_telemetry</key>
@@ -86478,5 +86478,5 @@ ${query_type:startsWith('tch_att_management_category_school_by_month_year'):ifEl
             <variables/>
         </processGroups>
     </snippet>
-    <timestamp>09/20/2022 13:14:15 IST</timestamp>
+    <timestamp>09/28/2022 17:35:35 IST</timestamp>
 </template>

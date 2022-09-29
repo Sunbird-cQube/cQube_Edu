@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 // for chartjs gauge chart
 import Chart from 'chartjs-gauge';
 
@@ -26,7 +26,7 @@ export type ChartOptions = {
   templateUrl: './gauge.component.html',
   // styleUrls: ['./gauge.component.scss']
 })
-export class GaugeComponent implements OnInit {
+export class GaugeComponent implements OnInit, OnChanges {
   public chart: Chart; // for chartjs gauge
   @ViewChild('container') container: any;
 
@@ -41,10 +41,12 @@ export class GaugeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      // this.createChart()
-      this.apexCreatChart()
-    }, 100);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.gaugeData){
+      this.apexCreatChart();
+    }
   }
 
   // used for chartjs gauge chart

@@ -115,7 +115,6 @@ export class TelemetryReportComponent implements OnInit {
     this.lng = this.globalService.mapCenterLatlng.lng;
     this.changeDetection.detectChanges();
     this.globalService.initMap('map', [[this.lat, this.lng]]);
-    globalMap.setMaxBounds([[this.lat - 4.5, this.lng - 6], [this.lat + 3.5, this.lng + 6]]);
     // document.getElementById('accessProgressCard').style.display = 'none';
     //document.getElementById('backBtn') ?document.getElementById('backBtn').style.display = 'none' : "";
     // document.getElementById('home') ? document.getElementById('home').style.display = 'block' : "";
@@ -201,7 +200,6 @@ export class TelemetryReportComponent implements OnInit {
           centerLng: this.lng,
           level: 'District'
         }
-        globalMap.setMaxBounds([[this.lat - 4.5, this.lng - 6], [this.lat + 3.5, this.lng + 6]]);
         this.globalService.onResize(options.level);
         this.fileName = `${this.reportName}_allDistricts_${this.timePeriod}_${this.commonService.dateAndTime}`;
         this.genericFun(this.data, options, this.fileName);
@@ -262,13 +260,11 @@ export class TelemetryReportComponent implements OnInit {
           centerLng: this.lng,
           level: "Block"
         }
-        globalMap.setMaxBounds([[this.lat - 4.5, this.lng - 6], [this.lat + 3.5, this.lng + 6]]);
-
+        this.globalService.featureGrp.clearLayers();
         if (this.data['data'].length > 0) {
           let result = this.data['data']
           this.blockMarkers = [];
           this.markers = this.blockMarkers = result;
-
           if (this.blockMarkers.length !== 0) {
             for (let i = 0; i < this.blockMarkers.length; i++) {
 
@@ -281,6 +277,7 @@ export class TelemetryReportComponent implements OnInit {
 
             this.commonService.loaderAndErr(this.data);
             this.changeDetection.markForCheck();
+            this.globalService.getBoundsByMarkers();
           }
         }
         this.globalService.onResize(options.level);
@@ -338,8 +335,7 @@ export class TelemetryReportComponent implements OnInit {
           centerLng: this.lng,
           level: "Cluster"
         }
-        globalMap.setMaxBounds([[this.lat - 4.5, this.lng - 6], [this.lat + 3.5, this.lng + 6]]);
-
+        this.globalService.featureGrp.clearLayers();
         if (this.data['data'].length > 0) {
           let result = this.data['data']
           this.clusterMarkers = [];
@@ -356,6 +352,7 @@ export class TelemetryReportComponent implements OnInit {
 
             this.commonService.loaderAndErr(this.data);
             this.changeDetection.markForCheck();
+            this.globalService.getBoundsByMarkers();
           }
         }
         this.globalService.onResize(options.level);
@@ -409,8 +406,7 @@ export class TelemetryReportComponent implements OnInit {
           centerLng: this.lng,
           level: "School"
         }
-        globalMap.setMaxBounds([[this.lat - 4.5, this.lng - 6], [this.lat + 3.5, this.lng + 6]]);
-
+        this.globalService.featureGrp.clearLayers();
         this.schoolMarkers = [];
         if (this.data['data'].length > 0) {
           let result = this.data['data']
@@ -427,6 +423,7 @@ export class TelemetryReportComponent implements OnInit {
 
             this.commonService.loaderAndErr(this.data);
             this.changeDetection.markForCheck();
+            this.globalService.getBoundsByMarkers();
           }
         }
         this.globalService.onResize(options.level);
@@ -446,6 +443,7 @@ export class TelemetryReportComponent implements OnInit {
   // common function for all the data to show in the map
   genericFun(data, options, fileName) {
     this.reportData = [];
+    this.globalService.featureGrp.clearLayers();
     if (data['data'].length > 0) {
       this.markers = data['data']
 
@@ -488,6 +486,7 @@ export class TelemetryReportComponent implements OnInit {
 
       this.commonService.loaderAndErr(this.data);
       this.changeDetection.markForCheck();
+      this.globalService.getBoundsByMarkers();
     }
     this.schoolCount = this.data['footer'];
   }

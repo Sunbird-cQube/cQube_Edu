@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="tab-group-wrapper">
+<div class="tab-group-wrapper" *ngIf="loadTabs">
     <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
         <mat-tab label="Semester Assesment Test Exception">
             <app-sat-exception *ngIf="tabIndex === 0"></app-sat-exception>

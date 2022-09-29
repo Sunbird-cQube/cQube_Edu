@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div class="tab-group-wrapper">
+<div class="tab-group-wrapper" *ngIf="loadTabs">
     <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
         <mat-tab label="Student Attendance">
             <app-student-attendance *ngIf="tabIndex === 0" (switchToTrends)="switchToTrends()"></app-student-attendance>

@@ -104,24 +104,24 @@
                             (click)="schoolWise($event)">&nbsp;<strong>Schools</strong>
                         </button>
                     </div>
-    
+
                     <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="period" [(ngModel)]="period"
-                        (change)="period != 'select_month' ? onPeriodSelect() : showYearMonth()" dropdownPosition="bottom"
-                        [clearable]="false" placeholder="Choose TimeRange">
+                        (change)="period != 'select_month' ? onPeriodSelect() : showYearMonth()"
+                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose TimeRange">
                         <ng-option *ngFor="let period of timeRange,  let i =index" style="width: 100px;"
                             [value]="period.key">
                             {{period.value}}
                         </ng-option>
                     </ng-select>
-    
+
                     <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="yearMonth" id="year"
-                        [(ngModel)]="year" name="year" (change)="getYear()" dropdownPosition="bottom" [clearable]="false"
-                        placeholder="Choose Year">
+                        [(ngModel)]="year" name="year" (change)="getYear()" dropdownPosition="bottom"
+                        [clearable]="false" placeholder="Choose Year">
                         <ng-option *ngFor="let year of years, let i = index" [value]="years[i]">
                             {{years[i]}}
                         </ng-option>
                     </ng-select>
-    
+
                     <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="yearMonth" id="month"
                         [(ngModel)]="month" name="month" (change)="getMonth($event)" dropdownPosition="bottom"
                         [clearable]="false" placeholder="Choose Month">
@@ -129,7 +129,7 @@
                             {{month.name}}
                         </ng-option>
                     </ng-select>
-    
+
                     <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_dist" [(ngModel)]="myDistrict"
                         name="myDistrict" [hidden]="hideIfAccessLevel" [disabled]="selDist"
                         (change)="distSelect($event,myDistrict)" dropdownPosition="bottom" [clearable]="false"
@@ -138,7 +138,7 @@
                             {{dist.name}}
                         </ng-option>
                     </ng-select>
-    
+
                     <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_block" [(ngModel)]="myBlock"
                         name="myBlock" [hidden]="selBlock" (change)="blockSelect($event,myBlock)" *ngIf="!blockHidden"
                         dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Block">
@@ -146,10 +146,11 @@
                             {{block.name}}
                         </ng-option>
                     </ng-select>
-    
+
                     <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="selCluster" id="choose_cluster"
                         [(ngModel)]="myCluster" name="myCluster" (change)="clusterSelect($event,myCluster)"
-                        *ngIf="!clusterHidden" dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Cluster">
+                        *ngIf="!clusterHidden" dropdownPosition="bottom" [clearable]="false"
+                        placeholder="Choose a Cluster">
                         <ng-option *ngFor="let cluster of clusterNames" [value]="cluster.id"
                             [ngStyle]="{'color': cluster.name !== 'NO NAME FOUND'? 'white' : '#ff3333'}">
                             {{cluster.name}}
@@ -158,41 +159,39 @@
                 </div>
                 <div class="col-span-12 xmd:col-span-1 trends-link">
                     <span class="note" id="trends" (click)="routeToTrends()"
-                    style="margin-right: 25px; cursor: pointer; font-weight: bold; text-decoration: underline; font-size: 13px; color: #3100cc">Click
-                    on Trends</span>
+                        style="margin-right: 25px; cursor: pointer; font-weight: bold; text-decoration: underline; font-size: 13px; color: #3100cc">Click
+                        on Trends</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="row reportContainer">
-        <div class="col-sm-12 ">
-            <!--Map visualization=====================-->
-            <div id="leafletmap" style="float: left;" [ngStyle]="{'width' : selected == 'absolute' ? '90%' : '100%'}">
-                <div #mapContainer id="sarMap" class="active" style="width: 100%;"
-                    [ngStyle]="{height: height > 1760 ? '83vh': height > 1160 && height < 1760 ? '80vh': height > 667 && height < 1160 ? '74vh':'70vh'}">
-                </div>
-
+        <!--Map visualization=====================-->
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="leafletmap" style="float: left;width:100%">
+            <div #mapContainer id="sarMap" class="active" style="width: 100%;"
+                [ngStyle]="{height: height > 1760 ? '83vh': height > 1160 && height < 1760 ? '80vh': height > 667 && height < 1160 ? '74vh':'70vh'}">
             </div>
 
-            <!--Marker legends ======================-->
-            <div *ngIf="selected == 'absolute'" style="float: left; width: 9%; margin-left: 1%; margin-top: 1%;">
-                <h5 id="legend" style="margin-left: 15%;">Legend <img *ngIf="valueRange && valueRange != '0-100'"
-                        id="resetImg" src="../../../../assets/images/reset.png" alt="reset" title="Reset to all"
-                        style="cursor: pointer;height: 20px; width:20px; float: right; background-color: aqua; border-radius: 20px; padding: 5px; margin-top: -5px;"
-                        (click)="reset('0-100');"></h5>
-                <div *ngFor="let value of values; let i = index">
-                    <span id={{i}} class="legends" style="float: left; cursor: pointer;"
-                        (click)="selectRange(value); select(i)" [ngStyle]="{color: i> 1 ?'black': 'white'}"
-                        [style.background-color]="legendColors[i]">
-                        {{values[i]}} </span>
-                </div>
+        </div>
 
+        <!--Marker legends ======================-->
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12" *ngIf="selected == 'absolute'">
+            <h5 id="legend" style="margin-left: 15%;">Legend <img *ngIf="valueRange && valueRange != '0-100'"
+                    id="resetImg" src="../../../../assets/images/reset.png" alt="reset" title="Reset to all"
+                    style="cursor: pointer;height: 20px; width:20px; float: right; background-color: aqua; border-radius: 20px; padding: 5px; margin-top: -5px;"
+                    (click)="reset('0-100');"></h5>
+            <div *ngFor="let value of values; let i = index">
+                <span id={{i}} class="legends" style="float: left; cursor: pointer;"
+                    (click)="selectRange(value); select(i)" [ngStyle]="{color: i> 1 ?'black': 'white'}"
+                    [style.background-color]="legendColors[i]">
+                    {{values[i]}} </span>
             </div>
+
         </div>
     </div>
 
     <div class="row" id="footer">
-        <div [hidden]="hideFooter " class="col-sm-2">
+        <div [hidden]="hideFooter " class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <div id="outer">
                 <div id="absolute" (click)="getColor('absolute')"
                     [ngStyle]="{'background-color' : selected == 'absolute' ? '#3100cc' : '#f5f6fb'}">
@@ -208,19 +207,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-10">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
             <span id="name" class="note" style="text-align: center;">Management Type: {{managementName}}</span>
-
-            <span id="students" [hidden]="hideFooter " style="margin-left: 4%;">Number of Students:
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
+            <span id="students" [hidden]="hideFooter">Number of Students:
                 {{studentCount}}</span>
-
-            <span id="schools" [hidden]="hideFooter " style="text-align: center; margin-left: 4%;">Number of
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
+            <span id="schools" [hidden]="hideFooter " style="text-align: center;">Number of
                 Schools:
                 {{schoolCount}}</span>
-
-            <span id="dateRange" style="float: right;">Date range: {{dateRange}}</span>
         </div>
-
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <span id="dateRange">Date range: {{dateRange}}</span>
+        </div>
     </div>
 </div>
 <div id="spinner">

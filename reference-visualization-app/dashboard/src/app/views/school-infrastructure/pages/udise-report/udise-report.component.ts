@@ -377,6 +377,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 : 0
           );
           this.changeDetection.detectChanges();
+          this.globalService.getBoundsByMarkers();
         },
         (err) => {
           this.data = [];
@@ -460,6 +461,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.indiceData
               );
               this.schoolCount = 0;
+              this.globalService.featureGrp.clearLayers();
               if (this.blockMarkers.length !== 0) {
                 for (let i = 0; i < this.blockMarkers.length; i++) {
                   if (this.selected == "absolute") {
@@ -540,6 +542,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.indiceData
               );
               this.schoolCount = 0;
+              this.globalService.featureGrp.clearLayers();
               if (this.blockMarkers.length !== 0) {
                 for (let i = 0; i < this.blockMarkers.length; i++) {
                   if (this.selected == "absolute") {
@@ -618,6 +621,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.indiceData
               );
               this.schoolCount = 0;
+              this.globalService.featureGrp.clearLayers();
               if (this.blockMarkers.length !== 0) {
                 for (let i = 0; i < this.blockMarkers.length; i++) {
                   if (this.selected == "absolute") {
@@ -688,6 +692,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.indiceData
               );
               this.schoolCount = 0;
+              this.globalService.featureGrp.clearLayers();
               if (this.blockMarkers.length !== 0) {
                 for (let i = 0; i < this.blockMarkers.length; i++) {
                   if (this.selected == "absolute") {
@@ -737,6 +742,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
               }
             }
           }
+          this.globalService.getBoundsByMarkers();
 
         },
         (err) => {
@@ -833,6 +839,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.indiceData
               );
               this.schoolCount = 0;
+              this.globalService.featureGrp.clearLayers();
               if (this.clusterMarkers.length !== 0) {
                 for (let i = 0; i < this.clusterMarkers.length; i++) {
                   if (this.selected == "absolute") {
@@ -914,6 +921,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.indiceData
               );
               this.schoolCount = 0;
+              this.globalService.featureGrp.clearLayers();
               if (this.clusterMarkers.length !== 0) {
                 for (let i = 0; i < this.clusterMarkers.length; i++) {
                   if (this.selected == "absolute") {
@@ -993,6 +1001,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.indiceData
               );
               this.schoolCount = 0;
+              this.globalService.featureGrp.clearLayers();
               if (this.clusterMarkers.length !== 0) {
                 for (let i = 0; i < this.clusterMarkers.length; i++) {
                   if (this.selected == "absolute") {
@@ -1065,6 +1074,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.indiceData
               );
               this.schoolCount = 0;
+              this.globalService.featureGrp.clearLayers();
               if (this.clusterMarkers.length !== 0) {
                 for (let i = 0; i < this.clusterMarkers.length; i++) {
                   if (this.selected == "absolute") {
@@ -1118,7 +1128,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
               }
             }
           }
-
+          this.globalService.getBoundsByMarkers();
 
         },
         (err) => {
@@ -1217,6 +1227,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.indiceData
               );
               this.schoolCount = 0;
+              this.globalService.featureGrp.clearLayers();
               if (this.schoolMarkers.length !== 0) {
                 for (let i = 0; i < this.schoolMarkers.length; i++) {
                   if (this.selected == "absolute") {
@@ -1319,6 +1330,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.indiceData
               );
               this.schoolCount = 0;
+              this.globalService.featureGrp.clearLayers();
               if (this.schoolMarkers.length !== 0) {
                 for (let i = 0; i < this.schoolMarkers.length; i++) {
                   if (this.selected == "absolute") {
@@ -1391,6 +1403,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
             };
             this.dataOptions = options;
             this.schoolMarkers = [];
+            this.globalService.featureGrp.clearLayers();
             if (this.data.length > 0) {
               let result = this.data;
               this.schoolMarkers = result;
@@ -1463,6 +1476,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
             };
             this.dataOptions = options;
             this.schoolMarkers = [];
+            this.globalService.featureGrp.clearLayers();
             if (this.data.length > 0) {
               let result = this.data;
               this.schoolMarkers = result;
@@ -1524,6 +1538,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
               }
             }
           }
+          this.globalService.getBoundsByMarkers();
 
 
         },
@@ -1626,6 +1641,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
               : 0
         );
         this.changeDetection.detectChanges();
+        this.globalService.getBoundsByMarkers();
 
       },
       (err) => {
@@ -1735,6 +1751,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 : 0
           )
           this.changeDetection.detectChanges();
+          this.globalService.getBoundsByMarkers();
         },
         (err) => {
           this.data = [];
@@ -1865,6 +1882,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
               this.genericFun(this.data, options, this.fileName);
               this.globalService.onResize(this.level);
               this.changeDetection.detectChanges();
+              this.globalService.getBoundsByMarkers();
 
             },
             (err) => {
@@ -1886,6 +1904,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
   genericFun(data, options, fileName) {
     try {
       this.reportData = [];
+      this.globalService.featureGrp.clearLayers();
       if (data.length > 0) {
         this.markers = data;
         var colors = this.commonService.getRelativeColors(
@@ -1946,17 +1965,10 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
       if (this.level == "school") {
         globalMap.doubleClickZoom.enable();
         globalMap.scrollWheelZoom.enable();
-        globalMap.setMaxBounds([
-          [options.centerLat - 1.5, options.centerLng - 3],
-          [options.centerLat + 1.5, options.centerLng + 2],
-        ]);
       } else {
         this.globalService.restrictZoom(globalMap);
-        globalMap.setMaxBounds([
-          [options.centerLat - 4.5, options.centerLng - 6],
-          [options.centerLat + 3.5, options.centerLng + 6],
-        ]);
       }
+
     } catch (e) {
       this.data = [];
       this.loaderAndErr();

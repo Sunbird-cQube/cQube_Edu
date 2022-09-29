@@ -354,11 +354,6 @@ export class InfraMapComponent implements OnInit {
           };
           this.dataOptions = options;
           this.globalService.restrictZoom(globalMap);
-          // globalMap.setMaxBounds([
-          //   [options.centerLat - 4.5, options.centerLng - 6],
-          //   [options.centerLat + 3.5, options.centerLng + 6],
-          // ]);
-  
           //schoolCount
           this.schoolCount = this.myDistData["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
@@ -400,10 +395,6 @@ export class InfraMapComponent implements OnInit {
               };
               this.dataOptions = options;
               this.globalService.restrictZoom(globalMap);
-              globalMap.setMaxBounds([
-                [options.centerLat - 4.5, options.centerLng - 6],
-                [options.centerLat + 3.5, options.centerLng + 6],
-              ]);
               this.changeDetection.detectChanges();
   
               this.data.sort((a, b) =>
@@ -510,6 +501,7 @@ export class InfraMapComponent implements OnInit {
                   this.blockMarkers,
                   this.infraData
                 );
+                this.globalService.featureGrp.clearLayers();
                 if (this.blockMarkers.length !== 0) {
                   for (let i = 0; i < this.blockMarkers.length; i++) {
                     var color;
@@ -552,10 +544,6 @@ export class InfraMapComponent implements OnInit {
                     this.getDownloadableData(this.blockMarkers[i], options.level);
                   }
                   this.globalService.restrictZoom(globalMap);
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 4.5, options.centerLng - 6],
-                    [options.centerLat + 3.5, options.centerLng + 6],
-                  ]);
                   this.changeDetection.detectChanges();
                   this.globalService.onResize(this.level);
   
@@ -597,6 +585,7 @@ export class InfraMapComponent implements OnInit {
                   this.blockMarkers,
                   this.infraData
                 );
+                this.globalService.featureGrp.clearLayers();
                 if (this.blockMarkers.length !== 0) {
                   for (let i = 0; i < this.blockMarkers.length; i++) {
                     var color;
@@ -639,10 +628,6 @@ export class InfraMapComponent implements OnInit {
                     this.getDownloadableData(this.blockMarkers[i], options.level);
                   }
                   this.globalService.restrictZoom(globalMap);
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 4.5, options.centerLng - 6],
-                    [options.centerLat + 3.5, options.centerLng + 6],
-                  ]);
                   this.changeDetection.detectChanges();
                   this.globalService.onResize(this.level);
   
@@ -683,6 +668,7 @@ export class InfraMapComponent implements OnInit {
                   this.blockMarkers,
                   this.infraData
                 );
+                this.globalService.featureGrp.clearLayers();
                 if (this.blockMarkers.length !== 0) {
                   for (let i = 0; i < this.blockMarkers.length; i++) {
                     var color;
@@ -725,10 +711,6 @@ export class InfraMapComponent implements OnInit {
                     this.getDownloadableData(this.blockMarkers[i], options.level);
                   }
                   this.globalService.restrictZoom(globalMap);
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 4.5, options.centerLng - 6],
-                    [options.centerLat + 3.5, options.centerLng + 6],
-                  ]);
                   this.changeDetection.detectChanges();
                   this.globalService.onResize(this.level);
   
@@ -763,6 +745,7 @@ export class InfraMapComponent implements OnInit {
                   this.blockMarkers,
                   this.infraData
                 );
+                this.globalService.featureGrp.clearLayers();
                 if (this.blockMarkers.length !== 0) {
                   for (let i = 0; i < this.blockMarkers.length; i++) {
                     var color;
@@ -805,10 +788,6 @@ export class InfraMapComponent implements OnInit {
                     this.getDownloadableData(this.blockMarkers[i], options.level);
                   }
                   this.globalService.restrictZoom(globalMap);
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 4.5, options.centerLng - 6],
-                    [options.centerLat + 3.5, options.centerLng + 6],
-                  ]);
                   this.changeDetection.detectChanges();
                   this.globalService.onResize(this.level);
   
@@ -823,6 +802,7 @@ export class InfraMapComponent implements OnInit {
                 }
               }
             }
+            this.globalService.getBoundsByMarkers();
   
           },
           (err) => {
@@ -916,6 +896,7 @@ export class InfraMapComponent implements OnInit {
                   this.infraData
                 );
                 this.schoolCount = 0;
+                this.globalService.featureGrp.clearLayers();
                 if (this.clusterMarkers.length !== 0) {
                   for (let i = 0; i < this.clusterMarkers.length; i++) {
                     var color;
@@ -964,10 +945,6 @@ export class InfraMapComponent implements OnInit {
                     .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
                   this.globalService.restrictZoom(globalMap);
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 1.5, options.centerLng - 1],
-                    [options.centerLat + 1.5, options.centerLng + 1],
-                  ]);
                   this.changeDetection.detectChanges();
                   this.globalService.onResize(this.level);
                   this.commonService.loaderAndErr(this.data);
@@ -1001,6 +978,7 @@ export class InfraMapComponent implements OnInit {
                   this.infraData
                 );
                 this.schoolCount = 0;
+                this.globalService.featureGrp.clearLayers();
                 if (this.clusterMarkers.length !== 0) {
                   for (let i = 0; i < this.clusterMarkers.length; i++) {
                     var color;
@@ -1049,10 +1027,6 @@ export class InfraMapComponent implements OnInit {
                     .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
                   this.globalService.restrictZoom(globalMap);
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 4.5, options.centerLng - 6],
-                    [options.centerLat + 3.5, options.centerLng + 6],
-                  ]);
                   this.changeDetection.detectChanges();
                   this.globalService.onResize(this.level);
                   this.commonService.loaderAndErr(this.data);
@@ -1086,6 +1060,7 @@ export class InfraMapComponent implements OnInit {
                   this.infraData
                 );
                 this.schoolCount = 0;
+                this.globalService.featureGrp.clearLayers();
                 if (this.clusterMarkers.length !== 0) {
                   for (let i = 0; i < this.clusterMarkers.length; i++) {
                     var color;
@@ -1134,10 +1109,6 @@ export class InfraMapComponent implements OnInit {
                     .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
                   this.globalService.restrictZoom(globalMap);
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 4.5, options.centerLng - 6],
-                    [options.centerLat + 3.5, options.centerLng + 6],
-                  ]);
                   this.changeDetection.detectChanges();
                   this.globalService.onResize(this.level);
                   this.commonService.loaderAndErr(this.data);
@@ -1163,6 +1134,7 @@ export class InfraMapComponent implements OnInit {
                   this.infraData
                 );
                 this.schoolCount = 0;
+                this.globalService.featureGrp.clearLayers();
                 if (this.clusterMarkers.length !== 0) {
                   for (let i = 0; i < this.clusterMarkers.length; i++) {
                     var color;
@@ -1211,16 +1183,13 @@ export class InfraMapComponent implements OnInit {
                     .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
                   this.globalService.restrictZoom(globalMap);
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 4.5, options.centerLng - 6],
-                    [options.centerLat + 3.5, options.centerLng + 6],
-                  ]);
                   this.changeDetection.detectChanges();
                   this.globalService.onResize(this.level);
                   this.commonService.loaderAndErr(this.data);
                 }
               }
             }
+            this.globalService.getBoundsByMarkers();
   
           },
           (err) => {
@@ -1317,6 +1286,7 @@ export class InfraMapComponent implements OnInit {
                     this.schoolMarkers,
                     this.infraData
                   );
+                  this.globalService.featureGrp.clearLayers();
                   if (this.schoolMarkers.length !== 0) {
                     for (let i = 0; i < this.schoolMarkers.length; i++) {
                       var color;
@@ -1361,10 +1331,6 @@ export class InfraMapComponent implements OnInit {
                     }
                     globalMap.doubleClickZoom.enable();
                     globalMap.scrollWheelZoom.enable();
-                    globalMap.setMaxBounds([
-                      [options.centerLat - 4.5, options.centerLng - 6],
-                      [options.centerLat + 3.5, options.centerLng + 6],
-                    ]);
                     this.changeDetection.detectChanges();
                     this.globalService.onResize(this.level);
   
@@ -1422,6 +1388,7 @@ export class InfraMapComponent implements OnInit {
                     this.schoolMarkers,
                     this.infraData
                   );
+                  this.globalService.featureGrp.clearLayers();
                   if (this.schoolMarkers.length !== 0) {
                     for (let i = 0; i < this.schoolMarkers.length; i++) {
                       var color;
@@ -1466,10 +1433,6 @@ export class InfraMapComponent implements OnInit {
                     }
                     globalMap.doubleClickZoom.enable();
                     globalMap.scrollWheelZoom.enable();
-                    globalMap.setMaxBounds([
-                      [options.centerLat - 4.5, options.centerLng - 6],
-                      [options.centerLat + 3.5, options.centerLng + 6],
-                    ]);
                     this.changeDetection.detectChanges();
                     this.globalService.onResize(this.level);
   
@@ -1519,6 +1482,7 @@ export class InfraMapComponent implements OnInit {
                       this.schoolMarkers,
                       this.infraData
                     );
+                    this.globalService.featureGrp.clearLayers();
                     if (this.schoolMarkers.length !== 0) {
                       for (let i = 0; i < this.schoolMarkers.length; i++) {
                         var color;
@@ -1563,10 +1527,6 @@ export class InfraMapComponent implements OnInit {
                       }
                       globalMap.doubleClickZoom.enable();
                       globalMap.scrollWheelZoom.enable();
-                      globalMap.setMaxBounds([
-                        [options.centerLat - 4.5, options.centerLng - 6],
-                        [options.centerLat + 3.5, options.centerLng + 6],
-                      ]);
                       this.changeDetection.detectChanges();
                       this.globalService.onResize(this.level);
   
@@ -1605,6 +1565,7 @@ export class InfraMapComponent implements OnInit {
                     this.schoolMarkers,
                     this.infraData
                   );
+                  this.globalService.featureGrp.clearLayers();
                   if (this.schoolMarkers.length !== 0) {
                     for (let i = 0; i < this.schoolMarkers.length; i++) {
                       var color;
@@ -1649,10 +1610,6 @@ export class InfraMapComponent implements OnInit {
                     }
                     globalMap.doubleClickZoom.enable();
                     globalMap.scrollWheelZoom.enable();
-                    globalMap.setMaxBounds([
-                      [options.centerLat - 4.5, options.centerLng - 6],
-                      [options.centerLat + 3.5, options.centerLng + 6],
-                    ]);
                     this.changeDetection.detectChanges();
                     this.globalService.onResize(this.level);
   
@@ -1675,6 +1632,7 @@ export class InfraMapComponent implements OnInit {
               this.schoolMarkers = [];
               this.commonService.loaderAndErr(this.schoolMarkers);
             }
+            this.globalService.getBoundsByMarkers();
           },
           (err) => {
             this.schoolMarkers = [];
@@ -1764,10 +1722,6 @@ export class InfraMapComponent implements OnInit {
           this.globalService.longitude = this.lng = options.centerLng;
   
           this.globalService.restrictZoom(globalMap);
-          globalMap.setMaxBounds([
-            [options.centerLat - 1.5, options.centerLng - 3],
-            [options.centerLat + 1.5, options.centerLng + 2],
-          ]);
   
           //schoolCount
           this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
@@ -1875,10 +1829,6 @@ export class InfraMapComponent implements OnInit {
             this.globalService.longitude = this.lng = options.centerLng;
   
             this.globalService.restrictZoom(globalMap);
-            globalMap.setMaxBounds([
-              [options.centerLat - 1.5, options.centerLng - 3],
-              [options.centerLat + 1.5, options.centerLng + 2],
-            ]);
   
             //schoolCount
             this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
@@ -2029,11 +1979,7 @@ export class InfraMapComponent implements OnInit {
   
                 globalMap.doubleClickZoom.enable();
                 globalMap.scrollWheelZoom.enable();
-                globalMap.setMaxBounds([
-                  [options.centerLat - 1.5, options.centerLng - 3],
-                  [options.centerLat + 1.5, options.centerLng + 2],
-                ]);
-  
+
                 //schoolCount
                 this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
@@ -2070,6 +2016,7 @@ export class InfraMapComponent implements OnInit {
           this.markers,
           this.infraData
         );
+        this.globalService.featureGrp.clearLayers();
         // attach values to markers
         for (var i = 0; i < this.markers.length; i++) {
           var color;
@@ -2122,6 +2069,7 @@ export class InfraMapComponent implements OnInit {
         data = [];
         this.commonService.loaderAndErr(data);
       }
+      this.globalService.getBoundsByMarkers();
   
     }
   

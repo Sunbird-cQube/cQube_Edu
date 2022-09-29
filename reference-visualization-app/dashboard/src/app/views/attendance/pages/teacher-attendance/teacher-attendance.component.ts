@@ -560,6 +560,7 @@ export class TeacherAttendanceComponent implements OnInit {
         this.clusterNames = clustNames;
 
         this.clusterSelect({ type: "click" }, this.myCluster);
+        this.globalService.getBoundsByMarkers();
       },
       (err) => {
         this.markers = [];
@@ -789,6 +790,7 @@ export class TeacherAttendanceComponent implements OnInit {
               value: "attendance",
               report: "reports",
             });
+            this.globalService.featureGrp.clearLayers();
             if (this.markers.length > 0) {
               for (var i = 0; i < this.markers.length; i++) {
                 var color = this.commonService.color(
@@ -835,12 +837,6 @@ export class TeacherAttendanceComponent implements OnInit {
 
             this.globalService.restrictZoom(globalMap);
 
-            //Setting map bound for scroll::::::::::::
-            globalMap.setMaxBounds([
-              [this.lat - 4.5, this.lng - 6],
-              [this.lat + 3.5, this.lng + 6],
-            ]);
-
             //adjusting marker size and other UI on screen resize:::::::::::
             this.globalService.onResize(this.levelWise);
             this.commonService.loaderAndErr(this.markers);
@@ -848,7 +844,7 @@ export class TeacherAttendanceComponent implements OnInit {
             if(distId){
               this.myDistData(distId,bid,cid)
             }
-            
+            this.globalService.getBoundsByMarkers();
           },
           (err) => {
             this.dateRange = "";
@@ -923,6 +919,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 value: "attendance",
                 report: "reports",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   var color = this.commonService.color(
@@ -969,11 +966,6 @@ export class TeacherAttendanceComponent implements OnInit {
 
                 this.globalService.restrictZoom(globalMap);
 
-                //Setting map bound for scroll::::::::::::
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
 
                 //adjusting marker size and other UI on screen resize:::::::::::
                 this.globalService.onResize(this.levelWise);
@@ -1006,6 +998,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 value: "attendance",
                 report: "reports",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   var color = this.commonService.color(
@@ -1052,11 +1045,6 @@ export class TeacherAttendanceComponent implements OnInit {
 
                 this.globalService.restrictZoom(globalMap);
 
-                //Setting map bound for scroll::::::::::::
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
 
                 //adjusting marker size and other UI on screen resize:::::::::::
                 this.globalService.onResize(this.levelWise);
@@ -1088,6 +1076,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 value: "attendance",
                 report: "reports",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   var color = this.commonService.color(
@@ -1134,11 +1123,6 @@ export class TeacherAttendanceComponent implements OnInit {
 
                 this.globalService.restrictZoom(globalMap);
 
-                //Setting map bound for scroll::::::::::::
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
 
                 //adjusting marker size and other UI on screen resize:::::::::::
                 this.globalService.onResize(this.levelWise);
@@ -1164,6 +1148,8 @@ export class TeacherAttendanceComponent implements OnInit {
                 value: "attendance",
                 report: "reports",
               });
+              this.globalService.featureGrp.clearLayers();
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   var color = this.commonService.color(
@@ -1210,11 +1196,6 @@ export class TeacherAttendanceComponent implements OnInit {
 
                 this.globalService.restrictZoom(globalMap);
 
-                //Setting map bound for scroll::::::::::::
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
 
                 //adjusting marker size and other UI on screen resize:::::::::::
                 this.globalService.onResize(this.levelWise);
@@ -1222,6 +1203,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 this.changeDetection.markForCheck();
               }
             }
+            this.globalService.getBoundsByMarkers();
 
 
           },
@@ -1311,6 +1293,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 value: "attendance",
                 report: "reports",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   var color = this.commonService.color(
@@ -1376,11 +1359,6 @@ export class TeacherAttendanceComponent implements OnInit {
 
                 this.globalService.restrictZoom(globalMap);
 
-                //Setting map bound for scroll::::::::::::
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
 
                 //adjusting marker size and other UI on screen resize:::::::::::
                 this.globalService.onResize(this.levelWise);
@@ -1421,6 +1399,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 value: "attendance",
                 report: "reports",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   var color = this.commonService.color(
@@ -1486,11 +1465,6 @@ export class TeacherAttendanceComponent implements OnInit {
 
                 this.globalService.restrictZoom(globalMap);
 
-                //Setting map bound for scroll::::::::::::
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
 
                 //adjusting marker size and other UI on screen resize:::::::::::
                 this.globalService.onResize(this.levelWise);
@@ -1533,6 +1507,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 value: "attendance",
                 report: "reports",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   var color = this.commonService.color(
@@ -1597,12 +1572,6 @@ export class TeacherAttendanceComponent implements OnInit {
                 this.blocksNames = blockNames;
 
                 this.globalService.restrictZoom(globalMap);
-
-                //Setting map bound for scroll::::::::::::
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
 
                 //adjusting marker size and other UI on screen resize:::::::::::
                 this.globalService.onResize(this.levelWise);
@@ -1629,6 +1598,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 value: "attendance",
                 report: "reports",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   var color = this.commonService.color(
@@ -1694,11 +1664,6 @@ export class TeacherAttendanceComponent implements OnInit {
 
                 this.globalService.restrictZoom(globalMap);
 
-                //Setting map bound for scroll::::::::::::
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
 
                 //adjusting marker size and other UI on screen resize:::::::::::
                 this.globalService.onResize(this.levelWise);
@@ -1706,6 +1671,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 this.changeDetection.markForCheck();
               }
             }
+            this.globalService.getBoundsByMarkers();
 
           },
           (err) => {
@@ -1798,6 +1764,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 value: "attendance",
                 report: "reports",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   var color = this.commonService.color(
@@ -1835,11 +1802,6 @@ export class TeacherAttendanceComponent implements OnInit {
                 globalMap.doubleClickZoom.enable();
                 globalMap.scrollWheelZoom.enable();
 
-                //Setting map bound for scroll::::::::::::
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
 
                 //adjusting marker size and other UI on screen resize:::::::::::
                 this.globalService.onResize(this.levelWise);
@@ -1882,6 +1844,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 value: "attendance",
                 report: "reports",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   var color = this.commonService.color(
@@ -1919,11 +1882,6 @@ export class TeacherAttendanceComponent implements OnInit {
                 globalMap.doubleClickZoom.enable();
                 globalMap.scrollWheelZoom.enable();
 
-                //Setting map bound for scroll::::::::::::
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
 
                 //adjusting marker size and other UI on screen resize:::::::::::
                 this.globalService.onResize(this.levelWise);
@@ -1965,6 +1923,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 value: "attendance",
                 report: "reports",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   var color = this.commonService.color(
@@ -2002,11 +1961,6 @@ export class TeacherAttendanceComponent implements OnInit {
                 globalMap.doubleClickZoom.enable();
                 globalMap.scrollWheelZoom.enable();
 
-                //Setting map bound for scroll::::::::::::
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
 
                 //adjusting marker size and other UI on screen resize:::::::::::
                 this.globalService.onResize(this.levelWise);
@@ -2030,6 +1984,7 @@ export class TeacherAttendanceComponent implements OnInit {
                 value: "attendance",
                 report: "reports",
               });
+              this.globalService.featureGrp.clearLayers();
               if (this.markers.length !== 0) {
                 for (let i = 0; i < this.markers.length; i++) {
                   var color = this.commonService.color(
@@ -2067,11 +2022,6 @@ export class TeacherAttendanceComponent implements OnInit {
                 globalMap.doubleClickZoom.enable();
                 globalMap.scrollWheelZoom.enable();
 
-                //Setting map bound for scroll::::::::::::
-                globalMap.setMaxBounds([
-                  [this.lat - 4.5, this.lng - 6],
-                  [this.lat + 3.5, this.lng + 6],
-                ]);
 
                 //adjusting marker size and other UI on screen resize:::::::::::
                 this.globalService.onResize(this.levelWise);
@@ -2080,7 +2030,7 @@ export class TeacherAttendanceComponent implements OnInit {
               }
             }
 
-
+            this.globalService.getBoundsByMarkers();
 
           },
           (err) => {
@@ -2122,11 +2072,6 @@ export class TeacherAttendanceComponent implements OnInit {
     this.globalService.latitude = this.lat = this.globalService.mapCenterLatlng.lat;
     this.globalService.longitude = this.lng = this.globalService.mapCenterLatlng.lng;
 
-    //Setting map bound for scroll::::::::::::
-    globalMap.setMaxBounds([
-      [this.lat - 4.5, this.lng - 6],
-      [this.lat + 3.5, this.lng + 6],
-    ]);
     this.markerData = {};
     this.myDistrict = null;
     this.valueRange = undefined;
@@ -2371,6 +2316,7 @@ export class TeacherAttendanceComponent implements OnInit {
             this.teacherCount = res["teacherCount"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
             this.schoolCount = res["schoolCount"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
+            this.globalService.featureGrp.clearLayers();
             for (var i = 0; i < this.markers.length; i++) {
               var color = this.commonService.color(
                 this.markers[i],
@@ -2414,12 +2360,6 @@ export class TeacherAttendanceComponent implements OnInit {
 
             this.globalService.restrictZoom(globalMap);
 
-            //Setting map bound for scroll::::::::::::
-            globalMap.setMaxBounds([
-              [this.lat - 1.5, this.lng - 3],
-              [this.lat + 1.5, this.lng + 2],
-            ]);
-
             //adjusting marker size and other UI on screen resize:::::::::::
             this.globalService.onResize(this.levelWise);
             this.commonService.loaderAndErr(this.markers);
@@ -2427,6 +2367,7 @@ export class TeacherAttendanceComponent implements OnInit {
             if (bid) {
               this.myBlockData(bid, cid);
             }
+            this.globalService.getBoundsByMarkers();
           },
           (err) => {
             this.dateRange = "";
@@ -2586,6 +2527,7 @@ export class TeacherAttendanceComponent implements OnInit {
               value: "attendance",
               report: "reports",
             });
+            this.globalService.featureGrp.clearLayers();
             for (var i = 0; i < sorted.length; i++) {
               var color = this.commonService.color(
                 this.markers[i],
@@ -2639,11 +2581,6 @@ export class TeacherAttendanceComponent implements OnInit {
 
             this.globalService.restrictZoom(globalMap);
 
-            //Setting map bound for scroll::::::::::::
-            globalMap.setMaxBounds([
-              [this.lat - 1.5, this.lng - 3],
-              [this.lat + 1.5, this.lng + 2],
-            ]);
 
             //adjusting marker size and other UI on screen resize:::::::::::
             this.globalService.onResize(this.levelWise);
@@ -2652,6 +2589,7 @@ export class TeacherAttendanceComponent implements OnInit {
             if (cid) {
               this.myClusterData(cid);
             }
+            this.globalService.getBoundsByMarkers;
           },
           (err) => {
             this.dateRange = "";
@@ -2859,6 +2797,7 @@ export class TeacherAttendanceComponent implements OnInit {
               value: "attendance",
               report: "reports",
             });
+            this.globalService.featureGrp.clearLayers();
             for (var i = 0; i < sorted.length; i++) {
               var color = this.commonService.color(
                 this.markers[i],
@@ -2892,16 +2831,11 @@ export class TeacherAttendanceComponent implements OnInit {
             globalMap.doubleClickZoom.enable();
             globalMap.scrollWheelZoom.enable();
 
-            //Setting map bound for scroll::::::::::::
-            globalMap.setMaxBounds([
-              [this.lat - 1.5, this.lng - 3],
-              [this.lat + 1.5, this.lng + 2],
-            ]);
-
             //adjusting marker size and other UI on screen resize:::::::::::
             this.globalService.onResize(this.levelWise);
             this.commonService.loaderAndErr(this.markers);
             this.changeDetection.markForCheck();
+            this.globalService.getBoundsByMarkers();
           },
           (err) => {
             this.dateRange = "";
@@ -3141,6 +3075,7 @@ export class TeacherAttendanceComponent implements OnInit {
     this.teacherCount = 0;
     this.schoolCount = this.levelWise == 'School' || this.levelWise == 'schoolPerCluster' ? markers.length : 0;
     var stopLoader = false;
+    this.globalService.featureGrp.clearLayers();
     if (markers.length > 0) {
       this.commonService.errMsg();
       for (var i = 0; i < markers.length; i++) {
@@ -3240,6 +3175,7 @@ export class TeacherAttendanceComponent implements OnInit {
     this.globalService.onResize(this.levelWise);
     this.commonService.loaderAndErr(markers)
     this.changeDetection.detectChanges();
+    this.globalService.getBoundsByMarkers();
   }
 
   public selectedIndex;

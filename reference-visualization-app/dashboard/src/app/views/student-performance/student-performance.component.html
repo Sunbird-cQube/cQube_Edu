@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="tab-group-wrapper">
+<div class="tab-group-wrapper" *ngIf="loadTabs">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
         <mat-tab label="Semester Assessment Test">
             <app-sat-map *ngIf="tabIndex === 0"></app-sat-map>
