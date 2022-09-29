@@ -21,19 +21,6 @@ app.logger.addHandler(file_handler)
 app.logger.addHandler(access_handler)
 app.debug = False
 
-STORAGE_TYPE = STORAGE
-EMISSION_BUCKET_NAME = EMISSION_BUCKET_NAME
-OUTPUT_BUCKET_NAME = OUTPUT_BUCKET_NAME
-INPUT_BUCKET_NAME = INPUT_BUCKET_NAME
-AWS_ACCESS_KEY = AWS_ACCESS_KEY
-AWS_SECRET_KEY = AWS_SECRET_KEY
-AWS_DEFAULT_REGION = AWS_DEFAULT_REGION
-DESTINATION_FOLDER = DESTINATION_FOLDER
-
-AZURE_ACC_NAME = AZURE_ACC_NAME
-AZURE_PRIMARY_KEY = AZURE_PRIMARY_KEY
-AZURE_CONTAINER = AZURE_CONTAINER
-
 
 def get_s3_client():
     s3_signature = {
@@ -48,10 +35,10 @@ def get_s3_client():
                   )
 
 
-def create_presigned_post(bucket_name, object_name,fields=None, conditions=None, expiration=3600):
+def create_presigned_post(bucket_name, object_name, fields=None, conditions=None, expiration=3600):
     s3_client = get_s3_client()
     try:
-        response = s3_client.generate_presigned_post(bucket_name,object_name,ExpiresIn=expiration)
+        response = s3_client.generate_presigned_post(bucket_name, object_name, ExpiresIn=expiration)
     except ClientError as e:
         logging.error(e)
         return None
@@ -101,7 +88,7 @@ def aws_file_downloads():
     files = args["filename"]
     for file in files:
         try:
-            response = s3_client.generate_presigned_url('get_object',Params={'Bucket': bucket_name, 'Key': file},
+            response = s3_client.generate_presigned_url('get_object', Params={'Bucket': bucket_name, 'Key': file},
                                                         ExpiresIn=3600)
             file_resp[file] = response
         except ClientError as e:
@@ -248,9 +235,9 @@ def create_presigned_post_azure(azure_container, file):
         permission = ContainerSasPermissions(read=True, write=True, delete=True,
                                              list=True, delete_previous_version=True, tag=True)
 
-        blob_sas_token = generate_blob_sas(account_name=AZURE_ACC_NAME,
+        blob_sas_token = generate_blob_sas(account_name=AZURE_ACCOUNT_NAME,
                                            container_name=azure_container,
-                                           account_key=AZURE_PRIMARY_KEY,
+                                           account_key=AZURE_ACCOUNT_KEY,
                                            permission=permission,
                                            blob_name=file,
                                            expiry=datetime.utcnow() + timedelta(hours=1)
@@ -273,8 +260,8 @@ def upload_url():
     if file and STORAGE_TYPE.lower() == 's3':
         return create_presigned_post(EMISSION_BUCKET_NAME, str(file_time))
     elif file and STORAGE_TYPE.lower() == 'on-premise':
-        return create_onpremise_url(DESTINATION_FOLDER)
+        return create_onpremise_url(EMISSION_DIRECTORY)
     elif file and STORAGE_TYPE.lower() == 'azure':
-        return create_presigned_post_azure(AZURE_CONTAINER, str(file_time))
+        return create_presigned_post_azure(AZURE_EMISSION_CONTAINER, str(file_time))
     else:
         abort(400, f'Bad request, validate the payload')
