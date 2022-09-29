@@ -14,6 +14,7 @@ import { FoundationalLiteracyNumeracyComponent } from './foundational-literacy-n
 import { FoundationalLiteracyNumeracyRoutingModule } from './foundational-literacy-numeracy-routing.module';
 import { FoundationalLiteracyBarPieComponent } from './pages/foundational-literacy-bar-pie/foundational-literacy-bar-pie.component';
 import { DataService } from 'src/app/core/services/data.service';
+import { EntryStatusComponent } from './pages/entry-status/entry-status.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DataService } from 'src/app/core/services/data.service';
     FoundationalLiteracyBarPieComponent,
     DevelopmentGoalBarComponent,
     GradeWiseBarAndPieComponent,
-    GardeWiseResourceComponent
+    GardeWiseResourceComponent,
+    EntryStatusComponent
   ],
   imports: [
     CommonModule,

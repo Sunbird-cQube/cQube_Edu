@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-foundational-literacy-numeracy',
@@ -8,7 +9,8 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 })
 export class FoundationalLiteracyNumeracyComponent implements OnInit {
   nipunBharathMetrics: any;
-
+  config = environment.config;
+  
   constructor(private readonly _configService: ConfigService) {
     this.getnipunBharathMetricsData();
    }
