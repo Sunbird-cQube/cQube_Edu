@@ -1,7 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
-// for chartjs gauge chart
-import Chart from 'chartjs-gauge';
-
+import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 // for apex radialbar chart
 import {
   ApexNonAxisChartSeries,
@@ -24,19 +21,12 @@ export type ChartOptions = {
 @Component({
   selector: 'app-gauge',
   templateUrl: './gauge.component.html',
-  // styleUrls: ['./gauge.component.scss']
+  styleUrls: ['./gauge.component.scss']
 })
 export class GaugeComponent implements OnInit, OnChanges {
-  public chart: Chart; // for chartjs gauge
-  @ViewChild('container') container: any;
-
   @ViewChild('apexChart') apexChart: ChartComponent;
   public chartOptions: Partial<ChartOptions>; // for apex
   @Input() gaugeData!: any;
-
-  // public canShow = false; 
-  // @Input() height = 300;
-  // @Input() width = 200;
 
   constructor() { }
 
@@ -49,51 +39,12 @@ export class GaugeComponent implements OnInit, OnChanges {
     }
   }
 
-  // used for chartjs gauge chart
-  createChart() {
-    var ctx: CanvasRenderingContext2D = this.container.nativeElement.getContext("2d");
-    // this.canShow = true
-    this.chart = new Chart(ctx, {
-      type: 'gauge',
-      data: {
-        datasets: [{
-          value: 80,
-          minValue: 0,
-          data: [100],
-          backgroundColor: ['orange'],
-        }]
-      },
-      options: {
-        needle: {
-          radiusPercentage: 2,
-          widthPercentage: 3.2,
-          lengthPercentage: 80,
-          // color: 'transparent',
-          display: false
-        },
-        valueLabel: {
-          display: true,
-          formatter: (value) => {
-            return Math.round(value);
-          },
-          color: 'rgba(255, 255, 255, 1)',
-          backgroundColor: 'rgba(0, 0, 0, 1)',
-          borderRadius: 5,
-          padding: {
-            top: 10,
-            bottom: 10
-          }
-        }
-      }
-    });
-  }
-
   apexCreatChart() {
     this.chartOptions = {
       series: [this.gaugeData.percentage],
       chart: {
-        height: 350,
-        type: "radialBar"
+        type: "radialBar",
+        height: 200
       },
       fill: {
         // type: "solid",
@@ -110,19 +61,15 @@ export class GaugeComponent implements OnInit, OnChanges {
         radialBar: {
           hollow: {
             size: "70",
-            margin: 15,
+            margin: 5
           },
           dataLabels: {
-            // showOn: "always",
             name: {
-              offsetY: -10,
-              show: true,
-              color: "#888",
-              fontSize: "13px"
+              show: false
             },
             value: {
               color: "#111",
-              fontSize: "30px",
+              fontSize: "1.2rem",
               show: true
             }
           },
@@ -130,8 +77,7 @@ export class GaugeComponent implements OnInit, OnChanges {
       },
       stroke: {
         lineCap: "round",
-      },
-      labels: [`${this.gaugeData.options.title}`]
+      }
     };
   }
 
