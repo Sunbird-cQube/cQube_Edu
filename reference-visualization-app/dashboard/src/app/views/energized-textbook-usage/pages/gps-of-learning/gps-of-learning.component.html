@@ -70,13 +70,13 @@
 
             <div class="legend-wrapper col-xl-2">
                 <div *ngIf="selected == 'absolute'"
-                    style="float: right; margin-left: 1%; margin-top: 1%; z-index: 100;">
+                    style="float: right; margin-left: 1%; margin-top: 1%; z-index: 100; width: 100%">
                     <h5 id="legend" style="margin-left: 1%">
                         <span *ngIf="selectedType == 'total_content_plays'">{{legandName}}</span>
                         <span *ngIf="selectedType == 'avg_time_spent'">{{legandName}} &#40; Minutes &#41;</span>
                         <span *ngIf="selectedType == 'total_time_spent'">{{legandName}} &#40; Hours &#41;</span>
                         <img *ngIf="valueRange != -1 && valueRange !== undefined" id="resetImg"
-                            src="../../../../assets/images/reset.png" alt="reset" title="Reset to all" style="
+                            src="../../../../../assets/images/reset.png" alt="reset" title="Reset to all" style="
                 cursor: pointer;
                 height: 20px;
                 width: 20px;
@@ -95,7 +95,7 @@
                         </span>
                     </div>
                 </div>
-                <div style="float: right; margin-left: 1%; margin-top: 3%; z-index: 100;">
+                <div style="float: right; margin-left: 1%; margin-top: 3%; z-index: 100; width: 100%">
                     <h5 style="margin-left: 1%;  font-weight: 900;" [ngStyle]="{
             fontSize:
               height > 1760

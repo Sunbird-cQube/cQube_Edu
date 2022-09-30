@@ -12,12 +12,12 @@ if (environment.config == 'national') {
     //   path: '',
     //   loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
     // },
-    {
-      path: '', redirectTo: `home`, pathMatch: 'full'
-    },
-    {
-      path: 'home', component: HomePageComponent
-    },
+    // {
+    //   path: '', redirectTo: `home`, pathMatch: 'full'
+    // },
+    // {
+    //   path: 'home', component: HomePageComponent
+    // },
     {
       path: '',
       component: LayoutComponent,
