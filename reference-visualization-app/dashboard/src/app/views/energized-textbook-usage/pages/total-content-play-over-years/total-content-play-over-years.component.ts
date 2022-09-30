@@ -114,7 +114,7 @@ export class TotalContentPlayOverYearsComponent implements OnInit {
           this.reportData = res["downloadData"]["data"];
           this.createLineChart(this.reportData);
           this.getDistMeta();
-          this.commonService.loaderAndErr(this.chartData);
+          this.commonService.loaderAndErr(this.reportData);
         }
       }, (err) => {
 
