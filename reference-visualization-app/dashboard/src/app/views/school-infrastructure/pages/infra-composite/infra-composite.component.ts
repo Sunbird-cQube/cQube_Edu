@@ -757,7 +757,6 @@ export class InfraCompositeComponent implements OnInit {
         pointHoverRadius: this.height > 1760 ? 18 : this.height > 1160 && this.height < 1760 ? 12 : this.height > 667 && this.height < 1160 ? 11 : 6,
       }],
       options: {
-
         legend: {
           display: false
         },
