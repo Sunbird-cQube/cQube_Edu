@@ -1,11 +1,7 @@
-<!-- <div  [class.show]="canShow">
-<canvas #container [style.height.px]="height"></canvas>
-</div> -->
-
-
 <div id="card">
-    <div id="apexChart">
-      <apx-chart *ngIf="gaugeData"
+    <div id="apexChart" *ngIf="chartOptions">
+      <p class="title text-center">{{ gaugeData.options.title }}</p>
+      <apx-chart 
         [series]="chartOptions?.series"
         [chart]="chartOptions.chart"
         [plotOptions]="chartOptions.plotOptions"
@@ -14,5 +10,5 @@
         [fill]="chartOptions.fill"
       ></apx-chart>
     </div>
-  </div>
+</div>
   

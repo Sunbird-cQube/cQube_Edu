@@ -35,7 +35,6 @@
     "apexcharts": "^3.35.5",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.9.4",
-    "chartjs-gauge": "^0.3.0",
     "color2k": "^2.0.0",
     "cqube-library": "^4.10.25",
     "crypto-js": "^4.1.1",
