@@ -381,7 +381,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
       });
 
       this.map.addLayer(this.markers);
-      this.map.fitBounds(this.markers.getBounds())
       if (this.level === 'district') {
         this.createLegend(reportTypeIndicator, this.mapData.options, values);
       }
