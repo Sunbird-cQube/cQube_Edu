@@ -28298,11 +28298,12 @@ or(${filename:startsWith('data_replay')})}</value>
                             </entry>
                             <entry>
 <key>diksha</key>
-<value>${filename:startsWith('diksha'):and(
+<value>${path:startsWith('diksha/'):or(${filename:startsWith('diksha/'):or(${azure.blobname:startsWith('diksha/')}):and(
+${filename:startsWith('diksha'):and(
 ${filename:startsWith('diksha_program_course_details'):or(${filename:startsWith('diksha_course_details')})
 :or(${filename:startsWith('diksha_course_enrolment')})
 :or(${filename:startsWith('diksha_etb_enrolment')})
-:or(${filename:startsWith('diksha_program_details')}):not()})}</value>
+:or(${filename:startsWith('diksha_program_details')}):not()})})})}</value>
                             </entry>
                             <entry>
 <key>infra_trans</key>
@@ -86718,5 +86719,5 @@ ${query_type:startsWith('tch_att_management_category_school_by_month_year'):ifEl
             <variables/>
         </processGroups>
     </snippet>
-    <timestamp>09/29/2022 18:12:58 IST</timestamp>
+    <timestamp>09/30/2022 09:40:38 IST</timestamp>
 </template>
