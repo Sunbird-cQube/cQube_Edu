@@ -55,12 +55,11 @@ fi
 }
 
 check_sys_user(){
-	result=`whoami`
-	if [[ ! $result = $2 ]]; then
+    result=`who | head -1 | awk '{print $1}'`
+    if [[ `egrep -i ^$2: /etc/passwd ; echo $?` != 0 && $result != $2 ]]; then 
         echo "Error - Please check the system_user_name."; fail=1
     fi
 }
-
 
 check_base_dir(){
 if [[ ! "$2" = /* ]] || [[ ! -d $2 ]]; then
