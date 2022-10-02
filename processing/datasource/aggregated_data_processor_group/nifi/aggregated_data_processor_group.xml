@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <template encoding-version="1.3">
     <description></description>
-    <groupId>831f15af-0183-1000-c38f-849a08194034</groupId>
+    <groupId>8c4ef165-0182-1000-a00f-02b78ffb9ded</groupId>
     <name>aggregated_data_processor_group</name>
     <snippet>
         <processGroups>
-            <id>ed27d33e-2f11-3a1c-0000-000000000000</id>
-            <parentGroupId>45d9fd7c-2c8b-3f58-0000-000000000000</parentGroupId>
+            <id>a29e077b-7060-3eaa-0000-000000000000</id>
+            <parentGroupId>3faaf9fb-131e-313a-0000-000000000000</parentGroupId>
             <position>
                 <x>0.0</x>
                 <y>0.0</y>
@@ -14,38 +14,13 @@
             <comments></comments>
             <contents>
                 <connections>
-                    <id>1e8b8a53-8270-3715-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <destination>
-                        <groupId>ed27d33e-2f11-3a1c-0000-000000000000</groupId>
-                        <id>35d8b360-c329-31b5-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>success</selectedRelationships>
-                    <source>
-                        <groupId>ed27d33e-2f11-3a1c-0000-000000000000</groupId>
-                        <id>caa2b7e9-962a-39db-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>34831cdc-94f7-3b88-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
+                    <id>01348237-85b3-356e-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>4 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <destination>
-                        <groupId>ed27d33e-2f11-3a1c-0000-000000000000</groupId>
-                        <id>35d8b360-c329-31b5-0000-000000000000</id>
+                        <groupId>a29e077b-7060-3eaa-0000-000000000000</groupId>
+                        <id>310ba886-558e-3736-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
@@ -57,40 +32,15 @@
                     <name></name>
                     <selectedRelationships>success</selectedRelationships>
                     <source>
-                        <groupId>ed27d33e-2f11-3a1c-0000-000000000000</groupId>
-                        <id>1df8c960-60d9-3660-0000-000000000000</id>
+                        <groupId>a29e077b-7060-3eaa-0000-000000000000</groupId>
+                        <id>ded9fe78-7bad-3ea2-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
-                    <id>df053e98-a762-3fd4-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>4 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <destination>
-                        <groupId>ed27d33e-2f11-3a1c-0000-000000000000</groupId>
-                        <id>35d8b360-c329-31b5-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>success</selectedRelationships>
-                    <source>
-                        <groupId>ed27d33e-2f11-3a1c-0000-000000000000</groupId>
-                        <id>60e068f9-de09-36d1-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>df1f91b7-ac91-3139-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
+                    <id>2b7206a8-b0c3-365f-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <bends>
@@ -98,8 +48,8 @@
                         <y>584.0</y>
                     </bends>
                     <destination>
-                        <groupId>ed27d33e-2f11-3a1c-0000-000000000000</groupId>
-                        <id>9d407215-2331-3a9f-0000-000000000000</id>
+                        <groupId>a29e077b-7060-3eaa-0000-000000000000</groupId>
+                        <id>596ddf2d-5f17-3061-0000-000000000000</id>
                         <type>OUTPUT_PORT</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
@@ -110,16 +60,67 @@
                     <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
                     <name></name>
                     <selectedRelationships>aggregated_files</selectedRelationships>
+                    <selectedRelationships>parse_python</selectedRelationships>
                     <source>
-                        <groupId>ed27d33e-2f11-3a1c-0000-000000000000</groupId>
-                        <id>35d8b360-c329-31b5-0000-000000000000</id>
+                        <groupId>a29e077b-7060-3eaa-0000-000000000000</groupId>
+                        <id>310ba886-558e-3736-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>680217b7-903e-3d95-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>a29e077b-7060-3eaa-0000-000000000000</groupId>
+                        <id>310ba886-558e-3736-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>a29e077b-7060-3eaa-0000-000000000000</groupId>
+                        <id>0289cba7-951e-3e06-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>e5e2d8c7-53f1-3997-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>4 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>a29e077b-7060-3eaa-0000-000000000000</groupId>
+                        <id>310ba886-558e-3736-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>a29e077b-7060-3eaa-0000-000000000000</groupId>
+                        <id>b3f1da50-e8ce-3cb6-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
                 <controllerServices>
-                    <id>3213b8c6-a8c3-3ab0-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
+                    <id>640313a5-dbb9-3eba-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
                     <bundle>
                         <artifact>nifi-azure-nar</artifact>
                         <group>org.apache.nifi</group>
@@ -172,8 +173,8 @@
                     <type>org.apache.nifi.services.azure.storage.AzureStorageCredentialsControllerService</type>
                 </controllerServices>
                 <controllerServices>
-                    <id>6c9b1806-f2e6-3a8b-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
+                    <id>ddc70169-27d1-3b6a-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
                     <bundle>
                         <artifact>nifi-aws-nar</artifact>
                         <group>org.apache.nifi</group>
@@ -310,50 +311,29 @@
                     <type>org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService</type>
                 </controllerServices>
                 <labels>
-                    <id>51a4cd2b-b51d-324b-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
+                    <id>a8196569-126a-3d51-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
                     <position>
-                        <x>928.0000819248553</x>
+                        <x>448.0000819248553</x>
                         <y>-28.4999896770164</y>
                     </position>
                     <height>168.0</height>
-                    <label>azure List Blob</label>
+                    <label>S3 data source</label>
                     <style>
                         <entry>
                             <key>background-color</key>
-                            <value>#2345b8</value>
+                            <value>#9e2f00</value>
                         </entry>
                         <entry>
                             <key>font-size</key>
                             <value>20px</value>
                         </entry>
                     </style>
-                    <width>400.0</width>
+                    <width>416.0</width>
                 </labels>
                 <labels>
-                    <id>79dc305f-2fb8-3b84-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
-                    <position>
-                        <x>528.0000819248553</x>
-                        <y>-188.4999896770164</y>
-                    </position>
-                    <height>48.0</height>
-                    <label>AGGREGATED DATA </label>
-                    <style>
-                        <entry>
-                            <key>background-color</key>
-                            <value>#3d81ff</value>
-                        </entry>
-                        <entry>
-                            <key>font-size</key>
-                            <value>24px</value>
-                        </entry>
-                    </style>
-                    <width>256.0</width>
-                </labels>
-                <labels>
-                    <id>edae12d6-b022-3f36-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
+                    <id>ad753baf-725a-321a-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
                     <position>
                         <x>-95.9999180751447</x>
                         <y>-28.4999896770164</y>
@@ -373,29 +353,50 @@
                     <width>416.0</width>
                 </labels>
                 <labels>
-                    <id>fa8e747b-b596-3e4e-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
+                    <id>c8566795-bd35-3b04-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
                     <position>
-                        <x>448.0000819248553</x>
+                        <x>928.0000819248553</x>
                         <y>-28.4999896770164</y>
                     </position>
                     <height>168.0</height>
-                    <label>S3 data source</label>
+                    <label>azure List Blob</label>
                     <style>
                         <entry>
                             <key>background-color</key>
-                            <value>#9e2f00</value>
+                            <value>#2345b8</value>
                         </entry>
                         <entry>
                             <key>font-size</key>
                             <value>20px</value>
                         </entry>
                     </style>
-                    <width>416.0</width>
+                    <width>400.0</width>
+                </labels>
+                <labels>
+                    <id>e4c516b2-61b2-345c-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>528.0000819248553</x>
+                        <y>-188.4999896770164</y>
+                    </position>
+                    <height>48.0</height>
+                    <label>AGGREGATED DATA </label>
+                    <style>
+                        <entry>
+                            <key>background-color</key>
+                            <value>#3d81ff</value>
+                        </entry>
+                        <entry>
+                            <key>font-size</key>
+                            <value>24px</value>
+                        </entry>
+                    </style>
+                    <width>256.0</width>
                 </labels>
                 <outputPorts>
-                    <id>9d407215-2331-3a9f-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
+                    <id>596ddf2d-5f17-3061-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
                     <position>
                         <x>1112.0000819248553</x>
                         <y>555.5000103229836</y>
@@ -407,14 +408,14 @@
                     <type>OUTPUT_PORT</type>
                 </outputPorts>
                 <processors>
-                    <id>1df8c960-60d9-3660-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
+                    <id>0289cba7-951e-3e06-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
                     <position>
-                        <x>504.0000819248553</x>
+                        <x>960.0000819248553</x>
                         <y>3.5000103229835986</y>
                     </position>
                     <bundle>
-                        <artifact>nifi-aws-nar</artifact>
+                        <artifact>nifi-azure-nar</artifact>
                         <group>org.apache.nifi</group>
                         <version>1.12.1</version>
                     </bundle>
@@ -424,27 +425,9 @@
                         <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
                         <descriptors>
                             <entry>
-<key>Bucket</key>
+<key>listing-strategy</key>
 <value>
-    <name>Bucket</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Region</key>
-<value>
-    <name>Region</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Access Key</key>
-<value>
-    <name>Access Key</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Secret Key</key>
-<value>
-    <name>Secret Key</name>
+    <name>listing-strategy</name>
 </value>
                             </entry>
                             <entry>
@@ -455,59 +438,46 @@
 </value>
                             </entry>
                             <entry>
-<key>min-age</key>
+<key>container-name</key>
 <value>
-    <name>min-age</name>
+    <name>container-name</name>
 </value>
                             </entry>
                             <entry>
-<key>write-s3-object-tags</key>
+<key>storage-credentials-service</key>
 <value>
-    <name>write-s3-object-tags</name>
+    <identifiesControllerService>org.apache.nifi.services.azure.storage.AzureStorageCredentialsService</identifiesControllerService>
+    <name>storage-credentials-service</name>
 </value>
                             </entry>
                             <entry>
-<key>write-s3-user-metadata</key>
+<key>storage-account-name</key>
 <value>
-    <name>write-s3-user-metadata</name>
+    <name>storage-account-name</name>
 </value>
                             </entry>
                             <entry>
-<key>Credentials File</key>
+<key>storage-account-key</key>
 <value>
-    <name>Credentials File</name>
+    <name>storage-account-key</name>
 </value>
                             </entry>
                             <entry>
-<key>AWS Credentials Provider service</key>
+<key>storage-sas-token</key>
 <value>
-    <identifiesControllerService>org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderService</identifiesControllerService>
-    <name>AWS Credentials Provider service</name>
+    <name>storage-sas-token</name>
 </value>
                             </entry>
                             <entry>
-<key>Communications Timeout</key>
+<key>storage-endpoint-suffix</key>
 <value>
-    <name>Communications Timeout</name>
+    <name>storage-endpoint-suffix</name>
 </value>
                             </entry>
                             <entry>
-<key>SSL Context Service</key>
+<key>prefix</key>
 <value>
-    <identifiesControllerService>org.apache.nifi.ssl.SSLContextService</identifiesControllerService>
-    <name>SSL Context Service</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Endpoint Override URL</key>
-<value>
-    <name>Endpoint Override URL</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Signer Override</key>
-<value>
-    <name>Signer Override</name>
+    <name>prefix</name>
 </value>
                             </entry>
                             <entry>
@@ -518,57 +488,22 @@
 </value>
                             </entry>
                             <entry>
-<key>Proxy Host</key>
+<key>et-state-cache</key>
 <value>
-    <name>Proxy Host</name>
+    <identifiesControllerService>org.apache.nifi.distributed.cache.client.DistributedMapCacheClient</identifiesControllerService>
+    <name>et-state-cache</name>
 </value>
                             </entry>
                             <entry>
-<key>Proxy Host Port</key>
+<key>et-time-window</key>
 <value>
-    <name>Proxy Host Port</name>
+    <name>et-time-window</name>
 </value>
                             </entry>
                             <entry>
-<key>proxy-user-name</key>
+<key>et-initial-listing-target</key>
 <value>
-    <name>proxy-user-name</name>
-</value>
-                            </entry>
-                            <entry>
-<key>proxy-user-password</key>
-<value>
-    <name>proxy-user-password</name>
-</value>
-                            </entry>
-                            <entry>
-<key>delimiter</key>
-<value>
-    <name>delimiter</name>
-</value>
-                            </entry>
-                            <entry>
-<key>prefix</key>
-<value>
-    <name>prefix</name>
-</value>
-                            </entry>
-                            <entry>
-<key>use-versions</key>
-<value>
-    <name>use-versions</name>
-</value>
-                            </entry>
-                            <entry>
-<key>list-type</key>
-<value>
-    <name>list-type</name>
-</value>
-                            </entry>
-                            <entry>
-<key>requester-pays</key>
-<value>
-    <name>requester-pays</name>
+    <name>et-initial-listing-target</name>
 </value>
                             </entry>
                         </descriptors>
@@ -577,87 +512,48 @@
                         <penaltyDuration>30 sec</penaltyDuration>
                         <properties>
                             <entry>
-<key>Bucket</key>
-<value>#{s3_emission_bucket}</value>
-                            </entry>
-                            <entry>
-<key>Region</key>
-<value>ap-south-1</value>
-                            </entry>
-                            <entry>
-<key>Access Key</key>
-                            </entry>
-                            <entry>
-<key>Secret Key</key>
+<key>listing-strategy</key>
+<value>timestamps</value>
                             </entry>
                             <entry>
 <key>record-writer</key>
                             </entry>
                             <entry>
-<key>min-age</key>
-<value>0 sec</value>
+<key>container-name</key>
+<value>#{azure_emission_container}</value>
                             </entry>
                             <entry>
-<key>write-s3-object-tags</key>
-<value>true</value>
+<key>storage-credentials-service</key>
+<value>640313a5-dbb9-3eba-0000-000000000000</value>
                             </entry>
                             <entry>
-<key>write-s3-user-metadata</key>
-<value>true</value>
+<key>storage-account-name</key>
                             </entry>
                             <entry>
-<key>Credentials File</key>
+<key>storage-account-key</key>
                             </entry>
                             <entry>
-<key>AWS Credentials Provider service</key>
-<value>6c9b1806-f2e6-3a8b-0000-000000000000</value>
+<key>storage-sas-token</key>
                             </entry>
                             <entry>
-<key>Communications Timeout</key>
-<value>30 secs</value>
-                            </entry>
-                            <entry>
-<key>SSL Context Service</key>
-                            </entry>
-                            <entry>
-<key>Endpoint Override URL</key>
-                            </entry>
-                            <entry>
-<key>Signer Override</key>
-<value>Default Signature</value>
-                            </entry>
-                            <entry>
-<key>proxy-configuration-service</key>
-                            </entry>
-                            <entry>
-<key>Proxy Host</key>
-                            </entry>
-                            <entry>
-<key>Proxy Host Port</key>
-                            </entry>
-                            <entry>
-<key>proxy-user-name</key>
-                            </entry>
-                            <entry>
-<key>proxy-user-password</key>
-                            </entry>
-                            <entry>
-<key>delimiter</key>
+<key>storage-endpoint-suffix</key>
                             </entry>
                             <entry>
 <key>prefix</key>
                             </entry>
                             <entry>
-<key>use-versions</key>
-<value>false</value>
+<key>proxy-configuration-service</key>
                             </entry>
                             <entry>
-<key>list-type</key>
-<value>1</value>
+<key>et-state-cache</key>
                             </entry>
                             <entry>
-<key>requester-pays</key>
-<value>false</value>
+<key>et-time-window</key>
+<value>3 hours</value>
+                            </entry>
+                            <entry>
+<key>et-initial-listing-target</key>
+<value>all</value>
                             </entry>
                         </properties>
                         <runDurationMillis>0</runDurationMillis>
@@ -666,18 +562,18 @@
                         <yieldDuration>1 sec</yieldDuration>
                     </config>
                     <executionNodeRestricted>true</executionNodeRestricted>
-                    <name>s3_list_emission</name>
+                    <name>azure_list_emission</name>
                     <relationships>
                         <autoTerminate>false</autoTerminate>
                         <name>success</name>
                     </relationships>
                     <state>STOPPED</state>
                     <style/>
-                    <type>org.apache.nifi.processors.aws.s3.ListS3</type>
+                    <type>org.apache.nifi.processors.azure.storage.ListAzureBlobStorage</type>
                 </processors>
                 <processors>
-                    <id>35d8b360-c329-31b5-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
+                    <id>310ba886-558e-3736-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
                     <position>
                         <x>496.0000819248553</x>
                         <y>323.5000103229836</y>
@@ -704,6 +600,12 @@
     <name>aggregated_files</name>
 </value>
                             </entry>
+                            <entry>
+<key>parse_python</key>
+<value>
+    <name>parse_python</name>
+</value>
+                            </entry>
                         </descriptors>
                         <executionNode>ALL</executionNode>
                         <lossTolerant>false</lossTolerant>
@@ -716,6 +618,10 @@
                             <entry>
 <key>aggregated_files</key>
 <value>${path:startsWith('aggregated_input/'):or(${filename:startsWith('aggregated_input/'):or(${azure.blobname:startsWith('aggregated_input/')})})}</value>
+                            </entry>
+                            <entry>
+<key>parse_python</key>
+<value>${path:startsWith('parse_python/'):or(${filename:startsWith('parse_python/'):or(${azure.blobname:startsWith('parse_python/')})})}</value>
                             </entry>
                         </properties>
                         <runDurationMillis>0</runDurationMillis>
@@ -730,6 +636,10 @@
                         <name>aggregated_files</name>
                     </relationships>
                     <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>parse_python</name>
+                    </relationships>
+                    <relationships>
                         <autoTerminate>true</autoTerminate>
                         <name>unmatched</name>
                     </relationships>
@@ -738,11 +648,11 @@
                     <type>org.apache.nifi.processors.standard.RouteOnAttribute</type>
                 </processors>
                 <processors>
-                    <id>60e068f9-de09-36d1-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
+                    <id>b3f1da50-e8ce-3cb6-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
                     <position>
-                        <x>-55.999918075144706</x>
-                        <y>3.5000103229835986</y>
+                        <x>-56.0</x>
+                        <y>0.0</y>
                     </position>
                     <bundle>
                         <artifact>nifi-standard-nar</artifact>
@@ -993,14 +903,14 @@
                     <type>org.apache.nifi.processors.standard.ListFile</type>
                 </processors>
                 <processors>
-                    <id>caa2b7e9-962a-39db-0000-000000000000</id>
-                    <parentGroupId>ed27d33e-2f11-3a1c-0000-000000000000</parentGroupId>
+                    <id>ded9fe78-7bad-3ea2-0000-000000000000</id>
+                    <parentGroupId>a29e077b-7060-3eaa-0000-000000000000</parentGroupId>
                     <position>
-                        <x>960.0000819248553</x>
+                        <x>504.0000819248553</x>
                         <y>3.5000103229835986</y>
                     </position>
                     <bundle>
-                        <artifact>nifi-azure-nar</artifact>
+                        <artifact>nifi-aws-nar</artifact>
                         <group>org.apache.nifi</group>
                         <version>1.12.1</version>
                     </bundle>
@@ -1010,9 +920,27 @@
                         <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
                         <descriptors>
                             <entry>
-<key>listing-strategy</key>
+<key>Bucket</key>
 <value>
-    <name>listing-strategy</name>
+    <name>Bucket</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Region</key>
+<value>
+    <name>Region</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Access Key</key>
+<value>
+    <name>Access Key</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Secret Key</key>
+<value>
+    <name>Secret Key</name>
 </value>
                             </entry>
                             <entry>
@@ -1023,46 +951,59 @@
 </value>
                             </entry>
                             <entry>
-<key>container-name</key>
+<key>min-age</key>
 <value>
-    <name>container-name</name>
+    <name>min-age</name>
 </value>
                             </entry>
                             <entry>
-<key>storage-credentials-service</key>
+<key>write-s3-object-tags</key>
 <value>
-    <identifiesControllerService>org.apache.nifi.services.azure.storage.AzureStorageCredentialsService</identifiesControllerService>
-    <name>storage-credentials-service</name>
+    <name>write-s3-object-tags</name>
 </value>
                             </entry>
                             <entry>
-<key>storage-account-name</key>
+<key>write-s3-user-metadata</key>
 <value>
-    <name>storage-account-name</name>
+    <name>write-s3-user-metadata</name>
 </value>
                             </entry>
                             <entry>
-<key>storage-account-key</key>
+<key>Credentials File</key>
 <value>
-    <name>storage-account-key</name>
+    <name>Credentials File</name>
 </value>
                             </entry>
                             <entry>
-<key>storage-sas-token</key>
+<key>AWS Credentials Provider service</key>
 <value>
-    <name>storage-sas-token</name>
+    <identifiesControllerService>org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderService</identifiesControllerService>
+    <name>AWS Credentials Provider service</name>
 </value>
                             </entry>
                             <entry>
-<key>storage-endpoint-suffix</key>
+<key>Communications Timeout</key>
 <value>
-    <name>storage-endpoint-suffix</name>
+    <name>Communications Timeout</name>
 </value>
                             </entry>
                             <entry>
-<key>prefix</key>
+<key>SSL Context Service</key>
 <value>
-    <name>prefix</name>
+    <identifiesControllerService>org.apache.nifi.ssl.SSLContextService</identifiesControllerService>
+    <name>SSL Context Service</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Endpoint Override URL</key>
+<value>
+    <name>Endpoint Override URL</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Signer Override</key>
+<value>
+    <name>Signer Override</name>
 </value>
                             </entry>
                             <entry>
@@ -1073,22 +1014,57 @@
 </value>
                             </entry>
                             <entry>
-<key>et-state-cache</key>
+<key>Proxy Host</key>
 <value>
-    <identifiesControllerService>org.apache.nifi.distributed.cache.client.DistributedMapCacheClient</identifiesControllerService>
-    <name>et-state-cache</name>
+    <name>Proxy Host</name>
 </value>
                             </entry>
                             <entry>
-<key>et-time-window</key>
+<key>Proxy Host Port</key>
 <value>
-    <name>et-time-window</name>
+    <name>Proxy Host Port</name>
 </value>
                             </entry>
                             <entry>
-<key>et-initial-listing-target</key>
+<key>proxy-user-name</key>
 <value>
-    <name>et-initial-listing-target</name>
+    <name>proxy-user-name</name>
+</value>
+                            </entry>
+                            <entry>
+<key>proxy-user-password</key>
+<value>
+    <name>proxy-user-password</name>
+</value>
+                            </entry>
+                            <entry>
+<key>delimiter</key>
+<value>
+    <name>delimiter</name>
+</value>
+                            </entry>
+                            <entry>
+<key>prefix</key>
+<value>
+    <name>prefix</name>
+</value>
+                            </entry>
+                            <entry>
+<key>use-versions</key>
+<value>
+    <name>use-versions</name>
+</value>
+                            </entry>
+                            <entry>
+<key>list-type</key>
+<value>
+    <name>list-type</name>
+</value>
+                            </entry>
+                            <entry>
+<key>requester-pays</key>
+<value>
+    <name>requester-pays</name>
 </value>
                             </entry>
                         </descriptors>
@@ -1097,48 +1073,87 @@
                         <penaltyDuration>30 sec</penaltyDuration>
                         <properties>
                             <entry>
-<key>listing-strategy</key>
-<value>timestamps</value>
+<key>Bucket</key>
+<value>#{s3_emission_bucket}</value>
+                            </entry>
+                            <entry>
+<key>Region</key>
+<value>ap-south-1</value>
+                            </entry>
+                            <entry>
+<key>Access Key</key>
+                            </entry>
+                            <entry>
+<key>Secret Key</key>
                             </entry>
                             <entry>
 <key>record-writer</key>
                             </entry>
                             <entry>
-<key>container-name</key>
-<value>#{azure_emission_container}</value>
+<key>min-age</key>
+<value>0 sec</value>
                             </entry>
                             <entry>
-<key>storage-credentials-service</key>
-<value>3213b8c6-a8c3-3ab0-0000-000000000000</value>
+<key>write-s3-object-tags</key>
+<value>true</value>
                             </entry>
                             <entry>
-<key>storage-account-name</key>
+<key>write-s3-user-metadata</key>
+<value>true</value>
                             </entry>
                             <entry>
-<key>storage-account-key</key>
+<key>Credentials File</key>
                             </entry>
                             <entry>
-<key>storage-sas-token</key>
+<key>AWS Credentials Provider service</key>
+<value>ddc70169-27d1-3b6a-0000-000000000000</value>
                             </entry>
                             <entry>
-<key>storage-endpoint-suffix</key>
+<key>Communications Timeout</key>
+<value>30 secs</value>
                             </entry>
                             <entry>
-<key>prefix</key>
+<key>SSL Context Service</key>
+                            </entry>
+                            <entry>
+<key>Endpoint Override URL</key>
+                            </entry>
+                            <entry>
+<key>Signer Override</key>
+<value>Default Signature</value>
                             </entry>
                             <entry>
 <key>proxy-configuration-service</key>
                             </entry>
                             <entry>
-<key>et-state-cache</key>
+<key>Proxy Host</key>
                             </entry>
                             <entry>
-<key>et-time-window</key>
-<value>3 hours</value>
+<key>Proxy Host Port</key>
                             </entry>
                             <entry>
-<key>et-initial-listing-target</key>
-<value>all</value>
+<key>proxy-user-name</key>
+                            </entry>
+                            <entry>
+<key>proxy-user-password</key>
+                            </entry>
+                            <entry>
+<key>delimiter</key>
+                            </entry>
+                            <entry>
+<key>prefix</key>
+                            </entry>
+                            <entry>
+<key>use-versions</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>list-type</key>
+<value>1</value>
+                            </entry>
+                            <entry>
+<key>requester-pays</key>
+<value>false</value>
                             </entry>
                         </properties>
                         <runDurationMillis>0</runDurationMillis>
@@ -1147,14 +1162,14 @@
                         <yieldDuration>1 sec</yieldDuration>
                     </config>
                     <executionNodeRestricted>true</executionNodeRestricted>
-                    <name>azure_list_emission</name>
+                    <name>s3_list_emission</name>
                     <relationships>
                         <autoTerminate>false</autoTerminate>
                         <name>success</name>
                     </relationships>
                     <state>STOPPED</state>
                     <style/>
-                    <type>org.apache.nifi.processors.azure.storage.ListAzureBlobStorage</type>
+                    <type>org.apache.nifi.processors.aws.s3.ListS3</type>
                 </processors>
             </contents>
             <flowfileConcurrency>UNBOUNDED</flowfileConcurrency>
@@ -1163,5 +1178,5 @@
             <variables/>
         </processGroups>
     </snippet>
-    <timestamp>09/28/2022 14:07:46 IST</timestamp>
+    <timestamp>10/02/2022 10:41:35 IST</timestamp>
 </template>
