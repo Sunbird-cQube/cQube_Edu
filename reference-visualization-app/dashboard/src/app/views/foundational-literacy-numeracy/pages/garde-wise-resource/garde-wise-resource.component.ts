@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from "highcharts/highstock";
+import { getBarDatasetConfig, getChartJSConfig } from 'src/app/core/config/ChartjsConfig';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
+import { formatNumberForReport } from 'src/app/utilities/NumberFomatter';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,15 +15,7 @@ export class GardeWiseResourceComponent implements OnInit {
   filters: any;
   barChartOptions: Highcharts.Options | undefined;
   isReportLoading = false;
-  config = {
-    labelExpr: 'Grade',
-    datasets: [
-      { dataExpr: 'Total No of Plays (App and Portal)', label: 'Total No of Learning Session (App and Portal)' }
-    ],
-    options: {
-      height: '700'
-    }
-  };
+  config;
   data;
 
   constructor(private readonly _commonService: CommonService) {
@@ -45,7 +39,26 @@ export class GardeWiseResourceComponent implements OnInit {
     this._commonService.getReportData(data).subscribe(res => {
       let result = res.result.data;
       this.filters = res.result.filters;
-      this.config.options.height = (result.length * 15 + 150).toString();
+      this.config = getChartJSConfig({
+        labelExpr: 'Grade',
+        datasets: getBarDatasetConfig([
+          { dataExpr: 'Total No of Plays (App and Portal)', label: 'Total No of Learning Sessions (App and Portal)' }
+        ]),
+        options: {
+          height: (result.length * 15 + 150).toString(),
+          tooltips: {
+            callbacks: {
+              label: (tooltipItem, data) => {
+                let multistringText = [];                
+  
+                multistringText.push(`Total No of Learning Sessions (App and Portal): ${formatNumberForReport(result[tooltipItem.index]['Total No of Plays (App and Portal)'])}`);
+
+                return multistringText;
+              }
+            }
+          }
+        }
+      });
       this.data = {
         values: result
       };

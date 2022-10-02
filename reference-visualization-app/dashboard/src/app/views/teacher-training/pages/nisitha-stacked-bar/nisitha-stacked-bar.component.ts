@@ -1,12 +1,11 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import * as Highcharts from 'highcharts/highstock';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 import { IStateWiseEnrollmentRec } from 'src/app/core/models/IStateWiseEnrollmentRec';
-import { NishthaService } from 'src/app/core/services/nishtha/nishtha.service';
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { environment } from 'src/environments/environment';
+import { getBarDatasetConfig, getChartJSConfig } from 'src/app/core/config/ChartjsConfig';
+import { formatNumberForReport } from 'src/app/utilities/NumberFomatter';
 
 @Component({
   selector: 'app-nisitha-stacked-bar',
@@ -18,44 +17,10 @@ export class NisithaStackedBarComponent implements OnInit {
   enrollmentTargetChartOptions: Highcharts.Options | undefined;
   certificateTargetChartOptions: Highcharts.Options | undefined;
   filters: any;
-  config = {
-    labelExpr: 'Location',
-    datasets: [
-      { dataExpr: '% Target Achieved- Enrolment', label: '% Target Achieved-Enrolment' },
-      { dataExpr: '% Total Target-Enrolment', label: '% Total Target-Enrolment' }
-    ],
-    options: {
-      height: '400',
-      scales: {
-        xAxes: [{
-          stacked: true // this should be set to make the bars stacked
-       }],
-       yAxes: [{
-          stacked: true // this also..
-        }]
-      }
-    }
-  };
+  config;
   data;
 
-  config2 = {
-    labelExpr: 'Location',
-    datasets: [
-      { dataExpr: '% Target Achieved- Certificates', label: '% Target Achieved-Certificates' },
-      { dataExpr: '% Total Target-Certificates', label: '% Total Target-Certificates' }
-    ],
-    options: {
-      height: '400',
-      scales: {
-        xAxes: [{
-          stacked: true // this should be set to make the bars stacked
-       }],
-       yAxes: [{
-          stacked: true // this also..
-       }]
-      }
-    }
-  };
+  config2;
   data2;
 
   constructor(private readonly _commonService: CommonService) {
@@ -78,17 +43,51 @@ export class NisithaStackedBarComponent implements OnInit {
     this._commonService.getReportData(data).subscribe((res) => {
       let result = res.result.data;
       this.filters = res.result.filters;
-
-      this.config.options.height = (result.length * 15 + 150).toString();
       result = result.map(rec => {
         rec['% Total Target-Enrolment'] = Number(Number(100 - rec['% Target Achieved- Enrolment']).toFixed(2));
         return rec;
       });
+
+      this.config = getChartJSConfig({
+        labelExpr: 'Location',
+        datasets: getBarDatasetConfig([
+          { dataExpr: '% Target Achieved- Enrolment', label: '% Target Achieved-Enrolment' },
+          { dataExpr: '% Total Target-Enrolment', label: '% Total Target-Enrolment' }
+        ]),
+        options: {
+          height: (result.length * 15 + 150).toString(),
+          scales: {
+            xAxes: [{
+              stacked: true // this should be set to make the bars stacked
+           }],
+           yAxes: [{
+              stacked: true // this also..
+            }]
+          },
+          tooltips: {
+            callbacks: {
+              label: (tooltipItem, data) => {
+                let multistringText = [];                
+  
+                if (tooltipItem.datasetIndex === 0) {
+                  multistringText.push(`Target Achieved: ${result[tooltipItem.index]['% Target Achieved- Enrolment']}%`);
+                  multistringText.push(`Actual Enrolment: ${formatNumberForReport(result[tooltipItem.index]['Total Enrolments'])}`);
+                  multistringText.push(`Total Expected Enrolment: ${formatNumberForReport(result[tooltipItem.index]['Total Expected Enrolment'])}`);
+                }
+
+                return multistringText;
+              }
+            }
+          }
+        }
+      });
+      
+      console.log(this.config);
+      
+
       this.data = {
         values: result
       };
-
-      console.log(this.config, this.data);
     });
   }
 
@@ -103,12 +102,46 @@ export class NisithaStackedBarComponent implements OnInit {
     };
 
     this._commonService.getReportData(data).subscribe((res) => {
-      let result = res.result.data;
-      this.config2.options.height = (result.length * 15 + 150).toString();
+      let result = res.result.data;      
       result = result.map(rec => {
         rec['% Total Target-Certificates'] = Number(Number(100 - rec['% Target Achieved- Certificates']).toFixed(2));
         return rec;
       });
+
+      this.config2 = getChartJSConfig({
+        labelExpr: 'Location',
+        datasets: getBarDatasetConfig([
+          { dataExpr: '% Target Achieved- Certificates', label: '% Target Achieved-Certificates' },
+          { dataExpr: '% Total Target-Certificates', label: '% Total Target-Certificates' }
+        ]),
+        options: {
+          height: (result.length * 15 + 150).toString(),
+          scales: {
+            xAxes: [{
+              stacked: true // this should be set to make the bars stacked
+           }],
+           yAxes: [{
+              stacked: true // this also..
+            }]
+          },
+          tooltips: {
+            callbacks: {
+              label: (tooltipItem, data) => {
+                let multistringText = [];                
+  
+                if (tooltipItem.datasetIndex === 0) {
+                  multistringText.push(`Target Achieved: ${result[tooltipItem.index]['% Target Achieved- Certificates']}%`); 
+                  multistringText.push(`Actual Certification: ${formatNumberForReport(result[tooltipItem.index]['Actual Certification'])}`);
+                  multistringText.push(`Total Expected Enrolment: ${formatNumberForReport(result[tooltipItem.index]['Total Expected Enrolment'])}`);
+                }
+
+                return multistringText;
+              }
+            }
+          }
+        }
+      });
+
       this.data2 = {
         values: result
       };

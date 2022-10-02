@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from "highcharts/highstock";
+import { getBarDatasetConfig, getChartJSConfig } from 'src/app/core/config/ChartjsConfig';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
+import { formatNumberForReport } from 'src/app/utilities/NumberFomatter';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,15 +15,7 @@ export class GradeWiseBarAndPieComponent implements OnInit {
   filters: any;
   barChartOptions: Highcharts.Options | undefined;
   isReportLoading = false;
-  config = {
-    labelExpr: 'Textbook Name',
-    datasets: [
-      { dataExpr: '% LOs covered', label: '% LOs covered' }
-    ],
-    options: {
-      height: '700'
-    }
-  };
+  config;
   data;
 
   constructor(private readonly _commonService: CommonService) {
@@ -45,7 +39,28 @@ export class GradeWiseBarAndPieComponent implements OnInit {
     this._commonService.getReportData(data).subscribe(res => {
       let result = res.result.data;
       this.filters = res.result.filters;
-      this.config.options.height = (result.length * 15 + 150).toString();
+      
+      this.config = getChartJSConfig({
+        labelExpr: 'Textbook Name',
+        datasets: getBarDatasetConfig([
+          { dataExpr: '% LOs covered', label: '% LOs covered' }
+        ]),
+        options: {
+          height: (result.length * 15 + 150).toString(),
+          tooltips: {
+            callbacks: {
+              label: (tooltipItem, data) => {
+                let multistringText = [];                
+  
+                multistringText.push(`% LOs covered: ${formatNumberForReport(result[tooltipItem.index]['% LOs covered'])}%`);
+
+                return multistringText;
+              }
+            }
+          }
+        }
+      });
+
       this.data = {
         values: result
       };
