@@ -36,7 +36,7 @@
   blockinfile:
     path: "{{base_dir}}/cqube/apis/node-api/.env"
     block: |
-      STORAGE_SERVICE = "{% if storage_type == 'azure' %}AZURE_DATA_LAKE{% endif %}{% if storage_type == 's3' %}AWS_S3{% endif %}"
+      STORAGE_SERVICE = "{% if storage_type == 'azure' %}AZURE_DATA_LAKE{% endif %}{% if storage_type == 's3' %}AWS_S3{% endif %}{% if storage_type == 'local' %}ON_PREMISE{% endif %}"
       AZURE_STORAGE_CONNECTION_STRING = "{{ azure_storage_connection_string }}"
       OUTPUT_CONTAINER = "{{ azure_output_container }}"
       INPUT_CONTAINER = "{{ azure_input_container }}"
@@ -45,6 +45,7 @@
       ACCESS_KEY_ID = "{{ s3_access_key }}"
       SECRET_ACCESS_KEY  = "{{ s3_secret_key }}"
       OUTPUT_BUCKET = "{{ s3_output_bucket }}"
+      INPUT_BUCKET_NAME = "{{ s3_input_bucket }}"
       EMISSION_BUCKET = "{{ s3_emission_bucket }}"
       KEYCLOAK_HOST = "{{ protocol }}://{{ api_endpoint }}"
       KEYCLOAK_REALM = "{{ realm_name }}"
@@ -55,6 +56,8 @@
       GRANT_TYPE= "password"
       BASE_DIR = "{{ base_dir }}"
       STORAGE_TYPE = "{{ storage_type }}"
+      INPUT_DIR = "{{ input_directory }}"
+      OUTPUT_DIR = "{{ output_directory }}"
       INPUT_DIRECTORY= "{{ input_directory }}"
       OUTPUT_DIRECTORY= "{{ output_directory }}"
       EMISSION_DIRECTORY= "{{ emission_directory }}"
@@ -72,7 +75,7 @@
   blockinfile:
     path: "{{base_dir}}/cqube/apis/node-api/.env"
     block: |
-      STORAGE_SERVICE = "{% if storage_type == 'azure' %}AZURE_DATA_LAKE{% endif %}{% if storage_type == 's3' %}AWS_S3{% endif %}"
+      STORAGE_SERVICE = "{% if storage_type == 'azure' %}AZURE_DATA_LAKE{% endif %}{% if storage_type == 's3' %}AWS_S3{% endif %}{% if storage_type == 'local' %}ON_PREMISE{% endif %}"
       AZURE_STORAGE_CONNECTION_STRING = "{{ azure_storage_connection_string }}"
       OUTPUT_CONTAINER = "{{ azure_output_container }}"
       INPUT_CONTAINER = "{{ azure_input_container }}"
@@ -80,6 +83,7 @@
       ACCESS_KEY_ID = "{{ s3_access_key }}"
       SECRET_ACCESS_KEY  = "{{ s3_secret_key }}"
       OUTPUT_BUCKET = "{{ s3_output_bucket }}"
+      INPUT_BUCKET_NAME = "{{ s3_input_bucket }}"
       EMISSION_BUCKET = "{{ s3_emission_bucket }}"
       KEYCLOAK_HOST = "{{ protocol }}://{{ api_endpoint }}:8080"
       KEYCLOAK_REALM = "{{ realm_name }}"
@@ -90,6 +94,8 @@
       GRANT_TYPE= "password"
       BASE_DIR = "{{ base_dir }}"
       STORAGE_TYPE = "{{ storage_type }}"
+      INPUT_DIR = "{{ input_directory }}"
+      OUTPUT_DIR = "{{ output_directory }}"
       INPUT_DIRECTORY= "{{ input_directory }}"
       OUTPUT_DIRECTORY= "{{ output_directory }}"
       EMISSION_DIRECTORY= "{{ emission_directory }}"
