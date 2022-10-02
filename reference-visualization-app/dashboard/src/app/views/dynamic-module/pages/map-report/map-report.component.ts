@@ -289,7 +289,7 @@ export class MapReportComponent implements OnInit {
     this.years = []
 
     this.service1.configurableMetaData({ dataSource: this.datasourse }).subscribe(res => {
-      this.metaData = res
+      this.metaData = res['data']
 
       if (this.period === "year and month") {
 

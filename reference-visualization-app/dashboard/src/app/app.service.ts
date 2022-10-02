@@ -37,8 +37,7 @@ export class AppServiceComponent {
     private router: Router,
   ) {
     if (environment.auth_api === 'cqube') {
-    //   this.token = keyCloakService.kc.token;
-      localStorage.setItem("token", this.token);
+   
     }
 
     this.dateAndTime = `${("0" + this.date.getDate()).slice(-2)}-${(
