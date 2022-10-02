@@ -1,8 +1,11 @@
+const fs = require("fs");
+const path = require("path");
 const { reject } = require("lodash");
 
 const storageServices = {
     AZURE_DATA_LAKE: "AZURE_DATA_LAKE",
-    AWS_S3: "AWS_S3"
+    AWS_S3: "AWS_S3",
+    ON_PREMISE: "ON_PREMISE"
 };
 const storageServiceType = process.env.STORAGE_SERVICE;
 if(storageServiceType === storageServices.AZURE_DATA_LAKE) {
@@ -33,6 +36,15 @@ const getAllFiles = async () => {
                     const filePaths = listObjectRes.Contents.filter((content, ind) => content.Key.split('/').slice(-1).length > 0 && content.Key.split('/').slice(-1)[0] !== '').map(file => file.Key);
                     resolve(filePaths);
                 });
+            } else if (storageServiceType === storageServices.ON_PREMISE) {
+                fs.readdir(process.env.INPUT_DIR, (err, files) => {
+                    if (err) {
+                        reject("Invalid input directory");
+                        return;
+                    }
+
+                    resolve(files);
+                });
             }
         } catch(e) {
             reject(e);
@@ -52,6 +64,19 @@ const getFileData = async (fileName) => {
                 await AwsConfig.s3.headObject({ Bucket: AwsConfig.params.OutputBucket, Key: fileName }).promise();
                 const response = await AwsConfig.s3.getObject({ Bucket: AwsConfig.params.OutputBucket, Key: fileName }).promise();
                 resolve(JSON.parse(response.Body.toString('utf-8')));
+            } else if (storageServiceType === storageServices.ON_PREMISE) {
+                fs.readFile(path.join(process.env.OUTPUT_DIR, fileName), {encoding: 'utf-8'}, function(err, data) {
+                    if (err) {
+                        reject("No file found in the specified path");
+                        return;
+                    }
+
+                    try {
+                        resolve(JSON.parse(data));
+                    } catch (err) {
+                        reject("Error while reading the file");
+                    }
+                });
             }
         } catch(e) {
             reject(e);
@@ -77,6 +102,19 @@ const getFileRawData = async (fileName) => {
             } catch(e) {
                 reject(e);
             }
+        } else if (storageServiceType === storageServices.ON_PREMISE) {
+            fs.readFile(path.join(process.env.INPUT_DIR, fileName), function(err, data) {
+                if (err) {
+                    reject("No file found in the specified path");
+                    return;
+                }
+
+                try {
+                    resolve(data);
+                } catch (err) {
+                    reject("Error while reading the file");
+                }
+            });
         }
     });
 }
@@ -104,6 +142,20 @@ const uploadFile = async (filePath, fileName, data) => {
             } catch(e) {
                 reject(e);
             }
+        } else if (storageServiceType === storageServices.ON_PREMISE) {
+            fs.writeFile(path.join(process.env.OUTPUT_DIR, `${fileName}.json`), JSON.stringify(data), 'utf8', function(err, data) {
+                if (err) {
+                    reject("No file found in the specified path");
+                    return;
+                }
+
+                try {
+                    deleteFile(filePath);
+                    resolve('Success');
+                } catch (err) {
+                    reject("Error while deleting the file");
+                }
+            });
         }
     });
 }
@@ -122,6 +174,15 @@ const deleteFile = async (filePath) => {
         } else if (storageServiceType === storageServices.AWS_S3) {
             try {
 			    AwsConfig.s3.deleteObject({ Bucket: AwsConfig.params.OutputBucket, Key: filePath }, function(s3Err, data) {
+                    resolve('Success');
+                });
+            } catch(e) {
+                reject(e);
+            }
+        } else if (storageServiceType === storageServices.ON_PREMISE) {
+            try {
+			    fs.unlink(path.join(process.env.INPUT_DIR, filePath), function(err) {
+                    console.log(err);
                     resolve('Success');
                 });
             } catch(e) {

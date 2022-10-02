@@ -13,8 +13,8 @@ export class AppComponent {
   constructor(private translate: TranslateService, private titleService: Title) {
     translate.setDefaultLang('en');
     translate.use('en');
-    if(environment.config === 'state'){
-      this.titleService.setTitle('State VSK')
-    }
+    // if(environment.config === 'state'){
+    //   this.titleService.setTitle('State VSK')
+    // }
   }
 }

@@ -100,27 +100,54 @@
             </div>
         </div>
     </div>
-    <div class="row reportContainer1 grid grid-cols-2 gap-4">
-        <div class="lg:col-span-1 col-span-2  mt-3">
+    <div class="reportContainer1 grid grid-cols-2 gap-4">
+        <div class="lg:col-span-1 col-span-2 mt-3">
             <div class="row">
                 <div class="col-sm-6 ">
-                    <span class="chooseLevel">X-Axis: &nbsp;</span>
                     <ng-select class="col-span-2 sm:col-span-1" id="choose_infra" dropdownPosition="bottom"
                         [clearable]="false" placeholder="Choose x-axis" (change)="selectAxis()" [(ngModel)]="xAxis">
                         <ng-option *ngFor="let xaxis of xAxisFilter" [value]="xaxis.key">{{ xaxis.value }}</ng-option>
                     </ng-select>
-
                 </div>
                 <div class="col-sm-6 ">
-                    <span class="chooseLevel">Y-Axis: &nbsp;</span>
                     <ng-select class="col-span-2 sm:col-span-1" id="choose_infra" dropdownPosition="bottom"
                         [clearable]="false" placeholder="Choose y-axis" (change)="selectAxis()" [(ngModel)]="yAxis">
                         <ng-option *ngFor="let yaxis of yAxisFilter" [value]="yaxis.key">{{ yaxis.value }}</ng-option>
                     </ng-select>
-
-
                 </div>
             </div>
+
+
+            <div class="grid grid-cols-3 gap-4">
+                <div class="col-span-full md:col-span-1">
+                    <ng-select class="col-span-3 sm:col-span-1" id="choose_dist" dropdownPosition="bottom"
+                    [clearable]="false" [hidden]="distHidden" [disabled]="selDist" placeholder="Choose a District"
+                    (change)="myDistData(myDistrict)" [(ngModel)]="myDistrict">
+                        <ng-option *ngFor="let dist of SchoolInfrastructureDistrictsNames" [value]="dist.district.id">{{
+                            dist.district.value }}</ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-span-full md:col-span-1">
+                    <ng-select [hidden]="blockHidden" [disabled]="selBlock" class="col-span-3 sm:col-span-1"
+                    id="choose_block" dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Block"
+                    (change)="myBlockData(myBlock)" [(ngModel)]="myBlock">
+                        <ng-option *ngFor="let block of SchoolInfrastructureBlocksNames" [value]="block.block.id">
+                            {{block.block.value}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-span-full md:col-span-1">
+                    <ng-select [hidden]="clusterHidden" [disabled]="selCluster" id="choose_cluster" [(ngModel)]="myCluster"
+                    class="col-span-3 sm:col-span-1" name="myCluster" (change)="myClusterData(myCluster)"
+                    [clearable]="false" placeholder="Choose a Cluster">
+                        <ng-option *ngFor="let cluster of SchoolInfrastructureClusterNames" [value]="cluster.cluster.id"
+                            [ngStyle]="{'color': cluster.cluster.value !== 'NO NAME FOUND'? 'white' : '#ff3333'}">
+                            {{cluster.cluster.value}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+            </div>
+
             <p class="note" style="padding-top: 10px !important;">
                 <strong> NOTE:</strong> The scatter plot below provides information for the metrics selected in the
                 dropdown above. You can
@@ -134,33 +161,6 @@
             </div>
         </div>
         <div class="lg:col-span-1 col-span-2 mt-3">
-
-            <div class="grid grid-cols-3 gap-4 ">
-                <ng-select class="col-span-3 sm:col-span-1" id="choose_dist" dropdownPosition="bottom"
-                    [clearable]="false" [hidden]="distHidden" [disabled]="selDist" placeholder="Choose a District"
-                    (change)="myDistData(myDistrict)" [(ngModel)]="myDistrict">
-                    <ng-option *ngFor="let dist of SchoolInfrastructureDistrictsNames" [value]="dist.district.id">{{
-                        dist.district.value }}</ng-option>
-                </ng-select>
-
-                <ng-select [hidden]="blockHidden" [disabled]="selBlock" class="col-span-3 sm:col-span-1"
-                    id="choose_block" dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Block"
-                    (change)="myBlockData(myBlock)" [(ngModel)]="myBlock">
-                    <ng-option *ngFor="let block of SchoolInfrastructureBlocksNames" [value]="block.block.id">
-                        {{block.block.value}}
-                    </ng-option>
-                </ng-select>
-
-                <ng-select [hidden]="clusterHidden" [disabled]="selCluster" id="choose_cluster" [(ngModel)]="myCluster"
-                    class="col-span-3 sm:col-span-1" name="myCluster" (change)="myClusterData(myCluster)"
-                    [clearable]="false" placeholder="Choose a Cluster">
-                    <ng-option *ngFor="let cluster of SchoolInfrastructureClusterNames" [value]="cluster.cluster.id"
-                        [ngStyle]="{'color': cluster.cluster.value !== 'NO NAME FOUND'? 'white' : '#ff3333'}">
-                        {{cluster.cluster.value}}
-                    </ng-option>
-                </ng-select>
-
-            </div>
             <p class="note" style="padding-top: 10px !important;">
                 <strong> NOTE:</strong> The table provides information about the various metrics. You can sort the
                 entire table based on any metrics available in this table.

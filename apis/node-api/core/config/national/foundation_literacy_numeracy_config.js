@@ -83,6 +83,40 @@ const dataSourceInfo = {
                 }
             ]
         }
+    },
+    entryStatus: {
+        loTable: {
+            pathToFile: 'nipun_bharat_entry_status.json',
+            columns: [
+                {
+                    name: "Module",
+                    property: "Module",
+                    sticky: true
+                },
+                {
+                    name: "Sub Module",
+                    property: "Sub Module",
+                    sticky: true
+                },
+                {
+                    name: "State",
+                    property: "State",
+                    transposeColumn: true,
+                    isHeatMapRequired: true,
+                    color: '#002966',
+                    valueColumn: "Entry Status",
+                    tooltip: {
+                        property: "Entry Status"
+                    }
+                }
+            ],
+            filters: [
+                {
+                    name: 'Quarter',
+                    column: 'Quarter'
+                }
+            ]
+        },
     }
 }
 

@@ -14,8 +14,6 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
   qrCoverageBarData: any;
   ETBProgramStatsByLocation: any;
   filters: any;
-  barChartOptions: Highcharts.Options | undefined;
-  gaugeChartOptions: Highcharts.Options | undefined;
   QRGaugeData: any | undefined;
   tableData: any;
 
@@ -80,39 +78,14 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
       this.config.options.height = (result.length * 15 + 150).toString();
       this.data = { values: result };
 
-      this.QRGaugeData = res.result.gaugeChart;
-
-      if (this.QRGaugeData) {
-        this.gaugeChartOptions = {
-          title: {
-            text: ""
-          },
-          yAxis: {
-            title: {
-              y: 120,
-              text: this.QRGaugeData.title
-            },
-            labels: {
-              distance: -10
-            }
-          },
-          series: [{
-            type: 'solidgauge',
-            name: 'Speed',
-            data: [this.QRGaugeData.percentage],
-            innerRadius: '80%',
-            dataLabels: {
-                format:
-                    '<div style="text-align:center"><br>' +
-                    '<span style="font-size:1rem">{y}' + (this.QRGaugeData.valueSuffix ? this.QRGaugeData.valueSuffix : "") + '</span><br/>' +
-                    '</div><br><br><br>'
-            },
-            tooltip: {
-                valueSuffix: this.QRGaugeData.valueSuffix ? ` ${this.QRGaugeData.valueSuffix}` : ''
-            }
-          }]
-        }
-      }
+      let gaugeChart = res.result.gaugeChart;
+      this.QRGaugeData = {
+        options: {
+          title: gaugeChart.title,
+          valueSuffix: gaugeChart.valueSuffix ? ` ${gaugeChart.valueSuffix}` : ''
+        },
+        percentage: gaugeChart.percentage
+      };
     });
   }
 
@@ -149,38 +122,6 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(res => {
       this.QRGaugeData = res.result.data;
-
-      if (this.QRGaugeData) {
-        this.gaugeChartOptions = {
-          title: {
-            text: ""
-          },
-          yAxis: {
-            title: {
-              y: 120,
-              text: this.QRGaugeData.options.title
-            },
-            labels: {
-              distance: -10
-            }
-          },
-          series: [{
-            type: 'solidgauge',
-            name: 'Speed',
-            data: [this.QRGaugeData.percentage],
-            innerRadius: '80%',
-            dataLabels: {
-                format:
-                    '<div style="text-align:center"><br>' +
-                    '<span style="font-size:1rem">{y}' + (this.QRGaugeData.options.valueSuffix ? this.QRGaugeData.options.valueSuffix : "") + '</span><br/>' +
-                    '</div><br><br><br>'
-            },
-            tooltip: {
-                valueSuffix: this.QRGaugeData.options.valueSuffix ? ` ${this.QRGaugeData.options.valueSuffix}` : ''
-            }
-          }]
-        }
-      }
     });
   }
 

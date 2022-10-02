@@ -135,6 +135,7 @@ export class AppServiceComponent {
       document.getElementById("errMsg")
         ? (document.getElementById("errMsg").innerHTML = "No data found")
         : "";
+      console.log(document.getElementById("errMsg"))
     }
   }
   errMsg() {

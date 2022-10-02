@@ -20,5 +20,8 @@
         <!-- <mat-tab label="content wise consumption/resource">
             <app-development-goal-bar></app-development-goal-bar>
         </mat-tab> -->
+        <mat-tab label="Entry Status" *ngIf="config === 'national'">
+            <app-entry-status></app-entry-status>
+        </mat-tab>
     </mat-tab-group>
 </div>

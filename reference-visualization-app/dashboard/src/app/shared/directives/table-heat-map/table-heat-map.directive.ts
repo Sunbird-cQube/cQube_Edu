@@ -89,7 +89,7 @@ export class TableHeatMapDirective implements AfterViewInit {
   }
 
   private calculateHighestValues() {
-    return this.cells.forEach((cell: any) => {
+    this.cells.forEach((cell: any) => {
       if (!Object.prototype.hasOwnProperty.call(this.highestValues, cell.colId)) {
         this.highestValues[cell.colId] = 0;
       }
@@ -101,17 +101,18 @@ export class TableHeatMapDirective implements AfterViewInit {
 
   private applyHeatMap() {
     this.cells.forEach((cell: any) => {
-      const { bgColor, color } = this.getColor(cell.colId, +cell.tableHeatMap);
+      const { bgColor, color } = this.getColor(cell.colId, cell.tableHeatMap);
       if (bgColor) cell.el.nativeElement.style.backgroundColor = bgColor;
       if (color) cell.el.nativeElement.style.color = color;
     });
   }
 
-  private getColor(id: string, value: number) {
+  private getColor(id: string, value: string | number) {    
     const color = this.config[id].color;
     let [r, g, b, a] = parseToRgba(Array.isArray(color) ? color[color.length - 1] : color);
-
-    if (value) {
+    
+    if (!isNaN(Number(value))) {
+      value = Number(value);
       let color = this.config[id].color;
       let textColor = null;
       let bgColor = null;
@@ -139,6 +140,15 @@ export class TableHeatMapDirective implements AfterViewInit {
         bgColor = rgba(r, g, b, +(Math.min(1, value / this.highestValues[id] + 0.06)).toFixed(3));
         textColor = readableColor(bgColor);
       }
+      return {
+        bgColor,
+        color: textColor,
+      };
+    } else if (typeof value === 'string' && value.toLowerCase() === 'yes') {
+      let [r, g, b, a] = parseToRgba(color);
+      let bgColor = rgba(r, g, b, 100);
+      let textColor = readableColor(bgColor);
+
       return {
         bgColor,
         color: textColor,

@@ -521,6 +521,7 @@
                     <selectedRelationships>data_replay_retention</selectedRelationships>
                     <selectedRelationships>diksha_tpd_mapping</selectedRelationships>
                     <selectedRelationships>infra_trans</selectedRelationships>
+                    <selectedRelationships>parse_python</selectedRelationships>
                     <selectedRelationships>unmatched</selectedRelationships>
                     <source>
                         <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
@@ -892,6 +893,31 @@
                     <source>
                         <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
                         <id>3c0280cd-ef51-3ccc-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>1047b0ef-e5f4-391b-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>8c915429-e164-3ed2-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>d1b717b2-b0ed-3336-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
@@ -1987,6 +2013,60 @@
                     <source>
                         <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
                         <id>32305136-b459-3d38-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>1d8430de-1634-3c9a-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>39890596-d181-3186-0000-000000000000</id>
+                        <type>FUNNEL</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>357e94bd-ef7b-3deb-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>1dcd5c30-bca4-3ede-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <bends>
+                        <x>12456.0</x>
+                        <y>-1304.0</y>
+                    </bends>
+                    <destination>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>39890596-d181-3186-0000-000000000000</id>
+                        <type>FUNNEL</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>0</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>1769fae4-523c-39ff-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
@@ -4196,6 +4276,31 @@
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
+                    <id>41e592fd-b3a0-3061-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>39890596-d181-3186-0000-000000000000</id>
+                        <type>FUNNEL</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>33a8ae26-888b-3ea6-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
                     <id>433acd76-7df7-3e1f-0000-000000000000</id>
                     <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>4 GB</backPressureDataSizeThreshold>
@@ -4275,6 +4380,7 @@
                     <selectedRelationships>district_master</selectedRelationships>
                     <selectedRelationships>grade_details</selectedRelationships>
                     <selectedRelationships>infra_trans</selectedRelationships>
+                    <selectedRelationships>parse_python</selectedRelationships>
                     <selectedRelationships>pat</selectedRelationships>
                     <selectedRelationships>sat</selectedRelationships>
                     <selectedRelationships>school_category</selectedRelationships>
@@ -6711,6 +6817,39 @@
                     <source>
                         <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
                         <id>02c5d64e-b196-3733-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>6760aee1-4deb-3536-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <bends>
+                        <x>12080.0</x>
+                        <y>-2264.0</y>
+                    </bends>
+                    <bends>
+                        <x>12080.0</x>
+                        <y>-1928.0</y>
+                    </bends>
+                    <destination>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>c9d25c6c-fdef-3f45-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>0</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>abf69c1c-7dcc-3c85-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
@@ -12135,6 +12274,31 @@
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
+                    <id>c7949272-cafb-31c0-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>47c7a727-b831-3576-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>nonzero status</selectedRelationships>
+                    <source>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>8c915429-e164-3ed2-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
                     <id>c8085af8-f069-33eb-0000-000000000000</id>
                     <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
@@ -13944,6 +14108,31 @@
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
+                    <id>e9eaa947-cc96-361c-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>abf69c1c-7dcc-3c85-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>output stream</selectedRelationships>
+                    <source>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>8c915429-e164-3ed2-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
                     <id>ea585d5e-3845-3648-0000-000000000000</id>
                     <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
@@ -14097,6 +14286,35 @@
                     <source>
                         <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
                         <id>108f484b-9097-3a63-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>ebcd95f9-ddbd-366a-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <bends>
+                        <x>10624.0</x>
+                        <y>-2488.0</y>
+                    </bends>
+                    <destination>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>d1b717b2-b0ed-3336-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>0</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>parse_python</selectedRelationships>
+                    <source>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>17b81a6c-8b0f-395a-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
@@ -14400,6 +14618,30 @@
                         <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
                         <id>e0ac6b06-2c08-337a-0000-000000000000</id>
                         <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>f29b95aa-c4b5-3e0f-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>b1becb47-e530-3bc6-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <source>
+                        <groupId>028cff0d-e72a-30ab-0000-000000000000</groupId>
+                        <id>39890596-d181-3186-0000-000000000000</id>
+                        <type>FUNNEL</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
@@ -15780,7 +16022,7 @@
                         </entry>
                         <entry>
                             <key>Value Separator</key>
-                            <value>,</value>
+                            <value>~</value>
                         </entry>
                         <entry>
                             <key>Record Separator</key>
@@ -16844,6 +17086,14 @@
                     <position>
                         <x>2768.0</x>
                         <y>-976.0</y>
+                    </position>
+                </funnels>
+                <funnels>
+                    <id>39890596-d181-3186-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>12560.0</x>
+                        <y>-1688.0</y>
                     </position>
                 </funnels>
                 <funnels>
@@ -24096,7 +24346,7 @@ ${query_type:startsWith('school_management_footer_grade_subject_last_30'):ifElse
                         <properties>
                             <entry>
 <key>Object Key</key>
-<value>log_summary/log_summary_textbook_distribution.json</value>
+<value>log_summary/log_summary_book_distribution.json</value>
                             </entry>
                             <entry>
 <key>Bucket</key>
@@ -28070,6 +28320,12 @@ ${query_type:startsWith('stud_att_management_category_school_by_month_year'):ifE
 </value>
                             </entry>
                             <entry>
+<key>parse_python</key>
+<value>
+    <name>parse_python</name>
+</value>
+                            </entry>
+                            <entry>
 <key>pat_files</key>
 <value>
     <name>pat_files</name>
@@ -28158,7 +28414,7 @@ ${query_type:startsWith('stud_att_management_category_school_by_month_year'):ifE
                             </entry>
                             <entry>
 <key>aggregated_files</key>
-<value>${emission_filename:startsWith('aggregated')}</value>
+<value>${emission_filename:startsWith('aggregated'):or(${azure.blobname:startsWith('aggregated')})}</value>
                             </entry>
                             <entry>
 <key>configure</key>
@@ -28166,7 +28422,7 @@ ${query_type:startsWith('stud_att_management_category_school_by_month_year'):ifE
                             </entry>
                             <entry>
 <key>configure_file</key>
-<value>${emission_filename:startsWith('textbook_distribution')}</value>
+<value>${emission_filename:startsWith('book_distribution')}</value>
                             </entry>
                             <entry>
 <key>configure_file_aggre</key>
@@ -28187,15 +28443,20 @@ or(${filename:startsWith('data_replay')})}</value>
                             </entry>
                             <entry>
 <key>diksha</key>
-<value>${filename:startsWith('diksha'):and(
+<value>${path:startsWith('diksha/'):or(${filename:startsWith('diksha/'):or(${azure.blobname:startsWith('diksha/')}):and(
+${filename:startsWith('diksha'):and(
 ${filename:startsWith('diksha_program_course_details'):or(${filename:startsWith('diksha_course_details')})
 :or(${filename:startsWith('diksha_course_enrolment')})
 :or(${filename:startsWith('diksha_etb_enrolment')})
-:or(${filename:startsWith('diksha_program_details')}):not()})}</value>
+:or(${filename:startsWith('diksha_program_details')}):not()})})})}</value>
                             </entry>
                             <entry>
 <key>infra_trans</key>
 <value>${filename:startsWith('infra_trans')}</value>
+                            </entry>
+                            <entry>
+<key>parse_python</key>
+<value>${emission_filename:startsWith('parse_python'):or(${azure.blobname:startsWith('parse_python')})}</value>
                             </entry>
                             <entry>
 <key>pat_files</key>
@@ -28339,6 +28600,10 @@ ${filename:startsWith('sch_safety')}
                     <relationships>
                         <autoTerminate>false</autoTerminate>
                         <name>infra_trans</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>parse_python</name>
                     </relationships>
                     <relationships>
                         <autoTerminate>false</autoTerminate>
@@ -37825,7 +38090,7 @@ ${query_type:startsWith('stud_att_management_category_school_overall'):ifElse('a
                         <name>failure</name>
                     </relationships>
                     <relationships>
-                        <autoTerminate>true</autoTerminate>
+                        <autoTerminate>false</autoTerminate>
                         <name>success</name>
                     </relationships>
                     <state>STOPPED</state>
@@ -38640,7 +38905,7 @@ ${query_type:startsWith('stud_att_management_category_school_overall'):ifElse('a
                         <name>failure</name>
                     </relationships>
                     <relationships>
-                        <autoTerminate>true</autoTerminate>
+                        <autoTerminate>false</autoTerminate>
                         <name>success</name>
                     </relationships>
                     <state>STOPPED</state>
@@ -42316,7 +42581,7 @@ where ff_uuid= '${ff_uuid}'</value>
                             </entry>
                             <entry>
 <key>configure_file</key>
-<value>${filename:startsWith('textbook_distribution'):and(${path:startsWith("config"):or(${filename:startsWith("config"):or(${azure.blobname:startsWith("config")})}):not()})}</value>
+<value>${filename:startsWith('book_distribution'):and(${path:startsWith("config"):or(${filename:startsWith("config"):or(${azure.blobname:startsWith("config")})}):not()})}</value>
                             </entry>
                             <entry>
 <key>crc</key>
@@ -43651,7 +43916,7 @@ ${query_type:startsWith('stud_att_management_category_school_by_month_year'):ifE
                             </entry>
                             <entry>
 <key>filename</key>
-<value>log_summary_textbook_distribution.json</value>
+<value>log_summary_book_distribution.json</value>
                             </entry>
                         </properties>
                         <runDurationMillis>0</runDurationMillis>
@@ -45482,7 +45747,7 @@ ${query_type:startsWith('stud_att_school_overall'):ifElse('attendance/overall/sc
                         <properties>
                             <entry>
 <key>record-reader</key>
-<value>311d114d-3dc5-3bcf-0000-000000000000</value>
+<value>661c372c-4656-382e-0000-000000000000</value>
                             </entry>
                             <entry>
 <key>record-writer</key>
@@ -55189,6 +55454,12 @@ ${query_type:startsWith('pat_management_learning_outcome_p3_cluster'):ifElse('pa
     <name>infra_trans</name>
 </value>
                             </entry>
+                            <entry>
+<key>parse_python</key>
+<value>
+    <name>parse_python</name>
+</value>
+                            </entry>
                         </descriptors>
                         <executionNode>ALL</executionNode>
                         <lossTolerant>false</lossTolerant>
@@ -55200,7 +55471,7 @@ ${query_type:startsWith('pat_management_learning_outcome_p3_cluster'):ifElse('pa
                             </entry>
                             <entry>
 <key>aggregated_files</key>
-<value>${emission_filename:startsWith('aggregated')}</value>
+<value>${emission_filename:startsWith('aggregated'):or(${azure.blobname:startsWith('aggregated')})}</value>
                             </entry>
                             <entry>
 <key>configure</key>
@@ -55226,6 +55497,10 @@ or(${filename:startsWith('data_replay')})}</value>
                             <entry>
 <key>infra_trans</key>
 <value>${filename:startsWith('infra_trans')}</value>
+                            </entry>
+                            <entry>
+<key>parse_python</key>
+<value>${emission_filename:startsWith('parse_python'):or(${azure.blobname:startsWith('parse_python')})}</value>
                             </entry>
                         </properties>
                         <runDurationMillis>0</runDurationMillis>
@@ -55262,6 +55537,10 @@ or(${filename:startsWith('data_replay')})}</value>
                     <relationships>
                         <autoTerminate>false</autoTerminate>
                         <name>infra_trans</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>parse_python</name>
                     </relationships>
                     <relationships>
                         <autoTerminate>false</autoTerminate>
@@ -59330,6 +59609,131 @@ file: ${filename} contain null/zero  in latitude or longitude or null in school 
                     <state>STOPPED</state>
                     <style/>
                     <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+                </processors>
+                <processors>
+                    <id>8c915429-e164-3ed2-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>11616.0</x>
+                        <y>-2376.0</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.12.1</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>argumentsStrategy</key>
+<value>
+    <name>argumentsStrategy</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Command Arguments</key>
+<value>
+    <name>Command Arguments</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Command Path</key>
+<value>
+    <name>Command Path</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Ignore STDIN</key>
+<value>
+    <name>Ignore STDIN</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Working Directory</key>
+<value>
+    <name>Working Directory</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Argument Delimiter</key>
+<value>
+    <name>Argument Delimiter</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Output Destination Attribute</key>
+<value>
+    <name>Output Destination Attribute</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Max Attribute Length</key>
+<value>
+    <name>Max Attribute Length</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>argumentsStrategy</key>
+<value>Command Arguments Property</value>
+                            </entry>
+                            <entry>
+<key>Command Arguments</key>
+<value>parse_python.py;#{base_dir}/cqube/nifi/parse_python/${filename}</value>
+                            </entry>
+                            <entry>
+<key>Command Path</key>
+<value>#{base_dir}/cqube/emission_app/flaskenv/bin/python</value>
+                            </entry>
+                            <entry>
+<key>Ignore STDIN</key>
+<value>true</value>
+                            </entry>
+                            <entry>
+<key>Working Directory</key>
+<value>#{base_dir}/cqube/emission_app/python</value>
+                            </entry>
+                            <entry>
+<key>Argument Delimiter</key>
+<value>;</value>
+                            </entry>
+                            <entry>
+<key>Output Destination Attribute</key>
+                            </entry>
+                            <entry>
+<key>Max Attribute Length</key>
+<value>256</value>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>call_python_code</name>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>nonzero status</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>original</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>output stream</name>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.ExecuteStreamCommand</type>
                 </processors>
                 <processors>
                     <id>8d9a06dd-2e83-36bb-0000-000000000000</id>
@@ -66895,6 +67299,115 @@ ${emission_filename:substringAfter('/'):startsWith('diksha_data_summary'):ifElse
                     <type>org.apache.nifi.processors.aws.s3.PutS3Object</type>
                 </processors>
                 <processors>
+                    <id>abf69c1c-7dcc-3c85-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>12192.0</x>
+                        <y>-2376.0</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.12.1</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>File to Fetch</key>
+<value>
+    <name>File to Fetch</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Completion Strategy</key>
+<value>
+    <name>Completion Strategy</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Move Destination Directory</key>
+<value>
+    <name>Move Destination Directory</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Move Conflict Strategy</key>
+<value>
+    <name>Move Conflict Strategy</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Log level when file not found</key>
+<value>
+    <name>Log level when file not found</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Log level when permission denied</key>
+<value>
+    <name>Log level when permission denied</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>File to Fetch</key>
+<value>#{base_dir}/cqube/emission_app/python/parse_files/sample.json</value>
+                            </entry>
+                            <entry>
+<key>Completion Strategy</key>
+<value>None</value>
+                            </entry>
+                            <entry>
+<key>Move Destination Directory</key>
+                            </entry>
+                            <entry>
+<key>Move Conflict Strategy</key>
+<value>Rename</value>
+                            </entry>
+                            <entry>
+<key>Log level when file not found</key>
+<value>ERROR</value>
+                            </entry>
+                            <entry>
+<key>Log level when permission denied</key>
+<value>ERROR</value>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>FetchFile</name>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>failure</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>not.found</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>permission.denied</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.FetchFile</type>
+                </processors>
+                <processors>
                     <id>ac067c65-c172-3e5a-0000-000000000000</id>
                     <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
                     <position>
@@ -67684,6 +68197,135 @@ ${query_type:startsWith('tch_att_management_category_school_by_month_year'):ifEl
                     <state>STOPPED</state>
                     <style/>
                     <type>org.apache.nifi.processors.azure.storage.PutAzureBlobStorage</type>
+                </processors>
+                <processors>
+                    <id>b1becb47-e530-3bc6-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>12328.0</x>
+                        <y>-2000.0</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.12.1</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>JDBC Connection Pool</key>
+<value>
+    <identifiesControllerService>org.apache.nifi.dbcp.DBCPService</identifiesControllerService>
+    <name>JDBC Connection Pool</name>
+</value>
+                            </entry>
+                            <entry>
+<key>putsql-sql-statement</key>
+<value>
+    <name>putsql-sql-statement</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Support Fragmented Transactions</key>
+<value>
+    <name>Support Fragmented Transactions</name>
+</value>
+                            </entry>
+                            <entry>
+<key>database-session-autocommit</key>
+<value>
+    <name>database-session-autocommit</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Transaction Timeout</key>
+<value>
+    <name>Transaction Timeout</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Batch Size</key>
+<value>
+    <name>Batch Size</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Obtain Generated Keys</key>
+<value>
+    <name>Obtain Generated Keys</name>
+</value>
+                            </entry>
+                            <entry>
+<key>rollback-on-failure</key>
+<value>
+    <name>rollback-on-failure</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>JDBC Connection Pool</key>
+<value>09f30dfb-5da2-32fa-0000-000000000000</value>
+                            </entry>
+                            <entry>
+<key>putsql-sql-statement</key>
+<value>update log_summary
+set process_end_time = '${now():format("yyyy-MM-dd HH:mm:ss")}'
+where ff_uuid= '${zip_identifier}'
+</value>
+                            </entry>
+                            <entry>
+<key>Support Fragmented Transactions</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>database-session-autocommit</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>Transaction Timeout</key>
+                            </entry>
+                            <entry>
+<key>Batch Size</key>
+<value>100</value>
+                            </entry>
+                            <entry>
+<key>Obtain Generated Keys</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>rollback-on-failure</key>
+<value>false</value>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>update_process_end_time</name>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>failure</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>retry</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.PutSQL</type>
                 </processors>
                 <processors>
                     <id>b1c99867-ea23-3351-0000-000000000000</id>
@@ -68497,7 +69139,7 @@ ${query_type:startsWith('tooltip_meta'):ifElse(${datasource_name:append('/meta_t
                             </entry>
                         </properties>
                         <runDurationMillis>0</runDurationMillis>
-                        <schedulingPeriod>2 sec</schedulingPeriod>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
                         <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
                         <yieldDuration>60 sec</yieldDuration>
                     </config>
@@ -76163,6 +76805,123 @@ ${query_type:startsWith('pat_subject_footer_school_year_month'):ifElse('pat/${pa
                     <type>org.apache.nifi.processors.aws.s3.PutS3Object</type>
                 </processors>
                 <processors>
+                    <id>d1b717b2-b0ed-3336-0000-000000000000</id>
+                    <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>11616.0</x>
+                        <y>-2600.0</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.12.1</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>Directory</key>
+<value>
+    <name>Directory</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Conflict Resolution Strategy</key>
+<value>
+    <name>Conflict Resolution Strategy</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Create Missing Directories</key>
+<value>
+    <name>Create Missing Directories</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Maximum File Count</key>
+<value>
+    <name>Maximum File Count</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Last Modified Time</key>
+<value>
+    <name>Last Modified Time</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Permissions</key>
+<value>
+    <name>Permissions</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Owner</key>
+<value>
+    <name>Owner</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Group</key>
+<value>
+    <name>Group</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>Directory</key>
+<value>#{base_dir}/cqube/nifi/parse_python</value>
+                            </entry>
+                            <entry>
+<key>Conflict Resolution Strategy</key>
+<value>replace</value>
+                            </entry>
+                            <entry>
+<key>Create Missing Directories</key>
+<value>true</value>
+                            </entry>
+                            <entry>
+<key>Maximum File Count</key>
+                            </entry>
+                            <entry>
+<key>Last Modified Time</key>
+                            </entry>
+                            <entry>
+<key>Permissions</key>
+                            </entry>
+                            <entry>
+<key>Owner</key>
+                            </entry>
+                            <entry>
+<key>Group</key>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>store_csv_file</name>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>failure</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.PutFile</type>
+                </processors>
+                <processors>
                     <id>d22b3e83-ea0d-3c95-0000-000000000000</id>
                     <parentGroupId>028cff0d-e72a-30ab-0000-000000000000</parentGroupId>
                     <position>
@@ -77832,6 +78591,12 @@ and(${filename:startsWith('diksha_tpd_api'):or(${filename:contains('diksha_tpd_m
 </value>
                             </entry>
                             <entry>
+<key>parse_python</key>
+<value>
+    <name>parse_python</name>
+</value>
+                            </entry>
+                            <entry>
 <key>pat</key>
 <value>
     <name>pat</name>
@@ -77916,7 +78681,7 @@ and(${filename:startsWith('diksha_tpd_api'):or(${filename:contains('diksha_tpd_m
                             </entry>
                             <entry>
 <key>configure_file</key>
-<value>${filename:startsWith('textbook_distribution'):and(${path:startsWith("config"):or(${filename:startsWith("config"):or(${azure.blobname:startsWith("config")})}):not()})}</value>
+<value>${filename:startsWith('book_distribution'):and(${path:startsWith("config"):or(${filename:startsWith("config"):or(${azure.blobname:startsWith("config")})}):not()})}</value>
                             </entry>
                             <entry>
 <key>cqube_telemetry</key>
@@ -77960,6 +78725,10 @@ or(${filename:startsWith('diksha/diksha_tpd_mapping')})})})}</value>
                             <entry>
 <key>infra_trans</key>
 <value>${filename:startsWith('infra_trans')}</value>
+                            </entry>
+                            <entry>
+<key>parse_python</key>
+<value>${filename:contains('parse_python'):or(${path:contains('parse_python'):or(${azure.blobname:contains('parse_python')})})}</value>
                             </entry>
                             <entry>
 <key>pat</key>
@@ -78129,6 +78898,10 @@ ${filename:startsWith('sch_safety')}
                     <relationships>
                         <autoTerminate>false</autoTerminate>
                         <name>infra_trans</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>parse_python</name>
                     </relationships>
                     <relationships>
                         <autoTerminate>false</autoTerminate>
@@ -86478,5 +87251,5 @@ ${query_type:startsWith('tch_att_management_category_school_by_month_year'):ifEl
             <variables/>
         </processGroups>
     </snippet>
-    <timestamp>09/28/2022 17:35:35 IST</timestamp>
+    <timestamp>10/02/2022 10:34:19 IST</timestamp>
 </template>

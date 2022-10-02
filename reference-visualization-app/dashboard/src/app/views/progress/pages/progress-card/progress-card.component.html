@@ -1,205 +1,135 @@
 <div class="container-fluid" style="letter-spacing: 0; ;">
     <div class="row reportHeader">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="row row flex-column-reverse flex-lg-row"
-                style="padding-bottom: 10px !important; min-height: 100px;">
-                <div class="col-lg-7 col-md-12 col-sm-12" (window:resize)="onResize($event)">
-                    <div *ngIf="showAll" class="regional-detail-card">
-                        <div class="row details">
-                            <div class="col-lg-12 col-md-12">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6" *ngIf="innerWidth > 767">
-                                        <div class="regional-details-container">
-                                            <table>
-                                                <tbody>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small *ngIf=" i%2==0 && i==0 && level =='state'">State : &nbsp;
-                                                            &nbsp;</small>
-                                                        <strong *ngIf=" i%2==0 && i==0 && level =='state'">
-                                                            {{state}}</strong>
-                                                    </tr>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small
-                                                            *ngIf=" i%2==0 && level !='state' && level !='school'">{{updatedKeys[i]}}
-                                                            : &nbsp;&nbsp;</small>
-                                                        <strong *ngIf=" i%2==0 && level !='state' && level !='school'">
-                                                            {{progressCardData[key]}}</strong>
-                                                    </tr>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small *ngIf="i%2==0 && level =='school'">{{updatedKeys[i]}} :
-                                                            &nbsp;&nbsp;
-                                                        </small>
-                                                        <strong *ngIf="i%2==0 && level =='school'">
-                                                            {{progressCardData[key]}}</strong>
-                                                    </tr>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small
-                                                            *ngIf="i%2==0 && i!=0 && level =='state' && progressCardData['basic_details']">{{updatedKeys[i]}}
-                                                            : &nbsp;&nbsp;</small>
-                                                        <strong
-                                                            *ngIf="i%2==0 && i!=0 && level =='state' && progressCardData['basic_details']">{{progressCardData['basic_details'][key]}}</strong>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6" *ngIf="innerWidth > 767">
-                                        <div class="regional-details-container">
-                                            <table>
-                                                <tbody>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small
-                                                            *ngIf=" i%2==1 && i==1 && level =='state' && progressCardData['basic_details']">State
-                                                            ID : &nbsp;&nbsp;</small>
-                                                        <strong
-                                                            *ngIf=" i%2==1 && i==1 && level =='state' && progressCardData['basic_details']">
-                                                            {{progressCardData['basic_details']['state_id']}}</strong>
-                                                    </tr>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small
-                                                            *ngIf="i%2==1 && level !='state' && level !='school'">{{updatedKeys[i]}}
-                                                            : &nbsp;&nbsp;</small>
-                                                        <strong *ngIf=" i%2==1 && level !='state' && level !='school'">
-                                                            {{progressCardData[key]}}</strong>
-                                                    </tr>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small *ngIf="i%2==1 && level =='school'">{{updatedKeys[i]}} :
-                                                            &nbsp;&nbsp;
-                                                        </small>
-                                                        <strong *ngIf="i%2==1 && level =='school'">
-                                                            {{progressCardData[key]}}</strong>
-                                                    </tr>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small
-                                                            *ngIf="i%2==1 && level =='state' && progressCardData['basic_details']">{{updatedKeys[i]}}
-                                                            : &nbsp;&nbsp;</small>
-                                                        <strong
-                                                            *ngIf="i%2==1 && level =='state' && progressCardData['basic_details']">
-                                                            {{progressCardData['basic_details'][key]}}</strong>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12" *ngIf="innerWidth <= 767">
-                                        <div class="regional-details-container">
-                                            <table>
-                                                <tbody>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small *ngIf="i==0 && level =='state'">State : &nbsp;
-                                                            &nbsp;</small>
-                                                        <strong *ngIf="i==0 && level =='state'"> {{state}}</strong>
-                                                    </tr>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small
-                                                            *ngIf="i==1 && level =='state' && progressCardData['basic_details']">State
-                                                            ID : &nbsp;&nbsp;</small>
-                                                        <strong
-                                                            *ngIf="i==1 && level =='state' && progressCardData['basic_details']">
-                                                            {{progressCardData['basic_details']['state_id']}}</strong>
-                                                    </tr>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small
-                                                            *ngIf="level !='state' && level !='school'">{{updatedKeys[i]}}
-                                                            : &nbsp;&nbsp;</small>
-                                                        <strong *ngIf="level !='state' && level !='school'">
-                                                            {{progressCardData[key]}}</strong>
-                                                    </tr>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small *ngIf="level =='school'">{{updatedKeys[i]}} :
-                                                            &nbsp;&nbsp;
-                                                        </small>
-                                                        <strong *ngIf="level =='school'">
-                                                            {{progressCardData[key]}}</strong>
-                                                    </tr>
-                                                    <tr *ngFor="let key of keys; let i=index">
-                                                        <small
-                                                            *ngIf="i!=0 && level =='state' && progressCardData['basic_details']">{{updatedKeys[i]}}
-                                                            : &nbsp;&nbsp;</small>
-                                                        <strong
-                                                            *ngIf="i!=0 && level =='state' && progressCardData['basic_details']">{{progressCardData['basic_details'][key]}}</strong>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" (window:resize)="onResize($event)">
+            <div *ngIf="showAll" class="regional-detail-card">
+                <div class="row details">
+                    <div style="padding-left: 0%;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="row regional-details-container">
+                            <div *ngFor="let key of keys; let i=index"
+                                class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div *ngIf="i%2==0 && i==0 && level =='state'">
+                                    <small>State : &nbsp;&nbsp;</small>
+                                    <strong>{{state}}</strong>
+                                </div>
+                                <div *ngIf="i%2==0 && level !='state' && level !='school'">
+                                    <small>{{updatedKeys[i]}} : &nbsp;&nbsp;</small>
+                                    <strong>{{progressCardData[key]}}</strong>
+                                </div>
+                                <div *ngIf="i%2==0 && level =='school'">
+                                    <small>{{updatedKeys[i]}} : &nbsp;&nbsp;</small>
+                                    <strong>{{progressCardData[key]}}</strong>
+                                </div>
+                                <div *ngIf="i%2==0 && i!=0 && level =='state' && progressCardData['basic_details']">
+                                    <small>{{updatedKeys[i]}} : &nbsp;&nbsp;</small>
+                                    <strong>{{progressCardData['basic_details'][key]}}</strong>
+                                </div>
+                                <div *ngIf=" i%2==1 && i==1 && level =='state' && progressCardData['basic_details']">
+                                    <small>State ID: &nbsp;&nbsp;</small>
+                                    <strong>{{progressCardData['basic_details']['state_id']}}</strong>
+                                </div>
+                                <div *ngIf="i%2==1 && level !='state' && level !='school'">
+                                    <small>{{updatedKeys[i]}} : &nbsp;&nbsp;</small>
+                                    <strong>{{progressCardData[key]}}</strong>
+                                </div>
+                                <div *ngIf="i%2==1 && level =='school'">
+                                    <small>{{updatedKeys[i]}} : &nbsp;&nbsp;</small>
+                                    <strong>{{progressCardData[key]}}</strong>
+                                </div>
+                                <div *ngIf="i%2==1 && level =='state' && progressCardData['basic_details']">
+                                    <small>{{updatedKeys[i]}} : &nbsp;&nbsp;</small>
+                                    <strong>{{progressCardData['basic_details'][key]}}</strong>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-5 col-md-12 col-sm-12">
-                    <div style="height: 120px auto;margin-top: 5px; border-radius: 20px;">
-                        <div class="row">
-                            <div class="col-lg-12 d-flex justify-content-between pl-0">
-                                <div  class="col-lg-4 col-md-3 col-sm-12 ">
-                                    <ng-select id="period" class="select-control" [(ngModel)]="period"
-                                        (change)="onPeriodSelect()" dropdownPosition="bottom" [clearable]="false"
-                                        placeholder="Choose TimeRange">
-
-                                        <ng-option *ngFor="let period of timeRange,  let i =index" [value]="period.key">
-                                            {{period.value}}
-                                        </ng-option>
-                                    </ng-select>
+                    <!-- <div style="padding-left: 0%;"  class="col-xl-6 col-lg-6 col-md-7 col-sm-12 col-xs-12">
+                        <div class="row regional-details-container">
+                            <div *ngFor="let key of keys; let i=index" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div *ngIf=" i%2==1 && i==1 && level =='state' && progressCardData['basic_details']">
+                                    <small>State ID: &nbsp;&nbsp;</small>
+                                    <strong>{{progressCardData['basic_details']['state_id']}}</strong>
                                 </div>
-                                <!-- <div style="float: right;">
-                            <em aria-disabled="true" class="fa fa-cloud-download" aria-hidden="true" id="download"
-                                title="Download Report"
-                                style="cursor: pointer;display: none; font-size: 30px; float: right; color: #3100cc;" alt="download">
-                            </em>
-                        </div> -->
-                                <div  class="col-lg-4 col-md-3 col-sm-12">
-                                    <em *ngIf="level != 'state'" class="fa fa-home" aria-hidden="true" id="home"
-                                        title="Home"
-                                        style="cursor: pointer;font-size: 30px; float: right; margin-right: 10px;  color: #3100cc; display: block !important;"
-                                        alt="Home" (click)="onHomeSelect()"></em>
+                                <div *ngIf="i%2==1 && level !='state' && level !='school'">
+                                    <small>{{updatedKeys[i]}} : &nbsp;&nbsp;</small>
+                                    <strong>{{progressCardData[key]}}</strong>
+                                </div>
+                                <div *ngIf="i%2==1 && level =='school'">
+                                    <small>{{updatedKeys[i]}} : &nbsp;&nbsp;</small>
+                                    <strong>{{progressCardData[key]}}</strong>
+                                </div>
+                                <div *ngIf="i%2==1 && level =='state' && progressCardData['basic_details']">
+                                    <small>{{updatedKeys[i]}} : &nbsp;&nbsp;</small>
+                                    <strong>{{progressCardData['basic_details'][key]}}</strong>
                                 </div>
                             </div>
                         </div>
-                        <div class="row" style="padding-top: 8px !important;" id="hideDistSearch">
-                            <div class="col-lg-4 col-md-3 col-sm-12">
-                                <!-- <label for="" class="form-label note">Choose Level</label> -->
-                                <ng-select id="level" class="select-control full-width" [(ngModel)]="level" name="level"
-                                    (change)="selectedLevel()" dropdownPosition="bottom" [clearable]="false"
-                                    placeholder="Choose Level">
-
-                                    <ng-option *ngFor="let level of levels" [value]="level.key">
-                                        {{level.name}}
-                                    </ng-option>
-                                </ng-select>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="autocomplete" style="width:100%;">
-                                    <label id="warning" class="form-label note1"
-                                        style="text-align: unset; line-height: 1.2em !important;"> Please enter
-                                        at
-                                        least 2
-                                        characters/digits</label>
-                                    <p id="warning1" style="line-height: 0.7em; float: left; display: none;">&nbsp;</p>
-                                    <input #searchInput id="myInput" class="input-control full-width" type="search"
-                                        class="clearable" autocomplete="off" name="districtName" [(ngModel)]="value"
-                                        (input)="onChange()" [placeholder]="placeHolder">
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-sm-12">
-                                <p style="line-height: 0.9em;">&nbsp;</p>
-                                <button type="submit" class="btn btn-primary submit-btn" id="button"
-                                    (click)="onSubmit()">Submit</button>
-                            </div>
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row reportContainer" *ngIf="showAll" style="padding-bottom: 2%;">
-        <div *ngIf="!err" class="col-sm-12" style="font-size: 13px;">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="row">
-                <div class="col-lg-4 col-md-12 col-sm-12" id="stdAttendance" style="margin-bottom:10px !important">
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <ng-select id="period" class="select-control" [(ngModel)]="period" (change)="onPeriodSelect()"
+                        dropdownPosition="bottom" [clearable]="false" placeholder="Choose TimeRange">
+                        <ng-option *ngFor="let period of timeRange,  let i =index" [value]="period.key">
+                            {{period.value}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <em *ngIf="level != 'state'" class="fa fa-home" aria-hidden="true" id="home" title="Home"
+                        style="cursor: pointer;font-size: 30px; float: right;margin-top: 5%; margin-right: 10px;  color: #3100cc; display: block !important;"
+                        alt="Home" (click)="onHomeSelect()"></em>
+                </div>
+            </div>
+            <div class="row" style="" id="hideDistSearch">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <!-- <label for="" class="form-label note">Choose Level</label> -->
+                    <ng-select style="text-transform: capitalize;" id="level" class="select-control full-width"
+                        [(ngModel)]="level" name="level" (change)="selectedLevel()" dropdownPosition="bottom"
+                        [clearable]="false" placeholder="Choose Level">
+
+                        <ng-option *ngFor="let level of levels" [value]="level.key">
+                            {{level.name}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <div class="autocomplete" style="width:100%;">
+                        <label id="warning" class="form-label note1"
+                            style="text-align: unset; line-height: 1.2em !important;"> Please enter
+                            at
+                            least 2
+                            characters/digits</label>
+                        <p id="warning1" style="line-height: 0.7em; float: left; display: none;">&nbsp;</p>
+                        <input #searchInput id="myInput" class="input-control full-width" type="search"
+                            class="clearable" autocomplete="off" name="districtName" [(ngModel)]="value"
+                            (input)="onChange()" [placeholder]="placeHolder">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="text-align: center;" class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <p style="line-height: 0.9em;">&nbsp;</p>
+                    <button type="submit" class="btn btn-primary submit-btn" id="button" (click)="onSubmit()">
+                        <label class="form-label note1" style="text-align: unset; line-height: 1.2em !important;">
+                            Submit</label>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <div class="row reportContainer" *ngIf="showAll" style="padding-bottom: 2%;">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-xs-12 col-sm-12" *ngIf="!err" style="font-size: 13px;">
+            <div class="row">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="stdAttendance"
+                    style="margin-bottom:10px !important">
                     <div [ngStyle]="{'min-height': height }" class="card">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div *ngIf="progressCardData['student_attendance']" ngbDropdown
                                     class="d-inline-block progressCard-tooltip" id="attTooltipBtn">
                                     <button class="btn btn-outline-primary progressCard-tooltip-btn" id="dropdownBasic1"
@@ -245,45 +175,56 @@
                             </div>
                         </div>
                         <div class="row" *ngIf="progressCardData['student_attendance']">
-                            <div class="col-lg-5 col-md-5 col-sm-5">
-                                <div class="mar-lef-35" style="margin-left: 15px;">
-                                    <strong class="fon-siz-15rem"
-                                        style="font-size: 15px;line-height: 2em; font-weight: bold;">Attendance
-                                    </strong>
-                                    <div class="progress-circle-container" style="font-weight: bold; ">
+                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <strong class="mar-lef-35 fon-siz-15rem"
+                                            style="font-size: 13px;line-height: 2em; font-weight: bold;">Attendance
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row" style="font-weight: bold; ">
+                                    <div
+                                        class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 progress-circle-container">
                                         <app-progress-circle
                                             [value]="progressCardData['student_attendance']['attendance']"
                                             [color]="stdAttendanceColor"></app-progress-circle>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-7 col-md-7 col-sm-7">
-                                <div>
-                                    <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
-                                        style="font-size: 15px;line-height: 2em; margin-left: 20px;">{{level.charAt(0).toUpperCase()
+
+                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
+                                            style="font-size: 13px;line-height: 2em;">{{level.charAt(0).toUpperCase()
                                         + level.substr(1)}} Rank</strong>
-                                    <table class="metric-values-table mar-lef-35 no-fixed-width"
-                                        style="margin-left: 20px;">
-                                        <thead>
-                                            <tr *ngFor="let attendance of schoolInfraRank; let i=index">
-                                                <td *ngIf="level != 'state'">{{schoolInfraRankKye[i]}} level</td>
-                                                <td *ngIf="level != 'state'">:</td>
-                                                <td *ngIf="level != 'state'">
-                                                    {{progressCardData['student_attendance'][attendance]}}
-                                                </td>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <table class="metric-values-table mar-lef-35 no-fixed-width" style="">
+                                            <thead>
+                                                <tr *ngFor="let attendance of schoolInfraRank; let i=index">
+                                                    <td *ngIf="level != 'state'">{{schoolInfraRankKye[i]}} level</td>
+                                                    <td *ngIf="level != 'state'">:</td>
+                                                    <td *ngIf="level != 'state'">
+                                                        {{progressCardData['student_attendance'][attendance]}}
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row" *ngIf="progressCardData['student_attendance']">
                             <div class="col-sm-12">
-                                <div class="mar-lef-35" style="margin-left: 15px;">
+                                <div class="mar-lef-35" style="">
                                     <table class="metric-values-table">
                                         <tbody>
                                             <strong class="metric-name" *ngIf="level != 'school'"
-                                                style="font-size: 15px;line-height: 2em;">School
+                                                style="font-size: 13px;line-height: 2em;">School
                                                 Categories</strong>
                                             <tr class="header-row" *ngIf="level != 'school'"
                                                 style="font-weight: bold; color: gray;font-size: 14px;">
@@ -313,13 +254,13 @@
                                 Report</a></p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 col-sm-12" id="semPer" style="margin-bottom:10px !important">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="semPer"
+                    style="margin-bottom:10px !important">
                     <div [ngStyle]="{'min-height': height }" class="card">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div *ngIf="progressCardData['student_semester']" ngbDropdown
-                                    class="d-inline-block progressCard-tooltip" 
-                                    id="semTooltipBtn">
+                                    class="d-inline-block progressCard-tooltip" id="semTooltipBtn">
                                     <button class="btn btn-outline-primary progressCard-tooltip-btn" id="dropdownBasic2"
                                         ngbDropdownToggle>
                                         <em class="fa fa-info-circle" style="color: #75758d;"></em>
@@ -404,45 +345,57 @@
                             </div>
                         </div>
                         <div class="row" *ngIf="progressCardData['student_semester']">
-                            <div class="col-lg-5 col-md-5 col-sm-5">
-                                <div class="mar-lef-35" style="margin-left: 15px;">
-                                    <strong class="fon-siz-15rem"
-                                        style="font-size: 15px;line-height: 2em; font-weight: bold;"> Performance
-                                    </strong>
-                                    <div class="progress-circle-container" style="font-weight: bold; ">
+                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="mar-lef-35" style="margin-left: 15px;"> -->
+                                        <strong class="mar-lef-35 fon-siz-15rem"
+                                            style="font-size: 13px;line-height: 2em; font-weight: bold;">
+                                            Performance
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row" style="font-weight: bold;">
+                                    <div
+                                        class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 progress-circle-container">
                                         <app-progress-circle
                                             [value]="progressCardData['student_semester']['performance']"
                                             [color]="semColor"></app-progress-circle>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-7 col-md-7 col-sm-7">
-                                <div>
-                                    <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
-                                        style="margin-left: 20px; font-size: 15px;line-height: 2em;">{{level.charAt(0).toUpperCase()
+                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
+                                            style=" font-size: 13px;line-height: 2em;">{{level.charAt(0).toUpperCase()
                                         + level.substr(1)}} Rank</strong>
-                                    <table class="metric-values-table mar-lef-35 no-fixed-width"
-                                        style="margin-left: 20px;">
-                                        <thead>
-                                            <tr *ngFor="let sem of schoolInfraRank; let i=index">
-                                                <td *ngIf="level != 'state'">{{schoolInfraRankKye[i]}} level</td>
-                                                <td *ngIf="level != 'state'">:</td>
-                                                <td *ngIf="level != 'state'">
-                                                    {{progressCardData['student_semester'][sem]}}
-                                                </td>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <table class="metric-values-table mar-lef-35 no-fixed-width" style="">
+                                            <thead>
+                                                <tr *ngFor="let sem of schoolInfraRank; let i=index">
+                                                    <td *ngIf="level != 'state'">{{schoolInfraRankKye[i]}} level</td>
+                                                    <td *ngIf="level != 'state'">:</td>
+                                                    <td *ngIf="level != 'state'">
+                                                        {{progressCardData['student_semester'][sem]}}
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row" *ngIf="progressCardData['student_semester']">
                             <div class="col-sm-12">
-                                <div class="mar-lef-35" style="margin-left: 15px;">
+                                <div class="mar-lef-35" style="">
                                     <table class="metric-values-table">
                                         <tbody>
                                             <strong class="metric-name" *ngIf="level != 'school'"
-                                                style="font-size: 15px;line-height: 2em;">School
+                                                style="font-size: 13px;line-height: 2em;">School
                                                 Categories</strong>
                                             <tr class="header-row" *ngIf="level != 'school'"
                                                 style="font-weight: bold; color: gray;font-size: 14px;">
@@ -474,13 +427,13 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 col-sm-12" id="pat" style="margin-bottom:10px !important">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="pat"
+                    style="margin-bottom:10px !important">
                     <div [ngStyle]="{'min-height': height }" class="card">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div *ngIf="progressCardData['pat_performance']" ngbDropdown
-                                    class="d-inline-block progressCard-tooltip" 
-                                    id="patTooltipBtn">
+                                    class="d-inline-block progressCard-tooltip" id="patTooltipBtn">
                                     <button class="btn btn-outline-primary progressCard-tooltip-btn" id="dropdownBasic3"
                                         ngbDropdownToggle>
                                         <em class="fa fa-info-circle" style="color: #75758d;"></em>
@@ -500,6 +453,7 @@
                                                                         Details</strong>
                                                                 </td>
                                                             </tr>
+
                                                             <tr class="tooltip-values-row" style="font-size: 12px;"
                                                                 *ngFor="let key of tooltipPat;let i=index">
                                                                 <td>{{tooltipPatKeys[i]}}</td>
@@ -511,13 +465,13 @@
                                                                 <tr>
                                                                     <td colspan="3">
                                                                         <strong class="tooltip-table-header-txt"
-                                                                            style="text-decoration: underline;  font-size: 13px;line-height: 2em;">Grade_Wise_Performance
+                                                                            style="text-decoration: underline; font-size: 13px;line-height: 2em;">
+                                                                            Grade_Wise_Performance
                                                                         </strong>
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="tooltip-values-row" style="font-size: 12px;"
                                                                     *ngFor="let key of patPerformTooltip;let i=index">
-
                                                                     <td
                                                                         *ngIf="progressCardData['pat_performance']['grade_wise_performance'][key]">
                                                                         {{patPerformTooltipKeys[i]}}</td>
@@ -538,7 +492,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h6 class="headings"> PAT Performance </h6>
+                                <h6 class="headings"> PAT Performance
+                                </h6>
                                 <div>
                                     <app-bubbles *ngIf="level != 'state' && progressCardData['pat_performance']"
                                         [cardData]="progressCardData['pat_performance']" [color]="patRankMatrixColor"
@@ -547,45 +502,57 @@
                             </div>
                         </div>
                         <div class="row" *ngIf="progressCardData['pat_performance']">
-                            <div class="col-lg-5 col-md-5 col-sm-5">
-                                <div class="mar-lef-35" style="margin-left: 15px;">
-                                    <strong class="fon-siz-15rem"
-                                        style="font-size: 15px;line-height: 2em; font-weight: bold;">Performance
-                                    </strong>
-                                    <div class="progress-circle-container" style="font-weight: bold; ">
+                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="mar-lef-35" style="margin-left: 15px;"> -->
+                                        <strong class="mar-lef-35 fon-siz-15rem"
+                                            style="font-size: 13px;line-height: 2em; font-weight: bold;">
+                                            Performance
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row" style="font-weight: bold;">
+                                    <div
+                                        class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 progress-circle-container">
                                         <app-progress-circle
                                             [value]=" level == 'state' ? progressCardData['pat_performance']['school_performance'] : progressCardData['pat_performance'][level+'_performance']"
                                             [color]="patColor"></app-progress-circle>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-7 col-md-7 col-sm-7">
-                                <div>
-                                    <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
-                                        style="margin-left: 20px; font-size: 15px;line-height: 2em;">{{level.charAt(0).toUpperCase()
+                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
+                                            style=" font-size: 13px;line-height: 2em;">{{level.charAt(0).toUpperCase()
                                         + level.substr(1)}} Rank</strong>
-                                    <table class="metric-values-table mar-lef-35 no-fixed-width"
-                                        style="margin-left: 20px;">
-                                        <thead>
-                                            <tr *ngFor="let pat of schoolInfraRank; let i=index">
-                                                <td *ngIf="level != 'state'">{{schoolInfraRankKye[i]}} level</td>
-                                                <td *ngIf="level != 'state'">:</td>
-                                                <td *ngIf="level != 'state'">
-                                                    {{progressCardData['pat_performance'][pat]}}
-                                                </td>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <table class="metric-values-table mar-lef-35 no-fixed-width" style="">
+                                            <thead>
+                                                <tr *ngFor="let pat of schoolInfraRank; let i=index">
+                                                    <td *ngIf="level != 'state'">{{schoolInfraRankKye[i]}} level</td>
+                                                    <td *ngIf="level != 'state'">:</td>
+                                                    <td *ngIf="level != 'state'">
+                                                        {{progressCardData['pat_performance'][pat]}}
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row" *ngIf="progressCardData['pat_performance']">
                             <div class="col-sm-12">
-                                <div class="mar-lef-35" style="margin-left: 15px;">
+                                <div class="mar-lef-35" style="">
                                     <table class="metric-values-table">
                                         <tbody>
                                             <strong class="metric-name" *ngIf="level != 'school'"
-                                                style="font-size: 15px;line-height: 2em;">School
+                                                style="font-size: 13px;line-height: 2em;">School
                                                 Categories</strong>
                                             <tr class="header-row" *ngIf="level != 'school'"
                                                 style="font-weight: bold; color: gray;font-size: 14px;">
@@ -617,15 +584,15 @@
                         </p>
                     </div>
                 </div>
-            </div>
-            <div class="row" style="padding-top:10px !important">
-                <div class="col-lg-4 col-md-12 col-sm-12" id="infra" style="margin-bottom:10px !important">
+            <!-- </div>
+            <div class="row"> -->
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="infra"
+                    style="margin-bottom:10px !important">
                     <div [ngStyle]="{'min-height': height }" class="card">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div *ngIf="progressCardData['school_infrastructure']" ngbDropdown
-                                    class="d-inline-block progressCard-tooltip" 
-                                    id="infraTooltipBtn">
+                                    class="d-inline-block progressCard-tooltip" id="infraTooltipBtn">
                                     <button class="btn btn-outline-primary progressCard-tooltip-btn" id="dropdownBasic4"
                                         ngbDropdownToggle>
                                         <em class="fa fa-info-circle" style="color: #75758d;"></em>
@@ -706,44 +673,55 @@
                             </div>
                         </div>
                         <div class="row" *ngIf="progressCardData['school_infrastructure']">
-                            <div class="col-lg-5 col-md-5 col-sm-5">
-                                <div class="mar-lef-35" style="margin-left: 15px;">
-                                    <strong class="fon-siz-15rem"
-                                        style="font-size: 15px;line-height: 2em; font-weight: bold;">Infrastructure
-                                        Score
-                                    </strong>
-                                    <div class="progress-circle-container" style="font-weight: bold; ">
+                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <strong class="mar-lef-35 fon-siz-15rem"
+                                            style="font-size: 13px;line-height: 2em; font-weight: bold;">Infrastructure
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row" style="font-weight: bold; ">
+                                    <div
+                                        class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 progress-circle-container">
                                         <app-progress-circle
                                             [value]="progressCardData['school_infrastructure']['infra_score']"
                                             [color]="infraColor"></app-progress-circle>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-7 col-md-7 col-sm-7">
-                                <div>
-                                    <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
-                                        style="margin-left: 20px; font-size: 15px;line-height: 2em;">{{level.charAt(0).toUpperCase()
+
+                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
+                                            style="font-size: 13px;line-height: 2em;">{{level.charAt(0).toUpperCase()
                                         + level.substr(1)}} Rank</strong>
-                                    <table class="mar-lef-35 metric-values-table no-fixed-width"
-                                        style="margin-left: 20px;">
-                                        <thead>
-                                            <tr *ngFor="let infra of schoolInfraRank; let i=index">
-                                                <td *ngIf="level != 'state'">
-                                                    <span>{{schoolInfraRankKye[i]}} level</span>
-                                                </td>
-                                                <td *ngIf="level != 'state'">:</td>
-                                                <td *ngIf="level != 'state'">
-                                                    <span>{{progressCardData['school_infrastructure'][infra]}} </span>
-                                                </td>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <table class="mar-lef-35 metric-values-table no-fixed-width">
+                                            <thead>
+                                                <tr *ngFor="let infra of schoolInfraRank; let i=index">
+                                                    <td *ngIf="level != 'state'">
+                                                        <span>{{schoolInfraRankKye[i]}} level</span>
+                                                    </td>
+                                                    <td *ngIf="level != 'state'">:</td>
+                                                    <td *ngIf="level != 'state'">
+                                                        <span>{{progressCardData['school_infrastructure'][infra]}}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row" *ngIf="progressCardData['school_infrastructure']">
                             <div class="col-sm-12">
-                                <strong class="mar-lef-35 metric-name" style="margin-left: 20px;">Areas To Focus
+                                <strong class="mar-lef-35 metric-name" style="font-size: 13px;line-height: 2em;">Areas To Focus
                                 </strong>
                                 <ul class="metric-list-values"
                                     style="font-weight: normal; list-style-type:none;margin-left: 0px;">
@@ -763,13 +741,13 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 col-sm-12" id="udise" style="margin-bottom:10px !important">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="udise"
+                    style="margin-bottom:10px !important">
                     <div [ngStyle]="{'min-height': height }" class="card">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div *ngIf="progressCardData['udise']" ngbDropdown
-                                    class="d-inline-block progressCard-tooltip" 
-                                    id="udiseTooltipBtn">
+                                    class="d-inline-block progressCard-tooltip" id="udiseTooltipBtn">
                                     <button class="btn btn-outline-primary progressCard-tooltip-btn" id="dropdownBasic5"
                                         ngbDropdownToggle>
                                         <em class="fa fa-info-circle" style="color: #75758d;"></em>
@@ -846,44 +824,56 @@
                             </div>
                         </div>
                         <div class="row" *ngIf="progressCardData['udise']">
-                            <div class="col-lg-5 col-md-5 col-sm-5">
-                                <div class="mar-lef-35" style="margin-left: 15px;">
-                                    <strong class="fon-siz-15rem"
-                                        style="font-size: 15px;line-height: 2em; font-weight: bold;">Infrastructure
-                                        Score
-                                    </strong>
-                                    <div class="progress-circle-container" style="font-weight: bold; ">
+                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="mar-lef-35" style="margin-left: 15px;"> -->
+                                        <strong class="mar-lef-35 fon-siz-15rem"
+                                            style="font-size: 13px;line-height: 1em; font-weight: bold;">
+                                            Infrastructure Score
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row" style="font-weight: bold;">
+                                    <div
+                                        class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 progress-circle-container">
                                         <app-progress-circle [value]="progressCardData['udise']['infrastructure_score']"
                                             [color]="udiseColor"></app-progress-circle>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-7 col-md-7 col-sm-7">
-                                <div>
-                                    <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
-                                        style="margin-left: 20px; font-size: 15px;line-height: 2em;">{{level.charAt(0).toUpperCase()
+                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
+                                            style=" font-size: 13px;line-height: 2em;">{{level.charAt(0).toUpperCase()
                                         + level.substr(1)}} Rank</strong>
-                                    <table class="mar-lef-35 metric-values-table no-fixed-width"
-                                        style="margin-left: 20px;">
-                                        <thead>
-                                            <tr *ngFor="let key of schoolInfraRank; let i=index">
-                                                <td *ngIf="level != 'state'">{{schoolInfraRankKye[i]}} level</td>
-                                                <td *ngIf="level != 'state'">:</td>
-                                                <td *ngIf="level != 'state'">{{progressCardData['udise'][key]}}
-                                                </td>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <table class="mar-lef-35 metric-values-table no-fixed-width"
+                                            style="margin-left: 20px;">
+                                            <thead>
+                                                <tr *ngFor="let key of schoolInfraRank; let i=index">
+                                                    <td *ngIf="level != 'state'">{{schoolInfraRankKye[i]}} level</td>
+                                                    <td *ngIf="level != 'state'">:</td>
+                                                    <td *ngIf="level != 'state'">{{progressCardData['udise'][key]}}
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row" *ngIf="progressCardData['udise']">
                             <div class="col-sm-12">
-                                <div class="mar-lef-35" style="margin-left: 15px;">
+                                <div class="mar-lef-35">
                                     <table class="metric-values-table">
                                         <tbody>
                                             <strong class="metric-name" *ngIf="level != 'school'"
-                                                style="font-size: 15px;line-height: 2em;">School
+                                                style="font-size: 13px;line-height: 2em;">School
                                                 Categories</strong>
                                             <tr class="header-row" *ngIf="level != 'school'"
                                                 style="font-weight: bold; color: gray;font-size: 14px;">
@@ -913,13 +903,13 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 col-sm-12" id="crc" style="margin-bottom:10px !important">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="crc"
+                    style="margin-bottom:10px !important">
                     <div [ngStyle]="{'min-height': height }" class="card">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div *ngIf="progressCardData['crc_visit']" ngbDropdown
-                                    class="d-inline-block progressCard-tooltip" 
-                                    id="crcTooltipBtn">
+                                    class="d-inline-block progressCard-tooltip" id="crcTooltipBtn">
                                     <button class="btn btn-outline-primary progressCard-tooltip-btn" id="dropdownBasic6"
                                         ngbDropdownToggle>
                                         <em class="fa fa-info-circle" style="color: #75758d;"></em>
@@ -981,43 +971,56 @@
                             </div>
                         </div>
                         <div class="row" *ngIf="progressCardData['crc_visit']">
-                            <div class="col-lg-5 col-md-5 col-sm-5">
-                                <div class="mar-lef-35" style="margin-left: 15px;">
-                                    <strong class="fon-siz-15rem"
-                                        style="font-size: 15px;line-height: 2em; font-weight: bold;">Total Visit Score
-                                    </strong>
-                                    <div class="progress-circle-container" style="font-weight: bold; ">
+                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="mar-lef-35" style="margin-left: 15px;"> -->
+                                        <strong class="mar-lef-35 fon-siz-15rem"
+                                            style="font-size: 13px;line-height: 2em; font-weight: bold;">
+                                            Total Visit Score
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row" style="font-weight: bold;">
+                                    <div
+                                        class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 progress-circle-container">
                                         <app-progress-circle [value]="progressCardData['crc_visit']['visit_score']"
                                             [color]="crcColor"></app-progress-circle>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-7 col-md-7 col-sm-7">
-                                <div>
-                                    <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
-                                        style="margin-left: 20px; font-size: 15px;line-height: 2em;">{{level.charAt(0).toUpperCase()
+                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
+                                            style=" font-size: 13px;line-height: 2em;">{{level.charAt(0).toUpperCase()
                                         + level.substr(1)}} Rank</strong>
-                                    <table class="mar-lef-35 metric-values-table no-fixed-width"
-                                        style="margin-left: 20px;">
-                                        <thead>
-                                            <tr *ngFor="let key of schoolInfraRank; let i=index">
-                                                <td *ngIf="level != 'state'">{{schoolInfraRankKye[i]}} level</td>
-                                                <td *ngIf="level != 'state'">:</td>
-                                                <td *ngIf="level != 'state'">{{progressCardData['crc_visit'][key]}}
-                                                </td>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <table class="mar-lef-35 metric-values-table no-fixed-width"
+                                            style="margin-left: 20px;">
+                                            <thead>
+                                                <tr *ngFor="let key of schoolInfraRank; let i=index">
+                                                    <td *ngIf="level != 'state'">{{schoolInfraRankKye[i]}} level</td>
+                                                    <td *ngIf="level != 'state'">:</td>
+                                                    <td *ngIf="level != 'state'">{{progressCardData['crc_visit'][key]}}
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row" *ngIf="progressCardData['crc_visit']">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <strong class="metric-name mar-lef-35"
-                                    style="margin-left: 15px; font-size: 15px;line-height: 2em;">Schools
+                                    style="margin-left: 15px; font-size: 13px;line-height: 2em;">Schools
                                     Visit
                                     Category</strong>
-                             
+
                                 <table class="mar-lef-35 metric-values-table" style="margin-left: 15px;">
                                     <thead>
                                         <tr class="header-row" *ngIf="level !='school'"
@@ -1060,6 +1063,7 @@
             <span id="name" class="note" style="text-align: center;">Management Type: {{managementName}}</span>
         </div>
     </div>
+
 </div>
 <div id="spinner" style="display: block;">
     <div id="loader" class="loading">Loading&#8230;</div>

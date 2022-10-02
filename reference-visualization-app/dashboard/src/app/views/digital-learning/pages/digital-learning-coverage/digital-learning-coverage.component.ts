@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as Highcharts from "highcharts/highstock";
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { environment } from 'src/environments/environment';
@@ -11,8 +10,6 @@ import { environment } from 'src/environments/environment';
 })
 export class DigitalLearningCoverageComponent implements OnInit {
   tableData: any;
-  gaugeChartOptions: Highcharts.Options | undefined;
-  gaugeChartProperties: any | undefined;
   filters: any;
   national = true;
   QRGaugeData: any;
@@ -47,37 +44,14 @@ export class DigitalLearningCoverageComponent implements OnInit {
       this.filters = res.result.filters;
 
       if (this.national) {
-        this.gaugeChartProperties = res.result.gaugeChart;
-
-        if (this.gaugeChartProperties) {
-          this.gaugeChartOptions = {
-            title: {
-              text: ""
-            },
-            yAxis: {
-              title: {
-                y: 130,
-                text: this.gaugeChartProperties.title
-              }
-            },
-            series: [{
-              type: 'solidgauge',
-              name: 'Speed',
-              data: [this.gaugeChartProperties.percentage],
-              innerRadius: '80%',
-              dataLabels: {
-                  y: -20,
-                  format:
-                      '<div style="text-align:center"><br>' +
-                      '<span style="font-size:25px">{y}' + (this.gaugeChartProperties.valueSuffix ? this.gaugeChartProperties.valueSuffix : "") + '</span><br/>' +
-                      '</div>'
-              },
-              tooltip: {
-                  valueSuffix: this.gaugeChartProperties.valueSuffix ? ` ${this.gaugeChartProperties.valueSuffix}` : ''
-              }
-            }]
-          }
-        }
+        let gaugeChart = res.result.gaugeChart;
+        this.QRGaugeData = {
+          options: {
+            title: gaugeChart.title,
+            valueSuffix: gaugeChart.valueSuffix ? ` ${gaugeChart.valueSuffix}` : ''
+          },
+          percentage: gaugeChart.percentage
+        };
       }
     });
   }
@@ -102,38 +76,6 @@ export class DigitalLearningCoverageComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(res => {
       this.QRGaugeData = res.result.data;
-
-      if (this.QRGaugeData) {
-        this.gaugeChartOptions = {
-          title: {
-            text: ""
-          },
-          yAxis: {
-            title: {
-              y: 120,
-              text: this.QRGaugeData.options.title
-            },
-            labels: {
-              distance: -10
-            }
-          },
-          series: [{
-            type: 'solidgauge',
-            name: 'Speed',
-            data: [this.QRGaugeData.percentage],
-            innerRadius: '80%',
-            dataLabels: {
-                format:
-                    '<div style="text-align:center"><br>' +
-                    '<span style="font-size:1rem">{y}' + (this.QRGaugeData.options.valueSuffix ? this.QRGaugeData.options.valueSuffix : "") + '</span><br/>' +
-                    '</div><br><br><br>'
-            },
-            tooltip: {
-                valueSuffix: this.QRGaugeData.options.valueSuffix ? ` ${this.QRGaugeData.options.valueSuffix}` : ''
-            }
-          }]
-        }
-      }
     });
   }
 }
