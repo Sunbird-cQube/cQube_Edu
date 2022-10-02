@@ -88,7 +88,7 @@
 
                     <ng-select id="district" class="lg:col-span-2" [disabled]="selDist" [hidden]="disHidden"
                         [(ngModel)]="district" (change)="selectedDistrict(district)" dropdownPosition="bottom"
-                        [clearable]="false" placeholder=" Choose time period">
+                        [clearable]="false" placeholder=" Choose a District">
                         <ng-option [value]="district" disabled selected="selected">Choose a District</ng-option>
                         <ng-option *ngFor="let district of districtNames, let i =index" [value]="district.district_id">
                             {{district.district_name}}

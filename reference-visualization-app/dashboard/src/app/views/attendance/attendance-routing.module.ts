@@ -13,6 +13,10 @@ const routes: Routes = [
         component: AttendanceComponent
       },
       {
+        path: 'dashboard/:tab',
+        component: AttendanceComponent
+      },
+      {
         path: '',
         redirectTo: '/attendance/dashboard',
         pathMatch: 'full'

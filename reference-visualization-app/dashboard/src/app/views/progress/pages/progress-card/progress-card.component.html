@@ -198,7 +198,7 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                                         <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
                                             style="font-size: 13px;line-height: 2em;">{{level.charAt(0).toUpperCase()
-                                        + level.substr(1)}} Rank</strong>
+                                            + level.substr(1)}} Rank</strong>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -248,10 +248,9 @@
                         </div>
                     </div>
                     <div *ngIf="progressCardData['student_attendance']">
-                        <p *ngIf="showLink" class="link access-report-link" id="attdLink"><a href="javascript:void(0)"
-                                (click)="goToReport('/attendance/student-attendance')">Click
-                                to Access
-                                Report</a></p>
+                        <p *ngIf="showLink" class="link access-report-link mb-3" id="attdLink">
+                            <a routerLink="/attendance/dashboard" [queryParams]="{ tab: 0}">Click to Access Report</a>
+                        </p>
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="semPer"
@@ -369,7 +368,7 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                                         <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
                                             style=" font-size: 13px;line-height: 2em;">{{level.charAt(0).toUpperCase()
-                                        + level.substr(1)}} Rank</strong>
+                                            + level.substr(1)}} Rank</strong>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -420,10 +419,8 @@
                         </div>
                     </div>
                     <div *ngIf="progressCardData['student_semester']">
-                        <p *ngIf="showLink" class="link access-report-link" id="semLink">
-                            <a href="javascript:void(0)" (click)="goToReport('/student-performance/sat-report')">Click
-                                to Access
-                                Report</a>
+                        <p *ngIf="showLink" class="link access-report-link mb-3" id="semLink">
+                            <a routerLink="/stperformance/dashboard" [queryParams]="{ tab: 0}">Click to Access Report</a>
                         </p>
                     </div>
                 </div>
@@ -526,7 +523,7 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                                         <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
                                             style=" font-size: 13px;line-height: 2em;">{{level.charAt(0).toUpperCase()
-                                        + level.substr(1)}} Rank</strong>
+                                            + level.substr(1)}} Rank</strong>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -577,14 +574,12 @@
                         </div>
                     </div>
                     <div *ngIf="progressCardData['pat_performance']">
-                        <p *ngIf="showLink" class="link access-report-link" id="patLink">
-                            <a href="javascript:void(0)" (click)="goToReport('/student-performance/pat-report')">Click
-                                to Access
-                                Report</a>
+                        <p *ngIf="showLink" class="link access-report-link mb-3" id="patLink">
+                            <a routerLink="/stperformance/dashboard" [queryParams]="{ tab: 2}">Click to Access Report</a>
                         </p>
                     </div>
                 </div>
-            <!-- </div>
+                <!-- </div>
             <div class="row"> -->
                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="infra"
                     style="margin-bottom:10px !important">
@@ -696,7 +691,7 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                                         <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
                                             style="font-size: 13px;line-height: 2em;">{{level.charAt(0).toUpperCase()
-                                        + level.substr(1)}} Rank</strong>
+                                            + level.substr(1)}} Rank</strong>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -721,7 +716,8 @@
                         </div>
                         <div class="row" *ngIf="progressCardData['school_infrastructure']">
                             <div class="col-sm-12">
-                                <strong class="mar-lef-35 metric-name" style="font-size: 13px;line-height: 2em;">Areas To Focus
+                                <strong class="mar-lef-35 metric-name" style="font-size: 13px;line-height: 2em;">Areas
+                                    To Focus
                                 </strong>
                                 <ul class="metric-list-values"
                                     style="font-weight: normal; list-style-type:none;margin-left: 0px;">
@@ -735,9 +731,8 @@
                         </div>
                     </div>
                     <div *ngIf="progressCardData['school_infrastructure']">
-                        <p *ngIf="showLink" class="link access-report-link" id="infraLink"><a href="javascript: void(0)"
-                                (click)="goToReport('/infrastructure/school-infra-map')">Click to Access
-                                Report</a>
+                        <p *ngIf="showLink" class="link access-report-link mb-3" id="infraLink">
+                            <a routerLink="/infra/dashboard" [queryParams]="{ tab: 0}">Click to Access Report</a>
                         </p>
                     </div>
                 </div>
@@ -847,7 +842,7 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                                         <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
                                             style=" font-size: 13px;line-height: 2em;">{{level.charAt(0).toUpperCase()
-                                        + level.substr(1)}} Rank</strong>
+                                            + level.substr(1)}} Rank</strong>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -897,9 +892,8 @@
                         </div>
                     </div>
                     <div *ngIf="progressCardData['udise']">
-                        <p *ngIf="showLink" class="link access-report-link" id="udiseLink"><a href="javascript: void(0)"
-                                (click)="goToReport('/infrastructure/udise-report')">Click to Access
-                                Report</a>
+                        <p *ngIf="showLink" class="link access-report-link mb-3" id="udiseLink">
+                            <a routerLink="/infra/dashboard" [queryParams]="{ tab: 2}">Click to Access Report</a>
                         </p>
                     </div>
                 </div>
@@ -994,7 +988,7 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                                         <strong class="metric-name mar-lef-35" *ngIf="level != 'state'"
                                             style=" font-size: 13px;line-height: 2em;">{{level.charAt(0).toUpperCase()
-                                        + level.substr(1)}} Rank</strong>
+                                            + level.substr(1)}} Rank</strong>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -1046,9 +1040,8 @@
                         </div>
                     </div>
                     <div *ngIf="progressCardData['crc_visit']">
-                        <p *ngIf="showLink" class="link access-report-link" id="crcLink"><a href="javascript: void(0)"
-                                (click)="goToReport('/crc/crc-report')">Click to Access
-                                Report</a>
+                        <p *ngIf="showLink" class="link access-report-link mb-3" id="crcLink">
+                            <a routerLink="/education-official/dashboard">Click to Access Report</a>
                         </p>
                     </div>
                 </div>
