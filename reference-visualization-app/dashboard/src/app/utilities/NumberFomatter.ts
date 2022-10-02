@@ -53,7 +53,7 @@ function numberLabelFormat(number: number, config: any, axisRef?: any): string {
         }
     }
 
-    return `${axisRef.axis.defaultLabelFormatter.call(axisRef)}`;
+    return number;
 }
 
 export function formatNumberForReport(number: number): string {

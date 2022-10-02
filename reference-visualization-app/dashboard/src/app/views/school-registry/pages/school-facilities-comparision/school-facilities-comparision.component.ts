@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChartJSConfig, getChartJSConfig } from 'src/app/core/config/ChartjsConfig';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { environment } from 'src/environments/environment';
@@ -50,18 +51,18 @@ export class SchoolFacilitiesComparisionComponent implements OnInit {
         values: res.result.data
       };
 
-      this.config = {
+      this.config = getChartJSConfig({
         labelExpr: 'pm_poshan_access',
         datasets: [{
           label: 'PM Poshan Access',
           data: res.result.data,
-          color: 'rgba(223, 83, 83, .5)',
+          backgroundColor: ChartJSConfig.colors[0],
           pointBorderWidth: 0.5,
           pointRadius: this.height > 1760 ? 16 : this.height > 1160 && this.height < 1760 ? 10 : this.height > 667 && this.height < 1160 ? 8 : 5,
           pointHoverRadius: this.height > 1760 ? 18 : this.height > 1160 && this.height < 1760 ? 12 : this.height > 667 && this.height < 1160 ? 9 : 6,
         }],
         options: {
-          height: (res.result.data.length * 5 + 150).toString(),
+          height: '300',
           legend: {
             display: false
           },
@@ -97,6 +98,8 @@ export class SchoolFacilitiesComparisionComponent implements OnInit {
             },
             callbacks: {
               label: function (tooltipItem, data) {
+                console.log(tooltipItem, data);
+                
                 let tooltipData = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].data;
                 var multistringText = [];
                 if (tooltipData) {
@@ -111,7 +114,7 @@ export class SchoolFacilitiesComparisionComponent implements OnInit {
             }
           }
         }
-      };
+      });
     });
   }
 

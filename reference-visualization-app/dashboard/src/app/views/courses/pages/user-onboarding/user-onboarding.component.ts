@@ -564,4 +564,3 @@ export class UserOnboardingComponent implements OnInit {
     };
   }
 }
-

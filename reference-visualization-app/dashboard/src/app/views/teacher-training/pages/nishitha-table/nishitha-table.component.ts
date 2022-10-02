@@ -1,8 +1,10 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { getBarDatasetConfig, getChartJSConfig } from 'src/app/core/config/ChartjsConfig';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 
 import { IStateWiseEnrollmentRec } from 'src/app/core/models/IStateWiseEnrollmentRec';
 import { CommonService } from 'src/app/core/services/common/common.service';
+import { formatNumberForReport } from 'src/app/utilities/NumberFomatter';
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-nishitha-table',
@@ -53,37 +55,59 @@ export class NishithaTableComponent implements OnInit {
       this.filters = res.result.filters;
 
       if (this.lastLevel === 'district') {
-        this.config = {
+        this.config = getChartJSConfig({
           labelExpr: 'Location',
-          datasets: [
+          datasets: getBarDatasetConfig([
             { dataExpr: 'Total Enrollments', label: 'Total Enrolments' },
             { dataExpr: 'Total Certifications', label: 'Total Certifications' }
-          ],
+          ]),
           options: {
             height: (result.length * 15 + 150).toString(),
-            title: {
-              text: 'Total Enrolments and Total Certifications'
+            tooltips: {
+              callbacks: {
+                label: (tooltipItem, data) => {
+                  let multistringText = [];                
+    
+                  if (tooltipItem.datasetIndex === 0) {
+                    multistringText.push(`Total Enrolments: ${formatNumberForReport(result[tooltipItem.index]['Total Enrollments'])}`);
+                    multistringText.push(`Total Certifications: ${formatNumberForReport(result[tooltipItem.index]['Total Certifications'])}`);
+                  }
+  
+                  return multistringText;
+                }
+              }
             }
           }
-        }
+        });
 
         this.data = {
           values: result
         };
       } else {
-        this.config = {
+        this.config = getChartJSConfig({
           labelExpr: 'Course Name',
-          datasets: [
+          datasets: getBarDatasetConfig([
             { dataExpr: 'Enrollments', label: 'Total Enrolments' },
             { dataExpr: 'Certifications', label: 'Total Certifications' }
-          ],
+          ]),
           options: {
             height: (result.length * 15 + 150).toString(),
-            title: {
-              text: 'Total Enrolments and Total Certifications'
+            tooltips: {
+              callbacks: {
+                label: (tooltipItem, data) => {
+                  let multistringText = [];                
+    
+                  if (tooltipItem.datasetIndex === 0) {
+                    multistringText.push(`Total Enrolments: ${formatNumberForReport(result[tooltipItem.index]['Enrollments'])}`);
+                    multistringText.push(`Total Certifications: ${formatNumberForReport(result[tooltipItem.index]['Certifications'])}`);
+                  }
+  
+                  return multistringText;
+                }
+              }
             }
           }
-        }
+        });
 
         this.data = {
           values: result

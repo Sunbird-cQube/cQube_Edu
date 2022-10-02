@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { getBarDatasetConfig, getChartJSConfig } from 'src/app/core/config/ChartjsConfig';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { LeafletMapComponent } from 'src/app/shared/components/maps/leaflet-map/leaflet-map.component';
@@ -17,15 +18,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
   QRGaugeData: any | undefined;
   tableData: any;
 
-  config = {
-    labelExpr: 'Location',
-    datasets: [
-      { dataExpr: 'QR Coverage', label: 'Content Coverage on QR' }
-    ],
-    options: {
-      height: '700'
-    }
-  };
+  config;
   data;
 
   @ViewChild(LeafletMapComponent) leafletComponent!: LeafletMapComponent;
@@ -75,7 +68,28 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
     this._commonService.getReportData(data).subscribe(res => {
       let result = res.result.data;
       this.filters = res.result.filters;
-      this.config.options.height = (result.length * 15 + 150).toString();
+      this.config = getChartJSConfig({
+        labelExpr: 'Location',
+        datasets: getBarDatasetConfig([
+          { dataExpr: 'QR Coverage', label: 'Content Coverage on QR' }
+        ]),
+        options: {
+          responsive: true,
+          height: (result.length * 15 + 150).toString(),
+          tooltips: {
+            callbacks: {
+              label: (tooltipItem, data) => {
+                let multistringText = [];                
+  
+                multistringText.push(`Content Coverage on QR: ${result[tooltipItem.index]['QR Coverage']}%`);
+
+                return multistringText;
+              }
+            }
+          }
+        }
+      });
+
       this.data = { values: result };
 
       let gaugeChart = res.result.gaugeChart;
