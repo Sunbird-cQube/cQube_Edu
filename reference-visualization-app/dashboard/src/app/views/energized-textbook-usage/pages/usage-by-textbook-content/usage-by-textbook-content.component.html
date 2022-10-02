@@ -21,17 +21,17 @@
             </div>
           </div>
           <div class="col-xl-6 col-md-12 col-sm-12">
-            <div class="row">
-              <div class="col-sm-3 col-lg-2" *ngIf="reportData.length == 0">
+            <div class="grid grid-cols-12">
+              <div class="col-span-2">
                 <p id="errMsg" class="note"></p>
               </div>
   
-              <span id="rawDownload" class="note" class="col-sm-3 col-lg-4"
+              <span id="rawDownload" class="note" class="col-span-4 note"
                 style="cursor: pointer; float: right; margin: 8px 20px 0px 0px; text-decoration: underline;"
                 *ngIf="reportData.length > 0" (click)="downloadRawFile()"><strong>Download Raw
                   File</strong></span>
   
-              <div class="col-sm-6 mb-4 col-lg-6">
+              <div class="col-span-6">
                 <button *ngIf="reportData.length > 0" class="btn btn-primary" title="Download Report" id="download1"
                   (click)="downloadReport()" style="float: right">
                   Download Report &nbsp;
@@ -55,7 +55,7 @@
         <div class="grid grid-cols-12 gap-2">
             <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-11" style="margin-bottom: 10px">
 
-                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="time_range"
+                <ng-select appendTo=".app-content" class="col-span-6 xmd:col-span-3 lg:col-span-2" id="time_range"
                     [(ngModel)]="timePeriod" name="timePeriod" (change)="timeRange(timePeriod)"
                     dropdownPosition="bottom" [clearable]="false" placeholder="Choose Time Range">
                     <ng-option *ngFor="let time of timeDetails" [value]="time.timeRange" style="font-size: 11px">
@@ -63,7 +63,7 @@
                     </ng-option>
                 </ng-select>
 
-                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_dist"
+                <ng-select appendTo=".app-content" class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_dist"
                     [(ngModel)]="districtId" [hidden]="!hideAccessBtn" (change)="districtWise(districtId)"
                     dropdownPosition="bottom" [clearable]="false" placeholder="Choose a District">
                     <ng-option *ngFor="let dist of districtsDetails" [value]="dist.district_id"

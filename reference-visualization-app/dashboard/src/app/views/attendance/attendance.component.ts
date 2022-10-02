@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-attendance',
@@ -8,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class AttendanceComponent implements OnInit {
   loadTabs = false;
 
-  tabIndex = 0;
+  tabIndex;
   
-  constructor() { }
+constructor(private route: ActivatedRoute) { 
+    this.route.queryParams.subscribe((param: any) => {
+      this.tabIndex = param.tab ? Number(param.tab) : 0;
+    })
+  }
 
   ngOnInit(): void {
   }

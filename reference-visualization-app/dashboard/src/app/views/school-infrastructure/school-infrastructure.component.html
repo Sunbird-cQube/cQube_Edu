@@ -10,7 +10,7 @@
 </div>
 
 <div class="tab-group-wrapper" *ngIf="loadTabs">
-    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
+    <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
         <mat-tab label="Infrastructure Access by Location">
             <app-infra-map *ngIf="tabIndex === 0"></app-infra-map>
         </mat-tab>

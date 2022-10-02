@@ -1171,7 +1171,6 @@ export class EduOfficialReportComponent implements OnInit {
     localStorage.setItem("clusterid", data);
 
     this.clusterHidden = false;
-    this.blockHidden = this.hideIfAccessLevel ? false : true;
 
 
     if (this.myData) {
