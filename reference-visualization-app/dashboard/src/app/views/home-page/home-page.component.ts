@@ -29,9 +29,9 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this.adminUrl = environment.adminUrl;
     this.storage = window.localStorage;
-    this.hideAdmin = environment.auth_api === 'cqube' ? true : false;
-    if (localStorage.getItem('roleName') != 'admin') {
-      this.router.navigate(['/home']);
+    this.hideAdmin = localStorage.getItem('roleName') === 'admin' ? true : false;
+    if (localStorage.getItem('roleName') !== 'admin') {
+      this.router.navigate(['/']);
     }
 
   }
@@ -52,11 +52,11 @@ export class HomePageComponent implements OnInit {
       'token': localStorage.getItem('token')
     }
 
-    
+
 
     this.logInservice.postUserDetails(obj).subscribe(res => {
       try {
-         window.location.href = `${environment.adminUrl}/#/admin-dashboard?userid=${obj.userid}`; 
+        window.location.href = `${environment.adminUrl}/#/admin-dashboard?userid=${obj.userid}`;
       } catch (error) {
         console.log(error)
       }
