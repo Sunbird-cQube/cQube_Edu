@@ -201,8 +201,8 @@ export class LoReportComponent implements OnInit {
 
     this.service1.configurableMetaData({ dataSource: this.datasourse }).subscribe(res => {
 
-      this.metaData = res
-    console.log('meta', this.metaData)
+      this.metaData = res['data']
+   
       if (this.period === "year and month") {
 
         for (let i = 0; i < this.metaData.length; i++) {
