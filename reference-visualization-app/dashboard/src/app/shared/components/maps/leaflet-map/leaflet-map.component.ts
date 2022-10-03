@@ -191,8 +191,27 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           });
 
           let range = max - min;
-          if (range) {
-            let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
+          let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
+          if (range <= 4) {
+            for (let i = 1; i <= 5; i++) {
+              if(i === 5){
+                if (min === 0) {
+                  values.push(0.1);
+                }
+                else{
+                  values.push(Number(min))
+                }
+              }
+              else if(i === 1) {
+                values.push(Number(max))
+              }
+              else {
+                let value = Number((max - partSize * (i - 1)))
+                values.push(value >= 1 ? value : 1)
+              }
+            }
+          }
+          else if (range > 4) {
             for (let i = 1; i <= 5; i++) {
               if (i === 5) {
                 if (min === 0) {
@@ -314,8 +333,27 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         });
 
         let range = max - min;
-        if (range) {
-          let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
+        let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
+        if (range <= 4) {
+          for (let i = 1; i <= 5; i++) {
+            if(i === 5){
+              if (min === 0) {
+                values.push(0.1);
+              }
+              else{
+                values.push(Number(min))
+              }
+            }
+            else if(i === 1) {
+              values.push(Number(max))
+            }
+            else {
+              let value = Number((max - partSize * (i - 1)))
+              values.push(value >= 1 ? value : 1)
+            }
+          }
+        }
+        else if (range > 4) {
           for (let i = 1; i <= 5; i++) {
             if (i === 5) {
               if (min === 0) {
