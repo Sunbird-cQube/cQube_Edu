@@ -8,6 +8,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { DikshaReportService } from 'src/app/core/services/diksha-report.service';
 import { AppServiceComponent } from 'src/app/app.service';
+import { getBarDatasetConfig, getChartJSConfig } from 'src/app/core/config/ChartjsConfig';
+import { formatNumberForReport } from 'src/app/utilities/NumberFomatter';
 
 @Component({
   selector: 'app-courses-bar-chart',
@@ -248,15 +250,26 @@ export class CoursesBarChartComponent implements OnInit {
 
   constructDashletReport(reportData: any): void {
     if (reportData.data && reportData.data.length > 0 && reportData.labels && reportData.labels.length > 0) {
-      this.config = {
+      this.config = getChartJSConfig({
         labels: reportData.labels,
-        datasets: [
+        datasets: getBarDatasetConfig([
           { dataExpr: 'total_content_plays', label: 'Total Content Plays' }
-        ],
+        ]),
         options: {
-          height: (reportData.data.length * 15 + 150).toString()
+          height: (reportData.data.length * 15 + 150).toString(),
+          tooltips: {
+            callbacks: {
+              label: (tooltipItem, data) => {
+                let multistringText = [];                
+  
+                multistringText.push(`Total Content Plays: ${formatNumberForReport(reportData.data[tooltipItem.index]['total_content_plays'])}`);
+  
+                return multistringText;
+              }
+            }
+          }
         }
-      };
+      });
 
       this.data = {
         values: reportData.data

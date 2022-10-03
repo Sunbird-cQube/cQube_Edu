@@ -2,7 +2,7 @@
     <div class="row reportHeader">
       <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="row" (window:resize)="onResize()">
-          <div class="col-lg-9 col-md-9 col-sm-12">
+          <div class="col-lg-7 col-md-7 col-sm-12">
   
             <div *ngIf="skul">
               <p id="block">
@@ -23,7 +23,7 @@
             </div>
   
           </div>
-          <div class="col-lg-3 col-md-3 col-sm-12">
+          <div class="col-lg-5 col-md-5 col-sm-12">
             <div class="row">
               <div class="col-sm-5">
                 <p id="errMsg" class="note"></p>
@@ -49,36 +49,31 @@
         </div>
         <div class="row d-flex" style="margin-bottom: 10px">
           <div class="col-sm-12">
-  
-            <select id="choose_program" [(ngModel)]="selectedProgram" (change)="onProgramSelected(selectedProgram)">
-              <option [value]="selectedProgram" disabled selected="selected">
-                Choose a Program
-              </option>
-              <option *ngFor="let program of uniquePrograms" [ngValue]="program.program_id">
-                {{ program.program_name }}
-              </option>
-            </select>
-  
-  
-            <select id="choose_course" [(ngModel)]="selectedCourse" (change)="onCourseSelected(selectedCourse)">
-              <option [value]="selectedCourse" disabled selected="selected">
-                Choose a Course
-              </option>
-              <option *ngFor="let course of uniqueAllCourse" [ngValue]="course.collection_id">
-                {{ course.collection_name }}
-              </option>
-            </select>
-  
-            <select [hidden]="districtHidden" id="choose_district" [(ngModel)]="selectedDist"
-              (change)="onDistSelected(selectedDist)">
-              <option [value]="selectedDist" disabled selected="selected">
-                Choose a District
-              </option>
-              <option *ngFor="let dist of distToDropDown" [ngValue]="dist.district_id">
-                {{ dist.district_name }}
-              </option>
-            </select>
-  
+            <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-11" style="margin-bottom: 10px">
+              <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_program"
+                  [(ngModel)]="selectedProgram" (change)="onProgramSelected(selectedProgram)"
+                  dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Program">
+                  <ng-option *ngFor="let program of uniquePrograms" [value]="program.program_id">
+                    {{ program.program_name }}
+                  </ng-option>
+              </ng-select>
+              
+              <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_course"
+                  [(ngModel)]="selectedCourse" (change)="onCourseSelected(selectedCourse)"
+                  dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Course">
+                  <ng-option *ngFor="let course of uniqueAllCourse" [value]="course.collection_id">
+                    {{ course.collection_name }}
+                  </ng-option>
+              </ng-select>
+              
+              <ng-select [hidden]="districtHidden" class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_district"
+                  [(ngModel)]="selectedDist" (change)="onDistSelected(selectedDist)"
+                  dropdownPosition="bottom" [clearable]="false" placeholder="Choose a District">
+                  <ng-option *ngFor="let dist of distToDropDown" [value]="dist.district_id">
+                    {{ dist.district_name }}
+                  </ng-option>
+              </ng-select>
+            </div>
           </div>
         </div>
       </div>

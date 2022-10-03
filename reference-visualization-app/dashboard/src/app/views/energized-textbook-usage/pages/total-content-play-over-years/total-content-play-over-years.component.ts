@@ -8,6 +8,8 @@ import { AppServiceComponent } from "src/app/app.service";
 import { environment } from "src/environments/environment";
 import { TotalContentPlayLineCahrtService } from "src/app/core/services/total-content-play-line-chart.service";
 import { ContentUsagePieService } from "src/app/core/services/content-usage-pie.service";
+import { getChartJSConfig } from "src/app/core/config/ChartjsConfig";
+import { formatNumberForReport } from "src/app/utilities/NumberFomatter";
 
 HC_exportData(Highcharts);
 // addMore(Highcharts)
@@ -398,15 +400,22 @@ export class TotalContentPlayOverYearsComponent implements OnInit {
     // };
     // this.Highcharts.chart("container", this.chartOptions);
 
-    this.config = {
+    this.config = getChartJSConfig({
       labelExpr: 'month',
       datasets: [
-        { dataExpr: 'plays', label: 'Total Content Play' }
+        { dataExpr: 'plays', label: 'Total Content Plays' }
       ],
       options: {
-        height: '200'
+        height: '200',
+        tooltips: {
+          callbacks: {
+            label: (tooltipItem) => {
+              return `Total Content Plays: ${formatNumberForReport(data[tooltipItem.index]['plays'])}`;
+            }
+          }
+        }
       }
-    };
+    });
 
     this.dashletData = {
       values: data

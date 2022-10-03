@@ -53,7 +53,7 @@
 
                                 <span class="kc-feedback-text ml-2"></span>
                                 </div>
-                                <form class="form" [formGroup]="LoginForm">
+                                <form class="form" [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
                                     <label>User ID</label><br />
                                     <input id="username1"class="login-field" formControlName="userId"
                                         placeholder="Enter your user ID" type="text"
@@ -66,7 +66,7 @@
                                     <br /><br />
                                 </form>
                                 <br />
-                                <button class="submit"  type="submit" id="login" name="login" (click)="onSubmit()"
+                                <button class="submit"  type="submit" id="login" name="login"
                                         value="Login" tabindex="3"
                                         >Login</button>
                             </div>

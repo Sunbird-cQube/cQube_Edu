@@ -3,6 +3,8 @@ import { AppServiceComponent } from "src/app/app.service";
 import { environment } from "src/environments/environment";
 import { EnrollmentProgressLineChartService } from "src/app/core/services/enrollment-progress-line-chart.service";
 import { ContentUsagePieService } from "src/app/core/services/content-usage-pie.service";
+import { getChartJSConfig } from "src/app/core/config/ChartjsConfig";
+import { formatNumberForReport } from "src/app/utilities/NumberFomatter";
 
 @Component({
   selector: 'app-user-onboarding',
@@ -512,7 +514,7 @@ export class UserOnboardingComponent implements OnInit {
   }
 
   getLineChart(data) {
-    this.config = {
+    this.config = getChartJSConfig({
       labelExpr: 'date',
       datasets: [
         { dataExpr: 'expected_enrollment', label: 'Expected Enrolled' },
@@ -536,28 +538,19 @@ export class UserOnboardingComponent implements OnInit {
           }]
         },
         tooltips: {
-          mode: 'index',
-          displayColors: false,
-          custom: function (tooltip) {
-            if (!tooltip) return;
-            // disable displaying the color box;
-            tooltip.displayColors = false;
-          },
           callbacks: {
+            title: function (tooltipItems, data) {
+              return `Date: ${new Date(tooltipItems[0].label).toLocaleDateString('en-US', {day: '2-digit', month:'short', year:'numeric'})}`;
+            },
             label: function (tooltipItem, data) {
               let multistringText = [];
-
-              if (tooltipItem.datasetIndex === 0) {
-                multistringText.push(`Date: ${new Date(tooltipItem.label).toLocaleDateString('en-US', {day: '2-digit', month:'short', year:'numeric'})}`);
-              }
-
-              multistringText.push(`${data.datasets[tooltipItem.datasetIndex].label}: ${tooltipItem.yLabel.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,")}`);
+              multistringText.push(`${data.datasets[tooltipItem.datasetIndex].label}: ${formatNumberForReport(tooltipItem.yLabel)}`);
               return multistringText;
             }
           }
         }
       }
-    };
+    });
 
     this.dashletData = {
       values: data

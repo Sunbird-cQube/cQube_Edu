@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { DikshaReportService } from 'src/app/core/services/diksha-report.service';
 import { AppServiceComponent } from 'src/app/app.service';
+import { getBarDatasetConfig, getChartJSConfig } from 'src/app/core/config/ChartjsConfig';
+import { formatNumberForReport } from 'src/app/utilities/NumberFomatter';
 
 @Component({
   selector: 'app-usage-by-text-book',
@@ -95,15 +97,26 @@ export class UsageByTextBookComponent implements OnInit {
       this.chartData.push(Number(element[`total_content_plays`]));
     });
 
-    this.config = {
+    this.config = getChartJSConfig({
       labels: this.result.labels,
-      datasets: [
+      datasets: getBarDatasetConfig([
         { dataExpr: 'total_content_plays', label: 'Total Content Plays' }
-      ],
+      ]),
       options: {
-        height: (this.result.labels.length * 15 + 150).toString()
+        height: (this.result.labels.length * 15 + 150).toString(),
+        tooltips: {
+          callbacks: {
+            label: (tooltipItem, data) => {
+              let multistringText = [];                
+
+              multistringText.push(`Total Content Plays: ${formatNumberForReport(this.result.data[tooltipItem.index]['total_content_plays'])}`);
+
+              return multistringText;
+            }
+          }
+        }
       }
-    };
+    });
 
     this.data = {
       values: this.result.data

@@ -2,7 +2,7 @@
   <div class="row reportHeader">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="row" (window:resize)="onResize()">
-        <div class="col-lg-9 col-md-9 col-sm-12">
+        <div class="col-lg-7 col-md-7 col-sm-12">
 
           <div *ngIf='skul'>
             <p id="block">
@@ -22,7 +22,7 @@
           </div>
 
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="col-lg-5 col-md-5 col-sm-12">
           <div class="row">
             <div class="col-sm-5">
               <p id="errMsg" class="note"></p>
@@ -48,16 +48,13 @@
       </div>
       <div class="row" style="margin-bottom: 10px">
         <div class="col-sm-12 d-flex">
-
-          <select id="choose_district" [hidden]="!hideAccessBtn" [(ngModel)]="selectedDrop"
-            (change)="onStateDropSelected(selectedDrop)">
-            <option disabled selected="selected">
-              Choose a District
-            </option>
-            <option *ngFor="let dist of stateDropDown" [ngValue]="dist.key">
+          <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_district" [hidden]="!hideAccessBtn"
+          [(ngModel)]="selectedDrop" (change)="onStateDropSelected(selectedDrop)" dropdownPosition="bottom"
+          [clearable]="false" placeholder="Choose a District">
+            <ng-option *ngFor="let dist of stateDropDown" [value]="dist.key">
               {{ dist.name }}
-            </option>
-          </select>
+            </ng-option>
+          </ng-select>
 
           <div *ngIf="districtSelectBox">
             <app-multi-select #multiSelect1 id="pieMultiSelector" style="float: left;width: auto; margin-right: 10px;"

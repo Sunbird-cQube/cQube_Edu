@@ -61,6 +61,9 @@ export class GradeWiseBarAndPieComponent implements OnInit {
         }
       });
 
+      console.log(this.config);
+      
+
       this.data = {
         values: result
       };

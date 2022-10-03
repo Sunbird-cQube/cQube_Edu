@@ -2,7 +2,7 @@
     <div class="col-span-3">
         <ng-select [items]="list" [multiple]="true" bindLabel="name" groupBy="gender" [selectableGroup]="true"
             [closeOnSelect]="false" bindValue="id" [(ngModel)]="checkedList" dropdownPosition="bottom"
-            [placeholder]="'Choose a ' + text" (clear)="clearSelections()">
+            [placeholder]="'Choose a ' + text" (change)="onItemsSelected($event)" (clear)="clearSelections()">
             <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
                 <!-- <input id="item-{{index}}" type="checkbox" [ngModel]="item$.status" /> {{item.name}} -->
                 {{item.name}}
