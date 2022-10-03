@@ -189,11 +189,11 @@ const dataSourceInfo = {
             filters: [
                 {
                     name: 'Medium',
-                    column: 'medium_new'
+                    column: 'Medium'
                 },
                 {
                     name: 'Grade',
-                    column: 'grade_new'
+                    column: 'Grade'
                 },
                 {
                     name: 'Subject',
@@ -264,7 +264,7 @@ const dataSourceInfo = {
             ],
             options: {
                 legend: {
-                    title: 'Textbooks Energized'
+                    title: 'Module Completed'
                 },
                 tooltip: {
                     reportTypeIndicator: 'percent'
