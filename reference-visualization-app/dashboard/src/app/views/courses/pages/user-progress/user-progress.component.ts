@@ -144,6 +144,8 @@ export class UserProgressComponent implements OnInit {
 
 
   emptyChart() {
+    this.config = null;
+    this.data = [];
     this.result = [];
     this.chartData = [];
     this.category = [];
@@ -226,14 +228,16 @@ export class UserProgressComponent implements OnInit {
           this.result = result["chartData"];
           this.districts = result["chartData"]["dropDown"];
           this.reportData = result["downloadData"];
+          this.data = { values: this.reportData };
           this.getBarChartData();
 
-          this.commonService.loaderAndErr(this.result);
+          this.commonService.loaderAndErr(this.data.values);
         },
         (err) => {
+          this.data = [];
           this.result = [];
           this.emptyChart();
-          this.commonService.loaderAndErr(this.result);
+          this.commonService.loaderAndErr(this.data.values);
         }
       );
   }
@@ -254,16 +258,17 @@ export class UserProgressComponent implements OnInit {
       this.service.tpdProgramData().subscribe((res) => {
         console.log(res);
         this.programData = res["data"]["data"];
+        
         console.log(this.programData);
-        this.data = { values: this.programData };
+        // this.data = { values: this.programData };
         this.programMetaData = res["dropDown"]["data"];
         this.listProgramNames();
-        this.commonService.loaderAndErr(this.programData);
+        this.commonService.loaderAndErr(this.data.values);
       });
     } catch (error) {
       this.program = [];
       this.emptyChart();
-      this.commonService.loaderAndErr(this.result);
+      this.commonService.loaderAndErr(this.data.values);
     }
   }
 
@@ -397,6 +402,7 @@ export class UserProgressComponent implements OnInit {
 
         this.result = chartData;
         this.reportData = this.programBarData;
+        this.data = { values: this.reportData };
         setTimeout(() => {
           this.getBarChartData();
         }, 100);
@@ -705,6 +711,10 @@ export class UserProgressComponent implements OnInit {
           { dataExpr: 'total_enrolled', label: 'Enrolled' },
           { dataExpr: 'total_completed', label: 'Completed' }
         ]
+        this.config = {
+          labelExpr: 'district_name',
+          datasets: datasets
+        }
       } else if (
         this.level === "block" ||
         this.level === "cluster" ||
@@ -719,7 +729,28 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'total_enrolled', label: 'Enrolled' },
             { dataExpr: 'total_completed', label: 'Completed' }
           ]
+          if(this.level === "block") {
+            this.config = {
+              labelExpr: 'block_name',
+              datasets: datasets
+            }
+          }
+          else if(this.level === "cluster") {
+            this.config = {
+              labelExpr: 'cluster_name',
+              datasets: datasets
+            }
+          }
+          else if(this.level === "school") {
+            this.config = {
+              labelExpr: 'school_name',
+              datasets: datasets
+            }
+          }
         } else {
+          this.data.values.forEach((obj:any) => {
+            obj.expected_total_enrolled = 100
+          });
 
           enrollChartData.push(Number(element[`enrollment`]));
           compliChartData.push(Number(element[`completion`]));
@@ -730,9 +761,34 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'total_completed', label: 'Completed' },
             { dataExpr: 'certificate_count', label: 'Certificate' }
           ]
+          this.config = {
+            labelExpr: 'district_name',
+            datasets: datasets
+          }
+          if(this.level === "block") {
+            this.config = {
+              labelExpr: 'block_name',
+              datasets: datasets
+            }
+          }
+          else if(this.level === "cluster") {
+            this.config = {
+              labelExpr: 'cluster_name',
+              datasets: datasets
+            }
+          }
+          else if(this.level === "school") {
+            this.config = {
+              labelExpr: 'school_name',
+              datasets: datasets
+            }
+          }
         }
 
       } else if ((this.level === "district" || this.level === 'program') && this.courseSelected) {
+        this.data.values.forEach((obj:any) => {
+          obj.expected_total_enrolled = 100
+        });
         if (element[`expected_enrolled`] === 0 && this.certificateBarToggle === true) {
           enrollChartData.push(Number(element[`enrollment`]));
           compliChartData.push(Number(element[`completion`]));
@@ -743,6 +799,10 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'total_completed', label: 'Completed' },
             { dataExpr: 'certificate_count', label: 'Certificate' }
           ]
+          this.config = {
+            labelExpr: 'district_name',
+            datasets: datasets
+          }
 
         } else if (element[`expected_enrolled`] === 0 && this.certificateBarToggle !== true) {
           enrollChartData.push(Number(element[`enrollment`]));
@@ -752,6 +812,10 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'total_enrolled', label: 'Enrolled' },
             { dataExpr: 'total_completed', label: 'Completed' },
           ]
+          this.config = {
+            labelExpr: 'district_name',
+            datasets: datasets
+          }
         } else if (element[`expected_enrolled`] > 0 && this.certificateBarToggle === true) {
           expectedEnrolled.push(Number(element[`expected_enrolled`]));
           enrollChartData.push(Number(element[`enrolled_percentage`]));
@@ -764,6 +828,10 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'percentage_completion', label: '% Completed' },
             { dataExpr: 'certificate_percentage', label: '% Certificate' },
           ]
+          this.config = {
+            labelExpr: 'district_name',
+            datasets: datasets
+          }
 
         } else if (element[`expected_enrolled`] > 0 && this.certificateBarToggle !== true) {
           expectedEnrolled.push(Number(element[`expected_enrolled`]));
@@ -775,6 +843,10 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'total_enrolled_percentage', label: '% Enrolled' },
             { dataExpr: 'percentage_completion', label: '% Completed' },
           ]
+          this.config = {
+            labelExpr: 'district_name',
+            datasets: datasets
+          }
 
         }
       } else if (this.level === "program" && this.courseSelected === false) {
@@ -789,7 +861,14 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'total_completed', label: 'Completed' },
             { dataExpr: 'certificate_count', label: 'Certificate' },
           ]
+          this.config = {
+            labelExpr: 'district_name',
+            datasets: datasets
+          }
         } else {
+          this.data.values.forEach((obj:any) => {
+            obj.expected_total_enrolled = 100
+          });
           expectedEnrolled.push(Number(element[`expected_enrolled`]));
           enrollChartData.push(Number(element[`enrolled_percentage`]));
           compliChartData.push(Number(element[`percent_completion`]));
@@ -801,6 +880,10 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'percentage_completion', label: '% Completed' },
             { dataExpr: 'certificate_percentage', label: '% Certificate' },
           ]
+          this.config = {
+            labelExpr: 'district_name',
+            datasets: datasets
+          }
         }
 
       }
@@ -823,17 +906,7 @@ export class UserProgressComponent implements OnInit {
 
     console.log(datasets);
 
-
-    this.config = {
-      labelExpr: 'district_name',
-      datasets: datasets
-      // options: {
-      //   height: (this.programData.length * 15 + 150).toString(),
-      //   // title: {
-      //   //   text: 'Total Enrolments and Total Certifications'
-      //   // }
-      // }
-    }
+    
 
   }
 
@@ -901,8 +974,11 @@ export class UserProgressComponent implements OnInit {
 
         this.fileName = `${this.reportName}_${this.type}_${this.timePeriod}_${districtId}_${this.commonService.dateAndTime}`;
         this.blocks = this.reportData = res["downloadData"];
+        console.log(this.blocks)
+        this.config = 
+        this.data = { values: this.blocks };
         this.getBarChartData();
-        this.commonService.loaderAndErr(this.result);
+        this.commonService.loaderAndErr(this.data.values);
         if (bid) {
           this.onBlockSelect(bid, cid);
         }
@@ -910,7 +986,7 @@ export class UserProgressComponent implements OnInit {
       (err) => {
         this.result = [];
         this.emptyChart();
-        this.commonService.loaderAndErr(this.result);
+        this.commonService.loaderAndErr(this.data.values);
       }
     );
   }
@@ -987,8 +1063,9 @@ export class UserProgressComponent implements OnInit {
 
           this.fileName = `${this.reportName}_${this.type}_${this.timePeriod}_${blockId}_${this.commonService.dateAndTime}`;
           this.clusters = this.reportData = res["downloadData"];
+          this.data = { values: this.clusters };
           this.getBarChartData();
-          this.commonService.loaderAndErr(this.result);
+          this.commonService.loaderAndErr(this.data.values);
           if (cid) {
             this.onClusterSelect(cid);
           }
@@ -996,7 +1073,7 @@ export class UserProgressComponent implements OnInit {
         (err) => {
           this.result = [];
           this.emptyChart();
-          this.commonService.loaderAndErr(this.result);
+          this.commonService.loaderAndErr(this.data.values);
         }
       );
   }
@@ -1097,14 +1174,15 @@ export class UserProgressComponent implements OnInit {
           } else {
             this.reportData = res["downloadData"];
           }
+          this.data = { values: this.reportData };
 
           this.getBarChartData();
-          this.commonService.loaderAndErr(this.result);
+          this.commonService.loaderAndErr(this.data.values);
         },
         (err) => {
           this.result = [];
           this.emptyChart();
-          this.commonService.loaderAndErr(this.result);
+          this.commonService.loaderAndErr(this.data.values);
         }
       );
   }
@@ -1166,6 +1244,7 @@ export class UserProgressComponent implements OnInit {
         async (res) => {
           this.result = res["chartData"];
           this.reportData = res["downloadData"];
+          this.data = { values: this.reportData };
           if (this.reportData.length !== 0) {
             if (this.level == "block") {
               this.districtHierarchy = {
@@ -1199,10 +1278,10 @@ export class UserProgressComponent implements OnInit {
           }
 
 
-          this.commonService.loaderAndErr(this.result);
+          this.commonService.loaderAndErr(this.data.values);
         },
         (err) => {
-          this.commonService.loaderAndErr(this.result);
+          this.commonService.loaderAndErr(this.data.values);
         }
       );
     }

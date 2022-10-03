@@ -648,10 +648,6 @@ export class MapReportComponent implements OnInit {
           };
           this.dataOptions = options;
           this.globalService.restrictZoom(globalMap);
-          globalMap.setMaxBounds([
-            [options.centerLat - 4.5, options.centerLng - 6],
-            [options.centerLat + 3.5, options.centerLng + 6],
-          ]);
           this.changeDetection.detectChanges();
 
           this.data.sort((a, b) =>
@@ -676,6 +672,7 @@ export class MapReportComponent implements OnInit {
                 : 0
           );
           this.changeDetection.detectChanges();
+          this.globalService.getBoundsByMarkers();
         } else {
           this.commonService.loaderAndErr(this.data);
 
@@ -796,6 +793,7 @@ export class MapReportComponent implements OnInit {
                 this.blockMarkers,
                 this.infraData
               );
+              this.globalService.featureGrp.clearLayers();
               if (this.blockMarkers.length !== 0) {
                 for (let i = 0; i < this.blockMarkers.length; i++) {
                   var color;
@@ -833,10 +831,6 @@ export class MapReportComponent implements OnInit {
                   this.getDownloadableData(this.blockMarkers[i], options.level);
                 }
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [options.centerLat - 4.5, options.centerLng - 6],
-                  [options.centerLat + 3.5, options.centerLng + 6],
-                ]);
                 this.changeDetection.detectChanges();
                 this.globalService.onResize(this.level);
 
@@ -878,6 +872,7 @@ export class MapReportComponent implements OnInit {
                 this.blockMarkers,
                 this.infraData
               );
+              this.globalService.featureGrp.clearLayers();
               if (this.blockMarkers.length !== 0) {
                 for (let i = 0; i < this.blockMarkers.length; i++) {
                   var color;
@@ -915,10 +910,6 @@ export class MapReportComponent implements OnInit {
                   this.getDownloadableData(this.blockMarkers[i], options.level);
                 }
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [options.centerLat - 4.5, options.centerLng - 6],
-                  [options.centerLat + 3.5, options.centerLng + 6],
-                ]);
                 this.changeDetection.detectChanges();
                 this.globalService.onResize(this.level);
 
@@ -959,6 +950,7 @@ export class MapReportComponent implements OnInit {
                 this.blockMarkers,
                 this.infraData
               );
+              this.globalService.featureGrp.clearLayers();
               if (this.blockMarkers.length !== 0) {
                 for (let i = 0; i < this.blockMarkers.length; i++) {
                   var color;
@@ -995,10 +987,6 @@ export class MapReportComponent implements OnInit {
                   this.getDownloadableData(this.blockMarkers[i], options.level);
                 }
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [options.centerLat - 4.5, options.centerLng - 6],
-                  [options.centerLat + 3.5, options.centerLng + 6],
-                ]);
                 this.changeDetection.detectChanges();
                 this.globalService.onResize(this.level);
 
@@ -1023,6 +1011,7 @@ export class MapReportComponent implements OnInit {
               centerLng: this.lng,
               level: "Block",
             };
+            this.globalService.featureGrp.clearLayers();
             this.dataOptions = options;
             if (this.data.length > 0) {
               let result = this.data;
@@ -1054,10 +1043,6 @@ export class MapReportComponent implements OnInit {
                   this.getDownloadableData(this.blockMarkers[i], options.level);
                 }
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [options.centerLat - 4.5, options.centerLng - 6],
-                  [options.centerLat + 3.5, options.centerLng + 6],
-                ]);
                 this.changeDetection.detectChanges();
                 this.globalService.onResize(this.level);
 
@@ -1067,6 +1052,7 @@ export class MapReportComponent implements OnInit {
               }
             }
           }
+          this.globalService.featureGrp.clearLayers();
         },
         (err) => {
           this.data = [];
@@ -1149,6 +1135,7 @@ export class MapReportComponent implements OnInit {
             };
 
             this.dataOptions = options;
+            this.globalService.featureGrp.clearLayers();
             if (this.data.length > 0) {
               let result = this.data;
               this.clusterMarkers = [];
@@ -1183,10 +1170,6 @@ export class MapReportComponent implements OnInit {
 
 
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [options.centerLat - 1.5, options.centerLng - 1],
-                  [options.centerLat + 1.5, options.centerLng + 1],
-                ]);
                 this.changeDetection.detectChanges();
                 this.globalService.onResize(this.level);
                 this.commonService.loaderAndErr(this.data);
@@ -1219,6 +1202,7 @@ export class MapReportComponent implements OnInit {
                 this.clusterMarkers,
                 this.infraData
               );
+              this.globalService.featureGrp.clearLayers();
               this.schoolCount = 0;
               if (this.clusterMarkers.length !== 0) {
                 for (let i = 0; i < this.clusterMarkers.length; i++) {
@@ -1262,10 +1246,6 @@ export class MapReportComponent implements OnInit {
                   .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [options.centerLat - 4.5, options.centerLng - 6],
-                  [options.centerLat + 3.5, options.centerLng + 6],
-                ]);
                 this.changeDetection.detectChanges();
                 this.globalService.onResize(this.level);
                 this.commonService.loaderAndErr(this.data);
@@ -1298,6 +1278,7 @@ export class MapReportComponent implements OnInit {
                 this.clusterMarkers,
                 this.infraData
               );
+              this.globalService.featureGrp.clearLayers();
               this.schoolCount = 0;
               if (this.clusterMarkers.length !== 0) {
                 for (let i = 0; i < this.clusterMarkers.length; i++) {
@@ -1341,10 +1322,6 @@ export class MapReportComponent implements OnInit {
                   .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [options.centerLat - 4.5, options.centerLng - 6],
-                  [options.centerLat + 3.5, options.centerLng + 6],
-                ]);
                 this.changeDetection.detectChanges();
                 this.globalService.onResize(this.level);
                 this.commonService.loaderAndErr(this.data);
@@ -1360,6 +1337,7 @@ export class MapReportComponent implements OnInit {
               centerLng: this.lng,
               level: "Cluster",
             };
+            this.globalService.featureGrp.clearLayers();
             this.dataOptions = options;
             if (this.data.length > 0) {
               let result = this.data;
@@ -1394,16 +1372,13 @@ export class MapReportComponent implements OnInit {
 
 
                 this.globalService.restrictZoom(globalMap);
-                globalMap.setMaxBounds([
-                  [options.centerLat - 4.5, options.centerLng - 6],
-                  [options.centerLat + 3.5, options.centerLng + 6],
-                ]);
                 this.changeDetection.detectChanges();
                 this.globalService.onResize(this.level);
                 this.commonService.loaderAndErr(this.data);
               }
             }
           }
+          this.globalService.featureGrp.clearLayers();
 
         },
         (err) => {
@@ -1490,6 +1465,7 @@ export class MapReportComponent implements OnInit {
                 centerLng: this.lng,
                 level: "commonSchool",
               };
+              this.globalService.featureGrp.clearLayers();
               this.dataOptions = options;
               this.schoolMarkers = [];
               if (this.data.length > 0) {
@@ -1521,10 +1497,6 @@ export class MapReportComponent implements OnInit {
                   }
                   globalMap.doubleClickZoom.enable();
                   globalMap.scrollWheelZoom.enable();
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 4.5, options.centerLng - 6],
-                    [options.centerLat + 3.5, options.centerLng + 6],
-                  ]);
                   this.changeDetection.detectChanges();
                   this.globalService.onResize(this.level);
 
@@ -1570,6 +1542,7 @@ export class MapReportComponent implements OnInit {
                 centerLng: this.lng,
                 level: "commonSchool",
               };
+              this.globalService.featureGrp.clearLayers();
               this.dataOptions = options;
               this.schoolMarkers = [];
               if (this.data.length > 0) {
@@ -1601,10 +1574,6 @@ export class MapReportComponent implements OnInit {
                   }
                   globalMap.doubleClickZoom.enable();
                   globalMap.scrollWheelZoom.enable();
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 4.5, options.centerLng - 6],
-                    [options.centerLat + 3.5, options.centerLng + 6],
-                  ]);
                   this.changeDetection.detectChanges();
                   this.globalService.onResize(this.level);
 
@@ -1641,6 +1610,7 @@ export class MapReportComponent implements OnInit {
                   centerLng: this.lng,
                   level: "commonSchool",
                 };
+                this.globalService.featureGrp.clearLayers();
                 this.dataOptions = options;
                 this.schoolMarkers = [];
                 if (this.data.length > 0) {
@@ -1674,10 +1644,6 @@ export class MapReportComponent implements OnInit {
                     }
                     globalMap.doubleClickZoom.enable();
                     globalMap.scrollWheelZoom.enable();
-                    globalMap.setMaxBounds([
-                      [options.centerLat - 4.5, options.centerLng - 6],
-                      [options.centerLat + 3.5, options.centerLng + 6],
-                    ]);
                     this.changeDetection.detectChanges();
                     this.globalService.onResize(this.level);
 
@@ -1706,6 +1672,7 @@ export class MapReportComponent implements OnInit {
                 centerLng: this.lng,
                 level: "commonSchool",
               };
+              this.globalService.featureGrp.clearLayers();
               this.dataOptions = options;
               this.schoolMarkers = [];
               if (this.data.length > 0) {
@@ -1737,10 +1704,6 @@ export class MapReportComponent implements OnInit {
                   }
                   globalMap.doubleClickZoom.enable();
                   globalMap.scrollWheelZoom.enable();
-                  globalMap.setMaxBounds([
-                    [options.centerLat - 4.5, options.centerLng - 6],
-                    [options.centerLat + 3.5, options.centerLng + 6],
-                  ]);
                   this.changeDetection.detectChanges();
                   this.globalService.onResize(this.level);
 
@@ -1748,6 +1711,7 @@ export class MapReportComponent implements OnInit {
 
                   this.commonService.loaderAndErr(this.data);
                   this.changeDetection.markForCheck();
+                  this.globalService.featureGrp.clearLayers();
                 }
               } else {
                 this.schoolMarkers = [];
@@ -1759,6 +1723,7 @@ export class MapReportComponent implements OnInit {
             this.schoolMarkers = [];
             this.commonService.loaderAndErr(this.schoolMarkers);
           }
+          this.globalService.featureGrp.clearLayers();
         },
         (err) => {
           this.schoolMarkers = [];
@@ -1903,10 +1868,6 @@ export class MapReportComponent implements OnInit {
           this.globalService.longitude = this.lng = options.centerLng;
 
           this.globalService.restrictZoom(globalMap);
-          globalMap.setMaxBounds([
-            [options.centerLat - 1.5, options.centerLng - 3],
-            [options.centerLat + 1.5, options.centerLng + 2],
-          ]);
 
 
           this.genericFun(this.blockMarkers, options, this.fileName);
@@ -1933,7 +1894,7 @@ export class MapReportComponent implements OnInit {
           this.commonService.loaderAndErr(this.blockMarkers);
 
         }
-
+        this.globalService.featureGrp.clearLayers();
 
       },
       (err) => {
@@ -2077,10 +2038,6 @@ export class MapReportComponent implements OnInit {
             this.globalService.longitude = this.lng = options.centerLng;
 
             this.globalService.restrictZoom(globalMap);
-            globalMap.setMaxBounds([
-              [options.centerLat - 1.5, options.centerLng - 3],
-              [options.centerLat + 1.5, options.centerLng + 2],
-            ]);
 
             //schoolCount
             // this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
@@ -2100,6 +2057,7 @@ export class MapReportComponent implements OnInit {
             this.clusterMarkers = [];
             this.commonService.loaderAndErr(this.clusterMarkers);
           }
+          this.globalService.featureGrp.clearLayers();
 
         },
         (err) => {
@@ -2288,10 +2246,6 @@ export class MapReportComponent implements OnInit {
 
                 globalMap.doubleClickZoom.enable();
                 globalMap.scrollWheelZoom.enable();
-                globalMap.setMaxBounds([
-                  [options.centerLat - 1.5, options.centerLng - 3],
-                  [options.centerLat + 1.5, options.centerLng + 2],
-                ]);
 
 
 
@@ -2313,6 +2267,7 @@ export class MapReportComponent implements OnInit {
               this.commonService.loaderAndErr(this.data);
             }
           )
+          this.globalService.featureGrp.clearLayers();
       },
       (err) => {
 
@@ -2339,6 +2294,7 @@ export class MapReportComponent implements OnInit {
           report: "reports",
         }
       );
+      this.globalService.featureGrp.clearLayers();
 
       // attach values to markers
       for (var i = 0; i < this.markers.length; i++) {
@@ -2382,6 +2338,7 @@ export class MapReportComponent implements OnInit {
       }
       this.commonService.loaderAndErr(data);
       this.changeDetection.detectChanges();
+      this.globalService.featureGrp.clearLayers();
     } catch (e) {
       data = [];
       this.commonService.loaderAndErr(data);
