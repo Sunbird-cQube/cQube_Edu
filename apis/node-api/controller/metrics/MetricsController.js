@@ -26,8 +26,7 @@ exports.getDashboardMetrics = async (req, res, next) => {
 						icon: objs[0]['Image URL']
                     };
 
-                    data.metrics = objs.map(metric => {
-						//data.tooltip += data.tooltip.length > 0 ? `<br>${metric['Metric Information']}` : `${metric['Metric Information']}`;
+                    data.metrics = objs.filter(metric => metric["Metric Name"] !== null && metric["Metric Name"] !== 0).map(metric => {
                         return {
                             name: metric['Metric Name'],
                             value: metric['Metric Value'] && metric['Metric Value'] !== '' ? metric['Metric Value'] : 0,

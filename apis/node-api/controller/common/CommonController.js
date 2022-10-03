@@ -306,6 +306,8 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 						} else if (!data['indicator'] && dimension.name === 'indicator') {
 							data['indicator'] = value;
 							isIndicator = true;
+						} else if (dimension.name === 'indicator') {
+							data[dimension.property] = value;
 						} else {
 							data[dimension.name] = value;
 						}
@@ -407,6 +409,8 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 				} else if (!data['indicator'] && dimension.name === 'indicator') {
 					data['indicator'] = value;
 					isIndicator = true;
+				} else if (dimension.name === 'indicator') {
+					data[dimension.property] = value;
 				} else {
 					data[dimension.name] = value;
 				}
@@ -421,8 +425,6 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 						data.tooltip += dimension.tooltip.valueAsName ? `${value}: <b>${record[dimension.tooltip.property]}${record[dimension.tooltip.valueSuffix] ? record[dimension.tooltip.valueSuffix] : ''}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}${dimension.tooltip.valueSuffix ? dimension.tooltip.valueSuffix : ''}</b>`;
 					}
 				}
-
-				data[dimension.name] = value;
 			});
 
 			return data;
@@ -446,6 +448,17 @@ async function getLOTableReportData(reqBody, reportConfig, rawData) {
 	let groupByColumn = reportConfig.defaultLevel;
 	let isTransposeNeeded = columns.filter(col => col.transposeColumn).length > 0;
 	let level = reqBody.appName === appNames.national ? 'state' : 'district';
+
+	rawData = rawData.filter(rec => {
+		let isValidRec = false;
+		Object.keys(rec).forEach(key => {
+			if (rec[key] !== null) {
+				isValidRec = true;
+			}
+		});
+		
+		return isValidRec;
+	});
 
 	if (mainFilter) {
 		rawData = rawData.filter(record => record[mainFilter] && (record[mainFilter] == states[reqBody.stateCode].Code));

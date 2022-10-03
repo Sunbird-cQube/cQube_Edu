@@ -259,10 +259,14 @@ export class CoursesBarChartComponent implements OnInit {
           height: (reportData.data.length * 15 + 150).toString(),
           tooltips: {
             callbacks: {
+              title: function(tooltipItems, data) {
+                return `District Name: ${tooltipItems[0].label}`;
+              },
               label: (tooltipItem, data) => {
                 let multistringText = [];                
   
                 multistringText.push(`Total Content Plays: ${formatNumberForReport(reportData.data[tooltipItem.index]['total_content_plays'])}`);
+                multistringText.push(`Percentage: ${reportData.data[tooltipItem.index]['percentage']}`);
   
                 return multistringText;
               }
