@@ -60,7 +60,7 @@
   tags: [ install, update ]
 
 - name: Building Angular client-side code
-  command: ng build --prod
+  command: ng build --prod --outputPath=dist/admin --baseHref=/admin/
   args:
     chdir: "{{ base_dir }}/cqube/reference-visualization-app/admin-console"
   tags: [ install, update ]

@@ -115,17 +115,17 @@ showError = false
     if (this.result.length !== 0) {
       document.getElementById('spinner').style.display = 'none';
     } else {
-      // document.getElementById('spinner').style.display = 'none';
-      // document.getElementById('errMsg') ? document.getElementById('errMsg').style.color = 'red' : "";
-      // document.getElementById('errMsg') ? document.getElementById('errMsg').style.display = 'block' : "";
-      // document.getElementById('errMsg') ? document.getElementById('errMsg').innerHTML = 'No data found' : "";
+      document.getElementById('spinner').style.display = 'none';
+      document.getElementById('errMsg') ? document.getElementById('errMsg').style.color = 'red' : "";
+      document.getElementById('errMsg') ? document.getElementById('errMsg').style.display = 'block' : "";
+      document.getElementById('errMsg') ? document.getElementById('errMsg').innerHTML = 'No data found' : "";
     }
   }
 
   errMsg() {
-    // document.getElementById('errMsg') ? document.getElementById('errMsg').style.display = 'none' : "";
-    // document.getElementById('spinner').style.display = 'block';
-    // document.getElementById('spinner').style.marginTop = '3%';
+    document.getElementById('errMsg') ? document.getElementById('errMsg').style.display = 'none' : "";
+    document.getElementById('spinner').style.display = 'block';
+    document.getElementById('spinner').style.marginTop = '3%';
   }
 
   //default page
