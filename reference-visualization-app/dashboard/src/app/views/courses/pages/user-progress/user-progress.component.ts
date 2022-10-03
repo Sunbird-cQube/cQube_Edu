@@ -3,9 +3,9 @@ import { HttpClient } from "@angular/common/http";
 import { DikshaReportService } from "../../../../core/services/diksha-report.service";
 import { Router } from "@angular/router";
 import { AppServiceComponent } from "src/app/app.service";
-import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { MatSelect } from "@angular/material/select";
 import { environment } from "src/environments/environment";
+import { getBarDatasetConfig, getChartJSConfig } from 'src/app/core/config/ChartjsConfig';
 
 @Component({
   selector: 'app-user-progress',
@@ -256,14 +256,10 @@ export class UserProgressComponent implements OnInit {
 
     try {
       this.service.tpdProgramData().subscribe((res) => {
-        console.log(res);
         this.programData = res["data"]["data"];
-        
-        console.log(this.programData);
-        // this.data = { values: this.programData };
         this.programMetaData = res["dropDown"]["data"];
         this.listProgramNames();
-        this.commonService.loaderAndErr(this.data.values);
+        this.commonService.loaderAndErr(this.programData);
       });
     } catch (error) {
       this.program = [];
@@ -707,14 +703,14 @@ export class UserProgressComponent implements OnInit {
         enrollChartData.push(Number(element[`enrollment`]));
         compliChartData.push(Number(element[`completion`]));
 
-        datasets = [
+        datasets = getBarDatasetConfig([
           { dataExpr: 'total_enrolled', label: 'Enrolled' },
           { dataExpr: 'total_completed', label: 'Completed' }
-        ]
-        this.config = {
+        ])
+        this.config = getChartJSConfig({
           labelExpr: 'district_name',
           datasets: datasets
-        }
+        })
       } else if (
         this.level === "block" ||
         this.level === "cluster" ||
@@ -725,27 +721,27 @@ export class UserProgressComponent implements OnInit {
           enrollChartData.push(Number(element[`enrollment`]));
           compliChartData.push(Number(element[`completion`]));
 
-          datasets = [
+          datasets = getBarDatasetConfig([
             { dataExpr: 'total_enrolled', label: 'Enrolled' },
             { dataExpr: 'total_completed', label: 'Completed' }
-          ]
+          ])
           if(this.level === "block") {
-            this.config = {
+            this.config = getChartJSConfig({
               labelExpr: 'block_name',
               datasets: datasets
-            }
+            })
           }
           else if(this.level === "cluster") {
-            this.config = {
+            this.config = getChartJSConfig({
               labelExpr: 'cluster_name',
               datasets: datasets
-            }
+            })
           }
           else if(this.level === "school") {
-            this.config = {
+            this.config = getChartJSConfig({
               labelExpr: 'school_name',
               datasets: datasets
-            }
+            })
           }
         } else {
           this.data.values.forEach((obj:any) => {
@@ -756,32 +752,32 @@ export class UserProgressComponent implements OnInit {
           compliChartData.push(Number(element[`completion`]));
           pecentChartData.push(Number(element[`certificate_value`]));
 
-          datasets = [
+          datasets = getBarDatasetConfig([
             { dataExpr: 'total_enrolled', label: 'Enrolled' },
             { dataExpr: 'total_completed', label: 'Completed' },
             { dataExpr: 'certificate_count', label: 'Certificate' }
-          ]
-          this.config = {
+          ])
+          this.config = getChartJSConfig({
             labelExpr: 'district_name',
             datasets: datasets
-          }
+          })
           if(this.level === "block") {
-            this.config = {
+            this.config = getChartJSConfig({
               labelExpr: 'block_name',
               datasets: datasets
-            }
+            })
           }
           else if(this.level === "cluster") {
-            this.config = {
+            this.config = getChartJSConfig({
               labelExpr: 'cluster_name',
               datasets: datasets
-            }
+            })
           }
           else if(this.level === "school") {
-            this.config = {
+            this.config = getChartJSConfig({
               labelExpr: 'school_name',
               datasets: datasets
-            }
+            })
           }
         }
 
@@ -794,59 +790,59 @@ export class UserProgressComponent implements OnInit {
           compliChartData.push(Number(element[`completion`]));
           pecentChartData.push(Number(element[`certificate_value`]));
 
-          datasets = [
+          datasets = getBarDatasetConfig([
             { dataExpr: 'total_enrolled', label: 'Enrolled' },
             { dataExpr: 'total_completed', label: 'Completed' },
             { dataExpr: 'certificate_count', label: 'Certificate' }
-          ]
-          this.config = {
+          ]);
+          this.config = getChartJSConfig({
             labelExpr: 'district_name',
             datasets: datasets
-          }
+          });
 
         } else if (element[`expected_enrolled`] === 0 && this.certificateBarToggle !== true) {
           enrollChartData.push(Number(element[`enrollment`]));
           compliChartData.push(Number(element[`completion`]));
 
-          datasets = [
+          datasets = getBarDatasetConfig([
             { dataExpr: 'total_enrolled', label: 'Enrolled' },
             { dataExpr: 'total_completed', label: 'Completed' },
-          ]
-          this.config = {
+          ]);
+          this.config = getChartJSConfig({
             labelExpr: 'district_name',
             datasets: datasets
-          }
+          });
         } else if (element[`expected_enrolled`] > 0 && this.certificateBarToggle === true) {
           expectedEnrolled.push(Number(element[`expected_enrolled`]));
           enrollChartData.push(Number(element[`enrolled_percentage`]));
           compliChartData.push(Number(element[`percent_completion`]));
           pecentChartData.push(Number(element[`certificate_per`]));
 
-          datasets = [
+          datasets = getBarDatasetConfig([
             { dataExpr: 'expected_total_enrolled', label: 'Expected Enrolled' },
             { dataExpr: 'total_enrolled_percentage', label: '% Enrolled' },
             { dataExpr: 'percentage_completion', label: '% Completed' },
             { dataExpr: 'certificate_percentage', label: '% Certificate' },
-          ]
-          this.config = {
+          ])
+          this.config = getChartJSConfig({
             labelExpr: 'district_name',
             datasets: datasets
-          }
+          })
 
         } else if (element[`expected_enrolled`] > 0 && this.certificateBarToggle !== true) {
           expectedEnrolled.push(Number(element[`expected_enrolled`]));
           enrollChartData.push(Number(element[`enrolled_percentage`]));
           compliChartData.push(Number(element[`percent_completion`]));
 
-          datasets = [
+          datasets = getBarDatasetConfig([
             { dataExpr: 'expected_total_enrolled', label: 'Expected Enrolled' },
             { dataExpr: 'total_enrolled_percentage', label: '% Enrolled' },
             { dataExpr: 'percentage_completion', label: '% Completed' },
-          ]
-          this.config = {
+          ])
+          this.config = getChartJSConfig({
             labelExpr: 'district_name',
             datasets: datasets
-          }
+          })
 
         }
       } else if (this.level === "program" && this.courseSelected === false) {
@@ -856,15 +852,15 @@ export class UserProgressComponent implements OnInit {
           compliChartData.push(Number(element[`completion`]));
           pecentChartData.push(Number(element[`certificate_value`]));
 
-          datasets = [
+          datasets = getBarDatasetConfig([
             { dataExpr: 'total_enrolled', label: 'Enrolled' },
             { dataExpr: 'total_completed', label: 'Completed' },
             { dataExpr: 'certificate_count', label: 'Certificate' },
-          ]
-          this.config = {
+          ])
+          this.config = getChartJSConfig({
             labelExpr: 'district_name',
             datasets: datasets
-          }
+          })
         } else {
           this.data.values.forEach((obj:any) => {
             obj.expected_total_enrolled = 100
@@ -874,16 +870,16 @@ export class UserProgressComponent implements OnInit {
           compliChartData.push(Number(element[`percent_completion`]));
           pecentChartData.push(Number(element[`certificate_per`]));
 
-          datasets = [
+          datasets = getBarDatasetConfig([
             { dataExpr: 'expected_total_enrolled', label: 'Expected Enrolled' },
             { dataExpr: 'total_enrolled_percentage', label: '% Enrolled' },
             { dataExpr: 'percentage_completion', label: '% Completed' },
             { dataExpr: 'certificate_percentage', label: '% Certificate' },
-          ]
-          this.config = {
+          ])
+          this.config = getChartJSConfig({
             labelExpr: 'district_name',
             datasets: datasets
-          }
+          })
         }
 
       }
@@ -902,18 +898,12 @@ export class UserProgressComponent implements OnInit {
     this.footer = this.chartData
       .reduce((a, b) => Number(a) + Number(b), 0)
       .toString()
-      .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
-
-    console.log(datasets);
-
-    
-
+      .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,"); 
   }
 
   //Showing district data based on selected id:::::::::::::::::
   distLinkClick(districtId) {
     this.onDistSelect(districtId);
-
   }
 
   onDistSelect(districtId, bid?, cid?) {
@@ -974,8 +964,6 @@ export class UserProgressComponent implements OnInit {
 
         this.fileName = `${this.reportName}_${this.type}_${this.timePeriod}_${districtId}_${this.commonService.dateAndTime}`;
         this.blocks = this.reportData = res["downloadData"];
-        console.log(this.blocks)
-        this.config = 
         this.data = { values: this.blocks };
         this.getBarChartData();
         this.commonService.loaderAndErr(this.data.values);
