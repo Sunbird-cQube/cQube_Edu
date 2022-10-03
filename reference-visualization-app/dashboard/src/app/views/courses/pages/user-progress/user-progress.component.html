@@ -47,7 +47,7 @@
 
                 <div class="col-xl-3 col-md-12 col-sm-12">
                     <div class="row">
-                        <div class="col-sm-4" style="display: none;">
+                        <div class="col-sm-4">
                             <p id="errMsg" class="note">
                             </p>
                         </div>
@@ -71,14 +71,14 @@
             </div>
 
             <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-12" style="margin-bottom: 10px">
-                <ng-select id="time_range" class="col-span-6 xmd:col-span-3 lg:col-span-2" [(ngModel)]="timePeriod" name="timePeriod" placeholder="Choose Time Range"
+                <ng-select appendTo=".app-content" id="time_range" class="col-span-6 xmd:col-span-3 lg:col-span-2" [(ngModel)]="timePeriod" name="timePeriod" placeholder="Choose Time Range"
                     [clearable]="false" dropdownPosition="bottom" (change)="chooseTimeRange()">
                     <ng-option *ngFor="let time of timeDetails" [value]="time.id">
                         {{time.name}}
                     </ng-option>
                 </ng-select>
 
-                <ng-select id="choose_dist" class="col-span-6 xmd:col-span-3 lg:col-span-2" [(ngModel)]="selectedProgram" name="selectedProgram"
+                <ng-select appendTo=".app-content" id="choose_dist" class="col-span-6 xmd:col-span-3 lg:col-span-2" [(ngModel)]="selectedProgram" name="selectedProgram"
                     dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Program"
                     (change)="onProgramSelect(selectedProgram)">
 
@@ -88,14 +88,14 @@
                     </ng-option>
                 </ng-select>
 
-                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [items]="collectionNames" id="SearchDropDown" [hideSelected]="true"
+                <ng-select appendTo=".app-content" class="col-span-6 xmd:col-span-3 lg:col-span-2" [items]="collectionNames" id="SearchDropDown" [hideSelected]="true"
                     placeholder="Search Course" notFoundText="no courses found" bindLabel="collection_name"
                     [(ngModel)]="selectedCourse" bindValue="collection_id" clearAllText="Clear"
                     (change)="getDataBasedOnCollections($event)" (clear)="onClear()">
                 </ng-select>
 
 
-                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_dist" [hidden]="hideDist" [(ngModel)]="districtId" [disabled]="selDist"
+                <ng-select appendTo=".app-content" class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_dist" [hidden]="hideDist" [(ngModel)]="districtId" [disabled]="selDist"
                     dropdownPosition="bottom" [clearable]="false" placeholder="Choose a District"
                     (change)="distLinkClick(districtId)">
                     <!-- <ng-option [value]="districtId" disabled selected="selected">Choose a District</ng-option> -->
@@ -104,7 +104,7 @@
                     </ng-option>
                 </ng-select>
 
-                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="blockHidden" id="choose_block" [(ngModel)]="blockId" [disabled]="selBlock"
+                <ng-select appendTo=".app-content" class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="blockHidden" id="choose_block" [(ngModel)]="blockId" [disabled]="selBlock"
                     dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Block"
                     (change)="blockLinkClick(blockId)">
 
@@ -114,7 +114,7 @@
                     </ng-option>
                 </ng-select>
 
-                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="clusterHidden" id="choose_cluster" [(ngModel)]="clusterId"
+                <ng-select appendTo=".app-content" class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="clusterHidden" id="choose_cluster" [(ngModel)]="clusterId"
                     dropdownPosition="bottom" [clearable]="false" placeholder="choose_cluster" [disabled]="selCluster"
                     (change)="clusterLinkClick(clusterId)">
                     <!-- <ng-option [value]="clusterId" disabled selected="selected">Choose a Cluster</ng-option> -->
@@ -137,7 +137,7 @@
                 [xData]="completion" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [reportName]="report"
                 [level]="level" [type]="type" [courseSelected]="courseSelected" [programSelected]="programSeleted">
             </app-multi-bar-chart> -->
-            <ng-container *ngIf="data">
+            <ng-container *ngIf="data && data.values?.length > 0">
                 <sb-dashlet type="horizontalBar" [data]="data" [config]="config"></sb-dashlet>
             </ng-container>
             <div *ngIf="data.length === 0" style="position: absolute; left: 40%; top: 120px;color: red;">
