@@ -69,13 +69,13 @@
             </div>
             <div class="">
                 <div class="grid grid-cols-12 gap-4" style="margin-bottom: 10px;">
-                    <div class="lg:col-span-4">
+                    <div class="xmd:cols-span-8  lg:col-span-4 col-span-12">
                         <app-multi-select #multiSelect [list]="scousesTOShow" [text]="'Course'" [width1]="'100px auto'"
                             [width2]="'100px auto'" (shareCheckedList)="shareCheckedList($event)">
                         </app-multi-select>
                     </div>
 
-                    <ng-select id="timePeriod" class="select-control lg:col-span-2" [(ngModel)]="timePeriod"
+                    <ng-select id="timePeriod" class="select-control col-span-6 xmd:col-span-4 lg:col-span-2" [(ngModel)]="timePeriod"
                         (change)="selectedTimePeriod()" dropdownPosition="bottom" [clearable]="false"
                         placeholder=" Choose time period">
                         <!-- <ng-option [value]="timePeriod" disabled selected="selected">Choose time period</ng-option> -->
@@ -86,7 +86,7 @@
 
 
 
-                    <ng-select id="district" class="lg:col-span-2" [disabled]="selDist" [hidden]="disHidden"
+                    <ng-select id="district" class="col-span-6 xmd:col-span-4 lg:col-span-2" [disabled]="selDist" [hidden]="disHidden"
                         [(ngModel)]="district" (change)="selectedDistrict(district)" dropdownPosition="bottom"
                         [clearable]="false" placeholder=" Choose a District">
                         <ng-option [value]="district" disabled selected="selected">Choose a District</ng-option>
@@ -96,7 +96,7 @@
                     </ng-select>
 
 
-                    <ng-select [hidden]="blockHidden" class="lg:col-span-2" [disabled]="selBlock" [(ngModel)]="block"
+                    <ng-select [hidden]="blockHidden" class="col-span-6 xmd:col-span-4 lg:col-span-2" [disabled]="selBlock" [(ngModel)]="block"
                         (change)="selectedBlock(block)" dropdownPosition="bottom" [clearable]="false"
                         placeholder="Choose a Block">
 
@@ -104,7 +104,7 @@
                             {{block.block_name}}
                         </ng-option>
                     </ng-select>
-                    <ng-select [hidden]="clusterHidden" class="lg:col-span-2" [disabled]="selCluster"
+                    <ng-select [hidden]="clusterHidden" class="col-span-6 xmd:col-span-4 lg:col-span-2" [disabled]="selCluster"
                         [(ngModel)]="cluster" (change)="selectedCluster(cluster)" dropdownPosition="bottom"
                         [clearable]="false" placeholder=" Choose a Cluster">
 
