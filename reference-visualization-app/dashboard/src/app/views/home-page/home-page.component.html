@@ -14,7 +14,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div id="admin_console_outer">
                      
-                        <a type="button" id="admin_console" (click)="submit()" class="btn btn-deafult">
+                        <a *ngIf ="hideAdmin" type="button" id="admin_console" (click)="submit()" class="btn btn-deafult">
                             Admin Console
                         </a>
 

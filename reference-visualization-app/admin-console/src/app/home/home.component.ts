@@ -39,19 +39,10 @@ export class HomeComponent implements OnInit {
     }
   }
   logout() {
-    if (environment.auth_api === 'cqube') {
-      localStorage.clear();
-      let options = {
-        redirectUri: `${this.appUrl}`
-      }
-      this.keyCloakService.kc.clearToken();
-      this.keyCloakService.kc.logout(options);
-    } else {
-      localStorage.clear();
-      this.cookieService.deleteAll();
-      window.location.href = `${environment.appUrl}/#/signin`;
-    }
 
+    localStorage.clear();
+    this.cookieService.deleteAll();
+    window.location.href = `${environment.appUrl}/#/signin`;
   }
 
   back() {

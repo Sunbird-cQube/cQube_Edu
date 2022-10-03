@@ -551,13 +551,6 @@ case $key in
           check_ip $key $value
        fi
        ;;
-   vpn_local_ipv4_address)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-          check_vpn_ip $key $value
-       fi
-       ;;
    proxy_host)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -570,6 +563,13 @@ case $key in
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
           check_db_naming $key $value
+       fi
+       ;;
+   vpn_local_ipv4_address)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_vpn_ip $key $value
        fi
        ;;
    keycloak_adm_passwd)
