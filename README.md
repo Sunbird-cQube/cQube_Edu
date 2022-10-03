@@ -3,8 +3,8 @@ cQube for Education
 
 Provides pre-configured visualisations for various academic and non-academic programs in the context of School education such as digital learning, teacher training, nutrition, and other such programs. Today, it ingests pre-processed data for various programmes and helps easily visualise them through configurable dashboards.
 
-# cQube-v4.0-aplha Installation
-###  Prerequisites to install cQube-v4.0-aplha:
+# cQube-v4.0-alpha Installation
+###  Prerequisites to install cQube-v4.0-alpha:
 
 - ubuntu 18.04 (supported)
 - 32GB of System RAM (minimum requirement)
@@ -52,7 +52,7 @@ Note: For Installation: follow the below steps directly.
 - Navigate to the directory where cQube_Edu has been downloaded or cloned 
   ```
   cd cQube_Edu/devops/
-  git checkout cqube-v4.0-aplha
+  git checkout cqube-v4.0-alpha
   git pull
   ```
 - Copy the config.yml.template to config.yml 
