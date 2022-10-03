@@ -13,11 +13,8 @@ export class SideNavComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      console.log('side', this.menu)
-    }, 200);
-   
   }
+
   setMenuLinkActive(menuItemSelected: IMenuItem): void {
     this.menu?.forEach(menuItem => {
       if(menuItem.isSelected == true)  {
@@ -26,6 +23,7 @@ export class SideNavComponent implements OnInit {
     });
     menuItemSelected.isSelected = true;
   }
+  
   toggleSideBar(): void {
     if(document.body.classList.contains("sidebaractive")) {
       document.body.classList.remove("sidebaractive");
