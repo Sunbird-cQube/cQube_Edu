@@ -42,7 +42,7 @@
             <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-11" style="margin-bottom: 10px">
 
 
-                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="time_range" [(ngModel)]="timePeriod"
+                <ng-select appendTo=".app-content" class="col-span-6 xmd:col-span-3 lg:col-span-2" id="time_range" [(ngModel)]="timePeriod"
                     name="timePeriod" (change)="chooseTimeRange()" dropdownPosition="bottom" [clearable]="false"
                     placeholder="Choose TimeRange">
                     <ng-option *ngFor="let time of timeDetails" [value]="time.id">
@@ -50,7 +50,7 @@
                     </ng-option>
                 </ng-select>
 
-                <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="coll_name" [(ngModel)]="collectionName"
+                <ng-select appendTo=".app-content" class="col-span-6 xmd:col-span-3 lg:col-span-2" id="coll_name" [(ngModel)]="collectionName"
                     name="collectionName" (change)="getDataBasedOnCollections()" dropdownPosition="bottom"
                     [clearable]="false" placeholder="Choose course name">
                     <ng-option *ngFor="let collectionName of collectionNames; let i = index"
