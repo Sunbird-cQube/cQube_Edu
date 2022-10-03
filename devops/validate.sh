@@ -419,7 +419,7 @@ echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 
 # An array of mandatory values
 declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "state_name" "mode_of_installation" "storage_type" "db_user" "db_name" \
-	"db_password" "read_only_db_user" "read_only_db_password" "api_endpoint" "local_ipv4_address" "vpn_local_ipv4_address" "proxy_host" \
+	"db_password" "read_only_db_user" "read_only_db_password" "api_endpoint" "local_ipv4_address" "proxy_host" \
 		           "keycloak_adm_user" "keycloak_adm_passwd" "report_viewer_config_otp" "diksha_columns" "static_datasource" \ 
 			         "management" "session_timeout" "map_name" "theme" "slab1" "slab2" "slab3" "slab4" "auth_api")
 
@@ -549,13 +549,6 @@ case $key in
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
           check_ip $key $value
-       fi
-       ;;
-   vpn_local_ipv4_address)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-          check_vpn_ip $key $value
        fi
        ;;
    proxy_host)
