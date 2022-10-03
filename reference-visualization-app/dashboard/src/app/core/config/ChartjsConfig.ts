@@ -40,6 +40,12 @@ export const ChartJSConfig = {
         barThickness: 10,
         maxBarThickness: 12
     },
+    scatter: {
+        pointBorderColor: '#7cd6cc',
+        pointBorderWidth: 0.5,
+        pointRadius: 8,
+        pointHoverRadius: 8
+    },
     colors: [
         "#2171b5",
         "#ddd"
@@ -56,6 +62,7 @@ export function getChartJSConfig(config: any): any {
             },
             tooltips: {
                 mode: 'index',
+                cornerRadius: 10,
                 displayColors: false,
                 backgroundColor: 'rgba(255, 255, 255, 0.8)',
                 titleFontFamily: 'verdana',
@@ -72,19 +79,33 @@ export function getChartJSConfig(config: any): any {
             },
             scales: {
                 xAxes: [{
+                    gridLines: {
+                        color: "rgba(252, 239, 252)",
+                    },
                     ticks: {
+                        beginAtZero: true,
                         fontSize,
                         callback: function(value) { 
                             return numberLabelFormatForReport(value);
                         }
+                    },
+                    scaleLabel: {
+                        fontSize
                     }
                 }],
                 yAxes: [{
+                    gridLines: {
+                        color: "rgba(252, 239, 252)",
+                    },
                     ticks: {
+                        beginAtZero: true,
                         fontSize,
                         callback: function(value) { 
                             return numberLabelFormatForReport(value);
                         }
+                    },
+                    scaleLabel: {
+                        fontSize
                     }
                 }]
             }
@@ -110,6 +131,33 @@ export function getBarDatasetConfig(dataset: any, useSingleColor?: boolean): any
                 ...options,
                 backgroundColor: ChartJSConfig.colors[0],
                 hoverBackgroundColor: ChartJSConfig.colors[0]
+            };
+        }
+
+        rec = Object.assign(options, rec);
+        return rec;
+    });
+
+    return dataset;
+}
+
+export function getScatterDatasetConfig(dataset: any, useSingleColor?: boolean): any {
+    dataset = dataset.map((rec, index) => {
+        let options: any = ChartJSConfig.scatter;
+
+        if (!useSingleColor) {
+            if (ChartJSConfig.colors[index]) {
+                options = {
+                    ...options,
+                    pointBackgroundColor: ChartJSConfig.colors[index],
+                    pointHoverBackgroundColor: ChartJSConfig.colors[index]
+                };
+            }
+        } else {
+            options = {
+                ...options,
+                pointBackgroundColor: ChartJSConfig.colors[0],
+                pointHoverBackgroundColor: ChartJSConfig.colors[0]
             };
         }
 

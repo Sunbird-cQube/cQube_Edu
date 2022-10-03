@@ -170,24 +170,16 @@
                         </ng-option>
                     </ng-select>
                     <div class="col-span-6 xmd:col-span-3 lg:col-span-2">
-                        <span class="chooseLevel">X-Axis: &nbsp;</span>
                         <ng-select id="x-axis" class="col-span-2 sm:col-span-1" [(ngModel)]="xAxis" name="xAxis"
-                            (change)="selectAxis()">
-                            <ng-option [value]="xAxis" disabled selected="selected">
-                                choose x-axis
-                            </ng-option>
+                            (change)="selectAxis()" placeholder="Choose X-Axis">
                             <ng-option *ngFor="let xaxis of xAxisFilter" [value]="xaxis.key">
                                 {{ xaxis.value }}
                             </ng-option>
                         </ng-select>
                     </div>
                     <div class="col-span-6 xmd:col-span-3 lg:col-span-2">
-                        <span class="chooseLevel">Y-Axis: &nbsp;</span>
                         <ng-select id="y-axis" class="col-span-2 sm:col-span-1" [(ngModel)]="yAxis" name="yAxis"
-                            (change)="selectAxis()">
-                            <ng-option [value]="yAxis" disabled selected="selected">
-                                choose y-axis
-                            </ng-option>
+                            (change)="selectAxis()" placeholder="Choose Y-Axis">
                             <ng-option *ngFor="let yaxis of yAxisFilter" [value]="yaxis.key">
                                 {{ yaxis.value }}
                             </ng-option>
@@ -198,7 +190,7 @@
         </div>
     </div>
 
-    <div class="row reportContainer2 grid grid-cols-2 gap-4">
+    <div class="reportContainer2 grid grid-cols-2 gap-4">
 
         <div class="col-span-2 scatter-div">
 

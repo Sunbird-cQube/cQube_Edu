@@ -69,13 +69,18 @@ export class MultiSelectComponent implements OnInit {
     this.shareCheckedlist();
   }
   shareCheckedlist() {
-    console.log(this.checkedList)
     this.shareCheckedList.emit(this.checkedList);
   }
 
-  clearSelections(){
+  clearSelections() {    
     this.clearSuccessors.emit(this.text);
     this.shareCheckedList.emit(this.checkedList);
+  }
+
+  onItemsSelected(event): void {
+    if (event && event.length === 0) {
+      this.shareCheckedList.emit(this.checkedList);
+    }
   }
 
   ngOnInit() {

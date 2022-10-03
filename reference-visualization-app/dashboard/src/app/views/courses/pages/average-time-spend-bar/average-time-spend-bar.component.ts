@@ -7,6 +7,8 @@ import { AppServiceComponent } from "src/app/app.service";
 import { environment } from "src/environments/environment";
 import { AverageTimeSpendBarService } from "src/app/core/services/average-time-spend-bar.service";
 import { ContentUsagePieService } from "src/app/core/services/content-usage-pie.service";
+import { getBarDatasetConfig, getChartJSConfig } from "src/app/core/config/ChartjsConfig";
+import { formatNumberForReport } from "src/app/utilities/NumberFomatter";
 HC_exportData(Highcharts);
 
 @Component({
@@ -190,17 +192,28 @@ showError = false
         this.commonService.loaderAndErr(this.chartData);
       });
 
-      if (this.result) {
-        this.config = {
+      if (this.result) {  
+        this.config = getChartJSConfig({
           labelExpr: 'collection_name',
-          datasets: [
+          datasets: getBarDatasetConfig([
             { dataExpr: 'avg_time_spent', label: 'Average Time Spent' }
-          ],
+          ]),
           options: {
-            height: (this.result.length * 15 + 150).toString()
+            height: (this.result.length * 15 + 150).toString(),
+            tooltips: {
+              callbacks: {
+                label: (tooltipItem, data) => {
+                  let multistringText = [];                
+    
+                  multistringText.push(`Average Time Spent: ${formatNumberForReport(this.result[tooltipItem.index]['avg_time_spent'])}`);
+    
+                  return multistringText;
+                }
+              }
+            }
           }
-        };
-  
+        });
+
         this.dashletData = {
           values: this.result
         };

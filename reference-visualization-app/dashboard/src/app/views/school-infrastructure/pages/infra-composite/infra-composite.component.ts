@@ -2,10 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewEnca
 import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
-import { Chart } from 'chart.js';
 import { AppServiceComponent } from 'src/app/app.service';
 import { environment } from 'src/environments/environment';
 import { SchoolInfraService } from 'src/app/core/services/core-apis/school-infra.service';
+import { getChartJSConfig, getScatterDatasetConfig } from 'src/app/core/config/ChartjsConfig';
 
 
 declare const $: any;
@@ -227,7 +227,7 @@ export class InfraCompositeComponent implements OnInit {
     this.blok = false;
     this.clust = false;
     this.skul = true;
-
+    this.commonService.errMsg();
     this.blockHidden = true;
     this.clusterHidden = true;
     this.reportData = [];
@@ -275,7 +275,7 @@ export class InfraCompositeComponent implements OnInit {
     this.blok = false;
     this.clust = false;
     this.skul = false;
-
+    this.commonService.errMsg();
     this.myBlock = '';
     this.downloadType = '';
     this.modes = [];
@@ -334,7 +334,7 @@ export class InfraCompositeComponent implements OnInit {
     this.downloadLevel = 'cluster';
     this.tableHead = "Cluster Name";
     this.fileName = `${this.reportName}_${this.downloadLevel}s_of_block_${data}_${this.commonService.dateAndTime}`;
-
+    this.commonService.errMsg();
     this.dist = false;
     this.blok = true;
     this.clust = false;
@@ -369,7 +369,6 @@ export class InfraCompositeComponent implements OnInit {
       this.showChart(this.result, this.downloadLevel);
       //====================================
       this.SchoolInfrastructureClusterNames.sort((a, b) => (a.cluster.value > b.cluster.value) ? 1 : ((b.cluster.value > a.cluster.value) ? -1 : 0));
-      console.log('his.SchoolInfrastructureClusterNames', this.SchoolInfrastructureClusterNames)
       // for table data
       var dataSet = this.result;
       this.createTable(dataSet, this.height);
@@ -403,7 +402,7 @@ export class InfraCompositeComponent implements OnInit {
     this.blok = false;
     this.clust = true;
     this.skul = false;
-
+    this.commonService.errMsg();
     this.modes = [];
     this.reportData = [];
     this.chartData = []
@@ -477,7 +476,7 @@ export class InfraCompositeComponent implements OnInit {
 
   distWise() {
     this.reportData = [];
-
+    this.commonService.errMsg();
     var element1: any = document.getElementsByClassName('dwnld');
     this.fileName = `${this.reportName}_allDistricts_${this.commonService.dateAndTime}`;
     if (this.myData) {
@@ -499,7 +498,7 @@ export class InfraCompositeComponent implements OnInit {
 
   blockWise() {
     this.reportData = [];
-
+    this.commonService.errMsg();
     var element1: any = document.getElementsByClassName('dwnld');
     this.fileName = `${this.reportName}_allBlocks_${this.commonService.dateAndTime}`;
     if (this.myData) {
@@ -521,7 +520,7 @@ export class InfraCompositeComponent implements OnInit {
 
   clusterWise() {
     this.reportData = [];
-
+    this.commonService.errMsg();
     var element1: any = document.getElementsByClassName('dwnld');
     this.fileName = `${this.reportName}_allClusters_${this.commonService.dateAndTime}`;
     if (this.myData) {
@@ -543,7 +542,7 @@ export class InfraCompositeComponent implements OnInit {
 
   schoolWise() {
     this.reportData = [];
-
+    this.commonService.errMsg();
     var element1: any = document.getElementsByClassName('dwnld');
 
     this.fileName = `${this.reportName}_allSchools_${this.commonService.dateAndTime}`;
@@ -740,22 +739,13 @@ export class InfraCompositeComponent implements OnInit {
   obj: any;
   dashletData;
   createChart(labels, chartData, name, obj) {
-    // console.log('labels', labels);
-    // console.log(obj);
-   // console.log('chartData', chartData);
-   // console.log(JSON.stringify(chartData));
     this.dashletData = { values: chartData };
-    this.config = {
+    this.config = getChartJSConfig({
       labelExpr: obj ? obj.xAxis : "",
-      datasets: [{
+      datasets: getScatterDatasetConfig([{
         label: obj ? obj.xAxis : "",
-        data: chartData,
-        pointBackgroundColor: "#4890b5",
-        pointBorderColor: '#7cd6cc',
-        pointBorderWidth: 0.5,
-        pointRadius: this.height > 1760 ? 16 : this.height > 1160 && this.height < 1760 ? 10 : this.height > 667 && this.height < 1160 ? 10 : 5,
-        pointHoverRadius: this.height > 1760 ? 18 : this.height > 1160 && this.height < 1760 ? 12 : this.height > 667 && this.height < 1160 ? 11 : 6,
-      }],
+        data: chartData
+      }]),
       options: {
         legend: {
           display: false
@@ -763,18 +753,6 @@ export class InfraCompositeComponent implements OnInit {
         maintainAspectRatio: false,
         responsive: true,
         tooltips: {
-          mode: 'index',
-          titleFontSize: 16,
-          cornerRadius: 10,
-          xPadding: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 20 : this.height > 667 && this.height < 1160 ? 10 : 7,
-          yPadding: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 20 : this.height > 667 && this.height < 1160 ? 10 : 7,
-          bodyFontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 22 : this.height > 667 && this.height < 1160 ? 12 : 10,
-          displayColors: false,
-          custom: function (tooltip) {
-            if (!tooltip) return;
-            // disable displaying the color box;
-            tooltip.displayColors = false;
-          },
           callbacks: {
             label: function (tooltipItem, data) {
               var label = labels[tooltipItem.index];
@@ -785,140 +763,31 @@ export class InfraCompositeComponent implements OnInit {
             }
           }
         },
-
         scales: {
           xAxes: [{
-            gridLines: {
-              color: "rgba(252, 239, 252)",
-            },
             ticks: {
-              fontColor: 'black',
               min: 0,
-              max: 100,
-              fontSize: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 25 : this.height > 667 && this.height < 1160 ? 15 : 10,
+              max: 100
             },
             scaleLabel: {
-              fontColor: "black",
               display: true,
-              labelString: obj ? obj.xAxis : "",
-              fontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 24 : this.height > 667 && this.height < 1160 ? 15 : 10,
+              labelString: obj ? obj.xAxis : ""
             }
           }],
           yAxes: [{
-            gridLines: {
-              color: "rgba(252, 239, 252)",
-            },
             ticks: {
-              fontColor: 'black',
               min: 0,
-              max: 100,
-              fontSize: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 23 : this.height > 667 && this.height < 1160 ? 15 : 10,
+              max: 100
             },
             scaleLabel: {
-              fontColor: "black",
               display: true,
-              labelString: obj ? obj.yAxis : "",
-              fontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 22 : this.height > 667 && this.height < 1160 ? 14 : 10,
+              labelString: obj ? obj.yAxis : ""
             }
           }]
         }
       }
-    }
+    });
     this.changeDetection.detectChanges();
-
-    // if (this.scatterChart) {
-    //   this.scatterChart.destroy();
-    // }
-    // var ctx = $("#myChart");
-    // ctx.attr("height", this.h);
-    // this.scatterChart = new Chart("myChart", {
-    //   type: 'scatter',
-    //   data: {
-    //     labels: labels,
-    //     datasets: [{
-    //       data: chartData,
-    //       pointBackgroundColor: "#4890b5",
-    //       pointBorderColor: '#7cd6cc',
-    //       pointBorderWidth: 0.5,
-    //       pointRadius: this.height > 1760 ? 16 : this.height > 1160 && this.height < 1760 ? 10 : this.height > 667 && this.height < 1160 ? 10 : 5,
-    //       pointHoverRadius: this.height > 1760 ? 18 : this.height > 1160 && this.height < 1760 ? 12 : this.height > 667 && this.height < 1160 ? 11 : 6,
-    //     }]
-    //   },
-    //   options: {
-    //     legend: {
-    //       display: false
-    //     },
-    //     responsive: true,
-    //     tooltips: {
-    //       mode: 'index',
-    //       titleFontSize: 16,
-    //       cornerRadius: 10,
-    //       xPadding: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 20 : this.height > 667 && this.height < 1160 ? 10 : 7,
-    //       yPadding: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 20 : this.height > 667 && this.height < 1160 ? 10 : 7,
-    //       bodyFontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 22 : this.height > 667 && this.height < 1160 ? 12 : 10,
-    //       displayColors: false,
-    //       custom: function (tooltip) {
-    //         if (!tooltip) return;
-    //         // disable displaying the color box;
-    //         tooltip.displayColors = false;
-    //       },
-    //       callbacks: {
-    //         label: function (tooltipItem, data) {
-    //           var label = data.labels[tooltipItem.index];
-    //           var multistringText = [name + ": " + label];
-    //           if (obj.xAxis == "INFRA_SCORE") {
-    //             multistringText.push(obj.xAxis + ": " + tooltipItem.xLabel);
-    //           } else {
-    //             multistringText.push(obj.xAxis + ": " + tooltipItem.xLabel + " %");
-    //           }
-    //           if (obj.yAxis == "INFRA_SCORE") {
-    //             multistringText.push(obj.yAxis + ": " + tooltipItem.yLabel);
-    //           } else {
-    //             multistringText.push(obj.yAxis + ": " + tooltipItem.yLabel + " %");
-    //           }
-    //           return multistringText;
-    //         }
-    //       }
-    //     },
-
-    //     scales: {
-    //       xAxes: [{
-    //         gridLines: {
-    //           color: "rgba(252, 239, 252)",
-    //         },
-    //         ticks: {
-    //           fontColor: 'black',
-    //           min: 0,
-    //           max: 100,
-    //           fontSize: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 23 : this.height > 667 && this.height < 1160 ? 15 : 10,
-    //         },
-    //         scaleLabel: {
-    //           fontColor: "black",
-    //           display: true,
-    //           labelString: obj ? obj.xAxis : "",
-    //           fontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 22 : this.height > 667 && this.height < 1160 ? 14 : 10,
-    //         }
-    //       }],
-    //       yAxes: [{
-    //         gridLines: {
-    //           color: "rgba(252, 239, 252)",
-    //         },
-    //         ticks: {
-    //           fontColor: 'black',
-    //           min: 0,
-    //           max: 100,
-    //           fontSize: this.height > 1760 ? 30 : this.height > 1160 && this.height < 1760 ? 23 : this.height > 667 && this.height < 1160 ? 15 : 10,
-    //         },
-    //         scaleLabel: {
-    //           fontColor: "black",
-    //           display: true,
-    //           labelString: obj ? obj.yAxis : "",
-    //           fontSize: this.height > 1760 ? 32 : this.height > 1160 && this.height < 1760 ? 22 : this.height > 667 && this.height < 1160 ? 14 : 10,
-    //         }
-    //       }]
-    //     }
-    //   }
-    // });
   }
 
   funToDownload(reportData) {
