@@ -8,6 +8,7 @@ router.post('/', async (req, res) => {
     try {
         logger.info('--- diksha TPD ETB method api ---');
         let method = req.body.method;
+            method = method.toUpperCase()
         let dataSet = req.body.dataSet;
 
         shell.exec(`sudo ${process.env.BASE_DIR}/cqube/emission_app/flaskenv/bin/python ${baseDir}/cqube/emission_app/python/nifi_disable_processor.py diksha_transformer ${storageType} ${dataSet} ${method}`, code=> {
