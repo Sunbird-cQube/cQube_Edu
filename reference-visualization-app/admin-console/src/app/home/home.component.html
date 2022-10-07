@@ -2,7 +2,7 @@
   <button mat-icon-button (click)="sidenav.toggle()" id="menu">
     <mat-icon style="color: #24223e;">menu</mat-icon>
   </button>
-  <img src="../../assets/dashboard.png" alt="" height="30px" width="90px">
+  <img src="assets/dashboard.png" alt="" height="30px" width="90px">
   <span style="flex: 1 1 auto;"></span>
   <span id="backBtn" class="headerBtn"
     style="padding: 1.5px; cursor: pointer; font-size: 13px; margin-right: 2%;display: none;" (click)="back()">
@@ -14,7 +14,7 @@
     <strong>Home</strong>
   </span>
   <span id="logout" class="headerBtn" style="padding: 1.5px; cursor: pointer; font-size: 13px;" (click)="logout()">
-    <img src="../../assets/logout.png" height="20px" width="26px" alt=""><strong style="color:  #24223e;">
+    <img src="assets/logout.png" height="20px" width="26px" alt=""><strong style="color:  #24223e;">
       Logout</strong>
   </span>
 </mat-toolbar>
@@ -35,7 +35,7 @@
               <a id="crtUsr" mat-list-item (click)="sidenav.toggle()"
                 style="border-bottom: 1px solid lightgray; font-family: Arial;" [routerLink]="['/create-user']">
                 <td>
-                  <img alt="Dashboard" src="../../assets/ico_task.png" style="width:30px;height:30px;">
+                  <img alt="Dashboard" src="assets/ico_task.png" style="width:30px;height:30px;">
                 </td>
                 <td>
                   &nbsp;&nbsp; Create User </td>
@@ -43,7 +43,7 @@
               <a id="Chpass" mat-list-item (click)="sidenav.toggle()"
                 style="border-bottom: 1px solid lightgray; font-family: Arial;" [routerLink]="['/change-password']">
                 <td>
-                  <img alt="Dashboard" src="../../assets/ico_task.png" style="width:30px;height:30px;">
+                  <img alt="Dashboard" src="assets/ico_task.png" style="width:30px;height:30px;">
                 </td>
                 <td>
                   &nbsp;&nbsp; Change Password </td>
@@ -52,7 +52,7 @@
               <a id="user" mat-list-item (click)="sidenav.toggle()"
                 style="border-bottom: 1px solid lightgray; font-family: Arial;" [routerLink]="['/users']">
                 <td>
-                  <img alt="Dashboard" src="../../assets/ico_task.png" style="width:30px;height:30px;">
+                  <img alt="Dashboard" src="assets/ico_task.png" style="width:30px;height:30px;">
                 </td>
                 <td>
                   &nbsp;&nbsp; Users List</td>
@@ -61,7 +61,7 @@
               <a id="logs" mat-list-item (click)="sidenav.toggle()"
                 style="border-bottom: 1px solid lightgray; font-family: Arial;" [routerLink]="['/all-logs']">
                 <td>
-                  <img alt="Dashboard" src="../../assets/ico_task.png" style="width:30px;height:30px;">
+                  <img alt="Dashboard" src="assets/ico_task.png" style="width:30px;height:30px;">
                 </td>
                 <td>
                   &nbsp;&nbsp; Logs </td>
@@ -70,7 +70,7 @@
               <a id="downloads" mat-list-item (click)="sidenav.toggle()"
                 style="border-bottom: 1px solid lightgray; font-family: Arial;" [routerLink]="['/s3FileDownload']">
                 <td>
-                  <img alt="Dashboard" src="../../assets/ico_task.png" style="width:30px;height:30px;">
+                  <img alt="Dashboard" src="assets/ico_task.png" style="width:30px;height:30px;">
                 </td>
                 <td>
                   &nbsp;&nbsp; {{listFileName}} </td>
@@ -78,7 +78,7 @@
               <a id="moniter" mat-list-item (click)="sidenav.toggle()" target=" "
                 style="border-bottom: 1px solid lightgray; font-family: Arial;" href="{{grafanaUrl}}">
                 <td>
-                  <img alt="Dashboard" src="../../assets/ico_task.png" style="width:30px;height:30px;">
+                  <img alt="Dashboard" src="assets/ico_task.png" style="width:30px;height:30px;">
                 </td>
                 <td>
                   &nbsp;&nbsp; Monitoring Details </td>
@@ -86,7 +86,7 @@
               <a id="summary" mat-list-item (click)="sidenav.toggle()"
                 style="border-bottom: 1px solid lightgray; font-family: Arial;" [routerLink]="['/summary-statistics']">
                 <td>
-                  <img alt="Dashboard" src="../../assets/ico_task.png" style="width:30px;height:30px;">
+                  <img alt="Dashboard" src="assets/ico_task.png" style="width:30px;height:30px;">
                 </td>
                 <td>
                   &nbsp;&nbsp; Summary Statistics </td>
@@ -94,7 +94,7 @@
               <a id="nifi" mat-list-item (click)="sidenav.toggle()"
                 style="border-bottom: 1px solid lightgray; font-family: Arial;" [routerLink]="['/nifi-shedular']">
                 <td>
-                  <img alt="Dashboard" src="../../assets/ico_task.png" style="width:30px;height:30px;">
+                  <img alt="Dashboard" src="assets/ico_task.png" style="width:30px;height:30px;">
                 </td>
                 <td>
                   &nbsp;&nbsp; Nifi Scheduler </td>
@@ -103,7 +103,7 @@
               <a id="dataReplay" mat-list-item (click)="sidenav.toggle()"
                 style="border-bottom: 1px solid lightgray; font-family: Arial;" [routerLink]="['/data-replay']">
                 <td>
-                  <img alt="Dashboard" src="../../assets/ico_task.png" style="width:30px;height:30px;">
+                  <img alt="Dashboard" src="assets/ico_task.png" style="width:30px;height:30px;">
                 </td>
                 <td>
                   &nbsp;&nbsp; Data Replay </td>
@@ -113,7 +113,7 @@
                 style="border-bottom: 1px solid lightgray; font-family: Arial;"
                 [routerLink]="['/diksha-configuration']">
                 <td>
-                  <img alt="Dashboard" src="../../assets/ico_task.png" style="width:30px;height:30px;">
+                  <img alt="Dashboard" src="assets/ico_task.png" style="width:30px;height:30px;">
                 </td>
                 <td>
                   &nbsp;&nbsp; Configuration </td>
