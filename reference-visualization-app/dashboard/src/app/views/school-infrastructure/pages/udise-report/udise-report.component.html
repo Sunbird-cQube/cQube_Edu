@@ -162,7 +162,7 @@
             </h5>
             <div *ngFor="let value of values; let i = index">
                 <span id="{{ i }}" class="legends" style="float: left; cursor: pointer"
-                    [ngStyle]="{ color: i > 1 ? 'black' : 'white' }" (click)="selectRange(value); select(i)"
+                    [ngStyle]="{ color: invert(legendColors[i]) }" (click)="selectRange(value); select(i)"
                     [style.background-color]="legendColors[i]">
                     {{ values[i] }}
                 </span>

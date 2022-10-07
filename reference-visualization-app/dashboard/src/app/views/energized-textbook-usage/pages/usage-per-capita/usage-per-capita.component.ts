@@ -10,6 +10,7 @@ import { AppServiceComponent } from 'src/app/app.service';
 import { environment } from 'src/environments/environment';
 import { MapService, globalMap } from 'src/app/core/services/mapservices/maps.services';
 import { PerCapitaMapReport } from 'src/app/core/services/core-apis/per-capita-map-report.service';
+import invert from 'invert-color';
 
 @Component({
   selector: 'app-usage-per-capita',
@@ -77,6 +78,9 @@ export class UsagePerCapitaComponent implements OnInit {
     setTimeout(() => {
       this.initMap();
     }, 100);
+  }
+  invert(color: any) {
+    return invert(color, true);
   }
 
   initMap() {
@@ -415,9 +419,9 @@ export class UsagePerCapitaComponent implements OnInit {
 
 
   public legendColors: any = [
-    "#9AE66E",
-    "#94B3FD",
-    "#FFAFAF",
+    "#b9cef0",
+    "#2d6cd2",
+    "#0f2446",
   ];
   public values = [
     "Upper Quartile ( above 75% )",

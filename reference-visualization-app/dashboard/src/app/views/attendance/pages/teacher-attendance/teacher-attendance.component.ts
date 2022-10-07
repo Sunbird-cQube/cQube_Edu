@@ -7,6 +7,7 @@ import { AppServiceComponent } from "src/app/app.service";
 import { MapService, globalMap } from "src/app/core/services/mapservices/maps.services";
 import { environment } from "src/environments/environment";
 import { TeacherAttendanceReportService } from "src/app/core/services/teacher-attendance-report.service";
+import invert from 'invert-color';
 
 declare const $;
 
@@ -3014,17 +3015,20 @@ export class TeacherAttendanceComponent implements OnInit {
   }
 
   public legendColors: any = [
-    "#a50026",
-    "#d73027",
-    "#f46d43",
-    "#fdae61",
-    "#fee08b",
-    "#d9ef8b",
-    "#a6d96a",
-    "#66bd63",
-    "#1a9850",
-    "#006837",
+    "#cfddf5",
+    "#aec6ee",
+    "#8eb0e7",
+    "#6e99e0",
+    "#4e83d9",
+    "#2d6cd2",
+    "#265bb1",
+    "#1f4b91",
+    "#183a71",
+    "#112a51",
   ];
+  invert(color: any) {
+    return invert(color, true);
+  }
   public values = [
     "0-10",
     "11-20",

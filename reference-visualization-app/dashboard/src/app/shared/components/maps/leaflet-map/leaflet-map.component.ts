@@ -62,11 +62,9 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     this.map = L.map(this.mapContainer.nativeElement, { zoomSnap: 0.05, minZoom: 4, zoomControl: true, scrollWheelZoom: false, touchZoom: false }).setView([this.mapCenterLatlng.lat, this.mapCenterLatlng.lng], this.mapCenterLatlng.zoomLevel);
     try {
       await this.applyCountryBorder(this.mapData);
-      const tiles = L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png',
-        {
-          subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-        }
-      );
+      const tiles =  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        subdomains: 'abcd'
+      });
 
       tiles.addTo(this.map);
       this.map.attributionControl.setPrefix(false);
@@ -102,30 +100,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   getLayerColor(e: any, legend?: boolean) {
-    // if (this.level === 'state' || legend) {
-    //   let reportTypeBoolean = false;
-    //   if (typeof e === 'string') {
-    //     reportTypeBoolean = true;
-    //   }
-    //   if (reportTypeBoolean) {
-    //     if (e.trim() == "Yes") {
-    //       return "#1D4586";
-    //     } else {
-    //       return "#FFFFFF";
-    //     }
-    //   }
-    //   else {
-    //     {
-    //       return e > 75 ? "#1D4586" :
-    //         e > 50 ? "#1156CC" :
-    //           e > 25 ? "#6D9FEB" :
-    //             e >= 0 ? "#C9DAF7" : "#fff";
-    //     }
-    //   }
-    // }
-    // else {
-    //   return "#fff"
-    // }
     if (environment.config === 'national' && this.level === 'district' && !legend) {
       return '#fff'
     }
@@ -192,7 +166,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
           let range = max - min;
           let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
-          if (range <= 4) {
+          if (range && range <= 4) {
             for (let i = 1; i <= 5; i++) {
               if(i === 5){
                 if (min === 0) {
@@ -218,7 +192,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
                   values.push(this.perCapitaReport ? 0.1 : 1);
                 }
                 else {
-                  // values.push(this.perCapitaReport ? min : min.toFixed(0));
                   values.push(this.perCapitaReport ? min : Math.floor(min))
                 }
                 continue;
@@ -241,7 +214,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           else{
             values.push(min);
           }
-          // let partSize = (range / 10 % 1 === 0) ? range / 10 : Number((range / 10).toFixed(2));
 
         }
 
@@ -260,15 +232,20 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
               color = parent.getLayerColor(state.indicator ? (max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator) : -1);
             }
           });
-
-          return {
-            fillColor: color,
-            weight: 1,
-            opacity: 1,
-            color: 'grey',
-            dashArray: '0',
-            fillOpacity: 1
-          };
+          if(parent.level === 'state' || environment.config === 'state'){
+            return {
+              fillColor: color,
+              weight: 1,
+              opacity: 1,
+              color: 'grey',
+              dashArray: '0',
+              fillOpacity: 1
+            };
+          }
+          else {
+            return 
+          }
+          
         }
 
         function getPopUp(feature: any) {
@@ -334,7 +311,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
 
         let range = max - min;
         let partSize = (range / 4 % 1 === 0) ? range / 4 : Number((range / 4).toFixed(2));
-        if (range <= 4) {
+        if (range && range <= 4) {
           for (let i = 1; i <= 5; i++) {
             if(i === 5){
               if (min === 0) {
