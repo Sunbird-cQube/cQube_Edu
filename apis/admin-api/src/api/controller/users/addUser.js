@@ -127,35 +127,35 @@ router.post('/setRoles', auth.authController, async (req, res) => {
             ];
             let otpConfig = req.body.otpConfig;
             // check for required actions configured -- CONFIGURE_TOTP and update the user for two factor auth
-            if (otpConfig && req.body.role.name == 'report_viewer' && requiredActions[0].alias == 'CONFIGURE_TOTP' && requiredActions[0].enabled == true
-                || req.body.role.name == 'admin' && requiredActions[0].alias == 'CONFIGURE_TOTP' && requiredActions[0].enabled == true) {
-                // assign two factor auth only for admin and report_viewer roles not for emission user
+            // if (otpConfig && req.body.role.name == 'report_viewer' && requiredActions[0].alias == 'CONFIGURE_TOTP' && requiredActions[0].enabled == true
+            //     || req.body.role.name == 'admin' && requiredActions[0].alias == 'CONFIGURE_TOTP' && requiredActions[0].enabled == true) {
+            //     // assign two factor auth only for admin and report_viewer roles not for emission user
 
-                if (authType === 'cqube') {
-                    if (req.body.role.name != 'emission') {
-                        actionsRequired.requiredActions.push('CONFIGURE_TOTP')
-                    }
-                }
+            //     if (authType === 'cqube') {
+            //         if (req.body.role.name != 'emission') {
+            //             actionsRequired.requiredActions.push('CONFIGURE_TOTP')
+            //         }
+            //     }
 
-                // updating user api call
-                axios.put(updateUser, actionsRequired, { headers: headers }).then(async resp1 => {
-                    // assigning roles to user api call                    
-                    await axios.post(usersUrl, roleDetails, { headers: headers }).then(async resp => {
-                        res.status(200).json({ msg: "Role assigned & configured otp" });
-                    }).catch(error => {
-                        res.status(409).json({ errMsg: error.response.data.errorMessage });
-                    })
-                }).catch(error => {
-                    res.status(409).json({ errMsg: error.response.data.errorMessage });
-                })
-            } else {
+            //     // updating user api call
+            //     axios.put(updateUser, actionsRequired, { headers: headers }).then(async resp1 => {
+            //         // assigning roles to user api call                    
+            //         await axios.post(usersUrl, roleDetails, { headers: headers }).then(async resp => {
+            //             res.status(200).json({ msg: "Role assigned & configured otp" });
+            //         }).catch(error => {
+            //             res.status(409).json({ errMsg: error.response.data.errorMessage });
+            //         })
+            //     }).catch(error => {
+            //         res.status(409).json({ errMsg: error.response.data.errorMessage });
+            //     })
+            // } else {
                 // default if required actions not configured
                 await axios.post(usersUrl, roleDetails, { headers: headers }).then(resp => {
                     res.status(200).json({ msg: "Role assigned" });
                 }).catch(error => {
                     res.status(409).json({ errMsg: error.response.data.errorMessage });
                 })
-            }
+            // }
         }).catch(error => {
             res.status(409).json({ errMsg: error.response });
         })

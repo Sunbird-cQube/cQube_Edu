@@ -39,7 +39,7 @@ export class ChangePasswordComponent implements OnInit {
 
     localStorage.clear();
 
-    window.location.href = `${environment.appUrl}/#/signin`;
+    window.location.href = `${environment.dashboardUrl}/#/signin`;
   }
 
   onSubmit(formData: NgForm) {
@@ -58,19 +58,14 @@ export class ChangePasswordComponent implements OnInit {
           document.getElementById('spinner').style.display = 'none';
           this.isDisabled = true;
           formData.resetForm();
+          console.log('changed')
           setTimeout(() => {
-            if (environment.auth_api === 'state') {
-              this.logout()
-            }
-          }, 2000)
+            // if (environment.auth_api === 'state') {
+            this.logout()
+            // }
+          }, 1000)
 
-          setTimeout(() => {
-            localStorage.clear();
-            let options = {
-              redirectUri: environment.appUrl
-            }
-            this.keycloakService.kc.logout(options);
-          }, 2000);
+
         }, err => {
           this.err = "Something went wrong"
           document.getElementById('spinner').style.display = 'none';
