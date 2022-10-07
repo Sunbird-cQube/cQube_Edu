@@ -2840,7 +2840,7 @@ export class StudentAttendanceComponent implements OnInit {
       if (event == "download") {
         obj = {
           pageId: "student_attendance",
-          uid: localStorage.getItem('userid'),
+          uid: localStorage.getItem('user_id'),
           event: event,
           level: level,
           locationid: data.id,
@@ -2853,7 +2853,7 @@ export class StudentAttendanceComponent implements OnInit {
       } else {
         obj = {
           pageId: "student_attendance",
-          uid: localStorage.getItem('userid'),
+          uid: localStorage.getItem('user_id'),
           event: event,
           level: level,
           locationid: data.id,

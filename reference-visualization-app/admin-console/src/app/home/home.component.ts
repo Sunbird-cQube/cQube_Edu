@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
 
     localStorage.clear();
     this.cookieService.deleteAll();
-    window.location.href = `${environment.appUrl}/#/signin`;
+    window.location.href = `${environment.dashboardUrl}/#/signin`;
   }
 
   back() {
