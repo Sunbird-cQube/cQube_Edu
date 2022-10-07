@@ -471,7 +471,7 @@ export class AppServiceComponent {
 
     const rangeArrayIn5Parts = getRangeArray(min, max, 5);
 
-    var colorsArr = ["#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]
+    var colorsArr = ["#a5c0ec", "#6996df", "#2d6cd2", "#204d96", "#132e5a"]
     var colors = {};
     uniqueItems.map((a, i) => {
       if (a <= uniqueItems1[0]) {
@@ -506,7 +506,6 @@ export class AppServiceComponent {
     });
 
     let uniqueItems = [...new Set(values)];
-    console.log('value', uniqueItems)
     uniqueItems = uniqueItems.map((a) => {
       if (typeof a == "object") {
         return a["percentage"];
@@ -529,6 +528,10 @@ export class AppServiceComponent {
     const ranges = [];
 
     const getRangeArray = (min, max, n) => {
+      if (min === max) {
+        min = 0;
+      }
+
       const delta = (max - min) / n;
       let range1 = Math.ceil(min);
       for (let i = 0; i < n; i += 1) {
@@ -592,7 +595,7 @@ export class AppServiceComponent {
     var quartile2 = markers.filter((marker) => marker.quartile === 2);
     var quartile3 = markers.filter((marker) => marker.quartile === 3);
 
-    var colorsArr = ["#FFAFAF", "#94B3FD", "#9AE66E"];
+    var colorsArr = ["#b9cef0", "#2d6cd2", "#0f2446"];
     var colors = {};
     quartile1.map((a, i) => {
       colors[`${a.total_content_plays}`] = colorsArr[0];
@@ -764,11 +767,11 @@ export class AppServiceComponent {
     var colorsArr =
       uniqueItems.length == 1
         ? filter.report != "exception"
-          ? ["#00FF00"]
-          : ["red"]
+          ? ["#a5c0ec"]
+          : ["#204d96"]
         : this.exceptionColor().generateGradient(
-          "#FF0000",
-          "#00FF00",
+          "#C9DAF7",
+          "#1D4586",
           uniqueItems.length,
           "rgb"
         );
@@ -776,6 +779,7 @@ export class AppServiceComponent {
     uniqueItems.map((a, i) => {
       colors[`${a}`] = colorsArr[i];
     });
+    console.log(colors)
     return colors;
   }
 
@@ -842,43 +846,43 @@ export class AppServiceComponent {
   }
 
   public commonColors: any = {
-    0: "#a50026",
-    1: "#d73027",
-    2: "#f46d43",
-    3: "#fdae61",
-    4: "#fee08b",
-    5: "#d9ef8b",
-    6: "#a6d96a",
-    7: "#66bd63",
-    8: "#1a9850",
-    9: "#006837",
+    1: "#cfddf5",
+    2: "#aec6ee",
+    3: "#8eb0e7",
+    4: "#6e99e0",
+    5: "#4e83d9",
+    6: "#2d6cd2",
+    7: "#265bb1",
+    8: "#1f4b91",
+    9: "#183a71",
+    10: "#112a51",
   };
 
   public colors = {
-    10: "#a50026",
-    20: "#d73027",
-    30: "#f46d43",
-    40: "#fdae61",
-    50: "#fee08b",
-    60: "#d9ef8b",
-    70: "#a6d96a",
-    80: "#66bd63",
-    90: "#1a9850",
-    100: "#006837",
+    10: "#cfddf5",
+    20: "#aec6ee",
+    30: "#8eb0e7",
+    40: "#6e99e0",
+    50: "#4e83d9",
+    60: "#2d6cd2",
+    70: "#265bb1",
+    80: "#1f4b91",
+    90: "#183a71",
+    100: "#112a51",
   };
 
   public tpdColors = {
-    0: "#d9ef8b",
-    1: "#a6d96a",
-    2: "#66bd63",
-    3: "#1a9850",
-    4: "#006837",
+    0: "#d5e2f6",
+    1: "#81a7e4",
+    2: "#2d6cd2",
+    3: "#1b417e",
+    4: "#09162a",
   };
 
   public tpdCapitaColors = {
-    0: "#9AE66E",
-    1: "#94B3FD",
-    2: "#FFAFAF",
+    0: "#b9cef0",
+    1: "#2d6cd2",
+    2: "#0f2446",
   };
 
   //color gredient generation....

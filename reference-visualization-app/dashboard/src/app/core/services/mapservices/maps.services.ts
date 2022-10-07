@@ -5,6 +5,7 @@ import * as config from '../../../../assets/data/config.json'
 import * as mapData from '../../../../assets/data/map.json';
 import * as  googleMapData from "../../../../assets/data/googleMap.json";
 import { map } from 'lodash';
+import { objectEach } from 'highcharts';
 
 declare var MapmyIndia: any;
 export var globalMap;
@@ -39,12 +40,10 @@ export class MapService {
       console.log(map)
       if (this.mapName == 'leafletmap') {
         globalMap = L.map(map, { zoomSnap: 0.25, zoomControl: false, touchZoom: false, dragging: environment.stateName == 'UP' ? false : true }).setView([maxBounds[0][0], maxBounds[0][1]], this.mapCenterLatlng.zoomLevel);
-        L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png',
-        {
-          subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-        }
-      ).addTo(globalMap);
-      this.featureGrp = new L.FeatureGroup().addTo(globalMap)
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+          subdomains: 'abcd'
+        }).addTo(globalMap);
+        this.featureGrp = new L.FeatureGroup().addTo(globalMap)
       } else {
         globalMap = new MapmyIndia.Map(map, { hasTip: false, touchZoom: false, autoPan: false, offset: [15, 20], dragging: environment.stateName == 'UP' ? false : true }, {
           zoomControl: false,
@@ -54,14 +53,6 @@ export class MapService {
       var data = mapData.default;
       function applyCountryBorder(map) {
         ref.geoJSON = L.geoJSON(data[`${environment.stateName}`]['features'], {
-          style: {
-            fillColor: '#fff',
-            weight: 1,
-            opacity: 1,
-            color: 'grey',
-            dashArray: '0',
-            fillOpacity: 1
-          },
           color: "#6e6d6d",
           weight: 2,
           fillOpacity: 0,
@@ -108,7 +99,10 @@ export class MapService {
   }
 
   getBoundsByMarkers() {
-    globalMap.fitBounds(this.featureGrp.getBounds(), {padding: [50, 50]})
+    let bounds = this.featureGrp.getBounds();
+    if (bounds && Object.keys(bounds).length > 0) {
+      globalMap.fitBounds(bounds, {padding: [50, 50]});
+    }
   }
 
 
@@ -277,17 +271,17 @@ export class MapService {
   // google marker initialsation
   // public markerRadius;
   public circleIcon
-//   initGoogleMapMarker(color, scale, stroke) {
-//     this.circleIcon = {
-//     //   path: google.maps.SymbolPath.CIRCLE,
-//       fillColor: color,
-//       fillOpacity: 1,
-//       scale: scale,
-//       strokeColor: 'gray',
-//       strokeWeight: stroke,
-//     };
-//     return this.circleIcon;
-//   }
+  //   initGoogleMapMarker(color, scale, stroke) {
+  //     this.circleIcon = {
+  //     //   path: google.maps.SymbolPath.CIRCLE,
+  //       fillColor: color,
+  //       fillOpacity: 1,
+  //       scale: scale,
+  //       strokeColor: 'gray',
+  //       strokeWeight: stroke,
+  //     };
+  //     return this.circleIcon;
+  //   }
 
   //goog
   jsonMapData: any = googleMapData.default;
