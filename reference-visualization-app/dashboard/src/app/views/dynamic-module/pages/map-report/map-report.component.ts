@@ -10,6 +10,7 @@ import * as R from "leaflet-responsive-popup";
 import { ActivatedRoute } from '@angular/router';
 import { dynamicReportService } from 'src/app/core/services/core-apis/dynamic-report.service';
 import { MapService, globalMap } from 'src/app/core/services/mapservices/maps.services';
+import invert from 'invert-color';
 
 @Component({
   selector: 'app-map-report',
@@ -2798,17 +2799,20 @@ export class MapReportComponent implements OnInit {
   }
 
   public legendColors: any = [
-    "#a50026",
-    "#d73027",
-    "#f46d43",
-    "#fdae61",
-    "#fee08b",
-    "#d9ef8b",
-    "#a6d96a",
-    "#66bd63",
-    "#1a9850",
-    "#006837",
+    "#cfddf5",
+    "#aec6ee",
+    "#8eb0e7",
+    "#6e99e0",
+    "#4e83d9",
+    "#2d6cd2",
+    "#265bb1",
+    "#1f4b91",
+    "#183a71",
+    "#112a51",
   ];
+  invert(color: any) {
+    return invert(color, true);
+  }
 
 
 

@@ -13,6 +13,7 @@ import { AppServiceComponent } from "src/app/app.service";
 import { environment } from "src/environments/environment";
 import { MapService, globalMap } from "src/app/core/services/mapservices/maps.services";
 import { DikshaMapReportsService } from "src/app/core/services/core-apis/diksha-map-report.service";
+import invert from 'invert-color';
 
 @Component({
   selector: 'app-gps-of-learning',
@@ -497,13 +498,7 @@ export class GpsOfLearningComponent implements OnInit {
     markerIcon.myJsonData = markers;
   }
 
-  public legendColors: any = [
-    "#d9ef8b",
-    "#a6d96a",
-    "#66bd63",
-    "#1a9850",
-    "#006837",
-  ];
+  public legendColors: any = ["#a5c0ec", "#6996df", "#2d6cd2", "#204d96", "#132e5a"];
 
   public values = [];
 
@@ -516,6 +511,10 @@ export class GpsOfLearningComponent implements OnInit {
     this.filterRangeWiseData(value, i);
   }
   public len;
+
+  invert(color: any) {
+    return invert(color, true);
+  }
 
   filterRangeWiseData(value, index) {
    

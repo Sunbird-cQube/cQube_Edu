@@ -268,7 +268,7 @@ export class TelemetryReportComponent implements OnInit {
           if (this.blockMarkers.length !== 0) {
             for (let i = 0; i < this.blockMarkers.length; i++) {
 
-              var markerIcon = this.globalService.initMarkers1(this.blockMarkers[i].lat, this.blockMarkers[i].lng, "#42a7f5", 1, 1, options.level);
+              var markerIcon = this.globalService.initMarkers1(this.blockMarkers[i].lat, this.blockMarkers[i].lng, "#1f4b91", 1, 1, options.level);
               this.generateToolTip(this.blockMarkers[i], options.level, markerIcon, "lat", "lng");
             }
             // to download the report
@@ -343,7 +343,7 @@ export class TelemetryReportComponent implements OnInit {
 
           if (this.clusterMarkers.length !== 0) {
             for (let i = 0; i < this.clusterMarkers.length; i++) {
-              var markerIcon = this.globalService.initMarkers1(this.clusterMarkers[i].lat, this.clusterMarkers[i].lng, "#42a7f5", 2, 1, options.level);
+              var markerIcon = this.globalService.initMarkers1(this.clusterMarkers[i].lat, this.clusterMarkers[i].lng, "#1f4b91", 2, 1, options.level);
               this.generateToolTip(this.clusterMarkers[i], options.level, markerIcon, "lat", "lng");
             }
             // to download the report
@@ -414,7 +414,7 @@ export class TelemetryReportComponent implements OnInit {
           this.markers = this.schoolMarkers = result;
           if (this.schoolMarkers.length !== 0) {
             for (let i = 0; i < this.schoolMarkers.length; i++) {
-              var markerIcon = this.globalService.initMarkers1(this.schoolMarkers[i].lat, this.schoolMarkers[i].lng, "#42a7f5", 2, 0.3, options.level);
+              var markerIcon = this.globalService.initMarkers1(this.schoolMarkers[i].lat, this.schoolMarkers[i].lng, "#1f4b91", 2, 0.3, options.level);
               this.generateToolTip(this.schoolMarkers[i], options.level, markerIcon, "lat", "lng");
             }
             // to download the report
@@ -475,7 +475,7 @@ export class TelemetryReportComponent implements OnInit {
           strLng = "school_longitude";
         }
 
-        var markerIcon = this.globalService.initMarkers1(this.markers[i].lat, this.markers[i].lng, "#42a7f5", options.strokeWeight, 1, options.level);
+        var markerIcon = this.globalService.initMarkers1(this.markers[i].lat, this.markers[i].lng, "#1f4b91", options.strokeWeight, 1, options.level);
 
         // data to show on the tooltip for the desired levels
         if (options.level) {
