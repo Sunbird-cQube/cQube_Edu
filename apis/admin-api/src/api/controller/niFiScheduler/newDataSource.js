@@ -7,7 +7,7 @@ const fs = require('fs');
 var shell = require('shelljs');
 const db = require('../../lib/db')
 
-var filePath = `${process.env.BASE_DIR}/cqube/admin_dashboard/schedulers.json`;
+var filePath = `${process.env.BASE_DIR}/cqube/apis/schedulers.json`;
 router.get('/commonSchedular', auth.authController, async (req, res) => {
     try {
         logger.info('--- common schedular api start ---')

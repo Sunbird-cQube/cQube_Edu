@@ -6,12 +6,13 @@ export const environment = {
   production: false,
   apiEndpoint: "http://localhost:3001/admin_dashboard",
   appUrl: "http://localhost:4201",
+  dashboardUrl: "http://localhost:4200",
   grafanaEndPoint: "http://localhost:9000",
   keycloakUrl: "http://localhost:8080/auth",
   realm: "cQube",
   clientId: "cQube_Admin",
   storageType: "s3",
-  report_viewer_config_otp: true,
+  report_viewer_config_otp: false,
   auth_api: "state"
 };
 

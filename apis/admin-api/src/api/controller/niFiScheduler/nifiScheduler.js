@@ -6,7 +6,7 @@ var schedule = require('node-schedule');
 const fs = require('fs');
 var shell = require('shelljs');
 
-var filePath = `${process.env.BASE_DIR}/cqube/admin_dashboard/schedulers.json`;
+var filePath = `${process.env.BASE_DIR}/cqube/apis/schedulers.json`;
 
 router.get('/getProcessorId', auth.authController, async (req, res) => {
     try {
