@@ -634,7 +634,7 @@ export class MapReportComponent implements OnInit {
           const min = Math.min(...arr);
           const max = Math.max(...arr);
 
-          arr.length >= 10 ? min !== max ? this.getRangeArray(min, max, 10) : this.getRangeArray1(min, max, arr.length) : this.getRangeArray1(min, max, arr.length);
+          this.getRangeArray(min, max, 10);
 
           // options to set for markers in the map
           let options = {
@@ -690,45 +690,27 @@ export class MapReportComponent implements OnInit {
   }
 
   getRangeArray = (min, max, n) => {
+    if (min === max) {
+      min = 0;
+    }
 
     const delta = (max - min) / n;
     const ranges = [];
-    if (delta > 1) {
-      let range1 = Math.round(min);
-      for (let i = 0; i < n; i += 1) {
-        const range2 = Math.round(range1 + delta);
-        this.values.push(
-          `${Number(range1).toLocaleString("en-IN")}-${Number(
-            range2
-          ).toLocaleString("en-IN")}`
-        );
-        ranges.push([range1, range2]);
-        range1 = range2;
-      }
-      return ranges;
-    } else {
-      this.getRangeArray1(min, max, n)
-    }
-  }
-
-
-  getRangeArray1 = (min, max, n) => {
-    const delta = (max - min) / n;
-    const ranges = [min];
     let range1 = Math.round(min);
     for (let i = 0; i < n; i += 1) {
       const range2 = Math.round(range1 + delta);
       this.values.push(
-        `${Number(
+        `${Number(range1).toLocaleString("en-IN")}-${Number(
           range2
         ).toLocaleString("en-IN")}`
       );
-      ranges.push([range2]);
-      range1 = range2 + 1;
+      ranges.push([range1, range2]);
+      range1 = range2;
     }
-
     return ranges;
   }
+
+
   // to load all the blocks for state data on the map
   blockWise() {
     try {
@@ -1831,9 +1813,7 @@ export class MapReportComponent implements OnInit {
           const min = Math.min(...arr);
           const max = Math.max(...arr);
 
-
-
-          arr.length >= 10 ? this.getRangeArray(min, max, 10) : this.getRangeArray1(min, max, arr.length);
+          this.getRangeArray(min, max, 10);
           // set hierarchy values
           this.districtHierarchy = {
             distId: this.data[0]?.district_id,
@@ -1988,7 +1968,7 @@ export class MapReportComponent implements OnInit {
             const min = Math.min(...arr);
             const max = Math.max(...arr);
 
-            arr.length >= 10 ? this.getRangeArray(min, max, 10) : this.getRangeArray1(min, max, arr.length);
+            this.getRangeArray(min, max, 10);
             this.clusterMarkers = this.data;
 
             var myBlocks = [];
@@ -2168,7 +2148,7 @@ export class MapReportComponent implements OnInit {
                 const min = Math.min(...arr);
                 const max = Math.max(...arr);
 
-                arr.length >= 10 ? this.getRangeArray(min, max, 10) : this.getRangeArray1(min, max, arr.length);
+                this.getRangeArray(min, max, 10);
                 this.schoolMarkers = this.data;
 
                 var markers = result["data"];
@@ -2284,6 +2264,7 @@ export class MapReportComponent implements OnInit {
   // common function for all the data to show in the map
   genericFun(data, options, fileName) {
     try {
+      this.globalService.featureGrp.clearLayers();
       this.reportData = [];
       this.markers = data;
 
@@ -2338,7 +2319,6 @@ export class MapReportComponent implements OnInit {
       }
       this.commonService.loaderAndErr(data);
       this.changeDetection.detectChanges();
-      this.globalService.featureGrp.clearLayers();
     } catch (e) {
       data = [];
       this.commonService.loaderAndErr(data);
@@ -2841,6 +2821,7 @@ export class MapReportComponent implements OnInit {
     this.onRangeSelect = "absolute";
     this.valueRange = i;
     this.filterRangeWiseData(value, i);
+    
   }
 
 
@@ -2869,6 +2850,10 @@ export class MapReportComponent implements OnInit {
 
       const ranges = [];
       const getRangeArray = (min, max, n) => {
+        if (min === max) {
+          min = 0;
+        }
+        
         const delta = (max - min) / n;
         let range1 = Math.ceil(min);
         for (let i = 0; i < n; i += 1) {
@@ -2906,7 +2891,7 @@ export class MapReportComponent implements OnInit {
       markers = this.data;
     }
 
-
+    
     this.genericFun(markers, this.dataOptions, this.fileName);
     this.commonService.errMsg();
 
@@ -2914,6 +2899,7 @@ export class MapReportComponent implements OnInit {
 
     //adjusting marker size and other UI on screen resize:::::::::::
     this.globalService.onResize(this.level);
+    this.globalService.getBoundsByMarkers();
     this.commonService.loaderAndErr(markers);
     this.changeDetection.detectChanges();
   }

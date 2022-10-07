@@ -5,6 +5,7 @@ import * as config from '../../../../assets/data/config.json'
 import * as mapData from '../../../../assets/data/map.json';
 import * as  googleMapData from "../../../../assets/data/googleMap.json";
 import { map } from 'lodash';
+import { objectEach } from 'highcharts';
 
 declare var MapmyIndia: any;
 export var globalMap;
@@ -108,7 +109,10 @@ export class MapService {
   }
 
   getBoundsByMarkers() {
-    globalMap.fitBounds(this.featureGrp.getBounds(), {padding: [50, 50]})
+    let bounds = this.featureGrp.getBounds();
+    if (bounds && Object.keys(bounds).length > 0) {
+      globalMap.fitBounds(bounds, {padding: [50, 50]});
+    }
   }
 
 
