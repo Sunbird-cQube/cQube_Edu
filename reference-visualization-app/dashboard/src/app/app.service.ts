@@ -506,7 +506,6 @@ export class AppServiceComponent {
     });
 
     let uniqueItems = [...new Set(values)];
-    console.log('value', uniqueItems)
     uniqueItems = uniqueItems.map((a) => {
       if (typeof a == "object") {
         return a["percentage"];
@@ -529,6 +528,10 @@ export class AppServiceComponent {
     const ranges = [];
 
     const getRangeArray = (min, max, n) => {
+      if (min === max) {
+        min = 0;
+      }
+
       const delta = (max - min) / n;
       let range1 = Math.ceil(min);
       for (let i = 0; i < n; i += 1) {
