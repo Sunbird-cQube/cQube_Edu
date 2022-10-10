@@ -379,7 +379,7 @@ export class CourseProgressComponent implements OnInit {
         lineColor: '#FFFFFF',
         gridLineColor: 'transparent',
         min: 0,
-        max: 30,
+        max: this.innerWidth > 1660 ? 20 : this.innerWidth > 1024 ? 14 : 10,
         scrollbar: {
           enabled: scrollBarX
         },
