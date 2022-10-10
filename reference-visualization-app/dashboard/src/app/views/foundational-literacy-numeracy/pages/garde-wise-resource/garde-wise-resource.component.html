@@ -1,6 +1,9 @@
 <div appFullScreen>
     <div class="grid grid-cols-12" *ngIf="!isReportLoading; else reportLoader">
         <div class="col-span-full">
+            <div class="grid grid-cols-12 button-right">
+                <app-download-button [data]="data?.values" [fileName]="fileName" [reportType]="'dashletBar'"></app-download-button>
+            </div>
             <app-filter-panel [filters]="filters" colSize="md:col-span-3 xs:col-span-12 xmd:col-span-4 4k:col-span-2" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
             <ng-container *ngIf="data">
                 <sb-dashlet type="horizontalBar" [data]="data" [config]="config"></sb-dashlet>

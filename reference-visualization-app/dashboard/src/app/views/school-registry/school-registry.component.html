@@ -24,6 +24,9 @@
                     </div>
                     <div class="grid grid-cols-12">
                         <div class="col-span-full" appFullScreen>
+                            <div class="grid grid-cols-12 button-right">
+                                <app-download-button [data]="udiseStateData?.data" [fileName]="fileName" [reportType]="'map'"></app-download-button>
+                            </div>
                             <div class="grid grid-cols-12">
                                 <div class="xs:col-span-full xmd:col-span-6">
                                     <app-level-n-metric-filter-panel [metricFilter]="metricFilter" [levels]="levels" (selectMetricFilter)="onSelectMetricFilter($event)" (selectLevel)="onSelectLevel($event)"></app-level-n-metric-filter-panel>

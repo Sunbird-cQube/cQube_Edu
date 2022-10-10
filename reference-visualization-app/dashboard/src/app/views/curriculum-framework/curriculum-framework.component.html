@@ -19,6 +19,9 @@
                     <div class="grid grid-cols-12" *ngIf="!isMapReportLoading; else loading">
                         <div class="col-span-full">
                             <div class="grid grid-cols-12" appFullScreen>
+                                <div class="grid grid-cols-12 col-span-full button-right">
+                                    <app-download-button [data]="ncfProgressData?.data" fileName="NCF_Progress_Status" [reportType]="'map'"></app-download-button>
+                                </div>
                                 <div class="xs:col-span-full xmd:col-span-8 4k:col-span-4">
                                     <app-level-n-metric-filter-panel [metricFilter]="metricFilter" (selectMetricFilter)="onSelectMetricFilter($event)"></app-level-n-metric-filter-panel>
                                 </div>

@@ -17,6 +17,7 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
   filters: any;
   QRGaugeData: any | undefined;
   tableData: any;
+  fileName: string = "Report_data";
 
   config;
   data;

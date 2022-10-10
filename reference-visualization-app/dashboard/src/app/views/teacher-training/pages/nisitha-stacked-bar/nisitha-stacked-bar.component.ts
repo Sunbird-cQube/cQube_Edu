@@ -19,6 +19,7 @@ export class NisithaStackedBarComponent implements OnInit {
   filters: any;
   config;
   data;
+  fileName: string = "NISHTA_%_against_Potential_Base";
 
   config2;
   data2;

@@ -23,6 +23,7 @@ export class SchoolRegistryComponent implements OnInit {
   scatterData: any;
   filters1: any;
   levels1: any;
+  fileName: string = "UDISE_District_Wise_Performanc";
 
   constructor(private readonly _configService: ConfigService, private readonly _commonService: CommonService, private readonly _spinner: NgxSpinnerService) {
     if(environment.config == 'state'){

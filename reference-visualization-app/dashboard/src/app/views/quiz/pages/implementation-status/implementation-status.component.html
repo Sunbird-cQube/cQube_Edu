@@ -5,6 +5,9 @@
         </div>
         <div class="grid grid-cols-12"  *ngIf="implementationStatusData">
             <div class="col-span-full" appFullScreen>
+                <div class="grid grid-cols-12 button-right">
+                    <app-download-button [data]="implementationStatusData?.data" [fileName]="fileName" [reportType]="'map'"></app-download-button>
+                </div>
                 <app-leaflet-map [mapData]="implementationStatusData"></app-leaflet-map>
             </div>
         </div>                    

@@ -19,6 +19,7 @@ export class NishithaTableComponent implements OnInit {
   marginTop: any;
   config;
   data;
+  fileName: string = "NISHTA_District_wise_Status";
 
   @Input() lastLevel!: string;
 
@@ -31,7 +32,9 @@ export class NishithaTableComponent implements OnInit {
     if (this.lastLevel === 'district') {
       this.title = 'Total Enrolments and Total Certifications';
       this.marginTop = 100;
+      this.fileName = "NISHTA_Course_wise_Status";
     } else {
+      this.fileName = "NISHTA_Course_wise_Status";
       this.title = 'Total Enrolments and Total Certifications';
       this.marginTop = 100;
     }

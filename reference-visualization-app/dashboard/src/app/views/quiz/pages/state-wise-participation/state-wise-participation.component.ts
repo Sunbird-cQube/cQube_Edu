@@ -10,6 +10,7 @@ export class StateWiseParticipationComponent implements OnInit {
 
   quizzesStateData: any;
   options: Highcharts.Options | undefined;
+  fileName: string = "Report_data";
 
   constructor(private readonly _ETBService: ETBService) { 
     this.getQuizzesStateData();

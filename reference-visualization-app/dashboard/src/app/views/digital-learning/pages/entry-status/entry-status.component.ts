@@ -13,6 +13,7 @@ export class EntryStatusComponent implements OnInit {
   ETBStateData: any;
   filters: any;
   isMapReportLoading = true;
+  fileName: string = "Report_data";
 
   constructor(private readonly _commonService: CommonService, private readonly _configService: ConfigService) {
     this.getETBData(this.filters);

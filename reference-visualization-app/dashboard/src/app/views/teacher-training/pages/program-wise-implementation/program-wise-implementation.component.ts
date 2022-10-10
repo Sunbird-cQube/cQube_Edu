@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 export class ProgramWiseImplementationComponent implements OnInit {
   tableData: any;
   filters: any;
+  fileName: string = "NISHTA_Implementation_Status";
 
   constructor(private readonly _commonService: CommonService) {
     this.gettotalCoursesAndMediumData(this.filters);
