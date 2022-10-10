@@ -124,6 +124,10 @@ if (environment.config == 'national') {
       path: 'signin', redirectTo: 'login', pathMatch: 'full',
     },
     {
+      path: '',
+      loadChildren: () => import('./views/authentication/authentication.module').then(module => module.AuthenticationModule)
+    },
+    {
       path: 'home', component: HomePageComponent,
       canActivate: [AuthGuard]
     },

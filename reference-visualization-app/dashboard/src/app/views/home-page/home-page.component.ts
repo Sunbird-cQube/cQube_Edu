@@ -31,7 +31,7 @@ export class HomePageComponent implements OnInit {
     this.storage = window.localStorage;
     this.hideAdmin = localStorage.getItem('roleName') === 'admin' ? true : false;
     if (localStorage.getItem('roleName') !== 'admin') {
-      this.router.navigate(['/dashboard']);
+      //this.router.navigate(['/dashboard']);
     }
 
   }
