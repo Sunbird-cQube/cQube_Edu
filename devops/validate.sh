@@ -280,8 +280,15 @@ fi
 }
 
 check_kc_config_otp(){
-if ! [[ $2 == "true" || $2 == "false" ]]; then
-    echo "Error - Please enter either true or false for $1"; fail=1
+if [[ $access_type == "national" ]]; then
+    if [[ ! $2 == "NA" ]]; then
+        echo "Error - Please provide $1 as NA if you selected access_type as national"; fail=1
+    fi
+fi
+if [[ $access_type == "state" ]]; then
+    if ! [[ $2 == "true" || $2 == "false" ]]; then
+         echo "Error - Please enter either true or false for $1"; fail=1
+    fi
 fi
 }
 
@@ -291,6 +298,12 @@ vals[$key]=$(awk ''/^$key:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 }
 
 check_static_datasource(){
+if [[ $access_type == "national" ]]; then
+    if [[ ! $2 == "NA" ]]; then
+        echo "Error - Please provide $1 as NA if you selected access_type as national"; fail=1
+    fi
+fi
+if [[ $access_type == "state" ]]; then
 if ! [[ $2 == "udise" || $2 == "state" ]]; then
     echo "Error - Please enter either udise or state for $1"; fail=1
 else
@@ -317,6 +330,7 @@ else
             sed -i '/datasource_status/c\datasource_status: matched' ansible/roles/postgres/vars/main.yml
         fi
     fi
+fi
 fi
 }
 
@@ -349,25 +363,13 @@ sed -i '/session_timeout_in_seconds:/d' ansible/roles/workflow_keycloak/vars/mai
 echo "session_timeout_in_seconds: $timeout_value" >> ansible/roles/workflow_keycloak/vars/main.yml
 }
 
-check_map_name(){
-if ! [[ $2 == "leafletmap" ]]; then
-    echo "Error - Please enter leafletmap for $1"; fail=1
-fi
-}
-
-check_auth_api(){
-if ! [[ $2 == "cqube" ]]; then
-    echo "Error - Please enter cqube for $1"; fail=1
-fi
-}
-
-check_theme(){
-if ! [[ $2 == "theme1" || $2 == "theme2" || $2 == "theme3" ]]; then
-    echo "Error - Please enter either theme1 or theme2 or theme3 for $1"; fail=1
-fi
-}
-
 check_slab(){
+if [[ $access_type == "national" ]]; then
+    if ! [[ $slab1 == "NA" && $slab2 == "NA" && $slab3 == "NA" && $slab4 == "NA" ]]; then
+        echo "Error - Please provide all slab values as NA if you selected access_type as national" ; fail=1
+    fi
+fi
+if [[ $access_type == "state" ]]; then
 if [[ $slab1 =~ ^[0-9]{,2}$ && $slab2 =~ ^[0-9]{,2}\-[0-9]{,2}$ && $slab3 =~ ^[0-9]{,2}\-[0-9]{,2}$ && $slab4 =~ ^[0-9]{,2}$ ]]; then
 
 if ! [[ $slab1 -ge 1 && $slab1 -le 100 ]]; then
@@ -403,6 +405,7 @@ fi
 else
 	echo "Error - Incorrect slab value please refer the slab comments in config.yml " ; fail=1
 fi
+fi
 }
 
 
@@ -418,10 +421,10 @@ fi
 echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 
 # An array of mandatory values
-declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "state_name" "mode_of_installation" "storage_type" "db_user" "db_name" \
-	"db_password" "read_only_db_user" "read_only_db_password" "api_endpoint" "local_ipv4_address" "vpn_local_ipv4_address" "proxy_host" \
+declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "mode_of_installation" "storage_type" "db_user" "db_name" \
+	"db_password" "read_only_db_user" "read_only_db_password" "api_endpoint" "local_ipv4_address" "proxy_host" \
 		           "keycloak_adm_user" "keycloak_adm_passwd" "report_viewer_config_otp" "diksha_columns" "static_datasource" \ 
-			         "management" "session_timeout" "map_name" "theme" "slab1" "slab2" "slab3" "slab4" "auth_api")
+			         "management" "session_timeout" "slab1" "slab2" "slab3" "slab4")
 
 # Create and empty array which will store the key and value pair from config file
 declare -A vals
@@ -565,13 +568,6 @@ case $key in
           check_db_naming $key $value
        fi
        ;;
-   vpn_local_ipv4_address)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-          check_vpn_ip $key $value
-       fi
-       ;;
    keycloak_adm_passwd)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -612,20 +608,6 @@ case $key in
           check_timeout $key $value
        fi
        ;;
-   map_name)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-          check_map_name $key $value
-       fi
-       ;;
-   theme)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-          check_theme $key $value
-       fi
-       ;;
    slab1)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -652,13 +634,6 @@ case $key in
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
           check_slab $key $value
-       fi
-       ;;
-   auth_api)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-	   check_auth_api $key $value
        fi
        ;;
    *)
