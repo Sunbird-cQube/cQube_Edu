@@ -2,4 +2,6 @@
 
 realm_name: cQube
 angular_app_client_id: cqube_app
-admin_app_client_id: cqube_admin 
+admin_app_client_id: cqube_admin
+auth_api: cqube
+state_name: "{{ state_code }}" 

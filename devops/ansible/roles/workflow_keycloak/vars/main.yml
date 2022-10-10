@@ -8,6 +8,7 @@ realm_name: cQube
 angular_app_client_id: cqube_app
 admin_app_client_id: cqube_admin 
 emission_app_client_id: cqube_flask
+auth_api: cqube
 
 # Realm Roles
 admin_role: admin

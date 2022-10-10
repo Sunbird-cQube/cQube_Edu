@@ -35,14 +35,10 @@
     state: started
     enabled: yes
 
-- name: Edit grafana config
-  lineinfile:
+- name: Configure grafana.ini file
+  template:
+    src: grafana.ini.j2
     dest: /etc/grafana/grafana.ini
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-  with_items:
-    - { regexp: ';http_port =', line: 'http_port = 9000' }
-    - { regexp: ';http_addr =', line: 'http_addr = {{ local_ipv4_address }}' }
 
 - name: restart grafana
   become: true

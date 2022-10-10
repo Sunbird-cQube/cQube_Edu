@@ -3,3 +3,7 @@
 realm_name: cQube
 angular_app_client_id: cqube_app
 admin_app_client_id: cqube_admin
+map_name: leafletmap
+auth_api: cqube
+theme: theme1
+state_name: "{{ state_code }}" 
