@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit {
   })
 
   constructor(private router: Router, private readonly _authenticationService: AuthenticationService) {
-    // if (this._authenticationService.isUserLoggedIn()) {
-    //   this.router.navigate(['/dashboard']);
-    // }
+    if (this._authenticationService.isUserLoggedIn()) {
+      this.router.navigate(['/home']);
+    }
   }
 
   ngOnInit(): void {
