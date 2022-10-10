@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { LayoutComponent } from './core/components/layout/layout.component';
-import { LoginComponent } from './views/authentication/pages/login/login.component';
+import { AuthGuard } from './core/guards/auth.guard';
 import { HomePageComponent } from './views/home-page/home-page.component';
 
 var routes: Routes = [];
@@ -118,25 +118,19 @@ if (environment.config == 'national') {
 } else {
   routes = [
     {
-      path: '',
-      loadChildren: () =>
-        import('./views/authentication/authentication.module').then(
-          (module) => module.AuthenticationModule
-        ),
-    },
-
-    {
       path: '', redirectTo: `home`, pathMatch: 'full'
     },
     {
-      path: 'signin', component: LoginComponent,
+      path: 'signin', redirectTo: 'login', pathMatch: 'full',
     },
     {
-      path: 'home', component: HomePageComponent
+      path: 'home', component: HomePageComponent,
+      canActivate: [AuthGuard]
     },
     {
       path: '',
       component: LayoutComponent,
+      canActivate: [AuthGuard],
       children: [
         {
           path: '',
@@ -149,6 +143,7 @@ if (environment.config == 'national') {
             import('./views/dashboard/dashboard.module').then(
               (module) => module.DashboardModule
             ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'nishtha',
@@ -156,6 +151,7 @@ if (environment.config == 'national') {
             import('./views/teacher-training/teacher-training.module').then(
               (module) => module.TeacherTrainingModule
             ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'etb',
@@ -163,6 +159,7 @@ if (environment.config == 'national') {
             import('./views/digital-learning/digital-learning.module').then(
               (module) => module.DigitalLearningModule
             ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'nas',
@@ -170,6 +167,7 @@ if (environment.config == 'national') {
             import(
               './views/student-learning-survey/student-learning-survey.module'
             ).then((module) => module.StudentLearningSurveyModule),
+          canLoad: [AuthGuard]
         },
         {
           path: 'poshan',
@@ -177,6 +175,7 @@ if (environment.config == 'national') {
             import('./views/nutrition-health/nutrition-health.module').then(
               (module) => module.NutritionHealthModule
             ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'pgi',
@@ -184,6 +183,7 @@ if (environment.config == 'national') {
             import('./views/school-education/school-education.module').then(
               (module) => module.SchoolEducationModule
             ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'udise',
@@ -191,6 +191,7 @@ if (environment.config == 'national') {
             import('./views/school-registry/school-registry.module').then(
               (module) => module.SchoolRegistryModule
             ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'infra',
@@ -198,90 +199,95 @@ if (environment.config == 'national') {
             import('./views/school-infrastructure/school-infrastructure.module').then(
               (module) => module.SchoolInfrastructureModule
             ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'stperformance',
           loadChildren: () =>
             import('./views/student-performance/student-performance.module').then(
               (module) => module.StudentPerformanceModule
-            )
+            ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'education-official',
           loadChildren: () =>
             import('./views/education-official/education-official.module').then(
               (module) => module.EducationOfficialModule
-            )
+            ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'attendance',
           loadChildren: () =>
             import('./views/attendance/attendance.module').then(
               (module) => module.AttendanceModule
-            )
+            ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'courses',
           loadChildren: () =>
             import('./views/courses/courses.module').then(
               (module) => module.CoursesModule
-            )
+            ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'etb-usage',
           loadChildren: () =>
             import('./views/energized-textbook-usage/energized-textbook-usage.module').then(
               (module) => module.EnergizedTextbookUsageModule
-            )
+            ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'exception',
           loadChildren: () =>
             import('./views/exception-list/exception-list.module').then(
               (module) => module.ExceptionListModule
-            )
+            ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'composite',
           loadChildren: () =>
             import('./views/composite/composite.module').then(
               (module) => module.CompositeModule
-            )
+            ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'telemetry',
           loadChildren: () =>
             import('./views/telemetry/telemetry.module').then(
               (module) => module.TelemetryModule
-            )
+            ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'progress-card',
           loadChildren: () =>
             import('./views/progress/progress.module').then(
               (module) => module.ProgressModule
-            )
+            ),
+          canLoad: [AuthGuard]
         },
         {
           path: 'other-diksha-metrics',
           loadChildren: () =>
             import('./views/other-digital-learning-metrics/other-digital-learning-metrics.module').then(
               (module) => module.OtherDigitalLearningMetricsModule
-            )
+            ),
+          canLoad: [AuthGuard]
         },
-        // {
-        //   path: ':id',
-        //   loadChildren: () =>
-        //     import('./views/text-book/text-book.module').then(
-        //       (module) => module.TextBookModule
-        //     )
-        // },
         {
           path: ':id',
           loadChildren: () =>
             import('./views/dynamic-module/dynamic-module.module').then(
               (module) => module.DynamicModuleModule
-            )
+            ),
+          canLoad: [AuthGuard]
         }
       ],
     },
