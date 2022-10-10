@@ -42,6 +42,7 @@
     "datatables.net-dt": "^1.10.20",
     "file-saver": "^2.0.5",
     "highcharts": "^10.1.0",
+    "invert-color": "^2.0.0",
     "jquery": "^3.5.1",
     "json2csv": "^5.0.7",
     "leaflet": "^1.6.0",
