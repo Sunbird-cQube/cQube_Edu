@@ -169,11 +169,11 @@ const dataSourceInfo = {
         barChart: {
             pathToFile: 'diksha_etb_learning-session.json',
             mainFilter: 'State Code',
-            defaultLevel: 'grade_new',
+            defaultLevel: 'Grade',
             columns: [
                 {
                     name: "Grade",
-                    property: "grade_new",
+                    property: "Grade",
                     isLocationName: true
                 },
                 {
@@ -187,7 +187,7 @@ const dataSourceInfo = {
             filters: [
                 {
                     name: 'Medium',
-                    column: 'medium_new',
+                    column: 'Medium',
                     defaultValue: true
                 },
                 {
