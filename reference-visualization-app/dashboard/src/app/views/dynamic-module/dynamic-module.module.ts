@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DynamicModuleRoutingModule } from './dynamic-module-routing.module';
 import { DynamicModuleComponent } from './dynamic-module.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +20,7 @@ import { LoReportComponent } from './pages/lo-report/lo-report.component';
     LoReportComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
     DynamicModuleRoutingModule,
     MatTabsModule,

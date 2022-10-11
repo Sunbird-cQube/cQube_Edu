@@ -546,16 +546,16 @@ export class AppServiceComponent {
     const rangeArrayIn5Parts = getRangeArray(min, max, 10);
 
     var colorsArr = [
-      "#a50026",
-      "#d73027",
-      "#f46d43",
-      "#fdae61",
-      "#fee08b",
-      "#d9ef8b",
-      "#a6d96a",
-      "#66bd63",
-      "#1a9850",
-      "#006837",
+      "#cfddf5",
+      "#aec6ee",
+      "#8eb0e7",
+      "#6e99e0",
+      "#4e83d9",
+      "#2d6cd2",
+      "#265bb1",
+      "#1f4b91",
+      "#183a71",
+      "#112a51",
     ];
     var colors = {};
 
