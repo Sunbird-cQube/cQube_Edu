@@ -1,252 +1,260 @@
-<div class="container-fluid">
-    <div class="row reportHeader2">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="row" (window:resize)="onResize()" id="reportHeader">
-                <div class="col-xl-6">
-                    <div *ngIf="skul">
-                        <p id="dist">
-                            CRC Report for:
-                            <span (click)="onClockHome()" style="cursor: pointer; text-decoration: underline"
-                                class="selected-level">{{ state }}</span>
-                        </p>
-                    </div>
-                    <div *ngIf="dist">
-                        <p id="block">
-                            CRC Report for:
-                            <span (click)="onClockHome()" style="cursor: pointer; text-decoration: underline">{{ state
-                                }}</span>
-                            <span> | </span><span (click)="myDistData(distName)"
-                                style="cursor: pointer; text-decoration: underline" class="selected-level">
-                                {{ hierName }}</span>
-                        </p>
-                    </div>
-                    <div *ngIf="blok">
-                        <p id="cluster">
-                            CRC Report for:
-                            <span (click)="onClockHome()" style="cursor: pointer; text-decoration: underline">{{ state
-                                }}</span><span>
-                                | </span><span (click)="!selDist? myDistData(distName):''"
-                                style="cursor: pointer; text-decoration: underline">
-                                {{ titleName }}</span><span> | </span><span
-                                (click)="!selCluster? myBlockData(blockName):''"
-                                style="cursor: pointer; text-decoration: underline" class="selected-level">
-                                {{ hierName }}</span>
-                        </p>
-                    </div>
-
-                    <div *ngIf="clust">
-                        <p id="school">
-                            CRC Report for:
-                            <span (click)="onClockHome()" style="cursor: pointer; text-decoration: underline">{{ state
-                                }}</span><span>
-                                | </span><span (click)="!selDist? myDistData(distName):''"
-                                style="cursor: pointer; text-decoration: underline">
-                                {{ titleName }}</span><span> | </span><span
-                                (click)="!selCluster? myBlockData(blockName):''"
-                                style="cursor: pointer; text-decoration: underline">
-                                {{ title }}</span><span> | </span><span class="selected-level"> {{ hierName }}</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-xl-6">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <p id="errMsg" class="note"></p>
+<div class="report-wrapper" appFullScreen>
+    <div class="container-fluid">
+        <div class="row reportHeader2">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row" (window:resize)="onResize()" id="reportHeader">
+                    <div class="col-xl-6">
+                        <div *ngIf="skul">
+                            <p id="dist">
+                                CRC Report for:
+                                <span (click)="onClockHome()" style="cursor: pointer; text-decoration: underline"
+                                    class="selected-level">{{ state }}</span>
+                            </p>
                         </div>
-                        <div class="col-sm-10">
-                            <div *ngIf="skul; else ng_else" id="select"
-                                class="grid grid-cols-2 gap-4">
-                                <div class="col-span-1">
-                                    <ng-select *ngIf="reportData.length > 0" class="dwnld" id="downloader"
-                                        [(ngModel)]="downloadType" name="downloadType" dropdownPosition="bottom"
-                                        [clearable]="false" placeholder="Choose Report" class="col-span-6 xmd:col-span-3
-                                        lg:col-span-2">
-                                        <ng-option *ngFor="let md of modes; let i = index" [value]="modes[i]">
-                                            {{ md }} Report
-                                        </ng-option>
-                                    </ng-select>
+                        <div *ngIf="dist">
+                            <p id="block">
+                                CRC Report for:
+                                <span (click)="onClockHome()" style="cursor: pointer; text-decoration: underline">{{
+                                    state
+                                    }}</span>
+                                <span> | </span><span (click)="myDistData(distName)"
+                                    style="cursor: pointer; text-decoration: underline" class="selected-level">
+                                    {{ hierName }}</span>
+                            </p>
+                        </div>
+                        <div *ngIf="blok">
+                            <p id="cluster">
+                                CRC Report for:
+                                <span (click)="onClockHome()" style="cursor: pointer; text-decoration: underline">{{
+                                    state
+                                    }}</span><span>
+                                    | </span><span (click)="!selDist? myDistData(distName):''"
+                                    style="cursor: pointer; text-decoration: underline">
+                                    {{ titleName }}</span><span> | </span><span
+                                    (click)="!selCluster? myBlockData(blockName):''"
+                                    style="cursor: pointer; text-decoration: underline" class="selected-level">
+                                    {{ hierName }}</span>
+                            </p>
+                        </div>
+
+                        <div *ngIf="clust">
+                            <p id="school">
+                                CRC Report for:
+                                <span (click)="onClockHome()" style="cursor: pointer; text-decoration: underline">{{
+                                    state
+                                    }}</span><span>
+                                    | </span><span (click)="!selDist? myDistData(distName):''"
+                                    style="cursor: pointer; text-decoration: underline">
+                                    {{ titleName }}</span><span> | </span><span
+                                    (click)="!selCluster? myBlockData(blockName):''"
+                                    style="cursor: pointer; text-decoration: underline">
+                                    {{ title }}</span><span> | </span><span class="selected-level"> {{ hierName
+                                    }}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <p id="errMsg" class="note"></p>
+                            </div>
+                            <div class="col-sm-10">
+                                <div *ngIf="skul; else ng_else" id="select" class="grid grid-cols-2 gap-4">
+                                    <div class="col-span-1">
+                                        <ng-select *ngIf="reportData.length > 0" class="dwnld" id="downloader"
+                                            [(ngModel)]="downloadType" name="downloadType" dropdownPosition="bottom"
+                                            [clearable]="false" placeholder="Choose Report" class="col-span-6 xmd:col-span-3
+                                            lg:col-span-2">
+                                            <ng-option *ngFor="let md of modes; let i = index" [value]="modes[i]">
+                                                {{ md }} Report
+                                            </ng-option>
+                                        </ng-select>
+                                    </div>
+                                    <div class="col-span-1 mb-4">
+                                        <button *ngIf="reportData.length > 0" class="btn btn-primary"
+                                            title="Download Report" id="download1" style="float:right"
+                                            (click)="downloadReportofState(downloadType)">
+                                            Download Report &nbsp;
+                                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+
+
                                 </div>
-                                <div class="col-span-1 mb-4">
-                                    <button *ngIf="reportData.length > 0" class="btn btn-primary"
-                                        title="Download Report" id="download1" style="float:right"
-                                        (click)="downloadReportofState(downloadType)">
+
+                                <ng-template #ng_else>
+                                    <button *ngIf="reportData.length > 0" class="btn btn-primary mb-4"
+                                        title="Download Report" id="download1" (click)="downloadReport()"
+                                        style="float:right">
                                         Download Report &nbsp;
                                         <i class="fa fa-arrow-down" aria-hidden="true"></i>
                                     </button>
-                                </div>
-
-
+                                </ng-template>
                             </div>
 
-                            <ng-template #ng_else>
-                                <button *ngIf="reportData.length > 0" class="btn btn-primary mb-4" title="Download Report"
-                                    id="download1" (click)="downloadReport()" style="float:right">
-                                    Download Report &nbsp;
-                                    <i class="fa fa-arrow-down" aria-hidden="true"></i>
-                                </button>
-                            </ng-template>
                         </div>
-
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <p class="note">
-                        <strong> About the dashboard:</strong> The dashboard here provides
-                        insights using the CRC App data. We have derived several normalised
-                        metrics using the raw data and you can read more about them using
-                        the following link. A key feature of this dashboard is its ability
-                        to Zoom In and Out at various administrative levels. The
-                        administrative levels include District, Block and Cluster. This has
-                        been done to provide relevant insights at the appropriate
-                        administrative level. In addition to visualising data, the dashboard
-                        also gives you the ability to download the data at various
-                        administrative levels. This feature has been enabled to provide
-                        freedom to power users to derive additional insights that may not be
-                        captured in this dashboard. You can download the data using the
-                        dropdown option on the top right corner.
-                    </p>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="note">
+                            <strong> About the dashboard:</strong> The dashboard here provides
+                            insights using the CRC App data. We have derived several normalised
+                            metrics using the raw data and you can read more about them using
+                            the following link. A key feature of this dashboard is its ability
+                            to Zoom In and Out at various administrative levels. The
+                            administrative levels include District, Block and Cluster. This has
+                            been done to provide relevant insights at the appropriate
+                            administrative level. In addition to visualising data, the dashboard
+                            also gives you the ability to download the data at various
+                            administrative levels. This feature has been enabled to provide
+                            freedom to power users to derive additional insights that may not be
+                            captured in this dashboard. You can download the data using the
+                            dropdown option on the top right corner.
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="">
-                <div class="grid grid-cols-12 gap-4">
-                    <ng-select id="period" [(ngModel)]="period" (change)="
-              period != 'select_month' ? onPeriodSelect() : showYearMonth()" dropdownPosition="bottom"
-                        [clearable]="false" placeholder=" Choose TimeRange"
-                        class="col-span-6 xmd:col-span-3 lg:col-span-2">
+                <div class="">
+                    <div class="grid grid-cols-12 gap-4">
+                        <ng-select id="period" [(ngModel)]="period" (change)="
+                  period != 'select_month' ? onPeriodSelect() : showYearMonth()" dropdownPosition="bottom"
+                            [clearable]="false" placeholder=" Choose TimeRange"
+                            class="col-span-6 xmd:col-span-3 lg:col-span-2">
 
-                        <ng-option *ngFor="let period of timeRange; let i = index" [value]="period.key">
-                            {{ period.value }}
-                        </ng-option>
-                    </ng-select>
-                    <ng-select [hidden]="yearMonth" id="year" [(ngModel)]="year" name="year" (change)="getYear()"
-                        dropdownPosition="bottom" [clearable]="false" placeholder=" Choose Year"
-                        class="col-span-6 xmd:col-span-3 lg:col-span-2">
-
-                        <ng-option *ngFor="let year of years; let i = index" [value]="years[i]">
-                            {{ years[i] }}
-                        </ng-option>
-                    </ng-select>
-                    <ng-select [hidden]="yearMonth" id="month" [(ngModel)]="month" name="month"
-                        (change)="getMonth($event)" dropdownPosition="bottom" [clearable]="false"
-                        placeholder="  Choose Month" class="col-span-6 xmd:col-span-3 lg:col-span-2">
-
-                        <ng-option *ngFor="let month of months; let i = index" [value]="months[i]">
-                            {{ months[i] }}
-                        </ng-option>
-                    </ng-select>
-                    <ng-select id="choose_dist" [(ngModel)]="myDistrict" name="myDistrict" [hidden]="hideIfAccessLevel"
-                        [disabled]="selDist" (change)="myDistData(myDistrict)" dropdownPosition="bottom"
-                        [clearable]="false" placeholder=" Choose District"
-                        class="col-span-6 xmd:col-span-3 lg:col-span-2">
-
-                        <ng-option *ngFor="let dist of crcDistrictsNames" [value]="dist.districtId">
-                            {{ dist.districtName }}
-                        </ng-option>
-                    </ng-select>
-
-                    <ng-select [hidden]="blockHidden" id="choose_block" [(ngModel)]="myBlock" name="myBlock"
-                        [disabled]="selBlock" (change)="myBlockData(myBlock)" dropdownPosition="bottom"
-                        [clearable]="false" placeholder="Choose Block" class="col-span-6 xmd:col-span-3 lg:col-span-2">
-
-                        <ng-option *ngFor="let block of crcBlocksNames" [value]="block.blockId">
-                            {{ block.blockName }}
-                        </ng-option>
-                    </ng-select>
-
-                    <ng-select [hidden]="clusterHidden" id="choose_cluster" [(ngModel)]="myCluster" name="myCluster"
-                        [disabled]="selCluster" (change)="myClusterData(myCluster)" dropdownPosition="bottom"
-                        [clearable]="false" placeholder="Choose a Cluster"
-                        class="col-span-6 xmd:col-span-3 lg:col-span-2">
-
-                        <ng-option *ngFor="let cluster of crcClusterNames" [value]="cluster.clusterId" [ngStyle]="{
-                color:
-                  cluster.clusterName !== 'NO NAME FOUND' ? 'white' : '#ff3333'
-              }">
-                            {{ cluster.clusterName }}
-                        </ng-option>
-                    </ng-select>
-                    <div class="col-span-6 xmd:col-span-3 lg:col-span-2">
-                        <ng-select id="x-axis" class="col-span-2 sm:col-span-1" [(ngModel)]="xAxis" name="xAxis"
-                            (change)="selectAxis()" placeholder="Choose X-Axis">
-                            <ng-option *ngFor="let xaxis of xAxisFilter" [value]="xaxis.key">
-                                {{ xaxis.value }}
+                            <ng-option *ngFor="let period of timeRange; let i = index" [value]="period.key">
+                                {{ period.value }}
                             </ng-option>
                         </ng-select>
-                    </div>
-                    <div class="col-span-6 xmd:col-span-3 lg:col-span-2">
-                        <ng-select id="y-axis" class="col-span-2 sm:col-span-1" [(ngModel)]="yAxis" name="yAxis"
-                            (change)="selectAxis()" placeholder="Choose Y-Axis">
-                            <ng-option *ngFor="let yaxis of yAxisFilter" [value]="yaxis.key">
-                                {{ yaxis.value }}
+                        <ng-select [hidden]="yearMonth" id="year" [(ngModel)]="year" name="year" (change)="getYear()"
+                            dropdownPosition="bottom" [clearable]="false" placeholder=" Choose Year"
+                            class="col-span-6 xmd:col-span-3 lg:col-span-2">
+
+                            <ng-option *ngFor="let year of years; let i = index" [value]="years[i]">
+                                {{ years[i] }}
                             </ng-option>
                         </ng-select>
+                        <ng-select [hidden]="yearMonth" id="month" [(ngModel)]="month" name="month"
+                            (change)="getMonth($event)" dropdownPosition="bottom" [clearable]="false"
+                            placeholder="  Choose Month" class="col-span-6 xmd:col-span-3 lg:col-span-2">
+
+                            <ng-option *ngFor="let month of months; let i = index" [value]="months[i]">
+                                {{ months[i] }}
+                            </ng-option>
+                        </ng-select>
+                        <ng-select id="choose_dist" [(ngModel)]="myDistrict" name="myDistrict"
+                            [hidden]="hideIfAccessLevel" [disabled]="selDist" (change)="myDistData(myDistrict)"
+                            dropdownPosition="bottom" [clearable]="false" placeholder=" Choose District"
+                            class="col-span-6 xmd:col-span-3 lg:col-span-2">
+
+                            <ng-option *ngFor="let dist of crcDistrictsNames" [value]="dist.districtId">
+                                {{ dist.districtName }}
+                            </ng-option>
+                        </ng-select>
+
+                        <ng-select [hidden]="blockHidden" id="choose_block" [(ngModel)]="myBlock" name="myBlock"
+                            [disabled]="selBlock" (change)="myBlockData(myBlock)" dropdownPosition="bottom"
+                            [clearable]="false" placeholder="Choose Block"
+                            class="col-span-6 xmd:col-span-3 lg:col-span-2">
+
+                            <ng-option *ngFor="let block of crcBlocksNames" [value]="block.blockId">
+                                {{ block.blockName }}
+                            </ng-option>
+                        </ng-select>
+
+                        <ng-select [hidden]="clusterHidden" id="choose_cluster" [(ngModel)]="myCluster" name="myCluster"
+                            [disabled]="selCluster" (change)="myClusterData(myCluster)" dropdownPosition="bottom"
+                            [clearable]="false" placeholder="Choose a Cluster"
+                            class="col-span-6 xmd:col-span-3 lg:col-span-2">
+
+                            <ng-option *ngFor="let cluster of crcClusterNames" [value]="cluster.clusterId" [ngStyle]="{
+                    color:
+                      cluster.clusterName !== 'NO NAME FOUND' ? 'white' : '#ff3333'
+                  }">
+                                {{ cluster.clusterName }}
+                            </ng-option>
+                        </ng-select>
+                        <div class="col-span-6 xmd:col-span-3 lg:col-span-2">
+                            <ng-select id="x-axis" class="col-span-2 sm:col-span-1" [(ngModel)]="xAxis" name="xAxis"
+                                (change)="selectAxis()" placeholder="Choose X-Axis">
+                                <ng-option *ngFor="let xaxis of xAxisFilter" [value]="xaxis.key">
+                                    {{ xaxis.value }}
+                                </ng-option>
+                            </ng-select>
+                        </div>
+                        <div class="col-span-6 xmd:col-span-3 lg:col-span-2">
+                            <ng-select id="y-axis" class="col-span-2 sm:col-span-1" [(ngModel)]="yAxis" name="yAxis"
+                                (change)="selectAxis()" placeholder="Choose Y-Axis">
+                                <ng-option *ngFor="let yaxis of yAxisFilter" [value]="yaxis.key">
+                                    {{ yaxis.value }}
+                                </ng-option>
+                            </ng-select>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="reportContainer2 grid grid-cols-2 gap-4">
+        <div class="reportContainer2 grid grid-cols-2 gap-4">
 
-        <div class="col-span-2 scatter-div">
+            <div class="col-span-2 scatter-div">
 
-            <p class="note" style="margin-top: 5px">
-                <strong> NOTE:</strong> The scatter plot below provides information for
-                the metrics selected in the dropdown below. You can alter the metrics
-                (calculated from the CRC App) to update the scatter plot.
-            </p>
-            <br />
-            <div class="row" class="fullW">
-                <!-- <canvas id="myChart" width="100vw" height="44vh"></canvas> -->
-                <ng-container *ngIf="dashletData?.values?.length > 0">
-                  <sb-dashlet type="scatter" [data]="dashletData" [config]="config"></sb-dashlet>
-                </ng-container>
+                <p class="note" style="margin-top: 5px">
+                    <strong> NOTE:</strong> The scatter plot below provides information for
+                    the metrics selected in the dropdown below. You can alter the metrics
+                    (calculated from the CRC App) to update the scatter plot.
+                </p>
+                <br />
+                <div class="row" class="fullW">
+                    <!-- <canvas id="myChart" width="100vw" height="44vh"></canvas> -->
+                    <ng-container *ngIf="dashletData?.values?.length > 0">
+                        <sb-dashlet type="scatter" [data]="dashletData" [config]="config"></sb-dashlet>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="col-span-2 mb-5 mt-5">
+
+                <p class="note" style="margin-top: 5px">
+                    <strong> NOTE:</strong> The table provides information about the various
+                    metrics (calculated from the CRC App). You can sort the entire table
+                    based on any metrics available in this table.
+                </p>
+                <div class="myDiv crcDiv" style="margin-bottom: 1%;"
+                    [ngStyle]="{fontSize:height > 1760? '34px'  : height > 1160 && height < 1760 ? '25px' : height > 667 && height < 1160 ? '14px' : '11px'}">
+                    <table #dataTable id="table" class="display responsive cell-border crc-table"></table>
+                </div>
             </div>
         </div>
-        <div class="col-span-2 mb-5 mt-5">
-
-            <p class="note" style="margin-top: 5px">
-                <strong> NOTE:</strong> The table provides information about the various
-                metrics (calculated from the CRC App). You can sort the entire table
-                based on any metrics available in this table.
-            </p>
-            <div class="myDiv crcDiv" style="margin-bottom: 1%;"
-                [ngStyle]="{fontSize:height > 1760? '34px'  : height > 1160 && height < 1760 ? '25px' : height > 667 && height < 1160 ? '14px' : '11px'}">
-                <table #dataTable id="table" class="display responsive cell-border crc-table"></table>
+        <div class="row" id="footer">
+            <div style="margin-right: 5%; margin-left: 1%">
+                <span id="name" class="note" style="text-align: center">Management Type: {{ managementName }}</span>
+            </div>
+            <div style="margin-right: 5%">
+                <span id="visits">Total Number of visits: {{ visitCount }}</span>
+            </div>
+            <div style="margin-right: 5%">
+                <span id="schools" [hidden]="hideFooter" style="text-align: center">Total Number of Schools: {{
+                    schoolCount
+                    }}</span>
+            </div>
+            <div style="margin-right: 5%">
+                <span id="visited" [hidden]="hideFooter" style="float: right">Total schools visited: {{ visitedSchools
+                    }}</span>
+            </div>
+            <div style="margin-right: 5%">
+                <span id="notVisited" [hidden]="hideFooter" style="float: right">Total schools not visited: {{
+                    notVisitedSchools }}</span>
             </div>
         </div>
     </div>
-    <div class="row" id="footer">
-        <div style="margin-right: 5%; margin-left: 1%">
-            <span id="name" class="note" style="text-align: center">Management Type: {{ managementName }}</span>
-        </div>
-        <div style="margin-right: 5%">
-            <span id="visits">Total Number of visits: {{ visitCount }}</span>
-        </div>
-        <div style="margin-right: 5%">
-            <span id="schools" [hidden]="hideFooter" style="text-align: center">Total Number of Schools: {{ schoolCount
-                }}</span>
-        </div>
-        <div style="margin-right: 5%">
-            <span id="visited" [hidden]="hideFooter" style="float: right">Total schools visited: {{ visitedSchools
-                }}</span>
-        </div>
-        <div style="margin-right: 5%">
-            <span id="notVisited" [hidden]="hideFooter" style="float: right">Total schools not visited: {{
-                notVisitedSchools }}</span>
-        </div>
+    <div id="spinner">
+        <div id="loader" class="loading">Loading&#8230;</div>
     </div>
-</div>
-<div id="spinner">
-    <div id="loader" class="loading">Loading&#8230;</div>
-</div>
 
-<div *ngIf="waterMark === 'true'" id='demoLogoConatiner'>
-    <span><span>Test Data, Not Representative</span>
-        <span style="margin-left:50px">Test Data, Not Representative</span></span><br>
+    <div *ngIf="waterMark === 'true'" id='demoLogoConatiner'>
+        <span><span>Test Data, Not Representative</span>
+            <span style="margin-left:50px">Test Data, Not Representative</span></span><br>
 
+    </div>
 </div>
