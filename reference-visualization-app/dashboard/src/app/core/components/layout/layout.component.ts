@@ -1,10 +1,10 @@
 import { Component, OnInit, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
 import { IDashboardMenu } from '../../models/IDashboardCard';
 import { IMenuItem } from '../../models/IMenuItem';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-layout',
@@ -24,7 +24,7 @@ decreaseFontSize!: ElementRef;
 @ViewChild('resetFontSize')
 resetFontSize!: ElementRef;
 // @ViewChild('darkModeToggle') darkModeToggle: ElementRef;
-  constructor(private readonly _configService: ConfigService, private renderer: Renderer2,private router:Router) {
+  constructor(private readonly _configService: ConfigService, private renderer: Renderer2, private readonly _authService: AuthenticationService) {
     this._configService.getDashboardMetrics(true).subscribe(menuResult => {
       this.menu = [];
       let menuToDisplay: IMenuItem | any = {};
@@ -124,9 +124,8 @@ resetFontSize!: ElementRef;
         this.renderer.removeAttribute(this.resetFontSize.nativeElement, 'disabled');
       }
     }
-    signOut(){
-      localStorage.removeItem('userId');
-      this.router.navigate(['/login']);
+    signOut() {
+      this._authService.logout();
     }
 
 }
