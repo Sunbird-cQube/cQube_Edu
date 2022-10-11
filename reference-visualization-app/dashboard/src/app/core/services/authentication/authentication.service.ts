@@ -11,8 +11,8 @@ export class AuthenticationService {
 
   constructor(private readonly _router: Router, private readonly _http: HttpClient) { }
 
-  isUserLoggedIn(): boolean {
-    return localStorage.getItem('userId') !== null;
+  isUserLoggedIn(): boolean {    
+    return localStorage.getItem('token') !== null;
   }
 
   logout(): void {
