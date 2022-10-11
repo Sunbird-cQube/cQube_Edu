@@ -8,7 +8,8 @@ import { PieChartComponent } from 'src/app/shared/components/charts/pie-chart/pi
   styleUrls: ['./foundational-literacy-bar-pie.component.scss']
 })
 export class FoundationalLiteracyBarPieComponent implements OnInit {
-  nipunBharathData: any
+  nipunBharathData: any;
+  fileName: string = "Report_data";
 
   constructor() { 
     this.getNipunBharathData();

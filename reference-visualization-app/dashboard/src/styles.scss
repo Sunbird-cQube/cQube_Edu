@@ -340,3 +340,9 @@ body {
 .app-content{
     position: relative;
 }
+
+.button-right{
+    display: flex;
+    justify-content: end;
+    padding: 10px 0px 10px 0px;
+}

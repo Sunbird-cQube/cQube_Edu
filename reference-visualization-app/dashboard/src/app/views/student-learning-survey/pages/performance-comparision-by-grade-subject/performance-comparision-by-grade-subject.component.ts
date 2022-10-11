@@ -14,6 +14,7 @@ export class PerformanceComparisionByGradeSubjectComponent implements OnInit {
   levels: any;
   axisFilters: any
   options: Highcharts.Options | undefined;
+  fileName: string = "Report_data";
   
   constructor(private readonly _commonService: CommonService) {
     this.getScatterData(this.filters, this.levels, this.axisFilters);

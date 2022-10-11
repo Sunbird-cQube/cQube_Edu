@@ -13,6 +13,7 @@ export class DigitalLearningCoverageComponent implements OnInit {
   filters: any;
   national = true;
   QRGaugeData: any;
+  fileName: string = "Report_data";
 
   constructor(private readonly _commonService: CommonService) {
     if(environment.config === 'state') {

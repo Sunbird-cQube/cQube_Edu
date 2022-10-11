@@ -13,6 +13,7 @@ export class DevelopmentGoalBarComponent implements OnInit {
   filters: any;
   barChartOptions: Highcharts.Options | undefined;
   isReportLoading = false;
+  fileName: string = "Report_data";
   constructor(private readonly _commonService: CommonService) { 
     this.getBarData(this.filters);
   }

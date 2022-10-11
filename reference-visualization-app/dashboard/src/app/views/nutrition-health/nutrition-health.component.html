@@ -20,6 +20,9 @@
             </div>
             <div class="grid grid-cols-12">
                 <div class="col-span-full" appFullScreen>
+                    <div class="grid grid-cols-12 button-right">
+                        <app-download-button [data]="pmPoshanStateOnboardedData?.data" [fileName]="fileName" [reportType]="'map'"></app-download-button>
+                    </div>
                     <app-leaflet-map [mapData]="pmPoshanStateOnboardedData"></app-leaflet-map>
                 </div>
             </div>
@@ -32,6 +35,9 @@
                     </div>
                     <div class="grid grid-cols-12">
                         <div class="col-span-full" appFullScreen>
+                            <div class="grid grid-cols-12 button-right">
+                                <app-download-button [data]="pmPoshanStateData?.data" fileName="PM_Poshan_Progress_Status" [reportType]="'map'"></app-download-button>
+                            </div>
                             <div class="grid grid-cols-12">
                                 <div class="xs:col-span-full xmd:col-span-5">
                                     <app-level-n-metric-filter-panel [metricFilter]="metricFilter" [levels]="levels1" (selectMetricFilter)="onSelectMetricFilter($event)" (selectLevel)="onSelectLevel($event)"></app-level-n-metric-filter-panel>

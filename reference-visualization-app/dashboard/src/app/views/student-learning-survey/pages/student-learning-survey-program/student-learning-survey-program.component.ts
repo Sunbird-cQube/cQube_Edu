@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 export class StudentLearningSurveyProgramComponent implements OnInit {
   tableData: any;
   filters: any[] = [];
+  fileName: string = "NAS_Grade_&_Subject_performance";
 
   constructor(private readonly _commonService: CommonService) {
     this.getStateWiseNasCoverageData(this.filters);

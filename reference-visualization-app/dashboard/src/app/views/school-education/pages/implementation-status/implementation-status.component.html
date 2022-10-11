@@ -1,6 +1,9 @@
 
 <div class="grid grid-cols-12">
     <div class="col-span-full" *ngIf="pgiStateData" appFullScreen>
+        <div class="grid grid-cols-12 button-right">
+            <app-download-button [data]="pgiStateData?.data" [fileName]="fileName" [reportType]="'map'"></app-download-button>
+        </div>
         <app-leaflet-map [mapData]="pgiStateData"></app-leaflet-map>
         <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-scale-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
     </div>

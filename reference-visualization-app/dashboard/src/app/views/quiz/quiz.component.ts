@@ -16,6 +16,7 @@ export class QuizComponent implements OnInit {
   filters: any;
   isMapReportLoading = false;
   national: boolean = true;
+  fileName: string = "Quiz_Participation_Status";
 
   constructor(private readonly _commonService: CommonService, private readonly _configService: ConfigService) {
     this.getQuizzesMetricsData();

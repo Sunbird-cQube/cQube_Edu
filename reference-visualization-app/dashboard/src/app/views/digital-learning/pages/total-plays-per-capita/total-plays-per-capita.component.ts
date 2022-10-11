@@ -12,6 +12,7 @@ export class TotalPlaysPerCapitaComponent implements OnInit {
   isMapReportLoading = true;
   totalPlaysPerCapitaData: any;
   filters: any;
+  fileName: string = "Report_data";
 
   constructor(private readonly _commonService: CommonService) {
     this.getTotalPlaysPerCapita(this.filters);

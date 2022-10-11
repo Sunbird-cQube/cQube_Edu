@@ -1,5 +1,8 @@
 <div class="grid grid-cols-12" *ngIf="national">
   <div class="col-span-full" appFullScreen>
+    <div class="grid grid-cols-12 button-right">
+      <app-download-button [data]="tableData?.data" fileName="ETB_Coverage_Status" [reportType]="'table'"></app-download-button>
+  </div>
     <div class="grid grid-cols-12 bg-white">
       <div class="xs:col-span-full xmd:col-span-5">
           <!-- <app-gauge-chart [options]="gaugeChartOptions"></app-gauge-chart> -->
@@ -14,6 +17,9 @@
 
 <div class="grid grid-cols-12" *ngIf="!national">
   <div class="col-span-full" appFullScreen>
+    <div class="grid grid-cols-12 button-right">
+      <app-download-button [data]="tableData?.data" fileName="ETB_Coverage_Status" [reportType]="'table'"></app-download-button>
+  </div>
     <div class="grid gap-2 grid-cols-12 bg-white">
         <div class="xs:col-span-full xmd:col-span-8 md:col-span-8 xl:col-span-8">
             <ng-container *ngIf="tableData; else loading">

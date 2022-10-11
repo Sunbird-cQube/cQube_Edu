@@ -13,6 +13,7 @@ export class StatesStartedTableComponent implements OnInit {
 
   tableData: any;
   filters: any;
+  fileName: string = "Quiz_wise_Status";
 
   constructor(private readonly _commonService: CommonService) {
     this.getStateWiseQuizzesCoverageData(this.filters);

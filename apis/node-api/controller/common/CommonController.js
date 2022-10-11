@@ -830,7 +830,8 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 		.groupBy(groupByColumn ? groupByColumn : currentLevel.property)
 		.map((objs, key) => {
 			let data = {
-				data: ""
+				data: "",
+				Location: ""
 			};
 
 			levelPos =  levels.findIndex(level => level.selected);
@@ -841,10 +842,12 @@ async function getScatterPlotReportData(reqBody, reportConfig, rawData) {
 						let level = reportConfig.levels[i];
 						data.data += data.data && data.data.length > 0 ? '<br>' : '';
 						data.data += level.tooltip.valueAsName ? `${objs[0][level.property]}: ${objs[0][level.tooltip.property]}` : `${level.tooltip.name.trim()}: ${objs[0][level.property]}`;
+						data.Location += level.tooltip.valueAsName ? `${objs[0][level.tooltip.property]}` : `${objs[0][level.property]}`;
 					}
 				} else {
 					data.data += data.data && data.data.length > 0 ? '<br>' : '';
 					data.data += currentLevel.tooltip.valueAsName ? `${objs[0][currentLevel.property]}: ${objs[0][currentLevel.tooltip.property]}` : `${currentLevel.tooltip.name.trim()}: ${objs[0][currentLevel.property]}`;
+					data.Location += currentLevel.tooltip.valueAsName ? `${objs[0][currentLevel.tooltip.property]}` : `${objs[0][currentLevel.property]}`;
 				}
 			}
 

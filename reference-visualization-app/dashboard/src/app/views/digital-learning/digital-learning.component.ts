@@ -21,6 +21,7 @@ export class DigitalLearningComponent implements OnInit {
   ETBStateData: any;
   filters: any;
   isMapReportLoading = true;
+  fileName: string = "Report_data";
 
   config: string = environment.config
   national: boolean = true;

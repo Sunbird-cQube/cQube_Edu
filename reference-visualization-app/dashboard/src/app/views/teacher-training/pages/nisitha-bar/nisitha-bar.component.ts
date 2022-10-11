@@ -9,6 +9,7 @@ import * as Highcharts from "highcharts/highstock";
 export class NisithaBarComponent implements OnInit {
   tableData: any;
   options: Highcharts.Options | undefined;
+  fileName: string = "Report_data";
   constructor(private readonly _NasService: NasService) { 
     this.getStateWiseNasCoverageData()
   }

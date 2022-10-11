@@ -23,6 +23,7 @@ export class StudentLearningSurveyComponent implements OnInit {
   isMapReportLoading = true;
   levels: any;
   national: boolean = true;
+  fileName: string = "NAS_District_Wise_Performance";
 
   constructor(private readonly _commonService: CommonService, private readonly _configService: ConfigService, private readonly _spinner:NgxSpinnerService) {
     this.getNASMetrics()

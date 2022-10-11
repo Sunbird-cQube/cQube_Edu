@@ -17,6 +17,7 @@ export class GradeWiseBarAndPieComponent implements OnInit {
   isReportLoading = false;
   config;
   data;
+  fileName: string = "Textbook_Status";
 
   constructor(private readonly _commonService: CommonService) {
     this.getBarData(this.filters);

@@ -25,6 +25,7 @@ export class ImprovementProgramComponent implements OnInit {
   microProgramData:any;
   microImprovementMetricsData:any;
   microProgramDatayesno:any;
+  fileName: string = "MIP_Implementation_Status";
 
   constructor(private readonly _configService: ConfigService, private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService) {
     this.getMicroProgramData(this.filters1, this.metricFilter);

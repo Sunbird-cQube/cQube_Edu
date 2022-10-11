@@ -1,5 +1,8 @@
 <div class="grid grid-cols-12">
     <div class="col-span-full" appFullScreen>
+        <div class="grid grid-cols-12 button-right">
+            <app-download-button [data]="totalPlaysPerCapitaData?.data" fileName="Learning_Sessions_on_Potential_Users" [reportType]="'map'"></app-download-button>
+        </div>
         <app-leaflet-map [mapData]="totalPlaysPerCapitaData" perCapitaReport='true'></app-leaflet-map>
     </div>
 </div>

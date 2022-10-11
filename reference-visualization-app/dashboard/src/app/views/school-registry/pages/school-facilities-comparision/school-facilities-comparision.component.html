@@ -1,6 +1,9 @@
 <ng-container *ngIf="!isLoading; else loading">
     <div class="grid grid-cols-12">
         <div class="col-span-full" appFullScreen>
+            <div class="grid grid-cols-12 button-right">
+                <app-download-button [data]="dashletData?.values" [fileName]="fileName" [reportType]="'dashletScatter'"></app-download-button>
+            </div>
             <div class="grid grid-cols-12">
                 <!-- <div class="col-span-full">
                     <div class="grid grid-cols-12">
