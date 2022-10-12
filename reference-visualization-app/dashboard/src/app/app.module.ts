@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HomePageComponent } from './views/home-page/home-page.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { HomePageComponent } from './views/home-page/home-page.component';
     CoreModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatToolbarModule,
     MatSortModule,
     FormsModule,
     ReactiveFormsModule,
