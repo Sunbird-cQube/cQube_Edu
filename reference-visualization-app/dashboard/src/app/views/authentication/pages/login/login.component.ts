@@ -5,6 +5,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication/auth
 import { environment } from 'src/environments/environment';
 import { stateNames } from 'src/app/core/config/StateCodes';
 import * as CryptoJS from 'crypto-js';
+import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +15,29 @@ import * as CryptoJS from 'crypto-js';
 export class LoginComponent implements OnInit {
   loginObj: any = environment.loginObj;
   national: boolean = true;
+
+
+  otpForm!: FormGroup;
   stateName: any
+
+  wrongOtp: boolean = false;
+  tempSecret: string = '';
   error: boolean = false;
+  roletype
+
+  userStatus = ''
+  qrcode
+
+  otpUrl
+
+  userName = ''
+   errorMsg
   LoginForm = new FormGroup({
     userId: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   })
 
-  constructor(private router: Router, private readonly _authenticationService: AuthenticationService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private readonly _authenticationService: AuthenticationService) {
     if (this._authenticationService.isUserLoggedIn()) {
       this.router.navigate(['/home']);
     }
@@ -42,6 +58,11 @@ export class LoginComponent implements OnInit {
         return true;
       });
 
+      this.otpForm = this.formBuilder.group({
+        otp: ['', Validators.required],
+        secret: ['', Validators.required]
+      })
+
     }
     else {
       this.stateName = 'India'
@@ -49,6 +70,29 @@ export class LoginComponent implements OnInit {
 
   }
 
+
+  onChange(el) {
+    if (el.target.value.length > 0) {
+      document.getElementById("togglePassword").style.display = 'block';
+    } else {
+      document.getElementById("togglePassword").style.display = 'none';
+    }
+  }
+
+
+  myFun(el) {
+    if (this.LoginForm.valid) {
+      document.getElementById("login").style.backgroundColor = "#31D08C";
+      document.getElementById("login").style.color = "white";
+      document.getElementById("signinSymbol").style.display = "none";
+      document.getElementById("signinSymbolWithInput").style.display = "block";
+    } else {
+      document.getElementById("login").style.color = "#899BFF";
+      document.getElementById("login").style.backgroundColor = "transparent";
+      document.getElementById("signinSymbol").style.display = "block";
+      document.getElementById("signinSymbolWithInput").style.display = "none";
+    }
+  }
 
   encrypt(value: string): string {
     //return CryptoJS.AES.encrypt(value, environment.secretKey.trim()).toString();
@@ -59,12 +103,69 @@ export class LoginComponent implements OnInit {
     //let password = this.encrypt(this.LoginForm.controls.password.value as string);
     this._authenticationService.login(this.LoginForm.controls.userId.value, this.LoginForm.controls.password.value).subscribe((res: any) => {
       const token = res.token
-      localStorage.setItem('token', token)
-      localStorage.setItem('userName', res.username)
-      localStorage.setItem('roleName', res.role)
-      localStorage.setItem('user_id', res.userId)
-     
+      this.error = false
+      this.userStatus = res['status']
+      this.roletype = res['role']
+      this.userName = res['username']
+
+   
+      if (this.userStatus === 'true') {
+        this.tempSecret = ''
+        this._authenticationService.addUser(this.userName).subscribe(res => {
+
+        })
+
+        // ++++ custom qr code for 2FA
+        this._authenticationService.getQRcode(this.LoginForm.value).subscribe(res => {
+          this.otpUrl = res
+          this.qrcode = res['dataURL']
+          this.tempSecret = res['tempSecret'];
+        })
+
+      }
+
+      if (this.roletype === "admin") {
+        document.getElementById("otp-container").style.display = "block";
+        document.getElementById("kc-form-login1").style.display = "none";
+        localStorage.setItem('token', token)
+        localStorage.setItem('userName', res.username)
+        localStorage.setItem('roleName', res.role)
+        localStorage.setItem('user_id', res.userId)
+        // this.router.navigate(['/home']);
+      }
+    
+
+      if (this.roletype === "admin" && this.userStatus === undefined) {
+       
+        localStorage.setItem('token', token)
+        localStorage.setItem('userName', res.username)
+        localStorage.setItem('roleName', res.role)
+        localStorage.setItem('user_id', res.userId)
         this.router.navigate(['/home']);
+      }
+      if (this.roletype === "report_viewer" && environment.report_viewer_config_otp === true) {
+        document.getElementById("otp-container").style.display = "block";
+        document.getElementById("kc-form-login1").style.display = "none";
+        localStorage.setItem('token', token)
+        localStorage.setItem('userName', res.username)
+        localStorage.setItem('roleName', res.role)
+        localStorage.setItem('user_id', res.userId)
+        // this.router.navigate(['/home']);
+      }
+       if (this.roletype === "report_viewer" && environment.report_viewer_config_otp === false) {
+       
+        localStorage.setItem('token', token)
+        localStorage.setItem('userName', res.username)
+        localStorage.setItem('roleName', res.role)
+        localStorage.setItem('user_id', res.userId)
+         this.router.navigate(['/dashboard']);
+      }
+
+
+
+     
+
+
     },
       err => {
         this.error = true;
@@ -72,6 +173,94 @@ export class LoginComponent implements OnInit {
 
   }
 
+  public otpStatus: any
+
+  verifyQRCOde() {
+
+    if (this.userStatus === 'true') {
+      try {
+        this._authenticationService.getQRverify(this.otpForm.value).subscribe(res => {
+          this.otpStatus = res
+          
+          if (res['status'] === 200) {
+            this.wrongOtp = false;
+            document.getElementById("otp-container").style.display = "none";
+            document.getElementById("qr-code").style.display = "none"
+            // document.getElementById("updatePassword").style.display = "block";
+            document.getElementById("kc-form-login1").style.display = "none";
+            this.router.navigate(['home'])
+          } else {
+            this.wrongOtp = true;
+             this.errorMsg = res['message'];
+          }
+
+        })
+      } catch (error) {
+
+      }
+
+
+    } else if (this.userStatus === 'false') {
+      try {
+        this._authenticationService.getSecret(this.userName).subscribe(res => {
+          console.log('otpstate', this.otpStatus)
+          if (res['status'] === 200) {
+            let otpSecret = res['secret']
+            let data = {
+              secret: otpSecret,
+              otp: this.otpForm.value.otp
+
+            }
+            this._authenticationService.getQRverify(data).subscribe(res => {
+              this.otpStatus = res
+              if (res['status'] === 200) {
+                this.wrongOtp = false;
+                this.router.navigate(['home'])
+              } else {
+                this.wrongOtp = true;
+                 this.errorMsg = res['message'];
+              }
+
+            })
+
+          }
+        })
+      } catch (error) {
+
+      }
+
+    } else if (this.userStatus === undefined) {
+      try {
+        this._authenticationService.getSecret(this.userName).subscribe(res => {
+
+          if (res['status'] === 200) {
+            let otpSecret = res['secret']
+            let data = {
+              secret: otpSecret,
+              otp: this.otpForm.value.otp
+
+            }
+            this._authenticationService.getQRverify(data).subscribe(res => {
+              this.otpStatus = res
+              if (res['status'] === 200) {
+                this.wrongOtp = false;
+                this.router.navigate(['home'])
+              } else {
+                this.wrongOtp = true;
+                // this.errorMsg = res['message'];
+              }
+
+            })
+
+          }
+        })
+      } catch (error) {
+
+      }
+
+    }
+
+  }
 
 
 }

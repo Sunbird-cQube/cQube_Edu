@@ -37,15 +37,6 @@ router.post('/', auth.authController, async function (req, res) {
             enabled: "true"
         };
 
-        if (authType === 'cqube') {
-            axios.post(usersUrl, userDetails, { headers: headers }).then(resp => {
-
-                res.status(201).json({ msg: "User Created" });
-            }).catch(error => {
-
-                res.status(409).json({ errMsg: error.response.data.errorMessage });
-            })
-        } else {
             axios.post(usersUrl, userDetails, { headers: headers }).then(resp => {
 
                 db1.query('INSERT INTO keycloak_users (keycloak_username, status) VALUES ($1, $2)', [req.body.username, "true"], (error, results) => {
@@ -60,7 +51,7 @@ router.post('/', auth.authController, async function (req, res) {
             }).catch(error => {
                 logger.error(`Error :: ${error}`);
             })
-        }
+      
 
 
 

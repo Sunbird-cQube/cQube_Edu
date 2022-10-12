@@ -7,8 +7,8 @@ const dotenv = require('dotenv');
 // const qr = require('qrcode');
 
 // const common = require('./common');
-// const { generateSecret, verify } = require('2fa-util');
-// const db = require('../keycloakDB/db')
+const { generateSecret, verify } = require('2fa-util');
+const db = require('../db/db')
 dotenv.config();
 const authURL = process.env.AUTH_API
 const keyCloakURL = process.env.KEYCLOAK_HOST
@@ -76,7 +76,30 @@ router.post('/login', async (req, res, next) => {
                 decodingJWT(jwt)
             };
 
-            res.send({ token: jwt, role: role, username: username, userId: userId, res: response })
+            let userStatus = ''
+
+            db.query('SELECT * FROM keycloak_users WHERE keycloak_username = $1', [req.body.email], (error, results) => {
+              
+                if (error) {
+                    // logger.info('---user status from DB error ---');
+                    console.log('---user status from DB error ---')
+                    throw error
+                }
+
+                if (results.rows.length) {
+                    console.log('---user status from DB success ---')
+                    // logger.info('---user status from DB success ---');
+                    res.send({ token: jwt, role: role, username: username, userId: userId, status: results.rows[0].status, res: response })
+
+                } else {
+                    //   logger.info('---user status not available in DB ---');
+                    res.send({ token: jwt, role: role, username: username, userId: userId, res: response })
+                }
+
+            })
+
+
+            // res.send({ token: jwt, role: role, username: username, userId: userId, res: response })
         }
 
         ).catch(error => {
@@ -88,43 +111,51 @@ router.post('/login', async (req, res, next) => {
 
 
     } catch (error) {
-      
+
         res.status(404).json(`Error :: ${error}`)
     }
 })
 
-// router.post('/adduser', async (req, res, next) => {
-//     const { email } = req.body
-//     // // logger.info('---new user added ---');
-//     db.query('INSERT INTO keycloak_users (keycloak_username, status) VALUES ($1, $2)', [req.body.username, "false"], (error, results) => {
-//         if (error) {
-//             // // logger.info('---user create in DB error ---');
-//             throw error
-//         }
-//         // // logger.info('---user created in DB success ---');
-//         res.status(201).json({ msg: "User Created" });
-//     })
-
-// })
-router.post('/getTotp', async (req, res, next) => {
-    const { email, password } = req.body;
-
-    const secret = await generateSecret(email, 'cQube');
-    db.query('UPDATE keycloak_users set qr_secret= $2 where keycloak_username=$1;', [req.body.email, secret.secret], (error, results) => {
+router.post('/adduser', async (req, res, next) => {
+    const { email } = req.body
+    // // logger.info('---new user added ---');
+  
+    db.query('UPDATE keycloak_users set status= $2 where keycloak_username=$1;', [req.body.username, "false"], (error, results) => {
         if (error) {
-            // logger.info('---QR code from DB error ---');
+            // // logger.info('---user create in DB error ---');
             throw error
         }
-        // logger.info('---qr code from DB success ---');
-        res.status(201).json({ msg: "qrcode saved" });
+        // // logger.info('---user created in DB success ---');
+        res.status(201).json({ msg: "User Created" });
+    })
 
-    })
-    return res.json({
-        message: 'TFA Auth needs to be verified',
-        tempSecret: secret.secret,
-        dataURL: secret.qrcode,
-        tfaURL: secret.otpauth
-    })
+})
+router.post('/getTotp', async (req, res, next) => {
+    const { email, password } = req.body;
+    try {
+        const secret = await generateSecret(email, 'cQube');
+        db.query('UPDATE keycloak_users set qr_secret= $2 where keycloak_username=$1;', [req.body.email, secret.secret], (error, results) => {
+            if (error) {
+                // logger.info('---QR code from DB error ---');
+                console.log('error', error)
+                throw error
+            }
+            // logger.info('---qr code from DB success ---');
+            console.log('---qr code from DB success ---')
+            
+            res.status(200).send({
+                message: 'TFA Auth needs to be verified',
+                tempSecret: secret.secret,
+                dataURL: secret.qrcode,
+                tfaURL: secret.otpauth
+            })
+        })
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+
+
 })
 
 router.post('/logout', async (req, res, next) => {
@@ -161,6 +192,7 @@ router.post('/getSecret', async (req, res) => {
             throw error
         }
         // logger.info('---user secrect from DB success  ---');
+       
         res.send({ status: 200, secret: results.rows[0].qr_secret })
 
     })
@@ -171,19 +203,21 @@ router.post('/totpVerify', async (req, res) => {
     const { secret, token } = req.body
 
     let isVerified = await verify(token, secret);
-
+ 
     if (isVerified) {
         return res.send({
             "status": 200,
             "message": "Two-factor Auth is enabled successfully",
-            "loginedIn": common.userObject.loginedIn
+
+        });
+    } else {
+        return res.send({
+            "status": 403,
+            "message": "Invalid OTP Code"
         });
     }
 
-    return res.send({
-        "status": 403,
-        "message": "Invalid Auth Code"
-    });
+
 });
 
 module.exports = router;

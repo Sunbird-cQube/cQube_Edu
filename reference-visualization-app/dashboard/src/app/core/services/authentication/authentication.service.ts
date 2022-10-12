@@ -25,7 +25,7 @@ export class AuthenticationService {
   }
 
   getQRcode(user: any) {
-    let email = user.username;
+    let email = user.userId;
     let password = user.password
 
     return this._http.post(`${environment.loginUrl}/totp/getTotp`, { email: email, password: password });
@@ -46,6 +46,13 @@ export class AuthenticationService {
     let username = data;
 
     return this._http.post(`${environment.loginUrl}/getSecret`, { username: username });
+
+  }
+
+  addUser(data) {
+
+    let username = data;
+    return this._http.post(`${environment.loginUrl}/adduser`, { username: username });
 
   }
 }
