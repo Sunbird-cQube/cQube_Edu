@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 export class TotalCoursesTableComponent implements OnInit {
   tableData: any;
   filters: any;
+  fileName: string = "NISHTA_Courses_and_Mediums_status";
 
   constructor(private readonly _commonService: CommonService) {
     this.gettotalCoursesAndMediumData(this.filters);

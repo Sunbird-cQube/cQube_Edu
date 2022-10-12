@@ -18,6 +18,7 @@ export class SchoolEducationComponent implements OnInit {
   isMapReportLoading = true;
   level: string = 'state';
   national: boolean = true;
+  fileName: string = "PGI_District_Wise_Performance";
 
   pgiMetricsData: any;
   pgiStateData: any;

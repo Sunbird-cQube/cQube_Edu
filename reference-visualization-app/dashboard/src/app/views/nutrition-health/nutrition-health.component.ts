@@ -18,6 +18,7 @@ export class NutritionHealthComponent implements OnInit {
   levels2: any;
   metricFilter: any;
   level: string = 'state';
+  fileName: string = "PM_Poshan_Implementation_Status";
 
   isMapReport1Loading = true;
   isMapReport2Loading = true;

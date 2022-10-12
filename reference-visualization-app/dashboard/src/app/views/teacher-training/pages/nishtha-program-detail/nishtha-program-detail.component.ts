@@ -15,6 +15,7 @@ export class NishthaProgramDetailComponent implements OnInit, OnChanges {
   nishithaStateData: any;
   filters: any;
   isMapReportLoading = true;
+  fileName: string = "NISHTHA_Implementation_Status";
 
   constructor(
     private readonly _commonService: CommonService,

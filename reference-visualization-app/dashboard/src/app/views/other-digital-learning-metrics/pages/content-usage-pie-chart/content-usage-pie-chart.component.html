@@ -1,109 +1,113 @@
-<div class="container-fluid">
-  <div class="row reportHeader">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="row" (window:resize)="onResize()">
-        <div class="col-lg-7 col-md-7 col-sm-12">
+<div class="report-wrapper" appFullScreen>
+  <div class="container-fluid">
+    <div class="row reportHeader">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row" (window:resize)="onResize()">
+          <div class="col-lg-7 col-md-7 col-sm-12">
 
-          <div *ngIf='skul'>
-            <p id="block">
-              Report on Content Preference:
-              <span (click)="clickHome()" style="cursor: pointer; text-decoration: underline">{{state}}</span>
+            <div *ngIf='skul'>
+              <p id="block">
+                Report on Content Preference:
+                <span (click)="clickHome()" style="cursor: pointer; text-decoration: underline">{{state}}</span>
+
+              </p>
+            </div>
+
+            <div *ngIf="dist">
+              <p id="block">
+                Report on Content Preference:
+                <span (click)="clickHome()" style="cursor: pointer; text-decoration: underline">{{ state }}</span>
+                <span> | </span><span style="cursor: pointer; text-decoration: underline" class="selected-level">
+                </span>
+              </p>
+            </div>
+
+          </div>
+          <div class="col-lg-5 col-md-5 col-sm-12">
+            <div class="row">
+              <div class="col-sm-5">
+                <p id="errMsg" class="note"></p>
+              </div>
+              <div class="col-sm-7">
+                <button *ngIf="reportData.length > 0" class="btn btn-primary" title="Download Report" id="download1"
+                  (click)="downloadReport()">
+                  Download Report &nbsp;
+                  <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="note">
+              <strong> About the dashboard:</strong> The dashboard provides insights on user's preference (as measured
+              by
+              total content play) by content type across districts for {{state}}
 
             </p>
           </div>
-
-          <div *ngIf="dist">
-            <p id="block">
-              Report on Content Preference:
-              <span (click)="clickHome()" style="cursor: pointer; text-decoration: underline">{{ state }}</span>
-              <span> | </span><span style="cursor: pointer; text-decoration: underline" class="selected-level">
-              </span>
-            </p>
-          </div>
-
         </div>
-        <div class="col-lg-5 col-md-5 col-sm-12">
-          <div class="row">
-            <div class="col-sm-5">
-              <p id="errMsg" class="note"></p>
-            </div>
-            <div class="col-sm-7">
-              <button *ngIf="reportData.length > 0" class="btn btn-primary" title="Download Report" id="download1"
-                (click)="downloadReport()">
-                Download Report &nbsp;
-                <i class="fa fa-arrow-down" aria-hidden="true"></i>
-              </button>
+        <div class="row" style="margin-bottom: 10px">
+          <div class="col-sm-12 d-flex">
+            <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_district" [hidden]="!hideAccessBtn"
+              [(ngModel)]="selectedDrop" (change)="onStateDropSelected(selectedDrop)" dropdownPosition="bottom"
+              [clearable]="false" placeholder="Choose a District">
+              <ng-option *ngFor="let dist of stateDropDown" [value]="dist.key">
+                {{ dist.name }}
+              </ng-option>
+            </ng-select>
+
+            <div *ngIf="districtSelectBox">
+              <app-multi-select #multiSelect1 id="pieMultiSelector" style="float: left;width: auto; margin-right: 10px;"
+                [list]="distToDropDown" [text]="'district'"
+                [width1]="height > 1780 ? '350px !important': height > 1160 && height < 1780 ? '300px': height > 667 && height < 1160 ? '200px':'130px'"
+                [width2]="height > 1780 ? '350px !important': height > 1160 && height < 1780 ? '300px': height > 667 && height < 1160 ? '220px':'130px'"
+                (shareCheckedList)="onSelectDistrict($event)" from="trendChart"
+                (clearSuccessors)="clearSuccessors($event)">
+              </app-multi-select>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <p class="note">
-            <strong> About the dashboard:</strong> The dashboard provides insights on user's preference (as measured by
-            total content play) by content type across districts for {{state}}
-
-          </p>
-        </div>
+    </div>
+    <div class="row reportContainer d-flex flex-wrap">
+      <div class="m-auto" [ngClass]="distToggle ? 'col-lg-8': 'col-lg-12'" *ngIf="!showError">
+        <h5 style="text-align: center; font-weight: bold;" [ngStyle]="{
+          fontSize:
+            height > 1760
+              ? '32px'
+              : height > 1160 && height < 1760
+              ? '25px'
+              : height > 667 && height < 1160
+              ? '24px'
+              : '15px'
+        }">{{state}} Total Content Usage: {{stateContentUsage}}</h5>
+        <sb-dashlet type="pie" [data]="dashletData" [config]="config"></sb-dashlet>
       </div>
-      <div class="row" style="margin-bottom: 10px">
-        <div class="col-sm-12 d-flex">
-          <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_district" [hidden]="!hideAccessBtn"
-          [(ngModel)]="selectedDrop" (change)="onStateDropSelected(selectedDrop)" dropdownPosition="bottom"
-          [clearable]="false" placeholder="Choose a District">
-            <ng-option *ngFor="let dist of stateDropDown" [value]="dist.key">
-              {{ dist.name }}
-            </ng-option>
-          </ng-select>
 
-          <div *ngIf="districtSelectBox">
-            <app-multi-select #multiSelect1 id="pieMultiSelector" style="float: left;width: auto; margin-right: 10px;"
-              [list]="distToDropDown" [text]="'district'"
-              [width1]="height > 1780 ? '350px !important': height > 1160 && height < 1780 ? '300px': height > 667 && height < 1160 ? '200px':'130px'"
-              [width2]="height > 1780 ? '350px !important': height > 1160 && height < 1780 ? '300px': height > 667 && height < 1160 ? '220px':'130px'"
-              (shareCheckedList)="onSelectDistrict($event)" from="trendChart"
-              (clearSuccessors)="clearSuccessors($event)">
-            </app-multi-select>
-          </div>
-        </div>
+      <div *ngIf='distToggle' class="col-lg-4 justify-content-center"
+        style="max-height: 70vh; overflow-y: scroll; padding: 0;">
+        <h4 class="text-center">District Level Data</h4>
+        <ng-container *ngFor="let distDashlet of distDashlets">
+          <sb-dashlet type="pie" [data]="distDashlet.data" [config]="distDashlet.config"></sb-dashlet>
+        </ng-container>
       </div>
-    </div>
-  </div>
-  <div class="row reportContainer d-flex flex-wrap">
-    <div class="m-auto" [ngClass]="distToggle ? 'col-lg-8': 'col-lg-12'" *ngIf="!showError">
-      <h5 style="text-align: center; font-weight: bold;" [ngStyle]="{
-        fontSize:
-          height > 1760
-            ? '32px'
-            : height > 1160 && height < 1760
-            ? '25px'
-            : height > 667 && height < 1160
-            ? '24px'
-            : '15px'
-      }">{{state}} Total Content Usage: {{stateContentUsage}}</h5>
-      <sb-dashlet type="pie" [data]="dashletData" [config]="config"></sb-dashlet>
+
+      <div *ngIf="showError" style="position: absolute; left: 45%; top: 45%;color: red;">
+        Do not have permission to see this report
+      </div>
+
     </div>
 
-    <div *ngIf='distToggle' class="col-lg-4 justify-content-center" style="max-height: 70vh; overflow-y: scroll; padding: 0;">
-      <h4 class="text-center">District Level Data</h4>
-      <ng-container *ngFor="let distDashlet of distDashlets">
-        <sb-dashlet type="pie" [data]="distDashlet.data" [config]="distDashlet.config"></sb-dashlet>
-      </ng-container>
+
+    <div id="spinner" style="display:none;">
+      <div class="loading">Loading&#8230;</div>
     </div>
 
-    <div *ngIf="showError" style="position: absolute; left: 45%; top: 45%;color: red;">
-     Do not have permission to see this report
+    <div *ngIf="waterMark === 'true'" id='demoLogoConatiner'>
+      <span><span>Test Data, Not Representative</span>
+        <span style="margin-left:50px">Test Data, Not Representative</span></span><br>
+
     </div>
-
-  </div>
-
-
-  <div id="spinner" style="display:none;">
-    <div class="loading">Loading&#8230;</div>
-  </div>
-
-  <div *ngIf="waterMark === 'true'" id='demoLogoConatiner'>
-    <span><span>Test Data, Not Representative</span>
-      <span style="margin-left:50px">Test Data, Not Representative</span></span><br>
-
   </div>

@@ -12,6 +12,7 @@ export class EntryStatusComponent implements OnInit {
 
   tableData: any;
   filters: any[] = [];
+  fileName: string = "Entry_Status";
 
   constructor(private readonly _commonService: CommonService) {
     this.getStateWiseNasCoverageData(this.filters);

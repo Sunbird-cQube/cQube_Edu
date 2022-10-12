@@ -146,7 +146,6 @@
     dest: /tmp/postgres/keycloak_users_table.sql
     owner: postgres
     mode: "0644"
-  when: auth_api != "cqube"	
   tags: [ install, update ]
 
 - name: Run keycloak user queries from SQL script
@@ -155,7 +154,6 @@
   postgresql_query:
     db: "{{ db_name }}"
     path_to_script: /tmp/postgres/keycloak_users_table.sql
-  when: auth_api != "cqube"
   tags: [ install, update ]
 
 - name: Truncating previous tables

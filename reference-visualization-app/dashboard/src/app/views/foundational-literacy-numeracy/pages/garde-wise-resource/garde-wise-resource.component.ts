@@ -17,6 +17,7 @@ export class GardeWiseResourceComponent implements OnInit {
   isReportLoading = false;
   config;
   data;
+  fileName: string = "Learning_Sessions";
 
   constructor(private readonly _commonService: CommonService) {
     this.getBarData(this.filters);

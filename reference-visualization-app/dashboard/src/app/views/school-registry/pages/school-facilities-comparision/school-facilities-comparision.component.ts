@@ -19,6 +19,7 @@ export class SchoolFacilitiesComparisionComponent implements OnInit {
   dashletData;
   showError = false;
   isLoading = true;
+  fileName: string = "UDISE_Correlation";
 
   constructor(private readonly _commonService: CommonService) {
     this.getScatterData(this.filters, this.levels, this.axisFilters);

@@ -18,6 +18,7 @@ export class CurriculumFrameworkComponent implements OnInit {
   NCFMetrics: any[] | undefined;
   ncfProgressData: any;
   metricFilter: any;
+  fileName: string = "Report_data";
 
   constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService, private readonly _configService: ConfigService) {
     this._configService.getVanityMetrics('ncf').subscribe(vanityMetricsRes => {

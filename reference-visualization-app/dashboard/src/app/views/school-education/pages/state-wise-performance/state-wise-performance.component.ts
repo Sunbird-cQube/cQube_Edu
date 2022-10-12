@@ -16,6 +16,7 @@ export class StateWisePerformanceComponent implements OnInit {
   levels: any;
   isMapReportLoading = true;
   level: string = 'state';
+  fileName: string = "State_Wise_Performance";
 
   pgiMetricsData: any;
   pgiStateData: any;

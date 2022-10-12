@@ -15,6 +15,7 @@ export class TotalLearningSessionsComponent implements OnInit {
   filters: any;
   barChartOptions: Highcharts.Options | undefined;
   isReportLoading = false;
+  fileName: string = "Report_data";
 
   config;
   data;

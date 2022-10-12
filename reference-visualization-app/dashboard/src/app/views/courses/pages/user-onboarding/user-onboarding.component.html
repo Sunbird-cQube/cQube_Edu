@@ -1,18 +1,19 @@
-<div class="container-fluid">
+<div class="report-wrapper" appFullScreen>
+  <div class="container-fluid">
     <div class="row reportHeader">
       <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="row" (window:resize)="onResize()">
           <div class="col-lg-7 col-md-7 col-sm-12">
-  
+
             <div *ngIf="skul">
               <p id="block">
                 Report on User Onboarding:
                 <span (click)="clickHome()" style="cursor: pointer; text-decoration: underline"
                   class="selected-level">{{state}}</span>
-  
+
               </p>
             </div>
-  
+
             <div *ngIf="dist">
               <p id="block">
                 Report on User Onboarding:
@@ -21,7 +22,7 @@
                   {{districtName}} </span>
               </p>
             </div>
-  
+
           </div>
           <div class="col-lg-5 col-md-5 col-sm-12">
             <div class="row">
@@ -43,7 +44,7 @@
             <p class="note">
               <strong> About the dashboard:</strong> The dashboards provides insights on the user onboarding progress
               across various courses for {{state}} over time
-  
+
             </p>
           </div>
         </div>
@@ -51,27 +52,27 @@
           <div class="col-sm-12">
             <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-11" style="margin-bottom: 10px">
               <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_program"
-                  [(ngModel)]="selectedProgram" (change)="onProgramSelected(selectedProgram)"
-                  dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Program">
-                  <ng-option *ngFor="let program of uniquePrograms" [value]="program.program_id">
-                    {{ program.program_name }}
-                  </ng-option>
+                [(ngModel)]="selectedProgram" (change)="onProgramSelected(selectedProgram)" dropdownPosition="bottom"
+                [clearable]="false" placeholder="Choose a Program">
+                <ng-option *ngFor="let program of uniquePrograms" [value]="program.program_id">
+                  {{ program.program_name }}
+                </ng-option>
               </ng-select>
-              
-              <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_course"
-                  [(ngModel)]="selectedCourse" (change)="onCourseSelected(selectedCourse)"
-                  dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Course">
-                  <ng-option *ngFor="let course of uniqueAllCourse" [value]="course.collection_id">
-                    {{ course.collection_name }}
-                  </ng-option>
+
+              <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_course" [(ngModel)]="selectedCourse"
+                (change)="onCourseSelected(selectedCourse)" dropdownPosition="bottom" [clearable]="false"
+                placeholder="Choose a Course">
+                <ng-option *ngFor="let course of uniqueAllCourse" [value]="course.collection_id">
+                  {{ course.collection_name }}
+                </ng-option>
               </ng-select>
-              
+
               <ng-select [hidden]="districtHidden" class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_district"
-                  [(ngModel)]="selectedDist" (change)="onDistSelected(selectedDist)"
-                  dropdownPosition="bottom" [clearable]="false" placeholder="Choose a District">
-                  <ng-option *ngFor="let dist of distToDropDown" [value]="dist.district_id">
-                    {{ dist.district_name }}
-                  </ng-option>
+                [(ngModel)]="selectedDist" (change)="onDistSelected(selectedDist)" dropdownPosition="bottom"
+                [clearable]="false" placeholder="Choose a District">
+                <ng-option *ngFor="let dist of distToDropDown" [value]="dist.district_id">
+                  {{ dist.district_name }}
+                </ng-option>
               </ng-select>
             </div>
           </div>
@@ -79,8 +80,8 @@
       </div>
     </div>
     <div class="row reportContainer pt-4">
-  
-      <div *ngIf="expectedMeta === true || !showError"  class="col-lg-12 m-auto">
+
+      <div *ngIf="expectedMeta === true || !showError" class="col-lg-12 m-auto">
         <!-- <div [hidden]="chartData.length === 0" id="container" class="col-lg-12 m-auto" style="height: 66vh">
   
         </div>
@@ -95,23 +96,24 @@
           No Data Available
         </div>
       </div>
-  
+
       <div *ngIf="expectedMeta === false" style="position: absolute; left: 40%; top: 200px;color: red;">
-  
+
         Expected Enrollemt Value is not available
       </div>
-        <div *ngIf="showError" style="position: absolute; left: 40%; top: 120px;color: red;">
-          Do not have permission to see this report
-        </div>
+      <div *ngIf="showError" style="position: absolute; left: 40%; top: 120px;color: red;">
+        Do not have permission to see this report
+      </div>
     </div>
-      
+
   </div>
   <div id="spinner">
     <div class="loading">Loading&#8230;</div>
   </div>
-  
+
   <div *ngIf="waterMark === 'true'" id='demoLogoConatiner'>
     <span><span>Test Data, Not Representative</span>
       <span style="margin-left:50px">Test Data, Not Representative</span></span><br>
-  
+
   </div>
+</div>

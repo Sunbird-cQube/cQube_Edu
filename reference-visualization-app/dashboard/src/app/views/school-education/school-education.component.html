@@ -26,6 +26,9 @@
                     </div>
                     <div class="grid grid-cols-12">
                         <div class="col-span-full" appFullScreen>
+                            <div class="grid grid-cols-12 button-right">
+                                <app-download-button [data]="pgiStateData?.data" [fileName]="fileName" [reportType]="'map'"></app-download-button>
+                            </div>
                             <div class="grid grid-cols-12">
                                 <div class="xs:col-span-full xmd:col-span-6 4k:col-span-3">
                                     <app-level-n-metric-filter-panel [metricFilter]="metricFilter"  (selectMetricFilter)="onSelectMetricFilter($event)"></app-level-n-metric-filter-panel>

@@ -14,6 +14,7 @@ export class ImplementationStatusComponent implements OnInit {
   isMapReport1Loading = true;
   filters: any;
   pgiStateData: any;
+  fileName: string = "PGI_Implementation_Status";
 
   constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService) {
     this.getImplementationStatus(this.filters)

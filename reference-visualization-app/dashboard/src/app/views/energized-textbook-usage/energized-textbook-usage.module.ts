@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatButtonModule } from '@angular/material/button';
 import { DashletModule } from '@project-sunbird/sb-dashlet-v14';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { EnergizedTextbookUsageRoutingModule } from './energized-textbook-usage-routing.module';
 import { EnergizedTextbookUsageComponent } from './energized-textbook-usage.component';
@@ -29,6 +30,7 @@ import { HeartbeatOfTheNationLearningComponent } from './pages/heartbeat-of-the-
     HeartbeatOfTheNationLearningComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
     EnergizedTextbookUsageRoutingModule,
     FormsModule,

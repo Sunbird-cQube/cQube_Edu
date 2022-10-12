@@ -16,7 +16,6 @@ def get_combinations(filename, partition_date_key, partition_date_value, process
                       'partition_according_year_month_week_grade_queries',
                       'config_listing_aggregated_files_from_emission',
                       'route_files_data_replay_retention_infra_trans', 'aggregated_output']
-
     data_storage_processor = 'cQube_data_storage'
     datasource_filename_property_key = "configure_file"
     selectSQL_property_key = "SQL select query"
@@ -52,9 +51,9 @@ def get_combinations(filename, partition_date_key, partition_date_value, process
                   ]
     # updating the properties
     combinations = [[0, 0, 0], [1, 1, 1], [1, 2, 8], [2, 3, 2], [2, 4, 3], [0, 5, 4], [0, 6, 5], [0, 7, 4], [0, 8, 4],
-                    [0, 9, 5], [1, 10, 1], [2, 11, 6], [0, 12, 11], [2, 13, 11], [2, 14, 11], [2, 15, 8], [2, 16, 8],
+                    [0, 9, 5], [1, 10, 1], [2, 11, 6], [0, 12, 11], [2, 13, 11], [2, 14, 11], [2, 15, 7], [2, 16, 7],
                     [1, 17, 10],
-                    [1, 18, 11], [2, 19, 11], [2, 20, 11], [2, 21, 8], [2, 22, 11], [2, 23, 8], [2, 24, 8]]
+                    [1, 18, 11], [2, 19, 11], [2, 20, 11], [2, 21, 7], [2, 22, 11], [2, 23, 7], [2, 24, 7]]
 
     return processor_group_name, processor_name, properties, combinations
 
