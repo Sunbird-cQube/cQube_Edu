@@ -309,7 +309,14 @@ export class MapReportComponent implements OnInit {
           }
         }
       } else {
-        this.grades = this.metaData.filter(meta => meta.academic_year === 'overall')
+        console.log(this.metaData)
+        for (let i = 0; i < this.metaData.length; i++) {
+          if (this.metaData[i]["academic_year"] !== 'overall') {
+            this.years.push(this.metaData[i]["academic_year"]);
+          }
+        }
+        this.year = this.years[this.years.length - 1];
+        this.grades = this.metaData.filter(meta => meta.academic_year === this.year)
         this.grades = this.grades[0].data['grades']
       }
 
@@ -792,13 +799,10 @@ export class MapReportComponent implements OnInit {
                       colors
                     );
                   }
-
-
-
                   var markerIcon = this.globalService.initMarkers1(
                     this.blockMarkers[i].block_latitude,
                     this.blockMarkers[i].block_longitude,
-                    "green",
+                    color,
                     0.01,
                     1,
                     options.level
@@ -1006,11 +1010,14 @@ export class MapReportComponent implements OnInit {
                 for (let i = 0; i < this.blockMarkers.length; i++) {
                   var color;
 
-
+                  color = this.commonService.color(
+                    this.blockMarkers[i],
+                    "no_of_books_distributed"
+                  );
                   var markerIcon = this.globalService.initMarkers1(
                     this.blockMarkers[i].lat,
                     this.blockMarkers[i].long,
-                    "green",
+                    color,
                     0.01,
                     1,
                     options.level
@@ -1035,7 +1042,7 @@ export class MapReportComponent implements OnInit {
               }
             }
           }
-          this.globalService.featureGrp.clearLayers();
+          this.globalService.getBoundsByMarkers();
         },
         (err) => {
           this.data = [];
@@ -1129,12 +1136,15 @@ export class MapReportComponent implements OnInit {
                 for (let i = 0; i < this.clusterMarkers.length; i++) {
                   var color;
 
-
+                  color = this.commonService.color(
+                    this.clusterMarkers[i],
+                    "no_of_books_distributed"
+                  );
 
                   var markerIcon = this.globalService.initMarkers1(
                     this.clusterMarkers[i].lat,
                     this.clusterMarkers[i].long,
-                    "green",
+                    color,
                     1,
                     1,
                     options.level
@@ -1332,11 +1342,14 @@ export class MapReportComponent implements OnInit {
                 for (let i = 0; i < this.clusterMarkers.length; i++) {
 
 
-
+                  color = this.commonService.color(
+                    this.clusterMarkers[i],
+                    "no_of_books_distributed"
+                  );
                   var markerIcon = this.globalService.initMarkers1(
                     this.clusterMarkers[i].cluster_latitude,
                     this.clusterMarkers[i].cluster_longitude,
-                    "green",
+                    color,
                     0.01,
                     0.5,
                     options.level
@@ -1361,7 +1374,7 @@ export class MapReportComponent implements OnInit {
               }
             }
           }
-          this.globalService.featureGrp.clearLayers();
+          this.globalService.getBoundsByMarkers();
 
         },
         (err) => {
@@ -1459,11 +1472,14 @@ export class MapReportComponent implements OnInit {
                   for (let i = 0; i < this.schoolMarkers.length; i++) {
                     var color;
 
-
+                    color = this.commonService.color(
+                      this.schoolMarkers[i],
+                      "no_of_books_distributed"
+                    );
                     var markerIcon = this.globalService.initMarkers1(
                       this.schoolMarkers[i].lat,
                       this.schoolMarkers[i].long,
-                      "green",
+                      color,
                       0,
                       0.3,
                       options.level
@@ -1536,11 +1552,14 @@ export class MapReportComponent implements OnInit {
                 if (this.schoolMarkers.length !== 0) {
                   for (let i = 0; i < this.schoolMarkers.length; i++) {
                     var color;
-
+                    color = this.commonService.color(
+                      this.schoolMarkers[i],
+                      "no_of_books_distributed"
+                    );
                     var markerIcon = this.globalService.initMarkers1(
                       this.schoolMarkers[i].lat,
                       this.schoolMarkers[i].long,
-                      "green",
+                      color,
                       0,
                       0.3,
                       options.level
@@ -1606,11 +1625,14 @@ export class MapReportComponent implements OnInit {
                       var color;
 
 
-
+                      color = this.commonService.color(
+                        this.schoolMarkers[i],
+                        "no_of_books_distributed"
+                      );
                       var markerIcon = this.globalService.initMarkers1(
                         this.schoolMarkers[i].lat,
                         this.schoolMarkers[i].long,
-                        "green",
+                        color,
                         0,
                         0.3,
                         options.level
@@ -1666,11 +1688,14 @@ export class MapReportComponent implements OnInit {
                 if (this.schoolMarkers.length !== 0) {
                   for (let i = 0; i < this.schoolMarkers.length; i++) {
                     var color;
-
+                    color = this.commonService.color(
+                      this.schoolMarkers[i],
+                      "no_of_books_distributed"
+                    );
                     var markerIcon = this.globalService.initMarkers1(
                       this.schoolMarkers[i].lat,
                       this.schoolMarkers[i].long,
-                      "green",
+                      color,
                       0,
                       0.3,
                       options.level
@@ -1694,7 +1719,7 @@ export class MapReportComponent implements OnInit {
 
                   this.commonService.loaderAndErr(this.data);
                   this.changeDetection.markForCheck();
-                  this.globalService.featureGrp.clearLayers();
+                  this.globalService.getBoundsByMarkers();
                 }
               } else {
                 this.schoolMarkers = [];
@@ -1706,7 +1731,7 @@ export class MapReportComponent implements OnInit {
             this.schoolMarkers = [];
             this.commonService.loaderAndErr(this.schoolMarkers);
           }
-          this.globalService.featureGrp.clearLayers();
+          this.globalService.getBoundsByMarkers();
         },
         (err) => {
           this.schoolMarkers = [];
@@ -1875,7 +1900,7 @@ export class MapReportComponent implements OnInit {
           this.commonService.loaderAndErr(this.blockMarkers);
 
         }
-        this.globalService.featureGrp.clearLayers();
+        this.globalService.getBoundsByMarkers();
 
       },
       (err) => {
@@ -2038,7 +2063,7 @@ export class MapReportComponent implements OnInit {
             this.clusterMarkers = [];
             this.commonService.loaderAndErr(this.clusterMarkers);
           }
-          this.globalService.featureGrp.clearLayers();
+          this.globalService.getBoundsByMarkers();
 
         },
         (err) => {
@@ -2233,6 +2258,7 @@ export class MapReportComponent implements OnInit {
                 this.genericFun(this.schoolMarkers, options, this.fileName);
                 this.globalService.onResize(this.level);
                 this.changeDetection.detectChanges();
+                this.globalService.getBoundsByMarkers();
 
               } else {
 
@@ -2248,7 +2274,7 @@ export class MapReportComponent implements OnInit {
               this.commonService.loaderAndErr(this.data);
             }
           )
-          this.globalService.featureGrp.clearLayers();
+            this.globalService.getBoundsByMarkers();
       },
       (err) => {
 
