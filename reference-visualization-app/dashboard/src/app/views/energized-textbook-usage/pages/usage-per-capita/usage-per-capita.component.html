@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <p class="note">
-                            <strong> About the dashboard:</strong>The dashboard provides the total content play metric
+                            <strong> About the dashboard:&nbsp;</strong>The dashboard provides the total content play metric
                             over
                             last
                             academic year and current academic year across various districts for {{state}} normalised
@@ -67,8 +67,8 @@
 
                 <div class="legend-wrapper col-xl-2">
                     <div *ngIf="selected == 'absolute'"
-                        style="float: right; margin-left: 1%; margin-top: 1%; z-index: 100;">
-                        <h5 id="legend" style="margin-left: 15%">
+                        style="float: right; margin-left: 1%; margin-top: 1%; margin-bottom: 1%; z-index: 100;">
+                        <h5 id="legend" style="text-align: center; padding-bottom: 1%;">
                             Usage Per Capita<br>
 
                             <img *ngIf=" valueRange != -1 && valueRange !== undefined" id="resetImg"
@@ -93,15 +93,15 @@
                       ? '12px'
                       : '12px'
                 }"><Strong>Note:</Strong> Quartile percentage calculated based on Per Capita</h5>
-                        <div *ngFor="let value of values; let i = index">
-                            <span id="{{ i }}" class="legends" style="float: left; cursor: pointer"
+                        <div class="legend-wrapper" *ngFor="let value of values; let i = index">
+                            <div id="{{ i }}" class="legends-div" style="float: left; cursor: pointer"
                                 [ngStyle]="{ color: invert(legendColors[i]) }"
                                 (click)="selectRange(value, i); select(i)" [style.background-color]="legendColors[i]">
                                 {{ values[i] }}
-                            </span>
+                        </div>
                         </div>
                     </div>
-                    <div style="float: right; margin-left: 1%; margin-top: 3%; z-index: 100;">
+                    <div style="float: right; margin-left: 1%; margin-top: 3%; z-index: 100; width: 100%;">
                         <h5 style="margin-left: 1%;  font-weight: 900;" [ngStyle]="{
                   fontSize:
                     height > 1760
