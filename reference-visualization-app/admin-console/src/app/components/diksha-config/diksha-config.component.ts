@@ -115,8 +115,8 @@ export class DikshaConfigComponent implements OnInit {
   dataListSelected = "choose DataSource "
   getdatalist() {
     this.service1.getConfigDataSource().subscribe(res => {
-      this.dataSourceList = res
-
+      this.dataSourceList = res;
+      document.getElementById('spinner').style.display = "none";
     }, err => {
       document.getElementById('spinner').style.display = "none";
 

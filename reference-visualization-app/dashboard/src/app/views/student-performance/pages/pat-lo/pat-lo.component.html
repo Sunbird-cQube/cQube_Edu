@@ -135,19 +135,19 @@
                         </ng-select>
 
 
-                        <ng-select [hidden]="blockHidden" id="block" [(ngModel)]="block" [disabled]="selBlock"
+                        <ng-select  style="font-size: 18px;font-weight:500;" [hidden]="blockHidden" id="block" [(ngModel)]="block" [disabled]="selBlock"
                             (change)="selectedBlock(block)" placeholder="Choose a Block" dropdownPosition="bottom"
                             [clearable]="false" class="col-span-6 xmd:col-span-3 lg:col-span-2">
                             <ng-option [value]="block" disabled selected="selected">Choose a Block</ng-option>
-                            <ng-option *ngFor="let block of blockNames, let i =index" [value]="block.block_id">
+                            <ng-option  style="font-size: 18px;font-weight:500;" *ngFor="let block of blockNames, let i =index" [value]="block.block_id">
                                 {{block.block_name}}
                             </ng-option>
                         </ng-select>
-                        <ng-select [hidden]="clusterHidden" id="cluster" [(ngModel)]="cluster" [disabled]="selCluster"
+                        <ng-select  style="font-size: 18px;font-weight:500;" [hidden]="clusterHidden" id="cluster" [(ngModel)]="cluster" [disabled]="selCluster"
                             (change)="selectedCluster(cluster)" placeholder="Choose a Cluster" dropdownPosition="bottom"
                             [clearable]="false" class="col-span-6 xmd:col-span-3 lg:col-span-2">
                             <ng-option [value]="cluster" disabled selected="selected">Choose a Cluster</ng-option>
-                            <ng-option *ngFor="let cluster of clusterNames, let i =index" [value]="cluster.cluster_id">
+                            <ng-option  style="font-size: 18px;font-weight:500;" *ngFor="let cluster of clusterNames, let i =index" [value]="cluster.cluster_id">
                                 {{cluster.cluster_name}}
                             </ng-option>
                         </ng-select>
