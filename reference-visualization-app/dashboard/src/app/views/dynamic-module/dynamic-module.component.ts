@@ -15,16 +15,17 @@ export class DynamicModuleComponent implements OnInit {
   tabNames
   public datasourse
   currentRoute: string[];
-  constructor(public cardService: dynamicReportService, private route: Router) {
-
+  constructor(public cardService: dynamicReportService, private route: Router, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.paramMap.subscribe((params:any) => {
+      this.getTabNames();
+    })
   }
 
   url
 
   ngOnInit(): void {
 
-
-    this.getTabNames()
+    
 
   }
 
