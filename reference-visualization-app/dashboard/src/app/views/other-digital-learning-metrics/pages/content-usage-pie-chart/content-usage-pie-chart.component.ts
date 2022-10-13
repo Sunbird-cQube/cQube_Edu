@@ -4,6 +4,8 @@ import { AppServiceComponent } from 'src/app/app.service';
 import { environment } from 'src/environments/environment';
 import { ContentUsagePieService } from 'src/app/core/services/content-usage-pie.service';
 import { MultiSelectComponent } from 'src/app/shared/components/core-components/multi-select/multi-select.component';
+import { getChartJSConfig } from 'src/app/core/config/ChartjsConfig';
+import { formatNumberForReport } from 'src/app/utilities/NumberFomatter';
 
 @Component({
   selector: 'app-content-usage-pie-chart',
@@ -343,7 +345,6 @@ showError = false
         }
 
         district.data.forEach((metric, i) => {
-
           obj.data.push({ name: metric.object_type, color: `#${metric.color_code}`, y: metric.total_content_plays_percent, value: metric.total_content_plays_districtwise });
         });
 
@@ -353,7 +354,7 @@ showError = false
 
         distDashlets.push({
           name: obj.name,
-          config: {
+          config: getChartJSConfig({
             labelExpr: 'object_type',
             datasets: [
               { dataExpr: 'total_content_plays_percent', label: 'total_content_plays_percent' }
@@ -366,9 +367,48 @@ showError = false
               legend: {
                 display: false
               },
-              height: '200'
+              height: '200',
+              scales: {
+                xAxes: [{
+                  ticks: {
+                    display: false //this will remove only the label
+                  },
+                  gridLines: {
+                    display: false,
+                    drawBorder: false,
+                    tickMarkLength: false,
+                    zeroLineColor:'transparent'
+                  }
+                }],
+                yAxes: [{
+                  ticks: {
+                    display: false //this will remove only the label
+                  },
+                  gridLines: {
+                    display: false,
+                    drawBorder: false,
+                    tickMarkLength: false,
+                    zeroLineColor:'transparent'
+                  }
+                }]
+              },
+              tooltips: {
+                callbacks: {
+                  label: (tooltipItem) => {
+                    let multistringText = [];
+                    console.log(district.data);
+                    
+                    multistringText.push(`District: ${obj.name}`);
+                    multistringText.push(`Name: ${district.data[tooltipItem.index]['object_type']}`);
+                    multistringText.push(`Percentage: ${district.data[tooltipItem.index]['total_content_plays_percent']}%`);
+                    multistringText.push(`Total Content Play: ${formatNumberForReport(district.data[tooltipItem.index]['total_content_plays_districtwise'])}`);
+      
+                    return multistringText;
+                  }
+                }
+              }
             }
-          },
+          }),
           data: {
             values: district.data
           }
@@ -384,7 +424,6 @@ showError = false
         }
 
         district.data.forEach((metric, i) => {
-
           obj.data.push({ name: metric.object_type, color: `#${metric.color_code}`, y: metric.total_content_plays_percent, value: metric.total_content_plays_districtwise });
         });
 
@@ -394,7 +433,7 @@ showError = false
 
         distDashlets.push({
           name: obj.name,
-          config: {
+          config: getChartJSConfig({
             labelExpr: 'object_type',
             datasets: [
               { dataExpr: 'total_content_plays_percent', label: 'total_content_plays_percent' }
@@ -407,9 +446,47 @@ showError = false
               legend: {
                 display: false
               },
-              height: '200'
+              height: '200',
+              scales: {
+                xAxes: [{
+                  ticks: {
+                    display: false //this will remove only the label
+                  },
+                  gridLines: {
+                    display: false,
+                    drawBorder: false,
+                    tickMarkLength: false,
+                    zeroLineColor:'transparent'
+                  }
+                }],
+                yAxes: [{
+                  ticks: {
+                    display: false //this will remove only the label
+                  },
+                  gridLines: {
+                    display: false,
+                    drawBorder: false,
+                    tickMarkLength: false,
+                    zeroLineColor:'transparent'
+                  }
+                }]
+              },
+              tooltips: {
+                callbacks: {
+                  label: (tooltipItem) => {
+                    let multistringText = [];
+                    
+                    //multistringText.push(`District: ${data[tooltipItem.index]['district_name']}`);
+                    multistringText.push(`Name: ${district.data[tooltipItem.index]['object_type']}`);
+                    multistringText.push(`Percentage: ${district.data[tooltipItem.index]['total_content_plays_percent']}%`);
+                    multistringText.push(`Total Content Play: ${formatNumberForReport(district.data[tooltipItem.index]['total_content_plays_districtwise'])}`);
+      
+                    return multistringText;
+                  }
+                }
+              }
             }
-          },
+          }),
           data: {
             values: district.data
           }
@@ -424,7 +501,7 @@ showError = false
 
 
   createPieChart(data) {
-    this.config = {
+    this.config = getChartJSConfig({
       labelExpr: 'object_type',
       datasets: [
         { dataExpr: 'total_content_plays_percent', label: 'total_content_plays_percent' }
@@ -444,9 +521,47 @@ showError = false
             usePointStyle: true,
             boxWidth: 10
           }
+        },
+        scales: {
+          xAxes: [{
+            ticks: {
+              display: false //this will remove only the label
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false,
+              tickMarkLength: false,
+              zeroLineColor:'transparent'
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              display: false //this will remove only the label
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false,
+              tickMarkLength: false,
+              zeroLineColor:'transparent'
+            }
+          }]
+        },
+        tooltips: {
+          callbacks: {
+            label: (tooltipItem) => {
+              let multistringText = [];
+              
+              //multistringText.push(`District: ${data[tooltipItem.index]['district_name']}`);
+              multistringText.push(`Name: ${data[tooltipItem.index]['object_type']}`);
+              multistringText.push(`Percentage: ${data[tooltipItem.index]['total_content_plays_percent']}%`);
+              multistringText.push(`Total Content Play: ${formatNumberForReport(data[tooltipItem.index]['total_content_plays'])}`);
+
+              return multistringText;
+            }
+          }
         }
       }
-    };
+    });
     
     this.dashletData = {
       values: data
