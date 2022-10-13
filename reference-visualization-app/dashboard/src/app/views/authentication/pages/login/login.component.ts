@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   otpUrl
 
   userName = ''
-   errorMsg
+  errorMsg
   LoginForm = new FormGroup({
     userId: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
@@ -46,8 +46,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (environment.config === 'state') {
       this.national = false
-      // // this.stateName = false;
-      // this.stateName=environment.stateCode
+
 
       let names: any = stateNames;
       names.every((state: any) => {
@@ -95,12 +94,12 @@ export class LoginComponent implements OnInit {
   }
 
   encrypt(value: string): string {
-    //return CryptoJS.AES.encrypt(value, environment.secretKey.trim()).toString();
+
     return '';
   }
 
   onSubmit() {
-    //let password = this.encrypt(this.LoginForm.controls.password.value as string);
+
     this._authenticationService.login(this.LoginForm.controls.userId.value, this.LoginForm.controls.password.value).subscribe((res: any) => {
       const token = res.token
       this.error = false
@@ -108,7 +107,7 @@ export class LoginComponent implements OnInit {
       this.roletype = res['role']
       this.userName = res['username']
 
-   
+
       if (this.userStatus === 'true') {
         this.tempSecret = ''
         this._authenticationService.addUser(this.userName).subscribe(res => {
@@ -124,19 +123,19 @@ export class LoginComponent implements OnInit {
 
       }
 
-      if (this.roletype === "admin") {
+      if (this.roletype === "admin" && this.userStatus !== undefined) {
         document.getElementById("otp-container").style.display = "block";
         document.getElementById("kc-form-login1").style.display = "none";
         localStorage.setItem('token', token)
         localStorage.setItem('userName', res.username)
         localStorage.setItem('roleName', res.role)
         localStorage.setItem('user_id', res.userId)
-        // this.router.navigate(['/home']);
+
       }
-    
+
 
       if (this.roletype === "admin" && this.userStatus === undefined) {
-       
+
         localStorage.setItem('token', token)
         localStorage.setItem('userName', res.username)
         localStorage.setItem('roleName', res.role)
@@ -150,22 +149,16 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userName', res.username)
         localStorage.setItem('roleName', res.role)
         localStorage.setItem('user_id', res.userId)
-        // this.router.navigate(['/home']);
+
       }
-       if (this.roletype === "report_viewer" && environment.report_viewer_config_otp === false) {
-       
+      if (this.roletype === "report_viewer" && environment.report_viewer_config_otp === false) {
+
         localStorage.setItem('token', token)
         localStorage.setItem('userName', res.username)
         localStorage.setItem('roleName', res.role)
         localStorage.setItem('user_id', res.userId)
-         this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard']);
       }
-
-
-
-     
-
-
     },
       err => {
         this.error = true;
@@ -178,20 +171,25 @@ export class LoginComponent implements OnInit {
   verifyQRCOde() {
 
     if (this.userStatus === 'true') {
+
       try {
         this._authenticationService.getQRverify(this.otpForm.value).subscribe(res => {
           this.otpStatus = res
-          
+
           if (res['status'] === 200) {
             this.wrongOtp = false;
             document.getElementById("otp-container").style.display = "none";
             document.getElementById("qr-code").style.display = "none"
-            // document.getElementById("updatePassword").style.display = "block";
+
             document.getElementById("kc-form-login1").style.display = "none";
-            this.router.navigate(['home'])
+            if (this.roletype === "admin") {
+              this.router.navigate(['home'])
+            } else {
+              this.router.navigate(['/dashboard'])
+            }
           } else {
             this.wrongOtp = true;
-             this.errorMsg = res['message'];
+            this.errorMsg = res['message'];
           }
 
         })
@@ -203,7 +201,7 @@ export class LoginComponent implements OnInit {
     } else if (this.userStatus === 'false') {
       try {
         this._authenticationService.getSecret(this.userName).subscribe(res => {
-          console.log('otpstate', this.otpStatus)
+
           if (res['status'] === 200) {
             let otpSecret = res['secret']
             let data = {
@@ -215,10 +213,14 @@ export class LoginComponent implements OnInit {
               this.otpStatus = res
               if (res['status'] === 200) {
                 this.wrongOtp = false;
-                this.router.navigate(['home'])
+                if (this.roletype === "admin") {
+                  this.router.navigate(['home'])
+                } else {
+                  this.router.navigate(['/dashboard'])
+                }
               } else {
                 this.wrongOtp = true;
-                 this.errorMsg = res['message'];
+                this.errorMsg = res['message'];
               }
 
             })
@@ -244,10 +246,14 @@ export class LoginComponent implements OnInit {
               this.otpStatus = res
               if (res['status'] === 200) {
                 this.wrongOtp = false;
-                this.router.navigate(['home'])
+                if (this.roletype === "admin") {
+                  this.router.navigate(['home'])
+                } else {
+                  this.router.navigate(['/dashboard'])
+                }
               } else {
                 this.wrongOtp = true;
-                // this.errorMsg = res['message'];
+
               }
 
             })
