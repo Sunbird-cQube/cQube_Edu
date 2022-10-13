@@ -76410,7 +76410,7 @@ ${filename:startsWith('sch_safety')}
                         <properties>
                             <entry>
 <key>Object Key</key>
-<value>log_summary/log_summary_textbook_distribution.json</value>
+<value>log_summary/log_summary_${filename:substringBefore('.')}.json</value>
                             </entry>
                             <entry>
 <key>Bucket</key>
@@ -89170,5 +89170,5 @@ ${query_type:startsWith('pat_management_learning_outcome_p3_cluster'):ifElse('pa
             <variables/>
         </processGroups>
     </snippet>
-    <timestamp>10/13/2022 09:37:17 IST</timestamp>
+    <timestamp>10/13/2022 17:04:55 IST</timestamp>
 </template>
