@@ -18,16 +18,18 @@ export class LoginComponent implements OnInit {
 
 
   otpForm!: FormGroup;
+  passwordForm!: FormGroup
   stateName: any
 
   wrongOtp: boolean = false;
+  public passwordMatch: boolean = false;
   tempSecret: string = '';
   error: boolean = false;
   roletype
 
   userStatus = ''
   qrcode
-
+  adminUserId = '';
   otpUrl
 
   userName = ''
@@ -60,6 +62,13 @@ export class LoginComponent implements OnInit {
       this.otpForm = this.formBuilder.group({
         otp: ['', Validators.required],
         secret: ['', Validators.required]
+      })
+
+
+      this.passwordForm = this.formBuilder.group({
+        username: ['', Validators.required],
+        newPassword: ['', Validators.required],
+        cnfpass: ['', Validators.required]
       })
 
     }
@@ -106,24 +115,27 @@ export class LoginComponent implements OnInit {
       this.userStatus = res['status']
       this.roletype = res['role']
       this.userName = res['username']
+      this.adminUserId = res['userId']
 
+      if (this.userName !== environment.keycloak_adm_user){
+        if (this.userStatus === 'true') {
+          this.tempSecret = ''
+          this._authenticationService.addUser(this.userName).subscribe(res => {
 
-      if (this.userStatus === 'true') {
-        this.tempSecret = ''
-        this._authenticationService.addUser(this.userName).subscribe(res => {
+          })
 
-        })
+          // ++++ custom qr code for 2FA
+          this._authenticationService.getQRcode(this.LoginForm.value).subscribe(res => {
+            this.otpUrl = res
+            this.qrcode = res['dataURL']
+            this.tempSecret = res['tempSecret'];
+          })
 
-        // ++++ custom qr code for 2FA
-        this._authenticationService.getQRcode(this.LoginForm.value).subscribe(res => {
-          this.otpUrl = res
-          this.qrcode = res['dataURL']
-          this.tempSecret = res['tempSecret'];
-        })
+        }
 
       }
-
-      if (this.roletype === "admin" && this.userStatus !== undefined) {
+     
+      if (this.roletype === "admin" && this.userName !== environment.keycloak_adm_user ) {
         document.getElementById("otp-container").style.display = "block";
         document.getElementById("kc-form-login1").style.display = "none";
         localStorage.setItem('token', token)
@@ -134,13 +146,24 @@ export class LoginComponent implements OnInit {
       }
 
 
-      if (this.roletype === "admin" && this.userStatus === undefined) {
-
-        localStorage.setItem('token', token)
-        localStorage.setItem('userName', res.username)
-        localStorage.setItem('roleName', res.role)
-        localStorage.setItem('user_id', res.userId)
-        this.router.navigate(['/home']);
+      if (this.roletype === "admin" && this.userName === environment.keycloak_adm_user) {
+         if (this.userStatus === "true") {
+          document.getElementById("otp-container").style.display = "none";
+          document.getElementById("kc-form-login1").style.display = "none";
+          document.getElementById("updatePassword").style.display = "block";
+          localStorage.setItem('token', token)
+          localStorage.setItem('userName', res.username)
+          localStorage.setItem('roleName', res.role)
+          localStorage.setItem('user_id', res.userId)
+          // this.router.navigate(['/home']);
+        }else{
+          localStorage.setItem('token', token)
+          localStorage.setItem('userName', res.username)
+          localStorage.setItem('roleName', res.role)
+          localStorage.setItem('user_id', res.userId)
+          this.router.navigate(['/home']);
+        }
+      
       }
       if (this.roletype === "report_viewer" && environment.report_viewer_config_otp === true) {
         document.getElementById("otp-container").style.display = "block";
@@ -268,5 +291,28 @@ export class LoginComponent implements OnInit {
 
   }
 
+
+  changePasswordStatus: any
+  err: any
+
+  changePassword() {
+    let data = {
+      cnfpass: this.passwordForm.value.cnfpass,
+      username: this.passwordForm.value.username,
+      token : localStorage.getItem('token')
+    }
+    if (this.passwordForm.value.newPassword != this.passwordForm.value.cnfpass) {
+      this.passwordMatch = true
+      this.errorMsg = "Password not matched"
+    } else {
+      this._authenticationService.changePassword(data, this.adminUserId).subscribe(res => {
+        this.passwordMatch = false;
+        this.changePasswordStatus = res
+
+        this.router.navigate(['home'])
+      })
+    }
+
+  }
 
 }
