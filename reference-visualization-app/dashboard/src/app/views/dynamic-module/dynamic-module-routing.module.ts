@@ -6,19 +6,7 @@ import { DynamicModuleComponent } from './dynamic-module.component';
 const routes: Routes = [
   {
     path: '',
-    component: DynamicModuleComponent,
-    children: [
-      {
-        path: 'dashboard',
-        component: DynamicModuleComponent,
-
-      },
-      {
-        path: '',
-        redirectTo: 'dynamic',
-        pathMatch: 'full'
-      }
-    ]
+    component: DynamicModuleComponent
   }
 ];
 
