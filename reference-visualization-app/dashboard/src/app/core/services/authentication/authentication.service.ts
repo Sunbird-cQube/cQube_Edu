@@ -55,4 +55,9 @@ export class AuthenticationService {
     return this._http.post(`${environment.loginUrl}/adduser`, { username: username });
 
   }
+
+  changePassword(data, id) {
+   
+    return this._http.post(`${environment.loginUrl}/changePassword/${id}`, data);
+  }
 }

@@ -1,12 +1,8 @@
 const router = require('express').Router();
-// const { // logger } = require('../../lib/// logger');
-// const auth = require('../../middleware/check-auth');
+
 const axios = require('axios');
 const dotenv = require('dotenv');
-// const querystring = require('querystring');
-// const qr = require('qrcode');
 
-// const common = require('./common');
 const { generateSecret, verify } = require('2fa-util');
 const db = require('../db/db')
 dotenv.config();
@@ -43,7 +39,7 @@ router.post('/login', async (req, res, next) => {
 
 
         await axios.post(kcUrl, keyCloakdetails, { headers: keycloakheaders }).then(resp => {
-            // logger.info('---token generated from keyclock ---');
+           
             let response = resp['data']
             let jwt = resp['data'].access_token;
 
@@ -118,14 +114,14 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/adduser', async (req, res, next) => {
     const { email } = req.body
-    // // logger.info('---new user added ---');
+
   
     db.query('UPDATE keycloak_users set status= $2 where keycloak_username=$1;', [req.body.username, "false"], (error, results) => {
         if (error) {
-            // // logger.info('---user create in DB error ---');
+           
             throw error
         }
-        // // logger.info('---user created in DB success ---');
+        
         res.status(201).json({ msg: "User Created" });
     })
 
@@ -136,11 +132,11 @@ router.post('/getTotp', async (req, res, next) => {
         const secret = await generateSecret(email, 'cQube');
         db.query('UPDATE keycloak_users set qr_secret= $2 where keycloak_username=$1;', [req.body.email, secret.secret], (error, results) => {
             if (error) {
-                // logger.info('---QR code from DB error ---');
+               
                 console.log('error', error)
                 throw error
             }
-            // logger.info('---qr code from DB success ---');
+           
             console.log('---qr code from DB success ---')
             
             res.status(200).send({
@@ -175,7 +171,7 @@ router.post('/logout', async (req, res, next) => {
             status: 200
         })
     }).catch(err => {
-        // logger.error(`Error :: ${ err }`)
+       
         res.status(404).json({ errMessage: "Internal error. Please try again!!" })
     })
 
@@ -188,11 +184,10 @@ router.post('/getSecret', async (req, res) => {
 
     db.query('SELECT qr_secret FROM keycloak_users WHERE keycloak_username = $1', [req.body.username], (error, results) => {
         if (error) {
-            // logger.info('---user secrect from DB error  ---');
+           
             throw error
         }
-        // logger.info('---user secrect from DB success  ---');
-       
+      
         res.send({ status: 200, secret: results.rows[0].qr_secret })
 
     })
@@ -219,5 +214,10 @@ router.post('/totpVerify', async (req, res) => {
 
 
 });
+
+
+
+
+
 
 module.exports = router;
