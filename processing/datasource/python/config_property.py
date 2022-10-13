@@ -9,19 +9,21 @@ def get_combinations(filename, partition_date_key, partition_date_value, process
                       'Route_on_zip', 'temp_trans_agg_add_qry_filename', 'add_ff_uuid_and_convert_date',
                       'convert_date_to_ist', 'convert_management_date_to_ist',
                       'partition_according_columns_daily_queries',
-                      'partition_management', 'config_datasource_save_s3_log_summary',
+                      'partition_management', 'configure_datasource_save_s3_log_summary',
                       'config_datasource_update_filename_local', 'convert_date_to_ist1', 'convert_date_to_ist2',
                       'partition_according_year_month_week', 'convert_date_to_ist3',
                       'partition_according_year_month_week_subject_queries',
                       'partition_according_year_month_week_grade_queries',
                       'config_listing_aggregated_files_from_emission',
-                      'route_files_data_replay_retention_infra_trans', 'aggregated_output']
+                      'route_files_data_replay_retention_infra_trans', 'aggregated_output',
+                      'configurable_datasource_save_azure_log_summary']
     data_storage_processor = 'cQube_data_storage'
     datasource_filename_property_key = "configure_file"
     selectSQL_property_key = "SQL select query"
     insertSQL_property_key = "putsql-sql-statement"
     update_filename_property_key = "filename"
     s3_output_property_key = "Object Key"
+    azure_output_property_key = "blob"
     datasource_filename_property_value = '${' + 'filename:startsWith("{0}"):or('.format(
         filename) + '${' + 'azure.blobname:startsWith("{0}")'.format(filename) + '})}'
     datasource_filename_config_property_value = '${' + "filename:startsWith('{0}')".format(
@@ -47,13 +49,14 @@ def get_combinations(filename, partition_date_key, partition_date_value, process
                   {datasource_filename_property_key: emission_filename_property_value},
                   {s3_output_property_key: s3_output_log_summary_property_value},
                   {update_filename_property_key: local_output_log_summary_property_value},
-                  processor_properties_date
+                  processor_properties_date,
+                  {azure_output_property_key: s3_output_log_summary_property_value}
                   ]
     # updating the properties
     combinations = [[0, 0, 0], [1, 1, 1], [1, 2, 8], [2, 3, 2], [2, 4, 3], [0, 5, 4], [0, 6, 5], [0, 7, 4], [0, 8, 4],
                     [0, 9, 5], [1, 10, 1], [2, 11, 6], [0, 12, 11], [2, 13, 11], [2, 14, 11], [2, 15, 7], [2, 16, 7],
-                    [1, 17, 10],
-                    [1, 18, 11], [2, 19, 11], [2, 20, 11], [2, 21, 7], [2, 22, 11], [2, 23, 7], [2, 24, 7]]
+                    [1, 17, 9],
+                    [1, 18, 10], [2, 19, 11], [2, 20, 11], [2, 21, 7], [2, 22, 11], [2, 23, 7], [2, 24, 7], [1, 28, 12]]
 
     return processor_group_name, processor_name, properties, combinations
 
@@ -78,7 +81,7 @@ def get_combinations_aggregated(filename):
                   {datasource_filename_aggre_property_key: datasource_filename_update_aggre_property_value},
                   {s3_output_property_key: s3_and_local_output_property_value},
                   {local_output_property_key: s3_and_local_output_property_value}]
-    combinations_aggregated = [[0, 2, 0],[1, 0, 1],[1, 3, 2], [1, 1, 2], [1, 4, 3], [1, 5, 4]]
+    combinations_aggregated = [[0, 2, 0], [1, 0, 1], [1, 3, 2], [1, 1, 2], [1, 4, 3], [1, 5, 4]]
 
     return processor_group_name, processor_name, properties, combinations_aggregated
 
