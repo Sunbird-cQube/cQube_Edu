@@ -48,9 +48,9 @@
             </p>
           </div>
         </div>
-        <div class="row" style="margin-bottom: 10px">
-          <div class="col-sm-12 d-flex">
-            <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_district" [hidden]="!hideAccessBtn"
+        <div class="" style="margin-bottom: 10px">
+          <div class="grid grid-cols-12 gap-4">
+            <ng-select class="col-span-12 xmd:col-span-3 lg:col-span-2 pl-2" id="choose_district" [hidden]="!hideAccessBtn"
               [(ngModel)]="selectedDrop" (change)="onStateDropSelected(selectedDrop)" dropdownPosition="bottom"
               [clearable]="false" placeholder="Choose a District">
               <ng-option *ngFor="let dist of stateDropDown" [value]="dist.key">
@@ -58,7 +58,7 @@
               </ng-option>
             </ng-select>
 
-            <div *ngIf="districtSelectBox">
+            <div *ngIf="districtSelectBox" class="col-span-12 xmd:col-span-9 lg:col-span-6">
               <app-multi-select #multiSelect1 id="pieMultiSelector" style="float: left;width: auto; margin-right: 10px;"
                 [list]="distToDropDown" [text]="'district'"
                 [width1]="height > 1780 ? '350px !important': height > 1160 && height < 1780 ? '300px': height > 667 && height < 1160 ? '200px':'130px'"
