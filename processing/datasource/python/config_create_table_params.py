@@ -651,7 +651,7 @@ def create_table_queries():
                             iter = iter + 1
                         trans_query = trans_query + ');'
                     else:
-                        trans_query = trans_query + ' , primary key (' + p_k_columns.replace(" ", "_")
+                        trans_query = trans_query + ' , primary key (' + p_k_columns.replace(" ", "_") + ')'
                         iter = 0
                         no_of_tables = len(ref_table_df)
                         for fk_col, table, colms in zip(f_k_columns_l, ref_table_df, ref_col_df):

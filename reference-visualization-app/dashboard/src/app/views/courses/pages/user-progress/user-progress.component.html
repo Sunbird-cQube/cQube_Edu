@@ -120,7 +120,7 @@
 
                     <ng-select appendTo=".app-content" class="col-span-6 xmd:col-span-3 lg:col-span-2"
                         [hidden]="clusterHidden" id="choose_cluster" [(ngModel)]="clusterId" dropdownPosition="bottom"
-                        [clearable]="false" placeholder="choose_cluster" [disabled]="selCluster"
+                        [clearable]="false" placeholder="Choose a Cluster" [disabled]="selCluster"
                         (change)="clusterLinkClick(clusterId)">
                         <!-- <ng-option [value]="clusterId" disabled selected="selected">Choose a Cluster</ng-option> -->
                         <ng-option *ngFor="let cluster of clusters" [value]="cluster.cluster_id"

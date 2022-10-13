@@ -19,6 +19,8 @@ export class MultiSelectComponent implements OnInit {
   status;
   checkedList: any[];
   currentSelected: {};
+  maxSelections: any;
+  setAlert: boolean = false;
   constructor() {
     this.checkedList = [];
   }
@@ -80,6 +82,19 @@ export class MultiSelectComponent implements OnInit {
   onItemsSelected(event): void {
     if (event && event.length === 0) {
       this.shareCheckedList.emit(this.checkedList);
+    }
+    else if(event.length > 9){
+      this.maxSelections = 10;
+      if(this.setAlert){
+        alert('you cannot select more than 10 options')
+      }
+      else {
+        this.setAlert = true;
+      }
+    }
+    else{
+      this.setAlert = false;
+      this.maxSelections = undefined;
     }
   }
 
