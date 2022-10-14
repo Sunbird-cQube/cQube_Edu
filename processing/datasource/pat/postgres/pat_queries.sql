@@ -2613,10 +2613,10 @@ from periodic_exam_school_result where school_management_type is not null  group
 school_id,school_name,cluster_id,cluster_name,block_id,block_name,district_id,district_name,school_latitude,school_longitude,school_management_type) as a
 left join 
 (select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as school_performance,
-school_id,sum(obtained_marks) as
-obtained_marks,sum(total_marks) as total_marks, school_management_type from
+school_id, school_management_type from
 (select academic_year,cast('Grade '||grade as text)as grade,
-school_id,
+school_id,sum(obtained_marks) as
+obtained_marks,sum(total_marks) as total_marks,
 round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as percentage,school_management_type
 from periodic_exam_school_result where school_management_type is not null group by academic_year,grade,
 school_id,school_management_type)as a
