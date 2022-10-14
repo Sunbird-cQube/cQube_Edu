@@ -306,10 +306,11 @@ district_id,initcap(district_name)as district_name,district_latitude,district_lo
 from periodic_exam_school_result group by academic_year,
 district_id,district_name,district_latitude,district_longitude) as a
 left join 
-(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(avg(percentage),1) as district_performance,
+(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as district_performance,
 district_id from
 (select academic_year,cast('Grade '||grade as text)as grade,
-district_id,
+district_id,sum(obtained_marks) as
+obtained_marks,sum(total_marks) as total_marks, 
 round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as percentage
 from periodic_exam_school_result group by academic_year,grade,
 district_id)as a
@@ -345,10 +346,11 @@ block_id,initcap(block_name)as block_name,district_id,initcap(district_name)as d
 from periodic_exam_school_result group by academic_year,
 block_id,block_name,district_id,district_name,block_latitude,block_longitude) as a
 left join 
-(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(avg(percentage),1) as block_performance,
+(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as block_performance,
 block_id from
 (select academic_year,cast('Grade '||grade as text)as grade,
-block_id,
+block_id,sum(obtained_marks) as
+obtained_marks,sum(total_marks) as total_marks,
 round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as percentage
 from periodic_exam_school_result group by academic_year,grade,
 block_id)as a
@@ -385,10 +387,11 @@ initcap(district_name)as district_name,cluster_latitude,cluster_longitude
 from periodic_exam_school_result group by academic_year,
 cluster_id,cluster_name,block_id,block_name,district_id,district_name,cluster_latitude,cluster_longitude) as a
 left join 
-(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(avg(percentage),1) as cluster_performance,
+(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as cluster_performance,
 cluster_id from
 (select academic_year,cast('Grade '||grade as text)as grade,
-cluster_id,
+cluster_id,sum(obtained_marks) as  
+obtained_marks,sum(total_marks) as total_marks,
 round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as percentage
 from periodic_exam_school_result group by academic_year,grade,
 cluster_id)as a
@@ -425,10 +428,11 @@ district_id,initcap(district_name)as district_name,school_latitude,school_longit
 from periodic_exam_school_result group by academic_year,
 school_id,school_name,cluster_id,cluster_name,block_id,block_name,district_id,district_name,school_latitude,school_longitude) as a
 left join 
-(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(avg(percentage),1) as school_performance,
+(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as school_performance,
 school_id from
 (select academic_year,cast('Grade '||grade as text)as grade,
-school_id,
+school_id,sum(obtained_marks) as
+obtained_marks,sum(total_marks) as total_marks,
 round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as percentage
 from periodic_exam_school_result group by academic_year,grade,
 school_id)as a
@@ -2480,10 +2484,11 @@ from periodic_exam_school_result where school_management_type is not null
  group by academic_year,school_management_type,
 district_id,district_name,district_latitude,district_longitude) as a
 left join 
-(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(avg(percentage),1) as district_performance,
+(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as district_performance,
 district_id,school_management_type from
 (select academic_year,cast('Grade '||grade as text)as grade,
-district_id,school_management_type,
+district_id,sum(obtained_marks) as
+obtained_marks,sum(total_marks) as total_marks,school_management_type,
 round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as percentage
 from periodic_exam_school_result  where school_management_type is not null 
 group by academic_year,grade,school_management_type,
@@ -2523,10 +2528,11 @@ block_id,initcap(block_name)as block_name,district_id,initcap(district_name)as d
 from periodic_exam_school_result where school_management_type is not null group by academic_year,
 block_id,block_name,district_id,district_name,block_latitude,block_longitude,school_management_type) as a
 left join 
-(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(avg(percentage),1) as block_performance,
+(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as block_performance,
 block_id,school_management_type from
 (select academic_year,cast('Grade '||grade as text)as grade,
-block_id,school_management_type,
+block_id,sum(obtained_marks) as
+obtained_marks,sum(total_marks) as total_marks,school_management_type,
 round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as percentage
 from periodic_exam_school_result where school_management_type is not null  group by academic_year,grade,school_management_type,
 block_id)as a
@@ -2564,10 +2570,11 @@ initcap(district_name)as district_name,cluster_latitude,cluster_longitude,school
 from periodic_exam_school_result where school_management_type is not null group by academic_year,
 cluster_id,cluster_name,block_id,block_name,district_id,district_name,cluster_latitude,cluster_longitude,school_management_type) as a
 left join 
-(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(avg(percentage),1) as cluster_performance,
+(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as cluster_performance,
 cluster_id,school_management_type from
 (select academic_year,cast('Grade '||grade as text)as grade,
-cluster_id,school_management_type,
+cluster_id,sum(obtained_marks) as
+obtained_marks,sum(total_marks) as total_marks, school_management_type,
 round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as percentage
 from periodic_exam_school_result where school_management_type is not null group by academic_year,grade,
 cluster_id,school_management_type)as a
@@ -2605,8 +2612,9 @@ district_id,initcap(district_name)as district_name,school_latitude,school_longit
 from periodic_exam_school_result where school_management_type is not null  group by academic_year,
 school_id,school_name,cluster_id,cluster_name,block_id,block_name,district_id,district_name,school_latitude,school_longitude,school_management_type) as a
 left join 
-(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(avg(percentage),1) as school_performance,
-school_id,school_management_type from
+(select academic_year,json_object_agg(grade,percentage) as grade_wise_performance,round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as school_performance,
+school_id,sum(obtained_marks) as
+obtained_marks,sum(total_marks) as total_marks, school_management_type from
 (select academic_year,cast('Grade '||grade as text)as grade,
 school_id,
 round(coalesce(sum(obtained_marks),0)*100.0/coalesce(sum(total_marks),0),1) as percentage,school_management_type
