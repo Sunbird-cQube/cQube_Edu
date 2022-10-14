@@ -984,7 +984,7 @@ def create_table_queries():
                 df.dropna(how='all', inplace=True, axis=1)
                 new_header = df_vis.iloc[0].str.strip().str.lower()
                 df_vis = df_vis[1:]
-                if df_vis[1:].empty:
+                if df_vis[0:].empty:
                     del df_vis
                 else:
                     df_vis.columns = new_header
