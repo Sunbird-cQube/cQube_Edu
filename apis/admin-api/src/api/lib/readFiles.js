@@ -1,9 +1,11 @@
 var const_data = require('./config');
 const { logger } = require('./logger');
+const { BlobServiceClient } = require('@azure/storage-blob');
 const fs = require('fs')
 var baseDir = `${process.env.OUTPUT_DIRECTORY}/`;
 var storageType = `${process.env.STORAGE_TYPE}`;
 
+require('dotenv').config()
 const readS3File = (s3Key) => {
     return new Promise((resolve, reject) => {
         try {
@@ -54,7 +56,10 @@ const readLocalFile = (fileName) => {
 if(storageType === 'azure'){
     var azure = require('azure-storage');
 const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING;
-var blobService = azure.createBlobService(AZURE_STORAGE_CONNECTION_STRING);
+    
+    var blobService = BlobServiceClient.fromConnectionString(
+        AZURE_STORAGE_CONNECTION_STRING
+    );
 var containerName = process.env.AZURE_OUTPUT_STORAGE;
 }
 

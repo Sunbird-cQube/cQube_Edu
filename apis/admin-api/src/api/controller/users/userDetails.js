@@ -6,11 +6,9 @@ const auth = require('../../middleware/check-auth');
 const axios = require('axios');
 const dotenv = require('dotenv');
 const Querystring = require('querystring');
+ dotenv.config();
 
-dotenv.config();
 
-var host = process.env.KEYCLOAK_HOST;
-var realm = process.env.KEYCLOAK_REALM;
 
 
 router.post('/userdetails', async function (req, res) {
