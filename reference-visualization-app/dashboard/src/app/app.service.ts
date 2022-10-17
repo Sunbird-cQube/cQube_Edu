@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../src/environments/environment';
 import { KeycloakSecurityService } from './keycloak-security.service';
-import * as config from '../assets/config.json'
+import * as config from '../assets/data/config.json'
 import { ExportToCsv } from 'export-to-csv';
 import { BehaviorSubject } from 'rxjs';
 import * as json2csv from 'json2csv';

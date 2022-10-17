@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
     userId: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   })
+  tempUserId: any = '';
 
   constructor(private router: Router, private formBuilder: FormBuilder, private readonly _authenticationService: AuthenticationService) {
     if (this._authenticationService.isUserLoggedIn()) {
@@ -112,12 +113,13 @@ export class LoginComponent implements OnInit {
     this._authenticationService.login(this.LoginForm.controls.userId.value, this.LoginForm.controls.password.value).subscribe((res: any) => {
       const token = res.token
       this.error = false
-      this.userStatus = res['status']
+      // this.userStatus = res['status']
+      this.userStatus = 'false';
       this.roletype = res['role']
       this.userName = res['username']
       this.adminUserId = res['userId']
 
-      if (this.userName !== environment.keycloak_adm_user){
+      if (this.userName !== environment.keycloak_adm_user) {
         if (this.userStatus === 'true') {
           this.tempSecret = ''
           this._authenticationService.addUser(this.userName).subscribe(res => {
@@ -134,20 +136,21 @@ export class LoginComponent implements OnInit {
         }
 
       }
-     
-      if (this.roletype === "admin" && this.userName !== environment.keycloak_adm_user ) {
+
+      if (this.roletype === "admin" && this.userName !== environment.keycloak_adm_user) {
         document.getElementById("otp-container").style.display = "block";
         document.getElementById("kc-form-login1").style.display = "none";
         localStorage.setItem('token', token)
         localStorage.setItem('userName', res.username)
         localStorage.setItem('roleName', res.role)
         localStorage.setItem('user_id', res.userId)
+        this.tempUserId = res.userId;
 
       }
 
 
       if (this.roletype === "admin" && this.userName === environment.keycloak_adm_user) {
-         if (this.userStatus === "true") {
+        if (this.userStatus === "true") {
           document.getElementById("otp-container").style.display = "none";
           document.getElementById("kc-form-login1").style.display = "none";
           document.getElementById("updatePassword").style.display = "block";
@@ -156,14 +159,14 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('roleName', res.role)
           localStorage.setItem('user_id', res.userId)
           // this.router.navigate(['/home']);
-        }else{
+        } else {
           localStorage.setItem('token', token)
           localStorage.setItem('userName', res.username)
           localStorage.setItem('roleName', res.role)
           localStorage.setItem('user_id', res.userId)
           this.router.navigate(['/home']);
         }
-      
+
       }
       if (this.roletype === "report_viewer" && environment.report_viewer_config_otp === true) {
         document.getElementById("otp-container").style.display = "block";
@@ -171,7 +174,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', token)
         localStorage.setItem('userName', res.username)
         localStorage.setItem('roleName', res.role)
-        localStorage.setItem('user_id', res.userId)
+        this.tempUserId = res.userId;
+        // localStorage.setItem('user_id', res.userId)
 
       }
       if (this.roletype === "report_viewer" && environment.report_viewer_config_otp === false) {
@@ -205,6 +209,9 @@ export class LoginComponent implements OnInit {
             document.getElementById("qr-code").style.display = "none"
 
             document.getElementById("kc-form-login1").style.display = "none";
+            if ((this.roletype === "admin" && this.userName !== environment.keycloak_adm_user) || (this.roletype === "report_viewer" && environment.report_viewer_config_otp === true)) {
+              localStorage.setItem('user_id', this.tempUserId);
+            }
             if (this.roletype === "admin") {
               this.router.navigate(['home'])
             } else {
@@ -299,7 +306,7 @@ export class LoginComponent implements OnInit {
     let data = {
       cnfpass: this.passwordForm.value.cnfpass,
       username: this.passwordForm.value.username,
-      token : localStorage.getItem('token')
+      token: localStorage.getItem('token')
     }
     if (this.passwordForm.value.newPassword != this.passwordForm.value.cnfpass) {
       this.passwordMatch = true
