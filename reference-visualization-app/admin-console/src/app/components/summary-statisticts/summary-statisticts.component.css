@@ -8,4 +8,6 @@
   table tr td {
     border: .1px solid rgb(201, 197, 197);
     border-collapse: collapse;
+    text-align: center !important;
+    /* float: left; */
   }

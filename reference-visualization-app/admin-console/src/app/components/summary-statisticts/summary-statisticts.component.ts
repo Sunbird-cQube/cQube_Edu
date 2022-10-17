@@ -1,3 +1,4 @@
+import { MatTableModule } from '@angular/material/table';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SummaryService } from '../../services/summary.service';
@@ -35,6 +36,37 @@ export class SummaryStatistictsComponent implements OnInit {
   tableData21: any = [];
   tableData22: any = [];
   tableData23: any = [];
+  tableData24: any = [];
+  tableData25: any = [];
+  tableData26: any = [];
+  tableData27: any = [];
+  tableData28: any = [];
+  tableData29: any = [];
+  tableData30: any = [];
+  tableData31: any = [];
+  tableData32: any = [];
+  tableData33: any = [];
+  tableData34: any = [];
+  tableData35: any = [];
+  tableData36: any = [];
+  tableData37: any = [];
+  tableData38: any = [];
+  tableData39: any = [];
+  tableData40: any = [];
+  tableData41: any = [];
+  tableData42: any = [];
+  tableData43: any = [];
+  tableData44: any = [];
+  tableData45: any = [];
+  tableData46: any = [];
+  tableData47: any = [];
+  tableData48: any = [];
+  tableData49: any = [];
+  tableData50: any = [];
+  tableData51: any = [];
+  tableData52: any = [];
+  tableData53: any = [];
+  
   constructor(private router: Router, private service: SummaryService) { }
 
   ngOnInit(): void {
@@ -266,6 +298,344 @@ export class SummaryStatistictsComponent implements OnInit {
     }, err => {
       document.getElementById('spinner').style.display = 'none';
     });
+
+    this.service.getTextBookDistDetailsSummary().subscribe((res: any) => {
+      this.tableData23 = res;
+      if (this.tableData23.length > 0) {
+        this.tableWithSubHeaders(this.tableData23, "table24");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+    this.service.getDikshaLearningSessions().subscribe((res: any) => {
+      this.tableData24 = res;
+      if (this.tableData24.length > 0) {
+        this.tableWithSubHeaders(this.tableData24, "table25");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+    this.service.getdikshaNishthaProgramStarted().subscribe((res: any) => {
+      this.tableData25 = res;
+      if (this.tableData25.length > 0) {
+        this.tableWithSubHeaders(this.tableData25, "table26");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    
+    this.service.getMainMetrics().subscribe((res: any) => {
+      this.tableData26 = res;
+      if (this.tableData26.length > 0) {
+        this.tableWithSubHeaders(this.tableData26, "table27");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getDikshaEtbCoverage().subscribe((res: any) => {
+      this.tableData27 = res;
+      if (this.tableData27.length > 0) {
+        this.tableWithSubHeaders(this.tableData27, "table28");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getdikshaEtbLearningSession().subscribe((res: any) => {
+      this.tableData28 = res;
+      if (this.tableData28.length > 0) {
+        this.tableWithSubHeaders(this.tableData28, "table29");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getdikshaEtbPlaysPercapita().subscribe((res: any) => {
+      this.tableData29 = res;
+      if (this.tableData29.length > 0) {
+        this.tableWithSubHeaders(this.tableData29, "table30");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getdikshaEtbProgramStarted().subscribe((res: any) => {
+      this.tableData30 = res;
+      if (this.tableData30.length > 0) {
+        this.tableWithSubHeaders(this.tableData30, "table31");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getdikshaEtbQrCoverage().subscribe((res: any) => {
+      this.tableData31 = res;
+      if (this.tableData31.length > 0) {
+        this.tableWithSubHeaders(this.tableData31, "table32");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getdikshaNishthaCourseConsumed().subscribe((res: any) => {
+      this.tableData32 = res;
+      if (this.tableData32.length > 0) {
+        this.tableWithSubHeaders(this.tableData32, "table33");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+    this.service.getdikshaNishthaConsumeDistrict().subscribe((res: any) => {
+      this.tableData33 = res;
+      if (this.tableData33.length > 0) {
+        this.tableWithSubHeaders(this.tableData33, "table34");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getdiskshaNishthaEnrolCert().subscribe((res: any) => {
+      this.tableData34 = res;
+      if (this.tableData34.length > 0) {
+        this.tableWithSubHeaders(this.tableData34, "table35");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getdikshaNishthaCourseMedium().subscribe((res: any) => {
+      this.tableData35 = res;
+      if (this.tableData35.length > 0) {
+        this.tableWithSubHeaders(this.tableData35, "table36");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getdikshaQuizStarted().subscribe((res: any) => {
+      this.tableData36 = res;
+      if (this.tableData36.length > 0) {
+        this.tableWithSubHeaders(this.tableData36, "table37");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getdikshaQuizProgramStarted().subscribe((res: any) => {
+      this.tableData37 = res;
+      if (this.tableData37.length > 0) {
+        this.tableWithSubHeaders(this.tableData37, "table38");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getdikshaQuizStatePart().subscribe((res: any) => {
+      this.tableData38 = res;
+      if (this.tableData38.length > 0) {
+        this.tableWithSubHeaders(this.tableData38, "table39");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+    this.service.getmicroImprovDashboard().subscribe((res: any) => {
+      this.tableData39 = res;
+      if (this.tableData39.length > 0) {
+        this.tableWithSubHeaders(this.tableData39, "table40");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getmicroImprovDistrict().subscribe((res: any) => {
+      this.tableData40 = res;
+      if (this.tableData40.length > 0) {
+        this.tableWithSubHeaders(this.tableData40, "table41");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getnasAllDashboard().subscribe((res: any) => {
+      this.tableData41 = res;
+      if (this.tableData41.length > 0) {
+        this.tableWithSubHeaders(this.tableData41, "table42");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getnasProgramStarted().subscribe((res: any) => {
+      this.tableData42 = res;
+      if (this.tableData42.length > 0) {
+        this.tableWithSubHeaders(this.tableData42, "table43");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getncfAllDashboard().subscribe((res: any) => {
+      this.tableData43 = res;
+      if (this.tableData43.length > 0) {
+        this.tableWithSubHeaders(this.tableData43, "table44");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getnipunContentConsumed().subscribe((res: any) => {
+      this.tableData44 = res;
+      if (this.tableData44.length > 0) {
+        this.tableWithSubHeaders(this.tableData44, "table45");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getnipunCoveredByLoText().subscribe((res: any) => {
+      this.tableData45 = res;
+      if (this.tableData45.length > 0) {
+        this.tableWithSubHeaders(this.tableData45, "table46");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getpgiAllDashboard().subscribe((res: any) => {
+      this.tableData46 = res;
+      if (this.tableData46.length > 0) {
+        this.tableWithSubHeaders(this.tableData46, "table47");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getpgiProgramStarted().subscribe((res: any) => {
+      this.tableData47 = res;
+      if (this.tableData47.length > 0) {
+        this.tableWithSubHeaders(this.tableData47, "table48");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getpgiStatePerformace().subscribe((res: any) => {
+      this.tableData48 = res;
+      if (this.tableData48.length > 0) {
+        this.tableWithSubHeaders(this.tableData48, "table49");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getpmPoshanAccessIndia().subscribe((res: any) => {
+      this.tableData49 = res;
+      if (this.tableData49.length > 0) {
+        this.tableWithSubHeaders(this.tableData49, "table50");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getpmPoshanStateOnboard().subscribe((res: any) => {
+      this.tableData50 = res;
+      if (this.tableData50.length > 0) {
+        this.tableWithSubHeaders(this.tableData50, "table51");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getudiseAllDashboard().subscribe((res: any) => {
+      this.tableData51 = res;
+      if (this.tableData51.length > 0) {
+        this.tableWithSubHeaders(this.tableData51, "table52");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getudiseProgramStarted().subscribe((res: any) => {
+      this.tableData52 = res;
+      if (this.tableData52.length > 0) {
+        this.tableWithSubHeaders(this.tableData52, "table53");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getsummaryUsers().subscribe((res: any) => {
+      this.tableData53 = res;
+      if (this.tableData53.length > 0) {
+        this.tableWithSubHeaders(this.tableData53, "table54");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
   }
 
   tableWithSubHeaders(dataSet, tablename) {
@@ -305,10 +675,18 @@ export class SummaryStatistictsComponent implements OnInit {
           var col = (column.data.replace(/_/g, ' ')).replace(/\w\S*/g, (txt) => {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
           });
-          headers += `<th ${(column.data != 'records_with_null_value') ? 'rowspan="2" style = "text-transform:capitalize;"' : `colspan= ${colspanlength}  style = 'text-transform:capitalize;'`}>${col}</th>`
+          if(sub_column.length > 0)
+          {
+            headers += `<th ${(column.data != 'records_with_null_value') ? 'rowspan = "2" style = "text-transform:capitalize; text-align:center"' : `colspan= ${colspanlength}  style = 'text-transform:capitalize;'`}>${col}</th>`
+
+          }
+          else
+          {
+            headers += `<th ${(column.data != 'records_with_null_value') ? ' style = "text-transform:capitalize;"' : `colspan= ${colspanlength}  style = 'text-transform:capitalize;'`}>${col}</th>`
+
+          }
         }
       });
-
       sub_column.forEach((column, i) => {
         var col = (column.data.replace(/_/g, ' ')).replace(/\w\S*/g, (txt) => {
           return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -344,14 +722,14 @@ export class SummaryStatistictsComponent implements OnInit {
         body += '<tr>';
         columns.forEach((column) => {
           if (column.data != 'ff_uuid') {
-            body += `<td>${column.value}</td>`
+            body += `<td style="text-align:center">${column.value}</td>`
           }
         });
         body += '</tr>';
       });
 
       subheader += '</tr>'
-      headers += `</tr>${subheader}</thead>`
+      headers += `</tr>${subheader.length > 9?subheader:''}</thead>`
       body += '</tr></tbody>';
       $(`#${tablename}`).empty();
       $(`#${tablename}`).append(headers);

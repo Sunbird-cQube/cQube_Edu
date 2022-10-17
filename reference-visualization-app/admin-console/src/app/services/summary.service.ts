@@ -124,4 +124,154 @@ export class SummaryService {
     this.service.logoutOnTokenExpire();
     return this.http.post(`${this.baseUrl}/summary/textBookDetails`, {});
   }
+  getDikshaLearningSessions() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaLearningSessions`, {});
+  }
+  getMainMetrics() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/mainMetrics`, {});
+  }
+
+  getDikshaEtbCoverage() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaEtbCoverage`, {});
+  }
+
+  getdikshaEtbLearningSession() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaEtbLearningSession`, {});
+  }
+
+  getdikshaEtbPlaysPercapita() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaEtbPlaysPercapita`, {});
+  }
+
+  getdikshaEtbProgramStarted() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaEtbProgramStarted`, {});
+  }
+
+  getdikshaEtbQrCoverage() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaEtbQrCoverage`, {});
+  }
+
+  getdikshaNishthaCourseConsumed() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaNishthaCourseConsumed`, {});
+  }
+
+  getdikshaNishthaConsumeDistrict() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaNishthaConsumeDistrict`, {});
+  }
+
+  getdiskshaNishthaEnrolCert() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaNishthaEnrolCert`, {});
+  }
+
+  getdikshaNishthaProgramStarted() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaNishthaProgramStarted`, {});
+  }
+  
+  getdikshaNishthaCourseMedium() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaNishthaCourseMedium`, {});
+  }
+
+  getdikshaQuizStarted() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaQuizStarted`, {});
+  }
+
+  getdikshaQuizProgramStarted() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaQuizProgramStarted`, {});
+  }
+
+  getdikshaQuizStatePart() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaQuizStatePart`, {});
+  }
+
+  getmicroImprovDashboard() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/microImprovDashboard`, {});
+  }
+  
+  getmicroImprovDistrict() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/microImprovDistrict`, {});
+  }
+
+  getnasAllDashboard() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/nasAllDashboard`, {});
+  }
+
+  getnasProgramStarted() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/nasProgramStarted`, {});
+  }
+
+  getncfAllDashboard() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/ncfAllDashboard`, {});
+  }
+
+  getnipunContentConsumed() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/nipunContentConsumed`, {});
+  }
+
+  getnipunCoveredByLoText() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/nipunCoveredByLoText`, {});
+  }
+
+  getpgiAllDashboard() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/pgiAllDashboard`, {});
+  }
+
+  getpgiProgramStarted() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/pgiProgramStarted`, {});
+  }
+
+  getpgiStatePerformace() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/pgiStatePerformace`, {});
+  }
+
+  getpmPoshanAccessIndia() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/pmPoshanAccessIndia`, {});
+  }
+
+  getpmPoshanStateOnboard() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/pmPoshanStateOnboard`, {});
+  }
+
+  getudiseAllDashboard() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/udiseAllDashboard`, {});
+  }
+
+  getudiseProgramStarted() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/udiseProgramStarted`, {});
+  }
+
+  getsummaryUsers() {
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/summaryUsers`, {});
+  }
+  
+  
 }
