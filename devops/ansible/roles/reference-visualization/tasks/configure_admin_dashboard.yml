@@ -59,7 +59,7 @@
     path: "{{ base_dir }}/cqube/reference-visualization-app/admin-console"
   tags: [ install, update ]
 
-- name: Building Angular client-side code
+- name: Building reference visualization admin dashboard script
   command: ng build --prod --outputPath=dist/admin --baseHref=/admin/
   args:
     chdir: "{{ base_dir }}/cqube/reference-visualization-app/admin-console"

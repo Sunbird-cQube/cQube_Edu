@@ -86,7 +86,7 @@
     path: "{{ base_dir }}/cqube/reference-visualization-app/dashboard"
   tags: [ install, update ]
 
-- name: Building Angular client-side code
+- name: Building reference visualization dashboard script
   become: true
   command: ng build
   args:
