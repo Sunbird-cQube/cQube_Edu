@@ -409,5 +409,519 @@ router.post('/textBookDetails', auth.authController, async (req, res) => {
         res.status(500).json({ errMsg: "Internal error. Please try again!!" });
     }
 });
+router.post('/dikshaLearningSessions', auth.authController, async (req, res) => {
+    try {
+        logger.info('---diksha Learning sessions summary api ---');
+        var fileName = 'log_summary/log_summary_diksha_learning_sessions.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- diksha learning sessions api response sent---', summaryData);
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/mainMetrics', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_main_metrics.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaEtbCoverage', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_etb_etb-coverage.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaEtbLearningSession', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_etb_learning-session.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaEtbPlaysPercapita', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_etb_plays-per-capita.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaEtbProgramStarted', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_etb_program-started.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaEtbQrCoverage', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_etb_qr-coverage.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaNishthaCourseConsumed', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_nishtha_consumption-by-course.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaNishthaConsumeDistrict', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_nishtha_consumption-by-district.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaNishthaEnrolCert', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_nishtha_percentage-enrollment-certification.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaNishthaProgramStarted', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_nishtha_program-started.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaNishthaCourseMedium', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_nishtha_tot-courses-medium.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaQuizStarted', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_quiz-started-plan.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaQuizProgramStarted', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_quiz_program-started.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            logger.info("Diksha Quiz program",summaryData);
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/dikshaQuizStatePart', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_diksha_quiz_state-participation.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+
+router.post('/microImprovDashboard', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_micro-improvement_all-dashboard.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/microImprovDistrict', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_micro-improvement_district.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/nasAllDashboard', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_nas_all-dashboard.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/nasProgramStarted', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_nas_program-started.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/ncfAllDashboard', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_ncf_all-dashboard.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/nipunContentConsumed', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_nipunbharat_content-consumption.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/nipunCoveredByLoText', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_nipunbharat_lo-covered-by-textbook.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/pgiAllDashboard', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_pgi_all-dashboard.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/pgiProgramStarted', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_pgi_program-started.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/pgiStatePerformace', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_pgi_state-wise-performance.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/pmPoshanAccessIndia', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_pm-poshan_access-across-india.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/pmPoshanStateOnboard', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_pm-poshan_state-onboarded.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/udiseAllDashboard', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_udise-all-dashboard.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/udiseProgramStarted', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_udise_program-started.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+router.post('/summaryUsers', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Main Metrics api ---');
+        var fileName = 'log_summary/log_summary_users.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
+
+
 
 module.exports = router
