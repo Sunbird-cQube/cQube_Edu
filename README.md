@@ -10,15 +10,27 @@
 The following ports have to be configured in the nginix server with reverse proxy:
 
 - Port 4200 should be proxied to the '/'
-- Port 8080 should be proxied to the '/auth'
+- Port 4201 should be proxied to the '/admin'
 - Port 3000 should be proxied to the '/api'
-- Port 8000 should be proxied to the '/data'
+- Port 3001 should be proxied to the '/admin_dashboard'
+- Port 3001 should be proxied to the '/session'
+- Port 3004 should be proxied to the '/core-api'
+- Port 4001 should be proxied to the '/login-api'
+- Port 8000 should be proxied to the '/data
+- Port 8080 should be proxied to the '/auth'
+- Port 9000 should be proxied to the '/grafana'
 
 ### Nginx - cQube server firewall configuration
 
 - Port 4200 should be open from nginx to the cQube server
+- Port 4201 should be open from nginx to the cQube server
+- Port 3000 should be open from nginx to the cQube server
+- Port 3001 should be open from nginx to the cQube server
+- Port 3004 should be open from nginx to the cQube server
 - Port 8080 should be open from nginx to the cQube server
 - Port 8000 should be open from nginx to the cQube server
+- Port 9000 should be open from nginx to the cQube server
+
 ### Openvpn - cQube server firewall configuration
 
 - Port 9000 should be open from openvpn to the cQube server
@@ -29,11 +41,6 @@ The following ports have to be configured in the nginix # server with reverse pr
 
 - Port 4201 should be proxied to the '/'
 - Port 3001 should be proxied to the '/api'
-
-### Nginx - cQube server firewall configuration
-
-- Port 4201 should be open from nginx to the cQube server
-- Port 3001 should be open from nginx to the cQube server 
 
 ### Openvpn - cQube server firewall configuration
 
