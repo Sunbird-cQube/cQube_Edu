@@ -1,5 +1,6 @@
 import { Component, OnInit, resolveForwardRef } from '@angular/core';
 import { ActivatedRoute, Router, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
+import { throwIfEmpty } from 'rxjs';
 import { dynamicReportService } from 'src/app/core/services/core-apis/dynamic-report.service';
 @Component({
   selector: 'app-dynamic-module',
@@ -9,6 +10,7 @@ import { dynamicReportService } from 'src/app/core/services/core-apis/dynamic-re
 export class DynamicModuleComponent implements OnInit {
 
   tabIndex = 0;
+  loadTabs: boolean = false;
 
   title
 
@@ -36,15 +38,17 @@ export class DynamicModuleComponent implements OnInit {
       this.datasourse = this.url[1].replace(/-/g, '_').toLowerCase()
       this.title = this.url[1].replace(/-/g, ' ')
       this.tabNames = this.tabNames.filter(tab => tab.report_name.toLowerCase().replace(/_/g, '-') == this.url[1].toLowerCase())
+      this.loadTabs = true;
     })
 
   }
 
   onTabChanged($event: any): void {
     this.tabIndex = $event.index;
+    this.loadTabs = false;
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
-
+      this.loadTabs = true;
     }, 100);
   }
 
