@@ -1,3 +1,4 @@
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -38,6 +39,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     ReactiveFormsModule,
     NgxSpinnerModule,
     CqubeLibraryModule,
+    MatTooltipModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
