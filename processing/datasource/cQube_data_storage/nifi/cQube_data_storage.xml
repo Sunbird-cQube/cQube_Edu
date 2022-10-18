@@ -4708,6 +4708,31 @@
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
+                    <id>504d7f97-c578-3dac-0000-000000000000</id>
+                    <parentGroupId>a937b78d-87dd-347e-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>a937b78d-87dd-347e-0000-000000000000</groupId>
+                        <id>5c8f6d21-1aef-3cb3-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>a937b78d-87dd-347e-0000-000000000000</groupId>
+                        <id>2a0fbf4d-c800-3578-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
                     <id>5064dec0-8888-3d52-0000-000000000000</id>
                     <parentGroupId>a937b78d-87dd-347e-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
@@ -5270,8 +5295,16 @@
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <bends>
-                        <x>12456.0</x>
-                        <y>-1304.0</y>
+                        <x>11808.0</x>
+                        <y>-1464.0</y>
+                    </bends>
+                    <bends>
+                        <x>11808.0</x>
+                        <y>-1272.0</y>
+                    </bends>
+                    <bends>
+                        <x>12448.0</x>
+                        <y>-1272.0</y>
                     </bends>
                     <destination>
                         <groupId>a937b78d-87dd-347e-0000-000000000000</groupId>
@@ -5279,7 +5312,7 @@
                         <type>FUNNEL</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
+                    <labelIndex>3</labelIndex>
                     <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
                     <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
                     <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
@@ -8519,31 +8552,6 @@
                     <zIndex>0</zIndex>
                 </connections>
                 <connections>
-                    <id>91953903-61de-3a26-0000-000000000000</id>
-                    <parentGroupId>a937b78d-87dd-347e-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <destination>
-                        <groupId>a937b78d-87dd-347e-0000-000000000000</groupId>
-                        <id>22048d7c-170c-3c58-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>success</selectedRelationships>
-                    <source>
-                        <groupId>a937b78d-87dd-347e-0000-000000000000</groupId>
-                        <id>2a0fbf4d-c800-3578-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
                     <id>926e8ab6-3bd4-31eb-0000-000000000000</id>
                     <parentGroupId>a937b78d-87dd-347e-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
@@ -11616,31 +11624,6 @@
                     <source>
                         <groupId>a937b78d-87dd-347e-0000-000000000000</groupId>
                         <id>2fb34d49-ed62-3ae0-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>c014ee80-dcad-31d3-0000-000000000000</id>
-                    <parentGroupId>a937b78d-87dd-347e-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <destination>
-                        <groupId>a937b78d-87dd-347e-0000-000000000000</groupId>
-                        <id>5c8f6d21-1aef-3cb3-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <selectedRelationships>success</selectedRelationships>
-                    <source>
-                        <groupId>a937b78d-87dd-347e-0000-000000000000</groupId>
-                        <id>22048d7c-170c-3c58-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
@@ -32395,8 +32378,8 @@ ${query_type:startsWith('tch_att_management_exception_school_by_month_year'):ifE
                     <id>2156ab4b-a6db-38ca-0000-000000000000</id>
                     <parentGroupId>a937b78d-87dd-347e-0000-000000000000</parentGroupId>
                     <position>
-                        <x>11840.0</x>
-                        <y>-1280.0</y>
+                        <x>11336.0</x>
+                        <y>-1352.0</y>
                     </position>
                     <bundle>
                         <artifact>nifi-standard-nar</artifact>
@@ -32440,7 +32423,7 @@ ${query_type:startsWith('tch_att_management_exception_school_by_month_year'):ifE
                             </entry>
                             <entry>
 <key>log-message</key>
-<value>Successfully! generated the ${filename} ouput </value>
+<value>Successfully! generated the ${filename} output </value>
                             </entry>
                         </properties>
                         <runDurationMillis>0</runDurationMillis>
@@ -32546,102 +32529,6 @@ ${query_type:startsWith('tch_att_management_exception_school_by_month_year'):ifE
                     </config>
                     <executionNodeRestricted>false</executionNodeRestricted>
                     <name>udise_update_filename_directory</name>
-                    <relationships>
-                        <autoTerminate>false</autoTerminate>
-                        <name>success</name>
-                    </relationships>
-                    <state>STOPPED</state>
-                    <style/>
-                    <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
-                </processors>
-                <processors>
-                    <id>22048d7c-170c-3c58-0000-000000000000</id>
-                    <parentGroupId>a937b78d-87dd-347e-0000-000000000000</parentGroupId>
-                    <position>
-                        <x>11320.0</x>
-                        <y>-1552.0</y>
-                    </position>
-                    <bundle>
-                        <artifact>nifi-update-attribute-nar</artifact>
-                        <group>org.apache.nifi</group>
-                        <version>1.12.1</version>
-                    </bundle>
-                    <config>
-                        <bulletinLevel>WARN</bulletinLevel>
-                        <comments></comments>
-                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
-                        <descriptors>
-                            <entry>
-<key>Delete Attributes Expression</key>
-<value>
-    <name>Delete Attributes Expression</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Store State</key>
-<value>
-    <name>Store State</name>
-</value>
-                            </entry>
-                            <entry>
-<key>Stateful Variables Initial Value</key>
-<value>
-    <name>Stateful Variables Initial Value</name>
-</value>
-                            </entry>
-                            <entry>
-<key>canonical-value-lookup-cache-size</key>
-<value>
-    <name>canonical-value-lookup-cache-size</name>
-</value>
-                            </entry>
-                            <entry>
-<key>directory</key>
-<value>
-    <name>directory</name>
-</value>
-                            </entry>
-                            <entry>
-<key>filename</key>
-<value>
-    <name>filename</name>
-</value>
-                            </entry>
-                        </descriptors>
-                        <executionNode>ALL</executionNode>
-                        <lossTolerant>false</lossTolerant>
-                        <penaltyDuration>30 sec</penaltyDuration>
-                        <properties>
-                            <entry>
-<key>Delete Attributes Expression</key>
-                            </entry>
-                            <entry>
-<key>Store State</key>
-<value>Do not store state</value>
-                            </entry>
-                            <entry>
-<key>Stateful Variables Initial Value</key>
-                            </entry>
-                            <entry>
-<key>canonical-value-lookup-cache-size</key>
-<value>100</value>
-                            </entry>
-                            <entry>
-<key>directory</key>
-<value>${filename:substringBeforeLast('/')}</value>
-                            </entry>
-                            <entry>
-<key>filename</key>
-<value>${filename:substringAfterLast('/')}</value>
-                            </entry>
-                        </properties>
-                        <runDurationMillis>0</runDurationMillis>
-                        <schedulingPeriod>0 sec</schedulingPeriod>
-                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
-                        <yieldDuration>1 sec</yieldDuration>
-                    </config>
-                    <executionNodeRestricted>false</executionNodeRestricted>
-                    <name>config_datasource_update_filename_directory</name>
                     <relationships>
                         <autoTerminate>false</autoTerminate>
                         <name>success</name>
@@ -32929,7 +32816,7 @@ ${query_type:startsWith('stud_att_management_category_school_by_month_year'):ifE
                             </entry>
                             <entry>
 <key>configure_file</key>
-<value>${filename:startsWith('textbook_distribution'):and(${path:startsWith("config"):or(${filename:startsWith("config"):or(${azure.blobname:startsWith("config")})}):not()})}</value>
+<value>${filename:startsWith('textbook_distribution_1'):and(${path:startsWith("config"):or(${filename:startsWith("config"):or(${azure.blobname:startsWith("config")})}):not()})}</value>
                             </entry>
                             <entry>
 <key>crc</key>
@@ -34458,7 +34345,7 @@ ${query_type:startsWith('tch_att_management_category_school_by_month_year'):ifEl
                     <id>2a0fbf4d-c800-3578-0000-000000000000</id>
                     <parentGroupId>a937b78d-87dd-347e-0000-000000000000</parentGroupId>
                     <position>
-                        <x>11320.0</x>
+                        <x>11336.0</x>
                         <y>-1760.0</y>
                     </position>
                     <bundle>
@@ -44306,8 +44193,8 @@ ${query_type:startsWith('tch_att_management_category_school_by_month_year'):ifEl
                     <id>5c8f6d21-1aef-3cb3-0000-000000000000</id>
                     <parentGroupId>a937b78d-87dd-347e-0000-000000000000</parentGroupId>
                     <position>
-                        <x>11328.0</x>
-                        <y>-1360.0</y>
+                        <x>11336.0</x>
+                        <y>-1544.0</y>
                     </position>
                     <bundle>
                         <artifact>nifi-standard-nar</artifact>
@@ -44374,7 +44261,7 @@ ${query_type:startsWith('tch_att_management_category_school_by_month_year'):ifEl
                         <properties>
                             <entry>
 <key>Directory</key>
-<value>#{output_directory}${directory}/</value>
+<value>#{output_directory}</value>
                             </entry>
                             <entry>
 <key>Conflict Resolution Strategy</key>
@@ -44382,7 +44269,7 @@ ${query_type:startsWith('tch_att_management_category_school_by_month_year'):ifEl
                             </entry>
                             <entry>
 <key>Create Missing Directories</key>
-<value>true</value>
+<value>false</value>
                             </entry>
                             <entry>
 <key>Maximum File Count</key>
@@ -57185,7 +57072,7 @@ file:${filename} successfully stored "${query_type}" output into output storage.
                         <properties>
                             <entry>
 <key>Object Key</key>
-<value>log_summary/log_summary_textbook_distribution.json</value>
+<value>log_summary/log_summary_textbook_distribution_1.json</value>
                             </entry>
                             <entry>
 <key>Bucket</key>
@@ -67241,7 +67128,7 @@ ${query_type:startsWith('sat_subject_footer_school_year_semester'):ifElse('sat/$
                             </entry>
                             <entry>
 <key>blob</key>
-<value>log_summary/log_summary_textbook_distribution.json</value>
+<value>log_summary/log_summary_textbook_distribution_1.json</value>
                             </entry>
                             <entry>
 <key>azure-create-container</key>
@@ -75702,7 +75589,7 @@ file:${filename} with total,blank count are added to log summary table</value>
                             </entry>
                             <entry>
 <key>configure_file</key>
-<value>${emission_filename:startsWith('textbook_distribution')}</value>
+<value>${emission_filename:startsWith('textbook_distribution_1')}</value>
                             </entry>
                             <entry>
 <key>configure_file_aggre</key>
@@ -76766,7 +76653,7 @@ ${filename:startsWith('sch_safety')}
                             </entry>
                             <entry>
 <key>filename</key>
-<value>log_summary_textbook_distribution.json</value>
+<value>log_summary_textbook_distribution_1.json</value>
                             </entry>
                         </properties>
                         <runDurationMillis>0</runDurationMillis>
@@ -84176,7 +84063,7 @@ ${query_type:startsWith('pat_exception_management_grade_school_last_30_days'):if
                             </entry>
                             <entry>
 <key>configure_file</key>
-<value>${filename:startsWith('textbook_distribution'):and(${path:startsWith("config"):or(${filename:startsWith("config"):or(${azure.blobname:startsWith("config")})}):not()})}</value>
+<value>${filename:startsWith('textbook_distribution_1'):and(${path:startsWith("config"):or(${filename:startsWith("config"):or(${azure.blobname:startsWith("config")})}):not()})}</value>
                             </entry>
                             <entry>
 <key>cqube_telemetry</key>
@@ -89170,5 +89057,5 @@ ${query_type:startsWith('pat_management_learning_outcome_p3_cluster'):ifElse('pa
             <variables/>
         </processGroups>
     </snippet>
-    <timestamp>10/13/2022 17:04:55 IST</timestamp>
+    <timestamp>10/18/2022 10:59:15 IST</timestamp>
 </template>
