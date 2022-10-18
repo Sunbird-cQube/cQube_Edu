@@ -31,24 +31,6 @@ The following ports have to be configured in the nginix server with reverse prox
 - Port 8000 should be open from nginx to the cQube server
 - Port 9000 should be open from nginx to the cQube server
 
-### Openvpn - cQube server firewall configuration
-
-- Port 9000 should be open from openvpn to the cQube server
-- Port 4201 should be open from openvpn to the cQube server
-
-### Reverse proxy rules (internal routing)
-The following ports have to be configured in the nginix # server with reverse proxy:
-
-- Port 4201 should be proxied to the '/'
-- Port 3001 should be proxied to the '/api'
-
-### Openvpn - cQube server firewall configuration
-
-- Port 80 should be open from openvpn to the nginx server
-
-Note: For Installation: follow the below steps directly.
-
-
 # Installation Steps:
 - Open Terminal
 - Navigate to the directory where cQube_Edu has been downloaded or cloned 
