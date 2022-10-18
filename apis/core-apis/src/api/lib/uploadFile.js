@@ -122,7 +122,7 @@ function saveToLocal(fileName, formData, report) {
 if (storageType === 'azure') {
     var azure = require('azure-storage');
     const { storageType } = require('./reads3File');
-    const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING;
+    const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONN_STR;
     var blobService = azure.createBlobService(AZURE_STORAGE_CONNECTION_STRING);
     const containerName = process.env.AZURE_OUTPUT_STORAGE;
 }

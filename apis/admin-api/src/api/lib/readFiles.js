@@ -55,7 +55,7 @@ const readLocalFile = (fileName) => {
 //azure config
 if(storageType === 'azure'){
     var azure = require('azure-storage');
-const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING;
+const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONN_STR;
     
     var blobService = BlobServiceClient.fromConnectionString(
         AZURE_STORAGE_CONNECTION_STRING
