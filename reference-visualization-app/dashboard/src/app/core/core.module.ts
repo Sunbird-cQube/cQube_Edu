@@ -1,3 +1,4 @@
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -30,6 +31,7 @@ const DECLARATIONS = [
     RouterModule,
     TranslocoCoreModule,
     NgxSpinnerModule,
+    MatTooltipModule,
     IMPORTS
   ],
   exports: [

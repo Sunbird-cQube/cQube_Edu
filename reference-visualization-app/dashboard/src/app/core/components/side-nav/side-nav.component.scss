@@ -16,3 +16,11 @@
     height: 40px;
     object-fit: contain;
 }
+
+::ng-deep .mat-tooltip
+{
+    background-color: white !important;
+    color: black !important;
+    font-size: 12px;
+    text-transform: capitalize;
+}

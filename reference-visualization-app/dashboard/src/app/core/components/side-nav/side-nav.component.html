@@ -9,8 +9,8 @@
     </div>
     <ul class="menu" id="sidebarMenu" name="sidebarMenu">
         <ng-container *ngFor="let menuItem of menu; let i = index;">
-        <li [routerLink]="menuItem.path" routerLinkActive="activeLink" class="menu-item" id="menu-item-{{i}}" name="menu-item" [ngClass]="menuItem.isSelected?'selectedMenu':''" (click)="setMenuLinkActive(menuItem)">
-            <div class="btn active inside"  >
+        <li [routerLink]="menuItem.path"  routerLinkActive="activeLink" class="menu-item" id="menu-item-{{i}}" name="menu-item" [ngClass]="menuItem.isSelected?'selectedMenu':''" (click)="setMenuLinkActive(menuItem)">
+            <div class="btn active inside"   matTooltip={{menuItem.label}}  >
                 <i class="img"><img class="menuIcon" src="assets/images/{{menuItem.icon}}"></i>
                 <span>{{menuItem.label}}</span>
             </div>
