@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     userId: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   })
-  tempUserId: any = '';
+  tempUserId: any;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private readonly _authenticationService: AuthenticationService) {
     if (this._authenticationService.isUserLoggedIn()) {
@@ -113,8 +113,7 @@ export class LoginComponent implements OnInit {
     this._authenticationService.login(this.LoginForm.controls.userId.value, this.LoginForm.controls.password.value).subscribe((res: any) => {
       const token = res.token
       this.error = false
-      // this.userStatus = res['status']
-      this.userStatus = 'false';
+      this.userStatus = res['status']
       this.roletype = res['role']
       this.userName = res['username']
       this.adminUserId = res['userId']
@@ -143,7 +142,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', token)
         localStorage.setItem('userName', res.username)
         localStorage.setItem('roleName', res.role)
-        localStorage.setItem('user_id', res.userId)
+        //localStorage.setItem('user_id', res.userId)
         this.tempUserId = res.userId;
 
       }
@@ -209,7 +208,7 @@ export class LoginComponent implements OnInit {
             document.getElementById("qr-code").style.display = "none"
 
             document.getElementById("kc-form-login1").style.display = "none";
-            if ((this.roletype === "admin" && this.userName !== environment.keycloak_adm_user) || (this.roletype === "report_viewer" && environment.report_viewer_config_otp === true)) {
+            if ((this.roletype === "admin" && this.userName !== environment.keycloak_adm_user) || (this.roletype === "report_viewer" && environment.report_viewer_config_otp === true) && this.tempUserId) {
               localStorage.setItem('user_id', this.tempUserId);
             }
             if (this.roletype === "admin") {
