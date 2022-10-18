@@ -250,6 +250,10 @@ body {
         width: auto;
         min-width: 100%;
     }
+
+    .mat-tab-label-content{
+        padding: 0 6px !important;
+    }
 }
 
 .dataTableCustom .dataTables_wrapper .dataTables_scrollBody {
