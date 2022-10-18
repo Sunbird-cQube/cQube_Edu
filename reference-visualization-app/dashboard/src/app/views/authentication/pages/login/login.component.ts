@@ -245,6 +245,9 @@ export class LoginComponent implements OnInit {
               this.otpStatus = res
               if (res['status'] === 200) {
                 this.wrongOtp = false;
+                if ((this.roletype === "admin" && this.userName !== environment.keycloak_adm_user) || (this.roletype === "report_viewer" && environment.report_viewer_config_otp === true) && this.tempUserId) {
+                  localStorage.setItem('user_id', this.tempUserId);
+                }
                 if (this.roletype === "admin") {
                   this.router.navigate(['home'])
                 } else {
@@ -278,6 +281,9 @@ export class LoginComponent implements OnInit {
               this.otpStatus = res
               if (res['status'] === 200) {
                 this.wrongOtp = false;
+                if ((this.roletype === "admin" && this.userName !== environment.keycloak_adm_user) || (this.roletype === "report_viewer" && environment.report_viewer_config_otp === true) && this.tempUserId) {
+                  localStorage.setItem('user_id', this.tempUserId);
+                }
                 if (this.roletype === "admin") {
                   this.router.navigate(['home'])
                 } else {
