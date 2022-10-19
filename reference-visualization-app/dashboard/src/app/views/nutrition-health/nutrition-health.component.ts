@@ -17,6 +17,7 @@ export class NutritionHealthComponent implements OnInit {
   levels1: any;
   levels2: any;
   metricFilter: any;
+  tabIndex = 0;
   level: string = 'state';
   fileName: string = "PM_Poshan_Implementation_Status";
 
@@ -29,15 +30,26 @@ export class NutritionHealthComponent implements OnInit {
   constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService, private readonly _configService: ConfigService) {
     if(this.config == 'state'){
       this.national = false;
+      this.getPmPoshanStateData(this.filters1, this.levels1, this.metricFilter);
+    }
+    else {
+      this.getStateOnboardedData(this.filters2, this.levels2);
     }
     this.getPmPoshanMetricsData();
-    this.getPmPoshanStateData(this.filters1, this.levels1, this.metricFilter);
-    this.getStateOnboardedData(this.filters2, this.levels2);
+    
   }
 
   ngOnInit(): void {
   }
   onTabChanged($event: any): void {
+    this.tabIndex = $event.index;
+    if((this.tabIndex === 1 && this.national) || (this.tabIndex === 0 && !this.national)){
+      this.getPmPoshanStateData(this.filters1, this.levels1, this.metricFilter);
+    }
+    else if(this.tabIndex === 0 && this.national) {
+      this.getStateOnboardedData(this.filters2, this.levels2);
+    }
+    
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
       console.log('resize');
