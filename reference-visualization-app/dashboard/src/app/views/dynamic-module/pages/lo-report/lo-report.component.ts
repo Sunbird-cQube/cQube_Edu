@@ -511,7 +511,7 @@ export class LoReportComponent implements OnInit {
           columns.forEach((column, i2) => {
 
             if (i2 > 1 && column.value || i2 > 1 && String(column.value) == String(0)) {
-              let title = `${level} Name: ${columns.data}<br/> Grade:${columns[0].value[columns[0].value.length - 1]} <br/> Subject: ${columns[1].value} <br/> Total Count: ${column.value}`;
+              let title = `${level} Name: ${columns.data} Grade:${columns[0].value[columns[0].value.length - 1]}  Subject: ${columns[1].value}  Total Count: ${column.value}`;
               body += `<td class="numberData" data-toggle="tooltip" data-html="true" data-placement="auto" style='background-color: ${tableCellColor(column.value)}' title="${title}">${column.value}</td>`;
 
             }
@@ -534,7 +534,7 @@ export class LoReportComponent implements OnInit {
           columns.forEach((column, i2) => {
 
             if (i2 > 2 && column.value || i2 > 2 && String(column.value) == String(0)) {
-              let title = `${level} Name: ${column.data}<br/> Grade:${columns[0].value[columns[0].value.length - 1]} <br/> Subject: ${columns[1].value} <br/> Total Count: ${column.value}`;
+              let title = `${level} Name: ${column.data} Grade:${columns[0].value[columns[0].value.length - 1]}  Subject: ${columns[1].value}  Total Count: ${column.value}`;
               body += `<td class="numberData" data-toggle="tooltip" data-html="true" data-placement="auto" style='background-color: ${tableCellColor(column.value)}' title="${title}">${column.value}</td>`;
 
             }
@@ -556,9 +556,9 @@ export class LoReportComponent implements OnInit {
           columns.forEach((column, i2) => {
 
             if (i2 > 1 && column.value || i2 > 1 && String(column.value) == String(0)) {
-              let title =       `${level} Name: ${column.data}<br/>
-                          Grade: ${columns[0].value[columns[0].value.length - 1]} <br/> 
-                          Subject: ${columns[1].value} <br/> 
+              let title =       `${level} Name: ${column.data}
+                          Grade: ${columns[0].value[columns[0].value.length - 1]}  
+                          Subject: ${columns[1].value}  
                           Total Count: ${column.value}`;
               body += `<td class="numberData" data-toggle="tooltip" data-html="true" data-placement="auto" style='background-color: ${tableCellColor(column.value)}' title="${title}">${column.value}</td>`;
 
