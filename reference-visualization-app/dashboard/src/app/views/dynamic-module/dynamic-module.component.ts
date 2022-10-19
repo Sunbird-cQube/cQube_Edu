@@ -38,7 +38,9 @@ export class DynamicModuleComponent implements OnInit {
       this.datasourse = this.url[1].replace(/-/g, '_').toLowerCase()
       this.title = this.url[1].replace(/-/g, ' ')
       this.tabNames = this.tabNames.filter(tab => tab.report_name.toLowerCase().replace(/_/g, '-') == this.url[1].toLowerCase())
-      this.loadTabs = true;
+      setTimeout(() => {
+        this.loadTabs = true;
+      }, 100);
     })
 
   }

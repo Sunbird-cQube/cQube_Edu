@@ -6,7 +6,7 @@
 
 <div class="tab-group-wrapper">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
-        <mat-tab *ngFor="let tab of tabNames; let last = last;" [label]="tab.report_name + '_' + tab.report_type" 
+        <mat-tab *ngFor="let tab of tabNames; let last = last;" [label]="tab.report_name.replaceAll('_',' ') + ' ' + tab.report_type.replaceAll('_','')"
             class="tab-first">
             <app-lo-report [datasourse]="datasourse" *ngIf="tab?.report_type?.toLowerCase()=== 'lo_table' && loadTabs"></app-lo-report>
             <app-map-report [datasourse]="datasourse" *ngIf="tab?.report_type?.toLowerCase()=== 'map' && loadTabs"></app-map-report>
