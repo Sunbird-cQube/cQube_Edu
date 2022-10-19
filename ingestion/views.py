@@ -230,19 +230,19 @@ def create_onpremise_url(destination_folder):
     return url
 
 
-def create_presigned_post_azure(azure_container, file):
+def create_presigned_post_azure(AZURE_CONTAINER, file):
     try:
         permission = ContainerSasPermissions(read=True, write=True, delete=True,
                                              list=True, delete_previous_version=True, tag=True)
 
         blob_sas_token = generate_blob_sas(account_name=AZURE_ACCOUNT_NAME,
-                                           container_name=azure_container,
+                                           container_name=AZURE_CONTAINER,
                                            account_key=AZURE_ACCOUNT_KEY,
                                            permission=permission,
                                            blob_name=file,
                                            expiry=datetime.utcnow() + timedelta(hours=1)
                                            )
-        url = f"https://{AZURE_ACC_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/{file}?{blob_sas_token}"
+        url = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/{file}?{blob_sas_token}"
         response = {"fields": {"key": file}, "url": url}
     except ClientError as e:
         logging.error(e)
