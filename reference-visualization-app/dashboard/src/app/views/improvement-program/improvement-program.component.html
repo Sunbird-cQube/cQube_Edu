@@ -10,9 +10,9 @@
 </div>
 
 <div class="tab-group-wrapper">
-    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+    <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
         <mat-tab label="Implementation Status " class="tab-first">
-            <div class="grid grid-cols-1" *ngIf="microProgramData">
+            <div class="grid grid-cols-1" *ngIf="microProgramDatayesno && tabIndex === 0">
                 <div class="col">
                     <div class="col" *ngIf="isMapReport1Loading">
                         <p class="mt-8">Loading...</p>
@@ -30,7 +30,7 @@
         </mat-tab>
 
         <mat-tab label="Improvements Status">
-            <div class="grid grid-cols-1">
+            <div class="grid grid-cols-1" *ngIf="tabIndex === 1">
                 <div class="col">
                     <div class="col" *ngIf="isMapReport2Loading">
                         <p class="mt-8">Loading...</p>

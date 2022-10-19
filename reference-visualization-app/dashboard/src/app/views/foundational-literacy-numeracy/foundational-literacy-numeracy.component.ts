@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class FoundationalLiteracyNumeracyComponent implements OnInit {
   nipunBharathMetrics: any;
   config = environment.config;
+  tabIndex = 0;
   
   constructor(private readonly _configService: ConfigService) {
     this.getnipunBharathMetricsData();
@@ -19,6 +20,7 @@ export class FoundationalLiteracyNumeracyComponent implements OnInit {
   }
   
   onTabChanged($event: any): void {
+    this.tabIndex = $event.index;
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
       console.log('resize');

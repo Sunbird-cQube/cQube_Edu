@@ -19,6 +19,7 @@ export class SchoolEducationComponent implements OnInit {
   level: string = 'state';
   national: boolean = true;
   fileName: string = "PGI_District_Wise_Performance";
+  tabIndex = 0;
 
   pgiMetricsData: any;
   pgiStateData: any;
@@ -28,13 +29,14 @@ export class SchoolEducationComponent implements OnInit {
 
   constructor(private readonly _ETBService: ETBService, private readonly _commonService: CommonService, private readonly _spinner: NgxSpinnerService, private readonly _configService: ConfigService) {
     this.getPGIMetricsData();
-    this.getPGIStateData(this.filters, this.levels, this.metricFilter);
+    
     this.getStateWisePGICoverageData();
   }
 
   ngOnInit(): void {
     if(environment.config === 'state'){
       this.national = false;
+      this.getPGIStateData(this.filters, this.levels, this.metricFilter);
     }
   }
 
@@ -45,6 +47,10 @@ export class SchoolEducationComponent implements OnInit {
   }
 
   onTabChanged($event: any): void {
+    this.tabIndex = $event.index;
+    if((this.tabIndex === 2 && this.national) || (this.tabIndex === 0 && !this.national)) {
+      this.getPGIStateData(this.filters, this.levels, this.metricFilter);
+    }
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
       console.log('resize');

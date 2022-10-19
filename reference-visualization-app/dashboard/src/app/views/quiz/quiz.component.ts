@@ -14,13 +14,14 @@ export class QuizComponent implements OnInit {
   quizzesMetricsData: any;
   quizzesStateData: any;
   filters: any;
+  tabIndex = 0;
   isMapReportLoading = false;
   national: boolean = true;
   fileName: string = "Quiz_Participation_Status";
 
   constructor(private readonly _commonService: CommonService, private readonly _configService: ConfigService) {
     this.getQuizzesMetricsData();
-    this.getQuizzesStateData(this.filters);
+    
    }
 
   ngOnInit(): void {
@@ -30,6 +31,10 @@ export class QuizComponent implements OnInit {
   }
 
   onTabChanged($event: any): void {
+    this.tabIndex = $event.index;
+    if(this.tabIndex === 1) {
+      this.getQuizzesStateData(this.filters);
+    }
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
     }, 100);
