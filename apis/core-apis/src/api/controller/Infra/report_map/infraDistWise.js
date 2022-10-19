@@ -19,7 +19,10 @@ router.post('/distWise', auth.authController, async (req, res) => {
         let districtData = await s3File.readFileConfig(fileName);
         var mydata = districtData.data;
         logger.info('--- Infra dist wise api response sent ---');
-        res.status(200).send({ data: mydata, footer: districtData.allDistrictsFooter.totalSchools });
+        let fileMetaData = await s3File.getFileMetaData(fileName);
+        res.status(200).send({
+            result: { data: mydata, footer: districtData.allDistrictsFooter.totalSchools, fileMetaData }
+        });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

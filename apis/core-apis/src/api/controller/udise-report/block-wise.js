@@ -17,8 +17,11 @@ router.post('/allBlockWise', auth.authController, async (req, res) => {
         }
         let blockData = await s3File.readFileConfig(fileName);;
         var mydata = blockData.data;
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- blocks UDISE api response sent---');
-        res.status(200).send({ data: mydata, footer: blockData.allBlocksFooter.totalSchools });
+        res.status(200).send({
+            result: { data: mydata, footer: blockData.allBlocksFooter.totalSchools, fileMetaData }
+        });
 
     } catch (e) {
         logger.error(`Error :: ${e}`);
@@ -45,8 +48,11 @@ router.post('/blockWise/:distId', auth.authController, async (req, res) => {
             return (obj.details.district_id == distId)
         })
         let mydata = filterData;
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- block per dist UDISE api response sent---');
-        res.status(200).send({ data: mydata, footer: blockData.footer[`${distId}`].totalSchools });
+        res.status(200).send({
+            result: { data: mydata, footer: blockData.footer[`${distId}`].totalSchools, fileMetaData }
+        });
 
     } catch (e) {
         logger.error(e);

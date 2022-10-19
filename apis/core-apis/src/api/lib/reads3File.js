@@ -83,6 +83,57 @@ const readFileConfig = async (fileName) => {
     return data;
 }
 
+const getFileMetaData = async (fileName) => {
+    return new Promise(async (resolve, reject) => {
+        if (storageType == "s3") {
+            try {
+                const_data['getParams']['Key'] = fileName;
+                const_data['s3'].headObject(const_data['getParams'], function(err, data) {
+                    if (err) {
+                        reject("No file found in the specified path");
+                        return;
+                    }
+    
+                    resolve({
+                        lastModified: data.LastModified
+                    });
+                });
+            } catch(e) {
+                reject(e);
+            }
+        } else if (storageType == 'local') {
+            try {
+                fs.stat(path.join(baseDir, fileName), (err, stats) => {
+                    if (err) {
+                        reject("No file found in the specified path");
+                        return;
+                    }
+    
+                    resolve({
+                        lastModified: stats.mtime,
+                        createdOn: stats.ctime
+                    });
+                })
+            } catch(e) {
+                reject(e);
+            }
+        } else if (storageType == 'azure') {
+            try {
+                let containerClient = blobService.getContainerClient(containerName);
+                const blockBlobClient = containerClient.getBlockBlobClient(fileName);
+                const metaData = await blockBlobClient.getProperties();
+                
+                resolve({
+                    lastModified: metaData.lastModified,
+                    createdOn: metaData.createdOn
+                });
+            } catch(e) {
+                reject(e);
+            }
+        };
+    });
+}
+
 module.exports = {
-    readFileConfig, storageType
+    readFileConfig, storageType, getFileMetaData
 };

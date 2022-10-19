@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
@@ -18,7 +18,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HomePageComponent } from './views/home-page/home-page.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { MetadataInterceptor } from './core/interceptors/metadata-interceptor/metadata-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
       }
     })
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: MetadataInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

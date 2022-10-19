@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const { reject } = require("lodash");
 
 const storageServices = {
     AZURE_DATA_LAKE: "AZURE_DATA_LAKE",
@@ -61,7 +60,7 @@ const getFileData = async (fileName) => {
                 const downloadBlockBlobResponse = await blockBlobClient.download(0);
                 resolve(JSON.parse(await streamToText(downloadBlockBlobResponse.readableStreamBody)));
             } else if (storageServiceType === storageServices.AWS_S3) {
-                await AwsConfig.s3.headObject({ Bucket: AwsConfig.params.OutputBucket, Key: fileName }).promise();
+                //await AwsConfig.s3.headObject({ Bucket: AwsConfig.params.OutputBucket, Key: fileName }).promise();
                 const response = await AwsConfig.s3.getObject({ Bucket: AwsConfig.params.OutputBucket, Key: fileName }).promise();
                 resolve(JSON.parse(response.Body.toString('utf-8')));
             } else if (storageServiceType === storageServices.ON_PREMISE) {
@@ -173,7 +172,7 @@ const deleteFile = async (filePath) => {
             }
         } else if (storageServiceType === storageServices.AWS_S3) {
             try {
-			    AwsConfig.s3.deleteObject({ Bucket: AwsConfig.params.OutputBucket, Key: filePath }, function(s3Err, data) {
+			    AwsConfig.s3.deleteObject({ Bucket: AwsConfig.params.InputBucket, Key: filePath }, function(s3Err, data) {
                     resolve('Success');
                 });
             } catch(e) {
@@ -214,4 +213,54 @@ async function streamToBuffer(readableStream) {
     });
 }
 
-module.exports = { getAllFiles, getFileData, getFileRawData, uploadFile };
+const getFileMetaData = async (filePath) => {
+    return new Promise(async function (resolve, reject) {
+        if (storageServiceType === storageServices.AZURE_DATA_LAKE) {
+            try {
+                let containerClient = blobServiceClient.getContainerClient(outputContainerName);
+                const blockBlobClient = containerClient.getBlockBlobClient(filePath);
+                const metaData = await blockBlobClient.getProperties();
+                
+                resolve({
+                    lastModified: metaData.lastModified,
+                    createdOn: metaData.createdOn
+                });
+            } catch(e) {
+                reject(e);
+            }
+        } else if (storageServiceType === storageServices.AWS_S3) {
+            try {
+			    AwsConfig.s3.headObject({ Bucket: AwsConfig.params.OutputBucket, Key: filePath }, function(err, data) {
+                    if (err) {
+                        reject("No file found in the specified path");
+                        return;
+                    }
+
+                    resolve({
+                        lastModified: data.LastModified
+                    });
+                });
+            } catch(e) {
+                reject(e);
+            }
+        } else if (storageServiceType === storageServices.ON_PREMISE) {
+            try {
+                fs.stat(path.join(process.env.OUTPUT_DIR, filePath), (err, stats) => {
+                    if (err) {
+                        reject("No file found in the specified path");
+                        return;
+                    }
+
+                    resolve({
+                        lastModified: stats.mtime,
+                        createdOn: stats.ctime
+                    });
+                })
+            } catch(e) {
+                reject(e);
+            }
+        }
+    });
+}
+
+module.exports = { getAllFiles, getFileData, getFileRawData, uploadFile, getFileMetaData };
