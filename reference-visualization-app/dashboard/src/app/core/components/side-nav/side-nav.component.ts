@@ -11,7 +11,7 @@ import { faL } from '@fortawesome/free-solid-svg-icons';
 export class SideNavComponent implements OnInit {
 
   @Input() menu: IMenuItem[] | undefined;
-
+  ckBoxProp=false;
   constructor() { }
 
   ngOnInit(): void {
@@ -24,19 +24,37 @@ export class SideNavComponent implements OnInit {
       }
     });
     menuItemSelected.isSelected = true;
+    // document.body.classList.add("sidebaractive");
     this.toggleSideBar();
     
   }
   
-  toggleSideBar(): void {
-    const ckbox=document.getElementById('openSidebarMenu') as HTMLInputElement;
-    if(document.body.classList.contains("sidebaractive")) {
-      document.body.classList.remove("sidebaractive");
-      ckbox.checked=false;
-    } else {
-    ckbox.checked = true;
-    document.body.classList.add("sidebaractive");
-    }     
+  toggleSideBar(menuIconlicked?:string): void {
+    let ckbox=document.getElementById('openSidebarMenu') as HTMLInputElement;
+    console.log(ckbox.checked);
+    console.log("side bar active:",document.body.classList.contains("sidebaractive"))
+    if(document.body.classList.contains("sidebaractive") && !menuIconlicked) {
+    
+      return;
+
+    }
+    else
+    {
+      if(document.body.classList.contains("sidebaractive")) {
+        document.body.classList.remove("sidebaractive");
+        ckbox.checked=false;   
+        this.ckBoxProp = ckbox.checked   
+      } 
+  
+      else {
+      ckbox.checked = true;
+      this.ckBoxProp =  ckbox.checked
+      document.body.classList.add("sidebaractive");
+      }   
+
+
+    } 
+      
   }
 
 }
