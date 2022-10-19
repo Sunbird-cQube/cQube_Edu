@@ -36,18 +36,16 @@ local_ipv4_address:                         # enter the private ip of this serve
 proxy_host:                                 # enter the private ip of ngnix server. To find the ip address. Use `ip addr` or `ifconfig`
 keycloak_adm_user:                          # enter the keycloak admin user to be created 
 keycloak_adm_passwd:                        # enter the keycloak admin password. password should contain atleast 1 lower,upper,number,special character (only @!%^*? allowed)  and minimum 8 characters
-report_viewer_config_otp: false             # enter true or false to enable OTP authentication for all users (only applicable when auth_api is `cqube`)
 
+#----Below variables are independent of national and by default it should be false, If state installation please fill true or false------#
+#Enter the value as `true`,  if content_gradelevel & collection_gradelevel columns are available.
+#Enter the value as `false`, if content_gradelevel & collection_gradelevel columns are not available.
+diksha_columns: false                    # Enter true or false for state installation, Enter false for national
+report_viewer_config_otp: false             # enter true or false to enable OTP authentication for all users (only applicable when auth_api is `cqube`). Enter false for national.
  
 #-----Below variable are applicable only for state installation. If you chose national installation then fill the variables as NA.---#
 
 state_code: NA                              # Please enter state code if you selected access_type as state ( refer to state_list )
-
-# Diksha Columns
-#Enter the value as `true`,  if content_gradelevel & collection_gradelevel columns are available.
-#Enter the value as `false`, if content_gradelevel & collection_gradelevel columns are not available.
-
-diksha_columns: false                    # Enter true or false for state installation, Enter NA for national 
 
 static_datasource:                       # Enter udise or state for state installation, Enter NA for national
 
