@@ -19,8 +19,8 @@ router.post('/allClusterWise', auth.authController, async (req, res) => {
         var mydata = clusterData.data;
         let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---Infra cluster wise api response sent---');
-        res.status(200).send({
-            result: { data: mydata, footer: clusterData.allClustersFooter.totalSchools, fileMetaData }
+        res.status(200).send({ 
+            data: mydata, footer: clusterData.allClustersFooter.totalSchools, fileMetaData
         });
     } catch (e) {
         logger.error(`Error :: ${e}`)
@@ -51,7 +51,7 @@ router.post('/clusterWise/:distId/:blockId', auth.authController, async (req, re
         let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---Infra clusterperBlock api response sent---');
         res.status(200).send({
-            result: { data: mydata, footer: clusterData.footer[`${blockId}`].totalSchools, fileMetaData }
+            data: mydata, footer: clusterData.footer[`${blockId}`].totalSchools, fileMetaData
         });
 
 

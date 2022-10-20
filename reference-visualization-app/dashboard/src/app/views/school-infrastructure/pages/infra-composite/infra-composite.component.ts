@@ -164,7 +164,7 @@ export class InfraCompositeComponent implements OnInit {
     } else if (level === "District") {
 
       this.myData = this.service.infraDistWise({ management: this.management, category: this.category }).subscribe((res: any) => {
-        this.SchoolInfrastructureDistrictsNames = this.result = res.result.data;
+        this.SchoolInfrastructureDistrictsNames = this.result = res.data;
 
       })
 
@@ -238,7 +238,7 @@ export class InfraCompositeComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.infraDistWise({ management: this.management, category: this.category }).subscribe((res: any) => {
-      this.SchoolInfrastructureDistrictsNames = this.result = res.result.data;
+      this.SchoolInfrastructureDistrictsNames = this.result = res.data;
       //for chart =============================================
       this.showChart(this.result, this.downloadLevel);
       //====================================
@@ -295,7 +295,7 @@ export class InfraCompositeComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.infraBlockWise(data, { management: this.management, category: this.category }).subscribe((res: any) => {
-      this.reportData = this.SchoolInfrastructureBlocksNames = this.result = res.result.data;
+      this.reportData = this.SchoolInfrastructureBlocksNames = this.result = res.data;
       // for download========
       this.funToDownload(this.reportData);
       //for chart =============================================
@@ -362,7 +362,7 @@ export class InfraCompositeComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.infraClusterWise(this.distName, data, { management: this.management, category: this.category }).subscribe((res: any) => {
-      this.reportData = this.SchoolInfrastructureClusterNames = this.result = res.result.data;
+      this.reportData = this.SchoolInfrastructureClusterNames = this.result = res.data;
       // for download========
       this.funToDownload(this.reportData);
       //for chart =============================================
@@ -429,7 +429,7 @@ export class InfraCompositeComponent implements OnInit {
     this.myData = this.service.infraSchoolWise(distId, blockId, data, { management: this.management, category: this.category, schoolId: schoolId, schoolLevel: this.schoolLevel }).subscribe((res: any) => {
 
       if (this.schoolLevel) {
-        let result = res.result.data
+        let result = res.data
 
         let data = []
         for (var i = 0; result['length']; i++) {
@@ -446,7 +446,7 @@ export class InfraCompositeComponent implements OnInit {
         }
         this.reportData = this.SchoolInfrastructureSchoolNames = this.result = data;
       } else {
-        this.reportData = this.SchoolInfrastructureSchoolNames = this.result = res.result.data;
+        this.reportData = this.SchoolInfrastructureSchoolNames = this.result = res.data;
       }
 
 
@@ -483,8 +483,8 @@ export class InfraCompositeComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.infraDistWise({ management: this.management, category: this.category }).subscribe((res: any) => {
-      this.reportData = res.result.data;
-      if (res.result.data !== null) {
+      this.reportData = res.data;
+      if (res.data !== null) {
         document.getElementById('spinner').style.display = 'none';
         element1[0].disabled = false;
       }
@@ -505,8 +505,8 @@ export class InfraCompositeComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.infraAllBlockWise({ management: this.management, category: this.category }).subscribe((res: any) => {
-      this.reportData = res.result.data;
-      if (res.result.data !== null) {
+      this.reportData = res.data;
+      if (res.data !== null) {
         document.getElementById('spinner').style.display = 'none';
         element1[0].disabled = false;
       }
@@ -527,8 +527,8 @@ export class InfraCompositeComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.infraAllClusterWise({ management: this.management, category: this.category }).subscribe((res: any) => {
-      this.reportData = res.result.data;
-      if (res.result.data !== null) {
+      this.reportData = res.data;
+      if (res.data !== null) {
         document.getElementById('spinner').style.display = 'none';
         element1[0].disabled = false;
       }
@@ -550,8 +550,8 @@ export class InfraCompositeComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.infraAllSchoolWise({ management: this.management, category: this.category }).subscribe((res: any) => {
-      this.reportData = res.result.data;
-      if (res.result.data !== null) {
+      this.reportData = res.data;
+      if (res.data !== null) {
         document.getElementById('spinner').style.display = 'none';
         element1[0].disabled = false;
       }

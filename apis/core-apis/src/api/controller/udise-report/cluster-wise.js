@@ -20,7 +20,7 @@ router.post('/allClusterWise', auth.authController, async (req, res) => {
         let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---UDISE cluster wise api response sent---');
         res.status(200).send({
-            result: { data: mydata, footer: clusterData.allClustersFooter.totalSchools, fileMetaData }
+            data: mydata, footer: clusterData.allClustersFooter.totalSchools, fileMetaData
         });
     } catch (e) {
         logger.error(`Error :: ${e}`)
@@ -52,7 +52,7 @@ router.post('/clusterWise/:distId/:blockId', auth.authController, async (req, re
         let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---UDISE clusterperBlock api response sent---');
         res.status(200).send({
-            result: { data: mydata, footer: clusterData.footer[`${blockId}`].totalSchools, fileMetaData }
+            data: mydata, footer: clusterData.footer[`${blockId}`].totalSchools, fileMetaData
         });
 
 
