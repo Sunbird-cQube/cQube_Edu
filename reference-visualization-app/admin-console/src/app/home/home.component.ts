@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   logNames: any = [];
 
   ngOnInit() {
-    this.appUrl = environment.appUrl;
+    this.appUrl = environment.dashboardUrl;
     this.email = localStorage.getItem('userName');
     this.role = localStorage.getItem('role');
     if (this.role == 1) {

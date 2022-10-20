@@ -4,11 +4,14 @@ const auth = require('../../middleware/check-auth');
 var const_data = require('../../lib/config');
 const fs = require('fs');
 const config = require('../../lib/readFiles');
-const inputDir = `${process.env.EMISSION_DIRECTORY}/`;
+const { BlobServiceClient } = require('@azure/storage-blob');
 
+const inputDir = `${process.env.EMISSION_DIRECTORY}/`;
+var path = require('path')
 router.post('/', auth.authController, async (req, res) => {
     try {
         logger.info('--- telemetry api ---');
+      
         //check if file is there, and append new data
         var formData = req.body.formData;
         var timeStamp = req.body.timeStamp;
@@ -24,6 +27,7 @@ router.post('/', auth.authController, async (req, res) => {
         };
         var localPath = inputDir + fileName;
         var response = await storageType == "s3" ? await saveToS3(params, fileName, formData) : await saveToLocal(localPath, formData);
+
         res.status(200).json(response);
     } catch (e) {
         logger.error(`Error :: ${e}`);
@@ -49,7 +53,7 @@ function saveToS3(params, fileName, formData) {
                         if (error) {
                             reject({ errMsg: "Internal error" });
                         } else {
-                            logger.info('--- upload new file successful---');
+                            logger.info('--- upload new file successful1---');
                             resolve({ msg: "Data Replay Operation Successfully Initiated" });
                         }
                     });
@@ -89,31 +93,63 @@ function saveToS3(params, fileName, formData) {
     })
 }
 function saveToLocal(fileName, formData) {
+ 
     return new Promise((resolve, reject) => {
         try {
             if (fs.existsSync(fileName)) {
+    
                 var data = JSON.parse(fs.readFileSync(fileName).toString());
                 data = formData;
                 fs.writeFile(fileName, JSON.stringify(data), (err) => {
                     if (!err) {
-                        logger.info('--- file data updated successfully---');
-                        resolve({ msg: "Data Replay Operation Successfully Initiated" });
+                        logger.info('--- file data updated successfully1---');
+                        resolve({ msg: "Data Replay Operation Successfully Initiated1" });
                     } else {
+                        console.log('err1', err)
                         reject({ errMsg: "Internal error" });
                     }
                 })
             } else {
-                fs.writeFile(fileName, JSON.stringify(formData), (err) => {
-                    if (!err) {
-                        logger.info('--- upload new file successful---');
-                        resolve({ msg: "Data Replay Operation Successfully Initiated" });
-                    } else {
+              
+                const dirname = path.dirname(fileName);
+                fs.mkdir(dirname, { recursive: true }, (err) => {
+                    if (err) {
+                        console.log('err2', err)
                         reject({ errMsg: "Internal error" });
+                    } else {
+                        fs.writeFile(fileName, JSON.stringify(formData), (err) => {
+                            console.log('elseenters')
+                            if (!err) {
+                                logger.info('--- upload new file successful2---');
+                                resolve({ msg: "Data Replay Operation Successfully Initiated2" });
+                            } else {
+                                console.log('err2', err)
+                                reject({ errMsg: "Internal error" });
+                            }
+                        })
                     }
+
                 })
+              
             }
         } catch (e) {
+            console.log('error', e)
             reject(e);
         }
     })
+
 }
+
+
+// function saveToAzure(fileName, formData) {
+ 
+//     return new Promise((resolve, reject) => {
+//         try {
+
+           
+//         } catch (e) {
+
+//             reject(e);
+//         }
+//     })
+// }
