@@ -7,6 +7,7 @@
         </div>
 
         <div class="btnGroup">
+            <i *ngIf="role === 'admin'" class="fa fa-arrow-left" aria-hidden="true" routerLink="/home"></i>
             <button type="button" [attr.aria-pressed]="false" tabindex="0" attr.aria-label="A-"
                 class="fontResizeBtn fontResizeBtn_A-" title="Decrease font size" (click)="changeFontSize('decrease');"
                 id="font-size-decrease" name="font-size-decrease" #decreaseFontSize>A-</button>

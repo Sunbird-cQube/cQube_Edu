@@ -123,8 +123,9 @@ router.post('/clusterWise', auth.authController, async (req, res) => {
             }
             mydata.push(obj2);
         });
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- Trends dist wise api response sent ---');
-        res.status(200).send({ data: mydata });
+        res.status(200).send({ data: mydata, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
