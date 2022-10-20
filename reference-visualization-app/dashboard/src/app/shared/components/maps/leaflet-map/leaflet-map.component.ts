@@ -225,8 +225,9 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           }
 
           mapData?.data.forEach((state: any) => {
-            let stateCode = feature.properties.Dist_LGD ? feature.properties.Dist_LGD : feature.properties.state_code;
-            let districtCode = feature.properties.State_LGD ? feature.properties.State_LGD : feature.properties.ID_2;
+            let stateCode = feature.properties.State_LGD ? feature.properties.Dist_LGD : feature.properties.state_code;
+            let districtCode = feature.properties.Dist_LGD ? feature.properties.Dist_LGD : feature.properties.ID_2;
+            
             if (state.state_code == stateCode && !state.district_code) {
               color = parent.getLayerColor(state.indicator ? (max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator) : -1);
             }
@@ -253,8 +254,8 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         function getPopUp(feature: any) {
           let popup: any;
           mapData.data.forEach((state: any) => {
-            let stateCode = feature.properties.Dist_LGD ? feature.properties.Dist_LGD : feature.properties.state_code;
-            let districtCode = feature.properties.State_LGD ? feature.properties.State_LGD : feature.properties.ID_2;
+            let stateCode = feature.properties.State_LGD ? feature.properties.Dist_LGD : feature.properties.state_code;
+            let districtCode = feature.properties.Dist_LGD ? feature.properties.Dist_LGD : feature.properties.ID_2;
             
             if (state.state_code == stateCode && !state.district_code) {
               popup = state.tooltip
