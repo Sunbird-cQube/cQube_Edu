@@ -10,6 +10,7 @@ router.post('/', auth.authController, async (req, res) => {
         let { timePeriod } = req.body
         var fileName = `diksha_tpd/district/${timePeriod}.json`;
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         var courses = [];
         jsonData.map(item => {
             courses.push({ id: item['collection_id'], name: item['collection_name'] });
@@ -21,7 +22,7 @@ router.post('/', auth.authController, async (req, res) => {
             }
             return unique;
         }, []);
-        res.status(200).send(courses);
+        res.status(200).send({data:courses, fileMetaData});
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

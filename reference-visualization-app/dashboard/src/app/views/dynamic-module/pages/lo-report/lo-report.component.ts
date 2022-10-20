@@ -239,7 +239,7 @@ export class LoReportComponent implements OnInit {
   public timeRange
   getTimelineMeta() {
     this.service1.configurableTimePeriodMeta({ dataSource: this.datasourse }).subscribe(res => {
-      this.timeRange = res
+      this.timeRange = res['data']
       const key = 'value';
       this.timeRange = [...new Map(this.timeRange.map(item =>
         [item[key], item])).values()];

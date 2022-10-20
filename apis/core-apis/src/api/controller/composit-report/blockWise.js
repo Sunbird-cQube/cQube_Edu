@@ -16,9 +16,10 @@ router.post('/blockWise', auth.authController, async (req, res) => {
             fileName = `composite/comp_block.json`
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         logger.info('--- composite report block api response sent ---');
-        res.status(200).send(jsonData);
+        res.status(200).send({data: jsonData, fileMetaData});
 
     } catch (e) {
         logger.error(`Error :: ${e}`)
@@ -39,6 +40,7 @@ router.post('/blockWise/:distId', auth.authController, async (req, res) => {
             fileName = `composite/comp_block.json`
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         let distId = req.params.distId
 
@@ -50,7 +52,7 @@ router.post('/blockWise/:distId', auth.authController, async (req, res) => {
         } else {
             // map and extract required  values to show in the leaflet-map
             logger.info('--- composite report block per district api reponse sent ---');
-            res.status(200).send(filterData);
+            res.status(200).send({data: filterData, fileMetaData});
         }
     } catch (e) {
         logger.error(`Error :: ${e}`)
