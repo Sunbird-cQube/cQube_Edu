@@ -58,8 +58,9 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
             }
             schoolData.push(obj);
         }
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- Attendance school wise api response sent ---');
-        res.status(200).send({ schoolData: schoolData, teacherCount: jsonData.allSchoolsFooter.teachers, schoolCount: jsonData.allSchoolsFooter.schools, dateRange: dateRange });
+        res.status(200).send({ schoolData: schoolData, teacherCount: jsonData.allSchoolsFooter.teachers, schoolCount: jsonData.allSchoolsFooter.schools, dateRange: dateRange, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -127,8 +128,9 @@ router.post('/schoolPerCluster', auth.authController, async (req, res) => {
             }
             schoolsDetails.push(obj);
         }
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- Attendance schoolPerCluster api response sent ---');
-        res.status(200).send({ schoolsDetails: schoolsDetails, teacherCount: jsonData.footer[clusterId].teachers, schoolCount: jsonData.footer[clusterId].schools, dateRange: dateRange });
+        res.status(200).send({ schoolsDetails: schoolsDetails, teacherCount: jsonData.footer[clusterId].teachers, schoolCount: jsonData.footer[clusterId].schools, dateRange: dateRange, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
