@@ -26,7 +26,7 @@ router.post('/', auth.authController, async (req, res) => {
             Key: fileName
         };
         var localPath = inputDir + fileName;
-        var response = await storageType == "s3" ? await saveToS3(params, fileName, formData) : await saveToLocal(localPath, formData);
+        var response = await storageType == "s3" ? await saveToS3(params, fileName, formData) : storageType == "azure"?await saveToAzure(params, fileName, formData) :await saveToLocal(localPath, formData);
 
         res.status(200).json(response);
     } catch (e) {
@@ -140,6 +140,28 @@ function saveToLocal(fileName, formData) {
 
 }
 
+function saveToAzure()
+{
+    console.log("File uploaded through Azure")
+    const uploadFile = async (filePath, fileName, data) => {
+        return new Promise(async function (resolve, reject) {
+                try {
+                    let containerClient = blobServiceClient.getContainerClient(outputContainerName);
+                    const blockBlobClient = containerClient.getBlockBlobClient(`${fileName}.json`);
+                    let stringObj = JSON.stringify(data);
+                    const uploadBlobResponse = blockBlobClient.upload(stringObj, stringObj.length);
+                    console.log("File uploaded through Azure")
+                    deleteFile(filePath);
+                    resolve('Success');
+                    console.log('Uploaded');
+                } catch(e) {
+                    reject(e);
+                }
+            });
+        }
+
+    }
+//  const response =  await uploadFile();
 
 // function saveToAzure(fileName, formData) {
  

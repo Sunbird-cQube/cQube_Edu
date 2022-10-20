@@ -80,6 +80,7 @@ export class S3FilesDownloadComponent implements OnInit {
       });
       document.getElementById('spinner').style.display = 'none';
     }, err => {
+      this.fileNames=[]
       document.getElementById('spinner').style.display = 'none';
     })
   }
