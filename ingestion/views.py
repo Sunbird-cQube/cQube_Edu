@@ -259,7 +259,7 @@ def upload_url():
     file_time = add_timestamp(file)
     if file and STORAGE_TYPE.lower() == 's3':
         return create_presigned_post(EMISSION_BUCKET_NAME, str(file_time))
-    elif file and STORAGE_TYPE.lower() == 'on-premise':
+    elif file and STORAGE_TYPE.lower() == 'local':
         return create_onpremise_url(EMISSION_DIRECTORY)
     elif file and STORAGE_TYPE.lower() == 'azure':
         return create_presigned_post_azure(AZURE_EMISSION_CONTAINER, str(file_time))
