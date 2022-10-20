@@ -16,9 +16,10 @@ router.post('/distWise', auth.authController, async (req, res) => {
             fileName = `composite/comp_district.json`
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         logger.info('--- composite dist wise api response sent ---');
-        res.status(200).send(jsonData);
+        res.status(200).send({data: jsonData, fileMetaData});
 
     } catch (e) {
         logger.error(`Error :: ${e}`)

@@ -19,8 +19,9 @@ router.post('/distWise', auth.authController, async (req, res) => {
         }
 
         let districtData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- progressCard dist wise api response sent ---');
-        res.status(200).send({ districtData });
+        res.status(200).send({ districtData, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

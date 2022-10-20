@@ -27,11 +27,12 @@ router.post('/allClusterWise', auth.authController, async (req, res) => {
             }
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         var clusterData = jsonData.data;
 
         logger.info('--- crc all cluster wise api response sent ---');
-        res.status(200).send({ visits: clusterData });
+        res.status(200).send({ visits: clusterData, fileMetaData });
         // }
         // await reader.close();
     } catch (e) {
@@ -63,6 +64,7 @@ router.post('/clusterWise/:distId/:blockId', auth.authController, async (req, re
             }
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         var clusterData = jsonData
 
@@ -73,7 +75,7 @@ router.post('/clusterWise/:distId/:blockId', auth.authController, async (req, re
         });
         if (filterData.length > 0) {
             logger.info('---  crc cluster per block api response sent ---');
-            res.status(200).send({ visits: filterData, schoolsVisitedCount: clusterData.footer[`${blockId}`] });
+            res.status(200).send({ visits: filterData, schoolsVisitedCount: clusterData.footer[`${blockId}`], fileMetaData });
         } else {
             res.status(403).json({ errMsg: "No matches found" });
         }

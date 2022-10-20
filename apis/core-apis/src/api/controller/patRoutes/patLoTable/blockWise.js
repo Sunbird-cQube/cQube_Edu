@@ -22,6 +22,7 @@ router.post('/blockWise', auth.authController, async (req, res) => {
         }
 
         let data = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         if (districtId) {
             data = data.filter(val => {
                 return val.district_id == districtId
@@ -103,7 +104,7 @@ router.post('/blockWise', auth.authController, async (req, res) => {
                 }, {});
                 tableData = val.map((item) => ({ ...def, ...item }));
                 logger.info('--- PAT LO table blockWise response sent ---');
-                res.status(200).send({ blockDetails, tableData });
+                res.status(200).send({ blockDetails, tableData, fileMetaData });
             } else {
                 logger.info('--- PAT LO table schoolWise response sent ---');
                 res.status(500).send({ errMsg: "No record found" });

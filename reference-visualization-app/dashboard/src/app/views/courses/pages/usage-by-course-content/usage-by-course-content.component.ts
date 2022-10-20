@@ -96,9 +96,9 @@ showError = false
   getview(){
     this.timeDetails = [];
     this.service.dikshaTableMetaData().subscribe(async result => {
-      this.districtsDetails = result['districtDetails']
+      this.districtsDetails = result['data']['districtDetails']
 
-      await result['timeRange'].forEach((element) => {
+      await result['data']['timeRange'].forEach((element) => {
         var obj = { timeRange: element, name: this.changeingStringCases(element.replace(/_/g, ' ')) }
         this.timeDetails.push(obj);
       });
@@ -149,9 +149,9 @@ showError = false
     this.dist = false;
     this.timeDetails = [];
     this.service.dikshaTableMetaData().subscribe(async result => {
-      this.districtsDetails = result['districtDetails']
+      this.districtsDetails = result['data']['districtDetails']
       
-      await result['timeRange'].forEach((element) => {
+      await result['data']['timeRange'].forEach((element) => {
         var obj = { timeRange: element, name: this.changeingStringCases(element.replace(/_/g, ' ')) }
         this.timeDetails.push(obj);
       });
@@ -173,7 +173,7 @@ showError = false
       this.fileName = `${this.reportName}_${this.timePeriod}_${this.commonService.dateAndTime}`;
       this.time = this.timePeriod == 'all' ? 'overall' : this.timePeriod;
       this.fileToDownload = `diksha_raw_data/table_reports/course/${this.time}/${this.time}.csv`;
-      this.updatedTable = this.result = res;
+      this.updatedTable = this.result = res['data'];
       this.onChangePage();
 
       this.result.forEach(element => {
@@ -242,7 +242,7 @@ showError = false
       this.reportData = [];
       this.service.dikshaDistrictTableData({ districtId: districtId, collectionType: this.collectionType }).subscribe(res => {
         this.fileName = `${this.reportName}_${this.timePeriod}_${districtId}_${this.commonService.dateAndTime}`;
-        this.updatedTable = this.result = res;
+        this.updatedTable = this.result = res['data'];
         this.onChangePage();
 
         this.reportData = this.result;
@@ -273,7 +273,7 @@ showError = false
     this.result = [];
     this.reportData = [];
     this.service.dikshaTimeRangeTableData({ districtId: this.districtId, timePeriod: myTime, collectionType: this.collectionType }).subscribe(res => {
-      this.updatedTable = this.result = res;
+      this.updatedTable = this.result = res['data'];
       this.onChangePage();
       if (this.hierName) {
         this.reportData = this.result;

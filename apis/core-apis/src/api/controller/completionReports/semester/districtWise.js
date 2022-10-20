@@ -16,9 +16,10 @@ router.post('/allDistrictWise', auth.authController, async (req, res) => {
             fileName = `exception_list/semester_completion/district_sem_completion_${sem}.json`
         }
         let districtData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         var sortedData = districtData['data'].sort((a, b) => (a.district_name) > (b.district_name) ? 1 : -1)
         logger.info('--- semester_completion district api response sent ---');
-        res.status(200).send({ data: sortedData, footer: districtData.allDistrictsFooter.total_schools_with_missing_data });
+        res.status(200).send({ data: sortedData, footer: districtData.allDistrictsFooter.total_schools_with_missing_data, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

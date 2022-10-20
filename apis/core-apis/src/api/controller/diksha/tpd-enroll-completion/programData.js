@@ -9,9 +9,10 @@ router.get('/programData', auth.authController, async (req, res) => {
         
         var fileName = `diksha_tpd/report2/overall/district/all_programs.json`;
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- diksha multi bar chart api response sent ---');
         
-        res.send({ data:jsonData, downloadData: jsonData, dropDown: jsonData });
+        res.send({ data:jsonData, downloadData: jsonData, dropDown: jsonData, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

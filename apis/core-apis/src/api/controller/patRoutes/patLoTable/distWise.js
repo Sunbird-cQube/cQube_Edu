@@ -21,6 +21,7 @@ router.post('/distWise', auth.authController, async (req, res) => {
                 fileName = `pat/heatChart/questionIdLevel/${year}/${month}/allData.json`;
         }
         let data = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         let districtDetails = data.map(e => {
             return {
@@ -94,7 +95,7 @@ router.post('/distWise', auth.authController, async (req, res) => {
                 }, {});
                 tableData = val.map((item) => ({ ...def, ...item }));
                 logger.info('--- PAT LO table distWise response sent ---');
-                res.status(200).send({ districtDetails, tableData });
+                res.status(200).send({ districtDetails, tableData, fileMetaData });
             } else {
                 logger.info('--- PAT LO table schoolWise response sent ---');
                 res.status(500).send({ errMsg: "No record found" });

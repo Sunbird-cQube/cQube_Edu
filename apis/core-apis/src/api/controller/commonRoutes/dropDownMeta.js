@@ -12,12 +12,13 @@ router.post('/meta', auth.authController, async (req, res) => {
         let filename = `${dataSource}/meta.json`
 
         let data = await s3File.readFileConfig(filename);
+        let fileMetaData = await s3File.getFileMetaData(filename);
 
 
         metaData = data[0].data.grades[0]
         let isSubjAvailable = metaData.hasOwnProperty('subjects')
         logger.info('--- Meta file  api response sent ---');
-        res.status(200).send({ data, isSubjAvailable });
+        res.status(200).send({ data, isSubjAvailable, fileMetaData });
     } catch (e) {
         logger.error(e);
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -31,9 +32,10 @@ router.post('/timePeriod', auth.authController, async (req, res) => {
 
         let filename = `${dataSource}/time_period_meta.json`
         let data = await s3File.readFileConfig(filename);
+        let fileMetaData = await s3File.getFileMetaData(filename);
 
         logger.info('--- Meta file  api response sent ---');
-        res.status(200).send(data);
+        res.status(200).send({data: data, fileMetaData});
     } catch (e) {
         logger.error(e);
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -47,9 +49,10 @@ router.post('/metricname', auth.authController, async (req, res) => {
 
         let filename = `${dataSource}/meta_tooltip.json`
         let data = await s3File.readFileConfig(filename);
+        let fileMetaData = await s3File.getFileMetaData(filename);
 
         logger.info('--- Meta metric name  api response sent ---');
-        res.status(200).send(data);
+        res.status(200).send({data: data, fileMetaData});
     } catch (e) {
         logger.error(e);
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

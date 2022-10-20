@@ -22,6 +22,7 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
         }
         let data1
         let data = data1 = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         if (schoolLevel) {
             data = data.filter(id => id.school_id === req.body.schoolId)
         }
@@ -112,7 +113,7 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
                 }, {});
                 tableData = val.map((item) => ({ ...def, ...item }));
                 logger.info('--- PAT LO table schoolWise response sent ---');
-                res.status(200).send({ schoolDetails, tableData,data1 });
+                res.status(200).send({ schoolDetails, tableData,data1, fileMetaData });
             } else {
                 logger.info('--- PAT LO table schoolWise response sent ---');
                 res.status(500).send({ errMsg: "No record found" });

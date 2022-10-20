@@ -188,7 +188,7 @@ export class TelemetryReportComponent implements OnInit {
         this.myData.unsubscribe();
       }
       this.myData = this.service.telemetryDist(obj).subscribe(res => {
-        this.markers = this.data = res;
+        this.markers = this.data = res['data'];
         // to show only in dropdowns
         this.districtMarkers = this.data['data'];
 
@@ -252,7 +252,7 @@ export class TelemetryReportComponent implements OnInit {
         this.myData.unsubscribe();
       }
       this.myData = this.service.telemetryBlock(obj).subscribe(res => {
-        this.data = res
+        this.data = res['data']
         let options = {
           radius: 4,
           mapZoom: this.globalService.zoomLevel,
@@ -327,7 +327,7 @@ export class TelemetryReportComponent implements OnInit {
         this.myData.unsubscribe();
       }
       this.myData = this.service.telemetryCluster(obj).subscribe(res => {
-        this.data = res
+        this.data = res['data']
         let options = {
           radius: 3,
           mapZoom: this.globalService.zoomLevel,
@@ -398,7 +398,7 @@ export class TelemetryReportComponent implements OnInit {
         this.myData.unsubscribe();
       }
       this.myData = this.service.telemetrySchool(obj).subscribe(res => {
-        this.data = res
+        this.data = res['data']
         let options = {
           radius: 1.5,
           mapZoom: this.globalService.zoomLevel,

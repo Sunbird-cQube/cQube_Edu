@@ -32,6 +32,7 @@ router.post('/allClusterWise', auth.authController, async (req, res) => {
             }
         }
         let clusterData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         var Subjects = [];
         var sortedData;
         if (clusterData) {
@@ -50,7 +51,7 @@ router.post('/allClusterWise', auth.authController, async (req, res) => {
             var filteredData = filter.data(clusterData['data'], grade, subject, start, Subjects);
             if (filteredData.length > 0) {
                 sortedData = filteredData.sort((a, b) => (a.cluster_name) > (b.cluster_name) ? 1 : -1);
-                res.status(200).send({ data: sortedData, footer: clusterData.allClustersFooter.total_schools_with_missing_data, subjects: grade && grade != 'all' ? Subjects : [] });
+                res.status(200).send({ data: sortedData, footer: clusterData.allClustersFooter.total_schools_with_missing_data, subjects: grade && grade != 'all' ? Subjects : [], fileMetaData });
             } else {
                 res.status(403).json({ errMsg: "Data not found" });
             }
@@ -92,6 +93,7 @@ router.post('/clusterWise/:distId/:blockId', auth.authController, async (req, re
             }
         }
         let clusterData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         let distId = req.params.distId;
         let blockId = req.params.blockId;
@@ -117,7 +119,7 @@ router.post('/clusterWise/:distId/:blockId', auth.authController, async (req, re
             var filteredData = filter.data(filterData, grade, subject, start, Subjects);
             if (filteredData.length > 0) {
                 sortedData = filteredData.sort((a, b) => (a.cluster_name) > (b.cluster_name) ? 1 : -1);
-                res.status(200).send({ data: sortedData, footer: clusterData.footer[`${blockId}`].total_schools_with_missing_data, subjects: grade && grade != 'all' ? Subjects : [] });
+                res.status(200).send({ data: sortedData, footer: clusterData.footer[`${blockId}`].total_schools_with_missing_data, subjects: grade && grade != 'all' ? Subjects : [], fileMetaData });
             } else {
                 res.status(403).json({ errMsg: "Data not found" });
             }

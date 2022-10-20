@@ -240,6 +240,7 @@ router.post('/distWise', auth.authController, async (req, res) => {
         metricValue.forEach(metric => date = metric.date)
 
         let data = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
 
         let footer = data['allDistrictsFooter']
@@ -400,7 +401,7 @@ router.post('/distWise', auth.authController, async (req, res) => {
                     }, {});
                     tableData = val.map((item) => ({ ...def, ...item }));
                     logger.info('--- PAT LO table distWise response sent ---');
-                    res.status(200).send({ districtDetails, tableData });
+                    res.status(200).send({ districtDetails, tableData, fileMetaData });
                 } else {
                     logger.info('--- PAT LO table schoolWise response sent ---');
                     res.status(500).send({ errMsg: "No record found" });
@@ -417,7 +418,7 @@ router.post('/distWise', auth.authController, async (req, res) => {
                 lat, long,
                 ...rest
             }));
-            res.status(200).send({ data, districtDetails, footer, subjectFooter: isSubjAvailable });
+            res.status(200).send({ data, districtDetails, footer, subjectFooter: isSubjAvailable, fileMetaData });
         }
     } catch (e) {
         logger.error(`Error:: ${e} `)
