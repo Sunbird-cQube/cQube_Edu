@@ -11,6 +11,7 @@ export class TeacherTrainingComponent implements OnInit {
   config: string = environment.config;
   national: boolean = true;
   nisithaMetrics: any;
+  tabIndex = 0;
 
   constructor(private readonly _configService: ConfigService) {
     this._configService
@@ -27,6 +28,7 @@ export class TeacherTrainingComponent implements OnInit {
   }
 
   onTabChanged($event: any): void {
+    this.tabIndex = $event.index;
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
       console.log('resize');

@@ -24,16 +24,18 @@ export class StudentLearningSurveyComponent implements OnInit {
   levels: any;
   national: boolean = true;
   fileName: string = "NAS_District_Wise_Performance";
+  tabIndex = 0;
 
   constructor(private readonly _commonService: CommonService, private readonly _configService: ConfigService, private readonly _spinner:NgxSpinnerService) {
     this.getNASMetrics()
-    this.getNasData(this.filters, this.levels);
+    
   }
 
   ngOnInit(): void {
     if(environment.config === 'state'){
       this.performanceLabel = 'District Wise Performance';
       this.national = false;
+      this.getNasData(this.filters, this.levels);
     }
     this._spinner.show();
   }
@@ -72,6 +74,10 @@ export class StudentLearningSurveyComponent implements OnInit {
 
 
   onTabChanged($event: any): void {
+    this.tabIndex = $event.index;
+    if((this.tabIndex === 1 && this.national) || (this.tabIndex === 0 && !this.national)){
+      this.getNasData(this.filters, this.levels);
+    }
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
     }, 100);

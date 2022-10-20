@@ -14,25 +14,8 @@ export class DashboardComponent implements OnInit {
   dashboardMenu: IDashboardMenu[] | any;
   isNvsk = environment.config.toLocaleLowerCase() === 'nvsk';
   constructor(private readonly _configService: ConfigService, private readonly _router: Router) {
-    this._configService.getDashboardMetrics().subscribe(dashboardMenuResult => {
-      // if (this.isNvsk) {
-      //   this.dashboardMenu = dashboardMenuResult.result.map((item: any) => {
-      //     let itemConfig = (DashboardMenu as any)[item.programId];
-
-      //     if (itemConfig) {
-      //       //item.tooltip = item.tooltip.replace(/<br\s*\/?>/gi, ', ');
-      //       return {
-      //         ...itemConfig,
-      //         ...item
-      //       }
-      //     }
-
-      //     return;
-      //   });
-
-      //   return;
-      // }
-      this.dashboardMenu = dashboardMenuResult.result;
+    this._configService.getDashboardMetrics().subscribe((dashboardMenuResult: any) => {
+      this.dashboardMenu = dashboardMenuResult.result.data;
     });
   }
 
@@ -40,8 +23,8 @@ export class DashboardComponent implements OnInit {
   }
 
   onClickOfDashboardItem(cardInfo: IDashboardMenu | undefined): void {
-    if (cardInfo) {
-      this._router.navigate([cardInfo.navigationURL]);
+    if (cardInfo) {      
+      this._router.navigate([cardInfo.navigationURL.trim()]);
     }
   }
 

@@ -11,15 +11,15 @@
     </div>
 </div>
 <div class="tab-group-wrapper">
-    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+    <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
         <mat-tab label="Implementation Status" *ngIf="national">
-            <app-implementation-status></app-implementation-status>
+            <app-implementation-status *ngIf="tabIndex === 0"></app-implementation-status>
         </mat-tab>
         <mat-tab label="State Wise Performance" *ngIf="national">
-            <app-state-wise-performance></app-state-wise-performance>
+            <app-state-wise-performance *ngIf="tabIndex === 1"></app-state-wise-performance>
         </mat-tab>
         <mat-tab label="District Wise Performance">
-            <div class="grid grid-cols-1">
+            <div class="grid grid-cols-1" *ngIf="(tabIndex === 2 && national) || (tabIndex === 0 && !national)">
                 <div class="col-span-full">
                     <div class="col" *ngIf="isMapReportLoading">
                         <p class="mt-8">Loading...</p>

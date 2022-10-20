@@ -23,15 +23,16 @@ export class SchoolRegistryComponent implements OnInit {
   scatterData: any;
   filters1: any;
   levels1: any;
+  tabIndex = 0;
   fileName: string = "UDISE_District_Wise_Performanc";
 
   constructor(private readonly _configService: ConfigService, private readonly _commonService: CommonService, private readonly _spinner: NgxSpinnerService) {
     if(environment.config == 'state'){
       this.performanceLabel = 'District Wise Performance';
       this.national = false;
+      this.getUdiseStateData(this.filters, this.levels, this.metricFilter);
     }
     this.getUdiseMetricsData();
-    this.getUdiseStateData(this.filters, this.levels, this.metricFilter);
     // this.getScatterData(this.filters, this.levels);
   }
 
@@ -39,6 +40,10 @@ export class SchoolRegistryComponent implements OnInit {
   }
   
   onTabChanged($event: any): void {
+    this.tabIndex = $event.index;
+    if((this.tabIndex === 1 && this.national) || (this.tabIndex === 0 && !this.national)) {
+      this.getUdiseStateData(this.filters, this.levels, this.metricFilter);
+    }
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
       console.log('resize');
