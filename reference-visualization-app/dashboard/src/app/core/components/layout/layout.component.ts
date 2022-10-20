@@ -25,7 +25,7 @@ decreaseFontSize!: ElementRef;
 resetFontSize!: ElementRef;
 // @ViewChild('darkModeToggle') darkModeToggle: ElementRef;
   constructor(private readonly _configService: ConfigService, private renderer: Renderer2, private readonly _authService: AuthenticationService) {
-    this._configService.getDashboardMetrics(true).subscribe(menuResult => {
+    this._configService.getDashboardMetrics(true).subscribe((menuResult: any) => {
       this.menu = [];
       let menuToDisplay: IMenuItem | any = {};
       menuToDisplay.label = "Dashboard";
@@ -34,7 +34,7 @@ resetFontSize!: ElementRef;
       menuToDisplay.isSelected = true;
       menuToDisplay.basepath = "dasboard";
       this.menu.push(menuToDisplay);
-      menuResult?.result?.forEach((dasboardMenu:IDashboardMenu)=>{
+      menuResult?.result?.data?.forEach((dasboardMenu:IDashboardMenu)=>{
         let menuToDisplay: IMenuItem | any = {};
         menuToDisplay.label = dasboardMenu.title;
         menuToDisplay.path = dasboardMenu.navigationURL;

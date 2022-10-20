@@ -446,7 +446,7 @@ router.post('/mainMetrics', auth.authController, async (req, res) => {
 router.post('/dikshaEtbCoverage', auth.authController, async (req, res) => {
     try {
         logger.info('---Main Metrics api ---');
-        var fileName = 'log_summary/log_summary_diksha_etb_etb-coverage.json';
+        var fileName = 'log_summary/log_summary_vsk_diksha_etb_coverage-status.json';
         let summaryData = await s3File.readFileConfig(fileName);
         logger.info('--- Main Metrics api response sent---');
         if (summaryData == null || summaryData == '') {
@@ -514,7 +514,7 @@ router.post('/dikshaEtbProgramStarted', auth.authController, async (req, res) =>
 router.post('/dikshaEtbQrCoverage', auth.authController, async (req, res) => {
     try {
         logger.info('---Main Metrics api ---');
-        var fileName = 'log_summary/log_summary_diksha_etb_qr-coverage.json';
+        var fileName = 'log_summary/log_summary_vsk_diksha_etb_qr-coverage.json';
         let summaryData = await s3File.readFileConfig(fileName);
         logger.info('--- Main Metrics api response sent---');
         if (summaryData == null || summaryData == '') {

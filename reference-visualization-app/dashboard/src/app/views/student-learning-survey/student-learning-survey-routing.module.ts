@@ -21,7 +21,7 @@ const routes: Routes = [
             },
             {
                 path: '',
-                redirectTo: '/nas/dashboard',
+                redirectTo: 'dashboard',
                 pathMatch: 'full'
             }
         ]

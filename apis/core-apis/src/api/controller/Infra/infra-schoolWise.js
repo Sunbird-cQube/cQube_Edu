@@ -17,9 +17,12 @@ router.post('/allSchoolWise', async (req, res) => {
             fileName = `infra/infra_school_table.json`
         }
         let data = await s3File.readFileConfig(fileName);
-
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---Infra all school wise response sent---');
-        res.status(200).send(data);
+        res.status(200).send({
+            data,
+            fileMetaData
+        });
 
     } catch (e) {
         logger.error(`Error :: ${e}`)
@@ -49,7 +52,11 @@ router.post('/schoolWise/:distId/:blockId/:clusterId', auth.authController, asyn
             res.status(404).json({ errMsg: "No data found" });
         } else {
             logger.info('---Infra school per cluster response sent---');
-            res.status(200).send(schoolFilterData);
+            let fileMetaData = await s3File.getFileMetaData(fileName);
+            res.status(200).send({
+                data: schoolFilterData,
+                fileMetaData
+            });
         }
 
     } catch (e) {

@@ -36195,7 +36195,7 @@ ${query_type:startsWith('pat_exception_management_grade_school_last_30_days'):if
                             </entry>
                             <entry>
 <key>configure</key>
-<value>${emission_filename:startsWith('config')}</value>
+<value>${emission_filename:startsWith('config'):or(${azure.blobname:startsWith('config')})}</value>
                             </entry>
                             <entry>
 <key>configure_file_aggre</key>
@@ -57024,7 +57024,7 @@ ${query_type:startsWith('stud_att_management_category_school_overall'):ifElse('a
                             </entry>
                             <entry>
 <key>configure</key>
-<value>${emission_filename:startsWith('config')}</value>
+<value>${emission_filename:startsWith('config'):or(${azure.blobname:startsWith('config')})}</value>
                             </entry>
                             <entry>
 <key>configure_file</key>
@@ -88977,5 +88977,5 @@ ${query_type:startsWith('tch_att_management_category_school_overall'):ifElse('te
             <variables/>
         </processGroups>
     </snippet>
-    <timestamp>10/18/2022 14:50:35 IST</timestamp>
+    <timestamp>10/20/2022 12:15:28 IST</timestamp>
 </template>

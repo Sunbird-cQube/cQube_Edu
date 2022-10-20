@@ -26,11 +26,12 @@ export class ImprovementProgramComponent implements OnInit {
   microImprovementMetricsData:any;
   microProgramDatayesno:any;
   fileName: string = "MIP_Implementation_Status";
+  tabIndex = 0;
 
   constructor(private readonly _configService: ConfigService, private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService) {
-    this.getMicroProgramData(this.filters1, this.metricFilter);
-    this.getmicroMetricsData();
     this.getMicroProgramyesno(this.filters1);
+    this.getmicroMetricsData();
+    
   }
 
   ngOnInit(): void {
@@ -60,9 +61,17 @@ export class ImprovementProgramComponent implements OnInit {
   }
 
   onTabChanged($event: any): void {
+    this.tabIndex = $event.index;
+    if(this.tabIndex === 0){
+      this.getMicroProgramyesno(this.filters1);
+    }
+    else if (this.tabIndex === 1) {
+      this.getMicroProgramData(this.filters1, this.metricFilter);
+    }
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
     }, 100);
+
   }
 
 

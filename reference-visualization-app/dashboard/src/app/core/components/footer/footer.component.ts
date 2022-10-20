@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatasourceMetadataService } from '../../services/datasource-metadata-service/datasource-metadata.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  lastModified: Date;
+
+  constructor(private readonly _dataSourceMetadataService: DatasourceMetadataService) {
+    this._dataSourceMetadataService.metadata.subscribe(metadata => {
+      if (metadata) {
+        this.lastModified = metadata.lastModified;
+      }
+    })
+  }
 
   ngOnInit(): void {
   }

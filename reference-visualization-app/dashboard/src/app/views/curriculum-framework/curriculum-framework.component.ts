@@ -19,6 +19,7 @@ export class CurriculumFrameworkComponent implements OnInit {
   ncfProgressData: any;
   metricFilter: any;
   fileName: string = "Report_data";
+  tabIndex;
 
   constructor(private readonly _commonService: CommonService, private readonly _spinner:NgxSpinnerService, private readonly _configService: ConfigService) {
     this._configService.getVanityMetrics('ncf').subscribe(vanityMetricsRes => {
@@ -52,6 +53,7 @@ export class CurriculumFrameworkComponent implements OnInit {
   }
 
   onTabChanged($event: any): void {
+    this.tabIndex = $event.index;
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
     }, 100);

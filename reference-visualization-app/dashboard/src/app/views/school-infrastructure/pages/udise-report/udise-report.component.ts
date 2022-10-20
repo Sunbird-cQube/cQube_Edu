@@ -234,16 +234,16 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
 
 
   getDistricts(): void {
-    this.service.udise_dist_wise({ management: this.management, category: this.category }).subscribe((res) => {
+    this.service.udise_dist_wise({ management: this.management, category: this.category }).subscribe((res: any) => {
       this.myDistData = res;
-      this.markers = this.data = res["data"];
+      this.markers = this.data = res.data;
       this.districtMarkers = this.data;
     });
   }
 
   getBlocks(distId, blockId?: any): void {
-    this.service.udise_blocks_per_dist(distId, { management: this.management, category: this.category }).subscribe((res) => {
-      this.markers = this.data = res["data"];
+    this.service.udise_blocks_per_dist(distId, { management: this.management, category: this.category }).subscribe((res: any) => {
+      this.markers = this.data = res.data;
       this.blockMarkers = this.data;
       this.changeDetection.detectChanges();
 
@@ -252,8 +252,8 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
   }
 
   getClusters(distId, blockId, clusterId?: any): void {
-    this.service.udise_cluster_per_block(distId, blockId, { management: this.management, category: this.category }).subscribe((res) => {
-      this.markers = this.data = res["data"];
+    this.service.udise_cluster_per_block(distId, blockId, { management: this.management, category: this.category }).subscribe((res: any) => {
+      this.markers = this.data = res.data;
       this.clusterMarkers = this.data;
       this.changeDetection.detectChanges();
       if (clusterId)
@@ -336,9 +336,9 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
         this.myData.unsubscribe();
       }
       this.myData = this.service.udise_dist_wise({ management: this.management, category: this.category }).subscribe(
-        (res) => {
+        (res: any) => {
           this.myDistData = res;
-          this.markers = this.data = res["data"];
+          this.markers = this.data = res.data;
           this.gettingIndiceFilters(this.data);
 
           // to show only in dropdowns
@@ -364,7 +364,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
           );
 
           //schoolCount
-          this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+          this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
           this.genericFun(this.data, options, this.fileName);
           this.globalService.onResize(this.level);
@@ -430,10 +430,10 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
         this.myData.unsubscribe();
       }
       this.myData = this.service.udise_block_wise({ management: this.management, category: this.category }).subscribe(
-        (res) => {
+        (res: any) => {
           if (this.districtSelected) {
 
-            let blockData = res["data"];
+            let blockData = res.data;
             let marker = blockData.filter(a => {
               if (a.details.district_id === this.districtSlectedId) {
 
@@ -506,14 +506,14 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.globalService.onResize(this.level);
 
                 //schoolCount
-                this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
                 this.loaderAndErr();
                 this.changeDetection.detectChanges();
               }
             }
           } else if (this.blockSelected) {
 
-            let blockData = res["data"];
+            let blockData = res.data;
             let marker = blockData.filter(a => {
               if (a.details.block_id === this.blockSelectedId) {
 
@@ -587,14 +587,14 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.globalService.onResize(this.level);
 
                 //schoolCount
-                this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
                 this.loaderAndErr();
                 this.changeDetection.detectChanges();
               }
             }
           } else if (this.selectedCluster) {
 
-            let cluster = res["data"];
+            let cluster = res.data;
             let marker = cluster.filter(a => {
               if (a.details.cluster_id === this.selectedCLusterId) {
                 return a
@@ -666,13 +666,13 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.globalService.onResize(this.level);
 
                 //schoolCount
-                this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
                 this.loaderAndErr();
                 this.changeDetection.detectChanges();
               }
             }
           } else {
-            this.data = this.myBlockData = res["data"];
+            this.data = this.myBlockData = res.data;
             this.gettingIndiceFilters(this.data);
 
             let options = {
@@ -737,7 +737,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.globalService.onResize(this.level);
 
                 //schoolCount
-                this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
                 this.loaderAndErr();
                 this.changeDetection.detectChanges();
               }
@@ -795,14 +795,14 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
         this.myData.unsubscribe();
       }
       this.myData = this.service.udise_cluster_wise({ management: this.management, category: this.category }).subscribe(
-        (res) => {
+        (res: any) => {
           if (this.districtSelected) {
 
             this.blockHidden = false;
             this.clusterHidden = true;
             this.skul = false;
             this.dist = true;
-            let blockData = res["data"];
+            let blockData = res.data;
             this.districtHierarchy = {
               distId: this.districtSlectedId,
               districtName: "",
@@ -885,7 +885,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 }
 
                 //schoolCount
-                this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
                 this.globalService.onResize(this.level);
 
@@ -894,7 +894,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
               }
             }
           } else if (this.blockSelected) {
-            let blockData = res["data"];
+            let blockData = res.data;
             let marker = blockData.filter(a => {
               if (a.details.block_id === this.blockSelectedId) {
 
@@ -967,7 +967,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 }
 
                 //schoolCount
-                this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
                 this.globalService.onResize(this.level);
 
@@ -976,7 +976,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
               }
             }
           } else if (this.selectedCluster) {
-            let cluster = res["data"];
+            let cluster = res.data;
             let marker = cluster.filter(a => {
               if (a.details.cluster_id === this.selectedCLusterId) {
                 return a
@@ -1047,7 +1047,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 }
 
                 //schoolCount
-                this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
                 this.globalService.onResize(this.level);
 
@@ -1056,7 +1056,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
               }
             }
           } else {
-            this.markers = this.data = res["data"];
+            this.markers = this.data = res.data;
             this.gettingIndiceFilters(this.data);
             let options = {
               radius: 2,
@@ -1120,7 +1120,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 }
 
                 //schoolCount
-                this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
                 this.globalService.onResize(this.level);
 
@@ -1181,10 +1181,10 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
         this.myData.unsubscribe();
       }
       this.myData = this.service.udise_school_wise({ management: this.management, category: this.category }).subscribe(
-        (res) => {
+        (res: any) => {
 
           if (this.districtSelected) {
-            let blockData = res["data"];
+            let blockData = res.data;
             let marker = blockData.filter(a => {
               if (a.details.district_id === this.districtSlectedId) {
 
@@ -1275,7 +1275,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.globalService.onResize(this.level);
 
                 //schoolCount
-                this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
                 this.loaderAndErr();
                 this.changeDetection.detectChanges();
@@ -1283,7 +1283,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
             }
           } else if (this.blockSelected) {
 
-            let blockData = res["data"];
+            let blockData = res.data;
             this.skul = false;
             this.blok = true;
 
@@ -1378,14 +1378,14 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.globalService.onResize(this.level);
 
                 //schoolCount
-                this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
                 this.loaderAndErr();
                 this.changeDetection.detectChanges();
               }
             }
           } else if (this.selectedCluster) {
-            let cluster = res["data"];
+            let cluster = res.data;
             let marker = cluster.filter(a => {
               if (a.details.cluster_id === this.selectedCLusterId) {
                 return a
@@ -1459,14 +1459,14 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.globalService.onResize(this.level);
 
                 //schoolCount
-                this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
                 this.loaderAndErr();
                 this.changeDetection.detectChanges();
               }
             }
           } else {
-            this.markers = this.data = res["data"];
+            this.markers = this.data = res.data;
             this.gettingIndiceFilters(this.data);
             let options = {
               radius: 1,
@@ -1532,7 +1532,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
                 this.globalService.onResize(this.level);
 
                 //schoolCount
-                this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
                 this.loaderAndErr();
                 this.changeDetection.detectChanges();
@@ -1590,8 +1590,8 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.udise_blocks_per_dist(districtId, { management: this.management, category: this.category }).subscribe(
-      (res) => {
-        this.markers = this.data = res["data"];
+      (res: any) => {
+        this.markers = this.data = res.data;
         this.gettingIndiceFilters(this.data);
 
         this.blockMarkers = this.data;
@@ -1628,7 +1628,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
         this.globalService.longitude = this.lng = options.centerLng;
 
         //schoolCount
-        this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+        this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
         this.genericFun(this.data, options, this.fileName);
         this.globalService.onResize(this.level);
@@ -1689,8 +1689,8 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
     this.myData = this.service
       .udise_cluster_per_block(this.districtId, blockId, { management: this.management, category: this.category })
       .subscribe(
-        (res) => {
-          this.markers = this.data = res["data"];
+        (res: any) => {
+          this.markers = this.data = res.data;
           this.gettingIndiceFilters(this.data);
 
           this.clusterMarkers = this.data;
@@ -1738,7 +1738,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
           this.globalService.longitude = this.lng = options.centerLng;
 
           //schoolCount
-          this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+          this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
           this.genericFun(this.data, options, this.fileName);
           this.globalService.onResize(this.level);
@@ -1804,20 +1804,20 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
             clusterId, { management: this.management, category: this.category }
           )
           .subscribe(
-            (res) => {
+            (res: any) => {
               
               if (this.schoolLevel) {
-                let schoolData = res['data']
+                let schoolData = res.data
                 let data = schoolData.filter(data => data.details.school_id === Number(localStorage.getItem('schoolId')))
 
                 this.markers = this.data = data
               } else {
-                this.markers = this.data = res["data"];
+                this.markers = this.data = res.data;
               }
               this.gettingIndiceFilters(this.data);
 
               this.schoolMarkers = this.data;
-              var markers = result["data"];
+              var markers = result.data;
               var myBlocks = [];
               markers.forEach((element) => {
                 if (
@@ -1878,7 +1878,7 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
               this.globalService.longitude = this.lng = options.centerLng;
 
               //schoolCount
-              this.schoolCount = res["footer"].toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+              this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
 
               this.genericFun(this.data, options, this.fileName);
               this.globalService.onResize(this.level);

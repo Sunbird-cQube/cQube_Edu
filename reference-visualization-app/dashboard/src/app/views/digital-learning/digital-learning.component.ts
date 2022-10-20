@@ -28,6 +28,7 @@ export class DigitalLearningComponent implements OnInit {
 
   ETBMetrics: any[] | undefined;
   ETBProgramStatsByLocation: any;
+  tabIndex = 0;
 
   stateWiseEnrollmentData!: IStateWiseEnrollmentRec[];
   options: Highcharts.Options | undefined;
@@ -40,9 +41,11 @@ export class DigitalLearningComponent implements OnInit {
     if(environment.config === 'state') {
       this.national = false;
     }
+    else {
+      this.getETBData(this.filters);
+    }
 
     this.getETBMetrics();
-    this.getETBData(this.filters);
   }
 
   ngOnInit(): void {
@@ -61,6 +64,7 @@ export class DigitalLearningComponent implements OnInit {
   }
 
   onTabChanged($event: any): void {
+    this.tabIndex = $event.index;
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
     }, 100);

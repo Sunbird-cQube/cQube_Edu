@@ -225,10 +225,13 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           }
 
           mapData?.data.forEach((state: any) => {
-            if (state.state_code == feature.properties.state_code && !state.district_code) {
+            let stateCode = feature.properties.State_LGD ? feature.properties.Dist_LGD : feature.properties.state_code;
+            let districtCode = feature.properties.Dist_LGD ? feature.properties.Dist_LGD : feature.properties.ID_2;
+            
+            if (state.state_code == stateCode && !state.district_code) {
               color = parent.getLayerColor(state.indicator ? (max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator) : -1);
             }
-            else if (state.district_code && state.district_code == feature.properties.dtcode11) {
+            else if (state.district_code && state.district_code == districtCode) {
               color = parent.getLayerColor(state.indicator ? (max - min ? (state.indicator - min) / (max - min) * 100 : state.indicator) : -1);
             }
           });
@@ -251,11 +254,13 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         function getPopUp(feature: any) {
           let popup: any;
           mapData.data.forEach((state: any) => {
-
-            if (state.state_code == feature.properties.state_code && !state.district_code) {
+            let stateCode = feature.properties.State_LGD ? feature.properties.Dist_LGD : feature.properties.state_code;
+            let districtCode = feature.properties.Dist_LGD ? feature.properties.Dist_LGD : feature.properties.ID_2;
+            
+            if (state.state_code == stateCode && !state.district_code) {
               popup = state.tooltip
             }
-            else if (state.district_code && state.district_code == feature.properties.dtcode11) {
+            else if (state.district_code && state.district_code == districtCode) {
               popup = state.tooltip
             }
           });

@@ -279,6 +279,19 @@ fi
  fi
 }
 
+check_diksha(){
+if [[ $access_type == "national" ]]; then
+    if [[ ! $2 == "false" ]]; then
+        echo "Error - Please provide $1 as false if you selected access_type as national"; fail=1
+    fi
+fi
+if [[ $access_type == "state" ]]; then
+    if ! [[ $2 == "true" || $2 == "false" ]]; then
+         echo "Error - Please enter either true or false for $1"; fail=1
+    fi
+fi
+}
+
 check_kc_config_otp(){
 if [[ $access_type == "national" ]]; then
     if [[ ! $2 == "NA" ]]; then
@@ -579,14 +592,14 @@ case $key in
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
-          check_kc_config_otp $key $value
+          check_diksha $key $value
        fi
        ;;
    diksha_columns)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
-          check_kc_config_otp $key $value
+          check_diksha $key $value
        fi
        ;;
    static_datasource)

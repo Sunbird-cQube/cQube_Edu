@@ -483,6 +483,7 @@ export class DataReplayComponent implements OnInit {
       document.getElementById('spinner').style.display = 'none';
       alert("Data retention successully initiated");
     }, err => {
+      console.log('err', err)
       alert(err.errMsg);
       document.getElementById('spinner').style.display = 'none';
     })

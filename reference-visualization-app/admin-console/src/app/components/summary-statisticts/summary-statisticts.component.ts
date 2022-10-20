@@ -682,7 +682,7 @@ export class SummaryStatistictsComponent implements OnInit {
           }
           else
           {
-            headers += `<th ${(column.data != 'records_with_null_value') ? ' style = "text-transform:capitalize;"' : `colspan= ${colspanlength}  style = 'text-transform:capitalize;'`}>${col}</th>`
+            headers += `<th ${(column.data != 'records_with_null_value') ? ' style = "text-transform:capitalize;text-align:center"' : `colspan= ${colspanlength}  style = 'text-transform:capitalize;'`}>${col}</th>`
 
           }
         }
@@ -719,7 +719,7 @@ export class SummaryStatistictsComponent implements OnInit {
       });
 
       newArr.forEach((columns) => {
-        body += '<tr>';
+        body += '<tr style="text-align:center">';
         columns.forEach((column) => {
           if (column.data != 'ff_uuid') {
             body += `<td style="text-align:center">${column.value}</td>`

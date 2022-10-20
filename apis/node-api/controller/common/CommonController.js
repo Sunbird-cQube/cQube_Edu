@@ -4,7 +4,7 @@ const XLSX = require('xlsx');
 const fs = require('fs');
 const _ = require('lodash');
 const csvToJson = require('csvtojson');
-const { getFileData, getAllFiles, getFileRawData, uploadFile } = require('../../service/storage_service');
+const { getFileData, getAllFiles, getFileRawData, uploadFile, getFileMetaData } = require('../../service/storage_service');
 const { states } = require('../../core/config/state-codes');
 const { isArray, property, filter } = require('lodash');
 
@@ -49,6 +49,12 @@ exports.getReportData = (req, res, next) => {
 			} else {
 				throw `Invalid report type: ${reqBody.reportType}`;
 			}
+
+			let fileMetaData = await getFileMetaData(dataSourcePath);
+			reportData = {
+				...reportData,
+				fileMetaData 
+			};
 			
 			res.status(200).send({
 				status: 200,
