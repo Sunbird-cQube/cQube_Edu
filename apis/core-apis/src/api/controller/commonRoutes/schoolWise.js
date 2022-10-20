@@ -224,6 +224,7 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
         metricValue.forEach(metric => date = metric.date)
 
         let data = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         if (clusterId) {
             footer = data['footer']
@@ -294,7 +295,7 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
                 lat, long,
                 ...rest
             }));
-            res.status(200).send({ data, schoolDetails, footer })
+            res.status(200).send({ data, schoolDetails, footer, fileMetaData })
         }
 
         if (reportType == "lotable") {
@@ -350,7 +351,7 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
                     tableData = val.map((item) => ({ ...def, ...item }));
 
                     logger.info('--- PAT LO table schoolWise response sent ---');
-                    res.status(200).send({ schoolDetails, tableData });
+                    res.status(200).send({ schoolDetails, tableData, fileMetaData });
                 } else {
                     logger.info('--- PAT LO table schoolWise response sent ---');
                     res.status(500).send({ errMsg: "No record found" });
@@ -378,6 +379,7 @@ router.post('/AllSchoolWise', auth.authController, async (req, res) => {
 
 
         let data = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         let footer = data['allDistrictsFooter']
         data = data['data']
 
@@ -415,7 +417,7 @@ router.post('/AllSchoolWise', auth.authController, async (req, res) => {
         }));
 
 
-        res.status(200).send({ data, footer });
+        res.status(200).send({ data, footer, fileMetaData });
 
 
     } catch (e) {

@@ -31,6 +31,7 @@ router.post('/allDistrictWise', auth.authController, async (req, res) => {
             }
         }
         let districtData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         var Subjects = [];
         var sortedData;
         if (districtData) {
@@ -48,7 +49,7 @@ router.post('/allDistrictWise', auth.authController, async (req, res) => {
             if (filteredData.length > 0) {
                 sortedData = filteredData.sort((a, b) => (a.district_name) > (b.district_name) ? 1 : -1);
                 logger.info('--- pat exception district api response sent ---');
-                res.status(200).send({ data: sortedData, footer: districtData.allDistrictsFooter.total_schools_with_missing_data, subjects: grade && grade != 'all' ? Subjects : [] });
+                res.status(200).send({ data: sortedData, footer: districtData.allDistrictsFooter.total_schools_with_missing_data, subjects: grade && grade != 'all' ? Subjects : [], fileMetaData });
 
             } else {
                 logger.info('--- pat exception district api response sent ---');
@@ -87,8 +88,9 @@ router.post('/grades', async (req, res, next) => {
         }
 
         let data = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---grades metadata api response sent---');
-        res.status(200).send({ data: data });
+        res.status(200).send({ data: data, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -106,8 +108,9 @@ router.post('/getSemesters', async (req, res) => {
             fileName = `sat/all/sat_semester_metadata.json`;
         }
         let data = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---sat metadata api response sent---');
-        res.status(200).send({ data: data });
+        res.status(200).send({ data: data, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

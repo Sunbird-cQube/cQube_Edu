@@ -9,6 +9,7 @@ router.post('/allDistData', auth.authController, async (req, res) => {
         let timePeriod = req.body.timePeriod;
         var fileName = `diksha_tpd/report2/${timePeriod}/district/all.json`;
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         var footer = jsonData['footer'];
 
         var chartData = {
@@ -49,7 +50,7 @@ router.post('/allDistData', auth.authController, async (req, res) => {
             }
         })
         logger.info('--- diksha chart allData api response sent ---');
-        res.send({ chartData, downloadData: jsonData, footer });
+        res.send({ chartData, downloadData: jsonData, footer, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -75,6 +76,7 @@ router.post('/getCollections', auth.authController, async (req, res) => {
 
 
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         if (jsonData) {
             let collections;
             collections = jsonData.data.map(val => {
@@ -96,7 +98,7 @@ router.post('/getCollections', auth.authController, async (req, res) => {
 
         }
         logger.info('--- diksha chart dikshaGetCollections api response sent ---');
-        res.send({ allCollections, allData: jsonData })
+        res.send({ allCollections, allData: jsonData, fileMetaData })
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -124,6 +126,7 @@ router.post('/getCollectionData', auth.authController, async (req, res) => {
         }
 
         let collectionDataRes = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         let collectionData = collectionDataRes.data;
 
         if (programId !== undefined) {
@@ -189,7 +192,7 @@ router.post('/getCollectionData', auth.authController, async (req, res) => {
             }
         })
         logger.info('--- diksha get data on collection select api response sent ---');
-        res.send({ chartData, downloadData: collectionData, collectionData: collectionData, collectionDataRes });
+        res.send({ chartData, downloadData: collectionData, collectionData: collectionData, collectionDataRes, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

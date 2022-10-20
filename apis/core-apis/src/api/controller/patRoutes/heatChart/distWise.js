@@ -62,10 +62,11 @@ router.post('/distWise', auth.authController, async (req, res) => {
 
         data = data.sort((a, b) => (a.district_name) > (b.district_name) ? 1 : -1)
         let result = await helper.generalFun(grade, data, 0, viewBy)
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         logger.info(`--- ${req.body.report} heat map distwise response sent ---`);
 
-        res.status(200).send({ districtDetails, result, downloadData: data });
+        res.status(200).send({ districtDetails, result, downloadData: data, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

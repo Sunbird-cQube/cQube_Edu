@@ -16,9 +16,10 @@ router.post('/clusterWise', auth.authController, async (req, res) => {
             fileName = `composite/comp_cluster.json`
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         logger.info('---composite report all cluster wise response sent---');
-        res.status(200).send(jsonData);
+        res.status(200).send({data: jsonData, fileMetaData});
 
     } catch (e) {
         logger.error(`Error :: ${e}`)
@@ -41,6 +42,7 @@ router.post('/clusterWise/:distId/:blockId', auth.authController, async (req, re
             fileName = `composite/comp_cluster.json`
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         let clusterFilterData = jsonData.filter(obj => {
             return (obj.district.id == distId && obj.block.id == blockId)
@@ -50,7 +52,7 @@ router.post('/clusterWise/:distId/:blockId', auth.authController, async (req, re
             res.status(404).json({ errMsg: "No data found" });
         } else {
             logger.info('---composite report cluster per block response sent---');
-            res.status(200).send(clusterFilterData);
+            res.status(200).send({data: clusterFilterData, fileMetaData});
         }
 
     } catch (e) {

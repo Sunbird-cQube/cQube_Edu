@@ -20,6 +20,7 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
         }
 
         let schoolData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         schoolData = schoolData.filter(a => {
             if (a.school_id == schoolId) {
                 return a;
@@ -28,7 +29,7 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
         logger.info('--- progressCard school wise api response sent ---');
         if (schoolData.length > 0) {
             schoolData[0] = deleteProps(schoolData[0], ['total_schools']);
-            res.status(200).send({ schoolData });
+            res.status(200).send({ schoolData, fileMetaData });
         } else {
             res.status(403).json({ errMessage: "Data not available" });
         }

@@ -10,6 +10,7 @@ router.post('/blockWise', auth.authController, async (req, res) => {
         let { timePeriod, reportType, districtId, courses } = req.body
         var fileName = `diksha_tpd/block/${timePeriod}.json`;
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         if (districtId) {
             jsonData = jsonData.filter(val => {
@@ -42,7 +43,7 @@ router.post('/blockWise', auth.authController, async (req, res) => {
         let result = await helper.generalFun(jsonData, 1, reportType)
 
         logger.info('---diksha tpd  block wise response sent ---');
-        res.status(200).send({ blockDetails, result, downloadData: jsonData });
+        res.status(200).send({ blockDetails, result, downloadData: jsonData, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

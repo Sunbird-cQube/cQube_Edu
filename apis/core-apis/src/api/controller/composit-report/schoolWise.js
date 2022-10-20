@@ -16,9 +16,10 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
             fileName = `composite/comp_school.json`
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         logger.info('---composite report all school wise response sent---');
-        res.status(200).send(data);
+        res.status(200).send({data: data, fileMetaData});
 
     } catch (e) {
         logger.error(`Error :: ${e}`)
@@ -42,6 +43,7 @@ router.post('/schoolWise/:distId/:blockId/:clusterId', auth.authController, asyn
             fileName = `composite/comp_school.json`
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         let schoolFilterData = jsonData.filter(obj => {
             return (obj.district.id == distId && obj.block.id == blockId && obj.cluster.id == clusterId)
@@ -50,7 +52,7 @@ router.post('/schoolWise/:distId/:blockId/:clusterId', auth.authController, asyn
             res.status(404).json({ errMsg: "No data found" });
         } else {
             logger.info('---composite report all schools per cluster response sent---');
-            res.status(200).send(schoolFilterData);
+            res.status(200).send({data: schoolFilterData, fileMetaData});
         }
 
     } catch (e) {
