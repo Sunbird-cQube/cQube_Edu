@@ -27,10 +27,11 @@ router.post('/allBlockWise', auth.authController, async (req, res) => {
             }
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         var blockData = jsonData.data;
         logger.info('--- crc all blocks api response sent ---');
-        res.status(200).send({ visits: blockData });
+        res.status(200).send({ visits: blockData, fileMetaData });
 
     } catch (e) {
         logger.error(`Error :: ${e}`)
@@ -63,6 +64,7 @@ router.post('/blockWise/:distId', auth.authController, async (req, res) => {
             }
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         var blockData = jsonData
         let filterData = jsonData.data.filter(obj => {
@@ -70,7 +72,7 @@ router.post('/blockWise/:distId', auth.authController, async (req, res) => {
         });
         if (filterData.length > 0) {
             logger.info('--- crc block per district api response sent ---');
-            res.status(200).send({ visits: filterData, schoolsVisitedCount: blockData.footer[`${distId}`] });
+            res.status(200).send({ visits: filterData, schoolsVisitedCount: blockData.footer[`${distId}`], fileMetaData });
         } else {
             res.status(403).json({ errMsg: "No matches found" });
         }

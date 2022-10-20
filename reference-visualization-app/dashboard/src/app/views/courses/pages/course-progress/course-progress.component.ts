@@ -103,7 +103,7 @@ export class CourseProgressComponent implements OnInit {
     document.getElementById('accessProgressCard') ? document.getElementById('accessProgressCard').style.display = 'none': '';
     document.getElementById('backBtn') ? document.getElementById('backBtn').style.display = 'none' : "";
     this.service.courseFilter({ timePeriod: 'All' }).subscribe(res => {
-      this.scousesTOShow = this.courses = res;
+      this.scousesTOShow = this.courses = res['data'];
     });
     if (environment.auth_api === 'cqube' || this.userAccessLevel === "") {
       this.commonFunc()

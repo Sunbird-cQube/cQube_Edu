@@ -16,10 +16,11 @@ router.post('/getDateRange', auth.authController, async (req, res) => {
             fileName = `exception_list/teacher_attendance_completion/metaData.json`;
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         let date = groupArray(jsonData, 'year')
         logger.info('--- getDateRange response sent ---');
-        res.status(200).send(date);
+        res.status(200).send({data: date, fileMetaData});
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

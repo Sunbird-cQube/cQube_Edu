@@ -152,7 +152,7 @@ export class TeacherAttendanceExceptionComponent implements OnInit {
     this.service.getDateRange({ report: "tarException" }).subscribe(
       (res) => {
         try {
-          this.getMonthYear = res;
+          this.getMonthYear = res['data'];
           this.years = Object.keys(this.getMonthYear);
           this.year = this.years[this.years.length - 1];
           var allMonths = [];

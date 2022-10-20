@@ -8,10 +8,11 @@ router.post('/stateData', auth.authController , async (req, res) => {
         logger.info('--- diksha content usage state api ---');
         var fileName = `diksha/pie/state.json`;
         let jsonData = await readFile.readFileConfig(fileName);
+        let fileMetaData = await readFile.getFileMetaData(fileName);
         // var footer = jsonData['footer'];
         let mydata = jsonData;
         logger.info('--- diksha content usage state api response sent ---');
-        res.send({ data: mydata });
+        res.send({ data: mydata, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

@@ -8,12 +8,13 @@ router.get('/dikshaMetaData', auth.authController, async (req, res) => {
         logger.info('--- dikshaMetaData api ---');
         let fileName = `diksha/table_reports/diksha_metadata.json`;
         let tableData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         if (tableData.districtDetails != null) {
             var sortedData = tableData.districtDetails.sort((a, b) => (a.district_name) > (b.district_name) ? 1 : -1)
             tableData['districtDetails'] = sortedData
         }
         logger.info('--- dikshaMetaData api response sent ---');
-        res.send(tableData)
+        res.send({ data:tableData, fileMetaData})
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -26,6 +27,7 @@ router.post('/dikshaAllTableData', auth.authController, async (req, res) => {
         var collectionType = req.body.collectionType;
         let fileName = `diksha/table_reports/${collectionType}/All.json`
         let tableData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         tableData = tableData.filter(obj => {
             if (obj.district_id == "All" && obj.district_name == '') {
                 delete obj.district_id
@@ -34,7 +36,7 @@ router.post('/dikshaAllTableData', auth.authController, async (req, res) => {
             }
         })
         logger.info('--- dikshaAllTableData api response sent ---');
-        res.send(tableData)
+        res.send({ data:tableData, fileMetaData})
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -48,8 +50,9 @@ router.post('/dikshaDistrictTableData', auth.authController, async (req, res) =>
         var collectionType = req.body.collectionType;
         var fileName = `diksha/table_reports/${collectionType}/${distId}.json`;
         let tableData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- dikshaDistrictTableData api response sent ---');
-        res.send(tableData)
+        res.send({ data:tableData, fileMetaData})
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -91,9 +94,10 @@ router.post('/dikshaTimeRangeTableData', auth.authController, async (req, res) =
                 }
             })
         }
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         logger.info('--- dikshaTimeRangeTableData api response sent ---');
-        res.send(tableData)
+        res.send({ data:tableData, fileMetaData})
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

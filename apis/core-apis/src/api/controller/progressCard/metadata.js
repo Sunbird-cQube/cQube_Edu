@@ -9,6 +9,7 @@ router.post('/metaData', auth.authController, async (req, res) => {
         logger.info('---progressCard metadata api ---');
         let fileName = `progressCard/${level}/metaData.json`;
         let districtData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         var districtIds = [];
         var districtNames = [];
         var districts = [];
@@ -108,7 +109,7 @@ router.post('/metaData', auth.authController, async (req, res) => {
             return unique;
         }, []);
         logger.info('--- progressCard metadata api response sent ---');
-        res.status(200).send({ districtIds, districtNames, districts, blockIds, blockNames, blocks, clusterIds, clusterNames, clusters, schoolIds, schoolNames, schools });
+        res.status(200).send({ districtIds, districtNames, districts, blockIds, blockNames, blocks, clusterIds, clusterNames, clusters, schoolIds, schoolNames, schools, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

@@ -104,7 +104,7 @@ export class CompositeReportComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.dist_wise_data({ management: this.management, category: this.category }).subscribe(res => {
-      this.result = res;
+      this.result = res['data'];
       if (Object.keys(this.result[0]).includes("Student Attendance(%)")) {
         this.xAxis = "Student Attendance(%)";
       } else {
@@ -182,7 +182,7 @@ export class CompositeReportComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.dist_wise_data({ management: this.management, category: this.category }).subscribe(res => {
-      this.reportData = this.SchoolInfrastructureDistrictsNames = this.result = res;
+      this.reportData = this.SchoolInfrastructureDistrictsNames = this.result = res['data'];
       //for chart =============================================
       this.showChart(this.result, this.downloadLevel);
       //====================================
@@ -242,7 +242,7 @@ export class CompositeReportComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.block_per_dist_data(data, { management: this.management, category: this.category }).subscribe(res => {
-      this.reportData = this.SchoolInfrastructureBlocksNames = this.result = res;
+      this.reportData = this.SchoolInfrastructureBlocksNames = this.result = res['data'];
       // for download========
       this.funToDownload(this.reportData);
       //for chart =============================================
@@ -311,7 +311,7 @@ export class CompositeReportComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.cluster_per_block_data(this.distName, data, { management: this.management, category: this.category }).subscribe(res => {
-      this.reportData = this.SchoolInfrastructureClusterNames = this.result = res;
+      this.reportData = this.SchoolInfrastructureClusterNames = this.result = res['data'];
       // for download========
       this.funToDownload(this.reportData);
       //for chart =============================================
@@ -384,7 +384,7 @@ export class CompositeReportComponent implements OnInit {
     }
     this.myData = this.service.school_per_cluster_data(distId, blockId, data, { management: this.management, category: this.category }).subscribe(res => {
       if (this.schoolLevel) {
-        let result = res
+        let result = res['data']
 
         let data = []
         for (var i = 0; result['length']; i++) {
@@ -398,7 +398,7 @@ export class CompositeReportComponent implements OnInit {
 
         this.reportData = this.SchoolInfrastructureSchoolNames = this.result = data;
       } else {
-        this.reportData = this.SchoolInfrastructureSchoolNames = this.result = res;
+        this.reportData = this.SchoolInfrastructureSchoolNames = this.result = res['data'];
       }
 
 
@@ -429,8 +429,8 @@ export class CompositeReportComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.dist_wise_data({ management: this.management, category: this.category }).subscribe(res => {
-      this.reportData = res;
-      if (res !== null) {
+      this.reportData = res['data'];
+      if (res['data'] !== null) {
         document.getElementById('spinner').style.display = 'none';
         element1[0].disabled = false;
       }
@@ -464,7 +464,7 @@ export class CompositeReportComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.block_wise_data({ management: this.management, category: this.category }).subscribe(res => {
-      this.reportData = this.result = res;
+      this.reportData = this.result = res['data'];
 
 
       if (this.districtSelected) {
@@ -536,7 +536,7 @@ export class CompositeReportComponent implements OnInit {
       this.myData.unsubscribe();
     }
     this.myData = this.service.cluster_wise_data({ management: this.management, category: this.category }).subscribe(res => {
-      this.reportData = this.result = res;
+      this.reportData = this.result = res['data'];
       if (this.districtSelected) {
         let marker = this.result.filter(a => {
           if (a.district.id === this.districtSlectedId) {
