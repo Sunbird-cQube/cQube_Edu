@@ -257,7 +257,7 @@ check_vpn_ip()
     ip_pass=0
 if [[ $mode_of_installation == "localhost" ]]; then
     if [[ ! $2 == "127.0.0.1" ]]; then
-        echo "Error - Please provide local vpn ip as 127.0.0.1 for localhost installation"; fail=1
+        echo "Error - Please provide proxy host as 127.0.0.1 for localhost installation"; fail=1
     fi
 fi
  if [[ $mode_of_installation == "public" ]]; then
