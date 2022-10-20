@@ -1,4 +1,4 @@
-const { getFileData } = require("../../service/storage_service");
+const { getFileData, getFileMetaData } = require("../../service/storage_service");
 const _ = require('lodash');
 const { configFiles } = require("../../core/config/config");
 
@@ -37,9 +37,13 @@ exports.getDashboardMetrics = async (req, res, next) => {
                     return data;
                 });
 
+			let fileMetaData = await getFileMetaData(configFiles.dashboardMenu);
 			res.status(200).send({
 				status: 200,
-				result: metricsRes
+				result: {
+					data: metricsRes,
+					fileMetaData
+				}
 			});
 		} catch (error) {
 			res.status(500).send({

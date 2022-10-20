@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { getAllFiles, getFileData, getFileRawData, uploadFile } = require('../../service/storage_service');
+const { getAllFiles, getFileData, getFileRawData, uploadFile, getFileMetaData } = require('../../service/storage_service');
 const path = require('path');
 const XLSX = require('xlsx');
 const csvToJson = require('csvtojson');
 
-router.post("/azure", (req, res, next) => {
+router.get("/azure", (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
         try {
 			let files = await getAllFiles();
@@ -24,7 +24,7 @@ router.post("/azure", (req, res, next) => {
     });
 });
 
-router.post("/azure2", (req, res, next) => {
+router.get("/azure2", (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
         try {
 			let rawData = await getFileRawData('main_metrics.csv');
@@ -43,7 +43,7 @@ router.post("/azure2", (req, res, next) => {
     });
 });
 
-router.post("/azure3", (req, res, next) => {
+router.get("/azure3", (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
         try {
 			let rawData = await getFileRawData('dashboard/key_vanity_metrics.xlsx');
@@ -64,7 +64,7 @@ router.post("/azure3", (req, res, next) => {
     });
 });
 
-router.post("/azure4", (req, res, next) => {
+router.get("/azure4", (req, res, next) => {
 	return new Promise(async function (resolve, reject) {
         try {
 			let rawData = await getFileData('main_metrics.json');
@@ -72,6 +72,25 @@ router.post("/azure4", (req, res, next) => {
 			res.status(200).send({
 				status: 200,
 				result: rawData
+			})
+        } catch(error) {
+            res.send({
+				status: error.status || 500,
+				message: error.message || "Internal server error",
+				errorObject: error
+			});
+        }
+    });
+});
+
+router.get("/azure5", (req, res, next) => {
+	return new Promise(async function (resolve, reject) {
+        try {
+			let metaData = await getFileMetaData('main_metrics.json');
+
+			res.status(200).send({
+				status: 200,
+				result: metaData
 			})
         } catch(error) {
             res.send({

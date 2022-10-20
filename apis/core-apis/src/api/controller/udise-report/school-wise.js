@@ -17,8 +17,11 @@ router.post('/allSchoolWise', auth.authController, async (req, res) => {
         }
         let schoolData = await s3File.readFileConfig(fileName);
         var mydata = schoolData.data;
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---UDISE school wise api response sent---');
-        res.status(200).send({ data: mydata, footer: schoolData.allSchoolsFooter.totalSchools });
+        res.status(200).send({
+            result: { data: mydata, footer: schoolData.allSchoolsFooter.totalSchools, fileMetaData }
+        });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -44,8 +47,11 @@ router.post('/schoolWise/:distId/:blockId/:clusterId', auth.authController, asyn
             return (obj.details.cluster_id == clusterId)
         })
         let mydata = filterData;
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---UDISE schoolPerCluster api response sent---');
-        res.status(200).send({ data: mydata, footer: schoolData.footer[`${clusterId}`].totalSchools });
+        res.status(200).send({
+            result: { data: mydata, footer: schoolData.footer[`${clusterId}`].totalSchools, fileMetaData }
+        });
 
 
     } catch (e) {
