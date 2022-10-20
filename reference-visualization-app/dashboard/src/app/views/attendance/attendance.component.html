@@ -18,7 +18,7 @@
         <mat-tab label="Teacher Attendance">
             <app-teacher-attendance *ngIf="tabIndex === 1"></app-teacher-attendance>
         </mat-tab>
-        <mat-tab label="Trends Chart" *ngIf="tabIndex === 2">
+        <mat-tab label="Trends Chart">
             <app-sat-trends-report *ngIf="tabIndex === 2" (switchToAttendance)="switchToAttendance()"></app-sat-trends-report>
         </mat-tab>
     </mat-tab-group>

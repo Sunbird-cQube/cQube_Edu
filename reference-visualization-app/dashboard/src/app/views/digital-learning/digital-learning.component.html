@@ -43,8 +43,5 @@
         <mat-tab label="Learning Sessions on Potential Users">
             <app-total-plays-per-capita  *ngIf="(tabIndex === 4 && national) || (tabIndex === 3 && !national)"></app-total-plays-per-capita>
         </mat-tab>
-        <mat-tab label="Entry Status" *ngIf="national">
-            <app-entry-status *ngIf="tabIndex === 5"></app-entry-status>
-        </mat-tab>
     </mat-tab-group>
 </div>
