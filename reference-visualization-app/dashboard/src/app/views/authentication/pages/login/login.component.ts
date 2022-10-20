@@ -41,9 +41,9 @@ export class LoginComponent implements OnInit {
   tempUserId: any;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private readonly _authenticationService: AuthenticationService) {
-    if (this._authenticationService.isUserLoggedIn()) {
-      this.router.navigate(['/home']);
-    }
+    // if (this._authenticationService.isUserLoggedIn()) {
+    //   this.router.navigate(['/home']);
+    // }
   }
 
   ngOnInit(): void {
