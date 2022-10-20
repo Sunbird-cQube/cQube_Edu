@@ -27,7 +27,18 @@ export class S3FilesDownloadComponent implements OnInit {
   listFileName: string;
   public storageType = environment.storageType;
   constructor(private router: Router, private service: S3DownloadsService) { 
-    this.listFileName = this.storageType == 's3' ? "Download \n S3 Files" : "List \n Local Files"
+    if(this.storageType == 's3')
+    {
+      this.listFileName = "Download S3 Files"
+    }
+    else if(this.storageType == 'azure')
+    {
+      this.listFileName = "Download \n azure files"
+    }
+    else{
+      this.listFileName = "List \n Local Files"
+    }
+    // this.listFileName = this.storageType == 's3' ? "Download \n S3 Files" : "List \n Local Files"
 
   }
 

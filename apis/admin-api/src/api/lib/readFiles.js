@@ -28,7 +28,6 @@ const readS3File = (s3Key) => {
     })
 }
 
-
 const readLocalFile = (fileName) => {
     return new Promise((resolve, reject) => {
         try {
@@ -65,16 +64,21 @@ var containerName = process.env.AZURE_OUTPUT_STORAGE;
 
 
 //reading file from azure
-const readFromBlob = async (blobName) => {
+const readFromBlob = async (fileName) => {
     let container = containerName;
-    return new Promise((resolve, reject) => {
-        blobService.getBlobToText(container, blobName, (err, data) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(JSON.parse(data));
-            }
-        });
+    return new Promise(async function(resolve, reject) {
+        try {
+            
+                let containerClient = blobService.getContainerClient(containerName);
+                const blockBlobClient = containerClient.getBlockBlobClient(fileName);
+                const downloadBlockBlobResponse = await blockBlobClient.download(0);
+                resolve(JSON.parse(await streamToText(downloadBlockBlobResponse.readableStreamBody)));
+            
+        }
+        catch(e)
+        {
+            reject(e)
+        }
     });
 };
 
@@ -88,6 +92,15 @@ const readFileConfig = async (fileName) => {
     } else if (storageType == 'azure') {
         data = await readFromBlob(fileName);
     };
+    return data;
+}
+
+async function streamToText(readable) {
+    readable.setEncoding('utf8');
+    let data = '';
+    for await (const chunk of readable) {
+      data += chunk;
+    }
     return data;
 }
 
