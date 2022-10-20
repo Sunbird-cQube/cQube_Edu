@@ -1,0 +1,70 @@
+#!/bin/bash
+
+echo "Checking for Postgres ..."
+temp=$(psql -V > /dev/null 2>&1; echo $?)
+
+base_dir="{{ base_dir }}"
+db_user=$(awk ''/^db_user:' /{ if ($2 !~ /#.*/) {print $2}}' $base_dir/cqube/conf/base_config.yml)
+db_name=$(awk ''/^db_name:' /{ if ($2 !~ /#.*/) {print $2}}' $base_dir/cqube/conf/base_config.yml)
+db_password=$(awk ''/^db_password:' /{ if ($2 !~ /#.*/) {print $2}}' $base_dir/cqube/conf/base_config.yml)
+
+export PGPASSWORD=$db_password
+
+for items in `ls $base_dir/cqube/postgres/frequent_backup | sort -r`
+do
+   rm $base_dir/cqube/postgres/frequent_backup/$items
+done
+
+if [[ -e "${base_dir}/cqube/.cqube_config" ]]; then
+   cqube_version_check=$(cat $base_dir/cqube/.cqube_config | grep CQUBE_VERSION )
+   cqube_version=$(cut -d "=" -f2 <<< "$cqube_version_check")
+
+	if [ $temp == 0 ]; then
+    	version=`psql -V | head -n1 | cut -d" " -f3`
+    	if [[ $(echo "$version >= 10.12" | bc) == 1 ]]
+   			 then
+        		echo "WARNING - Postgres found, taking the backup to base directory.."
+        pg_dump -h localhost -U $db_user -F t $db_name > $base_dir/cqube/postgres/frequent_backup/cqube_${cqube_version}_bk_${db_name}_`date +%Y%m%d%H%M`.tar
+       		 if [[ ! $? == 0 ]]; then
+            	echo "There is a problem dumping the database"; tput sgr0 ;
+	        	exit 1
+        	else
+            	echo "Database backup is completed"
+        	fi
+     	fi
+	fi
+fi
+
+storage_type={{ storage_type }}
+
+if [[ $storage_type == "local" ]]; then
+   input_directory_check=$(cat $base_dir/cqube/.cqube_config | grep CQUBE_INPUT_DIRECTORY )
+   input_directory=$(cut -d "=" -f2 <<< "$input_directory_check")
+    if [[ ! -e $input_directory/postgres_backup ]]; then
+       mkdir $input_directory/postgres_backup
+    fi
+limit=10
+i=1
+for items in `ls $input_directory/postgres_backup | sort -r`
+do
+    if ! [ $i -le $limit ]; then
+        rm $input_directory/postgres_backup/$items
+    fi
+    i=`expr $i + 1`
+done
+   cp $base_dir/cqube/postgres/frequent_backup/* $input_directory/postgres_backup
+fi
+
+if [[ $storage_type == "s3" ]]; then
+   s3_input_bucket={{ s3_input_bucket }}
+   export AWS_ACCESS_KEY_ID={{ s3_access_key }}
+   export AWS_SECRET_ACCESS_KEY={{ s3_secret_key }}
+   export AWS_DEFAULT_REGION='ap-south-1'
+   export SHELL=/bin/bash
+   export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+   /usr/local/bin/aws s3 sync $base_dir/cqube/postgres/frequent_backup/ s3://$s3_input_bucket/postgres_backup
+fi
+
+if [[ $storage_type == "azure" ]]; then
+  sudo az storage blob upload-batch --connection-string "{{ azure_storage_connection_string }}" --destination "{{ azure_input_container }}/postgres_backup" --source $base_dir/cqube/postgres/frequent_backup/
+fi
