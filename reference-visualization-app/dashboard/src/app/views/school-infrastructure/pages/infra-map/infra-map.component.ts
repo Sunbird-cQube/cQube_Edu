@@ -236,7 +236,7 @@ export class InfraMapComponent implements OnInit {
   
     getDistricts(): void {
       this.service.infraMapDistWise({ management: this.management, category: this.category }).subscribe((res: any) => {
-        this.markers = this.data = res.result.data;
+        this.markers = this.data = res.data;
         this.districtMarkers = this.data;
         this.districtMarkers.sort((a, b) =>
           a.details.district_name > b.details.district_name
@@ -250,7 +250,7 @@ export class InfraMapComponent implements OnInit {
   
     getBlocks(distId: any, blockId?: any): void {
       this.service.infraMapBlockWise(distId, { management: this.management, category: this.category }).subscribe((res: any) => {
-        this.markers = this.data = res.result.data;
+        this.markers = this.data = res.data;
         this.blockMarkers = this.data;
         this.blockMarkers.sort((a, b) =>
           a.details.block_name > b.details.block_name
@@ -267,7 +267,7 @@ export class InfraMapComponent implements OnInit {
   
     getClusters(distId: any, blockId: any, clusterId?: any): void {
       this.service.infraMapClusterWise(distId, blockId, { management: this.management, category: this.category }).subscribe((res: any) => {
-        this.markers = this.data = res.result.data;
+        this.markers = this.data = res.data;
         this.clusterMarkers = this.data;
         this.clusterMarkers.sort((a, b) =>
           a.details.cluster_name > b.details.cluster_name
@@ -377,8 +377,8 @@ export class InfraMapComponent implements OnInit {
           }
           this.myData = this.service.infraMapDistWise({ management: this.management, category: this.category }).subscribe(
             (res: any) => {
-              this.myDistData = res.result;
-              this.markers = this.data = res.result.data;
+              this.myDistData = res;
+              this.markers = this.data = res.data;
               this.gettingInfraFilters(this.data);
   
               // to show only in dropdowns
@@ -406,7 +406,7 @@ export class InfraMapComponent implements OnInit {
                     : 0
               );
               //schoolCount
-              this.schoolCount = res.result.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+              this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
               this.genericFun(this.districtMarkers, options, this.fileName);
   
@@ -475,7 +475,7 @@ export class InfraMapComponent implements OnInit {
         this.myData = this.service.infraMapAllBlockWise({ management: this.management, category: this.category }).subscribe(
           (res: any) => {
             if (this.districtSelected) {
-              this.myBlockData = res.result.data;
+              this.myBlockData = res.data;
               let marker = this.myBlockData.filter(a => {
                 if (a.details.district_id === this.districtSlectedId) {
   
@@ -549,7 +549,7 @@ export class InfraMapComponent implements OnInit {
                   this.globalService.onResize(this.level);
   
                   //schoolCount
-                  this.schoolCount = res.result.footer;
+                  this.schoolCount = res.footer;
                   this.schoolCount = this.schoolCount
                     .toString()
                     .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
@@ -559,7 +559,7 @@ export class InfraMapComponent implements OnInit {
                 }
               }
             } else if (this.blockSelected) {
-              this.myBlockData = res.result.data;
+              this.myBlockData = res.data;
               let marker = this.myBlockData.filter(a => {
                 if (a.details.block_id === this.blockSelectedId) {
   
@@ -633,7 +633,7 @@ export class InfraMapComponent implements OnInit {
                   this.globalService.onResize(this.level);
   
                   //schoolCount
-                  this.schoolCount = res.result.footer;
+                  this.schoolCount = res.footer;
                   this.schoolCount = this.schoolCount
                     .toString()
                     .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
@@ -643,7 +643,7 @@ export class InfraMapComponent implements OnInit {
                 }
               }
             } else if (this.selectedCluster) {
-              this.myBlockData = res.result.data;
+              this.myBlockData = res.data;
               let marker = this.myBlockData.filter(a => {
                 if (a.details.block_id === this.blockSelectedId) {
                   return a
@@ -716,7 +716,7 @@ export class InfraMapComponent implements OnInit {
                   this.globalService.onResize(this.level);
   
                   //schoolCount
-                  this.schoolCount = res.result.footer;
+                  this.schoolCount = res.footer;
                   this.schoolCount = this.schoolCount
                     .toString()
                     .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
@@ -726,8 +726,8 @@ export class InfraMapComponent implements OnInit {
                 }
               }
             } else {
-              this.myBlockData = res.result.data;
-              this.markers = this.data = res.result.data;
+              this.myBlockData = res.data;
+              this.markers = this.data = res.data;
               this.gettingInfraFilters(this.data);
               let options = {
                 radius: 4,
@@ -793,7 +793,7 @@ export class InfraMapComponent implements OnInit {
                   this.globalService.onResize(this.level);
   
                   //schoolCount
-                  this.schoolCount = res.result.footer;
+                  this.schoolCount = res.footer;
                   this.schoolCount = this.schoolCount
                     .toString()
                     .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
@@ -858,7 +858,7 @@ export class InfraMapComponent implements OnInit {
         this.myData = this.service.infraMapAllClusterWise({ management: this.management, category: this.category }).subscribe(
           (res: any) => {
             if (this.districtSelected) {
-              let cluster = res.result.data
+              let cluster = res.data
   
               let marker = cluster.filter(a => {
                 if (a.details.district_id === this.districtSlectedId) {
@@ -941,7 +941,7 @@ export class InfraMapComponent implements OnInit {
                   }
   
                   //schoolCount
-                  this.schoolCount = res.result.footer
+                  this.schoolCount = res.footer
                     .toString()
                     .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
@@ -952,7 +952,7 @@ export class InfraMapComponent implements OnInit {
                 }
               }
             } else if (this.blockSelected) {
-              let cluster = res.result.data
+              let cluster = res.data
               let marker = cluster.filter(a => {
                 if (a.details.block_id === this.blockSelectedId) {
                   return a
@@ -1023,7 +1023,7 @@ export class InfraMapComponent implements OnInit {
                   }
   
                   //schoolCount
-                  this.schoolCount = res.result.footer
+                  this.schoolCount = res.footer
                     .toString()
                     .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
@@ -1034,7 +1034,7 @@ export class InfraMapComponent implements OnInit {
                 }
               }
             } else if (this.selectedCluster) {
-              let cluster = res.result.data
+              let cluster = res.data
               let marker = cluster.filter(a => {
                 if (a.details.cluster_id === this.selectedCLusterId) {
                   return a
@@ -1105,7 +1105,7 @@ export class InfraMapComponent implements OnInit {
                   }
   
                   //schoolCount
-                  this.schoolCount = res.result.footer
+                  this.schoolCount = res.footer
                     .toString()
                     .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
@@ -1116,7 +1116,7 @@ export class InfraMapComponent implements OnInit {
                 }
               }
             } else {
-              this.markers = this.data = res.result.data;
+              this.markers = this.data = res.data;
               this.gettingInfraFilters(this.data);
               let options = {
                 radius: 2,
@@ -1179,7 +1179,7 @@ export class InfraMapComponent implements OnInit {
                   }
   
                   //schoolCount
-                  this.schoolCount = res.result.footer
+                  this.schoolCount = res.footer
                     .toString()
                     .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
@@ -1249,7 +1249,7 @@ export class InfraMapComponent implements OnInit {
   
               if (this.districtSelected) {
                 this.districtId = this.districtSlectedId;
-                let data = res.result.data;
+                let data = res.data;
                 let marker = data.filter(a => {
                   if (a.details.district_id === this.districtSlectedId) {
                     return a
@@ -1336,7 +1336,7 @@ export class InfraMapComponent implements OnInit {
                     this.globalService.onResize(this.level);
   
                     //schoolCount
-                    this.schoolCount = res.result.footer;
+                    this.schoolCount = res.footer;
                     this.schoolCount = this.schoolCount
                       .toString()
                       .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
@@ -1350,7 +1350,7 @@ export class InfraMapComponent implements OnInit {
                 }
               } else if (this.blockSelected) {
   
-                let data = res.result.data;
+                let data = res.data;
                 let marker = data.filter(a => {
                   if (a.details.block_id === this.blockSelectedId) {
                     return a
@@ -1438,7 +1438,7 @@ export class InfraMapComponent implements OnInit {
                     this.globalService.onResize(this.level);
   
                     //schoolCount
-                    this.schoolCount = res.result.footer;
+                    this.schoolCount = res.footer;
                     this.schoolCount = this.schoolCount
                       .toString()
                       .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
@@ -1451,7 +1451,7 @@ export class InfraMapComponent implements OnInit {
                   this.commonService.loaderAndErr(this.schoolMarkers);
                 }
               } else if (this.selectedCluster) {
-                let data = res.result.data;
+                let data = res.data;
   
                 let marker = data.filter(a => {
   
@@ -1532,7 +1532,7 @@ export class InfraMapComponent implements OnInit {
                       this.globalService.onResize(this.level);
   
                       //schoolCount
-                      this.schoolCount = res.result.footer;
+                      this.schoolCount = res.footer;
                       this.schoolCount = this.schoolCount
                         .toString()
                         .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
@@ -1547,7 +1547,7 @@ export class InfraMapComponent implements OnInit {
                 }
   
               } else {
-                this.markers = this.data = res.result.data;
+                this.markers = this.data = res.data;
                 this.gettingInfraFilters(this.data);
                 let options = {
                   radius: 1,
@@ -1615,7 +1615,7 @@ export class InfraMapComponent implements OnInit {
                     this.globalService.onResize(this.level);
   
                     //schoolCount
-                    this.schoolCount = res.result.footer;
+                    this.schoolCount = res.footer;
                     this.schoolCount = this.schoolCount
                       .toString()
                       .replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
@@ -1683,7 +1683,7 @@ export class InfraMapComponent implements OnInit {
       }
       this.myData = this.service.infraMapBlockWise(districtId, { management: this.management, category: this.category }).subscribe(
         (res: any) => {
-          this.markers = this.data = res.result.data;
+          this.markers = this.data = res.data;
           this.gettingInfraFilters(this.data);
   
           this.blockMarkers = this.data;
@@ -1725,7 +1725,7 @@ export class InfraMapComponent implements OnInit {
           this.globalService.restrictZoom(globalMap);
   
           //schoolCount
-          this.schoolCount = res.result.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+          this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
           this.genericFun(this.blockMarkers, options, this.fileName);
           this.globalService.onResize(this.level);
@@ -1781,7 +1781,7 @@ export class InfraMapComponent implements OnInit {
         .infraMapClusterWise(this.districtId, blockId, { management: this.management, category: this.category })
         .subscribe(
           (res: any) => {
-            this.markers = this.data = res.result.data;
+            this.markers = this.data = res.data;
             this.gettingInfraFilters(this.data);
   
             this.clusterMarkers = this.data;
@@ -1832,7 +1832,7 @@ export class InfraMapComponent implements OnInit {
             this.globalService.restrictZoom(globalMap);
   
             //schoolCount
-            this.schoolCount = res.result.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+            this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
             this.genericFun(this.clusterMarkers, options, this.fileName);
             this.globalService.onResize(this.level);
@@ -1897,17 +1897,17 @@ export class InfraMapComponent implements OnInit {
               (res: any) => {
   
                 if (this.schoolLevel) {
-                  let schoolData = res.result.data
+                  let schoolData = res.data
                   let data = schoolData.filter(data => data.details.school_id === Number(localStorage.getItem('schoolId')))
   
                   this.markers = this.data = data
                 } else {
-                  this.markers = this.data = res.result.data;
+                  this.markers = this.data = res.data;
                 }
                 this.gettingInfraFilters(this.data);
   
                 this.schoolMarkers = this.data;
-                var markers = result.result.data;
+                var markers = result.data;
                 var myBlocks = [];
                 markers.forEach((element) => {
                   if (
@@ -1982,7 +1982,7 @@ export class InfraMapComponent implements OnInit {
                 globalMap.scrollWheelZoom.enable();
 
                 //schoolCount
-                this.schoolCount = res.result.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
+                this.schoolCount = res.footer.toString().replace(/(\d)(?=(\d\d)+\d$)/g, "$1,");
   
                 this.genericFun(this.schoolMarkers, options, this.fileName);
                 this.globalService.onResize(this.level);

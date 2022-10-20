@@ -20,10 +20,8 @@ router.post('/allClusterWise', auth.authController, async (req, res) => {
         let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---Infra all cluster wise response sent---');
         res.status(200).send({
-            result: {
-                data,
-                fileMetaData
-            }
+            data,
+            fileMetaData
         });
 
     } catch (e) {
@@ -57,10 +55,8 @@ router.post('/clusterWise/:distId/:blockId', auth.authController, async (req, re
             logger.info('---Infra cluster per block response sent---');
             let fileMetaData = await s3File.getFileMetaData(fileName);
             res.status(200).send({
-                result: {
-                    data: clusterFilterData,
-                    fileMetaData
-                }
+                data: clusterFilterData,
+                fileMetaData
             });
         }
 
