@@ -4,6 +4,7 @@ const auth = require('../../middleware/check-auth');
 var const_data = require('../../lib/config');
 const fs = require('fs');
 const config = require('../../lib/readFiles');
+const { BlobServiceClient } = require('@azure/storage-blob');
 const inputDir = `${process.env.EMISSION_DIRECTORY}/`;
 
 router.post('/', auth.authController, async (req, res) => {

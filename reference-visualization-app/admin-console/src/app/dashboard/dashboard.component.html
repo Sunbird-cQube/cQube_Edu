@@ -124,8 +124,11 @@
                             </div>
                             <div class="col-9 col-md-10">
                                 <div class="numbers">
-                                    <p *ngIf="this.storageType == 's3'; else template" class="card-category">Download
+                                    <p *ngIf="this.storageType == 's3'" class="card-category">Download
                                         <br> S3 Files
+                                    </p>
+                                    <p *ngIf="this.storageType == 'azure'; else template" class="card-category">Download
+                                        <br> Azure Files
                                     </p>
                                     <ng-template #template>
                                         <p class="card-category">List <br> Local Files</p>
