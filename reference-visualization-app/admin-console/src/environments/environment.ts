@@ -11,7 +11,8 @@ export const environment = {
   keycloakUrl: "http://localhost:8080/auth",
   realm: "cQube",
   clientId: "cQube_Admin",
-  storageType: "s3",
+  // storageType: "s3",
+  storageType: "azure",
   report_viewer_config_otp: true,
   auth_api: "state"
 };
