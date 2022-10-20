@@ -14,9 +14,9 @@
 </div>
 
 <div class="tab-group-wrapper">
-    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+    <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
         <mat-tab label="Implementation Status" class="tab-first" *ngIf="national">
-            <div class="col">
+            <div class="col" *ngIf="tabIndex === 0">
                 <div class="grid grid-cols-12">
                     <div class="col-span-full" appFullScreen>
                         <div class="grid grid-cols-12 button-right">
@@ -31,20 +31,20 @@
                 <p class="mt-8">Loading...</p>
             </div>
         </mat-tab>
-        <mat-tab label="ETB Coverage Status" >
-            <app-digital-learning-coverage></app-digital-learning-coverage>
+        <mat-tab label="ETB Coverage Status">
+            <app-digital-learning-coverage  *ngIf="(tabIndex === 1 && national) || (tabIndex === 0 && !national)" ></app-digital-learning-coverage>
         </mat-tab>
         <mat-tab label="Content Coverage on QR" class="tab-last" >
-            <app-qr-coverage-across-states></app-qr-coverage-across-states>
+            <app-qr-coverage-across-states *ngIf="(tabIndex === 2 && national) || (tabIndex === 1 && !national)"></app-qr-coverage-across-states>
         </mat-tab>
         <mat-tab label="Learning Sessions" class="tab-last">
-            <app-total-learning-sessions></app-total-learning-sessions>
+            <app-total-learning-sessions *ngIf="(tabIndex === 3 && national) || (tabIndex === 2 && !national)"></app-total-learning-sessions>
         </mat-tab>
-        <mat-tab label="Learning Sessions on Potential Users" >
-            <app-total-plays-per-capita></app-total-plays-per-capita>
+        <mat-tab label="Learning Sessions on Potential Users">
+            <app-total-plays-per-capita  *ngIf="(tabIndex === 4 && national) || (tabIndex === 3 && !national)"></app-total-plays-per-capita>
         </mat-tab>
-        <mat-tab label="Entry Status" *ngIf="config === 'national'">
-            <app-entry-status></app-entry-status>
+        <mat-tab label="Entry Status" *ngIf="national">
+            <app-entry-status *ngIf="tabIndex === 5"></app-entry-status>
         </mat-tab>
     </mat-tab-group>
 </div>

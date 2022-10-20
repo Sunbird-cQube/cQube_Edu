@@ -17,8 +17,11 @@ router.post('/allClusterWise', auth.authController, async (req, res) => {
         }
         let clusterData = await s3File.readFileConfig(fileName);
         var mydata = clusterData.data;
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---UDISE cluster wise api response sent---');
-        res.status(200).send({ data: mydata, footer: clusterData.allClustersFooter.totalSchools });
+        res.status(200).send({
+            data: mydata, footer: clusterData.allClustersFooter.totalSchools, fileMetaData
+        });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -46,8 +49,11 @@ router.post('/clusterWise/:distId/:blockId', auth.authController, async (req, re
             return (obj.details.district_id == distId && obj.details.block_id == blockId)
         })
         let mydata = filterData;
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---UDISE clusterperBlock api response sent---');
-        res.status(200).send({ data: mydata, footer: clusterData.footer[`${blockId}`].totalSchools });
+        res.status(200).send({
+            data: mydata, footer: clusterData.footer[`${blockId}`].totalSchools, fileMetaData
+        });
 
 
     } catch (e) {

@@ -25,7 +25,7 @@ export class ConfigService {
   getDashboardMetrics(forMenu = false): Observable<ResponseType<IDashboardMenu[] | any[]>> {  
     return this._http.get<ResponseType<IDashboardMenu[]>>(`${environment.apiURL}/metrics/getDashboardMetrics/${environment.config.toLowerCase()}/${forMenu}`).pipe(
       tap((res: any) => {
-        res.result.map((item: any) => {
+        res.result.data.map((item: any) => {
           item.metrics.map((metric: any) => {
             if (typeof metric.value === 'number' || !isNaN(Number(metric.value))) {
               metric.value = Number(metric.value);

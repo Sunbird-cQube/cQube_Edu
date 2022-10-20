@@ -17,9 +17,12 @@ router.post('/blockWise', auth.authController, async (req, res) => {
             fileName = `infra/infra_block_table.json`
         }
         let data = await s3File.readFileConfig(fileName);
-
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- Infra dist block api response sent ---');
-        res.status(200).send(data);
+        res.status(200).send({
+            data,
+            fileMetaData
+        });
 
     } catch (e) {
         logger.error(`Error :: ${e}`)
@@ -51,7 +54,11 @@ router.post('/blockWise/:distId', auth.authController, async (req, res) => {
         } else {
             // map and extract required  values to show in the leaflet-map
             logger.info('--- Infra block per district api reponse sent ---');
-            res.status(200).send(filterData);
+            let fileMetaData = await s3File.getFileMetaData(fileName);
+            res.status(200).send({
+                data: filterData,
+                fileMetaData
+            });
         }
     } catch (e) {
         logger.error(`Error :: ${e}`)
