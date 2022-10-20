@@ -120,8 +120,13 @@ fi
 if [ $? = 0 ]; then
 chmod u+x install_ui.sh
 . "install_ui.sh"
-    if [ $? = 0 ]; then
+fi
+
+#setting up postgres backup cronjob
+if [ $? = 0 ]; then
+chmod u+x setup_database_backup.sh
+. "setup_database_backup.sh"
+   if [ $? = 0 ]; then
         echo "cQube $access_type installed successfully!!"
     fi
 fi
-
