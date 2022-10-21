@@ -36,27 +36,26 @@ local_ipv4_address:                         # enter the private ip of this serve
 proxy_host:                                 # enter the private ip of ngnix server. To find the ip address. Use `ip addr` or `ifconfig`
 keycloak_adm_user:                          # enter the keycloak admin user to be created 
 keycloak_adm_passwd:                        # enter the keycloak admin password. password should contain atleast 1 lower,upper,number,special character (only @!%^*? allowed)  and minimum 8 characters
-
+session_timeout: 7D                      # Do not change this value. Default is set to 7D
 #----Below variables are independent of national and by default it should be false, If state installation please fill true or false------#
 #Enter the value as `true`,  if content_gradelevel & collection_gradelevel columns are available.
 #Enter the value as `false`, if content_gradelevel & collection_gradelevel columns are not available.
 diksha_columns: false                    # Enter true or false for state installation, Enter false for national
 report_viewer_config_otp: false             # enter true or false to enable OTP authentication for all users (only applicable when auth_api is `cqube`). Enter false for national.
+db_backup_scheduling:                         # Enter true if auto backup of database needs to setup. Enter false if data base backup scheduling not required.
  
 #-----Below variable are applicable only for state installation. If you chose national installation then fill the variables as NA.---#
 
-state_code: NA                              # Please enter state code if you selected access_type as state ( refer to state_list )
+state_code: NA                           # Please enter state code if you selected access_type as state ( refer to state_list )
 
-static_datasource:                       # Enter udise or state for state installation, Enter NA for national
+static_datasource:                       # Enter udise or state for state installation, Enter NA if access_type is national
 
-management:                              # Enter the management for state installation, Enter NA for national
+management:                              # Enter the management for state installation, Enter NA if access_type is  national
 
-session_timeout: 7D                      # enter the value between 30 Minutes to 3650 Days. Eg. For minutes `60M`  Eg. For days `15D`. Make sure M and D should be mentioned upper case.
+slab1:                                   #Enter slab1 value between 1-100 ( eg: slab1: 33  ), Enter NA if access_type is  national
 
-slab1:                                    #Enter slab1 value between 1-100 ( eg: slab1: 33  )
+slab2:                                   #Enter slab2 value range is greater than slab1 and between 1-100 ( eg: slab2: 33-60 ), Enter NA if access_type is  national 
 
-slab2:                                    #Enter slab2 value range is greater than slab1 and between 1-100 ( eg: slab2: 33-60 ) 
+slab3:                                   #Enter slab3 value range is greater than slab2 and between 1-100 ( eg: slab3: 60-75 ), Enter NA if access_type is  national 
 
-slab3:                                    #Enter slab3 value range is greater than slab2 and between 1-100 ( eg: slab3: 60-75 ) 
-
-slab4:                                    #Enter slab4 value is greater than or equal to slab3 last value between 1-100 ( eg: slab4 75 )
+slab4:                                   #Enter slab4 value is greater than or equal to slab3 last value between 1-100 ( eg: slab4 75 ), Enter NA if access_type is  national

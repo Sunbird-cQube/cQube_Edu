@@ -4,7 +4,9 @@ const auth = require('../../middleware/check-auth');
 var const_data = require('../../lib/config');
 const { storageType } = require('../../lib/readFiles');
 const glob = require("glob");
-const { BlobServiceClient } = require('@azure/storage-blob');
+const { BlobServiceClient, StorageSharedKeyCredential,generateBlobSASQueryParameters, BlobSASPermissions } = require('@azure/storage-blob');
+const storage  = require('@azure/storage-blob');
+
 
 if(storageType === 'azure'){
     var azure = require('azure-storage');
@@ -14,6 +16,9 @@ const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONN_STR;
         AZURE_STORAGE_CONNECTION_STRING
     );
 var containerName = process.env.AZURE_OUTPUT_STORAGE;
+var conn_str_arr = process.env.AZURE_STORAGE_CONN_STR.split(";")
+var account_name = conn_str_arr[1].split("=")[1];
+var account_key = conn_str_arr[2].split("=")[1]
 }
 
 router.post('/listBuckets', auth.authController, async function (req, res) {
@@ -26,8 +31,9 @@ router.post('/listBuckets', auth.authController, async function (req, res) {
                 'output': process.env.OUTPUT_BUCKET_NAME,
                 'emission': process.env.EMISSION_BUCKET_NAME
             }
+            console.log("S3 buckets are:", listBuckets);
         }  
-        if (storageType == "azure") {
+        else if (storageType == "azure") {
             listBuckets = {
                 'input': process.env.AZURE_INPUT_STORAGE,
                 'output': process.env.AZURE_OUTPUT_STORAGE,
@@ -77,11 +83,10 @@ router.post('/listFiles', auth.authController, async function (req, res) {
                 return new Promise(async function (resolve, reject) {
                     try {
                             console.log("inside azure try")
-                            let containerClient = blobService.getContainerClient(containerName);
+                            let containerClient = blobService.getContainerClient(param.Bucket);
                             // List the blob(s) in the container.
                             let filePaths = [];
                             for await (const blob of containerClient.listBlobsFlat()) {
-                            console.log("blob names", blob.name);
                                 
                                 filePaths.push(blob.name);
                             }
@@ -137,15 +142,34 @@ router.post('/getDownloadUrl', auth.authController, async function (req, res) {
        
         else if(storageType === "azure")
         {
-        const containerClient = blobService.getContainerClient(params.Bucket);
-        const blockBlobClient = containerClient.getBlockBlobClient(params.Key);
-        const downloadBlockBlobResponse = await blockBlobClient.downloadToFile(params.Key);
-        console.log("\nDownloaded blob content...");
-        // const response = await streamToText(downloadBlockBlobResponse.blobBody)
-        // console.log("Response is", response);
-        console.log("Blob is:",downloadBlockBlobResponse);
-        // res.status(200).send({ downloadUrl: response })
+        // const containerClient = blobService.getContainerClient(params.Bucket);
+        // const blockBlobClient = containerClient.getBlockBlobClient(params.Key);
+        // const downloadBlockBlobResponse = await blockBlobClient.downloadToFile();
+        // console.log("\nDownloaded blob content...");
+        // console.log("Blob is:",downloadBlockBlobResponse);
+        const accountname =account_name;
+        const key = account_key;
+        console.log("storage")
+        const cerds = new storage.StorageSharedKeyCredential(accountname,key);
+        const blobServiceClient = new storage.BlobServiceClient(`https://${accountname}.blob.core.windows.net`,cerds);
+        const containerName=params.Bucket;
+        const client =blobServiceClient.getContainerClient(containerName)
+        const blobName=params.Key;
+        const blobClient = client.getBlobClient(blobName);
 
+        const blobSAS = storage.generateBlobSASQueryParameters({
+        containerName, 
+        blobName, 
+        permissions: storage.BlobSASPermissions.parse("racwd"), 
+        startsOn: new Date(),
+        expiresOn: new Date(new Date().valueOf() + 86400)
+        },
+        cerds 
+        ).toString();
+        
+        const sasUrl= blobClient.url+"?"+ blobSAS;
+        res.status(200).send({ downloadUrl: sasUrl })
+        console.log("The SAS url is",sasUrl);
         }
         
     } catch (e) {

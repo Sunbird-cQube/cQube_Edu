@@ -10,8 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "2fa-util": "^1.1.1",
+    "@azure/storage-blob": "^12.12.0",
     "@types/speakeasy": "^2.0.7",
+    "2fa-util": "^1.1.1",
     "aws-sdk": "^2.633.0",
     "axios": "^0.19.2",
     "azure-storage": "^2.10.5",

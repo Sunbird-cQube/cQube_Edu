@@ -51,4 +51,36 @@ router.post('/:id', async (req, res) => {
     }
 });
 
+router.post('/report-viewer/:id', async (req, res) => {
+    try {
+        console.log('entered rv chnagepassword')
+        var userId = req.params.id;
+     
+        let usersUrl = `${host}/auth/admin/realms/${realm}/users/${userId}/reset-password`;
+        let newPass = {
+            temporary: false,
+            type: "password",
+            value: req.body.details.cnfpass
+        };
+        let headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${req.body.token}`
+        }
+        axios.put(usersUrl, newPass, { headers: headers }).then(resp => {
+        
+                res.status(201).json({ msg: "Password changed" });
+        
+        }).catch(error => {
+            console.log('err', error)
+
+        })
+
+
+
+    } catch (e) {
+
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
+
 module.exports = router;
