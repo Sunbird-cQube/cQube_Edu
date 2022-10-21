@@ -16,7 +16,11 @@
             <button [attr.aria-pressed]="false" type="button" tabindex="0" attr.aria-label="A+"
                 class="fontResizeBtn fontResizeBtn_A+" title="Increase font size" (click)="changeFontSize('increase');"
                 id="font-size-increase" name="font-size-increase" #increaseFontSize>A+</button>
-            <i *ngIf="!national" class="fa fa-sign-out" aria-hidden="true" (click)="signOut()" id="signOut" name="signOut"></i>
+            <i *ngIf="role==='report_viewer'" class="fa fa-key" aria-hidden="true"
+                [routerLink]="['change-password']"></i>
+            
+            <i *ngIf="!national" class="fa fa-sign-out" aria-hidden="true" (click)="signOut()" id="signOut"
+                name="signOut"></i>
             <!-- <button id="dark-mode-toggle" class="dark-mode-toggle" tabindex="0"
              title="{{resourceService?.frmelmnts?.lbl?.accessibilitytheme}}" (click)="changeTheme()"
              (keydown.enter)="changeTheme();" #darkModeToggle>
