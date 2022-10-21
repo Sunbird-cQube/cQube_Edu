@@ -25,7 +25,8 @@
     align-items: center;
     justify-content: center; 
     gap:0.5rem;
-    button, .fa-sign-out, .fa-arrow-left{
+   
+    button, .fa-sign-out, .fa-arrow-left, .fa-key{
         background:var(--cQ-primary);
         border: 0.0625rem solid rgb(255 255 255 / 25%);
         border-radius: 100%;
