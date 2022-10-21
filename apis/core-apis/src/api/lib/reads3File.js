@@ -141,7 +141,7 @@ const getFileMetaData = async (fileName) => {
             }
         } else if (storageType == 'azure') {
             try {
-                let containerClient = blobService.getContainerClient(containerName);
+                let containerClient = blobServiceClient.getContainerClient(containerName);
                 const blockBlobClient = containerClient.getBlockBlobClient(fileName);
                 const metaData = await blockBlobClient.getProperties();
                 
