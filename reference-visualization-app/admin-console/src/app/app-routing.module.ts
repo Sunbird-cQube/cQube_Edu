@@ -35,7 +35,7 @@ const routes: Routes = [
         path: 'users', component: ListUsersComponent, canActivateChild: [AuthGuard]
       },
       {
-        path: 's3FileDownload', component: S3FilesDownloadComponent, canActivateChild: [AuthGuard]
+        path: 'FileDownload', component: S3FilesDownloadComponent, canActivateChild: [AuthGuard]
       },
       {
         path: 'summary-statistics', component: SummaryStatistictsComponent, canActivateChild: [AuthGuard]

@@ -83,9 +83,10 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
 
         data = data.sort((a, b) => (a.school_name) > (b.school_name) ? 1 : -1)
         let result = await helper.generalFun(grade, data, 3, viewBy)
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         logger.info(`--- ${req.body.report} heat map school wise response sent ---`);
-        res.status(200).send({ schoolDetails, result, downloadData: data });
+        res.status(200).send({ schoolDetails, result, downloadData: data, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

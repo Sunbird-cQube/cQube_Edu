@@ -10,6 +10,7 @@ router.post('/clusterWise', auth.authController, async (req, res) => {
         let { timePeriod, reportType, blockId, courses } = req.body
         var fileName = `diksha_tpd/cluster/${timePeriod}.json`;
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         if (blockId) {
             jsonData = jsonData.filter(val => {
@@ -47,7 +48,7 @@ router.post('/clusterWise', auth.authController, async (req, res) => {
         let result = await helper.generalFun(jsonData, 2, reportType)
 
         logger.info('--- diksha tpd  cluster wise response sent ---');
-        res.status(200).send({ clusterDetails, result, downloadData: jsonData });
+        res.status(200).send({ clusterDetails, result, downloadData: jsonData, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

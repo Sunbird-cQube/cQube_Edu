@@ -269,7 +269,7 @@ export class MapReportComponent implements OnInit {
     this.service1.configurableMetricMeta({ dataSource: this.datasourse }).subscribe(res => {
       this.metricName = ""
 
-      this.metricName = res
+      this.metricName = res['data']
 
       this.metricName.forEach(metric => this.metricName = metric.result_column.trim())
 
@@ -278,7 +278,7 @@ export class MapReportComponent implements OnInit {
   }
   getTimelineMeta() {
     this.service1.configurableTimePeriodMeta({ dataSource: this.datasourse }).subscribe(res => {
-      this.timeRange = res
+      this.timeRange = res['data']
       const key = 'value';
       this.timeRange = [...new Map(this.timeRange.map(item =>
         [item[key], item])).values()];

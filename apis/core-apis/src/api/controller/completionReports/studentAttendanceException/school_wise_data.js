@@ -43,6 +43,7 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
             }
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         var schoolsAttendanceData = jsonData.data
         var dateRange = `${schoolsAttendanceData[0]['data_from_date']} to ${schoolsAttendanceData[0]['data_upto_date']}`;
         var schoolData = [];
@@ -64,7 +65,7 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
             schoolData.push(obj);
         }
         logger.info(`---${req.body.report} school wise api response sent ---`);
-        res.status(200).send({ schoolData: schoolData, missingSchoolsCount: jsonData.allSchoolsFooter.total_schools_with_missing_data, dateRange: dateRange });
+        res.status(200).send({ schoolData: schoolData, missingSchoolsCount: jsonData.allSchoolsFooter.total_schools_with_missing_data, dateRange: dateRange, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -114,6 +115,7 @@ router.post('/schoolPerCluster', auth.authController, async (req, res) => {
         }
 
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         var schoolsDetails = [];
         var filterData = jsonData.data.filter(data => {
             return (data.cluster_id == clusterId)
@@ -138,7 +140,7 @@ router.post('/schoolPerCluster', auth.authController, async (req, res) => {
             schoolsDetails.push(obj);
         }
         logger.info(`---${req.body.report} schoolPerCluster api response sent ---`);
-        res.status(200).send({ schoolsDetails: schoolsDetails, missingSchoolsCount: jsonData.footer[clusterId].total_schools_with_missing_data, dateRange: dateRange });
+        res.status(200).send({ schoolsDetails: schoolsDetails, missingSchoolsCount: jsonData.footer[clusterId].total_schools_with_missing_data, dateRange: dateRange, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

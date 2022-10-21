@@ -84,7 +84,77 @@ const dataSourceInfo = {
             ]
         }
     },
-    entryStatus: {
+    moduleWideStatus: {
+        map: {
+            pathToFile: 'nipun_bharat_entry_status.json',
+            groupByDefault: "State",
+            locations: [
+                {
+                    name: "Location",
+                    property: "State",
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State/UT name"
+                    }
+                }
+            ],
+            dimensions: [
+                {
+                    name: "Quarter",
+                    property: "Quarter",
+                    tooltip: {
+                        name: "Quarter"
+                    }
+                },
+                {
+                    name: "Entry Value",
+                    property: "Entry Value",
+                    aggegration: {
+                        type: "SUM"
+                    },
+                    tooltip: {
+                        name: "Total modules"
+                    }
+                },
+                {
+                    name: "indicator",
+                    property: "Entry Value",
+                    aggegration: {
+                        type: "AVG",
+                        percentage: true
+                    },
+                    tooltip: {
+                        name: "Modules completed",
+                        valueSuffix: "%"
+                    }
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
+                }
+            ],
+            filters: [
+                {
+                    name: 'Module',
+                    column: 'Module'
+                },
+                {
+                    name: 'Quarter',
+                    column: 'Quarter'
+                }
+            ],
+            options: {
+                legend: {
+                    title: 'Module Completed'
+                },
+                tooltip: {
+                    reportTypeIndicator: 'percent'
+                }
+            }
+        }
+    },
+    detailedStatus: {
         loTable: {
             pathToFile: 'nipun_bharat_entry_status.json',
             columns: [

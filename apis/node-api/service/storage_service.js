@@ -36,6 +36,7 @@ const getAllFiles = async () => {
                     resolve(filePaths);
                 });
             } else if (storageServiceType === storageServices.ON_PREMISE) {
+                console.log(process.env.INPUT_DIR);
                 fs.readdir(process.env.INPUT_DIR, (err, files) => {
                     if (err) {
                         reject("Invalid input directory");

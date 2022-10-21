@@ -14,6 +14,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 export class LayoutComponent implements OnInit {
   menu: IMenuItem[] | undefined;
   national: boolean = true;
+  role: any;
 // Font Increase Decrease Variables
 fontSize: any;
 defaultFontSize = 16;
@@ -23,6 +24,10 @@ increaseFontSize!: ElementRef;
 decreaseFontSize!: ElementRef;
 @ViewChild('resetFontSize')
 resetFontSize!: ElementRef;
+
+
+
+  chngePswdRoute = `${environment.appUrl}/#/change-password`
 // @ViewChild('darkModeToggle') darkModeToggle: ElementRef;
   constructor(private readonly _configService: ConfigService, private renderer: Renderer2, private readonly _authService: AuthenticationService) {
     this._configService.getDashboardMetrics(true).subscribe((menuResult: any) => {
@@ -50,6 +55,8 @@ resetFontSize!: ElementRef;
     if(environment.config === 'state'){
       this.national = false;
     }
+    this.role = localStorage.getItem('roleName');
+    console.log(this.role);
   }
 
 
@@ -126,6 +133,10 @@ resetFontSize!: ElementRef;
     }
     signOut() {
       this._authService.logout();
+    }
+
+    backToHome() {
+      
     }
 
 }

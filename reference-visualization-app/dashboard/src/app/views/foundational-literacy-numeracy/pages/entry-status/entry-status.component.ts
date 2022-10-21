@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IReportDataPayload } from 'src/app/core/models/IReportDataPayload';
 import { CommonService } from 'src/app/core/services/common/common.service';
+import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,36 +10,38 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./entry-status.component.scss']
 })
 export class EntryStatusComponent implements OnInit {
+  ETBStateData: any;
+  filters: any;
+  isMapReportLoading = true;
+  fileName: string = "Report_data";
 
-  tableData: any;
-  filters: any[] = [];
-  fileName: string = "Entry_Status";
-
-  constructor(private readonly _commonService: CommonService) {
-    this.getStateWiseNasCoverageData(this.filters);
+  constructor(private readonly _commonService: CommonService, private readonly _configService: ConfigService) {
+    this.getETBData(this.filters);
   }
 
   ngOnInit(): void {
   }
 
-  getStateWiseNasCoverageData(filters: any) {
+  getETBData(filters: any): void {
     let data: IReportDataPayload = {
       appName: environment.config.toLowerCase(),
       dataSourceName: 'foundation_literacy_numeracy',
-      reportName: 'entryStatus',
-      reportType: 'loTable',
+      reportName: 'moduleWideStatus',
+      reportType: 'map',
       stateCode: environment.stateCode,
       filters
     };
 
     this._commonService.getReportData(data).subscribe(res => {
-      this.tableData = res.result;
+      this.isMapReportLoading = false;
+      this.ETBStateData = res.result;
       this.filters = res.result.filters;
+    }, error => {
+      this.isMapReportLoading = false;
     });
   }
 
   filtersUpdated(filters: any): void {
-    this.getStateWiseNasCoverageData(filters);
+    this.getETBData(filters);
   }
-
 }

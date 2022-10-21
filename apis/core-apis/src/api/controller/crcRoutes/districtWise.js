@@ -26,6 +26,7 @@ router.post('/districtWise', auth.authController, async (req, res) => {
             }
         }
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         var districtData = jsonData
 
         districtData.allDistrictsFooter['totalNumberOfVisits'] = parseInt(districtData.allDistrictsFooter.totalNumberOfVisits);
@@ -34,7 +35,7 @@ router.post('/districtWise', auth.authController, async (req, res) => {
         districtData.allDistrictsFooter['totalSchoolsNotVisited'] = parseInt(districtData.allDistrictsFooter.totalSchoolsNotVisited);
 
         logger.info('--- crc all district api response sent ---');
-        res.status(200).send({ visits: districtData.data, schoolsVisitedCount: districtData.allDistrictsFooter });
+        res.status(200).send({ visits: districtData.data, schoolsVisitedCount: districtData.allDistrictsFooter, fileMetaData });
     } catch (e) {
         logger.error(e);
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -47,8 +48,9 @@ router.get('/getDateRange', auth.authController, async (req, res) => {
         logger.info('---getDateRange api ---');
         let fileName = `crc/crc_meta_year_month.json`;
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- getDateRange response sent ---');
-        res.status(200).send(jsonData);
+        res.status(200).send({data: jsonData, fileMetaData});
 
     } catch (e) {
         logger.error(`Error :: ${e}`)

@@ -19,6 +19,7 @@ router.post('/clusterWise', auth.authController, async (req, res) => {
             fileName = `progressCard/cluster/${timePeriod}/${blockId}.json`;
         }
         let clusterData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         clusterData = clusterData.filter(a => {
             if (a.cluster_id == clusterId) {
                 return a;
@@ -26,7 +27,7 @@ router.post('/clusterWise', auth.authController, async (req, res) => {
         });
         logger.info('--- progressCard cluster wise api response sent ---');
         if (clusterData.length > 0) {
-            res.status(200).send({ clusterData });
+            res.status(200).send({ clusterData, fileMetaData });
         } else {
             res.status(403).json({ errMessage: "Data not available" });
         }

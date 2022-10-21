@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats" id="s3dwn" [routerLink]="['/s3FileDownload']"
+                <div class="card card-stats" id="s3dwn" [routerLink]="['/FileDownload']"
                     style="background: linear-gradient(135deg, #3a97d4 0%, #59adf1 100%);">
                     <div class="card-body ">
                         <div class="row">
@@ -123,13 +123,24 @@
                                 </div>
                             </div>
                             <div class="col-9 col-md-10">
-                                <div class="numbers">
-                                    <p *ngIf="this.storageType == 's3'; else template" class="card-category">Download
-                                        <br> S3 Files
-                                    </p>
-                                    <ng-template #template>
-                                        <p class="card-category">List <br> Local Files</p>
-                                    </ng-template>
+                                <div class="numbers" [ngSwitch]="true">
+                                    <ng-container *ngSwitchCase="this.storageType == 's3'">
+                                        <p  class="card-category">Download
+                                            <br> S3 Files
+                                        </p>
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="this.storageType == 'azure'">
+                                        <p  class="card-category">Download
+                                            <br> Azure Files
+                                        </p>
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchDefault>
+                                        <p  class="card-category">List
+                                            <br> Local Files
+                                        </p>
+                                    </ng-container>
                                 </div>
                             </div>
                         </div>

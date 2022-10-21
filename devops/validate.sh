@@ -257,7 +257,7 @@ check_vpn_ip()
     ip_pass=0
 if [[ $mode_of_installation == "localhost" ]]; then
     if [[ ! $2 == "127.0.0.1" ]]; then
-        echo "Error - Please provide local vpn ip as 127.0.0.1 for localhost installation"; fail=1
+        echo "Error - Please provide proxy host as 127.0.0.1 for localhost installation"; fail=1
     fi
 fi
  if [[ $mode_of_installation == "public" ]]; then
@@ -289,6 +289,12 @@ if [[ $access_type == "state" ]]; then
     if ! [[ $2 == "true" || $2 == "false" ]]; then
          echo "Error - Please enter either true or false for $1"; fail=1
     fi
+fi
+}
+
+check_db_backup_scheduling(){
+if ! [[ $2 == "true" || $2 == "false" ]]; then
+     echo "Error - Please enter either true or false for $1"; fail=1
 fi
 }
 
@@ -475,7 +481,7 @@ echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 # An array of mandatory values
 declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "mode_of_installation" "storage_type" "db_user" "db_name" \
 	"db_password" "read_only_db_user" "read_only_db_password" "api_endpoint" "local_ipv4_address" "proxy_host" \
-		           "keycloak_adm_user" "keycloak_adm_passwd" "report_viewer_config_otp" "diksha_columns" "static_datasource" \ 
+		           "keycloak_adm_user" "keycloak_adm_passwd" "report_viewer_config_otp" "db_backup_scheduling" "diksha_columns" "static_datasource" \ 
 			         "management" "session_timeout" "slab1" "slab2" "slab3" "slab4")
 
 # Create and empty array which will store the key and value pair from config file
@@ -632,6 +638,13 @@ case $key in
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
           check_diksha $key $value
+       fi
+       ;;
+   db_backup_scheduling)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_db_backup_scheduling $key $value
        fi
        ;;
    diksha_columns)

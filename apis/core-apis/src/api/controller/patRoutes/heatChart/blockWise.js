@@ -71,9 +71,10 @@ router.post('/blockWise', auth.authController, async (req, res) => {
         // res.send(data)
         data = data.sort((a, b) => (a.block_name) > (b.block_name) ? 1 : -1)
         let result = await helper.generalFun(grade, data, 1, viewBy)
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         logger.info(`--- ${req.body.report} heat map block wise response sent ---`);
-        res.status(200).send({ blockDetails, result, downloadData: data });
+        res.status(200).send({ blockDetails, result, downloadData: data, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
