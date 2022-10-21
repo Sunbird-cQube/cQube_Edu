@@ -24,6 +24,10 @@ increaseFontSize!: ElementRef;
 decreaseFontSize!: ElementRef;
 @ViewChild('resetFontSize')
 resetFontSize!: ElementRef;
+
+
+
+  chngePswdRoute = `${environment.appUrl}/#/change-password`
 // @ViewChild('darkModeToggle') darkModeToggle: ElementRef;
   constructor(private readonly _configService: ConfigService, private renderer: Renderer2, private readonly _authService: AuthenticationService) {
     this._configService.getDashboardMetrics(true).subscribe((menuResult: any) => {

@@ -60,4 +60,12 @@ export class AuthenticationService {
    
     return this._http.post(`${environment.loginUrl}/changePassword/${id}`, data);
   }
+
+  RVchangePassword(data, id, token) {
+      let data1 = {
+        details: data, 
+        token: token
+      }
+    return this._http.post(`${environment.loginUrl}/changePassword/report-viewer/${id}`, data1);
+  }
 }
