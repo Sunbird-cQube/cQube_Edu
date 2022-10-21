@@ -1,6 +1,8 @@
 var const_data = require('./config');
 const { logger } = require('./logger');
 const fs = require('fs');
+const path = require('path');
+
 const { BlobServiceClient } = require('@azure/storage-blob');
 var baseDir = `${process.env.OUTPUT_DIRECTORY}`;
 var storageType = `${process.env.STORAGE_TYPE}`;
