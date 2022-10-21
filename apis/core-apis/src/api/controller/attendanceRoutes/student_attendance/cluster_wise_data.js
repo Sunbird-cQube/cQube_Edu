@@ -57,8 +57,9 @@ router.post('/clusterWise', auth.authController, async (req, res) => {
             }
             clusterData.push(obj);
         }
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- Attendance cluster wise api response sent ---');
-        res.status(200).send({ clusterData: clusterData, studentCount: jsonData.allClustersFooter.students, schoolCount: jsonData.allClustersFooter.schools, dateRange: dateRange });
+        res.status(200).send({ clusterData: clusterData, studentCount: jsonData.allClustersFooter.students, schoolCount: jsonData.allClustersFooter.schools, dateRange: dateRange, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -123,8 +124,9 @@ router.post('/clusterPerBlock', auth.authController, async (req, res) => {
             }
             clusterData.push(obj);
         }
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- Attendance clusterPerDist api response sent ---');
-        res.status(200).send({ clusterDetails: clusterData, studentCount: jsonData.footer[blockId].students, schoolCount: jsonData.footer[blockId].schools, dateRange: dateRange });
+        res.status(200).send({ clusterDetails: clusterData, studentCount: jsonData.footer[blockId].students, schoolCount: jsonData.footer[blockId].schools, dateRange: dateRange, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

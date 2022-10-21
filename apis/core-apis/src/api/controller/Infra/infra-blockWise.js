@@ -20,10 +20,8 @@ router.post('/blockWise', auth.authController, async (req, res) => {
         let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- Infra dist block api response sent ---');
         res.status(200).send({
-            result: {
-                data,
-                fileMetaData
-            }
+            data,
+            fileMetaData
         });
 
     } catch (e) {
@@ -58,10 +56,8 @@ router.post('/blockWise/:distId', auth.authController, async (req, res) => {
             logger.info('--- Infra block per district api reponse sent ---');
             let fileMetaData = await s3File.getFileMetaData(fileName);
             res.status(200).send({
-                result: {
-                    data: filterData,
-                    fileMetaData
-                }
+                data: filterData,
+                fileMetaData
             });
         }
     } catch (e) {

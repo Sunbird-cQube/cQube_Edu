@@ -11,6 +11,7 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
         let { timePeriod, reportType, clusterId, courses } = req.body
         var fileName = `diksha_tpd/school/${timePeriod}.json`;
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         if (schoolLevel) {
             jsonData = jsonData.filter(id => id.school_id === req.body.schoolId)
@@ -53,7 +54,7 @@ router.post('/schoolWise', auth.authController, async (req, res) => {
         let result = await helper.generalFun(jsonData, 3, reportType)
 
         logger.info('--- diksha tpd  school wise response sent ---');
-        res.status(200).send({ schoolDetails, result, downloadData: jsonData });
+        res.status(200).send({ schoolDetails, result, downloadData: jsonData, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

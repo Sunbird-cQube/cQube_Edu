@@ -10,6 +10,7 @@ router.post('/metaData', auth.authController, async (req, res) => {
         var report = req.body.report;
         let fileName = `${report}/heatChart/metaData.json`;
         let data = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         data.map(a => {
             a.data['grades'].sort((x, y) => (x.grade) > (y.grade) ? 1 : -1)
             a.data["viewBy"] = [
@@ -19,7 +20,7 @@ router.post('/metaData', auth.authController, async (req, res) => {
 
         })
         logger.info(`--- ${req.body.report} meta data response sent ---`);
-        res.status(200).send({ data });
+        res.status(200).send({ data, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

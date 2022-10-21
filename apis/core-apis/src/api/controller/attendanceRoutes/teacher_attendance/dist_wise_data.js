@@ -54,8 +54,9 @@ router.post('/distWise', auth.authController, async (req, res) => {
             }
             distData.push(obj);
         }
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- Attendance dist wise api response sent ---');
-        res.status(200).send({ distData: distData, teacherCount: jsonData.allDistrictsFooter.teachers, schoolCount: jsonData.allDistrictsFooter.schools, dateRange: dateRange });
+        res.status(200).send({ distData: distData, teacherCount: jsonData.allDistrictsFooter.teachers, schoolCount: jsonData.allDistrictsFooter.schools, dateRange: dateRange, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

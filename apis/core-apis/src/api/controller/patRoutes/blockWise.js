@@ -117,8 +117,9 @@ router.post('/allBlockWise', auth.authController, async (req, res) => {
             allSubjects = [...new Set(allSubjects)];
         }
         var mydata = blockData.data;
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- blocks PAT api response sent---');
-        res.status(200).send({ data: mydata, subjects: allSubjects, footer: footer });
+        res.status(200).send({ data: mydata, subjects: allSubjects, footer: footer, fileMetaData });
 
     } catch (e) {
         logger.error(`Error :: ${e}`);
@@ -236,8 +237,9 @@ router.post('/blockWise/:distId', auth.authController, async (req, res) => {
             mydata = filterData;
         }
         var Subjects = [...new Set(allSubjects)];
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- block per dist PAT api response sent---');
-        res.status(200).send({ data: mydata, subjects: Subjects, grades: uniqueGrades, footer: footer });
+        res.status(200).send({ data: mydata, subjects: Subjects, grades: uniqueGrades, footer: footer, fileMetaData });
 
     } catch (e) {
         logger.error(e);

@@ -14,7 +14,6 @@ import { DigitalLearningRoutingModule } from './digital-learning-routing.module'
 import { DigitalLearningCoverageComponent } from './pages/digital-learning-coverage/digital-learning-coverage.component';
 import { DigitalLearningProgramComponent } from './pages/digital-learning-program/digital-learning-program.component';
 import { DataService } from 'src/app/core/services/data.service';
-import { EntryStatusComponent } from './pages/entry-status/entry-status.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +22,7 @@ import { EntryStatusComponent } from './pages/entry-status/entry-status.componen
     DigitalLearningCoverageComponent,
     QRCoverageAcrossStatesComponent,
     TotalPlaysPerCapitaComponent,
-    TotalLearningSessionsComponent,
-    EntryStatusComponent
+    TotalLearningSessionsComponent
   ],
   imports: [
     CommonModule,

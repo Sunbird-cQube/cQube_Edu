@@ -9,9 +9,10 @@ router.post('/allBlockWise', auth.authController, async (req, res) => {
         var sem = req.body.sem;
         let fileName = `exception_list/semester_completion/block_sem_completion_${sem}.json`
         let blockData = await s3File.readFileConfig(fileName);;
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         var sortedData = blockData['data'].sort((a, b) => (a.block_name) > (b.block_name) ? 1 : -1)
         logger.info('--- blocks semester_completion api response sent---');
-        res.status(200).send({ data: sortedData, footer: blockData.allBlocksFooter.total_schools_with_missing_data });
+        res.status(200).send({ data: sortedData, footer: blockData.allBlocksFooter.total_schools_with_missing_data, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`);
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -24,13 +25,14 @@ router.post('/blockWise/:distId', auth.authController, async (req, res) => {
         var sem = req.body.sem;
         let fileName = `exception_list/semester_completion/block_sem_completion_${sem}.json`
         let blockData = await s3File.readFileConfig(fileName);;
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         let distId = req.params.distId
         let filterData = blockData.data.filter(obj => {
             return (obj.district_id == distId)
         })
         var sortedData = filterData.sort((a, b) => (a.block_name) > (b.block_name) ? 1 : -1)
         logger.info('--- block per district semester_completion api response sent---');
-        res.status(200).send({ data: sortedData, footer: blockData.footer[`${distId}`].total_schools_with_missing_data });
+        res.status(200).send({ data: sortedData, footer: blockData.footer[`${distId}`].total_schools_with_missing_data, fileMetaData });
     } catch (e) {
         logger.error(e);
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

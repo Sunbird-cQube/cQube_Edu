@@ -20,10 +20,8 @@ router.post('/distWise', auth.authController, async (req, res) => {
         let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- Infra dist wise api response sent ---');
         res.status(200).send({
-            result: {
-                data: districtData,
-                fileMetaData
-            }
+            data: districtData,
+            fileMetaData
         });
 
     } catch (e) {

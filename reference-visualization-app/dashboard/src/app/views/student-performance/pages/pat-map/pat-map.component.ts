@@ -196,7 +196,7 @@ export class PatMapComponent implements OnInit {
     );
 
     this.service.getMonthYear().subscribe((res) => {
-      this.getMonthYear = res;
+      this.getMonthYear = res["data"];
       this.getMonthYear.map((item) => {
         this.years.push(item["academic_year"]);
       });

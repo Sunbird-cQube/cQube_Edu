@@ -43,6 +43,7 @@ router.post("/clusterData", auth.authController, async (req, res) => {
     }
 
     let jsonData = await s3File.readFileConfig(fileName);
+    let fileMetaData = await s3File.getFileMetaData(fileName);
     var footer = jsonData["footer"][`${blockId}`];
 
     if (
@@ -115,7 +116,7 @@ router.post("/clusterData", auth.authController, async (req, res) => {
       };
     });
     logger.info("--- diksha chart allData api response sent ---");
-    res.send({ chartData, downloadData: result, footer, result });
+    res.send({ chartData, downloadData: result, footer, result, fileMetaData });
   } catch (e) {
     logger.error(`Error :: ${e}`);
     res.status(500).json({ errMessage: "Internal error. Please try again!!" });

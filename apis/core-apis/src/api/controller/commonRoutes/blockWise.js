@@ -243,6 +243,7 @@ router.post('/blockWise', auth.authController, async (req, res) => {
         metricValue.forEach(metric => date = metric.date)
 
         let data = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         let footer
         if (districtId) {
             footer = data['footer']
@@ -307,7 +308,7 @@ router.post('/blockWise', auth.authController, async (req, res) => {
                 lat, long,
                 ...rest
             }));
-            res.status(200).send({ data, blockDetails, footer })
+            res.status(200).send({ data, blockDetails, footer, fileMetaData })
         }
 
         if (reportType === "lotable") {
@@ -378,7 +379,7 @@ router.post('/blockWise', auth.authController, async (req, res) => {
                     }, {});
                     tableData = val.map((item) => ({ ...def, ...item }));
                     logger.info('--- common blockWise response sent ---');
-                    res.status(200).send({ blockDetails, tableData });
+                    res.status(200).send({ blockDetails, tableData, fileMetaData });
                 } else {
                     logger.info('--- common table blockWise response no records ---');
                     res.status(500).send({ errMsg: "No record found" });
@@ -407,6 +408,7 @@ router.post('/AllBlockWise', auth.authController, async (req, res) => {
         }
 
         let data = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         footer = data['allDistrictsFooter']
         data = data['data']
 
@@ -443,7 +445,7 @@ router.post('/AllBlockWise', auth.authController, async (req, res) => {
             lat, long,
             ...rest
         }));
-        res.status(200).send({ data, footer });
+        res.status(200).send({ data, footer, fileMetaData });
 
 
     } catch (e) {

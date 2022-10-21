@@ -1030,7 +1030,7 @@
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <destination>
                         <groupId>37706354-5e19-393c-0000-000000000000</groupId>
-                        <id>2330c652-ffa0-3d08-0000-000000000000</id>
+                        <id>d91c69c1-01ca-3034-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
@@ -6571,6 +6571,31 @@
                     <source>
                         <groupId>37706354-5e19-393c-0000-000000000000</groupId>
                         <id>76a5ac60-50e9-3603-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>69a2be6f-a015-351b-0000-000000000000</id>
+                    <parentGroupId>37706354-5e19-393c-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>37706354-5e19-393c-0000-000000000000</groupId>
+                        <id>2330c652-ffa0-3d08-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>37706354-5e19-393c-0000-000000000000</groupId>
+                        <id>d91c69c1-01ca-3034-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
@@ -30399,8 +30424,7 @@ or(${filename:startsWith('diksha_data_summary')}):ifElse('${path}${filename}','N
 <key>putsql-sql-statement</key>
 <value>update log_summary
 SET total_records = ${text.line.count:minus(1)}
-where ff_uuid= '${files_uuid}'
-</value>
+where ff_uuid= '${files_uuid}'</value>
                             </entry>
                             <entry>
 <key>Support Fragmented Transactions</key>
@@ -30692,8 +30716,8 @@ ${query_type:startsWith('stud_att_school_overall'):ifElse('attendance/overall/sc
                     <id>2330c652-ffa0-3d08-0000-000000000000</id>
                     <parentGroupId>37706354-5e19-393c-0000-000000000000</parentGroupId>
                     <position>
-                        <x>9872.0</x>
-                        <y>-2528.0</y>
+                        <x>9904.0</x>
+                        <y>-2736.0</y>
                     </position>
                     <bundle>
                         <artifact>nifi-standard-nar</artifact>
@@ -36195,7 +36219,7 @@ ${query_type:startsWith('pat_exception_management_grade_school_last_30_days'):if
                             </entry>
                             <entry>
 <key>configure</key>
-<value>${emission_filename:startsWith('config')}</value>
+<value>${emission_filename:startsWith('config'):or(${azure.blobname:startsWith('config')})}</value>
                             </entry>
                             <entry>
 <key>configure_file_aggre</key>
@@ -57024,7 +57048,7 @@ ${query_type:startsWith('stud_att_management_category_school_overall'):ifElse('a
                             </entry>
                             <entry>
 <key>configure</key>
-<value>${emission_filename:startsWith('config')}</value>
+<value>${emission_filename:startsWith('config'):or(${azure.blobname:startsWith('config')})}</value>
                             </entry>
                             <entry>
 <key>configure_file</key>
@@ -80022,6 +80046,134 @@ ${file_type:startsWith('log_summary'):and(${filename:startsWith('inspection_mast
                     <type>org.apache.nifi.processors.aws.s3.PutS3Object</type>
                 </processors>
                 <processors>
+                    <id>d91c69c1-01ca-3034-0000-000000000000</id>
+                    <parentGroupId>37706354-5e19-393c-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>9904.0</x>
+                        <y>-2552.0</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.12.1</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>JDBC Connection Pool</key>
+<value>
+    <identifiesControllerService>org.apache.nifi.dbcp.DBCPService</identifiesControllerService>
+    <name>JDBC Connection Pool</name>
+</value>
+                            </entry>
+                            <entry>
+<key>putsql-sql-statement</key>
+<value>
+    <name>putsql-sql-statement</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Support Fragmented Transactions</key>
+<value>
+    <name>Support Fragmented Transactions</name>
+</value>
+                            </entry>
+                            <entry>
+<key>database-session-autocommit</key>
+<value>
+    <name>database-session-autocommit</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Transaction Timeout</key>
+<value>
+    <name>Transaction Timeout</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Batch Size</key>
+<value>
+    <name>Batch Size</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Obtain Generated Keys</key>
+<value>
+    <name>Obtain Generated Keys</name>
+</value>
+                            </entry>
+                            <entry>
+<key>rollback-on-failure</key>
+<value>
+    <name>rollback-on-failure</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>JDBC Connection Pool</key>
+<value>a0da148a-5fca-38fb-0000-000000000000</value>
+                            </entry>
+                            <entry>
+<key>putsql-sql-statement</key>
+<value>update log_summary
+SET processed_records = ${text.line.count:minus(1)}
+where ff_uuid= '${files_uuid}'</value>
+                            </entry>
+                            <entry>
+<key>Support Fragmented Transactions</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>database-session-autocommit</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>Transaction Timeout</key>
+                            </entry>
+                            <entry>
+<key>Batch Size</key>
+<value>100</value>
+                            </entry>
+                            <entry>
+<key>Obtain Generated Keys</key>
+<value>false</value>
+                            </entry>
+                            <entry>
+<key>rollback-on-failure</key>
+<value>false</value>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>update_total_records</name>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>failure</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>retry</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.PutSQL</type>
+                </processors>
+                <processors>
                     <id>db486ebb-464b-3be8-0000-000000000000</id>
                     <parentGroupId>37706354-5e19-393c-0000-000000000000</parentGroupId>
                     <position>
@@ -88977,5 +89129,5 @@ ${query_type:startsWith('tch_att_management_category_school_overall'):ifElse('te
             <variables/>
         </processGroups>
     </snippet>
-    <timestamp>10/18/2022 14:50:35 IST</timestamp>
+    <timestamp>10/20/2022 20:08:49 IST</timestamp>
 </template>

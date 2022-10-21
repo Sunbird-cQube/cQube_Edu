@@ -9,8 +9,9 @@ router.post('/all_Cluster', auth.authController, async (req, res) => {
         let timePeriod = req.body.timePeriod;
         let fileName = `cqube_telemetry/${timePeriod}/clusters.json`;
         let data = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('--- get cluster telemetry data api response sent ---');
-        res.send(data);
+        res.send({data: data, fileMetaData});
     } catch (e) {
         logger.error(`Error :: ${e}`);
         res.status(500).json({ errMsg: "Internal error. Please try again!!" });

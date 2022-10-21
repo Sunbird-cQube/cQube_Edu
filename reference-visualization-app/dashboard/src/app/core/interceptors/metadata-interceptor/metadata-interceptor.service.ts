@@ -18,6 +18,8 @@ export class MetadataInterceptor implements HttpInterceptor {
 
           if (body.result && body.result.fileMetaData) {
             this._dataSourceMetadataService.updateMetaData(body.result.fileMetaData);
+          } else if (body.fileMetaData) {
+            this._dataSourceMetadataService.updateMetaData(body.fileMetaData);
           }
         }
 

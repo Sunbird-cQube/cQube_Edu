@@ -118,8 +118,9 @@ router.post('/allSchoolWise', auth.authController, async (req, res) => {
             allSubjects = [...new Set(allSubjects)];
         }
         var mydata = schoolData.data;
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---PAT school wise api response sent---');
-        res.status(200).send({ data: mydata, subjects: allSubjects, footer: footer });
+        res.status(200).send({ data: mydata, subjects: allSubjects, footer: footer, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
@@ -239,8 +240,9 @@ router.post('/schoolWise/:distId/:blockId/:clusterId', auth.authController, asyn
             mydata = filterData;
         }
         var Subjects = [...new Set(allSubjects)];
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---PAT schoolPerCluster api response sent---');
-        res.status(200).send({ data: mydata, subjects: Subjects, grades: uniqueGrades, footer: footer });
+        res.status(200).send({ data: mydata, subjects: Subjects, grades: uniqueGrades, footer: footer, fileMetaData });
 
 
     } catch (e) {

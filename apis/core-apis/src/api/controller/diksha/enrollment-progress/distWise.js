@@ -9,9 +9,10 @@ router.get('/distWise', auth.authController, async (req, res) => {
         let timePeriod = req.body.timePeriod;
         var fileName = `diksha_tpd/enrolment_progress/all_collections_state.json`;
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         
         logger.info('--- diksha chart allData api response sent ---');
-        res.send({data: jsonData, downloadData: jsonData });
+        res.send({data: jsonData, downloadData: jsonData, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });

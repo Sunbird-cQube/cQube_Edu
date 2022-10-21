@@ -21,7 +21,7 @@ router.post('/allSchoolWise', auth.authController, async (req, res) => {
         let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---Infra school wise api response sent---');
         res.status(200).send({
-            result: { data: mydata, footer: schoolData.allSchoolsFooter.totalSchools, fileMetaData }
+            data: mydata, footer: schoolData.allSchoolsFooter.totalSchools, fileMetaData
         });
     } catch (e) {
         logger.error(`Error :: ${e}`)
@@ -53,7 +53,7 @@ router.post('/schoolWise/:distId/:blockId/:clusterId', async (req, res) => {
         let fileMetaData = await s3File.getFileMetaData(fileName);
         logger.info('---Infra schoolPerCluster api response sent---');
         res.status(200).send({
-            result: { data: mydata, footer: schoolData.footer[`${clusterId}`].totalSchools, fileMetaData }
+            data: mydata, footer: schoolData.footer[`${clusterId}`].totalSchools, fileMetaData
         });
 
     } catch (e) {

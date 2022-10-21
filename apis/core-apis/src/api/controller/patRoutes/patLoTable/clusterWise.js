@@ -22,6 +22,7 @@ router.post('/clusterWise', auth.authController, async (req, res) => {
         }
 
         let data = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
 
         if (blockId) {
             data = data.filter(val => {
@@ -107,7 +108,7 @@ router.post('/clusterWise', auth.authController, async (req, res) => {
                 }, {});
                 tableData = val.map((item) => ({ ...def, ...item }));
                 logger.info('--- PAT LO table clusterWise response sent ---');
-                res.status(200).send({ clusterDetails, tableData });
+                res.status(200).send({ clusterDetails, tableData, fileMetaData });
             } else {
                 logger.info('--- PAT LO table schoolWise response sent ---');
                 res.status(500).send({ errMsg: "No record found" });

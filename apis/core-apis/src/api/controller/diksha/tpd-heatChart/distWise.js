@@ -10,6 +10,7 @@ router.post('/distWise', auth.authController, async (req, res) => {
         let { timePeriod, reportType, courses } = req.body
         var fileName = `diksha_tpd/district/${timePeriod}.json`;
         let jsonData = await s3File.readFileConfig(fileName);
+        let fileMetaData = await s3File.getFileMetaData(fileName);
         let districtDetails = jsonData.map(e => {
             return {
                 district_id: e.district_id,
@@ -39,7 +40,7 @@ router.post('/distWise', auth.authController, async (req, res) => {
                 delete item.percentage_teachers
             }
         })
-        res.status(200).send({ districtDetails, result, downloadData: jsonData });
+        res.status(200).send({ districtDetails, result, downloadData: jsonData, fileMetaData });
     } catch (e) {
         logger.error(`Error :: ${e}`)
         res.status(500).json({ errMessage: "Internal error. Please try again!!" });
