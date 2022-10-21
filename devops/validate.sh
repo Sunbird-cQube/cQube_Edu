@@ -382,7 +382,7 @@ sed -i '/session_timeout_in_seconds:/d' ansible/roles/workflow_keycloak/vars/mai
 echo "session_timeout_in_seconds: $timeout_value" >> ansible/roles/workflow_keycloak/vars/main.yml
 }
 
-check_slab(){
+check_slab1(){
 if [[ $access_type == "national" ]]; then
     if ! [[ $slab1 == "NA" && $slab2 == "NA" && $slab3 == "NA" && $slab4 == "NA" ]]; then
         echo "Error - Please provide all slab values as NA if you selected access_type as national" ; fail=1
@@ -394,10 +394,24 @@ if [[ $slab1 =~ ^[0-9]{,2}$ && $slab2 =~ ^[0-9]{,2}\-[0-9]{,2}$ && $slab3 =~ ^[0
 if ! [[ $slab1 -ge 1 && $slab1 -le 100 ]]; then
  echo "Error - Incorrect slab1 value please refer the slab1 comment in config.yml" ; fail=1
 fi
+else
+        echo "Error - Incorrect slab value please refer the $1 comments in config.yml " ; fail=1
+fi
+fi
+}
+
+check_slab2(){
+if [[ $access_type == "national" ]]; then
+    if ! [[ $slab1 == "NA" && $slab2 == "NA" && $slab3 == "NA" && $slab4 == "NA" ]]; then
+        echo "Error - Please provide all slab values as NA if you selected access_type as national" ; fail=1
+    fi
+fi
+if [[ $access_type == "state" ]]; then	
+if [[ $slab1 =~ ^[0-9]{,2}$ && $slab2 =~ ^[0-9]{,2}\-[0-9]{,2}$ && $slab3 =~ ^[0-9]{,2}\-[0-9]{,2}$ && $slab4 =~ ^[0-9]{,2}$ ]]; then
 
 slab21=`echo $slab2 | cut -d- -f1`
 slab22=`echo $slab2 | cut -d- -f2`
-
+slab1=`echo $slab1`
 if ! [[ $slab21 -eq $slab1 && $slab21 -le 100 ]]; then
  echo "Error - Incorrect slab2 value please refer the slab2 comment in config.yml" ; fail=1
 fi
@@ -405,10 +419,23 @@ fi
 if ! [[ $slab22 -gt $slab21 && $slab22 -le 100 ]]; then
  echo "Error - Incorrect slab2 value please refer the slab2 comment in config.yml" ; fail=1	
 fi
+else
+        echo "Error - Incorrect slab value please refer the $1 comments in config.yml " ; fail=1
+fi
+fi
+}
 
+check_slab3(){
+if [[ $access_type == "national" ]]; then
+    if ! [[ $slab1 == "NA" && $slab2 == "NA" && $slab3 == "NA" && $slab4 == "NA" ]]; then
+        echo "Error - Please provide all slab values as NA if you selected access_type as national" ; fail=1
+    fi
+fi
+if [[ $access_type == "state" ]]; then	
+if [[ $slab1 =~ ^[0-9]{,2}$ && $slab2 =~ ^[0-9]{,2}\-[0-9]{,2}$ && $slab3 =~ ^[0-9]{,2}\-[0-9]{,2}$ && $slab4 =~ ^[0-9]{,2}$ ]]; then
 slab31=`echo $slab3 | cut -d- -f1`
 slab32=`echo $slab3 | cut -d- -f2`
-
+slab2=`echo $slab2`
 if ! [[ $slab31 -eq $slab22 && $slab31 -le 100 ]]; then
 echo "Error - Incorrect slab3 value please refer the slab3 comment in config.yml" ; fail=1	
 fi
@@ -416,17 +443,29 @@ fi
 if ! [[ $slab32 -gt $slab31 && $slab32 -le 100 ]]; then
 echo "Error - Incorrect slab3 value please refer the slab3 comment in config.yml" ; fail=1 
 fi
-
-if ! [[ $slab4 -eq $slab32 && $slab4 -le 100 ]]; then
-echo "Error - Incorrect slab4 value please refer the slab4 comment in config.yml" ; fail=1
-fi
-
 else
-	echo "Error - Incorrect slab value please refer the slab comments in config.yml " ; fail=1
+        echo "Error - Incorrect slab value please refer the $1 comments in config.yml " ; fail=1
 fi
 fi
 }
 
+check_slab4(){
+if [[ $access_type == "national" ]]; then
+    if ! [[ $slab1 == "NA" && $slab2 == "NA" && $slab3 == "NA" && $slab4 == "NA" ]]; then
+        echo "Error - Please provide all slab values as NA if you selected access_type as national" ; fail=1
+    fi
+fi
+if [[ $access_type == "state" ]]; then	
+if [[ $slab1 =~ ^[0-9]{,2}$ && $slab2 =~ ^[0-9]{,2}\-[0-9]{,2}$ && $slab3 =~ ^[0-9]{,2}\-[0-9]{,2}$ && $slab4 =~ ^[0-9]{,2}$ ]]; then
+slab3=`echo $slab3`	
+if ! [[ $slab4 -eq $slab32 && $slab4 -le 100 ]]; then
+echo "Error - Incorrect slab4 value please refer the slab4 comment in config.yml" ; fail=1
+fi
+else
+        echo "Error - Incorrect slab value please refer the $1 comments in config.yml " ; fail=1
+fi
+fi
+}
 
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -638,28 +677,28 @@ case $key in
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
-          check_slab $key $value
+          check_slab1 $key $value
        fi
        ;;
    slab2)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
-          check_slab $key $value
+          check_slab2 $key $value
        fi
        ;;
    slab3)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
-          check_slab $key $value
+          check_slab3 $key $value
        fi
        ;;
    slab4)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
-          check_slab $key $value
+          check_slab4 $key $value
        fi
        ;;
    *)
