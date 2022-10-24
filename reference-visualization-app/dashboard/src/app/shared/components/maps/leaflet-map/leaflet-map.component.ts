@@ -225,7 +225,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           }
 
           mapData?.data.forEach((state: any) => {
-            let stateCode = feature.properties.State_LGD ? feature.properties.Dist_LGD : feature.properties.state_code;
+            let stateCode = feature.properties.State_LGD ? feature.properties.State_LGD : feature.properties.state_code ? feature.properties.state_code : feature.properties.ID_1;
             let districtCode = feature.properties.Dist_LGD ? feature.properties.Dist_LGD : feature.properties.ID_2;
             
             if (state.state_code == stateCode && !state.district_code) {
@@ -254,7 +254,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         function getPopUp(feature: any) {
           let popup: any;
           mapData.data.forEach((state: any) => {
-            let stateCode = feature.properties.State_LGD ? feature.properties.Dist_LGD : feature.properties.state_code;
+            let stateCode = feature.properties.State_LGD ? feature.properties.State_LGD : feature.properties.state_code ? feature.properties.state_code : feature.properties.ID_1;
             let districtCode = feature.properties.Dist_LGD ? feature.properties.Dist_LGD : feature.properties.ID_2;
             
             if (state.state_code == stateCode && !state.district_code) {
