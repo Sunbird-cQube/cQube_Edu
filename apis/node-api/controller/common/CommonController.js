@@ -439,6 +439,17 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 	if(metricFilter.options.length > 1){
 		options.selectedMetric = selectedMetric
 	}
+
+	if (reqBody.appName === appNames.state) {
+		rawData = rawData.map(rec => {
+			if (!rec.state_code && !rec.district_code) {
+				rec.state_code = states[reqBody.stateCode].Code;
+			}
+
+			return rec;
+		});
+	}
+
 	return {
 		data: rawData,
 		filters: filters,
