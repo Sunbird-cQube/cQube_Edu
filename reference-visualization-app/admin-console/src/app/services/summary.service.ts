@@ -153,9 +153,9 @@ export class SummaryService {
     return this.http.post(`${this.baseUrl}/summary/dikshaEtbProgramStarted`, {});
   }
 
-  getdikshaEtbQrCoverage() {
+  getdikshavskEtbQrCoverage() {
     this.service.logoutOnTokenExpire();
-    return this.http.post(`${this.baseUrl}/summary/dikshaEtbQrCoverage`, {});
+    return this.http.post(`${this.baseUrl}/summary/dikshavskEtbQrCoverage`, {});
   }
 
   getdikshaNishthaCourseConsumed() {
@@ -276,6 +276,11 @@ export class SummaryService {
   getDikshaEtbEtbCoverage(){
     this.service.logoutOnTokenExpire();
     return this.http.post(`${this.baseUrl}/summary/dikshaetbetbcoverage`, {});
+  }
+  
+  getDikshaEtbQRCoverage(){
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaEtbQrCoverage`, {});
   }
   
   

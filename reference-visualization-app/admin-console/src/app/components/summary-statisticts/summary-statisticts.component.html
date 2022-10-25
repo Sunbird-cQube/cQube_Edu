@@ -398,7 +398,7 @@
 
     <div class="row mt-2">
         <div class="col-sm-12">
-            <h5 style="color: #284d8a">Diksha ETB QR Coverage Summary:</h5>
+            <h5 style="color: #284d8a">VSK Diksha ETB QR Coverage Summary:</h5>
             <div *ngIf="tableData31.length > 0 " style="border: 1px solid gray">
                 <table #DataTable id="table32" class="display nowrap" width="100%"
                     style="font-size: 11px; text-align: center;"></table>
@@ -699,6 +699,18 @@
             <h5 style="color: #284d8a">Diksha ETB ETB Coverage Summary:</h5>
             <div *ngIf="tableData54.length > 0 " style="border: 1px solid gray">
                 <table #DataTable id="table55" class="display nowrap" width="100%"
+                    style="font-size: 11px; text-align: center;"></table>
+            </div>
+            <div *ngIf="tableData52.length === 0 " style="text-align: center; color: red;">
+                No Data Available
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-sm-12">
+            <h5 style="color: #284d8a">Diksha ETB QR Coverage Summary:</h5>
+            <div *ngIf="tableData55.length > 0 " style="border: 1px solid gray">
+                <table #DataTable id="table56" class="display nowrap" width="100%"
                     style="font-size: 11px; text-align: center;"></table>
             </div>
             <div *ngIf="tableData52.length === 0 " style="text-align: center; color: red;">
