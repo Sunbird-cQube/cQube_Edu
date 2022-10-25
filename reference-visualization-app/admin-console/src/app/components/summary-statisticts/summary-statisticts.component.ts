@@ -66,6 +66,7 @@ export class SummaryStatistictsComponent implements OnInit {
   tableData51: any = [];
   tableData52: any = [];
   tableData53: any = [];
+  tableData54: any = [];
   
   constructor(private router: Router, private service: SummaryService) { }
 
@@ -630,6 +631,17 @@ export class SummaryStatistictsComponent implements OnInit {
       this.tableData53 = res;
       if (this.tableData53.length > 0) {
         this.tableWithSubHeaders(this.tableData53, "table54");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getDikshaEtbEtbCoverage().subscribe((res: any) => {
+      this.tableData54 = res;
+      if (this.tableData54.length > 0) {
+        this.tableWithSubHeaders(this.tableData54, "table55");
         document.getElementById('spinner').style.display = 'none';
       }
 

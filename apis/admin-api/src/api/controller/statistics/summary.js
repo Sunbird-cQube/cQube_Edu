@@ -920,6 +920,22 @@ router.post('/summaryUsers', auth.authController, async (req, res) => {
         res.status(500).json({ errMsg: "Internal error. Please try again!!" });
     }
 });
+router.post('/dikshaetbetbcoverage', auth.authController, async (req, res) => {
+    try {
+        logger.info('---Etb Etb coverage api ---');
+        var fileName = 'log_summary/log_summary_diksha_etb_etb-coverage.json';
+        let summaryData = await s3File.readFileConfig(fileName);
+        logger.info('--- Main Metrics api response sent---');
+        if (summaryData == null || summaryData == '') {
+            res.send([]);
+        } else {
+            res.send(summaryData)
+        }
+    } catch (e) {
+        logger.error(`Error :: ${e}`);
+        res.status(500).json({ errMsg: "Internal error. Please try again!!" });
+    }
+});
 
 
 
