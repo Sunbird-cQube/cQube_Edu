@@ -272,6 +272,11 @@ export class SummaryService {
     this.service.logoutOnTokenExpire();
     return this.http.post(`${this.baseUrl}/summary/summaryUsers`, {});
   }
+
+  getDikshaEtbEtbCoverage(){
+    this.service.logoutOnTokenExpire();
+    return this.http.post(`${this.baseUrl}/summary/dikshaetbetbcoverage`, {});
+  }
   
   
 }

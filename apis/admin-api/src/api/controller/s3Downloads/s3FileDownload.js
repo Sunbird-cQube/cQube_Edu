@@ -35,9 +35,9 @@ router.post('/listBuckets', auth.authController, async function (req, res) {
         }  
         else if (storageType == "azure") {
             listBuckets = {
-                'input': process.env.AZURE_INPUT_STORAGE,
-                'output': process.env.AZURE_OUTPUT_STORAGE,
-                'emission': process.env.AZURE_EMISSION_STORAGE
+                'input': process.env.AZURE_INPUT_STORAGE.replace(/["']/g, ""),
+                'output': process.env.AZURE_OUTPUT_STORAGE.replace(/["']/g, ""),
+                'emission': process.env.AZURE_EMISSION_STORAGE.replace(/["']/g, "")
             }   
         }
         else {
