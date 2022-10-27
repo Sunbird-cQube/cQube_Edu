@@ -92,13 +92,16 @@ export class DikshaConfigComponent implements OnInit {
       document.getElementById('spinner').style.display = 'none';
       return false;
     } else {
-      this.timeout = setTimeout(() => {
+      // this.timeout = setTimeout(() => {
+        
+      //   document.getElementById('spinner').style.display = 'none';
+      // }, 5000);
+      this.service.dikshaConfigService(obj).subscribe(res => {
         alert('Diksha ETB Dates Configured Successfully.');
         document.getElementById('spinner').style.display = 'none';
-      }, 5000);
-      this.service.dikshaConfigService(obj).subscribe(res => {
       }, err => {
-        clearTimeout(this.timeout);
+        // clearTimeout(this.timeout);
+        console.log(err)
         alert("Error found while configuring diksha");
         document.getElementById('spinner').style.display = 'none';
       })
