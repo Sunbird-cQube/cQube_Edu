@@ -186,7 +186,7 @@ export class LoReportComponent implements OnInit {
     }
 
 
-    this.header = `Report on ${this.datasourse.replace(/_+/g, ' ')} access by location for`
+    this.header = `Report on ${this.datasourse.replace(/_+/g, ' ')} access by lo for`
     this.description = `The ${this.datasourse.replace(/_+/g, ' ')} dashboard visualises the data on ${this.datasourse.replace(/_+/g, ' ')} metrics for ${this.state}`
   }
   hideDist = true;
