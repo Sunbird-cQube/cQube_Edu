@@ -359,7 +359,7 @@ export class PatLoComponent implements OnInit {
         body += "<tr>";
         columns.forEach((column, i2) => {
           if (i2 > 3 && column.value || i2 > 3 && String(column.value) == String(0)) {
-            let title = `${level} Name: ${column.data} &nbsp; Date: ${columns[0].value} &nbsp; Grade: ${columns[1].value[columns[1].value.length - 1]} &nbsp; Subject: ${columns[2].value} &nbsp; ${toTitleCase(columns[3].data.replace('_', ' '))}: ${columns[3].value} &nbsp; Marks: ${column.mark}`;
+            let title = `${level} Name: ${column.data} \nDate: ${columns[0].value} \nGrade: ${columns[1].value[columns[1].value.length - 1]} \nSubject: ${columns[2].value} \n${toTitleCase(columns[3].data.replace('_', ' '))}: ${columns[3].value} \nMarks: ${column.mark}`;
             body += `<td class="numberData" id="loTooltip" data-toggle="tooltip" data-html="true" data-placement="auto" style='background-color: ${tableCellColor(column.value)}' title="${title}">${column.value}</td>`;
           }
           else {
