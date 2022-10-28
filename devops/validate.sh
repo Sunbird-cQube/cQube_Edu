@@ -93,19 +93,6 @@ done < validation_scripts/state_codes
 fi
 }
 
-check_state_name()
-{
-state_found=0
-while read line; do
-  if [[ $line == $2 ]] ; then
-   state_found=1
-  fi
-done < validation_scripts/state_codes
-  if [[ $state_found == 0 ]] ; then
-    echo "Error - Invalid State code. Please refer the state_list file and enter the correct value."; fail=1
-  fi
-}
-
 check_mode_of_installation(){
 if ! [[ $2 == "localhost" || $2 == "public" ]]; then
     echo "Error - Please enter either localhost or public for $1"; fail=1
@@ -534,20 +521,6 @@ case $key in
           check_access_type $key $value
        fi
        ;;
-   state_code)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-          check_state $key $value
-       fi
-       ;;
-   state_name)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-          check_state_name $key $value
-       fi
-       ;;
    mode_of_installation)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -652,6 +625,13 @@ case $key in
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
           check_diksha $key $value
+       fi
+       ;;
+   state_code)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_state $key $value
        fi
        ;;
    static_datasource)

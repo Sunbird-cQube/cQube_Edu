@@ -1,11 +1,6 @@
 ---
 # for 4.0
-- name: Stoping the server_side app
-  become: yes
-  shell: pm2 stop server_side
-  tags: update
-
-- name: Creating the server_side Directory for the installation
+- name: Creating the node-api Directory for the installation
   file:
     path: "{{ base_dir }}/cqube/apis/node-api"
     owner: "{{ system_user_name }}"
@@ -14,7 +9,7 @@
     state: directory
   tags: [ install, update ]
 
-- name: copying server-side script
+- name: copying node-api script to base directory
   copy:
     src: "../../apis/node-api/"
     dest: "{{base_dir}}/cqube/apis/node-api"
