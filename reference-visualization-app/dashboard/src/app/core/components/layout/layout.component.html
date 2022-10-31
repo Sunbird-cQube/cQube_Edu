@@ -1,7 +1,7 @@
 <div>
     <div class="fontBar">
         <div class="flagArea"><img title="भारत सरकार | Government of India"
-                src="https://diksha.gov.in/assets/diksha-mission/Flag_of_India.svg" width="32"
+                src="assets/images/Flag_of_India.svg" width="32"
                 alt="भारत सरकार | Government of India">
             <span data-translate="govofIndia">भारत सरकार | Government of India</span>
         </div>
@@ -18,9 +18,9 @@
                 class="fontResizeBtn fontResizeBtn_A+" title="Increase font size" (click)="changeFontSize('increase');"
                 id="font-size-increase" name="font-size-increase" #increaseFontSize>A+</button>
             <i *ngIf="role==='report_viewer'" class="fa fa-key" aria-hidden="true"
-                [routerLink]="['change-password']"></i>
+                [routerLink]="['change-password']" matTooltip="Change Password"></i>
             
-            <i *ngIf="!national" class="fa fa-sign-out" aria-hidden="true" (click)="signOut()" id="signOut"
+            <i *ngIf="!national" class="fa fa-sign-out" aria-hidden="true" matTooltip="Logout" (click)="signOut()" id="signOut"
                 name="signOut"></i>
             <!-- <button id="dark-mode-toggle" class="dark-mode-toggle" tabindex="0"
              title="{{resourceService?.frmelmnts?.lbl?.accessibilitytheme}}" (click)="changeTheme()"

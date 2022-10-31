@@ -8,7 +8,7 @@
     state: directory
   tags: [ install, update ]
 
-- name: copying admin's server-side script
+- name: copying core api script to base directory
   copy:
     src: "../../apis/core-apis/"
     dest: "{{base_dir}}/cqube/apis/core-api"

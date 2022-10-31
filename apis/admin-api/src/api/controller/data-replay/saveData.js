@@ -5,9 +5,13 @@ var const_data = require('../../lib/config');
 const fs = require('fs');
 const config = require('../../lib/readFiles');
 const { BlobServiceClient } = require('@azure/storage-blob');
+const blobServiceClient = BlobServiceClient.fromConnectionString(
+    process.env.AZURE_STORAGE_CONN_STR
+  );
 
 const inputDir = `${process.env.EMISSION_DIRECTORY}/`;
-var path = require('path')
+var path = require('path');
+const { params } = require('../../../../../node-api/core/config/aws-config');
 router.post('/', auth.authController, async (req, res) => {
     try {
         logger.info('--- telemetry api ---');
@@ -16,15 +20,16 @@ router.post('/', auth.authController, async (req, res) => {
         var formData = req.body.formData;
         var timeStamp = req.body.timeStamp;
         let storageType = config.storageType;
-        var fileName = `data_replay/data_replay_${timeStamp}.json`;
+        var fileName = `data_replay_${timeStamp}.json`;
         if (req.body.dataType == 'retention') {
             formData = req.body.retData;
-            fileName = `data_retention/data_retention.json`;
+            fileName = `data_retention.json`;
         }
         var params = {
             Bucket: const_data['getParams1']['Bucket'],
             Key: fileName
         };
+        console.log("emission name",params.Bucket);
         var localPath = inputDir + fileName;
         var response = await storageType == "s3" ? await saveToS3(params, fileName, formData) : storageType == "azure"?await saveToAzure(params, fileName, formData) :await saveToLocal(localPath, formData);
 
@@ -39,6 +44,7 @@ module.exports = router
 
 
 function saveToS3(params, fileName, formData) {
+    console.log("S3 bucket");
     return new Promise((resolve, reject) => {
         try {
             const_data['s3'].headObject(params, function (err, metadata) {
@@ -93,7 +99,8 @@ function saveToS3(params, fileName, formData) {
     })
 }
 function saveToLocal(fileName, formData) {
- 
+    console.log("local");
+    
     return new Promise((resolve, reject) => {
         try {
             if (fs.existsSync(fileName)) {
@@ -140,28 +147,46 @@ function saveToLocal(fileName, formData) {
 
 }
 
-function saveToAzure()
+function saveToAzure(params, fileName, formData)
 {
-    console.log("File uploaded through Azure")
-    const uploadFile = async (filePath, fileName, data) => {
+    
         return new Promise(async function (resolve, reject) {
                 try {
-                    let containerClient = blobServiceClient.getContainerClient(outputContainerName);
-                    const blockBlobClient = containerClient.getBlockBlobClient(`${fileName}.json`);
-                    let stringObj = JSON.stringify(data);
-                    const uploadBlobResponse = blockBlobClient.upload(stringObj, stringObj.length);
+                    console.log("bucket name azure:", params.Bucket);
+                    let containerClient = blobServiceClient.getContainerClient(params.Bucket);
+                    const blockBlobClient = containerClient.getBlockBlobClient(`${fileName}`);
+                    let stringObj = JSON.stringify(formData);
+                    console.log("string ob is", stringObj);
+                    const uploadBlobResponse = await blockBlobClient.upload(stringObj, stringObj.length);
+                    console.log("uploadBlob response", uploadBlobResponse);
                     console.log("File uploaded through Azure")
-                    deleteFile(filePath);
-                    resolve('Success');
                     console.log('Uploaded');
+                    // deleteFile(fileName);
+                    resolve({ msg: "Data Replay Operation Successfully Initiated" });
                 } catch(e) {
                     reject(e);
                 }
             });
-        }
+}
 
+const deleteFile = async (filePath) => {
+        return new Promise(async function (resolve, reject) {
+                try {
+                    let containerClient = blobServiceClient.getContainerClient(const_data['getParams1']['Bucket']);
+                    const blockBlobClient = containerClient.getBlockBlobClient(filePath);
+                    blockBlobClient.delete({ deleteSnapshots: "include" });
+                    resolve('Success');
+                } catch(e) {
+                    reject(e);
+                }
+        });
     }
-//  const response =  await uploadFile();
+
+
+
+
+    // }
+    // const response =   uploadFile();
 
 // function saveToAzure(fileName, formData) {
  

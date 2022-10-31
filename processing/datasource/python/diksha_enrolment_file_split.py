@@ -7,43 +7,42 @@ import pandas as pd
 import boto3
 import sys
 from update_batch_id import update_parameter_ctx
+from azure.storage.blob import BlockBlobService
+
 
 def creat_csv_file(list_of_items, filename):
-    f_name = filename.lower()
-    f = f_name.split(' ', 2)[2]
-    f2 = f.replace('-', ' ')
-    removeSpecialChars = f2.replace(' ', '_')
-    filename_d = 'diksha_' + removeSpecialChars + '.csv'
-
-
+    file_name = filename.lower()
+    file_name_split = file_name.split(' ', 2)[2]
+    file_name_replace = file_name_split.replace('-', ' ')
+    removespecialchars = file_name_replace.replace(' ', '_')
+    filename_d = 'diksha_' + removespecialchars + '.csv'
 
     with open(filename_d, 'w') as file:
         csvwriter = csv.writer(file, delimiter='|')
         csvwriter.writerows(list_of_items)
 
-
-    with zipfile.ZipFile(local_path+'/' +'diksha_' + removeSpecialChars + '.zip', 'w',zipfile.ZIP_DEFLATED) as zip_file:
+    with zipfile.ZipFile(local_path + '/' + 'diksha_' + removespecialchars + '.zip', 'w',
+                         zipfile.ZIP_DEFLATED) as zip_file:
         zip_file.write(filename_d)
 
-    with zipfile.ZipFile('diksha_' + removeSpecialChars + '.zip', 'w',
+    with zipfile.ZipFile('diksha_' + removespecialchars + '.zip', 'w',
                          zipfile.ZIP_DEFLATED) as zip_file:
         zip_file.write(filename_d)
 
     if storage_type == 's3':
-        upload_file_s3('diksha_' + removeSpecialChars + '.zip')
+        upload_file_s3('diksha_' + removespecialchars + '.zip')
 
-    if os.path.exists('diksha_' + removeSpecialChars + '.zip'):
-        os.remove('diksha_' + removeSpecialChars + '.zip')
+    if storage_type == 'azure':
+        upload_file_azure('diksha_' + removespecialchars + '.zip')
+
+    if os.path.exists('diksha_' + removespecialchars + '.zip'):
+        os.remove('diksha_' + removespecialchars + '.zip')
 
     if os.path.exists(filename_d):
         os.remove(filename_d)
 
 
-
-
-
-
-def emission_folder(local_path,destination_path,storage_type):
+def emission_folder(local_path, destination_path, storage_type):
     if storage_type == 'local':
         src_files = os.listdir(local_path)
         for file_name in src_files:
@@ -52,11 +51,7 @@ def emission_folder(local_path,destination_path,storage_type):
                 shutil.copy(full_file_name, destination_path)
 
 
-
-
-
 def delete_files(local_path):
-
     folder = local_path
 
     for filename in os.listdir(folder):
@@ -75,12 +70,14 @@ def delete_files(local_path):
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
+def count_number(path_local):
+    return len(os.listdir(path_local))
 
 
-
-def count_number(local_path):
-    return (len(os.listdir(local_path)))
-
+def upload_file_azure(file_name):
+    block_blob_service = BlockBlobService(account_name=AZURE_ACCOUNT_NAME, account_key=AZURE_ACCOUNT_KEY)
+    block_blob_service.create_blob_from_path(AZURE_EMISSION_CONTAINER, 'diksha_enrolment/' + file_name,
+                                             os.path.abspath(file_name));
 
 
 def upload_file_s3(file):
@@ -99,7 +96,6 @@ def upload_file_s3(file):
     )
 
 
-
 def separate_csv(filepath):
     file = open(filepath)
     keywords = ['End of Program-Course Details', 'End Of program details', 'End Of Course details',
@@ -116,8 +112,8 @@ def separate_csv(filepath):
                 new_header = df.iloc[0].str.strip().str.lower()
                 nan_value = float("NaN")
                 df.replace("", nan_value, inplace=True)
-                df.dropna(how= 'all', inplace=True)
-                df.replace(nan_value,'',inplace= True)
+                df.dropna(how='all', inplace=True)
+                df.replace(nan_value, '', inplace=True)
                 df = df[1:]
                 df.columns = new_header
                 df.insert(0, 'program_id', range(1, 1 + len(df)))
@@ -162,7 +158,6 @@ def separate_csv(filepath):
             mycsv.append(row)
 
 
-
 if len(sys.argv[1:]) > 0:
     global local_path
     local_path = 'new_diksha_directory/'
@@ -173,10 +168,10 @@ if len(sys.argv[1:]) > 0:
     emission_dir_path = sys.argv[3]
     separate_csv(path)
     value = count_number(local_path)
-    print(value)
-    emission_folder(local_path,emission_dir_path,storage_type)
+    emission_folder(local_path, emission_dir_path, storage_type)
     update_parameter_ctx("static_data_parameters", "diksha_enrolment_file_count", value)
     delete_files(local_path)
 
 else:
     print('please provide the arguement')
+

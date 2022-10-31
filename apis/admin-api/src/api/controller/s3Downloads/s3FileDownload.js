@@ -27,17 +27,17 @@ router.post('/listBuckets', auth.authController, async function (req, res) {
         let listBuckets = {};
         if (storageType == "s3") {
             listBuckets = {
-                'input': process.env.INPUT_BUCKET_NAME,
-                'output': process.env.OUTPUT_BUCKET_NAME,
-                'emission': process.env.EMISSION_BUCKET_NAME
+                'input': process.env.INPUT_BUCKET_NAME.replace(/["']/g, ""),
+                'output': process.env.OUTPUT_BUCKET_NAME.replace(/["']/g, ""),
+                'emission': process.env.EMISSION_BUCKET_NAME.replace(/["']/g, "")
             }
             console.log("S3 buckets are:", listBuckets);
         }  
         else if (storageType == "azure") {
             listBuckets = {
-                'input': process.env.AZURE_INPUT_STORAGE,
-                'output': process.env.AZURE_OUTPUT_STORAGE,
-                'emission': process.env.AZURE_EMISSION_STORAGE
+                'input': process.env.AZURE_INPUT_STORAGE.replace(/["']/g, ""),
+                'output': process.env.AZURE_OUTPUT_STORAGE.replace(/["']/g, ""),
+                'emission': process.env.AZURE_EMISSION_STORAGE.replace(/["']/g, "")
             }   
         }
         else {

@@ -19,6 +19,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
   markers = new L.FeatureGroup();
   legend: any;
   countryGeoJSON: any;
+  noData = false;
 
   @Input() mapData!: any;
   @Input() level = 'state';
@@ -52,6 +53,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     if (!this.mapContainer || !this.mapData) {
       return;
     }
+
     if (this.map) {
       this.map.remove();
     }
@@ -61,22 +63,26 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
     }
     this.map = L.map(this.mapContainer.nativeElement, { zoomSnap: 0.05, minZoom: 4, zoomControl: true, scrollWheelZoom: false, touchZoom: false }).setView([this.mapCenterLatlng.lat, this.mapCenterLatlng.lng], this.mapCenterLatlng.zoomLevel);
     try {
-      await this.applyCountryBorder(this.mapData);
-      const tiles =  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        subdomains: 'abcd'
-      });
+      if (this.mapData.data && this.mapData.data.length > 0) {
+        await this.applyCountryBorder(this.mapData);
+        const tiles =  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+          subdomains: 'abcd'
+        });
 
-      tiles.addTo(this.map);
-      this.map.attributionControl.setPrefix(false);
-      // var imageUrl ='https://i.stack.imgur.com/khgzZ.png',
-      // imageBounds = [[80.0, -350.0], [-40.0, 400.0]];
-      // L.imageOverlay(imageUrl, imageBounds, {opacity: 0.3}).addTo(this.map);
-      if (environment.config === 'national' && this.level === 'district') {
-        this.createMarkers(this.mapData);
+        tiles.addTo(this.map);
+        this.map.attributionControl.setPrefix(false);
+        // var imageUrl ='https://i.stack.imgur.com/khgzZ.png',
+        // imageBounds = [[80.0, -350.0], [-40.0, 400.0]];
+        // L.imageOverlay(imageUrl, imageBounds, {opacity: 0.3}).addTo(this.map);
+        if (environment.config === 'national' && this.level === 'district') {
+          this.createMarkers(this.mapData);
+        }
+        this.map.on('resize', () => {
+          this.fitBoundsToCountryBorder();
+        });
+      } else {
+        this.noData = true;
       }
-      this.map.on('resize', () => {
-        this.fitBoundsToCountryBorder();
-      });
     } catch (e) {
       console.error(e);
       this.error = true;
@@ -225,7 +231,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
           }
 
           mapData?.data.forEach((state: any) => {
-            let stateCode = feature.properties.State_LGD ? feature.properties.Dist_LGD : feature.properties.state_code;
+            let stateCode = feature.properties.State_LGD ? feature.properties.State_LGD : feature.properties.state_code ? feature.properties.state_code : feature.properties.ID_1;
             let districtCode = feature.properties.Dist_LGD ? feature.properties.Dist_LGD : feature.properties.ID_2;
             
             if (state.state_code == stateCode && !state.district_code) {
@@ -254,7 +260,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnChanges {
         function getPopUp(feature: any) {
           let popup: any;
           mapData.data.forEach((state: any) => {
-            let stateCode = feature.properties.State_LGD ? feature.properties.Dist_LGD : feature.properties.state_code;
+            let stateCode = feature.properties.State_LGD ? feature.properties.State_LGD : feature.properties.state_code ? feature.properties.state_code : feature.properties.ID_1;
             let districtCode = feature.properties.Dist_LGD ? feature.properties.Dist_LGD : feature.properties.ID_2;
             
             if (state.state_code == stateCode && !state.district_code) {

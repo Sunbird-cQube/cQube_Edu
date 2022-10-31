@@ -44,10 +44,7 @@ The following ports have to be configured in the nginix server with reverse prox
   cp config.yml.template config.yml
   ```
 - Edit using ```nano config.yml```
-- If you are opting for mode_of_installation as localhost then storage_type should be local. Copy the local_storage_config.yml.template to local_storage_config.yml  
-  ```
-  cp local_storage_config.yml.template local_storage_config.yml
-  ```
+
 - If you are opting for mode_of_installation as public then storage_type should be s3. Copy the aws_s3_config.yml.template to aws_s3_config.yml 
   ```
   cp aws_s3_config.yml.template aws_s3_config.yml

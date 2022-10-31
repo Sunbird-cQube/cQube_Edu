@@ -66,6 +66,8 @@ export class SummaryStatistictsComponent implements OnInit {
   tableData51: any = [];
   tableData52: any = [];
   tableData53: any = [];
+  tableData54: any = [];
+  tableData55: any = [];
   
   constructor(private router: Router, private service: SummaryService) { }
 
@@ -386,7 +388,7 @@ export class SummaryStatistictsComponent implements OnInit {
       document.getElementById('spinner').style.display = 'none';
     });
 
-    this.service.getdikshaEtbQrCoverage().subscribe((res: any) => {
+    this.service.getdikshavskEtbQrCoverage().subscribe((res: any) => {
       this.tableData31 = res;
       if (this.tableData31.length > 0) {
         this.tableWithSubHeaders(this.tableData31, "table32");
@@ -630,6 +632,28 @@ export class SummaryStatistictsComponent implements OnInit {
       this.tableData53 = res;
       if (this.tableData53.length > 0) {
         this.tableWithSubHeaders(this.tableData53, "table54");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getDikshaEtbEtbCoverage().subscribe((res: any) => {
+      this.tableData54 = res;
+      if (this.tableData54.length > 0) {
+        this.tableWithSubHeaders(this.tableData54, "table55");
+        document.getElementById('spinner').style.display = 'none';
+      }
+
+    }, err => {
+      document.getElementById('spinner').style.display = 'none';
+    });
+
+    this.service.getDikshaEtbQRCoverage().subscribe((res: any) => {
+      this.tableData55 = res;
+      if (this.tableData55.length > 0) {
+        this.tableWithSubHeaders(this.tableData55, "table56");
         document.getElementById('spinner').style.display = 'none';
       }
 
