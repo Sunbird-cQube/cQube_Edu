@@ -14,6 +14,8 @@ export class FooterComponent implements OnInit {
     this._dataSourceMetadataService.metadata.subscribe(metadata => {
       if (metadata) {
         this.lastModified = metadata.lastModified;
+      } else {
+        this.lastModified = undefined;
       }
     })
   }
