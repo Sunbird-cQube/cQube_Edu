@@ -1,0 +1,22 @@
+.dfitems
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.legends-list{
+    // width: 85%;
+    height: 4.5vh;
+    font-size: 11px;
+    margin: 0.4vh 0.4vh 0.4vh 0vh;
+    padding-top: 0.7vh;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.wt-legends
+{
+    width: 98%;
+}
