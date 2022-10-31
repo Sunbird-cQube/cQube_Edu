@@ -91,7 +91,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="grid grid-cols-12 gap-2">
+                <div class="grid grid-cols-12 gap-2" style="display: flex;align-items:center;">
                     <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-11" style="margin-bottom: 10px">
                         <div class="button-grp lg:col-span-4 col-span-12 xmd:col-span-6 grid grid-cols-3 gap-4">
                             <button class="col-span-1" mat-flat-button color="primary" id="blockbtn" name="block"
@@ -161,10 +161,10 @@
                             </ng-option>
                         </ng-select>
                     </div>
-                    <div class="col-span-12 xmd:col-span-1 trends-link">
-                        <span class="note" id="trends" (click)="routeToTrends()"
-                            style="margin-right: 25px; cursor: pointer; font-weight: bold; text-decoration: underline; font-size: 13px; color: #3100cc">Click
-                            on Trends</span>
+                    <div class="col-span-12 xmd:col-span-1 trends-link" style="display: flex;align-items:center;justify-content:flex-end;margin-left:5%">
+                        <div class="note" id="trends"  (click)="routeToTrends()"
+                            style="cursor: pointer; font-weight: bold; text-decoration: underline; font-size: 13px; color: #3100cc">Click
+                            on Trends</div>
                     </div>
                 </div>
             </div>

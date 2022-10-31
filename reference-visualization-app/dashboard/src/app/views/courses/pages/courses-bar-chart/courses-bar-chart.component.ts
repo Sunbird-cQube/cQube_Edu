@@ -260,13 +260,13 @@ export class CoursesBarChartComponent implements OnInit {
           tooltips: {
             callbacks: {
               title: function(tooltipItems, data) {
-                return `District Name: ${tooltipItems[0].label}`;
+                return `${tooltipItems[0].label}`;
               },
               label: (tooltipItem, data) => {
                 let multistringText = [];                
   
-                multistringText.push(`Total Content Plays: ${formatNumberForReport(reportData.data[tooltipItem.index]['total_content_plays'])}`);
-                multistringText.push(`Percentage: ${reportData.data[tooltipItem.index]['percentage']}`);
+              multistringText.push(`Total Content Plays: ${formatNumberForReport(reportData.data[tooltipItem.index]['total_content_plays'])}`);
+                multistringText.push(`Percentage: ${reportData.data[tooltipItem.index]['percentage']} %`);
   
                 return multistringText;
               }
