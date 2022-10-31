@@ -1,15 +1,4 @@
 ---
-- name: Stopping the client_side app
-  become: yes
-  shell: pm2 stop client_side
-  tags: update
-
-- name: Delete client_side directory
-  file:
-    path: "{{ base_dir }}/cqube/dashboard"
-    state: absent
-  tags: update
-
 - name: Making sure {{ base_dir }}/cqube/reference-visualization-app/default_management_category directory is present
   file:
     path: "{{ base_dir }}/cqube/reference-visualization-app/default_management_category"

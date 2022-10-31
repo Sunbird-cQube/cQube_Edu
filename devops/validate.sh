@@ -12,7 +12,7 @@ check_length(){
 }
 
 check_postgres(){
-echo "Checking for Postgres ..."
+#echo "Checking for Postgres ..."
 temp=$(psql -V > /dev/null 2>&1; echo $?)
 
 if [ $temp == 0 ]; then
@@ -93,19 +93,6 @@ done < validation_scripts/state_codes
 fi
 }
 
-check_state_name()
-{
-state_found=0
-while read line; do
-  if [[ $line == $2 ]] ; then
-   state_found=1
-  fi
-done < validation_scripts/state_codes
-  if [[ $state_found == 0 ]] ; then
-    echo "Error - Invalid State code. Please refer the state_list file and enter the correct value."; fail=1
-  fi
-}
-
 check_mode_of_installation(){
 if ! [[ $2 == "localhost" || $2 == "public" ]]; then
     echo "Error - Please enter either localhost or public for $1"; fail=1
@@ -172,6 +159,7 @@ java_arg_3: -Xmx${max_java_arg_3}m""" > memory_config.yml
     fi
 fi
 }
+
 
 check_db_naming(){
 check_length $2
@@ -309,11 +297,6 @@ if [[ $access_type == "state" ]]; then
          echo "Error - Please enter either true or false for $1"; fail=1
     fi
 fi
-}
-
-get_config_values(){
-key=$1
-vals[$key]=$(awk ''/^$key:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 }
 
 check_static_datasource(){
@@ -467,6 +450,12 @@ fi
 fi
 }
 
+get_config_values(){
+key=$1
+vals[$key]=$(awk ''/^$key:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
+}
+
+
 bold=$(tput bold)
 normal=$(tput sgr0)
 fail=0
@@ -479,10 +468,11 @@ fi
 echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 
 # An array of mandatory values
-declare -a arr=("system_user_name" "base_dir" "access_type" "state_code" "mode_of_installation" "storage_type" "db_user" "db_name" \
-	"db_password" "read_only_db_user" "read_only_db_password" "api_endpoint" "local_ipv4_address" "proxy_host" \
-		           "keycloak_adm_user" "keycloak_adm_passwd" "report_viewer_config_otp" "db_backup_scheduling" "diksha_columns" "static_datasource" \ 
-			         "management" "session_timeout" "slab1" "slab2" "slab3" "slab4")
+declare -a arr=("system_user_name" "base_dir" "access_type" "mode_of_installation" "storage_type" \
+                "db_name" "db_password" "read_only_db_user" "read_only_db_password" "api_endpoint" \
+                "local_ipv4_address" "proxy_host" "keycloak_adm_user" "keycloak_adm_passwd" "session_timeout" \
+	        "diksha_columns" "report_viewer_config_otp" "db_backup_scheduling" "state_code" "static_datasource" \
+                "management" "slab1" "slab2" "slab3" "slab4" "db_user")
 
 # Create and empty array which will store the key and value pair from config file
 declare -A vals
@@ -534,20 +524,6 @@ case $key in
           check_access_type $key $value
        fi
        ;;
-   state_code)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-          check_state $key $value
-       fi
-       ;;
-   state_name)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-          check_state_name $key $value
-       fi
-       ;;
    mode_of_installation)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -560,14 +536,6 @@ case $key in
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
           check_storage_type $key $value
-       fi
-       ;;
-   db_user)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-	     check_postgres
-          check_db_naming $key $value
        fi
        ;;
    db_name)
@@ -633,6 +601,20 @@ case $key in
           check_db_password $key $value
        fi
        ;;
+   session_timeout)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_timeout $key $value
+       fi
+       ;;
+   diksha_columns)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_diksha $key $value
+       fi
+       ;;
    report_viewer_config_otp)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -647,13 +629,24 @@ case $key in
           check_db_backup_scheduling $key $value
        fi
        ;;
-   diksha_columns)
+   state_code)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
-          check_diksha $key $value
+          check_state $key $value
+       fi
+<<<<<<< HEAD
+       ;;  
+=======
+       ;;
+   state_code)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_state $key $value
        fi
        ;;
+>>>>>>> 6a8b79cf324d0311b944577277571d4838df7476
    static_datasource)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -664,13 +657,6 @@ case $key in
    management)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       fi
-       ;;
-   session_timeout)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-          check_timeout $key $value
        fi
        ;;
    slab1)
@@ -701,6 +687,14 @@ case $key in
           check_slab4 $key $value
        fi
        ;;
+   db_user)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+             check_postgres
+          check_db_naming $key $value
+       fi
+       ;;  
    *)
        if [[ $value == "" ]]; then
           echo -e "\e[0;31m${bold}Error - Value for $key cannot be empty. Please fill this value${normal}"; fail=1

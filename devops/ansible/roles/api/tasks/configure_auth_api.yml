@@ -8,7 +8,7 @@
     state: directory
   tags: [ install, update ]
 
-- name: copying auth script
+- name: copying auth-api script to base directory
   copy:
     src: "../../authentication/keycloak-login-api/"
     dest: "{{base_dir}}/cqube/apis/auth-api"

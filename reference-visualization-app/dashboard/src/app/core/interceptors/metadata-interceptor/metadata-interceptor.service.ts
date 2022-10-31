@@ -26,7 +26,8 @@ export class MetadataInterceptor implements HttpInterceptor {
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
-          return throwError(error);
+        this._dataSourceMetadataService.updateMetaData(undefined);
+        return throwError(error);
       }));
   }
 }
