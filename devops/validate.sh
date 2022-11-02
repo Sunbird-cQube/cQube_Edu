@@ -11,27 +11,6 @@ check_length(){
     fi
 }
 
-check_postgres(){
-#echo "Checking for Postgres ..."
-temp=$(psql -V > /dev/null 2>&1; echo $?)
-
-if [ $temp == 0 ]; then
-    version=`psql -V | head -n1 | cut -d" " -f3`
-    if [[ $(echo "$version >= 10.12" | bc) == 1 ]]
-    then
-        echo "WARNING: Postgres found."
-        echo "Removing Postgres..."
-        sudo systemctl stop kong.service > /dev/null 2>&1
-        sleep 5
-        sudo systemctl stop keycloak.service > /dev/null 2>&1
-        sleep 5
-        sudo systemctl stop postgresql
-        sudo apt-get --purge remove postgresql* -y
-        echo "Done"
-     fi
-fi
-}
-
 check_version(){
 if [[ ! "$base_dir" = /* ]] || [[ ! -d $base_dir ]]; then
     echo "Error - Please enter the absolute path or make sure the directory is present.";
@@ -160,7 +139,26 @@ java_arg_3: -Xmx${max_java_arg_3}m""" > memory_config.yml
 fi
 }
 
+check_postgres(){
+echo "Checking for Postgres ..."
+temp=$(psql -V > /dev/null 2>&1; echo $?)
 
+if [ $temp == 0 ]; then
+    version=`psql -V | head -n1 | cut -d" " -f3`
+    if [[ $(echo "$version >= 10.12" | bc) == 1 ]]
+    then
+        echo "WARNING: Postgres found."
+        echo "Removing Postgres..."
+        sudo systemctl stop kong.service > /dev/null 2>&1
+        sleep 5
+        sudo systemctl stop keycloak.service > /dev/null 2>&1
+        sleep 5
+        sudo systemctl stop postgresql
+        sudo apt-get --purge remove postgresql* -y
+        echo "Done"
+     fi
+fi
+}
 check_db_naming(){
 check_length $2
 if [[ $? == 0 ]]; then
@@ -469,10 +467,10 @@ echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 
 # An array of mandatory values
 declare -a arr=("system_user_name" "base_dir" "access_type" "mode_of_installation" "storage_type" \
-                "db_name" "db_password" "read_only_db_user" "read_only_db_password" "api_endpoint" \
+                "db_user" "db_name" "db_password" "read_only_db_user" "read_only_db_password" "api_endpoint" \
                 "local_ipv4_address" "proxy_host" "keycloak_adm_user" "keycloak_adm_passwd" "session_timeout" \
 	        "diksha_columns" "report_viewer_config_otp" "db_backup_scheduling" "state_code" "static_datasource" \
-                "management" "slab1" "slab2" "slab3" "slab4" "db_user")
+                "management" "slab1" "slab2" "slab3" "slab4")
 
 # Create and empty array which will store the key and value pair from config file
 declare -A vals
@@ -538,6 +536,13 @@ case $key in
           check_storage_type $key $value
        fi
        ;;
+   db_user)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+             check_postgres
+          check_db_naming $key $value
+       fi    
    db_name)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -635,18 +640,7 @@ case $key in
        else
           check_state $key $value
        fi
-<<<<<<< HEAD
-       ;;  
-=======
        ;;
-   state_code)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-          check_state $key $value
-       fi
-       ;;
->>>>>>> 6a8b79cf324d0311b944577277571d4838df7476
    static_datasource)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
@@ -685,14 +679,6 @@ case $key in
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
           check_slab4 $key $value
-       fi
-       ;;
-   db_user)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-             check_postgres
-          check_db_naming $key $value
        fi
        ;;  
    *)
