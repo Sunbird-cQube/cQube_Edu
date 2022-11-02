@@ -409,6 +409,10 @@ export class TotalContentPlayOverYearsComponent implements OnInit {
         height: '200',
         tooltips: {
           callbacks: {
+            title: (tooltipItems) => {
+              console.log(tooltipItems[0])
+              return `Month: ` + tooltipItems[0].xLabel.charAt(0).toUpperCase() + tooltipItems[0].xLabel.slice(1)
+            },
             label: (tooltipItem) => {
               return `Total Content Plays: ${formatNumberForReport(data[tooltipItem.index]['plays'])}`;
             }

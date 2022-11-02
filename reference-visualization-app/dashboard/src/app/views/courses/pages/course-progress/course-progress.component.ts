@@ -210,7 +210,7 @@ export class CourseProgressComponent implements OnInit {
       this.scousesTOShow = [];
       this.items = [];
       this.reportData = [];
-      this.commonService.loaderAndErr(this.districtNames);
+      this.commonService.loaderAndErr(this.reportData);
       if (this.chart && this.chart.axes) {
         this.chart.destroy();
       }
