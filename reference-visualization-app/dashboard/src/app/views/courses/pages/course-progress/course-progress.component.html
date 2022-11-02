@@ -128,16 +128,17 @@
                 No Data Found
             </div> -->
         </div>
-        <div *ngIf="reportData.length > 0 && chart" class="row">
-            <div class="col-sm-9">
+        <div *ngIf="reportData.length > 0 && chart" class="dfitems">
+            <div>
                 <h5 id="legend" style="float: left;">Legend:&nbsp; &nbsp; </h5>
-                <div *ngFor="let value of values; let i = index" style="float: left; margin-top: 5px;">
-                    <span class="legends" style="padding: 8px 15px 10px 15px;"
-                        [ngStyle]="{color: i> 2 ?'black': 'white', width: height > 1200 ? '9%' : '7%'}"
-                        [style.background-color]="legendColors[i]">
-                        {{values[i]}} </span>
-                </div>
             </div>
+                <div *ngFor="let value of values; let i = index" style="float: left;margin-right: 2px;">
+                    <div class="legends wt-legends" style="padding: 0px 15px 0px 10px; display: flex;align-items: center;"
+                        [ngStyle]="{color: i> 2 ?'black': 'white'}"
+                        [style.background-color]="legendColors[i]">
+                       <span>{{values[i]}}</span>  </div>
+                </div>
+            <!-- </div> -->
             <!-- <div class="col-sm-3">
                 <div style="position: relative; bottom: 0px; float: right; margin: 0px auto;">
     
