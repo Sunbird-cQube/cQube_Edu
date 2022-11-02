@@ -346,7 +346,7 @@ export class CourseProgressComponent implements OnInit {
     } else {
       scrollBarX = true
     }
-    var scrollLimit = this.height > 800 ? 16 : this.height > 650 && this.height < 800 ? 12 : this.height < 500 ? 8 : 12;
+    var scrollLimit = this.height >= 1080 ? 15 : this.height < 1080 && this.height > 900 ? 10 : 8;
     if (yLabel1.length <= scrollLimit) {
       scrollBarY = false
     } else {
