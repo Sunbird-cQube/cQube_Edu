@@ -265,8 +265,8 @@ export class CoursesBarChartComponent implements OnInit {
               label: (tooltipItem, data) => {
                 let multistringText = [];                
   
-              multistringText.push(`Total Content Plays: ${formatNumberForReport(reportData.data[tooltipItem.index]['total_content_plays'])}`);
-                multistringText.push(`Percentage: ${reportData.data[tooltipItem.index]['percentage']} %`);
+                multistringText.push(`Total Content Plays: ${formatNumberForReport(reportData.data[tooltipItem.index]['total_content_plays'])}`);
+                multistringText.push(`Percentage: ${reportData.data[tooltipItem.index]['percentage']}%`);
   
                 return multistringText;
               }
