@@ -635,18 +635,7 @@ case $key in
        else
           check_state $key $value
        fi
-<<<<<<< HEAD
-       ;;  
-=======
        ;;
-   state_code)
-       if [[ $value == "" ]]; then
-          echo "Error - in $key. Unable to get the value. Please check."; fail=1
-       else
-          check_state $key $value
-       fi
-       ;;
->>>>>>> 6a8b79cf324d0311b944577277571d4838df7476
    static_datasource)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
