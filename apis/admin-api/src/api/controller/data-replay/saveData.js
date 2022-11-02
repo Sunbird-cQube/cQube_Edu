@@ -4,10 +4,13 @@ const auth = require('../../middleware/check-auth');
 var const_data = require('../../lib/config');
 const fs = require('fs');
 const config = require('../../lib/readFiles');
+var storageType = `${process.env.STORAGE_TYPE}`;
+if(storageType === 'azure'){
 const { BlobServiceClient } = require('@azure/storage-blob');
 const blobServiceClient = BlobServiceClient.fromConnectionString(
     process.env.AZURE_STORAGE_CONN_STR
   );
+}
 
 const inputDir = `${process.env.EMISSION_DIRECTORY}/`;
 var path = require('path');
