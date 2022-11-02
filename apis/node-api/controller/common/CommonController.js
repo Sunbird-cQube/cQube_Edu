@@ -29,7 +29,7 @@ exports.getReportData = (req, res, next) => {
 			let dataSourceConfig = require(path.join(__basedir, `core/config/${reqBody.appName}/${reqBody.dataSourceName}_config.js`));
 			let reportConfig = dataSourceConfig[reqBody.reportName][reqBody.reportType];
 			let dataSourcePath = reportConfig.pathToFile;
-
+			console.log("data source path is:",dataSourcePath);
 			let rawData = await getFileData(dataSourcePath);
 
 			if (reqBody.reportType === reportTypes.map) {
@@ -1129,13 +1129,16 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 				tooltip: ""
 			};
 			columns.forEach(col => {
+
 				if (col.isLocationName) {
 					data.Location = record[col.property];
 					return;
 				}
-				
 				data[col.name] = (!isNaN(Number(record[col.property]))) ? Number(Number(record[col.property]).toFixed(2)) : record[col.property];
-
+				if(typeof data[col.name] === 'string' && data[col.name].includes(',')){
+					let tempstr = data[col.name].replaceAll(',','');
+					data[col.name] = Number(tempstr)
+				}
 				if (col.tooltip) {
 					data.tooltip += (data.tooltip.length > 0 ? '<br>' : '') + `${col.tooltip.name}: <b>${col.tooltip.localeString ? new Intl.NumberFormat(col.tooltip.localeString).format(data[col.name]) : data[col.name]}</b>${col.tooltip.valueSuffix ? col.tooltip.valueSuffix : ''}`;
 				}
