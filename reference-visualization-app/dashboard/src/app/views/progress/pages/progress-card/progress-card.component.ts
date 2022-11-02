@@ -527,6 +527,7 @@ progressBar = document.querySelector('.progress-bar');
         });
       }
     } else {
+      this.onHomeSelect();
       alert("Please enter valid id/name");
       document.getElementById('spinner').style.display = 'none';
     }
