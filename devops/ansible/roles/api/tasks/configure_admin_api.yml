@@ -1,10 +1,5 @@
 ---
 #for 4.0
-- name: Stoping the admin_server_side app
-  become: yes
-  shell: pm2 stop admin_server_side
-  tags: update
-
 - name: Creating the admin-api Directory for the installation
   file: 
     path: "{{ base_dir }}/cqube/apis/admin-api"
@@ -14,7 +9,7 @@
     state: directory
   tags: [ install, update ]
 
-- name: copying admin's server-side script
+- name: copying admin-api script to base installation directory
   copy:
     src: "../../apis/admin-api/"
     dest: "{{base_dir}}/cqube/apis/admin-api"
