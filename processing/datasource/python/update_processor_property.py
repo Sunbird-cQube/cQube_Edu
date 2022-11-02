@@ -1,5 +1,3 @@
-import os
-
 from deploy_nifi import rq, prop, logging, sys
 from connect_nifi_processors import get_processor_group_ports
 from nifi_start_pg import start_processor_group
@@ -95,7 +93,6 @@ if __name__ == '__main__':
             start_processor_group(processor_group_name, 'RUNNING')
             start_processor_group(data_storage_processor, 'RUNNING')
             sys.exit(0)
-
         else:
             logging.warn(f"Stop hour should be greater than 0 and less than or equal to 24")
             exit(0)
