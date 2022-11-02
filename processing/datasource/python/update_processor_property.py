@@ -92,16 +92,7 @@ if __name__ == '__main__':
             time.sleep(5)
             start_processor_group(processor_group_name, 'RUNNING')
             start_processor_group(data_storage_processor, 'RUNNING')
-
-            # Stop hour
-            time.sleep(stop_seconds)
-            
-
-            # Disable the diksha_transformer_custom
-            start_processor_group(processor_group_name, 'STOPPED')
-            start_processor_group(data_storage_processor, 'STOPPED')
-            time.sleep(5)
-            start_processor_group(processor_group_name, 'DISABLED')
+            sys.exit(0)
         else:
             logging.warn(f"Stop hour should be greater than 0 and less than or equal to 24")
             exit(0)
