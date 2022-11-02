@@ -542,7 +542,8 @@ case $key in
        else
              check_postgres
           check_db_naming $key $value
-       fi    
+       fi
+       ;;    
    db_name)
        if [[ $value == "" ]]; then
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
