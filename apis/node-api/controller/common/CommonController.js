@@ -1136,7 +1136,7 @@ async function getStackedBarChartData(reqBody, reportConfig, rawData) {
 				}
 				data[col.name] = (!isNaN(Number(record[col.property]))) ? Number(Number(record[col.property]).toFixed(2)) : record[col.property];
 				if(typeof data[col.name] === 'string' && data[col.name].includes(',')){
-					let tempstr = data[col.name].replaceAll(',','');
+					let tempstr = data[col.name].split(',').join('');
 					data[col.name] = Number(tempstr)
 				}
 				if (col.tooltip) {
