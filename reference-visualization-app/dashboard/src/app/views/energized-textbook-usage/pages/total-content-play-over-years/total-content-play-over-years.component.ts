@@ -417,6 +417,20 @@ export class TotalContentPlayOverYearsComponent implements OnInit {
               return `Total Content Plays: ${formatNumberForReport(data[tooltipItem.index]['plays'])}`;
             }
           }
+        },
+        scales: {
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Total Content Plays'
+            }
+          }],
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Months'
+            }
+          }]
         }
       }
     });

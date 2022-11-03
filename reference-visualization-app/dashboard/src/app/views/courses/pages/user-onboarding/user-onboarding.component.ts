@@ -530,10 +530,20 @@ export class UserOnboardingComponent implements OnInit {
         },
         scales: {
           xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Date'
+            },
             ticks: {
               callback: function(value) { 
                   return new Date(value).toLocaleDateString('en-US', {day: '2-digit', month:'short', year:'numeric'}); 
               }
+            }
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Expected Enrolment and Total Net Enrolment'
             }
           }]
         },
