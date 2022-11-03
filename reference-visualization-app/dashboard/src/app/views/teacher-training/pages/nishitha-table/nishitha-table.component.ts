@@ -20,6 +20,7 @@ export class NishithaTableComponent implements OnInit {
   config;
   data;
   fileName: string = "NISHTA_District_wise_Status";
+  stateFilterSelected: boolean = true;
 
   @Input() lastLevel!: string;
 
@@ -56,6 +57,12 @@ export class NishithaTableComponent implements OnInit {
     this._commonService.getReportData(data).subscribe((res) => {
       let result = res.result.data;
       this.filters = res.result.filters;
+      this.stateFilterSelected = true;
+      this.filters.forEach((filter: any) => {
+        if(filter.name === 'State/UT' && filter.value === 'overall'){
+          this.stateFilterSelected = false;
+        }
+      });
 
       if (this.lastLevel === 'district') {
         this.config = getChartJSConfig({
@@ -79,6 +86,20 @@ export class NishithaTableComponent implements OnInit {
                   return multistringText;
                 }
               }
+            },
+            scales: {
+              yAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: this.stateFilterSelected ? 'Districts' : 'States'
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Total Enrollment and Certifications'
+                }
+              }]
             }
           }
         });
@@ -108,6 +129,20 @@ export class NishithaTableComponent implements OnInit {
                   return multistringText;
                 }
               }
+            },
+            scales: {
+              yAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Courses'
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Total Enrollment and Certifications'
+                }
+              }]
             }
           }
         });

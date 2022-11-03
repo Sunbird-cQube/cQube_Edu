@@ -708,6 +708,22 @@ export class UserProgressComponent implements OnInit {
           { dataExpr: 'total_completed', label: 'Completed' }
         ])
         this.config = getChartJSConfig({
+          options: {
+            scales: {
+              yAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Districts'
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Total Enrollment and Completion'
+                }
+              }]
+            }
+          },
           labelExpr: 'district_name',
           datasets: datasets
         })
@@ -727,18 +743,66 @@ export class UserProgressComponent implements OnInit {
           ])
           if(this.level === "block") {
             this.config = getChartJSConfig({
+              options: {
+                scales: {
+                  yAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Blocks'
+                    }
+                  }],
+                  xAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Total Enrollment and Completion'
+                    }
+                  }]
+                }
+              },
               labelExpr: 'block_name',
               datasets: datasets
             })
           }
           else if(this.level === "cluster") {
             this.config = getChartJSConfig({
+              options: {
+                scales: {
+                  yAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Clusters'
+                    }
+                  }],
+                  xAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Total Enrollment and Completion'
+                    }
+                  }]
+                }
+              },
               labelExpr: 'cluster_name',
               datasets: datasets
             })
           }
           else if(this.level === "school") {
             this.config = getChartJSConfig({
+              options: {
+                scales: {
+                  yAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Schools'
+                    }
+                  }],
+                  xAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Total Enrollment and Completion'
+                    }
+                  }]
+                }
+              },
               labelExpr: 'school_name',
               datasets: datasets
             })
@@ -758,23 +822,87 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'certificate_count', label: 'Certificate' }
           ])
           this.config = getChartJSConfig({
+            options: {
+              scales: {
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Districts'
+                  }
+                }],
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Total Enrollment and Completion'
+                  }
+                }]
+              }
+            },
             labelExpr: 'district_name',
             datasets: datasets
           })
           if(this.level === "block") {
             this.config = getChartJSConfig({
+              options: {
+                scales: {
+                  yAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Blocks'
+                    }
+                  }],
+                  xAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Total Enrollment and Completion'
+                    }
+                  }]
+                }
+              },
               labelExpr: 'block_name',
               datasets: datasets
             })
           }
           else if(this.level === "cluster") {
             this.config = getChartJSConfig({
+              options: {
+                scales: {
+                  yAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Clusters'
+                    }
+                  }],
+                  xAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Total Enrollment and Completion'
+                    }
+                  }]
+                }
+              },
               labelExpr: 'cluster_name',
               datasets: datasets
             })
           }
           else if(this.level === "school") {
             this.config = getChartJSConfig({
+              options: {
+                scales: {
+                  yAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Schools'
+                    }
+                  }],
+                  xAxes: [{
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Total Enrollment and Completion'
+                    }
+                  }]
+                }
+              },
               labelExpr: 'school_name',
               datasets: datasets
             })
@@ -796,6 +924,22 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'certificate_count', label: 'Certificate' }
           ]);
           this.config = getChartJSConfig({
+            options: {
+              scales: {
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Districts'
+                  }
+                }],
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Total Enrollment and Completion'
+                  }
+                }]
+              }
+            },
             labelExpr: 'district_name',
             datasets: datasets
           });
@@ -809,6 +953,22 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'total_completed', label: 'Completed' },
           ]);
           this.config = getChartJSConfig({
+            options: {
+              scales: {
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Districts'
+                  }
+                }],
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Total Enrollment and Completion'
+                  }
+                }]
+              }
+            },
             labelExpr: 'district_name',
             datasets: datasets
           });
@@ -825,6 +985,22 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'certificate_percentage', label: '% Certificate' },
           ])
           this.config = getChartJSConfig({
+            options: {
+              scales: {
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Districts'
+                  }
+                }],
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Total Enrollment and Completion'
+                  }
+                }]
+              }
+            },
             labelExpr: 'district_name',
             datasets: datasets
           })
@@ -840,6 +1016,22 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'percentage_completion', label: '% Completed' },
           ])
           this.config = getChartJSConfig({
+            options: {
+              scales: {
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Districts'
+                  }
+                }],
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Total Enrollment and Completion'
+                  }
+                }]
+              }
+            },
             labelExpr: 'district_name',
             datasets: datasets
           })
@@ -858,6 +1050,22 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'certificate_count', label: 'Certificate' },
           ])
           this.config = getChartJSConfig({
+            options: {
+              scales: {
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Districts'
+                  }
+                }],
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Total Enrollment and Completion'
+                  }
+                }]
+              }
+            },
             labelExpr: 'district_name',
             datasets: datasets
           })
@@ -877,6 +1085,22 @@ export class UserProgressComponent implements OnInit {
             { dataExpr: 'certificate_percentage', label: '% Certificate' },
           ])
           this.config = getChartJSConfig({
+            options: {
+              scales: {
+                yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Districts'
+                  }
+                }],
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Total Enrollment and Completion'
+                  }
+                }]
+              }
+            },
             labelExpr: 'district_name',
             datasets: datasets
           })

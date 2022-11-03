@@ -60,6 +60,20 @@ export class TotalLearningSessionsComponent implements OnInit {
                 return multistringText;
               }
             }
+          },
+          scales: {
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: environment.config === 'state' ? 'Grades' : 'States'
+              }
+            }],
+            xAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Total No of Learning Sessions'
+              }
+            }]
           }
         }
       });

@@ -59,10 +59,18 @@ export class NisithaStackedBarComponent implements OnInit {
           height: (result.length * 15 + 150).toString(),
           scales: {
             xAxes: [{
-              stacked: true // this should be set to make the bars stacked
+              stacked: true, // this should be set to make the bars stacked
+              scaleLabel: {
+                display: true,
+                labelString: '% Target Achieved-Enrolment and % Total Target-Enrolment'
+              }
            }],
            yAxes: [{
-              stacked: true // this also..
+              stacked: true, // this also..
+              scaleLabel: {
+                display: true,
+                labelString: environment.config === 'state' ? 'Programs' : 'States'
+              }
             }]
           },
           tooltips: {
@@ -119,10 +127,18 @@ export class NisithaStackedBarComponent implements OnInit {
           height: (result.length * 15 + 150).toString(),
           scales: {
             xAxes: [{
-              stacked: true // this should be set to make the bars stacked
+              stacked: true, // this should be set to make the bars stacked
+              scaleLabel: {
+                display: true,
+                labelString: '% Target Achieved-Certificates and % Total Target-Certificates'
+              }
            }],
            yAxes: [{
-              stacked: true // this also..
+              stacked: true, // this also..
+              scaleLabel: {
+                display: true,
+                labelString: environment.config === 'state' ? 'Programs' : 'States'
+              }
             }]
           },
           tooltips: {

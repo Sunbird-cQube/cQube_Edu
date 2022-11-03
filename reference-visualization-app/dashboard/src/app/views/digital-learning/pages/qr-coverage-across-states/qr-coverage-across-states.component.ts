@@ -87,6 +87,20 @@ export class QRCoverageAcrossStatesComponent implements OnInit {
                 return multistringText;
               }
             }
+          },
+          scales: {
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'States'
+              }
+            }],
+            xAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Content Coverage on QR'
+              }
+            }]
           }
         }
       });
