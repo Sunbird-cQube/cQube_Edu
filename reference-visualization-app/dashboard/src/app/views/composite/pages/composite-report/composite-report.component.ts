@@ -828,6 +828,24 @@ export class CompositeReportComponent implements OnInit {
               return multistringText;
             }
           }
+        },
+        scales: {
+          xAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: obj.xAxis
+              },
+            },
+          ],
+          yAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: obj.yAxis
+              },
+            },
+          ],
         }
       }
     });
