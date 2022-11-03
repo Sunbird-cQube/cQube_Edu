@@ -86,7 +86,7 @@ const dataSourceInfo = {
                 {
                     name: 'Program',
                     column: 'Program',
-                    defaultValue: true
+                    includeAll: true
                 }
             ]
         }
@@ -201,7 +201,6 @@ const dataSourceInfo = {
             filters: []
         }
     }
-
 }
 
 module.exports = dataSourceInfo;
