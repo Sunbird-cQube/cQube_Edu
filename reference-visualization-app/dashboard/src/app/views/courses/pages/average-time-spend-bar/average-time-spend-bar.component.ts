@@ -210,6 +210,20 @@ showError = false
                   return multistringText;
                 }
               }
+            },
+            scales: {
+              yAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Courses'
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Average Time Spent'
+                }
+              }]
             }
           }
         });

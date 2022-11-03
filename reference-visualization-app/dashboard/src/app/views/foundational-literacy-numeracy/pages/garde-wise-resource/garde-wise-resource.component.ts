@@ -57,6 +57,20 @@ export class GardeWiseResourceComponent implements OnInit {
                 return multistringText;
               }
             }
+          },
+          scales: {
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Grades'
+              }
+            }],
+            xAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Total No of Learning Sessions'
+              }
+            }]
           }
         }
       });

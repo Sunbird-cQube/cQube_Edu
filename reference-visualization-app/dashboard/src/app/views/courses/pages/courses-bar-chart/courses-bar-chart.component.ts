@@ -271,6 +271,20 @@ export class CoursesBarChartComponent implements OnInit {
                 return multistringText;
               }
             }
+          },
+          scales: {
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Districts'
+              }
+            }],
+            xAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Total Content Plays'
+              }
+            }]
           }
         }
       });

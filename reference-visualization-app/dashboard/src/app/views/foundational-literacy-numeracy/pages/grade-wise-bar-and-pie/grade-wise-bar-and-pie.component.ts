@@ -58,6 +58,20 @@ export class GradeWiseBarAndPieComponent implements OnInit {
                 return multistringText;
               }
             }
+          },
+          scales: {
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Textbooks'
+              }
+            }],
+            xAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: '% LOs Covered'
+              }
+            }]
           }
         }
       });
