@@ -64,12 +64,12 @@ export function getChartJSConfig(config: any): any {
                 mode: 'index',
                 cornerRadius: 10,
                 displayColors: false,
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
                 titleFontFamily: 'verdana',
-                titleFontColor: '#000',
+                titleFontColor: '#fff',
                 titleFontSize: fontSize,
                 bodyFontFamily: 'verdana',
-                bodyFontColor: '#000',
+                bodyFontColor: '#fff',
                 bodyFontSize: fontSize,
                 custom: function (tooltip) {
                     if (!tooltip) return;
