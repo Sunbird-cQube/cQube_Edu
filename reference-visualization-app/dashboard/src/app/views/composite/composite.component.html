@@ -1,7 +1,7 @@
 <div class="metric-card-wrapper">
     <div class="grid gap-4 grid-cols-6 xmd:grid-cols-12">
         <div class="col-span-6">
-            <p class="h4">Composite Report</p>
+            <p class="h4">Composite Dashboard</p>
         </div>
         <div class="col-span-6 lg:col-start-10 lg:col-end-13">
             <app-management-selector (onSelect)="selected()"></app-management-selector>
@@ -12,7 +12,7 @@
 
 <div class="tab-group-wrapper" *ngIf="loadTabs">
     <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
-        <mat-tab label="Composite Report">
+        <mat-tab label="Composite Dashboard">
             <app-composite-report *ngIf="tabIndex === 0"></app-composite-report>
         </mat-tab>
     </mat-tab-group>
