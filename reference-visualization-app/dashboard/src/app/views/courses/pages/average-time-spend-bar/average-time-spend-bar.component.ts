@@ -206,6 +206,7 @@ showError = false
                   let multistringText = [];                
     
                   multistringText.push(`Average Time Spent: ${formatNumberForReport(this.result[tooltipItem.index]['avg_time_spent'])}`);
+                  multistringText.push(`Total Enrolled: ${formatNumberForReport(this.result[tooltipItem.index]['total_enrolled'])}`);
     
                   return multistringText;
                 }
