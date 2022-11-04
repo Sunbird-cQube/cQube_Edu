@@ -27,3 +27,4 @@ pandas==1.0.4
 requests==2.20.0
 flask_oidc==1.4.0
 azure-storage-blob==12.13.1
+azure-storage==0.36.0
