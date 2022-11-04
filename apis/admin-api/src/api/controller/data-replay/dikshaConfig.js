@@ -1,3 +1,4 @@
+const schedule = require('node-schedule');
 const router = require('express').Router();
 const { logger } = require('../../lib/logger');
 const baseDir = process.env.BASE_DIR;
@@ -16,9 +17,11 @@ router.post('/', async (req, res) => {
                 res.status(406).send({ errMsg: "Something went wrong" });
             }
             else {
+                const startTime = new Date(Date.now() + selectedHour*3600000);
+                const job = schedule.scheduleJob(startTime, function(){
+                    shell.exec(`${process.env.BASE_DIR}/cqube/emission_app/flaskenv/bin/python ${baseDir}/cqube/emission_app/python/stop_pg.py diksha_transformer_custom ${selectedHour}`)
+                });
                 res.status(200).send({ msg: 'Succesfully initiated' });
-                shell.exec(`${process.env.BASE_DIR}/cqube/emission_app/flaskenv/bin/python ${baseDir}/cqube/emission_app/python/stop_pg.py diksha_transformer_custom ${selectedHour}`)
-
             }
         })
 
