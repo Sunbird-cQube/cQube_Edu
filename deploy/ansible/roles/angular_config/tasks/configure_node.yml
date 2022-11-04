@@ -43,7 +43,7 @@
     path: "{{base_dir}}/cqube/dashboard/server_side/.env"
     block: |
       STORAGE_SERVICE = "AZURE_DATA_LAKE"
-      AZURE_STORAGE_CONNECTION_STRING = "{{ azure_storage_connection_string }}"
+      AZURE_STORAGE_CONN_STR = "{{ azure_storage_connection_string }}"
       OUTPUT_CONTAINER = "{{ azure_output_container }}"
       INPUT_CONTAINER = "{{ azure_input_container }}"
   when: storage_type == "azure"
