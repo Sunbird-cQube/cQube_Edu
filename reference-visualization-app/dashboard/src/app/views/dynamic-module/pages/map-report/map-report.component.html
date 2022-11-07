@@ -176,23 +176,23 @@
 
                         </ng-select>
 
-                        <ng-select id="choose_block" class="col-span-6 xmd:col-span-3 lg:col-span-2"
+                        <ng-select style="font-size: 18px;font-weight:400;" id="choose_block" class="col-span-6 xmd:col-span-3 lg:col-span-2"
                             [hidden]="blockHidden" id="choose_block" [disabled]="selBlock" [(ngModel)]="blockId"
                             (change)="onBlockSelect(blockId)" dropdownPosition="bottom" [clearable]="false"
                             placeholder="Choose a Block">
 
-                            <ng-option *ngFor="let block of blockDropDown" [value]="block.block_id">
+                            <ng-option style="font-size: 18px;font-weight:400;color:#000" *ngFor="let block of blockDropDown" [value]="block.block_id">
                                 {{ block.block_name | titlecase }}
                             </ng-option>
 
                         </ng-select>
 
-                        <ng-select [hidden]="clusterHidden" id="choose_cluster"
+                        <ng-select style="font-size: 18px;font-weight:400;" [hidden]="clusterHidden" id="choose_cluster"
                             class="col-span-6 xmd:col-span-3 lg:col-span-2" [disabled]="selCluster"
                             [(ngModel)]="clusterId" (change)="onClusterSelect(clusterId)" dropdownPosition="bottom"
                             [clearable]="false" placeholder="Choose a Cluster">
 
-                            <ng-option *ngFor="let cluster of clusterMarkers" [value]="cluster.cluster_id" [ngStyle]="{
+                            <ng-option style="font-size: 18px;font-weight:400;color:#000" *ngFor="let cluster of clusterMarkers" [value]="cluster.cluster_id" [ngStyle]="{
                                             color:
                                               cluster.clusterName !== 'NO NAME FOUND' ? 'white' : '#ff3333'
                                           }">
