@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { formatNumberForReport, numberLabelFormatForReport } from 'src/app/utilities/NumberFomatter';
 
 import * as json2csv from 'json2csv';
 // import { Parser } from 'json2csv'
@@ -73,8 +74,12 @@ export class DownloadButtonComponent implements OnInit {
           dupData.forEach((obj: any) => {
             delete obj.data
           })
-          console.log(dupData)
         }
+        dupData.forEach((obj: any) => {
+          Object.keys(obj).forEach((key: any) => {
+            obj[key] = !isNaN(obj[key]) ? formatNumberForReport(Number(obj[key])) : obj[key]
+          });
+        });
         const opts = { fields: keys, output: fileName };
         const csv = json2csv.parse(dupData, opts);
 
@@ -116,8 +121,13 @@ export class DownloadButtonComponent implements OnInit {
         dupData.forEach((obj: any) => {
           delete obj.data
         })
-        console.log(dupData)
       }
+      dupData.forEach((obj: any) => {
+        Object.keys(obj).forEach((key: any) => {
+          obj[key] = !isNaN(obj[key]) ? formatNumberForReport(Number(obj[key])) : obj[key]
+        });
+      });
+      
       const opts = { fields: keys, output: fileName };
       const csv = json2csv.parse(dupData, opts);
 

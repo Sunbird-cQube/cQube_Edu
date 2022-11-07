@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 import * as json2csv from 'json2csv';
 import { saveAs } from 'file-saver';
 import { ActivatedRoute, Router } from '@angular/router';
+import { formatNumberForReport } from './utilities/NumberFomatter';
 
 export var globalMap;
 declare const $;
@@ -285,7 +286,11 @@ export class AppServiceComponent {
 
       });
 
-
+      reportData.forEach((obj: any) => {
+        Object.keys(obj).forEach((key: any) => {
+          obj[key] = !isNaN(obj[key]) ? formatNumberForReport(Number(obj[key])) : obj[key]
+        });
+      });
       const opts = { fields: updatedKeys, output: fileName };
       const csv = json2csv.parse(reportData, opts);
 
