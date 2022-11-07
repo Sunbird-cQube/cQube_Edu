@@ -837,7 +837,13 @@ export class LoReportComponent implements OnInit {
         this.blockNames = blockNames.sort((a, b) =>
           a.block_name > b.block_name ? 1 : b.block_name > a.block_name ? -1 : 0
         );
-
+        this.reportData.forEach(item=>{
+          if(item.subject === 'undefined')
+          {
+            item.subject = 'No Data'
+          }
+        })
+        console.log("The report data is:", this.reportData);
         this.onChangePage();
         var dist = this.districtNames.find((a) => a.district_id == districtId);
         this.districtHierarchy = {
@@ -897,6 +903,13 @@ export class LoReportComponent implements OnInit {
               ? -1
               : 0
         );
+        this.reportData.forEach(item=>{
+          if(item.subject === 'undefined')
+          {
+            // console.log("deleted");
+            item.subject = 'No Data'
+          }
+        })
         this.onChangePage();
 
         var block = this.blockNames.find((a) => a.block_id == blockId);
@@ -949,6 +962,12 @@ export class LoReportComponent implements OnInit {
       (response) => {
 
         this.updatedTable = this.reportData = response["tableData"];
+        this.reportData.forEach(item=>{
+          if(item.subject === 'undefined')
+          {
+            item.subject = 'No Data';
+          }
+        })
         this.onChangePage();
 
         var cluster = this.clusterNames.find((a) => a.cluster_id == clusterId);
