@@ -45,7 +45,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-3">
+                    <div class="col-sm-5">
                         <div class="row">
                             <div class="col-sm-5">
                                 <p id="errMsg" class="note"
@@ -143,19 +143,19 @@
                         </ng-select>
 
 
-                        <ng-select [hidden]="blockHidden" id="block" class="col-span-6 xmd:col-span-3 lg:col-span-2"
+                        <ng-select style="font-size: 18px;font-weight:400;" [hidden]="blockHidden" id="block" class="col-span-6 xmd:col-span-3 lg:col-span-2"
                             [(ngModel)]="block" [disabled]="selBlock" (change)="selectedBlock(block)"
                             dropdownPosition="bottom" [clearable]="false" placeholder="Choose Block">
 
-                            <ng-option *ngFor="let block of blockNames, let i =index" [value]="block.block_id">
+                            <ng-option style="font-size: 18px;font-weight:400;color:#000" *ngFor="let block of blockNames, let i =index" [value]="block.block_id">
                                 {{block.block_name | titlecase}}
                             </ng-option>
                         </ng-select>
-                        <ng-select [hidden]="clusterHidden" id="cluster" class="col-span-6 xmd:col-span-3 lg:col-span-2"
+                        <ng-select style="font-size: 18px;font-weight:400;" [hidden]="clusterHidden" id="cluster" class="col-span-6 xmd:col-span-3 lg:col-span-2"
                             [(ngModel)]="cluster" [disabled]="selCluster" (change)="selectedCluster(cluster)"
                             dropdownPosition="bottom" [clearable]="false" placeholder="Choose Cluster">
 
-                            <ng-option *ngFor="let cluster of clusterNames, let i =index" [value]="cluster.cluster_id">
+                            <ng-option style="font-size: 18px;font-weight:400;color:#000" *ngFor="let cluster of clusterNames, let i =index" [value]="cluster.cluster_id">
                                 {{cluster.cluster_name | titlecase}}
                             </ng-option>
                         </ng-select>
