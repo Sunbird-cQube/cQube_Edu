@@ -4,8 +4,13 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" (window:resize)="onResize($event)">
                 <div *ngIf="showAll" class="regional-detail-card">
                     <div class="row details">
-                        <div style="padding-left: 0%;" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div style="padding-left: 0%;">
                             <div class="row regional-details-container">
+                                <div    class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+                                        *ngIf="level =='state' && progressCardData['basic_details']">
+                                        <small>State ID: &nbsp;&nbsp;</small>
+                                        <strong>{{progressCardData['basic_details']['state_id']}}</strong>
+                                    </div>
                                 <div *ngFor="let key of keys; let i=index"
                                     class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <div *ngIf="i%2==0 && i==0 && level =='state'">
@@ -23,11 +28,6 @@
                                     <div *ngIf="i%2==0 && i!=0 && level =='state' && progressCardData['basic_details']">
                                         <small>{{updatedKeys[i]}} : &nbsp;&nbsp;</small>
                                         <strong>{{progressCardData['basic_details'][key]}}</strong>
-                                    </div>
-                                    <div
-                                        *ngIf=" i%2==1 && i==1 && level =='state' && progressCardData['basic_details']">
-                                        <small>State ID: &nbsp;&nbsp;</small>
-                                        <strong>{{progressCardData['basic_details']['state_id']}}</strong>
                                     </div>
                                     <div *ngIf="i%2==1 && level !='state' && level !='school'">
                                         <small>{{updatedKeys[i]}} : &nbsp;&nbsp;</small>
