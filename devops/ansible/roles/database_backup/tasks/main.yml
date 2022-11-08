@@ -8,3 +8,20 @@
     dest: "{{ base_dir }}/cqube/postgres/frequent_database_backup.sh"
   when: db_backup_scheduling == true
   tags: [ install, update ]
+
+- name: copy the crontab setup file to base directory
+  template:
+    owner: "{{ system_user_name }}"
+    group: "{{ system_user_name }}"
+    mode: 0644
+    src: cron_setup.j2
+    dest: "{{ base_dir }}/cqube/postgres/cron_setup"
+  when: db_backup_scheduling == true
+  tags: [ install, update ]
+      
+- name: setup the cron job
+  command: su - {{ system_user_name }} -c "/usr/bin/crontab {{ base_dir }}/cqube/postgres/cron_setup"
+  args:
+    warn: false
+  when: db_backup_scheduling == true
+  tags: [ install, update ]
