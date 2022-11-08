@@ -42,7 +42,10 @@ session_timeout: 7D                      # Do not change this value. Default is 
 #Enter the value as `false`, if content_gradelevel & collection_gradelevel columns are not available.
 diksha_columns: false                    # Enter true or false for state installation, Enter false for national
 report_viewer_config_otp: false             # enter true or false to enable OTP authentication for all users (only applicable when auth_api is `cqube`). Enter false for national.
-db_backup_scheduling:                         # Enter true if auto backup of database needs to setup. Enter false if data base backup scheduling not required.
+db_backup_scheduling:                         # Enter true if auto backup of database needs to setup. Enter false if data base backup scheduling not required
+# If db_backup_scheduling is true then cron syntax should be entered between the ' ' with the spaces before and after the syntax. Ex. ' */2 * * * * '
+#Follow cron syntax document to fill the cron syntax
+cron_syntax:                         # Enter cron syntax if db_backup_scheduling is true, Enter NA if db_backup_scheduling is false.
  
 #-----Below variable are applicable only for state installation. If you chose national installation then fill the variables as NA.---#
 

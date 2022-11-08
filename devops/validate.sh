@@ -284,6 +284,25 @@ if ! [[ $2 == "true" || $2 == "false" ]]; then
 fi
 }
 
+check_cron_syntax(){
+if [[ $db_backup_scheduling == "true" ]]; then
+   crontab -l > test_cron
+   echo "$cron1 $cron2 $cron3 $cron4 $cron5  /test" > test_cron
+   crontab test_cron
+   if [ $? = 1 ]; then
+     tput setaf 1; echo "please check cron syntax"; fail=1
+   else
+      crontab -r
+      rm test_cron
+   fi
+else
+   if ! [[ $2 == "NA" ]]; then
+         echo "If db_scheduling is false, Please enter cron syntax as NA"; fail=1
+   fi
+
+fi
+}
+
 check_kc_config_otp(){
 if [[ $access_type == "national" ]]; then
     if [[ ! $2 == "NA" ]]; then
@@ -469,7 +488,7 @@ echo -e "\e[0;33m${bold}Validating the config file...${normal}"
 declare -a arr=("system_user_name" "base_dir" "access_type" "mode_of_installation" "storage_type" \
                 "db_user" "db_name" "db_password" "read_only_db_user" "read_only_db_password" "api_endpoint" \
                 "local_ipv4_address" "proxy_host" "keycloak_adm_user" "keycloak_adm_passwd" "session_timeout" \
-	        "diksha_columns" "report_viewer_config_otp" "db_backup_scheduling" "state_code" "static_datasource" \
+	        "diksha_columns" "report_viewer_config_otp" "db_backup_scheduling" "cron_syntax" "state_code" "static_datasource" \
                 "management" "slab1" "slab2" "slab3" "slab4")
 
 # Create and empty array which will store the key and value pair from config file
@@ -480,7 +499,12 @@ base_dir=$(awk ''/^base_dir:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 access_type=$(awk ''/^access_type:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 storage_type=$(awk ''/^storage_type:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 mode_of_installation=$(awk ''/^mode_of_installation:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
-map_name=$(awk ''/^map_name:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
+db_backup_scheduling=$(awk ''/^db_backup_scheduling:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
+cron1=$(awk ''/^cron_syntax:' /{ if ($3 !~ /#.*/) {print $3}}' config.yml)
+cron2=$(awk ''/^cron_syntax:' /{ if ($4 !~ /#.*/) {print $4}}' config.yml)
+cron3=$(awk ''/^cron_syntax:' /{ if ($5 !~ /#.*/) {print $5}}' config.yml)
+cron4=$(awk ''/^cron_syntax:' /{ if ($6 !~ /#.*/) {print $6}}' config.yml)
+cron5=$(awk ''/^cron_syntax:' /{ if ($7 !~ /#.*/) {print $7}}' config.yml)
 slab1=$(awk ''/^slab1:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 slab2=$(awk ''/^slab2:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
 slab3=$(awk ''/^slab3:' /{ if ($2 !~ /#.*/) {print $2}}' config.yml)
@@ -633,6 +657,13 @@ case $key in
           echo "Error - in $key. Unable to get the value. Please check."; fail=1
        else
           check_db_backup_scheduling $key $value
+       fi
+       ;;
+   cron_syntax)
+       if [[ $value == "" ]]; then
+          echo "Error - in $key. Unable to get the value. Please check."; fail=1
+       else
+          check_cron_syntax $key $value
        fi
        ;;
    state_code)
