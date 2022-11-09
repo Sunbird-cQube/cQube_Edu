@@ -300,10 +300,14 @@ showError = false
     this.reportData.forEach(element => {
       this.selectedDistricts.forEach(district => {
         let distData = this.distData[district];
-        let distName = distData[0].district_name;
-        let objectValue = distData.find(metric => metric.object_type === element.object_type);
+        if(distData)
+        {
+          let distName = distData[0].district_name;
+          let objectValue = distData.find(metric => metric.object_type === element.object_type);
+          element[distName] = objectValue && objectValue.total_content_plays_percent ? objectValue.total_content_plays_percent : 0;
 
-        element[distName] = objectValue && objectValue.total_content_plays_percent ? objectValue.total_content_plays_percent : 0;
+        }
+
       });
 
       this.newDownload(element);
