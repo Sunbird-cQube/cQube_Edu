@@ -300,9 +300,9 @@ export class PatLoComponent implements OnInit {
           headers += `<th class="rank text-wrap" style ="text-align: center" ><div style="transform: rotate(270deg); vertical-align: middle; text-align: center;">${col}</div></th>`;
         } else {
           if (col == 'Indicator') {
-            headers += `<th class="indicator">${col}</th>`;
+            headers += `<th class="indicator" style ="text-align: center">${col}</th>`;
           } else {
-            headers += `<th>${col}</th>`;
+            headers += `<th style ="text-align: center">${col}</th>`;
           }
         }
       });
