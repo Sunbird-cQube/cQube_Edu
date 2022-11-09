@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="col-xl-7 col-md-12 col-sm-12">
-                        <div class="row header-center">
+                        <div class="row header-center ds-flex">
                             <div class="col-sm-3">
                                 <ng-select [disabled]="markers.length == 0" id="academicYear" style="margin-top:0.5vh"
                                     [(ngModel)]="academicYear" class="col-span-6 xmd:col-span-3 lg:col-span-2"
@@ -68,14 +68,14 @@
                                     </ng-option>
                                 </ng-select>
                             </div>
-                            <div class="col-sm-4">
-                                <a class="downloadRaw" class="downloadRaw" *ngIf="academicYear" href="javascript: void(0)" id="downloadRaw"
-                                    (click)="downloadRaw()">Download
+                            <div class="col-sm-4 col-lg-4.2 ">
+                                <a class="downloadRaw" class="downloadRaw" *ngIf="academicYear"  id="downloadRaw"
+                                    (click)="downloadRaw()" href="javascript: void(0)">Download
                                     Academic Year Data</a>
                                 <p *ngIf="!academicYear" id="errMsg" class="note"></p>
 
                             </div>
-                            <div class="col-sm-5">
+                            <div class="col-sm-5 col-lg-4.8">
                                 <button *ngIf="reportData.length>0" class="btn btn-primary" title="Download Report"
                                     id="download1" (click)="downloadReport($event)">Download Report &nbsp; <i
                                         class="fa fa-arrow-down" aria-hidden="true"></i>
