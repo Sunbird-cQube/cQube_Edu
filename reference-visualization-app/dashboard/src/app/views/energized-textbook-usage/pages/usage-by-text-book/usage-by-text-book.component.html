@@ -44,7 +44,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-11" style="margin-bottom: 10px">
+                <div class="grid grid-cols-12 gap-6 col-span-12 xmd:col-span-11" style="margin-bottom: 10px">
 
                     <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="time_range" [(ngModel)]="timePeriod"
                         name="timePeriod" appendTo=".app-content" (change)="chooseTimeRange()" dropdownPosition="bottom"
@@ -63,7 +63,7 @@
                             {{collectionNames[i]}}
                         </ng-option>
                     </ng-select>
-                    <div class="lg:col-start-11 lg:col-end-13 xmd:col-start-7 col-span-12">
+                    <div class="lg:col-start-11 lg:col-end-13 xmd:col-start-7 col-span-12 df-flex">
                         <span id="totalCount"><strong>Total Content
                                 Plays:</strong>
                             {{footer}}</span>

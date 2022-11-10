@@ -150,6 +150,7 @@ export class UsageByTextBookComponent implements OnInit {
     this.collectionName = '';
     this.footer = '';
     this.fileName = `${this.reportName}_${this.timePeriod}_${this.commonService.dateAndTime}`;
+    console.log("The filename is:", this.fileName);
     this.result = [];
     this.all = true
     this.dist = false;
@@ -224,6 +225,7 @@ export class UsageByTextBookComponent implements OnInit {
 
     this.commonService.errMsg();
     this.fileName = `${this.reportName}_${this.timePeriod}_${this.commonService.dateAndTime}`;
+    console.log("The filename is:", this.fileName);
     this.footer = '';
     this.result = [];
     this.all = true
@@ -244,6 +246,8 @@ export class UsageByTextBookComponent implements OnInit {
   }
 
   downloadReport() {
+    let time = this.timePeriod === 'Overall' ? 'all':this.timePeriod
+    this.fileName = `${this.reportName}_${time}_${this.commonService.dateAndTime}`;
     this.commonService.download(this.fileName, this.reportData);
   }
 

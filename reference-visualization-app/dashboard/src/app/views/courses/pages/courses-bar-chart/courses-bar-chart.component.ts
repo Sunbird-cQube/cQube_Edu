@@ -236,6 +236,8 @@ export class CoursesBarChartComponent implements OnInit {
   }
 
   downloadReport() {
+    let time = this.timePeriod === 'Overall'? 'all':this.timePeriod;
+    this.fileName = `${this.reportName}_${this.timePeriod}_${this.commonService.dateAndTime}`
     this.commonService.download(this.fileName, this.reportData);
   }
 
