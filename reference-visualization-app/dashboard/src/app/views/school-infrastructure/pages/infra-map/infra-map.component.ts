@@ -2087,6 +2087,7 @@ export class InfraMapComponent implements OnInit {
           value: val,
         });
       }
+      console.log("The infrafilter array is:", this.infraFilter);
   
       this.infraFilter.unshift({
         key: "infrastructure_score",
@@ -2105,6 +2106,24 @@ export class InfraMapComponent implements OnInit {
         a.value > b.value ? 1 : b.value > a.value ? -1 : 0
       );
       this.infraFilter.splice(0, 0, infraKey[0]);
+
+    this.data.forEach(element => {
+      let mtelement = element?.metrics;
+      if(mtelement)
+      {
+          for(var key in mtelement)
+        {
+          if(mtelement[key] === null || mtelement[key] === '')  
+          {
+            mtelement[key] = 0;
+          }
+        
+        }
+      }
+      
+      
+    });
+
     }
   
     public infraData = "infrastructure_score";
