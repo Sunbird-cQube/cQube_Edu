@@ -2410,6 +2410,24 @@ export class UdiseReportComponent implements OnInit, AfterViewInit {
       a.value > b.value ? 1 : b.value > a.value ? -1 : 0
     );
     this.indiceFilter.splice(0, 0, indiceKey[0]);
+    this.data.forEach(element => {
+      let mtelement = element?.indices;
+      if(mtelement)
+      {
+          for(var key in mtelement)
+        {
+          if(mtelement[key] === null || mtelement[key] === "")  
+          {
+            mtelement[key] = 0;
+          }
+        
+        }
+      }
+      
+      
+    });
+
+
   }
 
   // getting data to download........
