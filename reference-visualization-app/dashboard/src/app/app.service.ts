@@ -477,6 +477,12 @@ export class AppServiceComponent {
 
     var colorsArr = ["#a5c0ec", "#6996df", "#2d6cd2", "#204d96", "#132e5a"]
     var colors = {};
+    uniqueItems = uniqueItems.map(function (x) { 
+      return Number(x)
+    });
+    uniqueItems1 = uniqueItems1.map(function (x) { 
+      return Number(x)
+    });
     uniqueItems.map((a, i) => {
       if (a <= uniqueItems1[0]) {
         colors[`${a}`] = colorsArr[0];
