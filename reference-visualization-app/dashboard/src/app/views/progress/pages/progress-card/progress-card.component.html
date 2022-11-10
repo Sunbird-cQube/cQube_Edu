@@ -250,12 +250,12 @@
                             </div>
                             <div *ngIf="!progressCardData['student_attendance']" class="notFound"> No Data Available
                             </div>
-                        </div>
-                        <div *ngIf="progressCardData['student_attendance']">
-                            <p *ngIf="showLink" class="link access-report-link mb-3" id="attdLink">
-                                <a routerLink="/attendance/dashboard" [queryParams]="{ tab: 0}">Click to Access
-                                    Report</a>
-                            </p>
+                            <div *ngIf="progressCardData['student_attendance']" class="link-div">
+                                <p *ngIf="showLink" class="link access-report-link mb-3" id="attdLink">
+                                    <a routerLink="/attendance/dashboard" [queryParams]="{ tab: 0}">Click to Access
+                                        Report</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="semPer"
@@ -424,12 +424,12 @@
                             </div>
                             <div *ngIf="!progressCardData['student_semester']" class="notFound"> No Data Available
                             </div>
-                        </div>
-                        <div *ngIf="progressCardData['student_semester']">
-                            <p *ngIf="showLink" class="link access-report-link mb-3" id="semLink">
-                                <a routerLink="/stperformance/dashboard" [queryParams]="{ tab: 0}">Click to Access
-                                    Report</a>
-                            </p>
+                            <div *ngIf="progressCardData['student_semester']" class="link-div">
+                                <p *ngIf="showLink" class="link access-report-link mb-3" id="semLink">
+                                    <a routerLink="/stperformance/dashboard" [queryParams]="{ tab: 0}">Click to Access
+                                        Report</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="pat"
@@ -583,12 +583,12 @@
                             </div>
                             <div *ngIf="!progressCardData['pat_performance']" class="notFound"> No Data Available
                             </div>
-                        </div>
-                        <div *ngIf="progressCardData['pat_performance']">
-                            <p *ngIf="showLink" class="link access-report-link mb-3" id="patLink">
-                                <a routerLink="/stperformance/dashboard" [queryParams]="{ tab: 2}">Click to Access
-                                    Report</a>
-                            </p>
+                            <div *ngIf="progressCardData['pat_performance']" class="link-div">
+                                <p *ngIf="showLink" class="link access-report-link mb-3" id="patLink">
+                                    <a routerLink="/stperformance/dashboard" [queryParams]="{ tab: 2}">Click to Access
+                                        Report</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <!-- </div>
@@ -744,11 +744,11 @@
                             </div>
                             <div *ngIf="!progressCardData['school_infrastructure']" class="notFound"> No Data Available
                             </div>
-                        </div>
-                        <div *ngIf="progressCardData['school_infrastructure']">
-                            <p *ngIf="showLink" class="link access-report-link mb-3" id="infraLink">
-                                <a routerLink="/infra/dashboard" [queryParams]="{ tab: 0}">Click to Access Report</a>
-                            </p>
+                            <div *ngIf="progressCardData['school_infrastructure']" class="link-div">
+                                <p *ngIf="showLink" class="link access-report-link mb-3" id="infraLink">
+                                    <a routerLink="/infra/dashboard" [queryParams]="{ tab: 0}">Click to Access Report</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="udise"
@@ -911,16 +911,16 @@
                             </div>
                             <div *ngIf="!progressCardData['udise']" class="notFound"> No Data Available
                             </div>
-                        </div>
-                        <div *ngIf="progressCardData['udise']">
-                            <p *ngIf="showLink" class="link access-report-link mb-3" id="udiseLink">
-                                <a routerLink="/infra/dashboard" [queryParams]="{ tab: 2}">Click to Access Report</a>
-                            </p>
+                            <div *ngIf="progressCardData['udise']" class="link-div">
+                                <p *ngIf="showLink" class="link access-report-link mb-3" id="udiseLink">
+                                    <a routerLink="/infra/dashboard" [queryParams]="{ tab: 2}">Click to Access Report</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" id="crc"
                         style="margin-bottom:10px !important">
-                        <div [ngStyle]="{'min-height': height }" class="card">
+                        <div [ngStyle]="{'min-height': height }" class="card card-flex">
                             <div class="row">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div *ngIf="progressCardData['crc_visit']" ngbDropdown
@@ -1062,17 +1062,17 @@
                             </div>
                             <div *ngIf="!progressCardData['crc_visit']" class="notFound"> No Data Available
                             </div>
-                        </div>
-                        <div *ngIf="progressCardData['crc_visit']">
-                            <p *ngIf="showLink" class="link access-report-link mb-3" id="crcLink">
-                                <a routerLink="/education-official/dashboard">Click to Access Report</a>
-                            </p>
+                            <div *ngIf="progressCardData['crc_visit']" class="link-div">
+                                <p *ngIf="showLink" class="link access-report-link mb-3" id="crcLink">
+                                    <a routerLink="/education-official/dashboard">Click to Access Report</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div *ngIf="err" style="position: absolute; top: 45%; left: 45%; color: red;">
+        <div *ngIf="err" style="position: absolute; top: 45%; left: 25%; color: red;">
             No Data Found
         </div>
         <div class="row" id="footer">

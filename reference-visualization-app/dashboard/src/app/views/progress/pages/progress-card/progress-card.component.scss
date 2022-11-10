@@ -43,9 +43,10 @@ input[type="submit"] {
 }
 
 .link {
-    position: absolute;
-    bottom: 0px;
-    left: 40px;
+    // position: absolute;
+    // bottom: 0px;
+    // left: 40px;
+    margin-left: 40px;
     height: 20px auto;
     font-weight: bold;
     text-decoration: underline;
@@ -464,3 +465,15 @@ select:focus {
 
 }
 
+.access-report-link{
+    color: blue;
+}
+
+.card-flex{
+    display: flex !important;
+    flex-direction: column;
+}
+
+.link-div{
+    margin-top: auto;
+}
