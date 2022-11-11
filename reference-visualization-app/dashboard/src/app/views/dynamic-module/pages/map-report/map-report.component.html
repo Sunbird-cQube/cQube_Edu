@@ -149,7 +149,7 @@
                                 <span *ngIf="grade.grade == 'all'; else other_content">
                                     All Grades
                                 </span>
-                                <ng-template #other_content> {{grade.grade}}</ng-template>
+                                <ng-template #other_content> {{grade.label}}</ng-template>
                             </ng-option>
                         </ng-select>
 
@@ -157,11 +157,11 @@
                             [(ngModel)]="subject" (change)="selectedSubject()" dropdownPosition="bottom"
                             [clearable]="false" placeholder="Choose a Subject">
 
-                            <ng-option *ngFor="let subject of subjects, let i =index" [value]="subjects[i]">
-                                <span *ngIf="subjects[i] == 'all'; else other_content">
+                            <ng-option *ngFor="let subject of subjects, let i =index" [value]="subject.value">
+                                <span *ngIf="subject.value == 'all'; else other_content">
                                     All Subjects
                                 </span>
-                                <ng-template #other_content> {{subjects[i]}}</ng-template>
+                                <ng-template #other_content> {{subject.label}}</ng-template>
                             </ng-option>
                         </ng-select>
 
