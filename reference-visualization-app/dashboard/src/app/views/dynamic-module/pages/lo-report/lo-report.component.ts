@@ -371,11 +371,11 @@ export class LoReportComponent implements OnInit {
   columns = [];
   colorRange = []
   createTable(dataSet) {
+    console.log("The dataset is:", dataSet);
     let weekSelct = this.weekSeletced;
     let dateSelct = this.dateSelected;
     var level = this.level.charAt(0).toUpperCase() + this.level.substr(1);
     var my_columns = this.columns = this.commonService.getColumns(dataSet);
-
     $(document).ready(function () {
       var headers = "<thead><tr>";
       var body = "<tbody>";
@@ -419,7 +419,7 @@ export class LoReportComponent implements OnInit {
         });
         newArr.push(temp);
       });
-
+      console.log("New arrays is", newArr);
       let Arr1 = []
 
       $.each(dataSet, function (a, b) {
@@ -440,7 +440,6 @@ export class LoReportComponent implements OnInit {
       Arr1 = Arr1.sort(function (a, b) {
         return parseFloat(a) - parseFloat(b);
       });
-
       const min = Math.min(...Arr1);
       const max = Math.max(...Arr1);
       let n = max >= 10 ? 10 : max
@@ -555,7 +554,7 @@ export class LoReportComponent implements OnInit {
           body += "<tr>";
           columns.forEach((column, i2) => {
 
-            if (i2 > 1 && column.value || i2 > 1 && String(column.value) == String(0)) {
+            if (i2 >= 1 && column.value || i2 > 1 && String(column.value) == String(0)) {
               let title = `${level} Name: ${column.data}\nGrade: ${columns[0].value[columns[0].value.length - 1]}\nSubject: ${columns[1].value}\nTotal Count: ${column.value}`;
               body += `<td class="numberData" data-toggle="tooltip" data-html="true" data-placement="auto" style='background-color: ${tableCellColor(column.value)}' title="${title}">${column.value}</td>`;
 
