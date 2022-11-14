@@ -7,7 +7,6 @@ import pandas as pd
 import boto3
 import sys
 from update_batch_id import update_parameter_ctx
-from azure.storage.blob import BlockBlobService
 
 
 def creat_csv_file(list_of_items, filename):
@@ -31,9 +30,6 @@ def creat_csv_file(list_of_items, filename):
 
     if storage_type == 's3':
         upload_file_s3('diksha_' + removespecialchars + '.zip')
-
-    if storage_type == 'azure':
-        upload_file_azure('diksha_' + removespecialchars + '.zip')
 
     if os.path.exists('diksha_' + removespecialchars + '.zip'):
         os.remove('diksha_' + removespecialchars + '.zip')
@@ -72,12 +68,6 @@ def delete_files(local_path):
 
 def count_number(path_local):
     return len(os.listdir(path_local))
-
-
-def upload_file_azure(file_name):
-    block_blob_service = BlockBlobService(account_name=AZURE_ACCOUNT_NAME, account_key=AZURE_ACCOUNT_KEY)
-    block_blob_service.create_blob_from_path(AZURE_EMISSION_CONTAINER, 'diksha_enrolment/' + file_name,
-                                             os.path.abspath(file_name));
 
 
 def upload_file_s3(file):
@@ -174,4 +164,3 @@ if len(sys.argv[1:]) > 0:
 
 else:
     print('please provide the arguement')
-

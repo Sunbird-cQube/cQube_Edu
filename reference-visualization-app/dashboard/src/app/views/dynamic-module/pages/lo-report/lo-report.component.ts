@@ -129,6 +129,9 @@ export class LoReportComponent implements OnInit {
               ...this.grades.filter((item) => item.grade !== "all"),
             ];
 
+            this.grades.filter((item) => item.grade !== "all").map((item) => {
+              item.label = item.grade.split("_").join(" ");
+            })  
 
             this.fileName = `${this.datasourse}_overall_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
             if (environment.auth_api === 'cqube' || this.userAccessLevel === "") {
@@ -186,7 +189,7 @@ export class LoReportComponent implements OnInit {
     }
 
 
-    this.header = `Report on ${this.datasourse.replace(/_+/g, ' ')} access by lo for`
+    this.header = `${this.datasourse.replace(/_+/g, ' ')} Access by LO Table for`
     this.description = `The ${this.datasourse.replace(/_+/g, ' ')} dashboard visualises the data on ${this.datasourse.replace(/_+/g, ' ')} metrics for ${this.state}`
   }
   hideDist = true;
@@ -232,6 +235,9 @@ export class LoReportComponent implements OnInit {
         { grade: "all" },
         ...this.grades.filter((item) => item.grade !== "all"),
       ];
+      this.grades.filter((item) => item.grade !== "all").map((item) => {
+        item.label = item.grade.split("_").join(" ");
+      })  
     }, err => {
       document.getElementById('spinner').style.display = "none"
     })
@@ -243,7 +249,12 @@ export class LoReportComponent implements OnInit {
       const key = 'value';
       this.timeRange = [...new Map(this.timeRange.map(item =>
         [item[key], item])).values()];
-
+      this.timeRange.map((item) => {
+        item.label = item.value.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
+      })
+      let findIndx = this.timeRange.findIndex(el => el.value == 'overall')
+      this.timeRange.splice(findIndx, 1)
+      this.timeRange.unshift({value: 'overall', label: 'Overall'})
     })
   }
 
@@ -520,6 +531,9 @@ export class LoReportComponent implements OnInit {
                 body += `<td>${date[0]}</td>`;
               } else if (column.data == 'grade') {
                 body += `<td>${column.value[column.value.length - 1]}</td>`;
+              } else if (column.data == 'subject') {
+                var subject = column.value.charAt(0).toUpperCase() + column.value.slice(1).toLowerCase();
+                body += `<td>${subject}</td>`
               } else {
                 body += `<td>${column.value}</td>`;
               }
@@ -543,6 +557,9 @@ export class LoReportComponent implements OnInit {
                 body += `<td>${date[0]}</td>`;
               } else if (column.data == 'grade') {
                 body += `<td>${column.value[column.value.length - 1]}</td>`;
+              } else if (column.data == 'subject') {
+                var subject = column.value.charAt(0).toUpperCase() + column.value.slice(1).toLowerCase();
+                body += `<td>${subject}</td>`
               } else {
                 body += `<td>${column.value}</td>`;
               }
@@ -566,6 +583,9 @@ export class LoReportComponent implements OnInit {
                 body += `<td>${date[0]}</td>`;
               } else if (column.data == 'grade') {
                 body += `<td>${column.value[column.value.length - 1]}</td>`;
+              } else if (column.data == 'subject') {
+                var subject = column.value.charAt(0).toUpperCase() + column.value.slice(1).toLowerCase();
+                body += `<td>${subject}</td>`
               } else {
                 body += `<td>${column.value}</td>`;
               }
@@ -686,6 +706,9 @@ export class LoReportComponent implements OnInit {
           break;
         }
       }
+      this.grades.filter((item) => item.grade !== "all").map((item) => {
+        item.label = item.grade.split("_").join(" ");
+      })  
       this.month = this.period === "year and month" ? this.months[this.months.length - 1]['months'] : '';
 
     } else {
@@ -770,6 +793,15 @@ export class LoReportComponent implements OnInit {
 
       this.resetToInitPage();
     }
+    let tempSubjects = [];
+    this.subjects.filter((item) => item !== "all").map((item) => {
+      let temp = item;
+      item = {};
+      item.value = temp;
+      item.label = temp.charAt(0).toUpperCase() + temp.slice(1);
+      tempSubjects.push(item)
+    })
+    this.subjects = [{value:"all"}, ...tempSubjects];
 
     this.levelWiseFilter();
 

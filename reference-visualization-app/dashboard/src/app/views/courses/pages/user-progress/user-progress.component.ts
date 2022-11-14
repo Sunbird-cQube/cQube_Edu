@@ -6,6 +6,7 @@ import { AppServiceComponent } from "src/app/app.service";
 import { MatSelect } from "@angular/material/select";
 import { environment } from "src/environments/environment";
 import { getBarDatasetConfig, getChartJSConfig } from 'src/app/core/config/ChartjsConfig';
+import { formatNumberForReport } from 'src/app/utilities/NumberFomatter';
 
 @Component({
   selector: 'app-user-progress',
@@ -703,11 +704,12 @@ export class UserProgressComponent implements OnInit {
         enrollChartData.push(Number(element[`enrollment`]));
         compliChartData.push(Number(element[`completion`]));
 
-        datasets = getBarDatasetConfig([
-          { dataExpr: 'total_enrolled', label: 'Enrolled' },
-          { dataExpr: 'total_completed', label: 'Completed' }
-        ])
         this.config = getChartJSConfig({
+          labelExpr: 'district_name',
+          datasets: getBarDatasetConfig([
+            { dataExpr: 'total_enrolled', label: 'Enrolled' },
+            { dataExpr: 'total_completed', label: 'Completed' }
+          ]),
           options: {
             scales: {
               yAxes: [{
@@ -722,10 +724,22 @@ export class UserProgressComponent implements OnInit {
                   labelString: 'Total Enrollment and Completion'
                 }
               }]
+            },
+            tooltips: {
+              callbacks: {
+                label: (tooltipItem, data) => {
+                  let multistringText = [];                
+    
+                  if (tooltipItem.datasetIndex === 0) {
+                    multistringText.push(`Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled'])}`);
+                    multistringText.push(`Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_completed'])}`);
+                  }
+  
+                  return multistringText;
+                }
+              }
             }
-          },
-          labelExpr: 'district_name',
-          datasets: datasets
+          }
         })
       } else if (
         this.level === "block" ||
@@ -757,6 +771,20 @@ export class UserProgressComponent implements OnInit {
                       labelString: 'Total Enrollment and Completion'
                     }
                   }]
+                },
+                tooltips: {
+                  callbacks: {
+                    label: (tooltipItem, data) => {
+                      let multistringText = [];                
+        
+                      if (tooltipItem.datasetIndex === 0) {
+                        multistringText.push(`Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled'])}`);
+                        multistringText.push(`Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_completed'])}`);
+                      }
+      
+                      return multistringText;
+                    }
+                  }
                 }
               },
               labelExpr: 'block_name',
@@ -779,6 +807,20 @@ export class UserProgressComponent implements OnInit {
                       labelString: 'Total Enrollment and Completion'
                     }
                   }]
+                },
+                tooltips: {
+                  callbacks: {
+                    label: (tooltipItem, data) => {
+                      let multistringText = [];                
+        
+                      if (tooltipItem.datasetIndex === 0) {
+                        multistringText.push(`Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled'])}`);
+                        multistringText.push(`Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_completed'])}`);
+                      }
+      
+                      return multistringText;
+                    }
+                  }
                 }
               },
               labelExpr: 'cluster_name',
@@ -801,6 +843,20 @@ export class UserProgressComponent implements OnInit {
                       labelString: 'Total Enrollment and Completion'
                     }
                   }]
+                },
+                tooltips: {
+                  callbacks: {
+                    label: (tooltipItem, data) => {
+                      let multistringText = [];                
+        
+                      if (tooltipItem.datasetIndex === 0) {
+                        multistringText.push(`Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled'])}`);
+                        multistringText.push(`Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_completed'])}`);
+                      }
+      
+                      return multistringText;
+                    }
+                  }
                 }
               },
               labelExpr: 'school_name',
@@ -836,6 +892,21 @@ export class UserProgressComponent implements OnInit {
                     labelString: 'Total Enrollment and Completion'
                   }
                 }]
+              },
+              tooltips: {
+                callbacks: {
+                  label: (tooltipItem, data) => {
+                    let multistringText = [];                
+      
+                    if (tooltipItem.datasetIndex === 0) {
+                      multistringText.push(`Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled'])}`);
+                      multistringText.push(`Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_completed'])}`);
+                      multistringText.push(`Certificate: ${formatNumberForReport(this.data.values[tooltipItem.index]['certificate_count'])}`);
+                    }
+    
+                    return multistringText;
+                  }
+                }
               }
             },
             labelExpr: 'district_name',
@@ -857,6 +928,21 @@ export class UserProgressComponent implements OnInit {
                       labelString: 'Total Enrollment and Completion'
                     }
                   }]
+                },
+                tooltips: {
+                  callbacks: {
+                    label: (tooltipItem, data) => {
+                      let multistringText = [];                
+        
+                      if (tooltipItem.datasetIndex === 0) {
+                        multistringText.push(`Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled'])}`);
+                        multistringText.push(`Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_completed'])}`);
+                        multistringText.push(`Certificate: ${formatNumberForReport(this.data.values[tooltipItem.index]['certificate_count'])}`);
+                      }
+      
+                      return multistringText;
+                    }
+                  }
                 }
               },
               labelExpr: 'block_name',
@@ -879,6 +965,21 @@ export class UserProgressComponent implements OnInit {
                       labelString: 'Total Enrollment and Completion'
                     }
                   }]
+                },
+                tooltips: {
+                  callbacks: {
+                    label: (tooltipItem, data) => {
+                      let multistringText = [];                
+        
+                      if (tooltipItem.datasetIndex === 0) {
+                        multistringText.push(`Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled'])}`);
+                        multistringText.push(`Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_completed'])}`);
+                        multistringText.push(`Certificate: ${formatNumberForReport(this.data.values[tooltipItem.index]['certificate_count'])}`);
+                      }
+      
+                      return multistringText;
+                    }
+                  }
                 }
               },
               labelExpr: 'cluster_name',
@@ -901,6 +1002,21 @@ export class UserProgressComponent implements OnInit {
                       labelString: 'Total Enrollment and Completion'
                     }
                   }]
+                },
+                tooltips: {
+                  callbacks: {
+                    label: (tooltipItem, data) => {
+                      let multistringText = [];                
+        
+                      if (tooltipItem.datasetIndex === 0) {
+                        multistringText.push(`Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled'])}`);
+                        multistringText.push(`Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_completed'])}`);
+                        multistringText.push(`Certificate: ${formatNumberForReport(this.data.values[tooltipItem.index]['certificate_count'])}`);
+                      }
+      
+                      return multistringText;
+                    }
+                  }
                 }
               },
               labelExpr: 'school_name',
@@ -938,6 +1054,21 @@ export class UserProgressComponent implements OnInit {
                     labelString: 'Total Enrollment and Completion'
                   }
                 }]
+              },
+              tooltips: {
+                callbacks: {
+                  label: (tooltipItem, data) => {
+                    let multistringText = [];                
+      
+                    if (tooltipItem.datasetIndex === 0) {
+                      multistringText.push(`Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled'])}`);
+                      multistringText.push(`Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_completed'])}`);
+                      multistringText.push(`Certificate: ${formatNumberForReport(this.data.values[tooltipItem.index]['certificate_count'])}`);
+                    }
+    
+                    return multistringText;
+                  }
+                }
               }
             },
             labelExpr: 'district_name',
@@ -967,6 +1098,20 @@ export class UserProgressComponent implements OnInit {
                     labelString: 'Total Enrollment and Completion'
                   }
                 }]
+              },
+              tooltips: {
+                callbacks: {
+                  label: (tooltipItem, data) => {
+                    let multistringText = [];                
+      
+                    if (tooltipItem.datasetIndex === 0) {
+                      multistringText.push(`Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled'])}`);
+                      multistringText.push(`Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_completed'])}`);
+                    }
+    
+                    return multistringText;
+                  }
+                }
               }
             },
             labelExpr: 'district_name',
@@ -999,6 +1144,22 @@ export class UserProgressComponent implements OnInit {
                     labelString: 'Total Enrollment and Completion'
                   }
                 }]
+              },
+              tooltips: {
+                callbacks: {
+                  label: (tooltipItem, data) => {
+                    let multistringText = [];                
+      
+                    if (tooltipItem.datasetIndex === 0) {
+                      multistringText.push(`Expected Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['expected_total_enrolled'])}%`);
+                      multistringText.push(`% Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled_percentage'])}%`);
+                      multistringText.push(`% Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['percentage_completion'])}%`);
+                      multistringText.push(`% Certificate: ${formatNumberForReport(this.data.values[tooltipItem.index]['certificate_percentage'])}%`);
+                    }
+    
+                    return multistringText;
+                  }
+                }
               }
             },
             labelExpr: 'district_name',
@@ -1030,6 +1191,21 @@ export class UserProgressComponent implements OnInit {
                     labelString: 'Total Enrollment and Completion'
                   }
                 }]
+              },
+              tooltips: {
+                callbacks: {
+                  label: (tooltipItem, data) => {
+                    let multistringText = [];                
+      
+                    if (tooltipItem.datasetIndex === 0) {
+                      multistringText.push(`Expected Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['expected_total_enrolled'])}%`);
+                      multistringText.push(`% Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled_percentage'])}%`);
+                      multistringText.push(`% Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['percentage_completion'])}%`);
+                    }
+    
+                    return multistringText;
+                  }
+                }
               }
             },
             labelExpr: 'district_name',
@@ -1064,6 +1240,21 @@ export class UserProgressComponent implements OnInit {
                     labelString: 'Total Enrollment and Completion'
                   }
                 }]
+              },
+              tooltips: {
+                callbacks: {
+                  label: (tooltipItem, data) => {
+                    let multistringText = [];                
+      
+                    if (tooltipItem.datasetIndex === 0) {
+                      multistringText.push(`Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled'])}`);
+                      multistringText.push(`Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_completed'])}`);
+                      multistringText.push(`Certificate: ${formatNumberForReport(this.data.values[tooltipItem.index]['certificate_count'])}`);
+                    }
+    
+                    return multistringText;
+                  }
+                }
               }
             },
             labelExpr: 'district_name',
@@ -1099,6 +1290,22 @@ export class UserProgressComponent implements OnInit {
                     labelString: 'Total Enrollment and Completion'
                   }
                 }]
+              },
+              tooltips: {
+                callbacks: {
+                  label: (tooltipItem, data) => {
+                    let multistringText = [];                
+      
+                    if (tooltipItem.datasetIndex === 0) {
+                      multistringText.push(`Expected Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['expected_total_enrolled'])}%`);
+                      multistringText.push(`% Enrolled: ${formatNumberForReport(this.data.values[tooltipItem.index]['total_enrolled_percentage'])}%`);
+                      multistringText.push(`% Completed: ${formatNumberForReport(this.data.values[tooltipItem.index]['percentage_completion'])}%`);
+                      multistringText.push(`% Certificate: ${formatNumberForReport(this.data.values[tooltipItem.index]['certificate_percentage'])}%`);
+                    }
+    
+                    return multistringText;
+                  }
+                }
               }
             },
             labelExpr: 'district_name',

@@ -260,7 +260,7 @@ export class MapReportComponent implements OnInit {
       this.hideIfAccessLevel = true;
     }
 
-    this.header = `Report on ${this.datasourse.replace(/_+/g, ' ')} access by location for`
+    this.header = `${this.datasourse.replace(/_+/g, ' ')} Access Report for`
     this.description = `The ${this.datasourse.replace(/_+/g, ' ')} dashboard visualises the data on ${this.datasourse.replace(/_+/g, ' ')} metrics for ${this.state}`
   }
 
@@ -282,6 +282,12 @@ export class MapReportComponent implements OnInit {
       const key = 'value';
       this.timeRange = [...new Map(this.timeRange.map(item =>
         [item[key], item])).values()];
+      this.timeRange.map((item) => {
+        item.label = item.value.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
+      })
+      let findIndx = this.timeRange.findIndex(el => el.value == 'overall')
+      this.timeRange.splice(findIndx, 1)
+      this.timeRange.unshift({value: 'overall', label: 'Overall'})
 
     })
   }
@@ -325,6 +331,9 @@ export class MapReportComponent implements OnInit {
         { grade: "all" },
         ...this.grades.filter((item) => item.grade !== "all"),
       ];
+      this.grades.filter((item) => item.grade !== "all").map((item) => {
+        item.label = item.grade.split("_").join(" ");
+      })
 
     }, err => {
       document.getElementById('spinner').style.display = "none"
@@ -395,6 +404,9 @@ export class MapReportComponent implements OnInit {
           break;
         }
       }
+      this.grades.filter((item) => item.grade !== "all").map((item) => {
+        item.label = item.grade.split("_").join(" ");
+      })  
       this.month = this.period === "year and month" ? this.months[this.months.length - 1]['months'] : '';
 
     } else {
@@ -461,6 +473,15 @@ export class MapReportComponent implements OnInit {
     } else {
       this.grade = "all";
     }
+    let tempSubjects = [];
+    this.subjects.filter((item) => item !== "all").map((item) => {
+      let temp = item;
+      item = {};
+      item.value = temp;
+      item.label = temp.charAt(0).toUpperCase() + temp.slice(1);
+      tempSubjects.push(item)
+    })
+    this.subjects = [{value:"all"}, ...tempSubjects];
 
     this.levelWiseFilter();
 
@@ -2533,6 +2554,12 @@ export class MapReportComponent implements OnInit {
     Object.keys(marker).forEach((key) => {
       if (key !== "lat" && key !== "long") {
         details[key] = marker[key];
+      }
+      if (key == 'subject') {
+        details[key] = marker[key].charAt(0).toUpperCase() + marker[key].slice(1).toLowerCase();
+      }
+      if (key == 'grade') {
+        details[key] = marker[key].split("_").join(" ");
       }
     });
     Object.keys(details).forEach((key) => {
