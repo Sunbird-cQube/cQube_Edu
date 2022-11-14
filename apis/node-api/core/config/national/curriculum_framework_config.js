@@ -98,6 +98,58 @@ const dataSourceInfo = {
                 }
             ]
         },
+    },
+    participantsByState: {
+        map: {
+            pathToFile: 'state_wise_count.json',
+            locations: [
+                {
+                    name: "Location",
+                    property: "State Name",
+                    level: "state",
+                    isState: true,
+                    tooltip: {
+                        name: "State/UT name"
+                    }
+                }
+            ],
+            dimensions: [
+                {
+                    name: "indicator",
+                    property: "Number of Participants",
+                    tooltip: {
+                        name: "Number of Participants",
+                    }
+                },
+                {
+                    name: "state_code",
+                    property: "State Code"
+                }
+            ],
+            filters: [],
+            options: {
+                legend: {
+                    title: 'DiSanc Survey'
+                }
+            },
+            levels: []
+        },
+    },
+    participantsByLocation: {
+        barChart: {
+            pathToFile: 'language_wise_count.json',
+            columns: [
+                {
+                    name: "Language",
+                    property: "Language"
+                },
+                {
+                    name: "Number of Participants",
+                    property: "Number of Participants"
+                }
+            ],
+            filters: []
+        }
     }
 }
 
