@@ -101,7 +101,7 @@
 
                             <ng-option *ngFor="let periods of timeRange,  let i =index" style="width: 100px;"
                                 [value]="periods.value">
-                                {{periods.value}}
+                                {{periods.value | titlecase}}
                             </ng-option>
                         </ng-select>
                         <ng-select *ngIf="!hideYear" [(ngModel)]="year" id="choose_infra"
