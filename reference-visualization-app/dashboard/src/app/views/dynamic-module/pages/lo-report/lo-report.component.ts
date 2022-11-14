@@ -788,7 +788,11 @@ export class LoReportComponent implements OnInit {
     this.fileName = `${this.datasourse}_${this.grade}_allDistricts_${this.month}_${this.year}_${this.commonService.dateAndTime}`;
     if (this.grade !== "all") {
       this.subjects = this.grades.find(a => { return a.grade == this.grade }).subjects;
-      this.subjects = ["all", ...this.subjects.filter((item) => item !== "all")];
+      if(this.subjects)
+      {
+        this.subjects = ["all", ...this.subjects.filter((item) => item !== "all")];
+
+      }
       this.gradeSelected = true;
     } else {
       this.grade = "all";
@@ -796,13 +800,17 @@ export class LoReportComponent implements OnInit {
       this.resetToInitPage();
     }
     let tempSubjects = [];
-    this.subjects.filter((item) => item !== "all").map((item) => {
-      let temp = item;
-      item = {};
-      item.value = temp;
-      item.label = temp.charAt(0).toUpperCase() + temp.slice(1);
-      tempSubjects.push(item)
-    })
+    if(this.subjects)
+    {
+      this.subjects.filter((item) => item !== "all").map((item) => {
+        let temp = item;
+        item = {};
+        item.value = temp;
+        item.label = temp.charAt(0).toUpperCase() + temp.slice(1);
+        tempSubjects.push(item)
+      })
+    }
+    
     this.subjects = [{value:"all"}, ...tempSubjects];
 
     this.levelWiseFilter();
