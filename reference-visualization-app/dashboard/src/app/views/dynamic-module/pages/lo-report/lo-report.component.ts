@@ -468,30 +468,29 @@ export class LoReportComponent implements OnInit {
 
 
       function generateArrayMinMax1(min, max, n) {
-        let list = [min]
+        let list = [1,2,3,4,5,6,7,8,9,10]
+      
+      // let  list = []
 
-
-        if (max !== min) {
-          let interval = (max - min);
-          for (let i = 1; i < interval; i++) {
-            list.push(min + i);
-          }
-          list.push(max);
-        }
+      //   if (max !== min) {
+      //     let interval = (max - min);
+      //     for (let i = 1; i < interval; i++) {
+      //       list.push(min + i);
+      //     }
+      //     list.push(max);
+      //   }
 
 
         return list;
       }
 
       const rangeArrayIn10Parts = n >= 10 ? generateArrayMinMax(min, max, 10) : generateArrayMinMax1(min, max, n);
-
       function tableCellColor(data) {
         let colors = {}
         let color = ['#a50026', '#d73027', '#f46d43', '#fdae61', '#fee08b', '#d9ef8b', '#a6d96a', '#66bd63', '#1a9850', '#006837']
         rangeArrayIn10Parts.forEach((value, i) => {
           colors[value] = color[i]
         })
-
         var keys = Object.keys(colors);
         var setColor = '';
         for (let i = 0; i < keys.length; i++) {
@@ -499,9 +498,12 @@ export class LoReportComponent implements OnInit {
             setColor = colors[keys[i]];
             break;
           } else if (data > parseInt(keys[i]) && data <= parseInt(keys[i + 1])) {
-            setColor = colors[keys[i + 1]];
-            break;
+           
+              setColor = colors[keys[i+1]];
+              break;
+
           }
+          
         }
         return setColor;
       }
@@ -587,7 +589,7 @@ export class LoReportComponent implements OnInit {
                 var subject = column.value.charAt(0).toUpperCase() + column.value.slice(1).toLowerCase();
                 body += `<td>${subject}</td>`
               } else {
-                body += `<td>${column.value}</td>`;
+                body += `<td>${column.value}</td>`;   
               }
             }
 
@@ -872,6 +874,7 @@ export class LoReportComponent implements OnInit {
           if(item.subject === 'undefined')
           {
             item.subject = 'No Data'
+            // delete item.subject
           }
         })
         console.log("The report data is:", this.reportData);
