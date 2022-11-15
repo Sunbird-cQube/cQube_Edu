@@ -243,24 +243,24 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 								let regex = new RegExp(`^${objs[0][location.property].split(' ')[0]}`, "i");
 								let stateCode = Object.keys(states).find(stateCode => regex.test(states[stateCode].Name));
 								if (stateCode) {
-									data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-									data.tooltip += location.tooltip.valueAsName ? `${stateCode}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${states[stateCode].Name}</b>`;
+									data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+									data.tooltip += location.tooltip.valueAsName ? `${stateCode}: <b> ${objs[0][location.tooltip.property]} </b> ` : `${location.tooltip.name.trim()}: <b> ${states[stateCode].Name} </b> `;
 								} else {
-									data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-									data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${objs[0][location.property]}</b>`;
+									data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+									data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b> ${objs[0][location.tooltip.property]} </b> ` : `${location.tooltip.name.trim()}: <b> ${objs[0][location.property]} </b> `;
 								}
 							} else {
-								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-								data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${objs[0][location.property]}</b>`;
+								data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+								data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b> ${objs[0][location.tooltip.property]} </b> ` : `${location.tooltip.name.trim()}: <b> ${objs[0][location.property]} </b> `;
 							}
 						}
 					} else {
-						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-						data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b>${objs[0][location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${objs[0][location.property]}</b>`;
+						data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+						data.tooltip += location.tooltip.valueAsName ? `${objs[0][location.property]}: <b> ${objs[0][location.tooltip.property]} </b> ` : `${location.tooltip.name.trim()}: <b> ${objs[0][location.property]} </b> `;
 					}
 				}
 
-				data.tooltip += "<br>";
+				data.tooltip += " <br> ";
 				dimensions.forEach(dimension => {
 					if (dimension.weightedAverage) {
 						let numeratorSum = 0;
@@ -274,8 +274,8 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 						data[dimension.name] = Number((numeratorSum / denominatorSum).toFixed(2));
 
 						if (dimension.tooltip) {
-							data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-							data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}${objs[0][dimension.tooltip.valueSuffix] ? objs[0][dimension.tooltip.valueSuffix] : ''}</b>` : `${dimension.tooltip.name.trim()}: <b>${data[dimension.name]}${dimension.tooltip.valueSuffix ? dimension.tooltip.valueSuffix : ''}</b>`;
+							data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+							data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b> ${objs[0][dimension.tooltip.property]}${objs[0][dimension.tooltip.valueSuffix] ? objs[0][dimension.tooltip.valueSuffix] : ''} </b> ` : `${dimension.tooltip.name.trim()}: <b> ${data[dimension.name]}${dimension.tooltip.valueSuffix ? dimension.tooltip.valueSuffix : ''} </b> `;
 						}
 
 						return;
@@ -320,12 +320,12 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 
 						if (dimension.tooltip) {
 							if (isIndicator) {
-								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-								data.tooltip += dimension.tooltip.valueAsName ? `<b><i>${data[dimension.name]}</i></b>: <b>${objs[0][dimension.tooltip.property]}</b>` : `<b><i>${dimension.tooltip.name.trim()}</i></b>: <b>${value}</b>`;
+								data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+								data.tooltip += dimension.tooltip.valueAsName ? ` <b> <i> ${data[dimension.name]} </i> </b> : <b> ${objs[0][dimension.tooltip.property]} </b> ` : ` <b> <i> ${dimension.tooltip.name.trim()} </i> </b> : <b> ${value} </b> `;
 								selectedMetric = dimension.tooltip.valueAsName ? value : dimension.tooltip.name.trim();
 							} else {
-								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-								data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}</b>`;
+								data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+								data.tooltip += dimension.tooltip.valueAsName ? `${data[dimension.name]}: <b> ${objs[0][dimension.tooltip.property]} </b> ` : `${dimension.tooltip.name.trim()}: <b> ${value} </b> `;
 							}
 
 							if (dimension.tooltip.valueSuffix) {
@@ -337,8 +337,8 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 					}
 
 					if (dimension.tooltip) {
-						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-						data.tooltip += dimension.tooltip.valueAsName ? `${objs[0][dimension.property]}: <b>${objs[0][dimension.tooltip.property]}</b>` : `${dimension.tooltip.name.trim()}: <b>${objs[0][dimension.property]}</b>`;
+						data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+						data.tooltip += dimension.tooltip.valueAsName ? `${objs[0][dimension.property]}: <b> ${objs[0][dimension.tooltip.property]} </b> ` : `${dimension.tooltip.name.trim()}: <b> ${objs[0][dimension.property]} </b> `;
 
 						if (dimension.tooltip.valueSuffix) {
 							data.tooltip += dimension.tooltip.valueSuffix;
@@ -386,24 +386,24 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 							let regex = new RegExp(`^${record[location.property].split(' ')[0]}`, "i");
 							let stateCode = Object.keys(states).find(stateCode => regex.test(states[stateCode].Name));
 							if (stateCode) {
-								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-								data.tooltip += location.tooltip.valueAsName ? `${stateCode}: <b>${record[location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${stateCode}</b>`;
+								data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+								data.tooltip += location.tooltip.valueAsName ? `${stateCode}: <b> ${record[location.tooltip.property]} </b> ` : `${location.tooltip.name.trim()}: <b> ${stateCode} </b> `;
 							} else {
-								data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-								data.tooltip += location.tooltip.valueAsName ? `${record[location.property]}: <b>${record[location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${record[location.property]}</b>`;
+								data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+								data.tooltip += location.tooltip.valueAsName ? `${record[location.property]}: <b> ${record[location.tooltip.property]} </b> ` : `${location.tooltip.name.trim()}: <b> ${record[location.property]} </b> `;
 							}
 						} else {
-							data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-							data.tooltip += location.tooltip.valueAsName ? `${record[location.property]}: <b>${record[location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${record[location.property]}</b>`;
+							data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+							data.tooltip += location.tooltip.valueAsName ? `${record[location.property]}: <b> ${record[location.tooltip.property]} </b> ` : `${location.tooltip.name.trim()}: <b> ${record[location.property]} </b> `;
 						}
 					}
 				} else {
-					data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-					data.tooltip += location.tooltip.valueAsName ? `${record[location.property]}: <b>${record[location.tooltip.property]}</b>` : `${location.tooltip.name.trim()}: <b>${record[location.property]}</b>`;
+					data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+					data.tooltip += location.tooltip.valueAsName ? `${record[location.property]}: <b> ${record[location.tooltip.property]} </b> ` : `${location.tooltip.name.trim()}: <b> ${record[location.property]} </b> `;
 				}
 			}
 
-			data.tooltip += "<br>";
+			data.tooltip += " <br> ";
 
 			dimensions.forEach(dimension => {
 				let value = record[dimension.property] ? record[dimension.property] : 0;
@@ -423,12 +423,12 @@ async function getMapReportData(reqBody, reportConfig, rawData) {
 				
 				if (dimension.tooltip) {
 					if (isIndicator) {
-						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-						data.tooltip += dimension.tooltip.valueAsName ? `<b><i>${value}</i></b>: <b>${record[dimension.tooltip.property]}${record[dimension.tooltip.valueSuffix] ? record[dimension.tooltip.valueSuffix] : ''}</b>` : `<b><i>${dimension.tooltip.name.trim()}</i></b>: <b>${value}${dimension.tooltip.valueSuffix ? dimension.tooltip.valueSuffix : ''}</b>`;
+						data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+						data.tooltip += dimension.tooltip.valueAsName ? ` <b> <i> ${value} </i> </b> : <b> ${record[dimension.tooltip.property]}${record[dimension.tooltip.valueSuffix] ? record[dimension.tooltip.valueSuffix] : ''} </b> ` : ` <b> <i> ${dimension.tooltip.name.trim()} </i> </b> : <b> ${value}${dimension.tooltip.valueSuffix ? dimension.tooltip.valueSuffix : ''} </b> `;
 						selectedMetric = dimension.tooltip.valueAsName ? value : dimension.tooltip.name.trim();
 					} else {
-						data.tooltip += data.tooltip && data.tooltip.length > 0 ? '<br>' : '';
-						data.tooltip += dimension.tooltip.valueAsName ? `${value}: <b>${record[dimension.tooltip.property]}${record[dimension.tooltip.valueSuffix] ? record[dimension.tooltip.valueSuffix] : ''}</b>` : `${dimension.tooltip.name.trim()}: <b>${value}${dimension.tooltip.valueSuffix ? dimension.tooltip.valueSuffix : ''}</b>`;
+						data.tooltip += data.tooltip && data.tooltip.length > 0 ? ' <br> ' : '';
+						data.tooltip += dimension.tooltip.valueAsName ? `${value}: <b> ${record[dimension.tooltip.property]}${record[dimension.tooltip.valueSuffix] ? record[dimension.tooltip.valueSuffix] : ''} </b> ` : `${dimension.tooltip.name.trim()}: <b> ${value}${dimension.tooltip.valueSuffix ? dimension.tooltip.valueSuffix : ''} </b> `;
 					}
 				}
 			});

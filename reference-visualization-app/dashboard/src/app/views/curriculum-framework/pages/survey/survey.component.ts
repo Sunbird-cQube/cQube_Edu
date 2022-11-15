@@ -16,7 +16,8 @@ export class SurveyComponent implements OnInit {
   data: any;
   config: any;
   filters: any;
-  fileName: string = "Report_data";
+  fileName1: string = "DiSanc_Survey_map_data";
+  fileName2: string = "DiSanc_Survey_barchart_data";
 
   constructor(private readonly _commonService: CommonService) {
     this.getParticipantsByState(this.filters);
