@@ -55,6 +55,10 @@ export class SurveyComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(res => {
       let result = res.result.data;
+      result.map(obj => {
+        obj.Language = obj?.Language?.charAt(0).toUpperCase() + obj?.Language?.slice(1).toLowerCase()
+      });
+      console.log(result)
       this.filters = res.result.filters;
       this.config = getChartJSConfig({
         labelExpr: 'Language',
