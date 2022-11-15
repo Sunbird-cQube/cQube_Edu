@@ -36,7 +36,7 @@ The following ports have to be configured in the nginix server with reverse prox
 - Navigate to the directory where cQube_Edu has been downloaded or cloned 
   ```
   cd cQube_Edu/devops/
-  git checkout cqube-v4.0-beta
+  git checkout cqube-v4.1-beta
   git pull
   ```
 - Copy the config.yml.template to config.yml 
@@ -50,12 +50,6 @@ The following ports have to be configured in the nginix server with reverse prox
   cp aws_s3_config.yml.template aws_s3_config.yml
   ```
 - Edit using ```nano aws_s3_config.yml```
-
-- If you are opting for mode_of_installation as public then storage_type should be azure. Copy the azure_container_config.yml.template to azure_container_config.yml 
-  ```
-  cp azure_container_config.yml.template azure_container_config.yml
-  ```
-- Edit using ```azure_container_config.yml```
 
 - Fill the configuration details for the below mentioned list in config.yml (* all the values are mandatory)
 - cQube_Base installation process installs the components in a sequence as mentioned below:
@@ -113,3 +107,23 @@ The following ports have to be configured in the nginix server with reverse prox
 
 Once installation is completed without any errors, you will be prompted the following message. 
 ```**CQube installed successfully!!**```
+
+## Steps Post Installation:
+
+### Steps to import Grafana dashboard
+
+
+Open https://<domain_name> from the browser and login with admin credentials
+- Click on Admin Console
+- Click on Monitoring details icon
+- New tab will be loaded with grafana login page on https://<domain_name>/grafana
+- Default username is admin and password is admin
+- Once your logged in change the password as per the need
+- After logged in. Click on Settings icon from the left side menu.
+- Click Data Sources
+- Click on Add data source and select Prometheus
+- In URL field, fill http://<private_ip_of_cqube_server>:9090 Optionally configure the other settings.
+- Click on Save
+- On home page, click on '+' symbol and select Import
+- Click on Upload JSON file and select the json file which is located in git repository cQube_Edu/config/grafana/cQube_Monitoring_Dashboard.json and click Import
+- Dashboard is succesfully imported to grafana with the name of cQube_Monitoring_Dashboard
