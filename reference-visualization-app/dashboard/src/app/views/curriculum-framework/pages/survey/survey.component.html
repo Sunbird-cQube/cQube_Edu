@@ -1,8 +1,8 @@
 <div class="grid grid-cols-12">
     <div class="col-span-full" appFullScreen>
-        <!-- <div class="grid grid-cols-12 button-right">
-            <app-download-button [data]="data?.values" fileName="Content_Coverage_on_QR" [reportType]="'dashletBar'"></app-download-button>
-        </div> -->
+        <div class="grid grid-cols-12 button-right">
+            <app-download-button [data1]="data?.values" [fileName1]="fileName1" [reportType1]="'dashletBar'" [data2]="participantsByState?.data" [fileName2]="fileName2" [reportType2]="'map'" [multiple]="true"></app-download-button>
+        </div>
         <div class="grid gap-2 grid-cols-12 bg-white">
             <div class="xs:col-span-full xmd:col-span-5 md:col-span-5 xl:col-span-4">
                 <app-leaflet-map [mapData]="participantsByState"></app-leaflet-map>
