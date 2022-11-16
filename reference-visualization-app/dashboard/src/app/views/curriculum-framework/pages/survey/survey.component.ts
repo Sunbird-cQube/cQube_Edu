@@ -16,7 +16,8 @@ export class SurveyComponent implements OnInit {
   data: any;
   config: any;
   filters: any;
-  fileName: string = "Report_data";
+  fileName2: string = "DiSanc_Survey_map_data";
+  fileName1: string = "DiSanc_Survey_barchart_data";
 
   constructor(private readonly _commonService: CommonService) {
     this.getParticipantsByState(this.filters);
@@ -54,11 +55,15 @@ export class SurveyComponent implements OnInit {
 
     this._commonService.getReportData(data).subscribe(res => {
       let result = res.result.data;
+      result.map(obj => {
+        obj.Language = obj?.Language?.charAt(0).toUpperCase() + obj?.Language?.slice(1).toLowerCase()
+      });
+      console.log(result)
       this.filters = res.result.filters;
       this.config = getChartJSConfig({
         labelExpr: 'Language',
         datasets: getBarDatasetConfig([
-          { dataExpr: 'Number of Participants', label: 'Number of Participants' }
+          { dataExpr: 'Number of Participants', label: 'Number of Participants VS Languages' }
         ]),
         options: {
           responsive: true,
