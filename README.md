@@ -45,6 +45,8 @@ The following ports have to be configured in the nginix server with reverse prox
   ```
 - Edit using ```nano config.yml```
 
+- If you are opting for access_type as National then enter all the datasource variable in datasource.yml as false. 
+
 - If you are opting for mode_of_installation as public then storage_type should be s3. Copy the aws_s3_config.yml.template to aws_s3_config.yml 
   ```
   cp aws_s3_config.yml.template aws_s3_config.yml
@@ -66,6 +68,8 @@ The following ports have to be configured in the nginix server with reverse prox
 - Save and Close the file
 
 ### Configuration of infrastructure attributes and udise data indices, metrics:
+
+- If you are opting for access_type as state then modify the below configuration of infrastructure attributes and udise data indices, metrics
 
 - Based on the number of infrastructure attributes required by the state, configure the infrastructure report by filling the required fields in the file infrastructure_master.csv:
 - ```cd ../processing/datasource/infra/postgres/infrastructure_master.csv```
