@@ -13,7 +13,7 @@ const routes: Routes = [{
         },
         {
             path: '',
-            redirectTo: '/poshan/dashboard',
+            redirectTo: 'dashboard',
             pathMatch: 'full'
         }
     ]

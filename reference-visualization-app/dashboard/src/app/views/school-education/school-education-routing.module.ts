@@ -14,7 +14,7 @@ const routes: Routes = [
         },
         {
             path: '',
-            redirectTo: '/pgi/dashboard',
+            redirectTo: 'dashboard',
             pathMatch: 'full'
         }
     ]
