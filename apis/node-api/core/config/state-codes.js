@@ -222,7 +222,13 @@ const states = {
         "Latitude": 22.58039044,
         "Longitude": 88.32994665,
         "Code": 37
-    }    
+    },
+    MU: {
+        "Name": "Mauritius",
+        "Latitude": 11.916667,
+        "Longitude": 79.816667,
+        "Code": 5
+    }  
 };
 
 

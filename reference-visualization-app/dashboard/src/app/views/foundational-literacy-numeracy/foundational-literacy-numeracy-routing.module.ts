@@ -14,7 +14,7 @@ const routes: Routes = [
         },
         {
             path: '',
-            redirectTo: '/nipunbharath/dashboard',
+            redirectTo: 'dashboard',
             pathMatch: 'full'
         }
     ]
