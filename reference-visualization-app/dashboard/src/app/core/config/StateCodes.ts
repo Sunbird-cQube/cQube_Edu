@@ -36,7 +36,8 @@ export const StateCodes = [
     "TR",
     "UP",
     "UT",
-    "WB"
+    "WB",
+    "MU"
 ]
 
 export const stateNames = [
@@ -184,5 +185,9 @@ export const stateNames = [
     {
         stateName: 'West Bengal',
         stateCode: 'WB'
+    },
+    {
+        stateName: 'Mauritius',
+        stateCode: 'MU'
     }
 ]

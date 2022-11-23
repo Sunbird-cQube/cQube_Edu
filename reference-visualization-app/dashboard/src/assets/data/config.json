@@ -251,5 +251,12 @@
         "lng": 88.2625,
         "zoomLevel": 4.8,
         "stateCode": 37
+    },
+    "MU": {
+        "name": "Mauritius",
+        "lat": 26.8452,
+        "lng": 88.2625,
+        "zoomLevel": 4.8,
+        "stateCode": 5
     }
 }
