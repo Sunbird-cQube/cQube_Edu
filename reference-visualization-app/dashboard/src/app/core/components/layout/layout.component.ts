@@ -24,7 +24,7 @@ increaseFontSize!: ElementRef;
 decreaseFontSize!: ElementRef;
 @ViewChild('resetFontSize')
 resetFontSize!: ElementRef;
-
+environment = environment;
 
 
   chngePswdRoute = `${environment.appUrl}/#/change-password`

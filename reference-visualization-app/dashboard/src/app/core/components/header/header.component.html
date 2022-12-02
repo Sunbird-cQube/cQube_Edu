@@ -30,9 +30,9 @@
     </div>-->
     <div class="flex">
         <div class="headerSideWidth">
-            <div class="flex items-center bg-white justify-around">
-                <img src="assets/images/MoE.png" class=" h-6 sm:h-9 left-logo" alt="MOI Logo" />
-                <img src="assets/images/ncert_logo_vector_modified.png" class="h-full logo" alt="NCERT Logo">
+            <div class="flex items-center bg-white justify-between">
+                <img src="assets/images/{{environment.content_header_image_1}}" class="h-8 sm:h-11 left-logo" alt="MOI Logo" />
+                <img src="assets/images/{{environment.content_header_image_2}}" class="h-full logo" alt="NCERT Logo" *ngIf="environment.content_header_image_2 && environment.content_header_image_2 !== ''">
                 
                 
                 <a href="https://www.education.gov.in/en" class="hidden" target="_blank">
