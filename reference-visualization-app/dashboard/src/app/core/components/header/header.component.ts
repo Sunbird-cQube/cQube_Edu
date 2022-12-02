@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
   drop: boolean = false;
   withinTime: boolean = false;
   dropdown: boolean = false;
+  environment = environment;
 
   constructor(private router:Router, private readonly _authenticationService: AuthenticationService) { }
 
