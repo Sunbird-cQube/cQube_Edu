@@ -100,6 +100,7 @@ div.kc-logo-text span {
     // margin-left: 130px !important;
     font-size: 24px !important;
     color: rgb(197 240 242);
+    align-items: center;
 }
 
 .logoText{
@@ -828,8 +829,9 @@ label[for="totp"]:after{
 }
 
 .logoImg{
-    height: 35px;
-    width: 35px;
+    height: auto;
+    width: 60px;
+    background-color: white;
 }
 
 .background{
