@@ -13,7 +13,7 @@
 - name: Download NiFi
   get_url:
     url: https://archive.apache.org/dist/nifi/{{ nifi_version }}/nifi-{{ nifi_version }}-bin.tar.gz
-    dest: ~/nifi
+    dest: ~/nifi/nifi-{{ nifi_version }}-bin.tar.gz
     mode: "0644"
   tags: install
 
