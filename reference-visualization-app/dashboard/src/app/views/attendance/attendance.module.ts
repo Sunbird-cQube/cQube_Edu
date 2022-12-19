@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { TeacherAttendanceComponent } from './pages/teacher-attendance/teacher-attendance.component';
 import { SatTrendsReportComponent } from './pages/sat-trends-report/sat-trends-report.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { StudentAttendanceNewComponent } from './pages/student-attendance-new/student-attendance-new.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AttendanceComponent,
     StudentAttendanceComponent,
     TeacherAttendanceComponent,
-    SatTrendsReportComponent
+    SatTrendsReportComponent,
+    StudentAttendanceNewComponent
   ],
   imports: [
     SharedModule,
