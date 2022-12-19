@@ -1,0 +1,55 @@
+<!-- <router-outlet></router-outlet> -->
+
+<div class="metric-card-wrapper">
+    <p class="h4">NISHTHA</p>
+    <div class="grid gap-4 cQ-Grid">
+        <ng-container>
+            <div class="" *ngFor="let metric of nisithaMetrics">
+                <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltipName]="metric?.tooltip"></sb-cqube-info-card>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="tab-group-wrapper">
+    <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+        <mat-tab label="Implementation Status">
+            <div class="grid grid-cols-1" *ngIf="tabIndex === 0">
+                <div class="col" *ngIf="national">
+                    <app-nishtha-program-detail></app-nishtha-program-detail>
+                </div>
+                <div class="col" *ngIf="!national">
+                    <app-program-wise-implementation></app-program-wise-implementation>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Courses and Mediums status">
+            <div class="grid grid-cols-1" *ngIf="tabIndex === 1">
+                <div class="col">
+                    <app-total-courses-table></app-total-courses-table>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="% against Potential Base">
+            <div class="grid grid-cols-1" *ngIf="tabIndex === 2">
+                <div class="col">
+                    <app-nisitha-stacked-bar></app-nisitha-stacked-bar>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="District wise Status">
+            <div class="grid grid-cols-1" *ngIf="tabIndex === 3">
+                <div class="col">
+                    <app-nishitha-table lastLevel="district"></app-nishitha-table>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Course wise Status ">
+            <div class="grid grid-cols-1" *ngIf="tabIndex === 4">
+                <div class="col">
+                    <app-nishitha-table lastLevel="course"></app-nishitha-table>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

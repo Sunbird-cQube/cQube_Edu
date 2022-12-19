@@ -1,0 +1,16 @@
+<div class="grid grid-cols-4 gap-4">
+    <div class="col-span-3">
+        <ng-select [items]="list" [multiple]="true" bindLabel="name" groupBy="gender" [selectableGroup]="true"
+            [closeOnSelect]="false" bindValue="id" [(ngModel)]="checkedList" dropdownPosition="bottom" [maxSelectedItems]="maxSelections"
+            [placeholder]="'Choose a ' + text" (change)="onItemsSelected($event)" (clear)="clearSelections()">
+            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                <!-- <input id="item-{{index}}" type="checkbox" [ngModel]="item$.status" /> {{item.name}} -->
+                {{item.name}}
+            </ng-template>
+        </ng-select>
+    </div>
+    <div class="col-span-1 button-wrapper">
+        <button *ngIf="checkedList.length > 0" id="multiSelectorSubmit" mat-flat-button color="primary"
+            (click)="getSelected()">SUBMIT</button>
+    </div>
+</div>

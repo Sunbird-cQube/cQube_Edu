@@ -1,0 +1,141 @@
+.fontBar {
+    min-height: 3rem;
+   background: var(--cQ-primary);
+   z-index: 999;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 0.5rem;
+   padding:0 0.5rem 0 0.5rem;
+       position: fixed;
+    top: 0;
+   color: var(--white);
+   width: 100%;
+   .flagArea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+        margin-right: 0.5rem;
+    }
+   }
+
+   .btnGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap:0.5rem;
+   
+    button, .fa-sign-out, .fa-arrow-left, .fa-key{
+        background:var(--cQ-primary);
+        border: 0.0625rem solid rgb(255 255 255 / 25%);
+        border-radius: 100%;
+        padding:0.5rem;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+            background: var(--cQ-secondary);
+        }
+        &:disabled {
+            opacity: 0.5;
+            &:hover {
+                background: none;
+            }
+        }
+       }
+    
+}
+
+}
+
+::ng-deep{
+    .mat-tab-nav-bar, .mat-tab-header{
+        border-bottom: none !important;
+    }
+    .mat-tab-label{
+        opacity: 1 !important;
+        min-width: 120px !important;
+        padding: 0px 10px !important;
+        height: 36px !important;
+        color: #004e9d;
+        border: solid 0px #004e9d;
+        border-width: 1px 1px 1px 0px;
+    }
+    .mat-tab-label-active{
+        background-color: #004e9d;
+        color:white
+    }
+    // #mat-tab-label-0-0{
+    //     border-radius: 18px 0px 0px 18px;
+    // }
+
+    .mat-ink-bar{
+        display: none !important;
+    }
+    .mat-tab-label:first-child{
+        border-radius: 18px 0px 0px 18px;
+        border-width: 1px 1px 1px 1px;
+    }
+    .mat-tab-label:last-child{
+        border-radius: 0px 18px 18px 0px;
+    }
+    .mat-tab-label:only-child{
+        border-radius: 18px !important;
+    }
+}
+::ng-deep{
+    .legend{
+        background-color: rgb(238, 235, 235);
+        border: solid 1px black;
+        padding: 10px;
+    }
+    .sb-cQ-card{
+        z-index: 100;
+    }
+}
+@media(min-width: 916px) and (max-width:1380px){
+    ::ng-deep{
+        .legend{
+            //margin-right: 100px !important;
+        }
+    }
+}
+
+@media(min-width: 436px) and  (max-width:915px){
+    ::ng-deep{
+        .legend{
+            margin-right: 0px !important;
+        }
+    }
+}
+
+@media(max-width: 435px){
+    ::ng-deep{
+        .legend{
+            margin-right: 0px !important;
+        }
+    }
+}
+
+.fa-sign-out, .fa-arrow-left{
+    // color: white;
+    // border-radius: 50%;
+    cursor: pointer;
+}
+
+@media (min-width: 2560px){
+    ::ng-deep{
+        .ng-select .ng-select-container {
+            min-height: 80px !important;
+        }
+        .ng-select .ng-placeholder{
+            font-size: 20px !important;
+        }
+        .ng-select .ng-value-container{
+            font-size: 25px;
+        }
+    }
+}

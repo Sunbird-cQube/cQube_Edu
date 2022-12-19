@@ -1,0 +1,54 @@
+<div class="metric-card-wrapper">
+    <p class="h3"><b>Perfomance Grading Index</b> <small><em> (PGI)</em></small></p>
+    <div class="grid gap-4 cQ-Grid">
+        <ng-container *ngIf="pgiMetricsData">
+            <div class="" *ngFor="let metric of pgiMetricsData">
+                <!-- <app-metric-card [name]="metric?.name" [value]="metric?.value" [tooltipName]="metric?.tooltip">
+                </app-metric-card> -->
+                <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltipName]="metric?.tooltip"></sb-cqube-info-card>
+            </div>
+        </ng-container>
+    </div>
+</div>
+<div class="tab-group-wrapper">
+    <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+        <mat-tab label="Implementation Status" *ngIf="national">
+            <app-implementation-status *ngIf="tabIndex === 0"></app-implementation-status>
+        </mat-tab>
+        <mat-tab label="State Wise Performance" *ngIf="national">
+            <app-state-wise-performance *ngIf="tabIndex === 1"></app-state-wise-performance>
+        </mat-tab>
+        <mat-tab label="District Wise Performance">
+            <div class="grid grid-cols-1" *ngIf="(tabIndex === 2 && national) || (tabIndex === 0 && !national)">
+                <div class="col-span-full">
+                    <div class="col" *ngIf="isMapReportLoading">
+                        <p class="mt-8">Loading...</p>
+                    </div>
+                    <div class="grid grid-cols-12">
+                        <div class="col-span-full" appFullScreen>
+                            <div class="grid grid-cols-12 button-right">
+                                <app-download-button [data]="pgiStateData?.data" [fileName]="fileName" [reportType]="'map'"></app-download-button>
+                            </div>
+                            <div class="grid grid-cols-12">
+                                <div class="xs:col-span-full xmd:col-span-6 4k:col-span-3">
+                                    <app-level-n-metric-filter-panel [metricFilter]="metricFilter"  (selectMetricFilter)="onSelectMetricFilter($event)"></app-level-n-metric-filter-panel>
+                                </div>
+                                <div class="xs:col-span-full xmd:col-span-6">
+                                    <app-filter-panel [filters]="filters" colSize="col-span-8 4k:col-span-4" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-12">
+                                <div class="xs:col-span-full" *ngIf="metricFilter">
+                                    <app-leaflet-map [mapData]="pgiStateData" [level]="level"></app-leaflet-map>
+                                </div>
+                                <!-- <div class="xs:col-span-full xmd:col-span-4">
+                                    <app-gauge-chart [options]="options"></app-gauge-chart>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -1,0 +1,207 @@
+- name: Create directory with mode setting 
+  file:
+    path: /tmp/postgres
+    owner: postgres
+    state: directory
+    mode: "1755"
+  tags: [ install, update ]
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../processing/datasource/static/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - static_queries.sql
+    - static_tables.sql
+    - truncate_tables.sql
+  tags: [ install, update ]
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../processing/datasource/crc/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - crc_queries.sql
+    - crc.sql
+  tags: [ install, update ]
+  when: crc
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../processing/datasource/attendance/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - attendance_queries.sql
+    - attendance.sql
+  tags: [ install, update ]
+  when: attendance
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../processing/datasource/infra/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - infra_queries.sql
+    - infra.sql
+    - infrastructure_master.csv
+    - infra_queries_no_lat_lng.sql
+  tags: [ install, update ]
+  when: infra
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../processing/datasource/udise/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - udise_queries.sql
+    - udise.sql
+    - udise_config.csv
+  tags: [ install, update ]
+  when: udise
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../processing/datasource/pat/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - pat_queries.sql
+    - pat.sql
+  tags: [ install, update ]
+  when: pat
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../processing/datasource/teacher_attendance/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - teacher_attendance_queries.sql
+    - teacher_attendance.sql
+  tags: [ install, update ]
+  when: teacher_attendance
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../processing/datasource/sat/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - sat_queries.sql
+    - sat.sql
+  tags: [ install, update ]
+  when: sat
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../processing/datasource/diksha/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop:
+    - diksha_queries.sql
+    - diksha.sql
+  tags: [ install, update ]
+  when: diksha
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../processing/datasource/composite/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop: 
+    - composite_queries.sql
+    - composite.sql  
+  tags: [ install, update ]
+  when: composite
+
+- name: copy required files to /tmp/postgres
+  copy:
+    src: "../../processing/datasource/progresscard/postgres/{{ item }}"
+    dest: /tmp/postgres
+    owner: postgres
+    mode: "0644"
+  loop: 
+    - progress_card_queries.sql
+  tags: [ install, update ]
+  when: progresscard 
+
+- name: copy template file to /tmp/postgres
+  template:
+    src: keycloak_users_table.sql.j2
+    dest: /tmp/postgres/keycloak_users_table.sql
+    owner: postgres
+    mode: "0644"
+  tags: [ install, update ]
+
+- name: Run keycloak user queries from SQL script
+  become: true
+  become_user: postgres
+  postgresql_query:
+    db: "{{ db_name }}"
+    path_to_script: /tmp/postgres/keycloak_users_table.sql
+  tags: [ install, update ]
+
+- name: Truncating previous tables
+  shell: psql "host=localhost dbname={{ db_name }} user={{ db_user }} password={{ db_password }}" -a -q -f "/tmp/postgres/truncate_tables.sql"
+  when: datasource_status == "unmatched"
+  tags: [ install, update ]
+
+- name: Clearing s3 output bucket data
+  shell: AWS_ACCESS_KEY_ID={{ s3_access_key }} AWS_SECRET_ACCESS_KEY={{ s3_secret_key}} aws s3 rm s3://{{ s3_output_bucket }}  --recursive
+  when: storage_type == "s3" and datasource_status == "unmatched"
+  tags: [ install, update ]
+
+- name: Clearing local output folder data
+  shell: rm -rf "{{ output_directory }}"*
+  args:
+    warn: false
+  when: storage_type == "local" and datasource_status == "unmatched"
+  tags: [ install, update ]
+  
+- name: Create database user
+  become: true
+  become_user: postgres
+  postgresql_user:
+    db: "{{ db_name }}"
+    name: "{{ read_only_db_user }}"
+    password: "{{ read_only_db_password }}"
+    encrypted: yes
+    state: present
+  tags: install
+
+- name: Grant the SELECT privilege to the read_only_db_user
+  become: true
+  become_user: postgres
+  postgresql_privs:
+    db: "{{ db_name }}"
+    privs: SELECT
+    objs: ALL_IN_SCHEMA
+    role: "{{ read_only_db_user }}"
+  tags: install
+
+- name: Stopping postgresql 
+  service: 
+    name: postgresql
+    state: stopped
+  tags: [ install, update ]
+
+- name: Starting postgresql
+  service: 
+    name: postgresql
+    state: started
+  tags: [ install, update ]

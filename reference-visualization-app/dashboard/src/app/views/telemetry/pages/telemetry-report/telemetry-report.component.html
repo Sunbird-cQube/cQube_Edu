@@ -1,0 +1,101 @@
+<div class="report-wrapper" appFullScreen>
+    <div class="container-fluid">
+        <div class="row reportHeader">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row" (window:resize)="globalService.onResize(level); onResize()">
+                    <div class="col-xl-5">
+                        <div>
+                            <p id="dist" *ngIf="skul">Telemetry Data for: District Level</p>
+                        </div>
+
+                        <div>
+                            <p id="block" *ngIf="dist">Telemetry Data for: Block Level</p>
+                        </div>
+
+                        <div>
+                            <p id="cluster" *ngIf="blok">Telemetry Data for: Cluster Level</p>
+                        </div>
+
+                        <div>
+                            <p id="school" *ngIf="clust">Telemetry Data for: School Level</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-7 mb-4">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p id="errMsg" class="note"></p>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <em *ngIf="level != 'District'" class="fa fa-home" id="home" title="Home"
+                                            alt="Home" (click)="districtWise()"
+                                            style="display: block !important;float: right !important;margin-right: 10px;"></em>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <button *ngIf="reportData.length > 0" class="btn btn-primary"
+                                            title="Download Report" id="download1" (click)="downloadReport()"
+                                            style="float:right;">
+                                            Download Report &nbsp;
+                                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-12 gap-2">
+                    <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-11" style="margin-bottom: 10px">
+                        <div class="button-grp lg:col-span-4 col-span-12 xmd:col-span-6 grid grid-cols-3 gap-4">
+                            <button class="col-span-1" mat-flat-button color="primary" id="blockbtn"
+                                [hidden]="hideIfAccessLevel" (click)="blockWise()">&nbsp;<strong>Blocks</strong>
+                            </button>
+                            <button class="col-span-1" mat-flat-button color="primary" id="clusterbtn"
+                                [hidden]="hideIfAccessLevel" (click)="clusterWise()">&nbsp;<strong>Clusters</strong>
+                            </button>
+                            <button class="col-span-1" mat-flat-button color="primary" id="schoolbtn"
+                                [hidden]="hideIfAccessLevel" (click)="schoolWise()">&nbsp;<strong>Schools</strong>
+                            </button>
+                        </div>
+
+                        <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="period" [(ngModel)]="timePeriod"
+                            name="timePeriod" (change)="getTimePeriod(timePeriod)" dropdownPosition="bottom"
+                            [clearable]="false" placeholder="Choose Time Period">
+                            <ng-option *ngFor="let time of timeDetails; let i = index" [value]="time.id">
+                                {{ time.time }}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row reportContainer1">
+            <div class="col-sm-12">
+                <div id="leafletmap">
+                    <div #mapContainer id="map" class="active" style="width: 100%" [ngStyle]="{
+                        height:
+                          height > 1760
+                            ? '88vh'
+                            : height > 1160 && height < 1760
+                            ? '84vh'
+                            : height > 667 && height < 1160
+                            ? '80vh'
+                            : '74vh'
+                      }"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="spinner">
+        <div class="loading">Loading&#8230;</div>
+    </div>
+
+    <div *ngIf="waterMark === 'true'" id='demoLogoConatiner'>
+        <span><span>Test Data, Not Representative</span>
+            <span style="margin-left:50px">Test Data, Not Representative</span></span><br>
+
+    </div>
+</div>

@@ -1,0 +1,36 @@
+# installing global packages related to angular and node.js
+- name: Install the gpg key for nodejs LTS
+  apt_key:
+    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+    state: present
+  tags: [ install, update ]
+
+
+- name: Install the nodejs LTS repos
+  become: yes
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/node_{{ nodejs_version }}.x {{ ansible_distribution_release }} main"
+    state: present
+    update_cache: true
+    mode: "0644"
+  tags: [ install, update ]
+
+- name: Upgrade all apt packages
+  apt: upgrade=dist force_apt_get=yes
+  tags: update
+
+- name: Install the nodejs
+  apt:
+    update_cache: yes      
+    name: nodejs
+    state: present
+  tags: [ install, update ]
+
+- name: Installing dependency packages
+  npm: name={{ item }} state=present global=yes
+  with_items:
+    - "@angular/cli@10"
+    - nodemon
+    - pm2
+    - http-server
+  tags: [ install, update ]

@@ -1,0 +1,47 @@
+<div class="metric-card-wrapper">
+    <p class="h3"><b>DIKSHA- ETB and eContent</b> <small><em> (ETB : Energized Textbook)</em></small></p>
+    <div class="grid gap-4 cQ-Grid">
+        <!-- <div class="col-span-full">
+            <img src="../../../../../assets/images/etbimage.jpeg" class="xs:w-full md:w-8/12 mx-auto" alt="etb image ">
+        </div> -->
+        <!-- <button class="bg-blue-500">Access to ETB Program</button> -->
+        <ng-container *ngIf="ETBMetrics">
+            <div class="" *ngFor="let metric of ETBMetrics">
+                <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltipName]="metric?.tooltip"></sb-cqube-info-card>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="tab-group-wrapper">
+    <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+        <mat-tab label="Implementation Status" class="tab-first" *ngIf="national">
+            <div class="col" *ngIf="tabIndex === 0">
+                <div class="grid grid-cols-12">
+                    <div class="col-span-full" appFullScreen>
+                        <div class="grid grid-cols-12 button-right">
+                            <app-download-button [data]="ETBStateData?.data" fileName="ETB_Implementation_Status" [reportType]="'map'"></app-download-button>
+                        </div>
+                        <app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                        <app-leaflet-map [mapData]="ETBStateData"></app-leaflet-map>
+                    </div>
+                </div>
+            </div>
+            <div class="col" *ngIf="isMapReportLoading">
+                <p class="mt-8">Loading...</p>
+            </div>
+        </mat-tab>
+        <mat-tab label="ETB Coverage Status">
+            <app-digital-learning-coverage  *ngIf="(tabIndex === 1 && national) || (tabIndex === 0 && !national)" ></app-digital-learning-coverage>
+        </mat-tab>
+        <mat-tab label="Content Coverage on QR" class="tab-last" >
+            <app-qr-coverage-across-states *ngIf="(tabIndex === 2 && national) || (tabIndex === 1 && !national)"></app-qr-coverage-across-states>
+        </mat-tab>
+        <mat-tab label="Learning Sessions" class="tab-last">
+            <app-total-learning-sessions *ngIf="(tabIndex === 3 && national) || (tabIndex === 2 && !national)"></app-total-learning-sessions>
+        </mat-tab>
+        <mat-tab label="Learning Sessions on Potential Users">
+            <app-total-plays-per-capita  *ngIf="(tabIndex === 4 && national) || (tabIndex === 3 && !national)"></app-total-plays-per-capita>
+        </mat-tab>
+    </mat-tab-group>
+</div>

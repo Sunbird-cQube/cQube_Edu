@@ -1,0 +1,19 @@
+<div class="wrapper" *ngIf="filters && filters.length > 0">
+    <div class="grid grid-cols-12 filter-panel-wrapper align-items-center">
+        <div class="col-span-full xmd:col-span-full">
+            <div class="grid grid-cols-12">
+                <ng-container *ngFor="let filter of filters; let i = index">
+                    <div class="filter-wrapper" [ngClass]="colSize">
+                        <ng-select class="mx-2" dropdownPosition="bottom" [id]="'filter-'+filter.name" [name]="'filter-'+filter.name" placeholder="Select {{filter.name}}" [clearable]="resetOthers" [(ngModel)]="filter.value" (change)="onSelectOption($event, i)">
+                            <!-- <ng-option disabled="true">Select {{filter.name}}</ng-option> -->
+                            <ng-option *ngFor="let option of filter.options" [value]="option.value">{{ option.label }}</ng-option>
+                        </ng-select>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <!-- <div class="col-span-full xmd:col-span-2 text-right ">
+            <button mat-raised-button color="primary" (click)="clearFilters()">Clear Filters</button>
+        </div> -->
+    </div>
+</div>

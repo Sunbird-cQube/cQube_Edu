@@ -1,0 +1,12 @@
+---
+- include_tasks: configure_dashboard.yml
+  tags: [ install, update ]
+
+- include_tasks: run_dashboard.yml
+  tags: [ install, update ]
+
+- include_tasks: configure_admin_dashboard.yml
+  tags: [ install, update ]
+
+- include_tasks: run_admin_dashboard.yml
+  tags: [ install, update ]

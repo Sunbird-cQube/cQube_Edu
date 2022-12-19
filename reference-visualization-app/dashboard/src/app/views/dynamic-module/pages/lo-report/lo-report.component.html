@@ -1,0 +1,209 @@
+<div class="report-wrapper" appFullScreen>
+    <div class="container-fluid">
+        <div class="row reportHeader1">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row" (window:resize)="onResize()">
+                    <div class="col-sm-7 ">
+                        <div *ngIf='skul'>
+                            <p id="dist">
+                                {{header | titlecase }}: <span (click)="resetToInitPage()"
+                                    style="cursor: pointer;text-decoration: underline;"
+                                    class="selected-level">{{state}}</span></p>
+                        </div>
+                        <div *ngIf='dist'>
+                            <p id="block">
+                                {{header | titlecase}}: <span (click)=" resetToInitPage()"
+                                    style="cursor: pointer;text-decoration: underline;">{{state}}</span> <span> |
+                                </span><span (click)="selectedDistrict(districtHierarchy.distId)"
+                                    style="cursor: pointer;text-decoration: underline;" class="selected-level">
+                                    {{districtHierarchy.districtName | titlecase}}</span> </p>
+                        </div>
+                        <div *ngIf="blok">
+                            <p id="cluster">
+                                {{header | titlecase}}: <span (click)="resetToInitPage()"
+                                    style="cursor: pointer;text-decoration: underline;">{{state}}</span><span> |
+                                </span><span (click)="!selDist ? selectedDistrict(blockHierarchy.distId):''"
+                                    style="cursor: pointer;text-decoration: underline;">
+                                    {{blockHierarchy.districtName | titlecase}}</span><span> | </span><span
+                                    (click)=" selectedBlock(blockHierarchy.blockId)"
+                                    style="cursor: pointer;text-decoration: underline;" class="selected-level">
+                                    {{blockHierarchy.blockName | titlecase}}</span></p>
+                        </div>
+
+                        <div *ngIf="clust">
+                            <p id="school">
+                                {{header | titlecase}}: <span (click)=" resetToInitPage()"
+                                    style="cursor: pointer;text-decoration: underline;">{{state}}</span><span> |
+                                </span><span (click)="!selDist ? selectedDistrict(clusterHierarchy.distId): ''"
+                                    style="cursor: pointer;text-decoration: underline;">
+                                    {{clusterHierarchy.districtName |titlecase}}</span><span> | </span><span
+                                    (click)=" !selCluster ? selectedBlock(clusterHierarchy.blockId): ''"
+                                    style="cursor: pointer;text-decoration: underline;">
+                                    {{clusterHierarchy.blockName | titlecase}}</span><span> | </span><span
+                                    class="selected-level">
+                                    {{clusterHierarchy.clusterName | titlecase}}</span></p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <p id="errMsg" class="note"
+                                    style="display: none; text-align: center;line-height: 1.2em; font-size: 12px; margin-top: 3%; ">
+                                </p>
+                            </div>
+                            <div class="col-sm-7">
+                                <button *ngIf="reportData.length>0" class="btn btn-primary" title="Download Report"
+                                    id="download1" (click)="downloadReport()">Download Report &nbsp; <i
+                                        class="fa fa-arrow-down" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="grid grid-cols-12 gap-4 " style="margin-bottom: 10px;">
+
+                        <ng-select id="period" [(ngModel)]="period" class="col-span-6 xmd:col-span-3 lg:col-span-2"
+                            (change)=" selectedTimeRange()" dropdownPosition="bottom" [clearable]="false"
+                            placeholder="Choose TimeRange">
+
+                            <ng-option *ngFor="let periods of timeRange,  let i =index" style="width: 100px;"
+                                [value]="periods.value">
+                                {{periods.label}}
+                            </ng-option>
+                        </ng-select>
+                        <ng-select *ngIf="!hideYear" [(ngModel)]="year" id="choose_infra"
+                            class="col-span-6 xmd:col-span-3 lg:col-span-2" (change)="selectedYear($event)"
+                            dropdownPosition="bottom" [clearable]="false" placeholder="Choose Year">
+
+                            <ng-option [value]="period" *ngFor="let year of years; let i =index" [value]="year">
+                                {{year}}
+                            </ng-option>
+
+                        </ng-select>
+                        <ng-select id="month" required class="col-span-6 xmd:col-span-3 lg:col-span-2"
+                            *ngIf="!hideMonth" [(ngModel)]="month" (change)="selectedMonth($event)"
+                            dropdownPosition="bottom" [clearable]="false" placeholder="Choose Month">
+                            <ng-option *ngFor="let month of months; let i =index" [value]="month.months">
+                                {{month.months}}
+                            </ng-option>
+                        </ng-select>
+
+                        <ng-select id="month" required class="col-span-6 xmd:col-span-3 lg:col-span-2" *ngIf="!hideWeek"
+                            [(ngModel)]="week" (change)="selectedWeek()" dropdownPosition="bottom" [clearable]="false"
+                            placeholder="Choose Week">
+
+                            <ng-option *ngFor="let week of weeks; let i =index" [value]="week.week">
+                                {{week.week}}
+                            </ng-option>
+                        </ng-select>
+
+                        <ng-select id="examDate" class="col-span-6 xmd:col-span-3 lg:col-span-2" *ngIf="!hideDay"
+                            [(ngModel)]="examDate" (change)="selectedExamDate()" dropdownPosition="bottom"
+                            [clearable]="false" placeholder="Choose Date">
+
+                            <ng-option *ngFor="let day of date, let i =index" [value]="day">
+                                {{day}}
+                            </ng-option>
+                        </ng-select>
+
+                        <ng-select id="grade" class="col-span-6 xmd:col-span-3 lg:col-span-2" [(ngModel)]="grade"
+                            (change)="selectedGrade()" dropdownPosition="bottom" [clearable]="false"
+                            placeholder="Choose Grade">
+
+                            <ng-option *ngFor="let grade of grades, let i =index" [value]="grade.grade">
+                                <span *ngIf="grade.grade == 'all'; else other_content">
+                                    All Grades
+                                </span>
+                                <ng-template #other_content>{{grade.label}}</ng-template>
+                            </ng-option>
+                        </ng-select>
+
+                        <ng-select *ngIf="gradeSelected" id="subject" class="col-span-6 xmd:col-span-3 lg:col-span-2"
+                            [(ngModel)]="subject" (change)="selectedSubject()" dropdownPosition="bottom"
+                            [clearable]="false" placeholder="Choose Subject">
+
+                            <ng-option *ngFor="let subject of subjects, let i =index" [value]="subject.value">
+                                <span *ngIf="subject.value == 'all'; else other_content">
+                                    All Subjects
+                                </span>
+                                <ng-template #other_content> {{subject.label}}</ng-template>
+                            </ng-option>
+                        </ng-select>
+
+                        <ng-select id="district" class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]='hideDist'
+                            [(ngModel)]="district" [disabled]="selDist" (change)="selectedDistrict(district)"
+                            dropdownPosition="bottom" [clearable]="false" placeholder="Choose District">
+
+                            <ng-option *ngFor="let district of districtNames, let i =index"
+                                [value]="district.district_id">
+                                {{district.district_name | titlecase}}
+                            </ng-option>
+                        </ng-select>
+
+
+                        <ng-select style="font-size: 18px;font-weight:400;" [hidden]="blockHidden" id="block" class="col-span-6 xmd:col-span-3 lg:col-span-2"
+                            [(ngModel)]="block" [disabled]="selBlock" (change)="selectedBlock(block)"
+                            dropdownPosition="bottom" [clearable]="false" placeholder="Choose Block">
+
+                            <ng-option style="font-size: 18px;font-weight:400;color:#000" *ngFor="let block of blockNames, let i =index" [value]="block.block_id">
+                                {{block.block_name | titlecase}}
+                            </ng-option>
+                        </ng-select>
+                        <ng-select style="font-size: 18px;font-weight:400;" [hidden]="clusterHidden" id="cluster" class="col-span-6 xmd:col-span-3 lg:col-span-2"
+                            [(ngModel)]="cluster" [disabled]="selCluster" (change)="selectedCluster(cluster)"
+                            dropdownPosition="bottom" [clearable]="false" placeholder="Choose Cluster">
+
+                            <ng-option style="font-size: 18px;font-weight:400;color:#000" *ngFor="let cluster of clusterNames, let i =index" [value]="cluster.cluster_id">
+                                {{cluster.cluster_name | titlecase}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row reportContainer1" id="initTable" style="display: block;">
+            <div class="col-sm-12 dataTableCustom">
+                <table #dataTable id="LOtable" *ngIf="filteredData.length > 0" class="display responsive cell-border"
+                    style="text-align: center;  width: 100%; border: 1px solid gray;">
+                </table>
+                <div *ngIf="filteredData.length === 0" style="position: absolute; left: 45%; top: 45%;color: red;">
+                    No Data Available
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="reportData.length > 0 && columns.length>0" style="padding-top: 2vh !important">
+            <div class="col-sm-10">
+                <h5 id="legend" style="float: left;">Legend:&nbsp; &nbsp; </h5>
+                <div *ngFor="let value of values; let i = index" style="float: left;">
+                    <span class="legends" style="padding: 8px 15px 10px 15px;"
+                        [ngStyle]="{color: i> 2 ?'black': 'white', width: height > 1200 ? '9%' : '7%'}"
+                        [style.background-color]="legendColors[i]">
+                        {{values[i]}} </span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div style="position: relative; bottom: 0px; float: right; margin: 0px auto;">
+
+                </div>
+            </div>
+        </div>
+        <div class="row" id="footer">
+            <div class="col-sm-4">
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="spinner">
+        <div id="loader" class="loading">Loading&#8230;</div>
+    </div>
+
+    <div *ngIf="waterMark === 'true'" id='demoLogoConatiner'>
+        <span><span>Test Data, Not Representative</span>
+            <span style="margin-left:50px">Test Data, Not Representative</span></span><br>
+
+    </div>
+</div>

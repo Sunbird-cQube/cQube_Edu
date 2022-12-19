@@ -1,0 +1,314 @@
+swagger: "2.0"
+info:
+  title: Keyclock Authentication
+  description: This is keycloak authentication Api 
+  version: 1.0
+  liscence:
+    name: Apache 2.0
+    url: "http://www.apache.org/liscences/LIS"
+  servers:
+    -url: http://localhost:4000
+    description: This is my local Server
+    -url: http://localhost:4000/api-docs
+    description: This is my original URL
+schemes: [https,http]
+
+
+#Return Users From get request
+paths:
+  /login:
+    # post:
+    #   summary: Keycloak login Api.
+    #   description: This Api return the Barear token and user details from keycloak
+    #    produces: "application/json"
+    #   parameters:
+    #     - in: body
+    #       name: credentials 
+    #       required: true
+    #       schema:
+    #         $ref: "#/components/schemas/User"
+    #   responses: 
+    #     '200':
+    #       description: OK
+    #       schema:
+    #         type: object
+    #         example: {name: sharath}
+    post:
+      tags:
+      - "Frontend API"
+      summary: "Login API"
+      description: "Login API"
+      produces:
+      - "application/json"
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: "#/definitions/LoginOrgReqBody"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Organisation"
+        "422":
+          description: "User Id or Password is not correct." 
+
+defination:
+  LoginOrgReqBody:
+    type: object
+    required:
+       - userId
+       - password
+    properties:
+      userId:
+        type: string
+        example: "eksteps.admin.user1"
+      password:
+        type: string
+        example: "eksteps.changeit"
+  Organisation:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Organisation Id
+        example: "12000"
+      name:
+        type: string
+        description: Organisation Name
+        example: Apollo Pharmacy
+      type:
+        type: string
+        description: Organization Type
+        example: Pharmacy
+      state:
+        type: string
+        example: "up" 
+      district:
+        type: string
+        example: "delhi"
+      block:
+        type: string
+        example: "haldwani"
+      pointOfContact:
+        type: string
+        example: "Prateek"
+      noOfParticipants:
+        type: string
+        example: "100"
+      storeTrainingData:
+        type: boolean
+        default: false
+        description: "If this is set to true frontend application will return base 64 encoded images of predictions."
+        example: true
+      createdAt: 
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time                 
+#Returns a User
+  # /user:
+  #   get:
+  #     summary: Returns a list of users.
+  #     description: People Who are already registered
+  #     responses:
+  #       200:    # status code
+  #         description: Successul Response
+  #         schema: 
+  #           type: object
+  #           properties:
+  #             id:
+  #               type: integer
+  #             name:
+  #               type: string
+
+#Returns an array of Users
+  # /users:
+  #   get:
+  #     summary: Returns a list of users.
+  #     description: People Who are already registered
+  #     responses:
+  #       200:    # status code
+  #         description: Successul Response
+  #         schema: 
+  #           type: array
+  #           items: 
+  #             type: object
+  #             properties:
+  #               id:
+  #                 type: integer
+  #               name:
+  #                 type: string
+
+
+#Get Request with path id
+  # /users/{userId}:
+  #   get:
+  #     summary: Returns a user by ID.
+  #     description: Returns the Specific User
+  #     parameters:
+  #       - name: userId
+  #         in: path
+  #         required: true
+  #         schema:
+  #           type : integer
+  #           format: int64
+  #     responses: 
+  #       '200':
+  #         description: OK
+  #         schema:
+  #           type: object
+  #           example: {name: syed}
+
+#Post json/body & Body required
+  # /create:
+  #   post:
+  #     summary: Adds a new user
+  #     produces:
+  #       - application/json
+  #     consumes:
+  #       - application/json
+  #     parameters:
+  #       - in: body
+  #         name: body
+  #         schema:
+  #           type: object
+  #           required:
+  #             - name
+  #             - id
+  #           properties:
+  #             id:
+  #               type: integer
+  #             name:
+  #               type: string
+  #     responses:
+  #       '200':
+  #         description: OK
+
+
+#Defining Body Reference
+  # /create:
+  #   post:
+  #     summary: Adds a new user
+  #     produces:
+  #       - application/json
+  #     consumes:
+  #       - application/json
+  #     parameters:
+  #       - in: body
+  #         name: body
+  #         schema:
+  #          $ref: "#/components/schemas/User"
+  #     responses:
+  #       '200':
+  #         description: OK
+
+
+#Query
+#Get Query
+  # /usersQuery:
+  #   get:
+  #     summary: Returns a user by ID.
+  #     description: Returns the Specific User
+  #     parameters:
+  #       - in: query
+  #         name: id
+  #         type: integer
+  #         enum: [1, 2]
+  #         required: true
+  #       # - in: query
+  #       #   name: id
+  #       #   type: integer
+  #       #   enum: [1, 2]
+  #       #   required: true
+  #     responses: 
+  #       '200':
+  #         description: OK
+  #         schema:
+  #           type: object
+  #           example: {name: syed,id: 21}
+
+
+
+#File Upload Multiform Data
+  # /upload:
+  #   post:
+  #     tags:
+  #       - Upload
+  #     summary: Upload Video/Image for Inferring
+  #     consumes:
+  #       - multipart/form-data
+  #     parameters:
+  #       - in: formData
+  #         name: file
+  #         type: file
+  #         required: true
+  #         description: The file to upload.
+  #       # - in: formData
+  #       #   name: app
+  #       #   type: string
+  #       #   required: true
+  #       #   description: Name of the model.
+  #       # - in: formData
+  #       #   name: id
+  #       #   type: string
+  #       #   required: true
+  #       #   description: Some random Id.
+  #     responses:
+  #       200:
+  #         description: Successful Response
+  #       400:
+  #         description: User Error
+  #       500:
+  #         description: Internal Server Error
+
+
+#In Headers
+  # /string:
+  #   get:
+  #     summary: Checks if the server is alive
+  #     parameters:
+  #       - in: header
+  #         name: X-Request-ID
+  #         schema:
+  #           type: string
+  #           format: uuid
+  #         required: true
+  #     responses:
+  #       200:
+  #         description: Successful Response
+  #       400:
+  #         description: User Error
+  #       500:
+  #         description: Internal Server Error
+
+#Cokies
+  # /ping:
+  #   get:
+  #     summary: Checks if the server is alive
+  #     parameters:
+  #       - in: cookie
+  #         name: debug
+  #         schema:
+  #           type: integer
+  #           enum: [0, 1]
+  #           default: 0
+  #       - in: cookie
+  #         name: csrftoken
+  #         schema:
+  #           type: string
+
+
+# components:
+#   schemas:
+#     User:
+#       type: object
+#       required:
+#         - name
+#         - id
+#       properties:
+#         id:
+#           type: integer
+#         name:
+#           type: string

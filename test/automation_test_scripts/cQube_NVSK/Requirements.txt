@@ -1,0 +1,11 @@
+pandas
+numpy
+selenium
+configparser
+pathlib
+pytest
+pytest-html
+pyselenium
+pytest-logger
+pytest-logging
+pytest-report

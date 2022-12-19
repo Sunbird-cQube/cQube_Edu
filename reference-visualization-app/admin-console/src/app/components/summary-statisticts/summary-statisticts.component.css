@@ -1,0 +1,13 @@
+  table tr th {
+    border: 2px solid rgb(201, 197, 197);
+    background-color: rgb(212, 212, 212);
+    color: #3553d8;
+    text-align: center !important;
+  }
+
+  table tr td {
+    border: .1px solid rgb(201, 197, 197);
+    border-collapse: collapse;
+    text-align: center !important;
+    /* float: left; */
+  }

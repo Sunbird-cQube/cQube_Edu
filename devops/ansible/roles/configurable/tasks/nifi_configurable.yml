@@ -1,0 +1,4 @@
+---
+- name: Run configurable python code
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utility.py configurable_datasource static_data_parameters cQube_data_storage 0 {{ storage_type }}"
+  tags: [ install, update ]

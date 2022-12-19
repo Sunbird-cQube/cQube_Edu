@@ -1,0 +1,14 @@
+<div class="grid grid-cols-12" *ngIf="!isReportLoading; else reportLoader">
+    <div class="col-span-full" appFullScreen>
+        <div class="grid grid-cols-12 button-right">
+            <app-download-button [data]="data?.values" [fileName]="fileName" [reportType]="'dashletBar'"></app-download-button>
+        </div>
+        <app-filter-panel [filters]="filters" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+        <ng-container *ngIf="data">
+            <sb-dashlet type="horizontalBar" [data]="data" [config]="config"></sb-dashlet>
+        </ng-container>
+    </div>
+</div>
+<ng-template #reportLoader>
+    <p class="p-2" *ngIf="isReportLoading">Loading...</p>
+</ng-template>

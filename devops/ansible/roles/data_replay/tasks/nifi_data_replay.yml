@@ -1,0 +1,4 @@
+---
+- name: Run data replay python code
+  shell: "{{ base_dir }}/cqube/emission_app/flaskenv/bin/python {{ base_dir }}/cqube/emission_app/python/nifi_utility.py data_replay_transformer data_replay_parameters cQube_data_storage 0 {{ storage_type }}"
+  tags: [ install, update ]

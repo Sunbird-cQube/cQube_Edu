@@ -1,0 +1,35 @@
+import { Component, OnInit } from '@angular/core';
+import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
+
+@Component({
+  selector: 'app-foundational-literacy-numeracy',
+  templateUrl: './foundational-literacy-numeracy.component.html',
+  styleUrls: ['./foundational-literacy-numeracy.component.scss']
+})
+export class FoundationalLiteracyNumeracyComponent implements OnInit {
+  nipunBharathMetrics: any;
+  config = environment.config;
+  tabIndex = 0;
+  
+  constructor(private readonly _configService: ConfigService) {
+    this.getnipunBharathMetricsData();
+   }
+
+  ngOnInit(): void {
+  }
+  
+  onTabChanged($event: any): void {
+    this.tabIndex = $event.index;
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+      console.log('resize');
+    }, 100);
+  }    
+
+  getnipunBharathMetricsData() {
+    this._configService.getVanityMetrics('nib').subscribe(vanityMetricsRes => {
+      this.nipunBharathMetrics = vanityMetricsRes.result;
+    });
+  }
+}

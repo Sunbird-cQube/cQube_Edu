@@ -1,0 +1,8 @@
+<div class="management-wrapper">
+    <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="management" [(ngModel)]="management"
+        (change)="onSelectManagement()" dropdownPosition="bottom" [clearable]="false" placeholder="Choose Management">
+        <ng-option *ngFor="let management of managements,  let i =index" style="width: 100px;" [value]="management.id">
+            {{management.value}}
+        </ng-option>
+    </ng-select>
+</div>

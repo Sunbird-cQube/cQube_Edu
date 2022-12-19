@@ -1,0 +1,261 @@
+<div class="report-wrapper" appFullScreen>
+    <div class="container-fluid">
+        <div class="row reportHeader">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row" (window:resize)="globalService.onResize(levelWise); onResize($event)">
+                    <div class="col-xl-5 col-md-12 col-sm-12 header-center">
+                        <div *ngIf="skul">
+                            <p id="dist">
+                                Teacher Attendance Report for:
+                                <span id="state" (click)="onClickHome()"
+                                    style="cursor: pointer; text-decoration: underline" class="selected-level">{{ state
+                                    }}</span>
+                            </p>
+                        </div>
+                        <div *ngIf="dist">
+                            <p id="block">
+                                Teacher Attendance Report for:
+                                <span id="state" (click)="onClickHome()"
+                                    style="cursor: pointer; text-decoration: underline">{{ state
+                                    }}</span>
+                                <span> | </span>
+                                <span id="dist" (click)="clickedMarker($event, distName)"
+                                    style="cursor: pointer; text-decoration: underline" class="selected-level">
+                                    {{ hierName }}</span>
+                            </p>
+                        </div>
+                        <div *ngIf="blok">
+                            <p id="cluster">
+                                Teacher Attendance Report for:
+                                <span id="state" (click)="onClickHome()"
+                                    style="cursor: pointer; text-decoration: underline">{{ state
+                                    }}</span><span> | </span><span id="dist"
+                                    (click)="!selDist? clickedMarker($event, distName):''"
+                                    style="cursor: pointer; text-decoration: underline">
+                                    {{ titleName }}</span><span> | </span><span id="block"
+                                    (click)="clickedMarker($event, blockName)"
+                                    style="cursor: pointer; text-decoration: underline" class="selected-level">
+                                    {{ hierName }}</span>
+                            </p>
+                        </div>
+
+                        <div *ngIf="clust">
+                            <p id="school">
+                                Teacher Attendance Report for:
+                                <span id="state" (click)="onClickHome()"
+                                    style="cursor: pointer; text-decoration: underline">{{ state
+                                    }}</span><span> | </span>
+                                <span id="dist" (click)="!selDist ? clickedMarker($event, distName):''"
+                                    style="cursor: pointer; text-decoration: underline">
+                                    {{ titleName }}</span><span> | </span><span id="block"
+                                    (click)="!selCluster? clickedMarker($event, blockName):''"
+                                    style="cursor: pointer; text-decoration: underline">
+                                    {{ title }}</span><span> | </span><span class="selected-level"> {{ hierName
+                                    }}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-7 col-md-12 col-sm-12">
+                        <div class="row header-center ds-flex">
+                            <div class="col-sm-3">
+                                <ng-select [disabled]="markers.length == 0" id="academicYear" style="margin-top:0.5vh"
+                                    [(ngModel)]="academicYear" class="col-span-6 xmd:col-span-3 lg:col-span-2"
+                                    [clearable]="false" placeholder="Choose Year">
+                                    <ng-option *ngFor="let year of academicYears,  let i =index"
+                                        [value]="academicYears[i]">
+                                        {{academicYears[i]}}
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+                            <div class="col-sm-4 col-lg-4.2 ">
+                                <a class="downloadRaw" class="downloadRaw" *ngIf="academicYear"  id="downloadRaw"
+                                    (click)="downloadRaw()" href="javascript: void(0)">Download
+                                    Academic Year Data</a>
+                                <p *ngIf="!academicYear" id="errMsg" class="note"></p>
+
+                            </div>
+                            <div class="col-sm-5 col-lg-4.8">
+                                <button *ngIf="reportData.length>0" class="btn btn-primary" title="Download Report"
+                                    id="download1" (click)="downloadReport($event)">Download Report &nbsp; <i
+                                        class="fa fa-arrow-down" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="note">
+                                <strong> About the dashboard:</strong> This dashboard provides
+                                information about teacher attendance calculated at a monthly
+                                level. The data has been collated at various administrative levels
+                                (i.e. District, Block, Cluster and School) and this dashboard
+                                allows you to view and download the data at these various
+                                administrative levels. You can select a different month/year
+                                combination to view teacher attendance for any other time period.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-12 gap-4 col-span-12 xmd:col-span-12" style="margin-bottom: 10px">
+                        <div class="button-grp lg:col-span-4 col-span-12 xmd:col-span-6 grid grid-cols-3 gap-4">
+                            <button class="col-span-1" mat-flat-button color="primary" id="blockbtn" name="block"
+                                [hidden]="hideIfAccessLevel" [disabled]="hideAllBlockBtn"
+                                (click)="blockWise($event)">&nbsp;<strong>Blocks</strong>
+                            </button>
+                            <button class="col-span-1" mat-flat-button color="primary" id="clusterbtn"
+                                [hidden]="hideIfAccessLevel" [disabled]="hideAllCLusterBtn"
+                                (click)="clusterWise($event)">&nbsp;<strong>Clusters</strong>
+                            </button>
+                            <button class="col-span-1" mat-flat-button color="primary" id="schoolbtn"
+                                [hidden]="hideIfAccessLevel" [disabled]="hideAllSchoolBtn"
+                                (click)="schoolWise($event)">&nbsp;<strong>Schools</strong>
+                            </button>
+                        </div>
+
+                        <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="period" [(ngModel)]="period"
+                            (change)="period != 'select_month' ? onPeriodSelect() : showYearMonth()"
+                            dropdownPosition="bottom" [clearable]="false" placeholder="Choose TimeRange">
+                            <ng-option *ngFor="let period of timeRange,  let i =index" style="width: 100px;"
+                                [value]="period.key">
+                                {{period.value}}
+                            </ng-option>
+                        </ng-select>
+
+                        <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="yearMonth" id="year"
+                            [(ngModel)]="year" name="year" (change)="getYear()" dropdownPosition="bottom"
+                            [clearable]="false" placeholder="Choose Year">
+                            <ng-option *ngFor="let year of years, let i = index" [value]="years[i]">
+                                {{years[i]}}
+                            </ng-option>
+                        </ng-select>
+
+                        <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="yearMonth" id="month"
+                            [(ngModel)]="month" name="month" (change)="getMonth($event)" dropdownPosition="bottom"
+                            [clearable]="false" placeholder="Choose Month">
+                            <ng-option *ngFor="let month of months" [value]="month.id">
+                                {{month.name}}
+                            </ng-option>
+                        </ng-select>
+
+                        <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_dist"
+                            [(ngModel)]="myDistrict" name="myDistrict" [hidden]="hideIfAccessLevel" [disabled]="selDist"
+                            (change)="distSelect($event,myDistrict)" dropdownPosition="bottom" [clearable]="false"
+                            placeholder="Choose a District">
+                            <ng-option *ngFor="let dist of districtsNames" [value]="dist.id">
+                                {{dist.name}}
+                            </ng-option>
+                        </ng-select>
+
+                        <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" id="choose_block"
+                            [(ngModel)]="myBlock" name="myBlock" [hidden]="selBlock"
+                            (change)="blockSelect($event,myBlock)" *ngIf="!blockHidden" dropdownPosition="bottom"
+                            [clearable]="false" placeholder="Choose a Block">
+                            <ng-option *ngFor="let block of blocksNames" [value]="block.id">
+                                {{block.name}}
+                            </ng-option>
+                        </ng-select>
+
+                        <ng-select class="col-span-6 xmd:col-span-3 lg:col-span-2" [hidden]="selCluster"
+                            id="choose_cluster" [(ngModel)]="myCluster" name="myCluster"
+                            (change)="clusterSelect($event,myCluster)" *ngIf="!clusterHidden" dropdownPosition="bottom"
+                            [clearable]="false" placeholder="Choose a Cluster">
+                            <ng-option *ngFor="let cluster of clusterNames" [value]="cluster.id"
+                                [ngStyle]="{'color': cluster.name !== 'NO NAME FOUND'? 'white' : '#ff3333'}">
+                                {{cluster.name}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row reportContainer">
+            <!--Map visualization=====================-->
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12" id="leafletmap"
+                style="float: left;width:100%">
+                <div #mapContainer id="tarMap" class="active" style="width: 100%" [ngStyle]="{
+                  height:
+                    height > 1760
+                      ? '83vh'
+                      : height > 1160 && height < 1760
+                      ? '80vh'
+                      : height > 667 && height < 1160
+                      ? '74vh'
+                      : '70vh'
+                }"></div>
+
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12" *ngIf="selected == 'absolute'">
+                <h5 id="legend" style="margin-left: 15%">
+                    Legend
+                    <img *ngIf="valueRange && valueRange != '0-100'" id="resetImg"
+                        src="../../../../../assets/images/reset.png" alt="reset" title="Reset to all" style="
+                    cursor: pointer;
+                    height: 20px;
+                    width: 20px;
+                    float: right;
+                    background-color: aqua;
+                    border-radius: 20px;
+                    padding: 5px;
+                    margin-top: -5px;
+                  " (click)="reset('0-100')" />
+                </h5>
+                <div *ngFor="let value of values; let i = index">
+                    <span id="{{ i }}" class="legends" style="float: left; cursor: pointer"
+                        (click)="selectRange(value); select(i)" [ngStyle]="{ color: invert(legendColors[i])}"
+                        [style.background-color]="legendColors[i]">
+                        {{ values[i] }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="footer">
+            <div [hidden]="hideFooter" class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div id="outer">
+                    <div id="absolute" (click)="getColor('absolute')" [ngStyle]="{
+                  'background-color': selected == 'absolute' ? '#3100cc' : '#f5f6fb'
+                }">
+                        <p [ngStyle]="{ color: selected == 'absolute' ? 'white' : 'black' }"
+                            style="text-align: center; padding: 2%">
+                            Absolute
+                        </p>
+                    </div>
+                    <div id="relative" (click)="getColor('relative')" [ngStyle]="{
+                  'background-color': selected == 'relative' ? '#3100cc' : '#f5f6fb'
+                }">
+                        <p [ngStyle]="{ color: selected == 'relative' ? 'white' : 'black' }"
+                            style="text-align: center; padding: 2%">
+                            Relative
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                <span id="name" class="note" style="text-align: center;">Management Type: {{managementName}}</span>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                <span id="students" [hidden]="hideFooter">Number of Teachers:
+                    {{teacherCount}}</span>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                <span id="schools" [hidden]="hideFooter " style="text-align: center;">Number of Schools:
+                    {{schoolCount}}</span>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <span id="dateRange">Date range: {{dateRange}}</span>
+            </div>
+        </div>
+    </div>
+    <div id="spinner">
+        <div id="loader" class="loading">Loading&#8230;</div>
+    </div>
+
+    <div *ngIf="waterMark === 'true'" id='demoLogoConatiner'>
+        <span><span>Test Data, Not Representative</span>
+            <span style="margin-left:50px">Test Data, Not Representative</span></span><br>
+
+    </div>
+</div>

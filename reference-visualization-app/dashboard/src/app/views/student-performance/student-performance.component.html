@@ -1,0 +1,30 @@
+<div class="metric-card-wrapper">
+    <div class="grid gap-4 grid-cols-6 xmd:grid-cols-12">
+        <div class="col-span-6">
+            <p class="h4">Student Performance</p>
+        </div>
+        <div class="col-span-6 lg:col-start-10 lg:col-end-13">
+            <app-management-selector (onSelect)="selected()"></app-management-selector>
+        </div>
+    </div>
+</div>
+
+<div class="tab-group-wrapper" *ngIf="loadTabs">
+    <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
+        <mat-tab label="Semester Assessment Test">
+            <app-sat-map *ngIf="tabIndex === 0"></app-sat-map>
+        </mat-tab>
+        <mat-tab label="Semester Assesment Test Heat-chart">
+            <app-sat-heatmap *ngIf="tabIndex === 1"></app-sat-heatmap>
+        </mat-tab>
+        <mat-tab label="Periodic Assesment Test">
+            <app-pat-map *ngIf="tabIndex === 2"></app-pat-map>
+        </mat-tab>
+        <mat-tab label="Periodic Assesment Test Heat-chart">
+            <app-pat-heatmap *ngIf="tabIndex === 3"></app-pat-heatmap>
+        </mat-tab>
+        <mat-tab label="Periodic Assesment Test LO-Table">
+            <app-pat-lo *ngIf="tabIndex === 4"></app-pat-lo>
+        </mat-tab>
+    </mat-tab-group>
+</div>

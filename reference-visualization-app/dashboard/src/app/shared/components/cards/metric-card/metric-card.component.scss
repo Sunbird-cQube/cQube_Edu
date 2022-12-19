@@ -1,0 +1,21 @@
+.metric-card {
+    box-shadow: 0 0 5px #ddd;
+    background: #c2eccd;
+
+    .fa-info-circle{
+        color: #004e9d;
+        cursor: pointer;
+    }
+
+    .metric-card-title {
+        height: 2.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .card-value {
+        margin-top: 3rem;
+        height: 2rem;
+        font-size: 24px;
+        font-weight: bold;
+    }
+}

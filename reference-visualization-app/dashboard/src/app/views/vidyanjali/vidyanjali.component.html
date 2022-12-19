@@ -1,0 +1,24 @@
+<div class="metric-card-wrapper">
+    <p class="h4">Vidyanjali</p>
+    <div class="grid gap-4 cQ-Grid">
+        <ng-container *ngIf="vidyanjaliMetricsData">
+            <div class="" *ngFor="let metric of vidyanjaliMetricsData">
+                <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltipName]="metric?.tooltip"></sb-cqube-info-card>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="tab-group-wrapper">
+    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+        <mat-tab label="States outreach">
+            <div class="grid grid-cols-1">
+                <div class="col">
+                    <app-filter-panel></app-filter-panel>
+                    <br>
+                    <!-- <app-map-my-india [data]="vidyanjaliStateData"></app-map-my-india> -->
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

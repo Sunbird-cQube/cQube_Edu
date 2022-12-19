@@ -1,0 +1,162 @@
+<div class="report-wrapper" appFullScreen>
+    <div class="container-fluid" (window:resize)="getHeight($event)">
+        <div class="row reportHeader">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-xl-7 ">
+                        <div *ngIf='skul'>
+                            <p id="dist">
+                                Diksha Course Progress Report for: <span (click)="resetToInitPage()"
+                                    style="cursor: pointer;text-decoration: underline;"
+                                    class="selected-level">{{state}}</span></p>
+                        </div>
+                        <div *ngIf='dist'>
+                            <p id="block">
+                                Diksha Course Progress Report for: <span (click)="resetToInitPage()"
+                                    style="cursor: pointer;text-decoration: underline;">{{state}}</span> <span> |
+                                </span><span (click)="selectedDistrict(districtHierarchy.distId)"
+                                    style="cursor: pointer;text-decoration: underline;" class="selected-level">
+                                    {{districtHierarchy.districtName}}</span> </p>
+                        </div>
+                        <div *ngIf="blok">
+                            <p id="cluster">
+                                Diksha Course Progress Report for: <span (click)="resetToInitPage()"
+                                    style="cursor: pointer;text-decoration: underline;">{{state}}</span><span> |
+                                </span><span (click)="!selDist? selectedDistrict(blockHierarchy.distId): ''"
+                                    style="cursor: pointer;text-decoration: underline;">
+                                    {{blockHierarchy.districtName}}</span><span> | </span><span
+                                    (click)="selectedBlock(blockHierarchy.blockId)"
+                                    style="cursor: pointer;text-decoration: underline;" class="selected-level">
+                                    {{blockHierarchy.blockName}}</span></p>
+                        </div>
+
+                        <div *ngIf="clust">
+                            <p id="school">
+                                Diksha Course Progress Report for: <span (click)="resetToInitPage()"
+                                    style="cursor: pointer;text-decoration: underline;">{{state}}</span><span> |
+                                </span><span (click)="!selDist? selectedDistrict(clusterHierarchy.distId):''"
+                                    style="cursor: pointer;text-decoration: underline;">
+                                    {{clusterHierarchy.districtName}}</span><span> | </span><span
+                                    (click)="!selCluster? selectedBlock(clusterHierarchy.blockId):''"
+                                    style="cursor: pointer;text-decoration: underline;">
+                                    {{clusterHierarchy.blockName}}</span><span> | </span><span class="selected-level">
+                                    {{clusterHierarchy.clusterName}}</span></p>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-5">
+                        <div class="row justify-content-around">
+                            <div class="col-sm-2 col-xl-5">
+                                <p id="errMsg" class="note"
+                                        style="display: none; text-align: center;line-height: 1.2em; font-size: 12px; margin-top: 3%; ">
+                                </p>
+                            </div>
+                            <div class="col-sm-10 mb-4 col-xl-7">
+                                <button *ngIf="reportData.length>0" class="btn btn-primary" title="Download Report"
+                                    style="float: right;" id="download1" (click)="downloadReport()">Download Report
+                                    &nbsp;
+                                    <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="report-subtitle">
+                            <strong> About the dashboard:</strong> The dashboard provides information on the Course
+                            Progress
+                            for courses at the district level.
+                        </p>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="grid grid-cols-12 gap-4" style="margin-bottom: 10px;">
+                        <div class="xmd:cols-span-8  lg:col-span-4 col-span-12">
+                            <app-multi-select #multiSelect [list]="scousesTOShow" [text]="'Course'"
+                                [width1]="'100px auto'" [width2]="'100px auto'"
+                                (shareCheckedList)="shareCheckedList($event)">
+                            </app-multi-select>
+                        </div>
+
+                        <ng-select id="timePeriod" class="select-control col-span-6 xmd:col-span-4 lg:col-span-2"
+                            [(ngModel)]="timePeriod" (change)="selectedTimePeriod()" dropdownPosition="bottom"
+                            [clearable]="false" placeholder=" Choose time period">
+                            <!-- <ng-option [value]="timePeriod" disabled selected="selected">Choose time period</ng-option> -->
+                            <ng-option *ngFor="let timePeriod of timePeriods, let i =index" [value]="timePeriod.key">
+                                {{timePeriod.value}}
+                            </ng-option>
+                        </ng-select>
+
+
+
+                        <ng-select id="district" class="col-span-6 xmd:col-span-4 lg:col-span-2" [disabled]="selDist"
+                            [hidden]="disHidden" [(ngModel)]="district" (change)="selectedDistrict(district)"
+                            dropdownPosition="bottom" [clearable]="false" placeholder=" Choose a District">
+                            <ng-option [value]="district" disabled selected="selected">Choose a District</ng-option>
+                            <ng-option *ngFor="let district of districtNames, let i =index"
+                                [value]="district.district_id">
+                                {{district.district_name}}
+                            </ng-option>
+                        </ng-select>
+
+
+                        <ng-select [hidden]="blockHidden" class="col-span-6 xmd:col-span-4 lg:col-span-2"
+                            [disabled]="selBlock" [(ngModel)]="block" (change)="selectedBlock(block)"
+                            dropdownPosition="bottom" [clearable]="false" placeholder="Choose a Block">
+
+                            <ng-option *ngFor="let block of blockNames, let i =index" [value]="block.block_id">
+                                {{block.block_name}}
+                            </ng-option>
+                        </ng-select>
+                        <ng-select [hidden]="clusterHidden" class="col-span-6 xmd:col-span-4 lg:col-span-2"
+                            [disabled]="selCluster" [(ngModel)]="cluster" (change)="selectedCluster(cluster)"
+                            dropdownPosition="bottom" [clearable]="false" placeholder=" Choose a Cluster">
+
+                            <ng-option *ngFor="let cluster of clusterNames, let i =index" [value]="cluster.cluster_id">
+                                {{cluster.cluster_name}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row reportContainer">
+            <div class="col-md-12" id="container" [ngStyle]="{width: width,height: height > 776 ? '72vh' : '62vh'}">
+            </div>
+            <!-- <div *ngIf="this.chart1.length === 0" style="position: absolute; top: 45%; left: 45%; color: red;">
+                No Data Found
+            </div> -->
+        </div>
+        <div *ngIf="reportData.length > 0 && chart" class="dfitems">
+            <div>
+                <h5 id="legend" style="float: left;">Legend:&nbsp; &nbsp; </h5>
+            </div>
+                <div *ngFor="let value of values; let i = index" style="float: left;margin-right: 2px;">
+                    <div class="legends wt-legends" style="padding: 0px 15px 0px 10px; display: flex;align-items: center;"
+                        [ngStyle]="{color: i> 2 ?'black': 'white'}"
+                        [style.background-color]="legendColors[i]">
+                       <span>{{values[i]}}</span>  </div>
+                </div>
+            <!-- </div> -->
+            <!-- <div class="col-sm-3">
+                <div style="position: relative; bottom: 0px; float: right; margin: 0px auto;">
+    
+                </div>
+            </div> -->
+
+        </div>
+        <div *ngIf="reportData.length == 0 && !chart" style="position: absolute; left: 45%; top: 45%;color: red;">No
+            Data
+            Found</div>
+    </div>
+    <div id="spinner">
+        <div id="loader" class="loading">Loading&#8230;</div>
+    </div>
+
+    <div *ngIf="waterMark === 'true'" id='demoLogoConatiner'>
+        <span><span>Test Data, Not Representative</span>
+            <span style="margin-left:50px">Test Data, Not Representative</span></span><br>
+
+    </div>
+</div>

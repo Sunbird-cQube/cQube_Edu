@@ -1,0 +1,74 @@
+@media(max-width:435px){
+    .leading-tight{
+        padding: none;
+        margin-left: 20px;
+        font-size: 10px;
+        text-align: center;
+    }
+    .fa{
+        padding: none !important;
+        margin:none;
+        margin-left: 10px;
+    }
+
+    .logo{
+        margin-top: 10px;
+        margin-left: 20px;
+        height: 45px;
+        width: 45px;
+    }
+
+    // .left-logo{
+    //     height: 40px;
+    //     width: 80px;
+    // }
+}
+.fa{
+    margin-top: 15px;
+}
+.user-icon{
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+}
+.dropdown{
+    background-color: rgb(255, 255, 255) !important;
+    // border-radius: 20px !important;
+    border: 1px solid rgb(230, 230, 230);
+    max-width: fit-content;
+    position:absolute;
+    z-index: 2;
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+    margin-left: 25px;
+    // right: 10px;
+    // bottom: $app-nav-bar-height;
+ }
+
+ @media(max-width: 435px){
+    .dropdown{
+        margin: none;
+        right:10px;
+    }
+ }
+ .leading-tight{
+    color: #67bbe1;
+ }
+ .h-full {
+     height: 50px;
+     margin-left: 10px;
+ }
+ .headerSideWidth {
+    max-width:18rem;
+ }
+ .mainHeaderContent {
+    width: calc(100vw - 18rem)
+ }
+
+ ::ng-deep{
+    html[data-layout=cQubeDefault] h1.leading-tight, html[data-layout=cQubeDefault] .metric-card-wrapper .h4{
+        font-size: 28px;
+    }
+}

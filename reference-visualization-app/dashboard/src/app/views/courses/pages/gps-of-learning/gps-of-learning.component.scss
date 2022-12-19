@@ -1,0 +1,32 @@
+.no-scroll{
+    overflow-x: hidden;
+}
+
+.legend-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-around;
+}
+
+@media (min-width: 426px) and (max-width: 1200px) {
+    .report-wrapper {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .legend-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 425px) {
+    .report-wrapper {
+        display: flex;
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+}

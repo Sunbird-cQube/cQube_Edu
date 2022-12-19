@@ -1,0 +1,34 @@
+---
+
+keycloak_dir: "{{ base_dir }}/cqube"
+keycloak_jboss_home: "{{ keycloak_dir }}/keycloak"
+keycloak_log_dir: "{{ keycloak_jboss_home }}/standalone/log"
+
+realm_name: cQube
+angular_app_client_id: cqube_app
+admin_app_client_id: cqube_admin 
+emission_app_client_id: cqube_flask
+auth_api: cqube
+
+# Realm Roles
+admin_role: admin
+report_viewer_role: report_viewer
+emission_role: emission
+
+realm_created: False
+cQube_realm_json: "{{ base_dir }}/cqube/keycloak/kc_templates/cQube_realm.json"
+cQube_realm_local_json: "{{ base_dir }}/cqube/keycloak/kc_templates/cQube_realm_local.json"
+cQube_realm_defaultRoles_json: "{{ base_dir }}/cqube/keycloak/kc_templates/cQube_realm_defaultRoles.json"
+cQube_realm_config_otp_json: "{{ base_dir }}/cqube/keycloak/kc_templates/cQube_realm_config_otp.json"
+cQube_realm_update_password_json: "{{ base_dir }}/cqube/keycloak/kc_templates/cQube_realm_update_password.json"
+cQube_admin_client_proxy_host_json: "{{ base_dir }}/cqube/keycloak/kc_templates/cQube_admin_client_proxy_host.json"
+
+# Login Theme variables
+login_theme_name: cqube_themes
+
+# Session timeout variable in seconds
+cQube_realm_timeout_json: "{{ base_dir }}/cqube/keycloak/kc_templates/cQube_realm_timeout.json"
+
+keycloak_config_otp: false
+
+session_timeout_in_seconds: 2400

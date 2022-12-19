@@ -1,0 +1,55 @@
+<div class="metric-card-wrapper">
+    <p class="h4">Micro-Improvements</p>
+    <div class="grid gap-4 cQ-Grid">
+        <ng-container>
+            <div class="" *ngFor="let metric of microImprovementMetricsData">
+                <sb-cqube-info-card [name]="metric?.name" [value]="metric?.value" [tooltipName]="metric?.tooltip"></sb-cqube-info-card>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="tab-group-wrapper">
+    <mat-tab-group [selectedIndex]="tabIndex" mat-align-tabs="start" animationDuration="0ms" (focusChange)="onTabChanged($event);">
+        <mat-tab label="Implementation Status " class="tab-first">
+            <div class="grid grid-cols-1" *ngIf="microProgramDatayesno && tabIndex === 0">
+                <div class="col">
+                    <div class="col" *ngIf="isMapReport1Loading">
+                        <p class="mt-8">Loading...</p>
+                    </div>
+                    <div class="grid grid-cols-12">
+                        <div class="col-span-full" appFullScreen>
+                            <div class="grid grid-cols-12 button-right">
+                                <app-download-button [data]="microProgramDatayesno?.data" [fileName]="fileName" [reportType]="'map'"></app-download-button>
+                            </div>
+                            <app-leaflet-map [mapData]="microProgramDatayesno"></app-leaflet-map>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Improvements Status">
+            <div class="grid grid-cols-1" *ngIf="tabIndex === 1">
+                <div class="col">
+                    <div class="col" *ngIf="isMapReport2Loading">
+                        <p class="mt-8">Loading...</p>
+                    </div>
+                    <div class="grid grid-cols-12">
+                        <div class="col-span-full" appFullScreen>
+                            <div class="grid grid-cols-12 button-right">
+                                <app-download-button [data]="microProgramData?.data" [fileName]="fileName" [reportType]="'map'"></app-download-button>
+                            </div>
+                            <div class="grid grid-cols-12">
+                                <div class="xs:col-span-full xmd:col-span-6">
+                                    <app-level-n-metric-filter-panel [metricFilter]="metricFilter" (selectMetricFilter)="onSelectMetricFilter($event)"></app-level-n-metric-filter-panel>
+                                </div>
+                            </div>
+                            <app-leaflet-map [mapData]="microProgramData"></app-leaflet-map>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -1,0 +1,11 @@
+---
+- name: Configuring cQube user interface
+  hosts: localhost
+  gather_facts: true
+  become: true
+  remote_user: root
+  vars_files:
+    - constants.yml
+  roles:
+          - reference-visualization
+          - api

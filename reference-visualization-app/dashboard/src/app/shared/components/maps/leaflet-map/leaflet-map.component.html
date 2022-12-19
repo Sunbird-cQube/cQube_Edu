@@ -1,0 +1,10 @@
+<div class="map-container">
+    <div class="map-frame">
+        <div id="map" #map>
+            <p class="text-center p-2 text-red-500" *ngIf="error">Error while loading the map</p>
+            <p class="text-center p-2 text-red-500" *ngIf="noData">No Data Found</p>
+        </div>
+    </div>
+</div>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-scale-multiple" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
