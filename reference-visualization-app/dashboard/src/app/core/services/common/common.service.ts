@@ -15,4 +15,8 @@ export class CommonService {
   getReportData(data: IReportDataPayload): Observable<ResponseType<any>> {
     return this._http.post<ResponseType<any>>(`${environment.apiURL}/common/getReportData`, data);
   }
+
+  getReportDataNew(query: string): Observable<ResponseType<any>> {
+    return this._http.get<ResponseType<any>>(`http://localhost:3005/api/query?sql=${query}`);
+  }
 }
