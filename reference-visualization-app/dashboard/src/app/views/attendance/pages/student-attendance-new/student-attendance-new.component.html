@@ -5,15 +5,22 @@
         </div> -->
         <div class="grid grid-cols-12">
             <div class="xs:col-span-full xmd:col-span-5">
-                <app-level-n-metric-filter-panel [levels]="levels" (selectLevel)="onSelectLevel($event)"></app-level-n-metric-filter-panel>
+                <!-- <app-level-n-metric-filter-panel [levels]="levels" (selectLevel)="onSelectLevel($event)"></app-level-n-metric-filter-panel> -->
+                <app-time-series-filter-panel (timeSeriesUpdated)="timeSeriesUpdated($event)" [minDate]="minDate" [maxDate]="maxDate"></app-time-series-filter-panel>
             </div>
             <div class="xs:col-span-full xmd:col-span-7">
-                <app-filter-panel [filters]="filters" colSize="col-span-6 4k:col-span-3" (filtersUpdated)="filtersUpdated($event)"></app-filter-panel>
+                <app-filter-panel [filters]="filters" colSize="col-span-6 4k:col-span-3" (filtersUpdated)="filtersUpdated($event)" [resetOthers]="true"></app-filter-panel>
             </div>
         </div>
+        <div class="grid grid-cols-6" *ngIf="bigNumberReportData">
+            <app-big-number [bigNumberReportData]="bigNumberReportData"></app-big-number>
+        </div>
         <div class="grid grid-cols-12">
-            <div class="xs:col-span-full">
+            <!-- <div class="xs:col-span-full">
                 <app-leaflet-map [mapData]="reportData"></app-leaflet-map>
+            </div> -->
+            <div class="xs:col-span-full">
+                <app-material-heat-chart-table [tableData]="tableReportData"></app-material-heat-chart-table>
             </div>
             <!-- <div class="xs:col-span-full xmd:col-span-4">
                 <app-gauge-chart [options]="options"></app-gauge-chart>

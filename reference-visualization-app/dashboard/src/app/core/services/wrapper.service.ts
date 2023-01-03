@@ -82,7 +82,7 @@ export class WrapperService {
         let parentFilter = filters.find(filter => filter.valueProp === propertyName);
         if (parentFilter && parentFilter.value) {
           let re = new RegExp(`{${propertyName}}`);
-          query = query.replace(re, parentFilter.value);
+          query = query.replace(re, '\'' + parentFilter.value + '\'');
         } else {
           query = null;
           break;
