@@ -108,12 +108,12 @@ export class TableHeatMapDirective implements AfterViewInit {
   }
 
   private getColor(id: string, value: string | number) {    
-    const color = this.config[id].color;
+    const color = this.config[id] ? this.config[id].color : '#fff';
     let [r, g, b, a] = parseToRgba(Array.isArray(color) ? color[color.length - 1] : color);
     
     if (!isNaN(Number(value))) {
       value = Number(value);
-      let color = this.config[id].color;
+      let color = this.config[id] ? this.config[id].color : '#fff';
       let textColor = null;
       let bgColor = null;
       if (color != null) {

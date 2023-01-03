@@ -10,8 +10,8 @@ app.use(cors());
 const client = new Client({
   user: "postgres", // Replace with your PostgreSQL username
   host: "localhost", // Replace with the hostname of your PostgreSQL server
-  database: "POC", // Replace with the name of your database
-  password: "Root@123", // Replace with your password
+  database: "cqube", // Replace with the name of your database
+  password: "postgres", // Replace with your password
   port: 5432, // Replace with the port of your PostgreSQL server (usually 5432)
 });
 
