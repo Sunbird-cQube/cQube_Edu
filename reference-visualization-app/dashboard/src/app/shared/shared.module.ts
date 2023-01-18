@@ -42,7 +42,6 @@ import { DownloadButtonComponent } from './components/buttons/download-button/do
 import { TimeSeriesFilterPanelComponent } from './components/time-series-filter-panel/time-series-filter-panel.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { BigNumberComponent } from './components/big-number/big-number.component';
-import { StudentAttendanceMapComponent } from './components/student-attendance-map/student-attendance-map.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -93,8 +92,7 @@ const DECLARATIONS = [
 
 @NgModule({
   declarations: [
-    DECLARATIONS,
-    StudentAttendanceMapComponent,
+    DECLARATIONS
   ],
   imports: [
     CommonModule,

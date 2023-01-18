@@ -12,7 +12,7 @@
                 <app-filter-panel [filters]="filters" colSize="col-span-6 4k:col-span-3" (filtersUpdated)="filtersUpdated($event)" [resetOthers]="true"></app-filter-panel>
             </div>
         </div>
-        <div class="grid grid-cols-6" *ngIf="bigNumberReportData">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xmd:grid-cols-4 lg:grid-cols-6" *ngIf="bigNumberReportData">
             <app-big-number [bigNumberReportData]="bigNumberReportData"></app-big-number>
         </div>
         <div class="grid grid-cols-12">

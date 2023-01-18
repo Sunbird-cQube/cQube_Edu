@@ -42,7 +42,7 @@ export class StudentAttendanceNewComponent implements OnInit {
   async getReportData(): Promise<void> {
     let reportConfig = config
 
-    let { timeSeriesQueries, queries, levels, filters, options } = reportConfig[this.reportName];
+    let { timeSeriesQueries, queries, levels, defaultLevel, filters, options } = reportConfig[this.reportName];
     let onLoadQuery;
 
     this._wrapperService.constructFilters(this.filters, filters);
@@ -53,7 +53,6 @@ export class StudentAttendanceNewComponent implements OnInit {
         let days = endDate.getDate() - this.compareDateRange;
         let startDate = new Date();
         startDate.setDate(days)
-        console.log(startDate.toISOString().split('T')[0], ' - ', endDate.toISOString().split('T')[0])
         onLoadQuery = parseTimeSeriesQuery(timeSeriesQueries[key], startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0])
       }
       else if (this.startDate !== undefined && this.endDate !== undefined && Object.keys(timeSeriesQueries).length > 0) {
@@ -62,15 +61,15 @@ export class StudentAttendanceNewComponent implements OnInit {
       else {
         onLoadQuery = queries[key]
       }
-      let query = buildQuery(onLoadQuery, this.levels, this.filters, this.startDate, this.endDate, this.compareDateRange, key);
+      let query = buildQuery(onLoadQuery, defaultLevel, this.levels, this.filters, this.startDate, this.endDate, key, this.compareDateRange);
 
-      if (key === 'table') {
+      if (query && key === 'table') {
         this.getTableReportData(query, options);
       }
-      else if (key === 'bigNumber') {
+      else if (query && key === 'bigNumber') {
         this.getBigNumberReportData(query, options, 'averagePercentage');
       }
-      else if (key === 'bigNumberComparison') {
+      else if (query && key === 'bigNumberComparison') {
         this.getBigNumberReportData(query, options, 'differencePercentage')
       }
 
@@ -97,25 +96,7 @@ export class StudentAttendanceNewComponent implements OnInit {
   getTableReportData(query, options): void {
     this._commonService.getReportDataNew(query).subscribe((res: any) => {
       let { rows } = res;
-      // let { map: { indicator, indicatorType, legend, latitude, longitude }, tooltip } = options;
-      let { table: { columns }, tooltip } = options;
-      // this.reportData = {
-      //   data: rows.map(row => {
-      //     row = {
-      //       ...row,
-      //       Latitude: row[latitude],
-      //       Longitude: row[longitude],
-      //       indicator: row[indicator],
-      //       tooltip: this._wrapperService.formatToolTip(tooltip, row)
-      //     };         
-
-      //     return row;
-      //   }),
-      //   options: {
-      //     reportIndicatorType: indicatorType,
-      //     legend
-      //   }
-      // }
+      let { table: { columns }} = options;
       this.tableReportData = {
         data: rows.map(row => {
           if (this.minDate !== undefined && this.maxDate !== undefined) {
@@ -177,7 +158,6 @@ export class StudentAttendanceNewComponent implements OnInit {
           }
           // this.bigNumberReport.emit(this.bigNumberReportData)
         }
-        console.log(this.bigNumberReportData)
       })
     }
     // console.log(rows)

@@ -10,6 +10,7 @@ export const config = {
       "bigNumber": "select round(avg((sum/count)* 100.00),2) as percentage from ingestion.student_attendance_marked_above_50_percent_by_state where date between {startDate} and {endDate}",
       "bigNumberComparison": "select round(avg((sum/count)* 100.00),2) as percentage from ingestion.student_attendance_marked_above_50_percent_by_state where date between {startDate} and {endDate}"
     },
+    "defaultLevel": "state",
     "filters": [
       {
         "name": "State",
@@ -103,23 +104,7 @@ export const config = {
         }
       }
     ],
-    "levels": [
-      {
-        "name": "Blocks",
-        "value": "block",
-        "query": "Select * from table_name"
-      },
-      {
-        "name": "Clusters",
-        "value": "cluster",
-        "query": "Select * from table_name"
-      }
-    ],
     "options": {
-      "chart": {
-        "type": "table",
-        "title": "Student Attendance"
-      },
       "table": {
         "columns": [
           {
@@ -164,37 +149,252 @@ export const config = {
             sticky: true,
             class: "text-center",
             isHeatMapRequired: true,
-            color: '#002966',
+            color: {
+              type: "percentage",
+              values: [
+                {
+                  color: "#00FF00",
+                  breakPoint: 56
+                },
+                {
+                  color: "#FFFF00",
+                  breakPoint: 50
+                },
+                {
+                  color: "#FF0000",
+                  breakPoint: 0
+                }
+              ]
+            },
           }
         ],
-        "sortByProperty": "location",
-        "sortDirection": "asc"
+        "sortByProperty": "state_name",
+        "sortDirection": "desc"
       },
       "bigNumber": {
         "valueSuffix": '%'
-      },
-      "tooltip": "District ID: {district_id}\nDistrict Name: {district_name}\nAttendance: {attendancec}",
+      }
     }
   },
   student_attendance_map: {
-    "query": "select * from ingestion.student_attendance_by_district",
-    "filters": [],
-    "levels": [],
+    "queries": {
+      "map": "select min(date) as min_date, max(date) as max_date, {level}_name, t1.{level}_id, avg(percentage) as percentage, avg(count) as count, avg(sum) as sum, {level}_lat as latitude, {level}_long as longitude from ingestion.student_attendance_by_{level} as t1 left join ingestion.dimensions as t2 on t1.{level}_id = t2.{level}_id group by t1.{level}_id, {level}_name, {level}_lat, {level}_long"
+    },
+    "timeSeriesQueries": {
+      "map": "select {level}_name, t1.{level}_id, avg(percentage) as percentage, avg(count) as count, avg(sum) as sum, {level}_lat as latitude, {level}_long as longitude from ingestion.student_attendance_by_{level} as t1 left join ingestion.dimensions as t2 on t1.{level}_id = t2.{level}_id where date between {startDate} and {endDate} group by t1.{level}_id, {level}_name, {level}_lat, {level}_long",
+    },
+    "defaultLevel": "district",
+    "filters": [
+      {
+        "name": "District",
+        "hierarchyLevel": "2",
+        "labelProp": "district_name",
+        "valueProp": "district_id",
+        "query": "select district_name, district_id from ingestion.dimensions group by district_id, district_name",
+        "timeSeriesQueries": {
+          "map": "select {level}_name, t1.{level}_id, avg(percentage) as percentage, avg(count) as count, avg(sum) as sum, {level}_lat as latitude, {level}_long as longitude from ingestion.student_attendance_by_{level} as t1 left join ingestion.dimensions as t2 on t1.{level}_id = t2.{level}_id where district_id = {district_id} and date between {startDate} and {endDate} group by t1.{level}_id, {level}_name, {level}_lat, {level}_long",
+        },
+        "actions": {
+          "queries": {
+            "map": "select min(date) as min_date, max(date) as max_date, {level}_name, t1.{level}_id, avg(percentage) as percentage, avg(count) as count, avg(sum) as sum, {level}_lat as latitude, {level}_long as longitude from ingestion.student_attendance_by_{level} as t1 left join ingestion.dimensions as t2 on t1.{level}_id = t2.{level}_id where district_id = {district_id} group by t1.{level}_id, {level}_name, {level}_lat, {level}_long"
+          },
+          "level": "block"
+        }
+      },
+      {
+        "name": "Block",
+        "hierarchyLevel": "3",
+        "labelProp": "block_name",
+        "valueProp": "block_id",
+        "query": "select block_name, block_id from ingestion.dimensions where district_id = {district_id} group by block_id, block_name",
+        "timeSeriesQueries": {
+          "map": "select {level}_name, t1.{level}_id, avg(percentage) as percentage, avg(count) as count, avg(sum) as sum, {level}_lat as latitude, {level}_long as longitude from ingestion.student_attendance_by_cluster as t1 left join ingestion.dimensions as t2 on t1.{level}_id = t2.{level}_id where block_id = {block_id} and date between {startDate} and {endDate} group by t1.{level}_id, {level}_name, {level}_lat, {level}_long",
+        },
+        "actions": {
+          "queries": {
+            "map": "select min(date) as min_date, max(date) as max_date, {level}_name, t1.{level}_id, avg(percentage) as percentage, avg(count) as count, avg(sum) as sum, {level}_lat as latitude, {level}_long as longitude from ingestion.student_attendance_by_{level} as t1 left join ingestion.dimensions as t2 on t1.{level}_id = t2.{level}_id where block_id = {block_id} group by t1.{level}_id, {level}_name, {level}_lat, {level}_long"
+          },
+          "level": "cluster"
+        }
+      },
+      {
+        "name": "Cluster",
+        "hierarchyLevel": "4",
+        "labelProp": "cluster_name",
+        "valueProp": "cluster_id",
+        "query": "select cluster_name, cluster_id from ingestion.dimensions where block_id = {block_id} group by cluster_id, cluster_name",
+        "timeSeriesQueries": {
+        },
+        "actions": {
+          "queries": {
+          },
+          "level": "school"
+        }
+      }
+    ],
+    "levels": [
+      {
+        "hierarchyLevel": "2",
+        "name": "District",
+        "value": "district",
+        "actions": {
+          "drilldown": [
+          ]
+        }
+      },
+      {
+        "hierarchyLevel": "3",
+        "name": "Blocks",
+        "value": "block",
+        "actions": {
+          "drilldown": [
+            "district_name", "district_id"
+          ]
+        }
+      },
+      {
+        "hierarchyLevel": "4",
+        "name": "Clusters",
+        "value": "cluster",
+        "actions": {
+          "drilldown": [
+            "district_name", "district_id", "block_name", "block_id"
+          ]
+        }
+      }
+    ],
     "options": {
       "chart": {
         "type": "map",
         "title": "Student Attendance"
       },
       "map": {
-        "indicator": "attendance",
+        "metricFilterNeeded": true,
+        "metrics": [
+          {
+            "label": "Average Percentage",
+            "value": "percentage"
+          },
+          {
+            "label": "Sum Of Students",
+            "value": "sum"
+          },
+          {
+            "label": "Count of Schools",
+            "value": "count"
+          }
+        ],
+        "indicator": "percentage",
         "indicatorType": "percent",
         "legend": {
           "title": "Student Attendance"
         },
-        "latitude": "latitude",
-        "longitude": "longitude"
+        "tooltipMetrics": [
+          {
+            "valuePrefix": "Average Percentage is ",
+            "value": "percentage",
+            "valueSuffix": "\n"
+          },
+          {
+            "valuePrefix": "Total Schools are ",
+            "value": "count",
+            "valueSuffix": "\n"
+          },
+          {
+            "valuePrefix": "District: ",
+            "value": "district_name",
+            "valueSuffix": "\n"
+          },
+          {
+            "valuePrefix": "Block: ",
+            "value": "block_name",
+            "valueSuffix": "\n"
+          },
+          {
+            "valuePrefix": "Cluster: ",
+            "value": "cluster_name",
+            "valueSuffix": "\n"
+          }
+        ]
+      }
+    }
+  },
+  student_attendance_bar: {
+    "queries": {
+      "barChart": "select min(date) as min_date, max(date) as max_date, state_name as location, avg(percentage) as percentage, min(count) as count from ingestion.student_attendance_by_state as t1 left join ingestion.student_attendance as t2 on t1.state_id = t2.state_id group by t1.state_id, state_name",
+    },
+    "timeSeriesQueries": {
+      "barChart": "select state_name as location, avg(percentage) as percentage, min(count) as count from ingestion.student_attendance_by_state as t1 left join ingestion.student_attendance as t2 on t1.state_id = t2.state_id where date between {startDate} and {endDate} group by t1.state_id, state_name",
+    },
+    "defaultLevel": "state",
+    "filters": [
+      {
+        "name": "State",
+        "labelProp": "state_name",
+        "valueProp": "state_id",
+        "query": "select t1.state_id, state_name from ingestion.student_attendance_by_state as t1 left join ingestion.student_attendance as t2 on t1.state_id = t2.state_id group by t1.state_id,state_name",
+        "timeSeriesQueries": {
+          "barChart": "select district_name as location, state_name, avg(percentage) as percentage, min(count) as count from ingestion.student_attendance_by_district as t1 left join ingestion.student_attendance as t2 on t1.district_id = t2.district_id where (date between {startDate} and {endDate}) and state_id={state_id} group by t1.district_id,district_name, state_name",
+        },
+        "actions": {
+          "queries": {
+            "barChart": "select min(date) as min_date, max(date) as max_date, district_name as location, state_name, avg(percentage) as percentage, min(count) as count from ingestion.student_attendance_by_district as t1 left join ingestion.student_attendance as t2 on t1.district_id = t2.district_id where state_id={state_id} group by t1.district_id,district_name, state_name",
+          },
+          "level": "district"
+        }
       },
-      "tooltip": "District ID: {district_code}\nDistrict Name: {district_name}\nAttendance: {attendance}"
+      {
+        "name": "District",
+        "labelProp": "district_name",
+        "valueProp": "district_id",
+        "timeSeriesQueries": {
+          "barChart": "select block_name as location, district_name, state_name, avg(percentage) as percentage, min(count) as count from ingestion.student_attendance_by_block as t1 left join ingestion.student_attendance as t2 on t1.block_id = t2.block_id where (date between {startDate} and {endDate}) and district_id={district_id} group by t1.block_id,block_name,district_name, state_name",
+        },
+        "query": "select t1.district_id, district_name from ingestion.student_attendance_by_district as t1 left join ingestion.student_attendance as t2 on t1.district_id = t2.district_id where state_id={state_id} group by t1.district_id,district_name",
+        "actions": {
+          "queries": {
+            "barChart": "select min(date) as min_date, max(date) as max_date, block_name as location, district_name, state_name, avg(percentage) as percentage, min(count) as count from ingestion.student_attendance_by_block as t1 left join ingestion.student_attendance as t2 on t1.block_id = t2.block_id where district_id={district_id} group by t1.block_id,block_name,district_name, state_name",
+          },
+          "level": "block"
+        }
+      },
+      {
+        "name": "Block",
+        "labelProp": "block_name",
+        "valueProp": "block_id",
+        "timeSeriesQueries": {
+          "barChart": "select cluster_name as location, block_name, district_name, state_name, avg(percentage) as percentage, min(count) as count from ingestion.student_attendance_by_cluster as t1 left join ingestion.student_attendance as t2 on t1.cluster_id = t2.cluster_id where (date between {startDate} and {endDate}) and block_id={block_id} group by t1.cluster_id,cluster_name,block_name,district_name, state_name",
+        },
+        "query": "select t1.block_id, block_name from ingestion.student_attendance_by_block as t1 left join ingestion.student_attendance as t2 on t1.block_id = t2.block_id where district_id={district_id} group by t1.block_id,block_name",
+        "actions": {
+          "queries": {
+            "barChart": "select min(date) as min_date, max(date) as max_date, cluster_name as location, block_name, district_name, state_name, avg(percentage) as percentage, min(count) as count from ingestion.student_attendance_by_cluster as t1 left join ingestion.student_attendance as t2 on t1.cluster_id = t2.cluster_id where block_id={block_id} group by t1.cluster_id,cluster_name,block_name,district_name, state_name",
+          },
+          "level": "cluster"
+        }
+      }
+    ],
+    "options": {
+      "barChart": {
+        "yAxis": {
+          "title": "level",
+          "label": "location",
+          "value": "location"
+        },
+        "xAxis": {
+          "title": "Number",
+          "metrics": [
+            {
+              "label": "Average Percentage",
+              "value": "percentage"
+            },
+            {
+              "label": "Count of Students",
+              "value": "count"
+            }
+          ]
+        }
+      }
     }
   }
 }

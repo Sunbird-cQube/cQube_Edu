@@ -13,6 +13,10 @@ import { TeacherAttendanceComponent } from './pages/teacher-attendance/teacher-a
 import { SatTrendsReportComponent } from './pages/sat-trends-report/sat-trends-report.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { StudentAttendanceNewComponent } from './pages/student-attendance-new/student-attendance-new.component';
+import { StudentAttendanceMapComponent } from './pages/student-attendance-map/student-attendance-map.component';
+import { StudentAttendanceBarComponent } from './pages/student-attendance-bar/student-attendance-bar.component';
+import { DashletModule} from '@project-sunbird/sb-dashlet-v14';
+import { DataService } from 'src/app/core/services/data.service';
 
 
 @NgModule({
@@ -21,9 +25,14 @@ import { StudentAttendanceNewComponent } from './pages/student-attendance-new/st
     StudentAttendanceComponent,
     TeacherAttendanceComponent,
     SatTrendsReportComponent,
-    StudentAttendanceNewComponent
+    StudentAttendanceNewComponent,
+    StudentAttendanceMapComponent,
+    StudentAttendanceBarComponent
   ],
   imports: [
+    DashletModule.forRoot({
+      dataService: DataService
+    }),
     SharedModule,
     MatTabsModule,
     FormsModule,

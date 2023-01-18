@@ -1,6 +1,6 @@
 
 
-export const buildQuery = (query: string, levels: any, filters: any = [], startDate: any, endDate: any, compareDateRange: any, key: any) => {
+export const buildQuery = (query: string, defaultLevel: any = undefined, levels: any, filters: any = [], startDate: any, endDate: any, key: any, compareDateRange: any = undefined) => {
     let level = "state";
     let newQuery = "";
 
@@ -12,19 +12,31 @@ export const buildQuery = (query: string, levels: any, filters: any = [], startD
 
             return filter.value
         });
-        newQuery = getCubeNameFromSelFilter(filters, startDate, endDate, compareDateRange, key);
+        newQuery = getCubeNameFromSelFilter(filters, levels, startDate, endDate, compareDateRange, key);
+    }
+    let selectedLevel;
+    if (levels && levels.length > 0) {
+        levels.forEach((level: any) => {
+            selectedLevel = level.selected ? level.value : selectedLevel
+        })
+    }
+    if (selectedLevel !== undefined) {
+        query = parseLevelQuery(query, selectedLevel, levels)
+    }
+    else {
+        query = parseLevelQuery(query, defaultLevel, levels)
     }
 
     return newQuery !== "" ? newQuery : query;
 }
 
-const getCubeNameFromSelFilter = (filters, startDate, endDate, compareDateRange, key) => {
+const getCubeNameFromSelFilter = (filters, levels, startDate, endDate, compareDateRange, key) => {
     let newQuery = "";
 
     if (filters.length > 0) {
         filters.forEach(({ actions: { level, query } }, index) => {
             if (level && level !== '') {
-                newQuery = parseQuery(filters, index, startDate, endDate, compareDateRange, key);
+                newQuery = parseQuery(filters, levels, index, startDate, endDate, compareDateRange, key);
             }
         });
     }
@@ -32,17 +44,15 @@ const getCubeNameFromSelFilter = (filters, startDate, endDate, compareDateRange,
     return newQuery;
 }
 
-function parseQuery(filters, index, startDate, endDate, compareDateRange, key): string {
+function parseQuery(filters, levels, index, startDate, endDate, compareDateRange, key): string {
     const filter = filters[index];
     let query;
-    if (key.toLowerCase().includes('comparison')) {
+    if (compareDateRange && key.toLowerCase().includes('comparison')) {
         let endDate = new Date();
         let days = endDate.getDate() - compareDateRange;
         let startDate = new Date();
         startDate.setDate(days)
-        console.log(startDate.toISOString().split('T')[0], ' - ', endDate.toISOString().split('T')[0])
         query = parseTimeSeriesQuery(filter?.timeSeriesQueries[key], startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0])
-        console.log(query)
     }
     else if (startDate !== undefined && endDate !== undefined && Object.keys(filter?.timeSeriesQueries).length > 0) {
         query = parseTimeSeriesQuery(filter?.timeSeriesQueries[key], startDate, endDate)
@@ -51,8 +61,22 @@ function parseQuery(filters, index, startDate, endDate, compareDateRange, key): 
         let { queries } = filter.actions;
         query = queries[key]
     }
-    let startIndex = query.indexOf('{');
-    let endIndex = query.indexOf('}');
+    let selectedLevel;
+    let { level } = filter.actions;
+    if (levels && levels.length > 0) {
+        levels.forEach((level: any) => {
+            selectedLevel = level.selected ? level.value : selectedLevel
+        })
+    }
+    if (selectedLevel !== undefined) {
+        query = parseLevelQuery(query, selectedLevel, levels)
+    }
+    else {
+        query = parseLevelQuery(query, level, levels)
+    }
+
+    let startIndex = query?.indexOf('{');
+    let endIndex = query?.indexOf('}');
 
     if (query && startIndex > -1) {
         while (startIndex > -1) {
@@ -65,8 +89,8 @@ function parseQuery(filters, index, startDate, endDate, compareDateRange, key): 
                 break;
             }
 
-            startIndex = query.indexOf('{');
-            endIndex = query.indexOf('}');
+            startIndex = query?.indexOf('{');
+            endIndex = query?.indexOf('}');
         }
     }
 
@@ -74,7 +98,7 @@ function parseQuery(filters, index, startDate, endDate, compareDateRange, key): 
 }
 
 export function parseTimeSeriesQuery(query, startDate, endDate): string {
-    let startIndex = query.indexOf('{');
+    let startIndex = query?.indexOf('{');
     if (query && startIndex > -1) {
         if (startDate && endDate) {
             let minDateRE = new RegExp(`{startDate}`, "g");
@@ -88,3 +112,46 @@ export function parseTimeSeriesQuery(query, startDate, endDate): string {
     }
     return query;
 }
+
+function parseLevelQuery(query, selectedLevel, levels): string {
+    let newQuery = query;
+    let startIndex = query?.indexOf('{');
+
+    if (newQuery && startIndex > -1 && levels && selectedLevel) {
+        if (selectedLevel) {
+            newQuery = addMasterProps(newQuery, selectedLevel, levels)
+            let level = new RegExp(`{level}`, "g");
+            newQuery = newQuery.replace(level, selectedLevel);
+        }
+        else {
+            newQuery = null;
+        }
+    }
+
+    return newQuery
+}
+
+function addMasterProps(query: string, selectedLevel: any, levelConfig: any): string {
+    let newQuery = query;
+    let levelInfo = levelConfig.find((level: any) => {
+        return level.value == selectedLevel
+    })
+    let { actions } = levelInfo ?? {};
+    let { drilldown } = actions ?? {};
+    if (drilldown && drilldown.length > 0) {
+        let masterPropsString = '';
+        let queryArray = newQuery.split('');
+        let temp: any = newQuery.match(/ingestion.dimensions as [a-zA-z0-9]+ /) ? newQuery.match(/ingestion.dimensions as [a-zA-z0-9]+ /)[0] : undefined;
+        let dimensionAlias = temp?.replace('ingestion.dimensions as ', '').trim();
+
+        drilldown.forEach((prop: any) => {
+            masterPropsString += (dimensionAlias + '.' + prop + ', ')
+        });
+        queryArray.splice(7, 0, masterPropsString)
+        masterPropsString = masterPropsString.slice(0, -2)
+        queryArray.splice(newQuery.length + 1, 0, ', ' + masterPropsString )
+        newQuery = queryArray.join('');
+    }
+    return newQuery
+}
+
