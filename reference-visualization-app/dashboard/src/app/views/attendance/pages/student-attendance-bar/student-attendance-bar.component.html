@@ -1,0 +1,19 @@
+<div class="grid grid-cols-12">
+    <div class="col-span-full" appFullScreen>
+        <div class="grid grid-cols-12 button-right">
+            <app-download-button [data]="tableReportData?.values" [fileName]="fileName" [reportType]="'dashletBar'"></app-download-button>
+        </div>
+        <div class="grid grid-cols-12">
+            <div class="xs:col-span-full xmd:col-span-5">
+                <!-- <app-level-n-metric-filter-panel [levels]="levels" (selectLevel)="onSelectLevel($event)"></app-level-n-metric-filter-panel> -->
+                <app-time-series-filter-panel (timeSeriesUpdated)="timeSeriesUpdated($event)" [minDate]="minDate" [maxDate]="maxDate"></app-time-series-filter-panel>
+            </div>
+            <div class="xs:col-span-full xmd:col-span-7">
+                <app-filter-panel [filters]="filters" colSize="col-span-6 4k:col-span-3" (filtersUpdated)="filtersUpdated($event)" [resetOthers]="true"></app-filter-panel>
+            </div>
+        </div>
+        <ng-container *ngIf="tableReportData">
+            <sb-dashlet type="horizontalBar" [data]="tableReportData" [config]="config"></sb-dashlet>
+        </ng-container>
+    </div>
+</div>

@@ -9,7 +9,7 @@ export class FilterPanelComponent implements OnInit, OnChanges {
 
   @Input() filters: any = [];
   @Input() colSize: any = "md:col-span-3 xs:col-span-12 xmd:col-span-4 4k:col-span-2";
-  @Input() resetOthers = true;
+  @Input() resetOthers = false;
 
   @Output() filtersUpdated = new EventEmitter<any>();
 
@@ -22,16 +22,17 @@ export class FilterPanelComponent implements OnInit, OnChanges {
   }
 
   onSelectOption(event: any, ind: number): void {
-    // if (this.resetOthers) {
-    //   this.filters = this.filters.map((filter: any, filterInd: number) => {
-    //     if (filterInd > ind) {
-    //       filter.options = [];
-    //       filter.value = null;
-    //     }
+    if (this.resetOthers) {
+      this.filters = this.filters.filter((filter: any, filterInd: number) => {
+        if (filterInd > ind) {
+          // filter.options = [];
+          // filter.value = null;
+          return false;
+        }
 
-    //     return filter;
-    //   });
-    // }
+        return true;
+      });
+    }
 
     this.filtersUpdated.emit(this.filters);
   }

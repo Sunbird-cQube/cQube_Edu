@@ -1,0 +1,60 @@
+.fa-arrow-down{
+    color: rgb(246, 49, 49);
+}
+
+.fa-arrow-up{
+    color: rgb(53, 185, 53);
+}
+
+.fa-minus{
+    color: black;
+}
+
+.report-wrapper{
+    border-radius: 14px;
+    width: 100px;
+    padding: 5px;
+    margin-bottom: 20px;
+    width: auto;
+    background-color: #4c30f5;
+    display: flex;
+    flex-direction: column;
+}
+
+.average-wrapper{
+    // margin: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.difference-wrapper{
+    padding: 5px;
+    justify-content: end;
+    display: flex;
+    flex-direction: row;
+}
+
+.difference-percentage{
+    margin-right: 3px;
+    font-size: medium;
+    font-weight: bolder;
+    color: white; 
+}
+
+.average-percentage{
+    font-size: 40px;
+    font-weight: bolder;
+    color: white; 
+}
+
+.report-name{
+    margin: 5px 0px;
+    font-size: medium;
+    color: white;
+}

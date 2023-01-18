@@ -108,12 +108,12 @@ export class TableHeatMapDirective implements AfterViewInit {
   }
 
   private getColor(id: string, value: string | number) {    
-    const color = this.config[id].color;
-    let [r, g, b, a] = parseToRgba(Array.isArray(color) ? color[color.length - 1] : color);
+    const color = this.config[id] ? this.config[id].color : '#fff';
+    let [r, g, b, a] = parseToRgba(Array.isArray(color) ? color[color.length - 1] : (typeof color === 'object' && color !== null) ? color.values[color.values.length -1].color : color);
     
     if (!isNaN(Number(value))) {
       value = Number(value);
-      let color = this.config[id].color;
+      let color = this.config[id] ? this.config[id].color : '#fff';
       let textColor = null;
       let bgColor = null;
       if (color != null) {
@@ -127,13 +127,29 @@ export class TableHeatMapDirective implements AfterViewInit {
         }
         textColor = readableColor(bgColor);*/
         if (Array.isArray(color)) {
-          if (value / this.highestValues[id] > 0.7) {
+          if (value / this.highestValues[id] > 0.75) {
             color = color[0];
-          } else if (value / this.highestValues[id] > 0.45) {
+          } else if (value / this.highestValues[id] > 0.5) {
             color = color[1];
           } else {
             color = color[2];
           }
+        }
+        else if(typeof color === 'object' && color !== null) {
+          let singleColor;
+          if(color.type === 'percentage'){
+            color.values?.every((item) => {
+              if(value > item.breakPoint){
+                singleColor = item.color
+                return false
+              }
+              return true;
+            });
+          }
+          if(singleColor === undefined){
+            color = '#fff'
+          }
+          color = singleColor;
         }
 
         let [r, g, b, a] = parseToRgba(color);

@@ -39,6 +39,9 @@ import { NgApexchartsModule } from "ng-apexcharts";
 
 import { ManagementSelectorComponent } from './components/core-components/management-selector/management-selector.component';
 import { DownloadButtonComponent } from './components/buttons/download-button/download-button.component';
+import { TimeSeriesFilterPanelComponent } from './components/time-series-filter-panel/time-series-filter-panel.component';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { BigNumberComponent } from './components/big-number/big-number.component';
 
 const IMPORTS: any[] = [
   MatTableModule,
@@ -53,7 +56,8 @@ const IMPORTS: any[] = [
   TooltipModule.forRoot(),
   NgCircleProgressModule.forRoot(),
   NgApexchartsModule,
-  TooltipModule.forRoot()
+  TooltipModule.forRoot(),
+  NgxDaterangepickerMd.forRoot()
 ];
 
 const DECLARATIONS = [
@@ -81,12 +85,14 @@ const DECLARATIONS = [
   BubblesComponent,
   ProgressCircleComponent,
   ManagementSelectorComponent,
-  DownloadButtonComponent
+  DownloadButtonComponent,
+  TimeSeriesFilterPanelComponent,
+  BigNumberComponent
 ];
 
 @NgModule({
   declarations: [
-    DECLARATIONS,
+    DECLARATIONS
   ],
   imports: [
     CommonModule,

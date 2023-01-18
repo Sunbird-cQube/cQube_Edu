@@ -1,0 +1,21 @@
+<div class="grid grid-cols-12">
+    <div class="col-span-full" appFullScreen>
+        <div class="grid grid-cols-12">
+            <div class="xs:col-span-full xmd:col-span-8">
+                <app-level-n-metric-filter-panel [metricFilter]="metricFilter" [levels]="levels" (selectMetricFilter)="onSelectMetricFilter($event)" (selectLevel)="onSelectLevel($event)"></app-level-n-metric-filter-panel>
+                <!-- <app-time-series-filter-panel (timeSeriesUpdated)="timeSeriesUpdated($event)" [minDate]="minDate" [maxDate]="maxDate"></app-time-series-filter-panel> -->
+            </div>
+            <div class="xs:col-span-full xmd:col-span-4">
+                <app-time-series-filter-panel (timeSeriesUpdated)="timeSeriesUpdated($event)" [minDate]="minDate" [maxDate]="maxDate"></app-time-series-filter-panel>
+            </div>
+            <div class="xs:col-span-full xmd:col-span-full">
+                <app-filter-panel [filters]="filters" colSize="col-span-4 4k:col-span-3" (filtersUpdated)="filtersUpdated($event)" [resetOthers]="true"></app-filter-panel>
+            </div>
+        </div>
+        <div class="grid grid-cols-12">
+            <div class="xs:col-span-full" *ngIf="reportData?.data?.length > 0">
+                <app-leaflet-map [mapData]="reportData" level="district" [hierarchyLevel]="currentHierarchyLevel" (drillDownFilter)="drillDownFilterUpdate($event)"></app-leaflet-map>
+            </div>
+        </div>
+    </div>
+</div>
