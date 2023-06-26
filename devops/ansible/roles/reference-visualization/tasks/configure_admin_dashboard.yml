@@ -1,5 +1,16 @@
 ---
 # for release 4.0
+- name: Stoping the admin-dashboard
+  become: yes
+  shell: pm2 stop admin-dashboard
+  tags: update
+
+- name: Delete admin_client_side directory
+  file:
+    path: "{{base_dir}}/cqube/reference-visualization-app/admin-console"
+    state: absent
+  tags: update
+
 - name: Making sure {{ base_dir }}/cqube/reference-visualization-app/admin-console directory is present
   file:
     path: "{{ base_dir }}/cqube/reference-visualization-app/admin-console"
