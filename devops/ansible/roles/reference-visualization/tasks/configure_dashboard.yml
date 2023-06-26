@@ -1,4 +1,15 @@
 ---
+- name: Stoping the dashboard
+  become: yes
+  shell: pm2 stop dashboard
+  tags: update
+
+- name: Delete dashboard directory
+  file:
+    path: "{{ base_dir }}/cqube/reference-visualization-app/dashboard"
+    state: absent
+  tags: update
+
 - name: Making sure {{ base_dir }}/cqube/reference-visualization-app/default_management_category directory is present
   file:
     path: "{{ base_dir }}/cqube/reference-visualization-app/default_management_category"
