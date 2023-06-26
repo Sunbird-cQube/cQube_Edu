@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.data = (localStorage.getItem('token') == null);
-    if (!this.data) {
+    if (this.data) {
       window.location.href = `${environment.dashboardUrl}/#/signin`;
       return false;
     } else {
